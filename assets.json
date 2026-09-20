@@ -1,7 +1,7 @@
 {
- "published": "2026-09-20T12:35:28",
- "house": "r66c",
- "note": "rounds 65 and 66: the water arrives in all eight yards as a waterfall sized by the fixture, a flush travels as a surge, the tank pushes its effluent out",
+ "published": "2026-09-20T12:58:20",
+ "house": "r67a",
+ "note": "round 67: the Lee's pump chamber fills with what arrives, its wide angle float rides the surface and runs the pump, water moves through the chambers",
  "files": {
   "app_shell.html": {
    "v": "23e1e6ecd1",
@@ -168,7 +168,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "10d911a620",
+   "v": "94d59b574f",
    "bytes": 17995
   },
   "info.json": {
@@ -264,12 +264,12 @@
    "bytes": 297260
   },
   "septic_lee.glb": {
-   "v": "dab0807b29",
-   "bytes": 848772
+   "v": "244d967459",
+   "bytes": 849588
   },
   "septic_lee_overland.glb": {
-   "v": "22bdd25751",
-   "bytes": 890920
+   "v": "f43dc7728e",
+   "bytes": 891828
   },
   "septic_tank_risers.glb": {
    "v": "d6d8714865",
@@ -336,8 +336,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "3b725bf327",
-   "bytes": 298899
+   "v": "ca54fd0b0c",
+   "bytes": 306622
   },
   "washer.glb": {
    "v": "7e04f19827",
