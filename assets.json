@@ -1,7 +1,7 @@
 {
- "published": "2026-09-20T08:22:13",
+ "published": "2026-09-20T09:17:05",
  "house": "r61c",
- "note": "round 62: the toilet's water is one body, the siphon is one column, clean cut faces",
+ "note": "round 63: sewer exits, a 45 pair inside, under the footing, straight to every tank",
  "files": {
   "app_shell.html": {
    "v": "23e1e6ecd1",
@@ -40,8 +40,8 @@
    "bytes": 311332
   },
   "drains.json": {
-   "v": "8e01b14e8a",
-   "bytes": 7725
+   "v": "0557e25d20",
+   "bytes": 7687
   },
   "dryer.glb": {
    "v": "0c266ce22a",
@@ -104,20 +104,20 @@
    "bytes": 109356
   },
   "house_crawl.glb": {
-   "v": "76cba84ed8",
-   "bytes": 25000
+   "v": "9ac35082e1",
+   "bytes": 29444
   },
   "house_floor1.glb": {
    "v": "ce49a87ba2",
    "bytes": 1119516
   },
   "house_framing.glb": {
-   "v": "7b4623a712",
-   "bytes": 233068
+   "v": "1eac7b6bfd",
+   "bytes": 230600
   },
   "house_furniture.glb": {
-   "v": "036e40e8ba",
-   "bytes": 8863176
+   "v": "101270e314",
+   "bytes": 8863160
   },
   "house_site.glb": {
    "v": "fbe4b19de1",
@@ -208,20 +208,20 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "bae5029d0a",
-   "bytes": 2611012
+   "v": "8ab9c8fdf2",
+   "bytes": 2764228
   },
   "pipes_gas.glb": {
-   "v": "eba2accb9a",
-   "bytes": 812032
+   "v": "0079d6b4b0",
+   "bytes": 814524
   },
   "pipes_hvac.glb": {
-   "v": "7e4af6cb1b",
-   "bytes": 2087604
+   "v": "3c985e5683",
+   "bytes": 2087600
   },
   "pipes_supply.glb": {
-   "v": "96541a3c19",
-   "bytes": 2661888
+   "v": "ba333f64c9",
+   "bytes": 2661028
   },
   "placements.json": {
    "v": "2e4a06e698",
