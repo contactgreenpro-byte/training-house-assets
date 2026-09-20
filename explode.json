@@ -1,0 +1,1693 @@
+{
+ "clamp_meter.glb": [
+  {
+   "part": "holster",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 150,
+   "why": "rubber holster peels off the back of the case, it is the only thing holding the stand cover"
+  },
+  {
+   "part": "batt_screw",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 124,
+   "why": "captive screw out of the battery door",
+   "of": "batt_door"
+  },
+  {
+   "part": "batt_door",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 100,
+   "why": "battery door lifts off the back of the case"
+  },
+  {
+   "part": "battery",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 78,
+   "why": "9 V battery out of its pocket, this is all a battery change needs"
+  },
+  {
+   "part": "stand",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 64,
+   "why": "flip stand off its hinge pin so the case back is clear",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_0_l",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_0_r",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_1_l",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_1_r",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_2_l",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_2_r",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_back",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 46,
+   "why": "case back off, the main board and both input fuses show"
+  },
+  {
+   "part": "fuse_a",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 26,
+   "why": "0.44 A 1000 V fuse out of its clips, this is the one that blows on the mA and microamp jack",
+   "of": "board_main"
+  },
+  {
+   "part": "fuse_b",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 26,
+   "why": "11 A 1000 V fuse out of its clips, the one that blows on the 10 A jack",
+   "of": "board_main"
+  },
+  {
+   "part": "board_main",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 14,
+   "why": "main board lifts out of the front shell, the jack sleeves and the dial wiper are on its back"
+  }
+ ],
+ "multimeter.glb": [
+  {
+   "part": "holster",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 150,
+   "why": "rubber holster peels off the back of the case, it is the only thing holding the stand cover"
+  },
+  {
+   "part": "batt_screw",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 124,
+   "why": "captive screw out of the battery door",
+   "of": "batt_door"
+  },
+  {
+   "part": "batt_door",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 100,
+   "why": "battery door lifts off the back of the case"
+  },
+  {
+   "part": "battery",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 78,
+   "why": "9 V battery out of its pocket, this is all a battery change needs"
+  },
+  {
+   "part": "stand",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 64,
+   "why": "flip stand off its hinge pin so the case back is clear",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_0_l",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_0_r",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_1_l",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_1_r",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_2_l",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_screw_2_r",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 58,
+   "why": "case screw",
+   "of": "shell_back"
+  },
+  {
+   "part": "shell_back",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 46,
+   "why": "case back off, the main board and both input fuses show"
+  },
+  {
+   "part": "fuse_a",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 26,
+   "why": "0.44 A 1000 V fuse out of its clips, this is the one that blows on the mA and microamp jack",
+   "of": "board_main"
+  },
+  {
+   "part": "fuse_b",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 26,
+   "why": "11 A 1000 V fuse out of its clips, the one that blows on the 10 A jack",
+   "of": "board_main"
+  },
+  {
+   "part": "board_main",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 14,
+   "why": "main board lifts out of the front shell, the jack sleeves and the dial wiper are on its back"
+  }
+ ],
+ "bath_vanity.glb": [
+  {
+   "part": "index_cap_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 140,
+   "why": "index cap pops off the top of the handle, hot side"
+  },
+  {
+   "part": "handle_screw_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 120,
+   "why": "handle screw out of the tapped stem"
+  },
+  {
+   "part": "handle_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 90,
+   "why": "handle lifts straight off the broach"
+  },
+  {
+   "part": "bonnet_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 58,
+   "why": "bonnet nut unscrews off the threaded body boss"
+  },
+  {
+   "part": "cartridge_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 30,
+   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
+  },
+  {
+   "part": "index_cap_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 140,
+   "why": "index cap pops off the top of the handle, cold side"
+  },
+  {
+   "part": "handle_screw_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 120,
+   "why": "handle screw out of the tapped stem"
+  },
+  {
+   "part": "handle_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 90,
+   "why": "handle lifts straight off the broach"
+  },
+  {
+   "part": "bonnet_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 58,
+   "why": "bonnet nut unscrews off the threaded body boss"
+  },
+  {
+   "part": "cartridge_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 30,
+   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
+  },
+  {
+   "part": "aerator",
+   "dir": [
+    0.0,
+    -0.928,
+    0.371
+   ],
+   "mm": 60,
+   "why": "aerator unscrews out of the spout tip on the spout axis, washer and screen with it"
+  },
+  {
+   "part": "supply_hot",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 130,
+   "why": "braided supply off the shank nipple at its coupling nut"
+  },
+  {
+   "part": "supply_cold",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 130,
+   "why": "braided supply off the shank nipple at its coupling nut"
+  },
+  {
+   "part": "mount_nut_hot",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 55,
+   "why": "mounting nut down off the threaded shank"
+  },
+  {
+   "part": "mount_nut_cold",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 55,
+   "why": "mounting nut down off the threaded shank"
+  },
+  {
+   "part": "mount_nut_spout",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 85,
+   "why": "centre mounting nut down off the spout shank"
+  },
+  {
+   "part": "faucet_tubes",
+   "dir": [
+    0,
+    0.86,
+    0.51
+   ],
+   "mm": 190,
+   "why": "the supply tubes come up with the body"
+  },
+  {
+   "part": "faucet",
+   "dir": [
+    0,
+    0.86,
+    0.51
+   ],
+   "mm": 190,
+   "why": "body lifts off the deck and forward, three shanks up through their holes"
+  }
+ ],
+ "bath_vanity_v001.glb": [
+  {
+   "part": "index_cap_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 140,
+   "why": "index cap pops off the top of the handle, hot side"
+  },
+  {
+   "part": "handle_screw_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 120,
+   "why": "handle screw out of the tapped stem"
+  },
+  {
+   "part": "handle_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 90,
+   "why": "handle lifts straight off the broach"
+  },
+  {
+   "part": "bonnet_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 58,
+   "why": "bonnet nut unscrews off the threaded body boss"
+  },
+  {
+   "part": "cartridge_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 30,
+   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
+  },
+  {
+   "part": "index_cap_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 140,
+   "why": "index cap pops off the top of the handle, cold side"
+  },
+  {
+   "part": "handle_screw_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 120,
+   "why": "handle screw out of the tapped stem"
+  },
+  {
+   "part": "handle_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 90,
+   "why": "handle lifts straight off the broach"
+  },
+  {
+   "part": "bonnet_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 58,
+   "why": "bonnet nut unscrews off the threaded body boss"
+  },
+  {
+   "part": "cartridge_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 30,
+   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
+  },
+  {
+   "part": "aerator",
+   "dir": [
+    0.0,
+    -0.928,
+    0.371
+   ],
+   "mm": 60,
+   "why": "aerator unscrews out of the spout tip on the spout axis, washer and screen with it"
+  },
+  {
+   "part": "supply_hot",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 130,
+   "why": "braided supply off the shank nipple at its coupling nut"
+  },
+  {
+   "part": "supply_cold",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 130,
+   "why": "braided supply off the shank nipple at its coupling nut"
+  },
+  {
+   "part": "mount_nut_hot",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 55,
+   "why": "mounting nut down off the threaded shank"
+  },
+  {
+   "part": "mount_nut_cold",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 55,
+   "why": "mounting nut down off the threaded shank"
+  },
+  {
+   "part": "mount_nut_spout",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 85,
+   "why": "centre mounting nut down off the spout shank"
+  },
+  {
+   "part": "faucet_tubes",
+   "dir": [
+    0,
+    0.86,
+    0.51
+   ],
+   "mm": 190,
+   "why": "the supply tubes come up with the body"
+  },
+  {
+   "part": "faucet",
+   "dir": [
+    0,
+    0.86,
+    0.51
+   ],
+   "mm": 190,
+   "why": "body lifts off the deck and forward, three shanks up through their holes"
+  }
+ ],
+ "bath_vanity_v002.glb": [
+  {
+   "part": "index_cap_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 140,
+   "why": "index cap pops off the top of the handle, hot side"
+  },
+  {
+   "part": "handle_screw_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 120,
+   "why": "handle screw out of the tapped stem"
+  },
+  {
+   "part": "handle_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 90,
+   "why": "handle lifts straight off the broach"
+  },
+  {
+   "part": "bonnet_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 58,
+   "why": "bonnet nut unscrews off the threaded body boss"
+  },
+  {
+   "part": "cartridge_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 30,
+   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
+  },
+  {
+   "part": "index_cap_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 140,
+   "why": "index cap pops off the top of the handle, cold side"
+  },
+  {
+   "part": "handle_screw_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 120,
+   "why": "handle screw out of the tapped stem"
+  },
+  {
+   "part": "handle_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 90,
+   "why": "handle lifts straight off the broach"
+  },
+  {
+   "part": "bonnet_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 58,
+   "why": "bonnet nut unscrews off the threaded body boss"
+  },
+  {
+   "part": "cartridge_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 30,
+   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
+  },
+  {
+   "part": "aerator",
+   "dir": [
+    0.0,
+    -0.928,
+    0.371
+   ],
+   "mm": 60,
+   "why": "aerator unscrews out of the spout tip on the spout axis, washer and screen with it"
+  },
+  {
+   "part": "supply_hot",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 130,
+   "why": "braided supply off the shank nipple at its coupling nut"
+  },
+  {
+   "part": "supply_cold",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 130,
+   "why": "braided supply off the shank nipple at its coupling nut"
+  },
+  {
+   "part": "mount_nut_hot",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 55,
+   "why": "mounting nut down off the threaded shank"
+  },
+  {
+   "part": "mount_nut_cold",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 55,
+   "why": "mounting nut down off the threaded shank"
+  },
+  {
+   "part": "mount_nut_spout",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 85,
+   "why": "centre mounting nut down off the spout shank"
+  },
+  {
+   "part": "faucet_tubes",
+   "dir": [
+    0,
+    0.86,
+    0.51
+   ],
+   "mm": 190,
+   "why": "the supply tubes come up with the body"
+  },
+  {
+   "part": "faucet",
+   "dir": [
+    0,
+    0.86,
+    0.51
+   ],
+   "mm": 190,
+   "why": "body lifts off the deck and forward, three shanks up through their holes"
+  }
+ ],
+ "hvac_minisplit.glb": [
+  {
+   "part": "front_panel",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 300,
+   "why": "front panel up off its two hinge arms, the filters show"
+  },
+  {
+   "part": "filter_left",
+   "dir": [
+    1,
+    -0.5,
+    0
+   ],
+   "mm": 260,
+   "why": "left washable filter off its tab and down out of the guide"
+  },
+  {
+   "part": "filter_right",
+   "dir": [
+    1,
+    -0.5,
+    0
+   ],
+   "mm": 260,
+   "why": "right washable filter the same way"
+  },
+  {
+   "part": "control_cover",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 230,
+   "why": "control cover off the right end, one tab at the bottom"
+  },
+  {
+   "part": "board",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 195,
+   "why": "control board out of its slots, the indoor end of the interconnecting cable lands on its 1 2 3 G strip"
+  },
+  {
+   "part": "line_exit_cover",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 175,
+   "why": "line exit cover off the back right corner, the flare joints and the drain spigot show"
+  },
+  {
+   "part": "flare_nut_head_suction",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 155,
+   "why": "suction flare nut off the head's stub, two wrenches, back the nut not the stub"
+  },
+  {
+   "part": "flare_nut_head_liquid",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 135,
+   "why": "liquid flare nut off the head's stub"
+  },
+  {
+   "part": "louvres",
+   "dir": [
+    0.6,
+    -0.8,
+    0
+   ],
+   "mm": 140,
+   "why": "vertical louvre bank unclips off its tie bar, the outlet throat opens up"
+  },
+  {
+   "part": "vane",
+   "dir": [
+    0.5,
+    -0.9,
+    0
+   ],
+   "mm": 115,
+   "why": "horizontal vane off its two end pivots"
+  },
+  {
+   "part": "drain_pan",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 95,
+   "why": "drain pan out from under the coil, this is what you flush when the head drips"
+  },
+  {
+   "part": "blower_wheel",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 75,
+   "why": "cross flow wheel off the motor shaft, the part you clean when it smells"
+  },
+  {
+   "part": "intake_grille",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 60,
+   "why": "top intake grille lifts out of its recess"
+  },
+  {
+   "part": "chassis",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 40,
+   "why": "the body off the back plate, tabs along the bottom edge"
+  },
+  {
+   "part": "back_plate",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 18,
+   "why": "back plate off the wall, six keyhole slots over their screws"
+  },
+  {
+   "part": "disconnect",
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "mm": 320,
+   "why": "outdoor disconnect off the siding, two screws. Pulling this is step one, before anything below"
+  },
+  {
+   "part": "valve_cover",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 300,
+   "why": "valve cover off the service end, one screw"
+  },
+  {
+   "part": "elec_cover",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 300,
+   "why": "electrical cover off above it, one screw"
+  },
+  {
+   "part": "term_1",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "terminal 1, the black conductor from the indoor head under its own screw",
+   "of": "terminal_block"
+  },
+  {
+   "part": "term_2",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "terminal 2, the white conductor from the indoor head",
+   "of": "terminal_block"
+  },
+  {
+   "part": "term_3",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "terminal 3, the red conductor from the indoor head",
+   "of": "terminal_block"
+  },
+  {
+   "part": "term_ground",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "the ground terminal, the green conductor, last one off and first one back on",
+   "of": "terminal_block"
+  },
+  {
+   "part": "terminal_block",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 228,
+   "why": "the 1 2 3 G barrier strip off its rail"
+  },
+  {
+   "part": "term_l1",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "L1, the black whip conductor under its own screw",
+   "of": "power_block"
+  },
+  {
+   "part": "term_l2",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "L2, the red whip conductor under its own screw",
+   "of": "power_block"
+  },
+  {
+   "part": "term_pg",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "the power ground terminal, the green whip conductor",
+   "of": "power_block"
+  },
+  {
+   "part": "power_block",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 228,
+   "why": "the L1 L2 G power strip off its rail"
+  },
+  {
+   "part": "whip",
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "mm": 200,
+   "why": "whip off the rear of the cabinet, locknut then the liquid tight connector"
+  },
+  {
+   "part": "flare_nut_suction",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 190,
+   "why": "suction flare nut off the service valve, recover the charge first"
+  },
+  {
+   "part": "flare_nut_liquid",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 190,
+   "why": "liquid flare nut off the service valve"
+  },
+  {
+   "part": "service_valve_suction",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 150,
+   "why": "suction service valve, stem cap off, the Schrader port beside it is where the gauge goes"
+  },
+  {
+   "part": "service_valve_liquid",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 150,
+   "why": "liquid service valve, the one you front seat to pump down"
+  },
+  {
+   "part": "lineset_cover",
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "mm": 165,
+   "why": "line set cover off the siding, the two lines, the drain and the cable ride in there together"
+  },
+  {
+   "part": "fan_grille",
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "mm": 140,
+   "why": "fan grille off the front of the cabinet"
+  }
+ ],
+ "shower.glb": [
+  {
+   "part": "handle_cap",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 385,
+   "why": "cap pops off the end of the handle hub",
+   "of": "handle"
+  },
+  {
+   "part": "handle_screw",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 375,
+   "why": "handle screw out of the tapped stem",
+   "of": "handle"
+  },
+  {
+   "part": "handle",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 335,
+   "why": "handle pulls straight off the stem, key clear of the stem notch"
+  },
+  {
+   "part": "limit_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 292,
+   "why": "temperature limit stop off the stem",
+   "of": "stop_tube"
+  },
+  {
+   "part": "key_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 274,
+   "why": "key stop off the stop tube",
+   "of": "stop_tube"
+  },
+  {
+   "part": "stop_tube",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 252,
+   "why": "stop tube off the cartridge hub"
+  },
+  {
+   "part": "escutcheon_screw_a",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon_screw_b",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 200,
+   "why": "escutcheon off the plasterguard, the rough valve shows"
+  },
+  {
+   "part": "retainer_clip",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 60,
+   "why": "retainer clip lifts up out of its two slots, nothing holds the cartridge now"
+  },
+  {
+   "part": "cartridge",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 140,
+   "why": "cartridge pulls straight out between the clip legs, ears out of their notches"
+  }
+ ],
+ "shower_two.glb": [
+  {
+   "part": "handle_cap",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 385,
+   "why": "cap pops off the end of the handle hub",
+   "of": "handle"
+  },
+  {
+   "part": "handle_screw",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 375,
+   "why": "handle screw out of the tapped stem",
+   "of": "handle"
+  },
+  {
+   "part": "handle",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 335,
+   "why": "handle pulls straight off the stem, key clear of the stem notch"
+  },
+  {
+   "part": "limit_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 292,
+   "why": "temperature limit stop off the stem",
+   "of": "stop_tube"
+  },
+  {
+   "part": "key_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 274,
+   "why": "key stop off the stop tube",
+   "of": "stop_tube"
+  },
+  {
+   "part": "stop_tube",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 252,
+   "why": "stop tube off the cartridge hub"
+  },
+  {
+   "part": "escutcheon_screw_a",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon_screw_b",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 200,
+   "why": "escutcheon off the plasterguard, the rough valve shows"
+  },
+  {
+   "part": "retainer_clip",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 60,
+   "why": "retainer clip lifts up out of its two slots, nothing holds the cartridge now"
+  },
+  {
+   "part": "cartridge",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 140,
+   "why": "cartridge pulls straight out between the clip legs, ears out of their notches"
+  }
+ ],
+ "shower_v001.glb": [
+  {
+   "part": "handle_cap",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 385,
+   "why": "cap pops off the end of the handle hub",
+   "of": "handle"
+  },
+  {
+   "part": "handle_screw",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 375,
+   "why": "handle screw out of the tapped stem",
+   "of": "handle"
+  },
+  {
+   "part": "handle",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 335,
+   "why": "handle pulls straight off the stem, key clear of the stem notch"
+  },
+  {
+   "part": "limit_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 292,
+   "why": "temperature limit stop off the stem",
+   "of": "stop_tube"
+  },
+  {
+   "part": "key_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 274,
+   "why": "key stop off the stop tube",
+   "of": "stop_tube"
+  },
+  {
+   "part": "stop_tube",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 252,
+   "why": "stop tube off the cartridge hub"
+  },
+  {
+   "part": "escutcheon_screw_a",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon_screw_b",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 200,
+   "why": "escutcheon off the plasterguard, the rough valve shows"
+  },
+  {
+   "part": "retainer_clip",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 60,
+   "why": "retainer clip lifts up out of its two slots, nothing holds the cartridge now"
+  },
+  {
+   "part": "cartridge",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 140,
+   "why": "cartridge pulls straight out between the clip legs, ears out of their notches"
+  }
+ ],
+ "shower_v002.glb": [
+  {
+   "part": "handle_cap",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 385,
+   "why": "cap pops off the end of the handle hub",
+   "of": "handle"
+  },
+  {
+   "part": "handle_screw",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 375,
+   "why": "handle screw out of the tapped stem",
+   "of": "handle"
+  },
+  {
+   "part": "handle",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 335,
+   "why": "handle pulls straight off the stem, key clear of the stem notch"
+  },
+  {
+   "part": "limit_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 292,
+   "why": "temperature limit stop off the stem",
+   "of": "stop_tube"
+  },
+  {
+   "part": "key_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 274,
+   "why": "key stop off the stop tube",
+   "of": "stop_tube"
+  },
+  {
+   "part": "stop_tube",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 252,
+   "why": "stop tube off the cartridge hub"
+  },
+  {
+   "part": "escutcheon_screw_a",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon_screw_b",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 200,
+   "why": "escutcheon off the plasterguard, the rough valve shows"
+  },
+  {
+   "part": "retainer_clip",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 60,
+   "why": "retainer clip lifts up out of its two slots, nothing holds the cartridge now"
+  },
+  {
+   "part": "cartridge",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 140,
+   "why": "cartridge pulls straight out between the clip legs, ears out of their notches"
+  }
+ ]
+}

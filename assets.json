@@ -1,0 +1,367 @@
+{
+ "published": "2026-09-20T04:07:50",
+ "house": "r60l",
+ "note": "first publish: house r60l, compressed, walk page and manifests",
+ "files": {
+  "attic_ladder.glb": {
+   "v": "0931ddcfae",
+   "bytes": 28852
+  },
+  "atu_blower_outlet.glb": {
+   "v": "bfcc9796d1",
+   "bytes": 137648
+  },
+  "atu_blower_panel.glb": {
+   "v": "b1c34937bc",
+   "bytes": 568328
+  },
+  "bath_vanity.glb": {
+   "v": "fecff0812a",
+   "bytes": 607916
+  },
+  "checklists.json": {
+   "v": "30e716c8ac",
+   "bytes": 17031
+  },
+  "clamp_meter.glb": {
+   "v": "5262a30852",
+   "bytes": 372084
+  },
+  "condensate_pump.glb": {
+   "v": "16040ed594",
+   "bytes": 311332
+  },
+  "drains.json": {
+   "v": "8e01b14e8a",
+   "bytes": 7725
+  },
+  "dryer.glb": {
+   "v": "0c266ce22a",
+   "bytes": 88080
+  },
+  "easystart.glb": {
+   "v": "73b0ea9995",
+   "bytes": 353280
+  },
+  "electric_panel.glb": {
+   "v": "8bdc79fa7e",
+   "bytes": 657852
+  },
+  "electric_tank_water_heater.glb": {
+   "v": "d54998ff6f",
+   "bytes": 1971780
+  },
+  "electric_tankless_water_heater.glb": {
+   "v": "ec8d6ac0e3",
+   "bytes": 805752
+  },
+  "explode.json": {
+   "v": "fa7d2b752b",
+   "bytes": 27545
+  },
+  "flo_shutoff.glb": {
+   "v": "d90d891b4c",
+   "bytes": 1324984
+  },
+  "flo_shutoff_attic.glb": {
+   "v": "26a9c8564e",
+   "bytes": 1352488
+  },
+  "flo_shutoff_softener.glb": {
+   "v": "76f7c3f63b",
+   "bytes": 1387724
+  },
+  "flo_shutoff_wall.glb": {
+   "v": "7ef5d063ef",
+   "bytes": 1458864
+  },
+  "gas_tank_water_heater.glb": {
+   "v": "705f168d63",
+   "bytes": 2254696
+  },
+  "gas_tankless_water_heater_condensing.glb": {
+   "v": "ae7dad6a66",
+   "bytes": 1150840
+  },
+  "gloves.glb": {
+   "v": "6481c815f6",
+   "bytes": 44800
+  },
+  "grab.json": {
+   "v": "39ed65b28f",
+   "bytes": 3831
+  },
+  "house_attic.glb": {
+   "v": "18bd27794c",
+   "bytes": 109356
+  },
+  "house_crawl.glb": {
+   "v": "76cba84ed8",
+   "bytes": 25000
+  },
+  "house_floor1.glb": {
+   "v": "ce49a87ba2",
+   "bytes": 1119516
+  },
+  "house_framing.glb": {
+   "v": "7b4623a712",
+   "bytes": 233068
+  },
+  "house_furniture.glb": {
+   "v": "036e40e8ba",
+   "bytes": 8863176
+  },
+  "house_site.glb": {
+   "v": "fbe4b19de1",
+   "bytes": 7319556
+  },
+  "house_slab.glb": {
+   "v": "e170461dbb",
+   "bytes": 4304
+  },
+  "hvac_air_handler_horizontal.glb": {
+   "v": "adefdd8767",
+   "bytes": 3176796
+  },
+  "hvac_air_handler_upflow.glb": {
+   "v": "10e8e1edba",
+   "bytes": 2887176
+  },
+  "hvac_condenser_ac.glb": {
+   "v": "69f4e328bf",
+   "bytes": 3995780
+  },
+  "hvac_condenser_heatpump.glb": {
+   "v": "d9bbaeee99",
+   "bytes": 4718784
+  },
+  "hvac_furnace_cond96.glb": {
+   "v": "2d16937ae5",
+   "bytes": 2720544
+  },
+  "hvac_furnace_std80.glb": {
+   "v": "d523dfa4c3",
+   "bytes": 2703168
+  },
+  "hvac_minisplit.glb": {
+   "v": "adf7affdb4",
+   "bytes": 858988
+  },
+  "hvac_package_gaspack.glb": {
+   "v": "532f589df9",
+   "bytes": 2493612
+  },
+  "hvac_surge.glb": {
+   "v": "177546ae5f",
+   "bytes": 144456
+  },
+  "hybrid_water_heater.glb": {
+   "v": "d1249c4829",
+   "bytes": 601340
+  },
+  "index.html": {
+   "v": "165e11d69e",
+   "bytes": 17995
+  },
+  "info.json": {
+   "v": "f1938fcae5",
+   "bytes": 44449
+  },
+  "interactions.json": {
+   "v": "0a824b6894",
+   "bytes": 64807
+  },
+  "kitchen_sink.glb": {
+   "v": "2d695bfa7d",
+   "bytes": 1544536
+  },
+  "lift_station_r12.glb": {
+   "v": "ca907c9603",
+   "bytes": 1477324
+  },
+  "multimeter.glb": {
+   "v": "e1e2aa643f",
+   "bytes": 403004
+  },
+  "needle_nose.glb": {
+   "v": "4824ff253f",
+   "bytes": 21684
+  },
+  "outlet_surge.glb": {
+   "v": "b6e3e4c637",
+   "bytes": 598472
+  },
+  "pipes.json": {
+   "v": "161fcf7f90",
+   "bytes": 20014
+  },
+  "pipes_alternates.glb": {
+   "v": "1753c77613",
+   "bytes": 43512
+  },
+  "pipes_dwv.glb": {
+   "v": "bae5029d0a",
+   "bytes": 2611012
+  },
+  "pipes_gas.glb": {
+   "v": "eba2accb9a",
+   "bytes": 812032
+  },
+  "pipes_hvac.glb": {
+   "v": "7e4af6cb1b",
+   "bytes": 2087604
+  },
+  "pipes_supply.glb": {
+   "v": "96541a3c19",
+   "bytes": 2661888
+  },
+  "placements.json": {
+   "v": "feafc03da5",
+   "bytes": 66405
+  },
+  "playset.glb": {
+   "v": "ef2b756173",
+   "bytes": 20208
+  },
+  "pressure_tank.glb": {
+   "v": "d913feb0d8",
+   "bytes": 553272
+  },
+  "pump_tank.glb": {
+   "v": "ea2b0f608b",
+   "bytes": 570716
+  },
+  "pump_wiring.glb": {
+   "v": "e689bab46c",
+   "bytes": 177428
+  },
+  "range.glb": {
+   "v": "1fb2e73f2c",
+   "bytes": 54968
+  },
+  "refrigerator.glb": {
+   "v": "c65df0a6dc",
+   "bytes": 40340
+  },
+  "septic_aquaklear.glb": {
+   "v": "8614137c87",
+   "bytes": 1252020
+  },
+  "septic_aquasafe.glb": {
+   "v": "865724c699",
+   "bytes": 1349064
+  },
+  "septic_field_dbox.glb": {
+   "v": "aa540758f1",
+   "bytes": 297260
+  },
+  "septic_lee.glb": {
+   "v": "dab0807b29",
+   "bytes": 848772
+  },
+  "septic_lee_overland.glb": {
+   "v": "22bdd25751",
+   "bytes": 890920
+  },
+  "septic_tank_risers.glb": {
+   "v": "d6d8714865",
+   "bytes": 600944
+  },
+  "shower.glb": {
+   "v": "5be91add82",
+   "bytes": 748276
+  },
+  "shower_two.glb": {
+   "v": "b1e8ff51d0",
+   "bytes": 734604
+  },
+  "spray_head_180_r22.glb": {
+   "v": "774057bfcf",
+   "bytes": 54120
+  },
+  "spray_head_r22.glb": {
+   "v": "21a1c94007",
+   "bytes": 54148
+  },
+  "spray_pump_filter.glb": {
+   "v": "4f377fad41",
+   "bytes": 1013228
+  },
+  "sump_pump.glb": {
+   "v": "b8662ac322",
+   "bytes": 296104
+  },
+  "sweet_air.glb": {
+   "v": "36c079816e",
+   "bytes": 2104384
+  },
+  "thermostat.glb": {
+   "v": "030c60e7ed",
+   "bytes": 9312
+  },
+  "thermostat_programmable.glb": {
+   "v": "0c6472cf11",
+   "bytes": 195724
+  },
+  "thermostat_smart_ecobee.glb": {
+   "v": "5c38757556",
+   "bytes": 188040
+  },
+  "thermostat_smart_nest.glb": {
+   "v": "264202b524",
+   "bytes": 249036
+  },
+  "toilet.glb": {
+   "v": "00fdeac3ac",
+   "bytes": 999548
+  },
+  "trampoline.glb": {
+   "v": "4ab95d8399",
+   "bytes": 32264
+  },
+  "uni_lateral.glb": {
+   "v": "0ef852be5c",
+   "bytes": 1344636
+  },
+  "vfd_drive.glb": {
+   "v": "6cf6bd834e",
+   "bytes": 1619760
+  },
+  "walk.js": {
+   "v": "630439bce3",
+   "bytes": 268185
+  },
+  "washer.glb": {
+   "v": "7e04f19827",
+   "bytes": 250948
+  },
+  "washer_box.glb": {
+   "v": "bcc90f9d0b",
+   "bytes": 82100
+  },
+  "water_filter.glb": {
+   "v": "5322f50a5d",
+   "bytes": 2407568
+  },
+  "water_softener.glb": {
+   "v": "2b7372f616",
+   "bytes": 762212
+  },
+  "well_pump.glb": {
+   "v": "730b5d85b1",
+   "bytes": 402236
+  },
+  "whole_house_spd.glb": {
+   "v": "c3dc4e9887",
+   "bytes": 470540
+  },
+  "whole_house_spd_inside.glb": {
+   "v": "b859bd7288",
+   "bytes": 432660
+  },
+  "wires.json": {
+   "v": "0a12c4f9d5",
+   "bytes": 16488
+  }
+ }
+}

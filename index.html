@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Round 55: index.html itself was being served out of the browser cache, so every walk.js?rNN bump since round 47 could sit
+     there unread and the page would run an old script while the file on disk was new. That is why a fix could be in and not be
+     there. The page is small; it is never cached now. -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Training House Walk</title>
+<style>
+/* round 39: the ? bubble over a unit you have worked with, and the about card it opens */
+.bubble { position: fixed; transform: translate(-50%, -100%); width: 26px; height: 26px; border-radius: 50%; background: #f5b62d; color: #1a1a1a; font: bold 17px/26px system-ui, sans-serif; text-align: center; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,.45); z-index: 6; user-select: none; }
+.bubble:hover { background: #ffd166; }
+/* round 45: the name tag beside every part of an exploded view */
+/* round 46: the dot you steer at inside a pipe */
+/* round 47: the meter in your hand */
+#meter { position: absolute; right: 12px; bottom: 12px; width: 230px; background: rgba(20,22,25,.92); border: 1px solid #3a3f45; border-radius: 8px; padding: 10px 12px; display: none; font-size: 12px; }
+#meter .mtitle { color: #f2b134; font-weight: 700; margin-bottom: 6px; }
+#meter .mread { font: 700 26px/1.2 ui-monospace, Consolas, monospace; color: #c9f36b; background: #14180f; border: 1px solid #39421f; border-radius: 5px; padding: 6px 8px; text-align: right; margin-bottom: 6px; }
+#meter .mrow { margin: 3px 0; color: #cfd4da; }
+#meter .mrow b { color: #fff; margin-right: 4px; }
+#meter .mnote { color: #9aa0a6; margin-top: 4px; line-height: 1.35; }
+#meter button { background: #2b3036; color: #e8e6e0; border: 1px solid #4a5058; border-radius: 6px; padding: 3px 7px; margin: 6px 4px 0 0; cursor: pointer; font-size: 11px; }
+.aimdot { position: fixed; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; background: #2ad4ff; box-shadow: 0 0 6px rgba(42,212,255,.9); pointer-events: none; z-index: 5; }
+.xlab { position: fixed; transform: translate(-50%, -140%); background: rgba(20,22,25,.86); border: 1px solid #4a5058; border-radius: 5px; padding: 1px 6px; font: 11px/1.5 system-ui, sans-serif; color: #ffcf5a; pointer-events: none; white-space: nowrap; z-index: 5; }
+#info .about h3 { margin: 0 0 6px; font-size: 15px; }
+#info .about p { margin: 6px 0; line-height: 1.35; }
+#info .about ul { margin: 4px 0 8px 18px; padding: 0; }
+#info .about li { margin: 2px 0; }
+  html, body { margin: 0; height: 100%; background: #1c1f22; color: #e8e6e0; font: 14px/1.4 system-ui, Segoe UI, sans-serif; overflow: hidden; }
+  #view { position: absolute; inset: 0; }
+  #hud { position: absolute; left: 12px; top: 12px; background: rgba(20,22,25,.82); border: 1px solid #3a3f45; border-radius: 8px; padding: 10px 12px; width: 250px; }
+  #hud h1 { font-size: 14px; margin: 0 0 6px; letter-spacing: .04em; color: #f2b134; }
+  #hud label { display: block; margin: 2px 0; cursor: pointer; }
+  #hud .row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+  #hud button { background: #2b3036; color: #e8e6e0; border: 1px solid #4a5058; border-radius: 6px; padding: 4px 8px; cursor: pointer; }
+  #hud button.on { background: #f2b134; color: #1c1f22; border-color: #f2b134; }
+  #hud small { color: #9aa0a6; }
+  #label { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); background: rgba(20,22,25,.85); border: 1px solid #3a3f45; border-radius: 8px; padding: 6px 12px; max-width: 70vw; display: none; }
+  #cross { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border: 2px solid rgba(255,255,255,.7); border-radius: 50%; pointer-events: none; }
+  #load { position: absolute; right: 12px; top: 12px; background: rgba(20,22,25,.82); border: 1px solid #3a3f45; border-radius: 8px; padding: 8px 10px; }
+#hud summary { cursor: pointer; font-size: 14px; letter-spacing: .04em; color: #f2b134; font-weight: 700; }
+/* round 45 (Jake: "is there a place we could organize this side section a little bit more, where like additional add ons ...
+   an area that's got like tabs we can just click"): the panel is tabbed now, one page at a time */
+#hud .tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 6px 0 8px; }
+#hud .tabs button { font-size: 12px; padding: 3px 7px; }
+#hud .page { display: none; }
+#hud .page.on { display: block; }
+#hud .addon { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin: 5px 0; font-size: 12px; color: #cfd4da; }
+#hud .addon button { font-size: 12px; min-width: 62px; text-align: center; }
+#hud .addon .nm { flex: 1; }
+#hud .keys div { margin: 3px 0; color: #cfd4da; font-size: 12px; }
+#hud .keys b { color: #fff; }
+#info details.isec { margin: 6px 0; border-top: 1px solid #3a3f45; padding-top: 4px; }
+#info details.isec summary { cursor: pointer; color: #ffcf5a; font-weight: 600; }
+#info { position: absolute; right: 12px; top: 8px; z-index: 7; width: 300px; max-height: 78vh; overflow: auto; background: rgba(20,22,25,.90); border: 1px solid #3a3f45; border-radius: 8px; padding: 10px 12px; display: none; font-size: 13px; line-height: 1.35; }
+#info .ititle { font-weight: 700; font-size: 15px; margin-bottom: 2px; }
+#info .ipart { color: #ffcf5a; margin-bottom: 6px; }
+#info .inote { color: #cfd4da; margin: 4px 0; }
+#info .iacts button { display: block; width: 100%; text-align: left; margin: 4px 0; padding: 6px 8px; font-size: 13px; background: #2b3036; color: #e8e6e0; border: 1px solid #4a5058; border-radius: 6px; cursor: pointer; }
+/* round 45: the clicked thing's components as tabs, one list of actions at a time */
+#info .itabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 6px 0; border-top: 1px solid #3a3f45; padding-top: 6px; }
+#info .itab { background: #2b3036; color: #cfd4da; border: 1px solid #4a5058; border-radius: 6px; padding: 3px 7px; font-size: 12px; cursor: pointer; }
+#info .itab.on { background: #f2b134; color: #1c1f22; border-color: #f2b134; }
+/* Round 60 (Jake, on his phone: "this menu needs to be a lot more clear... it needs to really live as much up close to the top
+   as possible so it's not blocking the view of the actual apparatus"). The panel docks at the very top, the close button is an
+   x at the head of the title, and on a narrow screen it runs the width of the screen, a third of its height at most, with the
+   actions as compact buttons that wrap instead of one full width row each, and each note cut to two lines. */
+#info .ititle { display: flex; align-items: center; gap: 8px; }
+#info .iclose { flex: none; width: 26px; height: 26px; padding: 0; border-radius: 50%; font-size: 17px; line-height: 1; background: #2b3036; color: #e8e6e0; border: 1px solid #4a5058; cursor: pointer; }
+@media (max-width: 720px), (max-height: 480px) {
+  #info { left: 6px; right: 6px; top: 6px; width: auto; max-height: 36vh; padding: 7px 9px; font-size: 12px; }
+  #info .ititle { font-size: 14px; }
+  #info .inote { margin: 2px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  #info .itabs { margin: 4px 0; padding-top: 4px; }
+  #info .iacts { display: flex; flex-wrap: wrap; gap: 5px; }
+  #info .iacts button { display: inline-block; width: auto; margin: 0; padding: 7px 10px; font-size: 12px; }
+}
+/* Round 60 (Jake: "just have those controls across the top that pop up... it's just overlay and it can be translucent behind it").
+   On a phone held sideways the strip is see through, the unit shows behind it, and it is two rows and no more: the name and the
+   component tabs on one line, the actions on the next, each row sliding sideways under a finger instead of wrapping down over
+   the unit. The notes are left to the ? bubble there; there is no height to spare for them. */
+@media (max-height: 480px) {
+  #info { background: rgba(20,22,25,.52); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border-color: rgba(255,255,255,.14); max-height: 34vh; overflow: hidden; }
+  /* the ? bubble's about card is reading matter, not a control strip: it keeps its room and scrolls */
+  #info:has(.about) { max-height: 82vh; overflow: auto; background: rgba(20,22,25,.92); }
+  #info .inote { display: none; }
+  #info .ititle { float: left; margin: 2px 10px 0 0; }
+  #info .itabs { border-top: 0; padding-top: 0; margin: 0 0 5px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  #info .itab, #info .iacts button { flex: none; white-space: nowrap; }
+  #info .iacts { clear: both; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  #info .itabs::-webkit-scrollbar, #info .iacts::-webkit-scrollbar { display: none; }
+}
+/* Round 60: the meter's thumb buttons, bottom left, and on a phone the teaching line moves up out of the meter's way */
+/* stacked up the right edge above Toolbox: in a row along the bottom they lay across the meter in your hand */
+#meterkeys { position: absolute; right: 12px; bottom: 58px; display: none; flex-direction: column; align-items: flex-end; gap: 6px; z-index: 6; }
+/* Round 60 (Jake: "We need the toolbox. We don't have the toolbox anymore. Somehow we lost that. I really like that."). It was the
+   Tools tab of the Training House panel, and it went out of sight when that panel started minimized, opening on the keyboard help.
+   This button is always there, bottom right, and opens the panel straight on the tools. */
+/* Round 60 (Jake: "it should literally open its own toolbox over there to the side, and it should look like tools. Multimeter, the
+   pliers, actual tools"). A drawer down the right edge; each tool is a PICTURE of the real model (walk.js renders them once from
+   the same GLBs you pick up) with its name under it. The one in your hand is lit. */
+#toolboxmenu { position: absolute; right: 0; top: 0; bottom: 0; z-index: 8; display: none; flex-direction: column; justify-content: center; gap: 10px; padding: 12px 12px 56px;
+  width: 132px; box-sizing: border-box; background: rgba(14,16,19,.86); border-left: 2px solid #f2b134; overflow-y: auto; }
+#toolboxmenu.open { display: flex; }
+#toolboxmenu .tbhead { color: #f2b134; font: 700 12px system-ui, sans-serif; letter-spacing: .08em; text-align: center; }
+#toolboxmenu button { background: #23282e; color: #e8e6e0; border: 1px solid #4a5058; border-radius: 10px; padding: 6px 4px 7px; font: 600 12px system-ui, sans-serif; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 3px; }
+#toolboxmenu button img { width: 84px; height: 64px; object-fit: contain; pointer-events: none; }
+#toolboxmenu button.on { border-color: #f2b134; box-shadow: 0 0 0 2px #f2b134 inset; }
+@media (max-height: 480px) { #toolboxmenu { gap: 6px; padding-top: 6px; } #toolboxmenu button img { height: 52px; } }
+/* Round 60: the same verbs on every unit. One this unit has nothing for is dimmed, never missing. */
+#info .itab:disabled { opacity: .32; cursor: default; }
+#info .iverbs .itab { font-weight: 600; }
+/* "What can I do here": the button, and the names it hangs over everything you can work */
+#whatcan { position: absolute; right: 104px; bottom: 12px; z-index: 6; background: rgba(20,22,25,.78); color: #e8e6e0; border: 1px solid #4a5058; border-radius: 8px; padding: 9px 12px; font: 600 13px system-ui, sans-serif; cursor: pointer; }
+.canmark { position: fixed; transform: translate(-50%, -100%); z-index: 6; background: #f2b134; color: #1a1a1a; border-radius: 14px; padding: 5px 10px; font: 700 12px system-ui, sans-serif; white-space: nowrap; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,.45); }
+.canmark::after { content: ''; position: absolute; left: 50%; top: 100%; margin-left: -5px; border: 5px solid transparent; border-top-color: #f2b134; }
+#toolbox { position: absolute; right: 12px; bottom: 12px; z-index: 9; background: rgba(20,22,25,.78); color: #f2b134; border: 1px solid #f2b134; border-radius: 8px; padding: 9px 12px; font: 700 13px system-ui, sans-serif; cursor: pointer; }
+#meterkeys button { background: rgba(20,22,25,.78); color: #e8e6e0; border: 1px solid #4a5058; border-radius: 8px; padding: 9px 12px; font: 600 13px system-ui, sans-serif; cursor: pointer; }
+@media (max-width: 720px), (max-height: 480px) {
+  /* Jake: "the multimeter still has the readout on top of it, which is blocking everything. We don't need the instructions there."
+     On a phone there is no line of words at all while a meter is out: the reading is on the meter and the buttons say what they do. */
+  body.metering #label { display: none !important; }
+}
+#flash { position: fixed; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 60; }
+</style>
+</head>
+<body>
+<div id="view"></div>
+<div id="hud">
+  <!-- Round 60 (Jake): the panel starts minimized; its title opens it -->
+  <details id="help">
+    <summary>TRAINING HOUSE</summary>
+    <div class="tabs">
+      <button data-tab="keys" class="on">Keys</button><button data-tab="layout">Layout</button><button data-tab="addons">Add ons</button><button data-tab="views">Views</button><button data-tab="layers">Layers</button>
+    </div>
+    <div class="page on" data-page="keys">
+    <div class="keys">
+      <div><b>Drag</b> on the view to look round. Let go and the mouse is free.</div>
+      <div><b>W A S D</b> or arrows: walk. <b>Shift</b>: run.</div>
+      <div><b>C</b>: crouch. <b>C</b> again: crawl (under the house). <b>C</b> again: stand. <b>Half crouch</b>: valve height.</div>
+      <div><b>Double click</b> a part, or <b>View it</b> on the panel: it fills the view at its real proportions. Esc or a click puts it back.</div>
+      <div>A <b>?</b> appears over a unit once you work with it: what it is, how it works, what we check.</div>
+      <div><b>Ride the drain as a ball</b> on a sink, toilet, tub or drain pipe: <b>W</b> rolls down, <b>S</b> rolls back, <b>Shift</b> faster, <b>Esc</b> out. <b>Drag</b> looks round inside the pipe and <b>double click</b> says where you are.</div>
+      <div><b>Take it apart</b> on a faucet, a shower valve or a unit: every part comes out in service order and hangs in the air with its name. <b>Put it together</b> puts them back.</div>
+      <div><b>Click a unit</b> from across the room: you are taken in front of it, square on, at the right height. Click it again to work its parts. Walking lets go.</div>
+      <div><b>Click a part</b>: it opens, comes off, cuts open or works. The panel on the right lists everything else it can do: run it, take it out, cut it, elevation.</div>
+      <div><b>E</b>: elevation of what you are looking at. <b>E</b> or <b>Esc</b>: back.</div>
+      <div><b>Multimeter</b>: click where the red lead goes, then where the black one goes, and it reads what is between them. <b>Clamp meter</b>: click a conductor. Clamp the whole cable and it reads zero, the way it really does.</div>
+      <div><b>Fly</b> on: <b>Space</b> up, <b>C</b> down.</div>
+      <div>The attic: pull the ladder down in the garage and click it. The crawl: click the door in the foundation at the back of the house, it comes off, crouch to get in, then C again to crawl under the joists. Or lift the hatch lid in the master closet floor.</div>
+    </div>
+    </div>
+    <div class="page" data-page="layout">
+      <div id="layout" class="row"></div>
+    </div>
+    <div class="page" data-page="addons">
+      <div id="addons"></div>
+    </div>
+    <!-- Round 60 (Jake): "we have the toolbox, so you can remove anything that's in the training house that's in the toolbox... have
+         one up there called views... then you can toggle the ground off". The three TOOLS live in the Toolbox (bottom right) and
+         nowhere else; this tab is what you SEE: walls, roof, ground, lights, flying up for a look. "We also don't need the half
+         crouch... we don't need zoom either, that's ridiculous, we need a two finger pinch": those two are out of sight. They are
+         kept in the page, hidden, because walk.js finds them by name; the wheel still zooms on a desktop and a pinch does in the app. -->
+    <div class="page" data-page="views">
+    <div class="row">
+      <button id="xray">X-ray walls</button><button id="roof" class="on">Roof and ceilings</button><button id="ground" class="on">Ground</button><button id="lights" class="on">Lights</button><button id="fly">Fly</button><button id="crouch">Crouch</button><button id="elev">Leave elevation</button>
+    </div>
+    <div hidden><button id="crouch2">Half crouch</button><button id="zoom">Zoom</button></div>
+    </div>
+    <div class="page" data-page="layers">
+    <label><input type="checkbox" data-layer="pipes_supply" checked> Water supply</label>
+    <label><input type="checkbox" data-layer="pipes_dwv" checked> Drain, waste and vent</label>
+    <label><input type="checkbox" data-layer="pipes_gas" checked> Gas</label>
+    <label><input type="checkbox" data-layer="pipes_hvac" checked> Lineset, condensate, ducts</label>
+    <label><input type="checkbox" data-layer="equipment" checked> Equipment and fixtures</label>
+    </div>
+  </details>
+  <small id="status">loading</small>
+</div>
+<div id="label"></div>
+<div id="info"></div>
+<div id="toolboxmenu"><div class="tbhead">TOOLBOX</div><button id="meterbtn" data-model="multimeter.glb"><img alt=""><span>Multimeter</span></button><button id="clampbtn" data-model="clamp_meter.glb"><img alt=""><span>Clamp meter</span></button><button id="grabbtn" data-model="needle_nose.glb"><img alt=""><span>Pliers</span></button></div>
+<button id="toolbox">Toolbox</button>
+<div id="load"></div>
+<script src="three.min.js"></script>
+<script src="GLTFLoader.js"></script>
+<script src="meshopt_decoder.js"></script>
+<div id="flash"></div>
+<script src="walk.js?r60l"></script>
+</body>
+</html>

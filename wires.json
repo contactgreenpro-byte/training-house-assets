@@ -1,0 +1,372 @@
+{
+ "note": "Round 40 (Jake: click a wire and it says where it goes and why). runs: house runs by name (pipes GLBs), they override pipes.json labels. parts: model parts by pack regex and part regex, the first match wins. Plain training language, no em dashes.",
+ "runs": {
+  "cable_hvac_ahu_feed": "240 V feed from the HVAC breaker in the load centre up to the disconnect at the attic air handler. Line voltage for the blower and the strip heat; the disconnect is there so a tech can kill it at the unit.",
+  "conduit_hvac_ahu_whip": "Flexible whip from the disconnect into the air handler's control box. The last few feet are flex so the unit can be pulled without rewiring.",
+  "cable_hvac_ahu_float": "Float switch cable from the secondary drain pan to the air handler's low voltage. When the pan fills it opens the Y circuit and stops cooling before the ceiling gets wet.",
+  "pipe_hvac_lineset_tstat_cable": "18 gauge thermostat cable taped along the lineset from the indoor unit to the condenser: Y calls the compressor, C is common. It rides the lineset so it never crosses the attic loose.",
+  "pipe_hvac_lineset_tstat_cable_hp": "18 gauge thermostat cable along the heat pump lineset: Y compressor, C common, O reversing valve. The O wire is what turns the outdoor unit between heating and cooling.",
+  "cable_septic_pump_uf": "UF cable from the outdoor receptacle to the spray pump's plug in cord. Direct burial rated, 18 in deep, GFCI at the outlet: the pump is plug in, not hard wired, so it pulls without an electrician.",
+  "conduit_septic_pump": "Conduit from the aerobic control panel to the pump tank riser: pump power and the float wires. The panel needs the floats to know high water and when to run the spray pump.",
+  "conduit_lift_panel": "Conduit from the lift station control panel to the basin: pump power, the four float wires and the alarm. Sealed at the basin so gas cannot follow the wires into the panel.",
+  "cable_wh_etankless": "Three 40 A 240 V circuits from the load centre to the electric tankless. It draws over 100 A at full fire, which is why a 200 A service is checked first.",
+  "cable_wh_hybrid": "30 A 240 V cable from the load centre to the hybrid water heater's disconnect. Same circuit a standard electric tank uses, so a swap needs no new wire.",
+  "conduit_wh_hybrid_whip": "Flex whip from the disconnect into the hybrid's junction box. Flex so the unit can come out for service.",
+  "cable_well_pump": "The submersible pump's cable from the well head, in the trench with the service, to the disconnect on the garage wall. Two hots and a ground for a 230 V two wire pump.",
+  "cable_well_feed": "12/2 from the load centre over the garage ceiling and down the east wall to the well's disconnect beside the pressure tank; the pressure switch in this circuit starts the pump.",
+  "cable_septic_pump_uf_lee": "UF cable from the outdoor receptacle round the Lee tank to the spray pump's cord grip: direct burial, GFCI at the outlet, the pump plugs in through the float's piggyback plug.",
+  "pipe_hvac_condensate_pump": "3/8 in vinyl discharge from the condensate pump in the furnace closet, up into the attic, across and down the west wall to daylight. Kinked or frozen, the pump runs and the safety switch shuts the furnace down."
+ },
+ "parts": [
+  {
+   "pack": "hvac_condenser|hvac_package",
+   "part": "^disconnect",
+   "text": "Outdoor disconnect: line voltage from the HVAC breaker lands here. Pull it before opening the unit; the code wants it within sight of the condenser."
+  },
+  {
+   "pack": "hvac_condenser|hvac_package",
+   "part": "^feed_conduit",
+   "text": "Conduit from the load centre to the outdoor disconnect: 240 V line voltage for the compressor and fan."
+  },
+  {
+   "pack": "hvac_condenser|hvac_package",
+   "part": "^whip",
+   "text": "Sealtite whip from the disconnect into the condenser's contactor. Flex so the unit can be set and pulled; check the connector and the ground inside."
+  },
+  {
+   "pack": "hvac_condenser|hvac_package",
+   "part": "^thermostat_wire|^wire_stat",
+   "text": "Low voltage from the indoor unit: Y pulls the contactor, C is common, O drives the reversing valve on a heat pump. Chewed or corroded here means no cooling call."
+  },
+  {
+   "pack": "hvac_air_handler|hvac_furnace",
+   "part": "^disconnect",
+   "text": "Service disconnect at the indoor unit: line voltage from the HVAC breaker. Kill it here before pulling the blower door."
+  },
+  {
+   "pack": "hvac_air_handler|hvac_furnace",
+   "part": "^feed_conduit",
+   "text": "Line voltage feed from the load centre to the disconnect: 120 V for a furnace, 240 V for an air handler with strip heat."
+  },
+  {
+   "pack": "hvac_air_handler|hvac_furnace",
+   "part": "^whip",
+   "text": "Whip from the disconnect into the unit's control box, where it lands on the board's line terminals."
+  },
+  {
+   "pack": "hvac_air_handler|hvac_furnace",
+   "part": "^thermostat_wire",
+   "text": "18/5 thermostat cable from the wall stat to the board: R power, W heat, Y cool, G fan, C common. From the board the Y and C go on out to the condenser."
+  },
+  {
+   "pack": "hvac_minisplit",
+   "part": "^disconnect",
+   "text": "Outdoor disconnect for the mini split: 240 V from its own breaker. The indoor head is fed from the outdoor unit through the lineset cover, not from the house."
+  },
+  {
+   "pack": "hvac_minisplit",
+   "part": "^feed_conduit",
+   "text": "Conduit from the load centre through the wall to the mini split disconnect."
+  },
+  {
+   "pack": "hvac_minisplit",
+   "part": "^whip",
+   "text": "Whip from the disconnect into the outdoor unit. Power and the communication pair to the indoor head leave from here in the lineset cover."
+  },
+  {
+   "pack": "thermostat",
+   "part": "^stat_wire",
+   "text": "The thermostat's 18/5 cable down the wall to the indoor unit's board: R, W, Y, G, C. Common (C) is what a smart stat needs; missing C is the usual reason one keeps rebooting."
+  },
+  {
+   "pack": "electric_panel",
+   "part": "^service_entrance",
+   "text": "Service entrance cable from the meter to the main breaker: the whole house comes through here. Never work it live."
+  },
+  {
+   "pack": "electric_panel",
+   "part": "^nm_cables",
+   "text": "Branch circuit cables leaving the load centre to the house: each one lands on its own breaker. The labelled ones here feed the HVAC, the water heater and the septic."
+  },
+  {
+   "pack": "electric_panel",
+   "part": "^cable_clamps",
+   "text": "Clamps where the cables enter the can: every cable needs one so the sheath cannot chafe on the knockout."
+  },
+  {
+   "pack": "whole_house_spd",
+   "part": "^lead_black",
+   "text": "SPD line leads to a 2 pole breaker: the surge protector sits across both hot legs. Kept short and straight, because every inch of lead adds let through voltage."
+  },
+  {
+   "pack": "whole_house_spd",
+   "part": "^lead_white",
+   "text": "SPD neutral lead to the neutral bar."
+  },
+  {
+   "pack": "whole_house_spd",
+   "part": "^lead_green",
+   "text": "SPD ground lead to the ground bar: the surge has to have a short path to earth."
+  },
+  {
+   "pack": "hvac_surge",
+   "part": "^lead_black",
+   "text": "HVAC surge protector leads to the load side of the disconnect: it clamps a spike before it reaches the compressor and the board."
+  },
+  {
+   "pack": "hvac_surge",
+   "part": "^lead_green",
+   "text": "HVAC surge ground to the disconnect's ground lug."
+  },
+  {
+   "pack": "outlet_surge",
+   "part": "^nm_cable",
+   "text": "The branch cable feeding this receptacle from the load centre."
+  },
+  {
+   "pack": "outlet_surge",
+   "part": "^lead_line|^wire_black",
+   "text": "Hot (line) to the receptacle's brass terminal."
+  },
+  {
+   "pack": "outlet_surge",
+   "part": "^lead_neutral|^wire_white",
+   "text": "Neutral to the silver terminal."
+  },
+  {
+   "pack": "outlet_surge",
+   "part": "^lead_ground|^wire_bare",
+   "text": "Ground to the green screw: the surge receptacle needs a real ground or its protection does nothing."
+  },
+  {
+   "pack": "easystart",
+   "part": "^lead_black",
+   "text": "EasyStart black: line to the contactor's load side. It is the soft starter's power in."
+  },
+  {
+   "pack": "easystart",
+   "part": "^lead_brown",
+   "text": "EasyStart brown: to the run capacitor's HERM terminal (the compressor's start winding path)."
+  },
+  {
+   "pack": "easystart",
+   "part": "^lead_orange",
+   "text": "EasyStart orange: to the compressor's start terminal. The soft starter ramps this instead of slamming it."
+  },
+  {
+   "pack": "easystart",
+   "part": "^lead_white",
+   "text": "EasyStart white: to the compressor's common."
+  },
+  {
+   "pack": "easystart",
+   "part": "^cable|^cord_grip",
+   "text": "The EasyStart's lead bundle through the condenser's panel, with a cord grip so the sheath does not chafe on the sheet metal."
+  },
+  {
+   "pack": "flo_shutoff",
+   "part": "^cord|^plug",
+   "text": "The Flo's power brick cord to the nearest receptacle. Low voltage DC to the valve; if the brick is unplugged the valve stays where it was and the app goes dark."
+  },
+  {
+   "pack": "flo_shutoff",
+   "part": "^nm_cable",
+   "text": "The receptacle's branch cable from the load centre. The Flo wants its own outlet, not a shared one behind an appliance."
+  },
+  {
+   "pack": "kitchen_sink",
+   "part": "^disposal_cord",
+   "text": "Disposal cord to the switched receptacle under the sink: the wall switch cuts the outlet, the outlet runs the disposal."
+  },
+  {
+   "pack": "kitchen_sink",
+   "part": "^cord_scorched",
+   "text": "A scorched disposal cord: the fault. Heat at the plug means a loose connection or an overloaded circuit; replace the cord and check the receptacle."
+  },
+  {
+   "pack": "atu_blower",
+   "part": "^blower_cord",
+   "text": "Air pump cord to the outdoor GFCI receptacle. The pump runs all the time; a tripped GFCI is the first thing to check when the tank goes septic."
+  },
+  {
+   "pack": "atu_blower",
+   "part": "^conduit_wall",
+   "text": "Conduit down the wall from the aerobic panel: power for the receptacle and the alarm."
+  },
+  {
+   "pack": "septic_aquasafe|septic_aquaklear|septic_lee",
+   "part": "^float_cable",
+   "text": "High water float cable to the control panel's alarm. When the tank rises above the pump's normal range this rings the alarm."
+  },
+  {
+   "pack": "septic_aquasafe",
+   "part": "^compressor_cord",
+   "text": "The plant's own air compressor cord to the panel's aerator circuit."
+  },
+  {
+   "pack": "septic_aquasafe|septic_aquaklear|septic_lee",
+   "part": "^power_cord|^blower_cord",
+   "text": "Blower power cord to its receptacle or the panel. The blower is what keeps the plant aerobic; it runs continuously."
+  },
+  {
+   "pack": "septic_aquasafe|septic_aquaklear|septic_lee|pump_tank",
+   "part": "^conduit$|^conduit_",
+   "text": "Conduit from the control panel into the riser: the pump's power cord and the float cords come through here, sealed so tank gas stays out of the panel."
+  },
+  {
+   "pack": "septic_lee|pump_tank|sump_pump",
+   "part": "^cords",
+   "text": "The pump and float cords up the riser to the junction box: pump power and the float leads that tell the panel when to run."
+  },
+  {
+   "pack": "septic_lee|pump_tank",
+   "part": "^cord_chafed",
+   "text": "A chafed pump cord: the fault. The cord rubbed on the riser lip until the sheath opened; that is a shock hazard and a dead pump waiting to happen."
+  },
+  {
+   "pack": "pump_wiring",
+   "part": "^uf_cable",
+   "text": "UF cable from the house receptacle to the pump's plug in connection: direct burial rated, buried 18 in."
+  },
+  {
+   "pack": "pump_wiring",
+   "part": "^uf_black",
+   "text": "UF black: the hot leg to the pump."
+  },
+  {
+   "pack": "pump_wiring",
+   "part": "^uf_white",
+   "text": "UF white: the neutral back to the panel."
+  },
+  {
+   "pack": "pump_wiring",
+   "part": "^uf_green",
+   "text": "UF green: the equipment ground. A pump in water without a ground is the one wire that matters most."
+  },
+  {
+   "pack": "pump_wiring",
+   "part": "^pump_cord",
+   "text": "The pump's own cord, plugged into the piggyback float plug so the float switches the pump."
+  },
+  {
+   "pack": "pump_wiring",
+   "part": "^float_cord|^float_lead",
+   "text": "The float switch cord: the pump plugs into its piggyback plug, so the float makes and breaks the pump's power."
+  },
+  {
+   "pack": "pump_wiring",
+   "part": "^cord_grip",
+   "text": "Cord grip in the junction box: it holds the cord so the terminals never carry the weight."
+  },
+  {
+   "pack": "lift_station",
+   "part": "^panel_wire_power",
+   "text": "Power into the lift station panel from its breaker in the load centre."
+  },
+  {
+   "pack": "lift_station",
+   "part": "^panel_wire_motor",
+   "text": "Motor leads out to the pump through the conduit: the contactor switches these."
+  },
+  {
+   "pack": "lift_station",
+   "part": "^panel_wire_control",
+   "text": "Control wiring: the HOA switch and the contactor coil. HAND runs the pump straight, AUTO lets the floats run it."
+  },
+  {
+   "pack": "lift_station",
+   "part": "^panel_wire_field",
+   "text": "Field wires from the floats in the basin: off, on, lag and alarm levels."
+  },
+  {
+   "pack": "lift_station",
+   "part": "^panel_wire_alarm",
+   "text": "Alarm circuit: the high water float rings the horn and lights the beacon."
+  },
+  {
+   "pack": "lift_station",
+   "part": "^panel_wire_start",
+   "text": "Start circuit for the pump's start winding, through the panel's start relay."
+  },
+  {
+   "pack": "lift_station",
+   "part": "^panel_wire_neutral",
+   "text": "Neutral and ground bars in the panel."
+  },
+  {
+   "pack": "lift_station",
+   "part": "^conduit|^flex_conduit|^wire_duct",
+   "text": "Conduit and wire duct between the panel and the basin: pump power and float wires, sealed at the basin."
+  },
+  {
+   "pack": "lift_station",
+   "part": "^disconnect",
+   "text": "The lift station's disconnect: kill it here before pulling the pump."
+  },
+  {
+   "pack": "lift_station",
+   "part": "^cords",
+   "text": "Pump and float cords up out of the basin to the junction box."
+  },
+  {
+   "pack": "electric_tankless",
+   "part": "^wiring_harness|^cable_entries",
+   "text": "The three 40 A feeds land here, one per heating element bank. Every lug gets torqued: a loose one here browns the cable."
+  },
+  {
+   "pack": "gas_tankless",
+   "part": "^power_cord",
+   "text": "The gas tankless's 120 V cord to its receptacle: it powers the board, the fan and the igniter. No power, no hot water, even with gas on."
+  },
+  {
+   "pack": "gas_tankless",
+   "part": "^wiring_harness",
+   "text": "The unit's internal harness from the board to the fan, the gas valve and the igniter."
+  },
+  {
+   "pack": "washer|dryer",
+   "part": "power_cord",
+   "text": "The appliance cord to its receptacle: 120 V for the washer, 240 V 4 wire for the dryer."
+  },
+  {
+   "pack": "sump_pump",
+   "part": "^ext_cord",
+   "text": "An extension cord on a sump pump: the fault. It has to be on its own GFCI receptacle, never a cord."
+  },
+  {
+   "pack": "vfd_drive",
+   "part": "^conduits",
+   "text": "Conduits into the VFD: line power in, motor leads out, and the control wiring from the floats and the pressure sensor."
+  },
+  {
+   "pack": "well_pump",
+   "part": "cable|wire_stub|junction",
+   "text": "Submersible pump cable taped to the drop pipe, up through the cap and out to the disconnect. The splice at the pump is the usual failure point after a pull."
+  },
+  {
+   "pack": "pressure_tank",
+   "part": "^disconnect|^wire_stub|nm_cable",
+   "text": "Power to the pressure switch from the load centre; the switch makes and breaks the pump's circuit at 40 and 60 psi."
+  },
+  {
+   "pack": "pressure_tank",
+   "part": "pressure_switch",
+   "text": "The pressure switch: its contacts carry the pump current. Pitted contacts or a plugged nipple under it mean a pump that will not start."
+  },
+  {
+   "pack": "water_softener",
+   "part": "cord|transformer|receptacle",
+   "text": "The softener's wall transformer cord to its receptacle: low voltage for the timer and the motor. Unplug it and the clock stops, and so does regeneration."
+  },
+  {
+   "pack": "condensate_pump",
+   "part": "safety_leads",
+   "text": "Safety switch leads to the furnace's R circuit: if the reservoir overfills these open and the furnace stops calling for heat instead of flooding the closet."
+  },
+  {
+   "pack": "condensate_pump",
+   "part": "cord|receptacle",
+   "text": "The pump's cord on its own receptacle. It must not share the furnace's circuit through a switched outlet."
+  }
+ ]
+}

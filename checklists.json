@@ -1,0 +1,421 @@
+{
+ "note": "Round 39 (Jake): a light first pass of training language. Keyed by pack (the model's pack name) or by model file; walk.js shows it in the ? bubble that appears over a unit once you start working with it: what it is, how it works, what we check. Copied to the viewer with placements.json. Keep it plain and short; Jake will detail these.",
+ "packs": {
+  "gas_tank_water_heater": {
+   "what": "A gas fired storage water heater. A tank of water kept hot by a burner under it, vented up a flue.",
+   "how": "Cold water comes in the dip tube to the bottom. The thermostat opens the gas valve, the burner heats the tank, the flue carries the exhaust out the roof. Hot water leaves the top.",
+   "checks": [
+    "T&P relief valve: present, piped to within 6 in of the floor, no cap, no corrosion",
+    "Venting: draft hood, proper rise, no rust or soot at the draft hood",
+    "Gas: drip leg, shutoff, no leaks at the union",
+    "Expansion tank where the system is closed",
+    "Sediment: flush the drain, listen for rumble",
+    "Anode rod and tank age",
+    "Combustion air and clearances",
+    "Condition of the flame: blue, steady, no rollout"
+   ]
+  },
+  "electric_tank_water_heater": {
+   "what": "An electric storage water heater. Two elements in a tank, upper and lower, each on its own thermostat.",
+   "how": "The upper element heats the top first, then hands off to the lower element. 240 volt feed through a disconnect. No vent, no flame.",
+   "checks": [
+    "T&P relief valve and its discharge line",
+    "Element condition and amp draw",
+    "Thermostats and the high limit (reset button)",
+    "Wiring, disconnect, ground",
+    "Sediment at the lower element",
+    "Anode rod and tank age",
+    "Leaks at the fittings and the pan drain"
+   ]
+  },
+  "gas_tankless_water_heater": {
+   "what": "A condensing gas tankless. Heats water only when a tap opens, no tank.",
+   "how": "Flow sensor sees the tap, the fan starts, gas lights in the sealed burner, water runs through the heat exchanger. Condensate drains out the bottom. PVC intake and exhaust through the wall.",
+   "checks": [
+    "Descale the heat exchanger (isolation valves and a pump)",
+    "Inlet water filter screen",
+    "Condensate line and neutralizer where required",
+    "Gas line size and pressure",
+    "Intake and exhaust terminations clear",
+    "Error codes on the display",
+    "Venting slope and condensate traps"
+   ]
+  },
+  "electric_tankless_water_heater": {
+   "what": "An electric tankless. Heating elements in chambers, no tank, big electrical load.",
+   "how": "Flow sensor sees the tap, the board staggers the elements on to hit the set point. Needs several 240 volt circuits.",
+   "checks": [
+    "Breaker sizes and wire gauge match the unit",
+    "Inlet screen",
+    "Scale on the elements (flush)",
+    "Flow rate versus the unit's rating",
+    "Error codes"
+   ]
+  },
+  "hybrid_water_heater": {
+   "what": "A heat pump water heater. A small heat pump on top of a tank pulls heat from the room air into the water.",
+   "how": "The fan pulls room air over the evaporator, the compressor moves that heat into the tank. Elements back it up. Condensate drains from the top unit.",
+   "checks": [
+    "Air filter",
+    "Condensate drain clear",
+    "Room volume and clearances for the air it needs",
+    "Mode setting (heat pump, hybrid, electric)",
+    "T&P and expansion tank",
+    "Anode rod"
+   ]
+  },
+  "hvac_furnace": {
+   "what": "A gas furnace. The blower pushes house air over a heat exchanger warmed by the burners.",
+   "how": "The thermostat calls, the inducer proves draft, the igniter lights the burners, the blower runs after the exchanger warms. Exhaust goes out the flue (or PVC on a condensing unit).",
+   "checks": [
+    "Filter",
+    "Heat exchanger (cracks, rust)",
+    "Flame sensor and igniter",
+    "Inducer and pressure switch",
+    "Blower wheel and capacitor",
+    "Gas pressure and combustion",
+    "Condensate on a condensing unit",
+    "Return air sealed"
+   ]
+  },
+  "hvac_air_handler": {
+   "what": "The indoor half of a split system. A blower and a coil in a cabinet, in the attic here.",
+   "how": "The blower pulls return air over the coil (cold in cooling, warm in heat pump mode) and pushes it down the ducts. Condensate drains from the pan.",
+   "checks": [
+    "Filter",
+    "Coil clean",
+    "Primary drain clear, float switch in the secondary pan",
+    "Blower and capacitor",
+    "Duct connections sealed",
+    "Refrigerant lines insulated"
+   ]
+  },
+  "hvac_condenser": {
+   "what": "The outdoor unit of a split air conditioner. Compressor, condenser coil and fan.",
+   "how": "Refrigerant absorbs heat inside, the compressor pumps it out here, the fan blows outdoor air across the coil to dump that heat.",
+   "checks": [
+    "Coil clean",
+    "Capacitor and contactor",
+    "Refrigerant pressures and superheat",
+    "Disconnect and whip",
+    "Level pad, clearances",
+    "Fan motor and blades"
+   ]
+  },
+  "hvac_package": {
+   "what": "A gas pack: furnace and air conditioner in one outdoor cabinet, ducted through the wall.",
+   "how": "Everything the split system does, in one box outside. Supply and return ducts run through the wall.",
+   "checks": [
+    "Filter",
+    "Heat exchanger and burners",
+    "Coil and refrigerant",
+    "Duct connections through the wall",
+    "Condensate",
+    "Pad and clearances"
+   ]
+  },
+  "hvac_minisplit": {
+   "what": "A ductless mini split. A wall head inside, an inverter unit outside, a line set between.",
+   "how": "The outdoor inverter varies the compressor speed. The line set carries refrigerant to the head, which blows over its own coil. Condensate drains from the head.",
+   "checks": [
+    "Head filters",
+    "Condensate drain from the head",
+    "Line set insulation and the wall sleeve",
+    "Outdoor unit pad and clearances",
+    "Disconnect",
+    "Blower wheel in the head"
+   ]
+  },
+  "kitchen_sink": {
+   "what": "The kitchen sink: faucet, strainers, disposal, trap and the dishwasher connection.",
+   "how": "Supply stops feed the faucet. Waste falls through the strainer or the disposal into the trap, then the drain. The dishwasher drains through the disposal.",
+   "checks": [
+    "Leaks at the stops, the supply lines, the trap",
+    "Disposal: splash guard, mount, cord, does it turn",
+    "Dishwasher drain high loop or air gap",
+    "Faucet cartridge and aerator",
+    "Cabinet floor for water damage"
+   ]
+  },
+  "disposal": {
+   "what": "The garbage disposal. A grinder under the sink on its own circuit.",
+   "how": "The switch runs the motor, the turntable throws food against the grind ring, water carries it out the discharge into the trap.",
+   "checks": [
+    "Reset button and the hex wrench",
+    "Splash guard and mount gasket for leaks",
+    "Cord and switch",
+    "Dishwasher inlet knockout"
+   ]
+  },
+  "toilet": {
+   "what": "A gravity toilet: tank and bowl.",
+   "how": "The flapper lifts, the tank dumps into the bowl, the siphon pulls the bowl down, the fill valve refills the tank and the bowl.",
+   "checks": [
+    "Flapper seal (dye test)",
+    "Fill valve and float level",
+    "Supply stop and line",
+    "Wax ring: rocking, water at the base",
+    "Bolts and the flange"
+   ]
+  },
+  "bath_vanity": {
+   "what": "The bathroom lavatory: faucet, pop up drain, trap.",
+   "how": "Stops feed the faucet, the pop up lifts by its linkage, waste goes down the tailpiece to the trap.",
+   "checks": [
+    "Leaks at stops and lines",
+    "Pop up linkage and seal",
+    "Trap and slip joints",
+    "Faucet cartridge"
+   ]
+  },
+  "shower": {
+   "what": "The tub and shower: valve, spout, head, drain and overflow.",
+   "how": "One valve mixes hot and cold, the diverter sends it up to the head. Waste goes down the drain shoe and the overflow to the trap.",
+   "checks": [
+    "Valve cartridge and the trim",
+    "Diverter",
+    "Drain shoe and overflow seals",
+    "Caulk at the tub",
+    "Head flow and scale"
+   ]
+  },
+  "water_filter": {
+   "what": "A whole house water filter on the service line.",
+   "how": "All the house water passes through the housing and its cartridge before the main.",
+   "checks": [
+    "Cartridge change",
+    "Bypass valve",
+    "Housing O ring",
+    "Pressure drop across it"
+   ]
+  },
+  "septic_lee": {
+   "what": "An aerobic treatment unit (Lee precast) with spray heads.",
+   "how": "Sewage settles, the aerator blower bubbles air through it, the clarifier settles it again, chlorine treats it, the pump sprays the treated water on the lawn.",
+   "checks": [
+    "Aerator running, air line intact",
+    "Chlorine tablets",
+    "Pump and float in the pump chamber",
+    "Spray heads turning, clear",
+    "Lids secure",
+    "Sludge and scum levels",
+    "Alarm working (where there is a panel)"
+   ]
+  },
+  "septic_atu": {
+   "what": "An aerobic treatment unit: an aerator, a clarifier and a pump.",
+   "how": "Air from the blower keeps the bacteria working, the clarifier settles the solids, the pump sends treated water out.",
+   "checks": [
+    "Aerator and air line",
+    "Chlorine",
+    "Pump and floats",
+    "Lids",
+    "Sludge level",
+    "Panel and alarm where fitted"
+   ]
+  },
+  "septic_tank": {
+   "what": "A conventional septic tank feeding a drain field.",
+   "how": "Solids settle in the tank, the baffles hold the scum, the clear water flows out to the field by gravity.",
+   "checks": [
+    "Sludge and scum level (pump when it is a third full)",
+    "Inlet and outlet baffles",
+    "Effluent filter",
+    "Lids and risers",
+    "Field: wet spots, odour"
+   ]
+  },
+  "septic_field": {
+   "what": "The drain field and its distribution box.",
+   "how": "The D box splits the tank's outflow evenly into the field lines, where it soaks into the soil.",
+   "checks": [
+    "D box level, outlets equal",
+    "Field surface dry",
+    "No roots or driving over it"
+   ]
+  },
+  "pump_tank": {
+   "what": "A pump tank: the second tank of a two tank spray system.",
+   "how": "Treated water collects here, a float starts the pump, it sprays the lawn through the heads.",
+   "checks": [
+    "Pump runs on the float",
+    "Cord and plug (the plug in wiring in the riser)",
+    "Filter screen on the pump",
+    "Riser lid"
+   ]
+  },
+  "pump_wiring": {
+   "what": "The plug in wiring for a spray pump: gray UF cable into the riser, splices to the pump and the float.",
+   "how": "Power comes in the UF cable through the cord grip, the float switch breaks the hot to the pump, the splices are crimped and heat shrunk, zip tied high in the riser out of the moisture.",
+   "checks": [
+    "Splices dry, shrink intact",
+    "Zip tie at the lip, cords clear of the discharge",
+    "Float swings free",
+    "Cord grip tight",
+    "GFCI on the feed"
+   ]
+  },
+  "lift_station": {
+   "what": "A lift station: a pump that pushes sewage up to the city sewer when gravity cannot.",
+   "how": "Sewage collects in the basin, the float starts the pump, it pushes up the force main through the check valve to the sewer.",
+   "checks": [
+    "Pump and floats",
+    "Check valve",
+    "Alarm and panel",
+    "Lid seal and vent"
+   ]
+  },
+  "sump_pump": {
+   "what": "A sump pump in a basin.",
+   "how": "Water collects, the float starts the pump, it pumps out the discharge.",
+   "checks": [
+    "Float free",
+    "Check valve",
+    "Discharge clear",
+    "Test by filling the pit"
+   ]
+  },
+  "smart_shutoff_valve": {
+   "what": "An automatic (Flo) shutoff valve on the main.",
+   "how": "It watches flow and pressure and closes the valve on a leak or by the app.",
+   "checks": [
+    "Wi Fi and power",
+    "Valve closes on a test",
+    "Leaks at the unions"
+   ]
+  },
+  "flo_shutoff": {
+   "what": "An automatic (Flo) shutoff valve on the main.",
+   "how": "It watches flow and pressure and closes the valve on a leak or by the app.",
+   "checks": [
+    "Wi Fi and power",
+    "Valve closes on a test",
+    "Leaks at the unions"
+   ]
+  },
+  "flo_shutoff_attic": {
+   "what": "An automatic (Flo) shutoff valve on the attic cold run.",
+   "how": "It watches flow and pressure and closes on a leak. The brick plugs into the attic receptacle.",
+   "checks": [
+    "Power and Wi Fi",
+    "Test close",
+    "PEX transitions for leaks",
+    "Strapped on its block"
+   ]
+  },
+  "flo_shutoff_wall": {
+   "what": "An automatic (Flo) shutoff valve at the wall.",
+   "how": "It watches flow and pressure and closes on a leak.",
+   "checks": [
+    "Power and Wi Fi",
+    "Test close",
+    "Leaks at the unions"
+   ]
+  },
+  "electric_panel": {
+   "what": "The load centre: the main breaker and the branch breakers.",
+   "how": "The service feeds the main, the bus feeds each breaker, each breaker feeds a circuit. HVAC, water heater and septic have their own.",
+   "checks": [
+    "Breaker sizes match the loads",
+    "No double taps",
+    "Dead front on",
+    "SPD status light",
+    "Torque and heat marks"
+   ]
+  },
+  "whole_house_spd": {
+   "what": "A whole house surge protector in the panel.",
+   "how": "It clamps surges on the bus to ground before they reach the circuits.",
+   "checks": [
+    "Status light green",
+    "Short leads",
+    "Its own breaker"
+   ]
+  },
+  "outlet_surge": {
+   "what": "A surge receptacle at the air pump.",
+   "how": "It clamps surges on that circuit.",
+   "checks": [
+    "Indicator light",
+    "GFCI where required"
+   ]
+  },
+  "hvac_surge": {
+   "what": "A surge protector at the condenser disconnect.",
+   "how": "It clamps surges before the condenser's contactor and board.",
+   "checks": [
+    "Indicator light",
+    "Connections tight"
+   ]
+  },
+  "easystart": {
+   "what": "A soft starter on the condenser.",
+   "how": "It ramps the compressor up instead of slamming it on, cutting the start current.",
+   "checks": [
+    "Wiring per the diagram",
+    "Start current on a meter"
+   ]
+  },
+  "sweet_air": {
+   "what": "A hose bib.",
+   "how": "A valve on the wall with a hose thread. Frost free ones have the seat inside the wall.",
+   "checks": [
+    "Drips at the stem",
+    "Vacuum breaker",
+    "Frost free slope"
+   ]
+  },
+  "water_softener": {
+   "what": "A water softener in the garage: hard water in, soft water out. Resin beads trade their sodium for the calcium and magnesium that scale up heaters and fixtures.",
+   "how": "Water passes down through the resin bed and up the riser tube. When the meter says the bed is spent the valve backwashes, draws brine from the salt tank through the resin to recharge it, rinses, and refills the brine tank. The bypass valve takes it out of the line for service.",
+   "checks": [
+    "Bypass levers in SERVICE, not bypass",
+    "Salt level and no salt bridge (push a broom handle through the salt)",
+    "Brine float free, brine well clean",
+    "Regen time set at night, hardness set to the test",
+    "Drain line to the standpipe with an air gap, not kinked",
+    "Hardness test at a tap after regen",
+    "Resin age: over ten years and it is tired",
+    "Power to the head, time showing"
+   ]
+  },
+  "pressure_tank": {
+   "what": "The well's pressure tank: a diaphragm tank with air on top and water below, so the pump does not start every time a tap opens.",
+   "how": "The pump fills the tank until the pressure switch opens at cut out (60 psi); the air charge pushes water out as taps run; at cut in (40 psi) the switch starts the pump again.",
+   "checks": [
+    "Air charge 2 psi under cut in with the tank empty",
+    "Switch settings and clean contacts",
+    "Gauge reads and holds",
+    "No short cycling (a waterlogged tank starts the pump every few seconds)",
+    "Check valve holds, no backflow",
+    "Drain and gauge fittings dry",
+    "Disconnect labelled, wire size right for the pump"
+   ]
+  },
+  "well_pump": {
+   "what": "A submersible pump down a 6 in cased well, pushing water up the drop pipe and out through the pitless adapter to the house.",
+   "how": "The pressure switch at the tank starts it. Water enters the intake screen, the stages push it up the drop pipe, the check valve above the pump holds the column when it stops. The pitless adapter passes the line through the casing below frost.",
+   "checks": [
+    "Cap sealed and vented, casing 12 in over grade",
+    "Amps against the nameplate",
+    "Drawdown and recovery",
+    "Check valve holds pressure overnight",
+    "Splice and cable condition at the pull",
+    "Grade slopes away from the casing",
+    "Sample for bacteria and hardness"
+   ]
+  },
+  "condensate_pump": {
+   "what": "A small pump that lifts the condensing furnace's water to a drain when there is no gravity path from the closet.",
+   "how": "Condensate runs from the furnace trap into the reservoir; the float lifts and runs the pump up the 3/8 in tube to the drain. The safety switch opens the furnace's call for heat if the reservoir overfills.",
+   "checks": [
+    "Reservoir clean, float free",
+    "Check valve and discharge tube not kinked, routed to a real drain",
+    "Safety switch wired to the furnace and tested",
+    "Cord on its own receptacle",
+    "A test pour: it runs and stops",
+    "No water on the closet floor"
+   ]
+  }
+ }
+}

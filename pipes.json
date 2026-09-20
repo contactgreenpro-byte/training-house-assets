@@ -1,0 +1,346 @@
+{
+  "_about": "Stage 3 pipe layers (2026-09-08). Four GLBs in exports/, one per layer, built by scripts/build_pipes.py to ROUTING_PLAN.html and tied to the placed models. Every node carries extras.layer; a node with extras.config (sewer=city, hvac=gas_pack) is an alternate and stays hidden unless the house config matches. The era switch swaps materials only: replace the material named in 'swap' with the era's colour set. Geometry never changes with era.",
+  "layers": {
+    "pipes_supply": {
+      "file": "exports/pipes_supply.glb",
+      "label": "Water supply",
+      "shown": [
+        "crawl",
+        "attic",
+        "wall_cutaway",
+        "trace_fixture"
+      ],
+      "swap": [
+        "mat_supply",
+        "mat_supply_hot"
+      ]
+    },
+    "pipes_dwv": {
+      "file": "exports/pipes_dwv.glb",
+      "label": "Drain, waste and vent",
+      "shown": [
+        "crawl",
+        "attic",
+        "wall_cutaway"
+      ],
+      "swap": [
+        "mat_dwv"
+      ]
+    },
+    "pipes_gas": {
+      "file": "exports/pipes_gas.glb",
+      "label": "Gas",
+      "shown": [
+        "attic",
+        "appliance_cutaway"
+      ],
+      "swap": [
+        "mat_gas_iron"
+      ]
+    },
+    "pipes_hvac": {
+      "file": "exports/pipes_hvac.glb",
+      "label": "Lineset, condensate and ducts",
+      "shown": [
+        "attic",
+        "closet_cutaway"
+      ],
+      "swap": []
+    },
+    "pipes_alternates": {
+      "file": "exports/pipes_alternates.glb",
+      "label": "Alternates (city sewer, gas pack branch)",
+      "shown": [
+        "config"
+      ],
+      "swap": [
+        "mat_dwv",
+        "mat_gas_iron"
+      ]
+    }
+  },
+  "eras": {
+    "default": {
+      "label": "1990 to 2010, CPVC trunk and branch, PVC DWV",
+      "mat_supply": [
+        0.93,
+        0.86,
+        0.66
+      ],
+      "mat_supply_hot": [
+        0.93,
+        0.86,
+        0.66
+      ],
+      "mat_dwv": [
+        0.94,
+        0.94,
+        0.92
+      ],
+      "mat_gas_iron": [
+        0.14,
+        0.14,
+        0.15
+      ],
+      "joints": "solvent"
+    },
+    "pre1950": {
+      "label": "Before 1950, galvanized supply, cast iron DWV",
+      "mat_supply": [
+        0.55,
+        0.56,
+        0.58
+      ],
+      "mat_supply_hot": [
+        0.55,
+        0.56,
+        0.58
+      ],
+      "mat_dwv": [
+        0.2,
+        0.2,
+        0.22
+      ],
+      "mat_gas_iron": [
+        0.14,
+        0.14,
+        0.15
+      ],
+      "joints": "threaded, hub and spigot with lead"
+    },
+    "1950_1970": {
+      "label": "1950 to 1970, copper supply, cast iron stacks with PVC coming in",
+      "mat_supply": [
+        0.72,
+        0.45,
+        0.22
+      ],
+      "mat_supply_hot": [
+        0.72,
+        0.45,
+        0.22
+      ],
+      "mat_dwv": [
+        0.25,
+        0.25,
+        0.27
+      ],
+      "mat_gas_iron": [
+        0.14,
+        0.14,
+        0.15
+      ],
+      "joints": "sweat, no-hub couplings"
+    },
+    "1970_1990": {
+      "label": "1970 to 1990, copper or grey polybutylene, ABS or PVC",
+      "mat_supply": [
+        0.6,
+        0.6,
+        0.62
+      ],
+      "mat_supply_hot": [
+        0.6,
+        0.6,
+        0.62
+      ],
+      "mat_dwv": [
+        0.12,
+        0.12,
+        0.12
+      ],
+      "mat_gas_iron": [
+        0.14,
+        0.14,
+        0.15
+      ],
+      "joints": "acetal crimp (polybutylene), solvent"
+    },
+    "2010_now": {
+      "label": "2010 to now, PEX on a manifold or trunk and branch, PVC, CSST",
+      "mat_supply": [
+        0.25,
+        0.45,
+        0.85
+      ],
+      "mat_supply_hot": [
+        0.85,
+        0.2,
+        0.15
+      ],
+      "mat_dwv": [
+        0.94,
+        0.94,
+        0.92
+      ],
+      "mat_gas_iron": [
+        0.85,
+        0.75,
+        0.25
+      ],
+      "joints": "crimp or expansion rings, solvent, CSST bonded"
+    }
+  },
+  "labels": {
+    "pipe_supply_service": "1 in poly service from the street meter to the filter box",
+    "pipe_supply_house_line": "1 in PVC from the filter at the road to the house, through the front stem wall",
+    "valve_supply_shutoff": "Main shutoff, ball valve in the crawl",
+    "valve_supply_prv": "Pressure reducing valve",
+    "pipe_supply_cold_trunk": "3/4 in CPVC cold trunk under the hall",
+    "pipe_supply_cold_riser": "3/4 in cold over the attic to the attic water heater (attic layout)",
+    "valve_supply_wh_cold": "Water heater cold shutoff",
+    "pipe_supply_hot_trunk": "3/4 in CPVC hot trunk in the crawl beside the cold trunk (every fixture's hot comes up from under the house)",
+    "pipe_supply_tp_discharge": "3/4 in T&P discharge out the west eave, 6 in over grade",
+    "pipe_supply_pan_drain": "3/4 in pan drain beside it",
+    "pipe_dwv_building_drain": "3 in building drain under the hall, 1/4 in per foot to the kitchen and out the west stem wall",
+    "pipe_dwv_sewer_septic": "4 in sewer to the aerobic plant inlet",
+    "cleanout_dwv_yard": "Yard cleanout on the sewer",
+    "pipe_dwv_sewer_city": "City sewer alternate, 4 in out the front to the street",
+    "cleanout_dwv_front": "Front yard cleanout (city sewer)",
+    "vent_dwv_hallbath_stack": "2 in hall bath vent up the tub stub wall, through the roof",
+    "vent_dwv_hallbath_vanity": "1-1/2 in vanity vent up the west wall, over the ceiling into the bath vent",
+    "vent_dwv_master_stack": "2 in master stack up the west wall off the toilet branch, through the roof",
+    "vent_dwv_kitchen": "1-1/2 in kitchen vent through the eave",
+    "vent_dwv_laundry": "1-1/2 in laundry vent",
+    "fix_gas_meter": "Gas meter: riser, service regulator, diaphragm meter, outlet to the house",
+    "pipe_gas_riser": "1 in black iron riser",
+    "pipe_gas_main": "3/4 in main across the open attic from the riser in the garage wall to the furnace closet",
+    "pipe_gas_drop_wh": "1/2 in drop to the attic water heater",
+    "pipe_gas_drop_range": "1/2 in drop down the kitchen wall to the range",
+    "pipe_gas_drop_dryer": "1/2 in drop to the dryer",
+    "pipe_gas_branch_package": "3/4 in branch to the package unit pad (gas pack alternate)",
+    "pipe_hvac_lineset_suction": "3/4 in insulated suction line, condenser to the coil, down through the closet ceiling onto the coil's own line",
+    "pipe_hvac_lineset_liquid": "3/8 in liquid line alongside the suction, its own drop onto the coil's liquid line",
+    "sleeve_hvac_wall": "Lineset wall sleeve (PVC, sealed at the plate)",
+    "cover_hvac_line_hide": "Line hide over the exposed lineset, service valves to the wall penetration (round 54)",
+    "cap_hvac_condensate_tee": "Plug in the condensate tee at the coil, out when a condensing furnace drains into it (round 54)",
+    "pipe_hvac_condensate_primary": "3/4 in primary condensate off the coil pan's low port: trap in front of the unit, down through the closet floor, out the west stem wall",
+    "duct_hvac_supply_trunk": "Supply trunk in the attic over the furnace plenum, north and south: 990 CFM for a 2.5 ton system (load calc 21642 Btu/h cooling, 23540 heating)",
+    "duct_hvac_plenum_riser": "Supply plenum up through the closet ceiling onto the trunk",
+    "vent_gas_wh_flue": "3 in B-vent from the draft hood through the roof, storm collar and cap",
+    "pipe_septic_spray_line": "1 in purple PVC from the plant pump discharge to the first head",
+    "pipe_septic_spray_line_2": "Purple line on to the second head",
+    "pipe_septic_spray_line_3": "Branch to the 180 head at the back line",
+    "pipe_septic_air_line": "1/2 in air line from the blower at the house to the plant's diffuser drop",
+    "conduit_septic_pump": "Pump and float conduit from the plant riser to the panel on the house",
+    "cleanout_dwv_drain_end": "End of line cleanout on the building drain past the laundry",
+    "fix_water_meter": "Water meter in its can at the street",
+    "plate_hvac_lineset": "Lineset cover plate on the siding",
+    "fit_tee": "Tee",
+    "fit_coupling": "Coupling",
+    "fit_elbow": "Glued 90",
+    "pipe_supply_cold_chase": "3/4 in cold off the crawl trunk up inside the hall closet's west wall (attic heater)",
+    "pipe_supply_hot_wh_attic": "3/4 in hot out of the attic heater, back to the hall closet's west wall and down it to the crawl",
+    "vent_dwv_hallbath_toilet": "1-1/2 in toilet vent: off the branch at 45 into the ledge wall, up and over to the east wall, over the ceiling into the bath vent",
+    "vent_dwv_master_vanity": "1-1/2 in vanity vent in the wall, into the stack 6 in over the flood rim",
+    "vent_dwv_master_tub": "1-1/2 in tub vent up the valve wall north of the valve, into the stack over the shower arm",
+    "pipe_dwv_master_tub": "1-1/2 in tub drain out of the bottom of the tub's sanitary tee to the building drain",
+    "pipe_dwv_hallbath_tub": "1-1/2 in tub drain out of the tub's tee, under the stub wall, a 1/8 bend onto the building drain",
+    "register_hvac_living_1": "14 x 6 stamped steel three way ceiling register, living room (1 of 2): 118 CFM of the room's 235 (load calc: 5075 Btu/h cooling, 4900 heating)",
+    "boot_hvac_living_1": "Register boot for the living room register, 8 in collar",
+    "boot_hvac_living_1_collar": "8 in boot collar, the flex clamped on it",
+    "flex_hvac_living_1": "8 in insulated flex, trunk to the living room register (118 CFM)",
+    "takeoff_hvac_living_1": "8 in takeoff collar on the supply trunk for the living room",
+    "register_hvac_living_2": "14 x 6 stamped steel three way ceiling register, living room (2 of 2): 118 CFM of the room's 235 (load calc: 5075 Btu/h cooling, 4900 heating)",
+    "boot_hvac_living_2": "Register boot for the living room register, 8 in collar",
+    "boot_hvac_living_2_collar": "8 in boot collar, the flex clamped on it",
+    "flex_hvac_living_2": "8 in insulated flex, trunk to the living room register (118 CFM)",
+    "takeoff_hvac_living_2": "8 in takeoff collar on the supply trunk for the living room",
+    "register_hvac_kitchen_1": "12 x 6 stamped steel three way ceiling register, kitchen (1 of 2): 82 CFM of the room's 165 (load calc: 3469 Btu/h cooling, 2557 heating)",
+    "boot_hvac_kitchen_1": "Register boot for the kitchen register, 7 in collar",
+    "boot_hvac_kitchen_1_collar": "7 in boot collar, the flex clamped on it",
+    "flex_hvac_kitchen_1": "7 in insulated flex, trunk to the kitchen register (82 CFM)",
+    "takeoff_hvac_kitchen_1": "7 in takeoff collar on the supply trunk for the kitchen",
+    "register_hvac_kitchen_2": "12 x 6 stamped steel three way ceiling register, kitchen (2 of 2): 82 CFM of the room's 165 (load calc: 3469 Btu/h cooling, 2557 heating)",
+    "boot_hvac_kitchen_2": "Register boot for the kitchen register, 7 in collar",
+    "boot_hvac_kitchen_2_collar": "7 in boot collar, the flex clamped on it",
+    "flex_hvac_kitchen_2": "7 in insulated flex, trunk to the kitchen register (82 CFM)",
+    "takeoff_hvac_kitchen_2": "7 in takeoff collar on the supply trunk for the kitchen",
+    "register_hvac_bed2_1": "14 x 6 stamped steel three way ceiling register, bedroom 2: 140 CFM of the room's 140 (load calc: 2988 Btu/h cooling, 2989 heating)",
+    "boot_hvac_bed2_1": "Register boot for the bedroom 2 register, 8 in collar",
+    "boot_hvac_bed2_1_collar": "8 in boot collar, the flex clamped on it",
+    "flex_hvac_bed2_1": "8 in insulated flex, trunk to the bedroom 2 register (140 CFM)",
+    "takeoff_hvac_bed2_1": "8 in takeoff collar on the supply trunk for the bedroom 2",
+    "register_hvac_master_1": "10 x 6 stamped steel three way ceiling register, master bedroom (1 of 2): 68 CFM of the room's 135 (load calc: 2841 Btu/h cooling, 2567 heating)",
+    "boot_hvac_master_1": "Register boot for the master bedroom register, 6 in collar",
+    "boot_hvac_master_1_collar": "6 in boot collar, the flex clamped on it",
+    "flex_hvac_master_1": "6 in insulated flex, trunk to the master bedroom register (68 CFM)",
+    "takeoff_hvac_master_1": "6 in takeoff collar on the supply trunk for the master bedroom",
+    "register_hvac_master_2": "10 x 6 stamped steel three way ceiling register, master bedroom (2 of 2): 68 CFM of the room's 135 (load calc: 2841 Btu/h cooling, 2567 heating)",
+    "boot_hvac_master_2": "Register boot for the master bedroom register, 6 in collar",
+    "boot_hvac_master_2_collar": "6 in boot collar, the flex clamped on it",
+    "flex_hvac_master_2": "6 in insulated flex, trunk to the master bedroom register (68 CFM)",
+    "takeoff_hvac_master_2": "6 in takeoff collar on the supply trunk for the master bedroom",
+    "register_hvac_bed3_1": "14 x 6 stamped steel three way ceiling register, bedroom 3: 110 CFM of the room's 110 (load calc: 2324 Btu/h cooling, 1708 heating)",
+    "boot_hvac_bed3_1": "Register boot for the bedroom 3 register, 8 in collar",
+    "boot_hvac_bed3_1_collar": "8 in boot collar, the flex clamped on it",
+    "flex_hvac_bed3_1": "8 in insulated flex, trunk to the bedroom 3 register (110 CFM)",
+    "takeoff_hvac_bed3_1": "8 in takeoff collar on the supply trunk for the bedroom 3",
+    "register_hvac_foyer_1": "10 x 6 stamped steel three way ceiling register, foyer: 55 CFM of the room's 55 (load calc: 1091 Btu/h cooling, 1659 heating)",
+    "boot_hvac_foyer_1": "Register boot for the foyer register, 6 in collar",
+    "boot_hvac_foyer_1_collar": "6 in boot collar, the flex clamped on it",
+    "flex_hvac_foyer_1": "6 in insulated flex, trunk to the foyer register (55 CFM)",
+    "takeoff_hvac_foyer_1": "6 in takeoff collar on the supply trunk for the foyer",
+    "register_hvac_hall_1": "8 x 4 stamped steel three way ceiling register, hall: 45 CFM of the room's 45 (load calc: 929 Btu/h cooling, 1687 heating)",
+    "boot_hvac_hall_1": "Register boot for the hall register, 5 in collar",
+    "boot_hvac_hall_1_collar": "5 in boot collar, the flex clamped on it",
+    "flex_hvac_hall_1": "5 in insulated flex, trunk to the hall register (45 CFM)",
+    "takeoff_hvac_hall_1": "5 in takeoff collar on the supply trunk for the hall",
+    "register_hvac_master_bath_1": "8 x 4 stamped steel three way ceiling register, master bath: 35 CFM of the room's 35 (load calc: 653 Btu/h cooling, 1351 heating)",
+    "boot_hvac_master_bath_1": "Register boot for the master bath register, 5 in collar",
+    "boot_hvac_master_bath_1_collar": "5 in boot collar, the flex clamped on it",
+    "flex_hvac_master_bath_1": "5 in insulated flex, trunk to the master bath register (35 CFM)",
+    "takeoff_hvac_master_bath_1": "5 in takeoff collar on the supply trunk for the master bath",
+    "register_hvac_laundry_1": "8 x 4 stamped steel three way ceiling register, laundry: 30 CFM of the room's 30 (load calc: 615 Btu/h cooling, 487 heating)",
+    "boot_hvac_laundry_1": "Register boot for the laundry register, 5 in collar",
+    "boot_hvac_laundry_1_collar": "5 in boot collar, the flex clamped on it",
+    "flex_hvac_laundry_1": "5 in insulated flex, trunk to the laundry register (30 CFM)",
+    "takeoff_hvac_laundry_1": "5 in takeoff collar on the supply trunk for the laundry",
+    "register_hvac_hall_bath_1": "8 x 4 stamped steel three way ceiling register, hall bath: 20 CFM of the room's 20 (load calc: 392 Btu/h cooling, 801 heating)",
+    "boot_hvac_hall_bath_1": "Register boot for the hall bath register, 5 in collar",
+    "boot_hvac_hall_bath_1_collar": "5 in boot collar, the flex clamped on it",
+    "flex_hvac_hall_bath_1": "5 in insulated flex, trunk to the hall bath register (20 CFM)",
+    "takeoff_hvac_hall_bath_1": "5 in takeoff collar on the supply trunk for the hall bath",
+    "register_hvac_master_closet_1": "8 x 4 stamped steel three way ceiling register, master closet: 20 CFM of the room's 20 (load calc: 371 Btu/h cooling, 783 heating)",
+    "boot_hvac_master_closet_1": "Register boot for the master closet register, 5 in collar",
+    "boot_hvac_master_closet_1_collar": "5 in boot collar, the flex clamped on it",
+    "flex_hvac_master_closet_1": "5 in insulated flex, trunk to the master closet register (20 CFM)",
+    "takeoff_hvac_master_closet_1": "5 in takeoff collar on the supply trunk for the master closet",
+    "grille_return_bed3_room": "14 x 6 return grille in the bedroom 3 ceiling: the jumper back to the hall, so a shut door does not choke the room",
+    "grille_return_bed3_hall": "14 x 6 return grille in the hall ceiling, the other end of the bedroom 3 jumper",
+    "boot_return_bed3_room": "Return boot, bedroom 3 jumper, 10 in collar",
+    "boot_return_bed3_hall": "Return boot, bedroom 3 jumper, 10 in collar",
+    "boot_return_bed3_room_collar": "10 in boot collar",
+    "boot_return_bed3_hall_collar": "10 in boot collar",
+    "flex_return_bed3": "10 in flex return jumper, bedroom 3 to the hall",
+    "grille_return_bed2_room": "14 x 6 return grille in the bedroom 2 ceiling: the jumper back to the hall, so a shut door does not choke the room",
+    "grille_return_bed2_hall": "14 x 6 return grille in the hall ceiling, the other end of the bedroom 2 jumper",
+    "boot_return_bed2_room": "Return boot, bedroom 2 jumper, 10 in collar",
+    "boot_return_bed2_hall": "Return boot, bedroom 2 jumper, 10 in collar",
+    "boot_return_bed2_room_collar": "10 in boot collar",
+    "boot_return_bed2_hall_collar": "10 in boot collar",
+    "flex_return_bed2": "10 in flex return jumper, bedroom 2 to the hall",
+    "grille_return_master_room": "14 x 6 return grille in the master bedroom ceiling: the jumper back to the hall, so a shut door does not choke the room",
+    "grille_return_master_hall": "14 x 6 return grille in the hall ceiling, the other end of the master bedroom jumper",
+    "boot_return_master_room": "Return boot, master bedroom jumper, 10 in collar",
+    "boot_return_master_hall": "Return boot, master bedroom jumper, 10 in collar",
+    "boot_return_master_room_collar": "10 in boot collar",
+    "boot_return_master_hall_collar": "10 in boot collar",
+    "flex_return_master": "10 in flex return jumper, master bedroom to the hall",
+    "vent_gas_furnace_flue": "4 in type B vent from the 80 percent furnace, up in front of its coil and out through the roof, flashing, storm collar and cap",
+    "vent_hvac_cond96_exhaust": "2 in PVC exhaust from the condensing furnace, up in front of its coil and a foot above the intake over the roof",
+    "vent_hvac_cond96_intake": "2 in PVC combustion air intake for the condensing furnace, offset on two 45s, return bend 12 in over the roof",
+    "vent_hvac_cond96_exhaust_flashing": "Roof flashing on the PVC vent",
+    "vent_hvac_cond96_intake_flashing": "Roof flashing on the PVC vent",
+    "vent_hvac_cond96_exhaust_boot": "Rubber boot on the PVC vent flashing",
+    "vent_hvac_cond96_intake_boot": "Rubber boot on the PVC vent flashing",
+    "pipe_hvac_condensate_furnace": "3/4 in drain from the condensing furnace's own trap into the primary condensate",
+    "pipe_gas_drop_furnace": "3/4 in gas off the end of the main, down through the closet ceiling onto the furnace's own drop (shutoff, union, drip leg at the unit)",
+    "pipe_dwv_hallbath_toilet": "3 in closet bend and toilet branch from the ledge wall end of the room to the building drain",
+    "pipe_supply_branch_hallbath_toilet": "1/2 in cold up the toilet's ledge wall to its angle stop",
+    "pipe_supply_cold_wh_closet": "3/4 in cold up the coat closet's north wall and down onto the closet water heater (closet layout)",
+    "pipe_supply_hot_wh_closet": "3/4 in hot off the closet water heater, down the coat closet wall to the crawl hot trunk (closet layout)",
+    "pipe_gas_drop_wh_closet": "1/2 in gas off the attic main down through the coat closet ceiling to the heater (closet layout)",
+    "vent_gas_wh_flue_closet": "3 in B vent from the closet heater's draft hood straight up through the gable (closet layout)"
+  }
+}
