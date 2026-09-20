@@ -1,7 +1,7 @@
 {
- "published": "2026-09-20T07:57:42",
+ "published": "2026-09-20T08:22:13",
  "house": "r61c",
- "note": "round 61: disposal internals, food grinding, pull down stream, moving water in the pipes",
+ "note": "round 62: the toilet's water is one body, the siphon is one column, clean cut faces",
  "files": {
   "app_shell.html": {
    "v": "23e1e6ecd1",
@@ -224,8 +224,8 @@
    "bytes": 2661888
   },
   "placements.json": {
-   "v": "feafc03da5",
-   "bytes": 66405
+   "v": "2e4a06e698",
+   "bytes": 66327
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -320,8 +320,8 @@
    "bytes": 249036
   },
   "toilet.glb": {
-   "v": "00fdeac3ac",
-   "bytes": 999548
+   "v": "f4bf294da8",
+   "bytes": 1260444
   },
   "trampoline.glb": {
    "v": "4ab95d8399",

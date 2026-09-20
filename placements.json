@@ -214,7 +214,6 @@
      "tank_lid": "tank_lid_section",
      "seat": "seat_section",
      "bowl_water": "water_half",
-     "trap_water": "trap_water_half",
      "tank_water": "tank_water_half",
      "trap_flow": "trap_flow_half",
      "rim_flow": "rim_flow_half"
@@ -257,7 +256,6 @@
      "tank_lid": "tank_lid_section",
      "seat": "seat_section",
      "bowl_water": "water_half",
-     "trap_water": "trap_water_half",
      "tank_water": "tank_water_half",
      "trap_flow": "trap_flow_half",
      "rim_flow": "rim_flow_half"
