@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Training House Walk</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0f17; }
+  /* phone controls, added only on a touch screen: the walk page itself has none */
+  /* Round 60 (Jake, after the landscape mockup: "I think it's too much... the walk and turn in the bottom right corner, and the
+     stand right above it, and then just have those controls across the top that pop up"): everything a thumb works to MOVE is in
+     ONE corner and the rest of the picture is clear. That corner is bottom LEFT: built bottom right first, from what he said, and
+     corrected the same day ("the navigation and the stand are on the right-hand side, not the left-hand side"). The walk page's
+     Toolbox button and the meter's buttons have the bottom right. */
+  /* Round 60 (Jake, once it was in his hand: "on the D-pad we just need forward and back, that's all we need, we don't need side
+     to side... that'll make the D a little bit smaller, just have the slider say forward, back, and then we turn, which is nice
+     and sensitive, with ourselves"). The round pad is a short upright slider that springs back to the middle: up walks forward,
+     down walks back, the ends run. Turning and looking are a finger on the view and nothing else; two fingers pinch to zoom. */
+  #stick { position: fixed; left: 18px; bottom: 18px; width: 64px; height: 132px; border-radius: 32px;
+           background: rgba(20,22,25,.45); border: 1px solid rgba(255,255,255,.18); z-index: 40; touch-action: none; }
+  #knob { position: absolute; left: 12px; top: 46px; width: 40px; height: 40px; border-radius: 50%;
+          background: rgba(245,182,45,.85); pointer-events: none; }
+  #stick span { position: absolute; left: 0; right: 0; text-align: center; font: 700 10px/1 system-ui, sans-serif; color: rgba(255,255,255,.75);
+                pointer-events: none; text-shadow: 0 1px 2px #000; }
+  #stick span.f { top: 8px; } #stick span.b { bottom: 8px; }
+  /* the height slider does the Crouch button's job in the app */
+  #crouch { display: none !important; }
+
+  /* the setup screen: pick the house while it is being built behind it */
+  #setup { position: fixed; inset: 0; z-index: 60; background: #0b0f17; color: #e5e7eb; overflow-y: auto;
+           font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  #setup .wrap { max-width: 720px; margin: 0 auto; padding: 28px 16px 40px; }
+  #setup h1 { margin: 0; font-size: 22px; letter-spacing: .02em; color: #f8fafc; }
+  #setup .sub { margin: 4px 0 0; color: #94a3b8; font-size: 13px; }
+  #setup .build { margin-top: 18px; background: #111827; border: 1px solid #1f2937; border-radius: 10px; padding: 12px 14px; }
+  #setup .build span { color: #cbd5e1; font-size: 13px; }
+  #setup .build.ready span { color: #f5b62d; font-weight: 600; }
+  #setup .bar { position: relative; height: 6px; border-radius: 3px; background: #1f2937; overflow: hidden; margin-top: 8px; }
+  #setup .bar i { position: absolute; top: 0; bottom: 0; width: 30%; background: #f5b62d; border-radius: 3px;
+                  animation: slide 1.3s ease-in-out infinite; }
+  #setup .build.ready .bar i { width: 100%; animation: none; left: 0; }
+  @keyframes slide { 0% { left: -30%; } 100% { left: 100%; } }
+  #setup h2 { margin: 22px 0 8px; font-size: 13px; color: #94a3b8; text-transform: uppercase; letter-spacing: .08em; }
+  #setup .presets { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+  #setup .presets button { background: #111827; color: #e5e7eb; border: 1px solid #334155; border-radius: 8px;
+                           padding: 10px 12px; font: inherit; cursor: pointer; text-align: left; }
+  #setup .presets button.on { border-color: #f5b62d; background: #1f1a0b; }
+  #setup .presets button small { display: block; color: #94a3b8; font-size: 12px; }
+  #setup details { border: 1px solid #1f2937; border-radius: 8px; margin-top: 8px; background: #0f1623; }
+  #setup summary { cursor: pointer; padding: 10px 12px; color: #e5e7eb; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+  #setup summary::-webkit-details-marker { display: none; }
+  #setup summary em { font-style: normal; color: #94a3b8; font-size: 12px; text-align: right; }
+  #setup details .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px 14px; padding: 0 12px 12px; }
+  #setup label { display: block; font-size: 12px; color: #94a3b8; }
+  #setup select { width: 100%; margin-top: 4px; background: #111827; color: #f8fafc; border: 1px solid #334155;
+                  border-radius: 7px; padding: 8px; font: inherit; }
+  /* pinned to the bottom of the screen: sideways on a phone the button was a scroll away, under the details */
+  #setup .go { margin-top: 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; position: sticky; bottom: 0; background: #0b0f17; padding: 10px 0 12px; border-top: 1px solid #1f2937; }
+  #setup .go button { background: #f5b62d; color: #111; border: 0; border-radius: 8px; padding: 12px 22px;
+                      font: 600 15px system-ui, sans-serif; cursor: pointer; }
+  #setup .go button:disabled { opacity: .45; cursor: default; }
+  #setup .note { color: #94a3b8; font-size: 12px; }
+  #setup .err { color: #fca5a5; }
+  /* Round 60: the eye height slider, directly above the thumb stick. Top is standing, bottom is crawling. */
+  #eyebar { position: fixed; left: 27px; bottom: 162px; width: 46px; height: clamp(110px, calc(100vh - 232px), 260px); z-index: 40;
+            touch-action: none; user-select: none; -webkit-user-select: none; cursor: ns-resize; }
+  /* the track stops 36 px short at each end: the knob is 38 px across and parked on top of the word Stand (Jake: "I can't see the
+     stand button"), so the two words get room of their own beyond the knob's travel */
+  #eyebar .track { position: absolute; left: 50%; top: 36px; bottom: 36px; width: 8px; margin-left: -4px; border-radius: 4px;
+                   background: rgba(20,22,25,.55); border: 1px solid rgba(255,255,255,.22); }
+  #eyebar .fill { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 4px; background: rgba(245,182,45,.75); }
+  #eyebar .thumb { position: absolute; left: 50%; width: 38px; height: 38px; margin: -19px 0 0 -19px; border-radius: 50%;
+                   background: rgba(245,182,45,.95); border: 2px solid rgba(20,22,25,.8); box-shadow: 0 2px 6px rgba(0,0,0,.45);
+                   color: #1a1a1a; font: 700 11px/34px system-ui, sans-serif; text-align: center; }
+  #eyebar .end { position: absolute; left: -12px; right: -12px; text-align: center; font: 700 11px/1 system-ui, sans-serif;
+                 color: rgba(255,255,255,.8); text-shadow: 0 1px 2px #000; pointer-events: none; }
+  #eyebar .end.top { top: 0; } #eyebar .end.bot { bottom: 0; }
+  /* the walk page's unit strip runs across the top; in the app the ASSETS link sits in the top right corner over this frame,
+     so the strip stops short of it */
+  @media (max-width: 920px), (max-height: 480px) { #info { right: 104px !important; } }
+  /* the Training House panel opens down the left side, over this corner: while it is open the stick and the slider step aside */
+  body:has(#help[open]) #stick, body:has(#help[open]) #eyebar { display: none; }
+  /* Sideways only (Jake: "what if this was a landscape only app?"). A web page cannot turn an iPhone, so held upright on a
+     touch screen it asks; on Android the Enter button also asks the browser to lock it (see lockLandscape). */
+  #rotate { display: none; position: fixed; inset: 0; z-index: 70; background: #0b0f17; color: #e5e7eb; align-items: center; justify-content: center;
+            flex-direction: column; gap: 14px; text-align: center; padding: 24px; font: 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  #rotate .ph { width: 54px; height: 96px; border: 3px solid #f5b62d; border-radius: 10px; animation: turn 2.2s ease-in-out infinite; }
+  @keyframes turn { 0%, 25% { transform: rotate(0deg); } 60%, 100% { transform: rotate(90deg); } }
+  @media (orientation: portrait) and (pointer: coarse) { body.inhouse #rotate { display: flex; } }
+</style>
+</head>
+<body>
+<div id="rotate"><div class="ph"></div><div>Turn your phone sideways</div></div>
+<div id="setup">
+  <div class="wrap">
+    <h1>Training House</h1>
+    <p class="sub">Pick the house you want to work in while it is being built.</p>
+    <div class="build" id="build">
+      <span id="bstatus">Building the house...</span>
+      <div class="bar"><i></i></div>
+    </div>
+    <h2>Start from</h2>
+    <div class="presets" id="presets"></div>
+    <h2>Change the details</h2>
+    <div id="choices"><span class="note">The details appear as soon as the house page is up.</span></div>
+    <div class="go">
+      <button id="enter" disabled>Enter the house</button>
+      <span class="note" id="enternote"></span>
+    </div>
+    <p class="note" id="ver" style="margin-top:18px;opacity:.7"></p>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<!-- Round 60: the uploads are meshopt compressed (tools/gltf_pack/compress_walk_glbs.mjs); walk.js hands this decoder to its loader -->
+<script src="https://cdn.jsdelivr.net/npm/meshoptimizer@0.18.1/meshopt_decoder.js"></script>
+<!-- the version tag makes a browser that cached an older shim fetch this one: a new page next to an old shim is what
+     broke the first setup screen ("Cannot read properties of undefined (reading 'started')"). Bump it whenever the
+     shim changes. -->
+<script src="asset-shim.js?v=59d"></script>
+<script>
+// Round 59. The app runs Jake's walk page itself: the index.html and walk.js he uploads next to the models, unchanged.
+// Every rule built into it over the rounds (door swing sides, riser lids, clips, the fixture lights, the work views) comes
+// with it, because it is the same code. This page does only what the walk page cannot do for itself inside the app:
+//   1. waits for the app to hand over the file map (name -> uploaded URL), which asset-shim.js resolves every load against
+//   2. puts the uploaded index.html's styles and markup in place, then runs the uploaded walk.js
+//   3. the setup screen (Jake: "a loading screen... a screen where they select what type of house before they go into
+//      it... presets... that gives us time to load while they're sitting there selecting"). The house is built behind
+//      it from the moment the page opens, and it is built in the layout it will be entered in: the starting layout is
+//      handed to walk.js before it runs, so nothing has to be rebuilt on the way in unless the details are changed.
+//   4. the gloved hands, hung on the walk page's camera
+//   5. on a phone, a thumb stick and touch look, which the walk page does not have
+// To update the house after a round: upload the new walk.js and index.html on the Assets page. Nothing here changes.
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var setupEl = $('setup');
+  function say(t, err) { $('bstatus').textContent = t; $('bstatus').className = err ? 'err' : ''; }
+
+  // The app's house, which is not quite the walk page's own starting layout. Jake, 2026-09-19: "city sewer gravity as
+  // default, and water softener no as default". Everything not named here is the walk page's own default.
+  var APP_DEFAULTS = { sewer: 'city_gravity', softener: 'no' };
+
+  function text(url) {
+    return window.__realFetch(url).then(function (r) {
+      if (!r.ok) throw new Error(r.status + ' for ' + url);
+      return r.text();
+    });
+  }
+
+  // the walk page's own look and markup, without its script tags: this page loads the scripts itself, in order
+  // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
+  // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
+  // the house version is read off the uploaded index.html's own walk.js tag.
+  var SHELL = '60k';
+  function showVersion(html) {
+    var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
+    $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
+  }
+  function mountPage(html) {
+    showVersion(html);
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    doc.querySelectorAll('head style, head link[rel="stylesheet"]').forEach(function (n) {
+      document.head.appendChild(document.importNode(n, true));
+    });
+    Array.prototype.slice.call(doc.body.childNodes).forEach(function (n) {
+      if (n.nodeType === 1 && n.tagName === 'SCRIPT') return;
+      document.body.insertBefore(document.importNode(n, true), setupEl);
+    });
+  }
+
+  // Two small additions to the walk page's text as it is loaded; walk.js itself is not edited.
+  //   After `const CONFIG = {...};`: remember the walk page's own defaults, then apply the starting layout, so the house
+  //   is BUILT in it rather than built one way and rebuilt on the way in.
+  //   After `window.walk = {`: CONFIG, CONFIG_CHOICES and reconfigure, so the details can be changed through the walk
+  //   page's own layout switch, the same one its Layers tab uses.
+  // If either anchor ever changes, that part simply does not happen and the house opens as the walk page builds it.
+  function expose(code) {
+    var out = { code: code, ok: false };
+    var c0 = code.indexOf('const CONFIG = {');
+    var c1 = c0 < 0 ? -1 : code.indexOf('};', c0);
+    if (c1 > 0) {
+      c1 += 2;
+      out.code = out.code.slice(0, c1) + ' window.__walkBase = Object.assign({}, CONFIG); Object.assign(CONFIG, window.__WALK_START || {});' + out.code.slice(c1);
+    }
+    var at = out.code.indexOf('window.walk = {');
+    if (at >= 0) {
+      var cut = at + 'window.walk = {'.length;
+      out.code = out.code.slice(0, cut) + ' CONFIG, CONFIG_CHOICES, reconfigure,' + out.code.slice(cut);
+      out.ok = true;
+    }
+    return out;
+  }
+
+  // Run walk.js from its text. An uploaded file is served as application/octet-stream, and a browser with strict MIME
+  // checking refuses to execute that from a script tag; a blob typed as JavaScript it runs.
+  function runScript(code) {
+    return new Promise(function (res, rej) {
+      var s = document.createElement('script');
+      s.src = URL.createObjectURL(new Blob([code], { type: 'text/javascript' }));
+      s.onload = res;
+      s.onerror = function () { rej(new Error('walk.js failed to run')); };
+      document.body.appendChild(s);
+    });
+  }
+
+  function start(map) {
+    if (window.__ASSETS) return;
+    window.__ASSETS = map;
+    window.__patchWalkLoader();
+    if (!map['walk.js'] || !map['index.html']) {
+      say('The walk page files are not uploaded yet. On the Assets page, upload walk.js and index.html from ' +
+          'equipment-models\\electric_tank_water_heater\\viewer\\house', true);
+      return;
+    }
+    // build in the last layout this person entered, or the app's default house
+    var last = remembered();
+    window.__WALK_START = Object.assign({}, APP_DEFAULTS, (last && last.set) || {});
+    text(map['index.html'])
+      .then(function (html) { mountPage(html); return text(map['walk.js']); })
+      .then(function (code) { var x = expose(code); canSet = x.ok; return runScript(x.code); })
+      .then(function () { buildChoices(); watch(); })
+      .catch(function (e) { say('Could not start the house: ' + e.message, true); });
+  }
+
+  window.addEventListener('message', function (e) {
+    if (e.origin !== location.origin) return;
+    if (e.data && e.data.type === 'house-assets') { window.__HOUSE_SOURCE = e.data.source || ''; start(e.data.map); }
+  });
+  if (window.parent !== window) window.parent.postMessage({ type: 'house-ready' }, location.origin);
+  else say('Open this from the app, which hands it the uploaded files.', true);
+
+  // ------------------------------------------------------------------ the setup screen
+  var canSet = false, picked = {}, currentPreset = null, BASE = null;
+
+  var KEY_LABEL = {
+    water_heater: 'Water heater', hvac: 'Heating and cooling', sewer: 'Sewer', water: 'Water supply',
+    softener: 'Water softener', filter: 'Spray pump filter', thermostat: 'Thermostat', plumbing: 'Supply pipe',
+    gas: 'Gas', fault: 'Fault to find',
+  };
+  var VAL_LABEL = {
+    attic_gas_tank: 'Gas tank in the attic', closet_gas_tank: 'Gas tank in a closet',
+    attic_electric_tank: 'Electric tank in the attic', closet_electric_tank: 'Electric tank in a closet',
+    garage_tankless: 'Gas tankless in the garage', garage_hybrid: 'Hybrid heat pump tank in the garage',
+    garage_electric_tankless: 'Electric tankless in the garage',
+    split_furnace: 'Gas furnace and AC (80%)', split_furnace_cond96: 'Condensing furnace and AC (96%)',
+    heatpump_attic: 'Heat pump, air handler in the attic', gas_pack: 'Gas pack outside',
+    septic_spray: 'Septic, spray field', septic_spray_two_tank: 'Septic, spray field, two tanks',
+    septic_gravity: 'Septic, gravity field', septic_overland: 'Septic, overland discharge',
+    septic_overland_lee: 'Septic, Lee overland', septic_overland_aquaklear: 'Septic, AquaKlear overland',
+    city_lift: 'City sewer with a lift station', city_gravity: 'City sewer, gravity',
+    city_filter: 'City water', well: 'Well with a pressure tank',
+    yes: 'Yes', no: 'No', programmable: 'Programmable', smart_ecobee: 'ecobee', smart_nest: 'Nest',
+    cpvc: 'CPVC', pex: 'PEX', galvanized: 'Galvanized', natural: 'Natural gas', propane: 'Propane tank',
+    none: 'None', belly: 'Belly in the sewer line',
+  };
+  function nice(v) { return VAL_LABEL[v] || String(v).replace(/_/g, ' '); }
+
+  // The details, folded away by subject (Jake: "a bunch of questions most people wouldn't care about until they get
+  // there... only have like an HVAC section, as if they open HVAC"). Anything the walk page offers that is not listed
+  // here lands in Other, so a layout added in a future round still shows up.
+  var GROUPS = [
+    { name: 'Heating and cooling', keys: ['hvac', 'thermostat'] },
+    { name: 'Water heater', keys: ['water_heater'] },
+    { name: 'Water and sewer', keys: ['sewer', 'water', 'softener', 'filter'] },
+    { name: 'Piping and gas', keys: ['plumbing', 'gas'] },
+    { name: 'Training', keys: ['fault'] },
+  ];
+
+  // Starting points. A preset starts from the app's default house and changes only what it names; a value the walk
+  // page no longer offers is dropped, not forced, so these cannot break it.
+  var PRESETS = [
+    { id: 'default', name: 'Standard house', blurb: 'City sewer and city water, gas furnace', set: {} },
+    { id: 'country', name: 'Country house', blurb: 'Well and septic spray field, propane',
+      set: { sewer: 'septic_spray', water: 'well', gas: 'propane' } },
+    { id: 'lift', name: 'City with a lift station', blurb: 'City sewer through a lift station', set: { sewer: 'city_lift' } },
+    { id: 'electric', name: 'All electric', blurb: 'Heat pump and an electric water heater',
+      set: { hvac: 'heatpump_attic', water_heater: 'attic_electric_tank' } },
+  ];
+
+  function remembered() { try { return JSON.parse(localStorage.getItem('house-layout') || 'null'); } catch (e) { return null; } }
+  function remember(v) { try { localStorage.setItem('house-layout', JSON.stringify(v)); } catch (e) { /* private window */ } }
+
+  function valid(k, v) { var W = window.walk; return !!(W.CONFIG_CHOICES[k] && W.CONFIG_CHOICES[k].indexOf(v) >= 0); }
+
+  function buildChoices() {
+    var W = window.walk;
+    var host = $('choices');
+    host.innerHTML = '';
+    if (!W || !W.CONFIG_CHOICES) {
+      host.innerHTML = '<span class="note">This version of the walk page cannot be set up from here, so it opens as built.</span>';
+      $('presets').innerHTML = '';
+      return;
+    }
+    // the app's default house: the walk page's own defaults with the app's changes over them
+    BASE = Object.assign({}, window.__walkBase || W.CONFIG);
+    Object.keys(APP_DEFAULTS).forEach(function (k) { if (valid(k, APP_DEFAULTS[k])) BASE[k] = APP_DEFAULTS[k]; });
+    // what the house is being built as right now; a remembered value the walk page no longer offers goes back to BASE
+    Object.keys(W.CONFIG_CHOICES).forEach(function (k) { picked[k] = valid(k, W.CONFIG[k]) ? W.CONFIG[k] : BASE[k]; });
+
+    var keys = Object.keys(W.CONFIG_CHOICES), used = {};
+    var groups = GROUPS.map(function (g) {
+      var ks = g.keys.filter(function (k) { return W.CONFIG_CHOICES[k]; });
+      ks.forEach(function (k) { used[k] = true; });
+      return { name: g.name, keys: ks };
+    });
+    var other = keys.filter(function (k) { return !used[k]; });
+    if (other.length) groups.push({ name: 'Other', keys: other });
+    groups.forEach(function (g) {
+      if (!g.keys.length) return;
+      var d = document.createElement('details');
+      var s = document.createElement('summary');
+      s.innerHTML = '<span>' + g.name + '</span><em></em>';
+      d.appendChild(s);
+      var grid = document.createElement('div'); grid.className = 'grid';
+      g.keys.forEach(function (k) {
+        var lab = document.createElement('label');
+        lab.textContent = KEY_LABEL[k] || k.replace(/_/g, ' ');
+        var sel = document.createElement('select');
+        sel.dataset.key = k;
+        W.CONFIG_CHOICES[k].forEach(function (v) {
+          var o = document.createElement('option'); o.value = v; o.textContent = nice(v); sel.appendChild(o);
+        });
+        sel.value = picked[k];
+        sel.onchange = function () { picked[k] = sel.value; markPreset(matchPreset()); summarize(); };
+        lab.appendChild(sel);
+        grid.appendChild(lab);
+      });
+      d.appendChild(grid);
+      d.dataset.keys = g.keys.join(',');
+      host.appendChild(d);
+    });
+
+    var pr = $('presets');
+    pr.innerHTML = '';
+    PRESETS.forEach(function (p) {
+      var b = document.createElement('button');
+      b.dataset.id = p.id;
+      b.innerHTML = p.name + '<small>' + p.blurb + '</small>';
+      b.onclick = function () { applyPreset(p); };
+      pr.appendChild(b);
+    });
+    markPreset(matchPreset());
+    summarize();
+  }
+
+  // each folded group says what is in it, so the screen reads right without opening anything
+  function summarize() {
+    document.querySelectorAll('#choices details').forEach(function (d) {
+      // a yes or no says what it is about: "no water softener", not a bare "No"
+      var t = d.dataset.keys.split(',').map(function (k) {
+        var v = picked[k], lab = (KEY_LABEL[k] || k.replace(/_/g, ' ')).toLowerCase();
+        if (v === 'yes') return lab;
+        if (v === 'no') return 'no ' + lab;
+        return nice(v);
+      }).join(', ');
+      d.querySelector('summary em').textContent = t;
+    });
+  }
+  function presetSet(p) {
+    var W = window.walk, set = {};
+    Object.keys(W.CONFIG_CHOICES).forEach(function (k) { set[k] = BASE[k]; });
+    Object.keys(p.set).forEach(function (k) { if (valid(k, p.set[k])) set[k] = p.set[k]; });
+    return set;
+  }
+  function matchPreset() {
+    for (var i = 0; i < PRESETS.length; i++) {
+      var s = presetSet(PRESETS[i]), same = true;
+      for (var k in s) if (s[k] !== picked[k]) { same = false; break; }
+      if (same) return PRESETS[i].id;
+    }
+    return null;
+  }
+  function applyPreset(p) {
+    picked = presetSet(p);
+    document.querySelectorAll('#choices select').forEach(function (sel) { sel.value = picked[sel.dataset.key]; });
+    markPreset(p.id);
+    summarize();
+  }
+  function markPreset(id) {
+    currentPreset = id;
+    document.querySelectorAll('#presets button').forEach(function (b) { b.classList.toggle('on', b.dataset.id === id); });
+  }
+
+  // Round 60 (Jake, on his phone: a minute and a half on "Building the house"): the door opens as soon as there is a house to
+  // stand in. walk.js sets __walkCanEnter once the shell of the house is up and its frame loop is running; the furniture, the
+  // pipes and the equipment keep arriving behind you. An older walk.js never sets it, and then this waits for 'ready' as before.
+  // Changing the layout on the way in still waits for everything: walk.js's reconfigure() holds until its start up is done.
+  function isReady() {
+    var st = document.getElementById('status');
+    return !!(window.walk && (window.__walkCanEnter || (st && /^ready/.test(st.textContent))));
+  }
+
+  // Jake: "I don't think you should do all the different pieces. Just a loading, and once they've made their changes
+  // it says House is ready, and then you just click to enter the house."
+  function watch() {
+    (function tick() {
+      if (!isReady()) { setTimeout(tick, 300); return; }
+      say('House is ready');
+      $('build').classList.add('ready');
+      $('enter').disabled = false;
+    })();
+  }
+
+  // Round 60 (Jake: "we need to basically have a section that says house layout, and that's where they can go in and select all kinds
+  // of stuff. But even in there the different selections is very hard to see... put the full house build on its own"). The
+  // setup screen IS that page: the presets up front, the details folded by subject, big enough to read. It is no longer thrown
+  // away on the way in. The walk page's small Layout tab is renamed House layout and opens this screen instead of its row of
+  // little dropdowns; it shows what the house is built as now, and "Back to the house" applies what was changed.
+  var inHouse = false;
+  function openLayout() {
+    var W = window.walk; if (!W || !W.CONFIG_CHOICES) return;
+    Object.keys(W.CONFIG_CHOICES).forEach(function (k) { picked[k] = valid(k, W.CONFIG[k]) ? W.CONFIG[k] : BASE[k]; });
+    document.querySelectorAll('#choices select').forEach(function (sel) { sel.value = picked[sel.dataset.key]; });
+    markPreset(matchPreset()); summarize();
+    setupEl.querySelector('h1').textContent = 'House layout';
+    setupEl.querySelector('.sub').textContent = 'Pick a house to start from, or open a section and change one thing. The house is rebuilt when you go back.';
+    $('build').style.display = 'none'; $('enternote').textContent = '';
+    $('enter').textContent = 'Back to the house'; $('enter').disabled = false;
+    var help = document.getElementById('help'); if (help) help.open = false;
+    setupEl.style.display = ''; setupEl.scrollTop = 0;
+  }
+  window.__openHouseLayout = openLayout;
+  function hookLayoutTab() {
+    var tab = document.querySelector('[data-tab="layout"]'); if (!tab || tab.__hooked) return;
+    tab.__hooked = true; tab.textContent = 'House layout';
+    // capture, so the walk page's own tab switch never runs for this one
+    tab.addEventListener('click', function (e) { e.stopImmediatePropagation(); e.preventDefault(); openLayout(); }, true);
+  }
+
+  $('enter').onclick = function () {
+    if (!isReady()) return;
+    $('enter').disabled = true;
+    var W = window.walk;
+    var change = {};
+    if (canSet && W.CONFIG) Object.keys(picked).forEach(function (k) { if (W.CONFIG[k] !== picked[k]) change[k] = picked[k]; });
+    remember({ preset: currentPreset, set: picked });
+    if (!inHouse) lockLandscape();
+    var go = function () {
+      setupEl.style.display = 'none';
+      if (inHouse) return;
+      inHouse = true;
+      document.body.classList.add('inhouse');
+      addGloves();
+      addTouch();
+      addEyeSlider();
+      hookLayoutTab();
+    };
+    if (!Object.keys(change).length) return go();
+    $('enternote').textContent = 'Setting up your layout...';
+    Object.assign(W.CONFIG, change);
+    // keep the walk page's own Layers tab showing the same thing
+    document.querySelectorAll('#layout select').forEach(function (sel) { if (change[sel.title] !== undefined) sel.value = change[sel.title]; });
+    Promise.resolve(W.reconfigure()).then(go, function (e) { $('enternote').textContent = 'Could not set that up: ' + e.message; go(); });
+  };
+
+  // Sideways. Called straight from the Enter tap, because a browser only allows full screen and an orientation lock from a
+  // person's own gesture. Android Chrome does both. An iPhone does neither from a web page, and nothing here throws: the
+  // "Turn your phone sideways" screen above covers that case. A desktop has no touch screen and is left alone.
+  function lockLandscape() {
+    if (!('ontouchstart' in window)) return;
+    try {
+      var el = document.documentElement, fs = el.requestFullscreen || el.webkitRequestFullscreen;
+      var p = fs ? fs.call(el) : null;
+      var lock = function () { try { var o = screen.orientation; if (o && o.lock) o.lock('landscape').catch(function () {}); } catch (e) {} };
+      if (p && p.then) p.then(lock, lock); else lock();
+    } catch (e) { /* not allowed here: the rotate screen still asks */ }
+  }
+
+  // ------------------------------------------------------------------ the gloved hands
+  // They were in the app's old engine; the walk page never had them. Built in camera space already posed
+  // (hand_tools/scripts/build_gloves.py), so they hang on the camera at the origin. Off whenever the walk page puts
+  // something else in your hands or takes you out of your own eyes: a meter, the pliers, a held part, the ball.
+  function addGloves() {
+    var W = window.walk;
+    if (!window.__ASSETS['gloves.glb'] || !W.camera) return;
+    // this loader is the shell's own, not walk.js's, so it needs the decoder handed to it as well: without it the compressed
+    // gloves.glb failed without a word and there were no hands at all (caught in the phone test, round 60)
+    var GL = new THREE.GLTFLoader(); if (window.MeshoptDecoder && GL.setMeshoptDecoder) GL.setMeshoptDecoder(window.MeshoptDecoder);
+    GL.load('gloves.glb', function (g) {
+      var hands = g.scene;
+      hands.traverse(function (o) { if (o.isMesh) { o.frustumCulled = false; o.renderOrder = 10; } });
+      W.camera.add(hands);
+      if (!W.camera.parent) W.scene.add(W.camera);
+      // Round 60 (Jake, on his phone: "I can barely see the gloves"). They were posed for a wide window: 17 cm either side of
+      // centre, fingertips about 44 cm out. A phone held upright sees only 14 cm to each side at that distance, so all that
+      // showed was a 3 cm sliver of each hand. They are fitted to the shape of the screen now: on a narrow one they come in
+      // toward the middle and move a little further off, which makes them smaller, so both fit side by side. On a wide
+      // screen (anything over about 0.7 wide to 1 tall) they sit exactly where they were built.
+      var L = hands.getObjectByName('glove_left'), R = hands.getObjectByName('glove_right');
+      if (L && R) {
+        var base = { x: Math.abs(R.position.x), y: R.position.y, z: R.position.z }, lastA = 0;
+        var fit = function () {
+          var a = W.camera.aspect; if (!(a > 0) || Math.abs(a - lastA) < 0.01) return; lastA = a;
+          var k = Math.tan((W.camera.fov || 70) * Math.PI / 360) * 0.34;     // half the view's height at the middle of the hand
+          var m = Math.max(1, Math.min(1.8, 0.165 / (k * a)));              // further off until 16.5 cm of half width is in view
+          var x = Math.max(0.07, Math.min(base.x * m, 0.5 * k * m * a));
+          L.position.set(-x, base.y * m, base.z * m); R.position.set(x, base.y * m, base.z * m);
+        };
+        fit(); window.addEventListener('resize', fit); setInterval(fit, 700);
+      }
+      var busy = function () {
+        try { return !!(W.held() || W.meter() || W.pliers() || W.ball()); } catch (e) { return false; }
+      };
+      (function loop() { hands.visible = !busy(); requestAnimationFrame(loop); })();
+    }, undefined, function () { /* no gloves uploaded: carry on without them */ });
+  }
+
+  // ------------------------------------------------------------------ phone controls
+  // The walk page reads keys off the document and looks by dragging the mouse on its canvas, deciding a click on mouse
+  // up if the pointer barely moved. So the stick presses W A S D (and Shift when pushed to the rim), and a finger on the
+  // view is turned into the same mouse down, move and up the walk page already understands. A tap is therefore a click.
+  // ------------------------------------------------------------------------------------------ the eye height slider
+  // Round 60, Jake on his phone: "we need a crouch button, like an adjustable one... a slider over to the side. All the way up is
+  // standing, all the way down is crawling. They can adjust that position all they want to."
+  // The walk page has only a Crouch button a phone cannot hold down, so the height comes from here. It drives walk.js's own
+  // setEye(), which sets the stance with the height (at the bottom you really are crawling: short step, half pace, through the
+  // crawl door), and it follows the walk page when the height changes some other way (the C key, or being taken to a unit).
+  // Pointer events, so a mouse works it the same as a thumb. An older walk.js has no setEye and then there is no slider.
+  function addEyeSlider() {
+    var W = window.walk; if (!W || !W.setEye || document.getElementById('eyebar')) return;
+    var lo = W.eyeRange[0], hi = W.eyeRange[1];
+    var bar = document.createElement('div'); bar.id = 'eyebar';
+    bar.innerHTML = '<div class="end top">Stand</div><div class="track"><div class="fill"></div></div><div class="thumb"></div><div class="end bot">Crawl</div>';
+    document.body.appendChild(bar);
+    var track = bar.querySelector('.track'), fill = bar.querySelector('.fill'), thumb = bar.querySelector('.thumb'), dragging = false;
+    function show(h) {
+      var t = Math.max(0, Math.min(1, (h - lo) / (hi - lo))), r = track.getBoundingClientRect(), b = bar.getBoundingClientRect();
+      thumb.style.top = (r.top - b.top + (1 - t) * r.height) + 'px'; fill.style.height = (t * 100) + '%';
+      thumb.textContent = Math.round(h * 39.37) + '"';
+    }
+    function fromPointer(e) {
+      var r = track.getBoundingClientRect(), t = 1 - (e.clientY - r.top) / r.height;
+      t = Math.max(0, Math.min(1, t)); if (t > 0.96) t = 1;     // the top few percent is simply standing
+      show(W.setEye(lo + t * (hi - lo)));
+    }
+    bar.addEventListener('pointerdown', function (e) { e.preventDefault(); dragging = true; try { bar.setPointerCapture(e.pointerId); } catch (x) {} fromPointer(e); });
+    bar.addEventListener('pointermove', function (e) { if (dragging) { e.preventDefault(); fromPointer(e); } });
+    function end() { dragging = false; }
+    bar.addEventListener('pointerup', end); bar.addEventListener('pointercancel', end);
+    show(W.eyeWanted());
+    setInterval(function () { if (!dragging) show(W.eyeWanted()); }, 250);
+  }
+
+  function addTouch() {
+    if (!('ontouchstart' in window)) return;
+    var stick = document.createElement('div'); stick.id = 'stick';
+    var knob = document.createElement('div'); knob.id = 'knob'; stick.appendChild(knob);
+    var lf = document.createElement('span'); lf.className = 'f'; lf.textContent = 'Forward'; stick.appendChild(lf);
+    var lb = document.createElement('span'); lb.className = 'b'; lb.textContent = 'Back'; stick.appendChild(lb);
+    document.body.appendChild(stick);
+    var held = {};
+    function key(code, on) {
+      if (!!held[code] === on) return;
+      held[code] = on;
+      document.dispatchEvent(new KeyboardEvent(on ? 'keydown' : 'keyup', { code: code, key: code, bubbles: true }));
+    }
+    var sid = null, cx = 0, cy = 0, R = 46;
+    // up and down only: sideways movement of the thumb is ignored, so a thumb that wanders does not steer you
+    function setStick(dx, dy) {
+      dy = Math.max(-R, Math.min(R, dy));
+      knob.style.transform = 'translate(0px,' + dy + 'px)';
+      var y = dy / R;
+      key('KeyW', y < -0.25); key('KeyS', y > 0.25);
+      key('ShiftLeft', Math.abs(y) > 0.9);
+      if (window.walk && window.walk.setTurn) window.walk.setTurn(0);
+    }
+    stick.addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      var t = e.changedTouches[0], r = stick.getBoundingClientRect();
+      sid = t.identifier; cx = r.left + r.width / 2; cy = r.top + r.height / 2;
+      setStick(t.clientX - cx, t.clientY - cy);
+    }, { passive: false });
+    stick.addEventListener('touchmove', function (e) {
+      e.preventDefault();
+      for (var i = 0; i < e.changedTouches.length; i++) {
+        var t = e.changedTouches[i];
+        if (t.identifier === sid) setStick(t.clientX - cx, t.clientY - cy);
+      }
+    }, { passive: false });
+    function stickEnd(e) {
+      for (var i = 0; i < e.changedTouches.length; i++) if (e.changedTouches[i].identifier === sid) { sid = null; setStick(0, 0); }
+    }
+    stick.addEventListener('touchend', stickEnd);
+    stick.addEventListener('touchcancel', stickEnd);
+
+    var canvas = document.querySelector('canvas');
+    if (!canvas) return;
+    // a finger travels a shorter way across a phone than a mouse does across a desk, so a drag turns the view further here
+    if (window.walk && window.walk.setLookScale) window.walk.setLookScale(1.6);
+    var lid = null;
+    function mouse(type, t, target) {
+      (target || document).dispatchEvent(new MouseEvent(type, {
+        clientX: t.clientX, clientY: t.clientY, button: 0, buttons: type === 'mouseup' ? 0 : 1, bubbles: true, cancelable: true,
+      }));
+    }
+    // Two fingers pinch to zoom (Jake: "we don't need zoom, that's ridiculous, we need a two pinch zoom"). Spreading the fingers
+    // narrows the walk page's field of view through its own setFov, which keeps it between a long lens and the normal view;
+    // pinching back in returns to normal. The first finger was already looking round, so when the second one lands that drag
+    // is ended WITHOUT a click and without a turn (a nudge out and back marks it as a drag, then it is let go), and nothing
+    // looks or clicks again until every finger is off the glass.
+    // targetTouches, not touches: only fingers on the VIEW count, so a thumb holding the walk slider is never half of a pinch
+    var lpos = null, pinch = null;
+    function span(a, b) { return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY); }
+    canvas.addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      var W = window.walk;
+      if (lid !== null || pinch) {
+        if (!pinch && W && W.setFov && e.targetTouches.length >= 2) {
+          if (lpos) { mouse('mousemove', { clientX: lpos.clientX + 8, clientY: lpos.clientY }); mouse('mousemove', lpos); mouse('mouseup', lpos, document); }
+          pinch = { d0: Math.max(20, span(e.targetTouches[0], e.targetTouches[1])), f0: W.camera.fov };
+        }
+        return;
+      }
+      var t = e.changedTouches[0]; lid = t.identifier; lpos = { clientX: t.clientX, clientY: t.clientY };
+      mouse('mousedown', t, canvas);
+    }, { passive: false });
+    canvas.addEventListener('touchmove', function (e) {
+      e.preventDefault();
+      if (pinch) { if (e.targetTouches.length >= 2) window.walk.setFov(pinch.f0 * pinch.d0 / Math.max(20, span(e.targetTouches[0], e.targetTouches[1]))); return; }
+      for (var i = 0; i < e.changedTouches.length; i++) if (e.changedTouches[i].identifier === lid) { lpos = { clientX: e.changedTouches[i].clientX, clientY: e.changedTouches[i].clientY }; mouse('mousemove', e.changedTouches[i]); }
+    }, { passive: false });
+    function lookEnd(e) {
+      if (pinch) { if (e.targetTouches.length === 0) { pinch = null; lid = null; lpos = null; } return; }
+      for (var i = 0; i < e.changedTouches.length; i++) {
+        if (e.changedTouches[i].identifier !== lid) continue;
+        lid = null;
+        // dispatched on the canvas so the walk page sees its own canvas as the target, which is what makes it a click
+        mouse('mouseup', e.changedTouches[i], canvas);
+      }
+    }
+    canvas.addEventListener('touchend', lookEnd);
+    canvas.addEventListener('touchcancel', lookEnd);
+  }
+})();
+</script>
+</body>
+</html>

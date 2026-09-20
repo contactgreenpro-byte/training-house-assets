@@ -1,8 +1,16 @@
 {
- "published": "2026-09-20T04:07:50",
+ "published": "2026-09-20T06:21:46",
  "house": "r60l",
- "note": "first publish: house r60l, compressed, walk page and manifests",
+ "note": "shell and shim published so the apps fetch them at run time; rights notice",
  "files": {
+  "app_shell.html": {
+   "v": "23e1e6ecd1",
+   "bytes": 40287
+  },
+  "asset-shim.js": {
+   "v": "4f08306d61",
+   "bytes": 3826
+  },
   "attic_ladder.glb": {
    "v": "0931ddcfae",
    "bytes": 28852
