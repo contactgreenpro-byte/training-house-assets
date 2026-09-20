@@ -1263,7 +1263,7 @@
   // also flow into the street sewer line and through the manhole, so we can trace it all the way through"). Every fixture has its own set:
   // its branch, the building drain from where the branch joins it, the sewer of whichever yard is up, the lift station's force main and
   // the city main out to the end of the street. showFlows() starts each run where the one before it lands on it.
-  const SEWER_RUNS = ['pipe_dwv_sewer_septic', 'pipe_dwv_sewer_pumptank', 'pipe_dwv_sewer_gravity', 'pipe_dwv_sewer_overland', 'pipe_dwv_sewer_overland_aquaklear', 'pipe_dwv_sewer_lift', 'pipe_dwv_sewer_city', 'pipe_dwv_sewer_city_belly', 'pipe_dwv_force_main_lift', 'pipe_dwv_city_main'];
+  const SEWER_RUNS = ['pipe_dwv_sewer_septic', 'pipe_dwv_sewer_pumptank', 'pipe_dwv_sewer_gravity', 'pipe_dwv_sewer_overland', 'pipe_dwv_sewer_overland_aquaklear', 'pipe_dwv_sewer_lift', 'pipe_dwv_sewer_city', 'pipe_dwv_sewer_city_belly', 'pipe_dwv_city_main'];
   const TO_STREET = ['pipe_dwv_building_drain_west'].concat(SEWER_RUNS), VIA_HALL = ['pipe_dwv_building_drain'].concat(TO_STREET);
   const DRAIN_SAY = ': down its trap, along the building drain and out to the tank or the street (cut a pipe open anywhere on the way to watch it)';
   const fixtureSet = (label, branch) => ({ kind: 'water', label, say: label + DRAIN_SAY, off: 'water off: what is in the pipes runs on down the drain', runs: branch.concat(VIA_HALL) });
@@ -1277,6 +1277,11 @@
     vanity_master: fixtureSet('master bath sink running', ['pipe_dwv_master_vanity']),
     toilet_hall: fixtureSet('hall bath toilet flushed', ['pipe_dwv_hallbath_toilet']),
     toilet_master: fixtureSet('master toilet flushed', ['pipe_dwv_master_toilet']),
+    // round 65: past the end of the house sewer. What a full tank takes in, it pushes out the other end; a spray line runs when its pump does;
+    // the lift station's force main and the street main past it run when the basin's pump does, not when the house water gets to the basin
+    plant_out: { kind: 'water', label: 'effluent leaving the tank', match: /^(pipe_dwv_effluent_|pipe_septic_overland_discharge)/ },
+    plant_spray: { kind: 'water', label: 'spray line under pressure', match: /^pipe_septic_spray_line/ },
+    lift_pump: { kind: 'waste', label: 'force main to the street', runs: ['pipe_dwv_force_main_lift', 'pipe_dwv_city_main'] },
     // round 20: the air in every supply duct, for the fan (Jake: "we're gonna flow test all this stuff and actually watch it work")
     fan: { kind: 'air', label: 'air moving in the ducts', match: /^(flex_hvac_|duct_hvac_(supply_trunk|plenum_riser|ahu_supply)|takeoff_hvac_)/ },
     // round 27: water into the tank (Jake: turn water on at the inlet, watch it fill, flow over to the spray tank, the float bring the pump on)
@@ -1294,6 +1299,13 @@
     { socket: 'sock_toilet_hall_bath', key: 'toilet_hall', clips: ['flush'], window: [1.3, 3.4] }, { socket: 'sock_toilet_wc', key: 'toilet_master', clips: ['flush'], window: [1.3, 3.4] }];
   // (the washer has no clip of its own, so its drain stays a plain switch: a click on the washer turns 'laundry' on and off)
   const FIX_KEYS = new Set(FIXTURES.map(f => f.key));
+  // Round 66 (Jake: "let's think about the amount of water a faucet would have, and a flush, because we want a flush to come in as well, and
+  // how much water that would be"). Gallons a minute by what is running: a 1.2 gpm lavatory aerator, a 1.8 gpm kitchen faucet, a tub spout
+  // wide open, a washer pumping out, and a 1.28 gallon flush leaving the bowl in about four seconds, which is a surge of nearly 20 gpm for
+  // those seconds and then nothing. A body of water is sized from that: its cross section is the flow over the speed a drain runs at (2 ft
+  // a second), lying as a shallow ribbon on the invert where the pipe runs flat and gathering into a rope where it falls.
+  const GPM = { faucet: 1.8, disposal: 2.2, vanity_hall: 1.2, vanity_master: 1.2, tub: 5.0, tub_master: 2.5, toilet_hall: 19, toilet_master: 19, laundry: 12, sewer: 8, plant_out: 3 };
+  const areaOf = gpm => Math.max(0.2, gpm) * 6.309e-5 / 0.61;     // m2: gpm to m3/s, over 0.61 m/s
   function fixtureOpen(inst, f, anyTime) {
     const A = inst.userData.anim; if (!A) return false;
     return f.clips.some(cn => { const st = A.state[cn]; if (!st || !st.open) return false; if (!f.window || anyTime) return true;
@@ -1316,6 +1328,77 @@
     let d = t * pathLen(path);
     for (let i = 1; i < path.length; i++) { const seg = path[i].distanceTo(path[i - 1]); if (d <= seg) return path[i - 1].clone().lerp(path[i], seg ? d / seg : 0); d -= seg; }
     return path[path.length - 1].clone();
+  }
+  // ---------------------------------------------------------------- round 65: the water ARRIVES
+  // Jake 2026-09-20: "the water enters into the septic system, how this interacts with the models is important." When the front of a fixture's
+  // water reaches the end of the house sewer: it POURS in (a falling stream from the end of the pipe, down the plant's own inlet drop, into the
+  // liquid in the first chamber), the same amount leaves the far end (plant_out: the effluent line to the 540 or the d-box, an overland
+  // discharge to daylight), and the plant's pump clips run the way they do for the sewer test. When the last of it has come in, all of that stops.
+  let arrivingW = null, pourW = null, plantOn = false, plantTimers = [];
+  function plantCycle(on, gentle) {
+    plantOn = on; for (const t of plantTimers) clearTimeout(t); plantTimers = [];
+    equip.children.forEach(inst => {
+      let seq = CYCLES[inst.userData.model]; const A = inst.userData.anim; if (!seq || !A) return;
+      if (gentle) seq = seq.filter(n => /pump_run|pump_down|fill_from_house/.test(n));     // a running tap does not ring the high water alarm
+      const stopAll = () => { for (const n of seq) if (A.state[n] && A.state[n].open) playNamed(inst, n, false); };
+      if (!on) { stopAll(); return; }
+      if (!seq.length) return;
+      const round = (t0) => { let t = t0; for (const n of seq) { const c = A.clips.find(x => x.name === n); if (!c) continue; if (/pump|aerate/.test(n) && !breakers.septic) continue; plantTimers.push(setTimeout(() => { if (plantOn) playNamed(inst, n, true); }, t)); t += c.duration * 1000 + 600; } return t; };
+      const again = () => { if (!plantOn) return; stopAll(); const t = round(1200); plantTimers.push(setTimeout(again, t + 3000)); };
+      const t1 = round(2500); plantTimers.push(setTimeout(again, t1 + 3000));
+    });
+  }
+  function deliveringSewer() {
+    const got = [];
+    for (const f of flows) { if (!f.water || !/^pipe_dwv_sewer_/.test(f.run) || /^pipe_dwv_sewer_city/.test(f.run) || !inConfig(f.obj.userData.config)) continue;
+      for (const k in f.water) { const w = f.water[k]; if (w && w.active && w.front >= w.L - 0.02 && w.tail < w.L - 0.02) got.push(w); } }
+    if (!got.length) return null;
+    // what pours in is everything that is arriving: a faucet's trickle, and for the seconds a flush is coming in, the flush on top of it
+    const big = got.reduce((a, b) => (b.A > a.A ? b : a));
+    return { P: big.P, R: big.R, kind: got.some(w => w.kind === 'waste') ? 'waste' : 'water', A: got.reduce((a, w) => a + w.A, 0), mesh: big.mesh, sig: got.map(w => w.mesh.name).sort().join('+') };
+  }
+  // Round 66 (Jake: "it doesn't look like it's coming in naturally. Think of water not as coming in at a 90 degree angle: when it comes and breaks
+  // over into a tank it just kind of waterfalls in"). The pour used to be a line out and a line straight down. Now it LEAVES THE LIP: from
+  // the invert at the end of the pipe, at the speed it was running, and falls the way thrown water falls (a parabola), as thick as that
+  // fixture's flow and thinning as it speeds up. Where the pipe ends inside a plant's own inlet tee (the Lee, the gravity tank) the far
+  // wall of the tee is 6 cm away, so the arc runs into it and goes down the drop. A pipe end under the liquid just runs out.
+  function makePour(w) {
+    const n = w.P.length, E = w.P[n - 1].clone(), Ep = w.P[Math.max(0, n - 3)], dir = E.clone().sub(Ep); dir.y = 0; const flat = dir.length() > 0.01; if (flat) dir.normalize();
+    let level = E.y - 0.40, under = false, tee = false, seenShown = false; const bx = new T.Box3(), probe = E.clone().addScaledVector(dir, flat ? 0.06 : 0);
+    equip.children.forEach(inst => inst.traverse(o => { if (!o.isMesh) return; const pn = partName(o);
+      if (/^inlet_tee$|^inlet$/.test(pn) && /septic_lee|septic_tank/.test(inst.userData.model || '')) { bx.setFromObject(o); if (bx.distanceToPoint(E) < 0.15) tee = true; }
+      const shown = shownInTree(o); if (!/^(water|cu_water)/.test(pn) || (!shown && /_high|alarm|_on$|_fill/.test(pn)) || (!shown && seenShown)) return; o.updateWorldMatrix(true, false); bx.setFromBufferAttribute(o.geometry.attributes.position).applyMatrix4(o.matrixWorld);     // the REST surface: setFromObject takes in the morph targets, and a plant's water carries its high water alarm level as one
+      if (probe.x < bx.min.x - 0.05 || probe.x > bx.max.x + 0.05 || probe.z < bx.min.z - 0.05 || probe.z > bx.max.z + 0.05) return; if (bx.max.y > E.y + 0.03) { if (bx.min.y < E.y && shown) under = true; return; } if (shown && !seenShown) { seenShown = true; level = bx.max.y; } else if (bx.max.y > level || level === E.y - 0.40) level = bx.max.y; }));     // the liquid you can SEE wins: a basin carries its off, on and alarm levels as separate bodies and shows one
+    const A = w.A, dep = Math.min(w.R * 0.62, Math.max(0.0035, Math.sqrt(A / (2.2 * Math.PI)))), lip = E.clone(); lip.y -= (w.R - dep);     // it leaves from the bottom of the pipe
+    const path = [];
+    if (under || !flat) { path.push(lip.clone(), new T.Vector3(lip.x, lip.y - 0.10, lip.z)); }
+    else {
+      const v0 = 0.61, g = 9.81, reach = tee ? 0.055 : 9; path.push(lip.clone().addScaledVector(dir, -0.03));
+      for (let t = 0; t < 1.2; t += 0.02) { const x = v0 * t, y = lip.y - 0.5 * g * t * t; if (x > reach) { path.push(new T.Vector3(lip.x + dir.x * reach, Math.min(path[path.length - 1].y - 0.02, y), lip.z + dir.z * reach)); path.push(new T.Vector3(lip.x + dir.x * reach, level - 0.10, lip.z + dir.z * reach)); break; }
+        path.push(new T.Vector3(lip.x + dir.x * x, y, lip.z + dir.z * x)); if (y < level - 0.10) break; }
+    }
+    const pw = makeWater(pipes, path, 0.05, w.kind, false, 'pour_' + w.mesh.name, A, true);
+    // the pour falls INSIDE the plant's own inlet tee, where nobody can see it. In the side cutaway (Elevation) it is drawn over the tee, so the
+    // trainee sees the water go down the drop and into the liquid; walking the yard it is hidden like everything else inside a pipe.
+    if (pw) { pw.isPour = true; pw.mesh.material = pw.mesh.material.clone(); pw.mesh.renderOrder = 9; } return pw;
+  }
+  function syncPlant() {
+    const w = deliveringSewer();
+    if (pourW && pourW.mesh.material.depthTest !== !elev) { pourW.mesh.material.depthTest = !elev; pourW.mesh.material.needsUpdate = true; }
+    if (!!w !== !!arrivingW || (w && arrivingW && w.sig !== arrivingW.sig)) {
+      if (pourW) setWater(pourW, false);
+      if (w) { pourW = makePour(w); if (pourW) setWater(pourW, true, 0, 0); running.add('plant_out'); if (!sysOn && !plantOn) plantCycle(true, true); }
+      else { running.delete('plant_out'); if (!sysOn) plantCycle(false, true); }
+      arrivingW = w; showFlows();
+    }
+    // pressure lines follow their pumps
+    let spray = false, lift = false;
+    equip.children.forEach(inst => { const A = inst.userData.anim; if (!A) return; const m = inst.userData.model || '';
+      if (/septic_lee|pump_tank|spray_pump_filter/.test(m) && A.state.pump_run && A.state.pump_run.open) spray = true;
+      if (/lift_station/.test(m) && A.state.pump_down && A.state.pump_down.open) lift = true; });
+    let ch = false; for (const [k, v] of [['plant_spray', spray], ['lift_pump', lift]]) if (running.has(k) !== v) { ch = true; if (v) running.add(k); else running.delete(k); }
+    if (ch) showFlows();
+    for (let i = waters.length - 1; i >= 0; i--) { const x = waters[i]; if (x.isPour && x !== pourW && !x.active) { if (x.mesh.parent) x.mesh.parent.remove(x.mesh); x.mesh.geometry.dispose(); waters.splice(i, 1); } }
   }
   function toggleFlow(key) {
     const set = FLOW_SETS[key]; if (!set) return null;
@@ -1364,7 +1447,7 @@
   }
   // the body of water along a centreline (points in the frame of whatever it will hang on, y up). R is the bore. full: a pipe under
   // pressure, round and centred; otherwise a drain, part full: low and wide on the flat, round where it falls.
-  function waterGeometry(path, R, full) {
+  function waterGeometry(path, R, full, A, free) {
     // round 64: a long straight leg is cut into 15 cm pieces, or the water's front (which shows whole pieces) jumps the length of the leg at once
     const P = [path[0].clone()]; for (let i = 1; i < path.length; i++) { const a0 = P[P.length - 1], d = path[i].distanceTo(a0); if (d <= 0.004) continue; const n = Math.ceil(d / 0.15); for (let k = 1; k <= n; k++) P.push(a0.clone().lerp(path[i], k / n)); }
     if (P.length < 2) return null;
@@ -1375,20 +1458,35 @@
       const h = Math.sqrt(Math.max(0, 1 - t.y * t.y));     // 1 on the flat, 0 in a drop
       if (h > 0.15) { up.copy(DOWN).addScaledVector(t, -DOWN.dot(t)).normalize().negate(); side.crossVectors(t, up).normalize(); }
       else { side.addScaledVector(t, -side.dot(t)); if (side.lengthSq() < 1e-6) side.set(1, 0, 0).addScaledVector(t, -t.x); side.normalize(); up.crossVectors(side, t).normalize(); }
-      const rs = full ? R * 0.93 : R * (0.52 + 0.20 * (1 - h)), ax = full ? rs : rs * (1 + 0.30 * h), ay = full ? rs : rs * (1 - 0.34 * h);
-      c.copy(P[i]); if (!full) c.addScaledVector(up, -(R - ay * 0.98) * h);
+      // round 66: sized by the flow (A, m2). Flat: a ribbon 2.2 times as wide as it is deep, on the invert. Falling: a rope of the same
+      // area. free: a stream in the air (the pour into a tank), round, thinning as it speeds up, not pressed to any invert.
+      let ax, ay;
+      if (full) { ax = ay = R * 0.93; }
+      else {
+        const a_ = A || areaOf(2), rope = Math.min(R * 0.80, Math.max(0.0045, Math.sqrt(a_ / Math.PI)));
+        const dep = Math.min(R * 0.62, Math.max(0.0035, Math.sqrt(a_ / (2.2 * Math.PI)))), wid = Math.min(R * 0.93, dep * 2.2);
+        if (free) { const k = 1 - 0.40 * (cum[i] / Math.max(1e-6, cum[n - 1])); ax = ay = rope * k; }
+        else { ax = rope + (wid - rope) * h; ay = rope + (dep - rope) * h; }
+      }
+      c.copy(P[i]); if (!full && !free) c.addScaledVector(up, -(R - ay * 0.98) * h);
       for (let k = 0; k <= K; k++) { const a = 2 * Math.PI * k / K; v.copy(c).addScaledVector(side, Math.cos(a) * ax).addScaledVector(up, Math.sin(a) * ay); posA.push(v.x, v.y, v.z); uvA.push(cum[i] / WATER_TILE, k / K); }
     }
     for (let i = 0; i < n - 1; i++) for (let k = 0; k < K; k++) { const a0 = i * (K + 1) + k, b0 = a0 + K + 1; idx.push(a0, b0, a0 + 1, a0 + 1, b0, b0 + 1); }
     const geo = new T.BufferGeometry(); geo.setAttribute('position', new T.Float32BufferAttribute(posA, 3)); geo.setAttribute('uv', new T.Float32BufferAttribute(uvA, 2)); geo.setIndex(idx); geo.computeVertexNormals();
     return { geo, cum, P };
   }
-  function makeWater(parent, path, R, kind, full, name) {
-    const G = waterGeometry(path, R, full); if (!G) return null;
+  function makeWater(parent, path, R, kind, full, name, A, free) {
+    const G = waterGeometry(path, R, full, A, free); if (!G) return null;
     const mesh = new T.Mesh(G.geo, waterMaterial(kind)); mesh.name = 'flow_live_' + name; mesh.visible = false; mesh.frustumCulled = false; mesh.renderOrder = 2;
     mesh.raycast = () => { };     // contents are not controls: a click goes through the water to the pipe
     mesh.userData.isStream = true; mesh.userData.liveWater = true; parent.add(mesh);
-    const w = { mesh, cum: G.cum, L: G.cum[G.cum.length - 1], P: G.P, kind, full, on: false, active: false, t: 0, tOff: Infinity, s0: 0, delay: 0, front: 0, tail: 0 }; waters.push(w); return w;
+    const w = { mesh, cum: G.cum, L: G.cum[G.cum.length - 1], P: G.P, kind, full, on: false, active: false, t: 0, tOff: Infinity, s0: 0, delay: 0, front: 0, tail: 0, path0: path, R, A: A || areaOf(2), free: !!free }; waters.push(w); return w;
+  }
+  // the same body at another flow: a faucet's ribbon becomes a flush's surge when the flush joins it, and goes back
+  function resizeWater(w, A) {
+    if (w.full || Math.abs(A - w.A) / w.A < 0.12) return;
+    const G = waterGeometry(w.path0, w.R, false, A, w.free); if (!G) return;
+    w.mesh.geometry.dispose(); w.mesh.geometry = G.geo; w.A = A;
   }
   function segAt(w, d) { let i = 0; const c = w.cum; while (i < c.length - 1 && c[i + 1] <= d + 1e-6) i++; return i; }
   function stepWater(dt) {
@@ -1435,23 +1533,28 @@
         const sl = slugs[i]; sl.material = SLUG_MAT.air; sl.visible = true; sl.userData.path = f.path; sl.userData.t = k * 0.5; sl.scale.setScalar(2.2);
       }
     }
-    // which runs are wet, and as what: waste wins over water where both are going down the same drain
-    const want = new Map();
+    // Round 66: every SOURCE has its own body of water in each run it passes through, with its own start, its own timing and its own
+    // size. It used to be one body per run, sized by whatever was live, so a flush made the faucet's ribbon swell the whole way to
+    // the tank the moment the lever went down. Now the faucet's ribbon runs on and the flush comes down the pipe as a surge over it,
+    // arriving when it arrives. The disposal's waste stands in for the faucet's clear water in the drains they share.
+    const wantOn = new Set();
     for (const k of live) { const set = FLOW_SETS[k]; if (set.kind === 'air') continue;
       let dist = 0, endPt = null; const lead = set.runs ? (k === 'faucet' || k === 'disposal' ? 1.9 : (FIX_KEYS.has(k) ? 1.4 : 0.4)) : 0;
-      const list = flows.filter(f => f.kind === set.kind && inSet(set, f.run) && inConfig(f.obj.userData.config) && f.path.length > 1);
+      const list = flows.filter(f => f.kind === set.kind && inSet(set, f.run) && inConfig(f.obj.userData.config) && f.path.length > 1 && !(k !== 'lift_pump' && k !== 'sewer' && CONFIG.sewer === 'city_lift' && f.run === 'pipe_dwv_city_main'));
       if (set.runs) list.sort((p, q) => set.runs.indexOf(p.run) - set.runs.indexOf(q.run));
       for (const f of list) {
         const supply = /^pipe_supply/.test(f.run); if (supply && !waterOn) continue;
+        if (k === 'faucet' && !supply && running.has('disposal')) continue;
         if (!f.water) { const pth = f.path.slice(); if (!supply && pth[pth.length - 1].y > pth[0].y + 0.02) pth.reverse(); f.water = {}; f.pathDown = pth; }
-        const key = set.kind; if (!f.water[key]) f.water[key] = makeWater(pipes, f.pathDown, boreOf(f), key, supply, key + '_' + f.run);
-        const w = f.water[key]; if (!w) continue;
+        const pressure = supply || /^(pipe_septic_spray_line|pipe_dwv_force_main)/.test(f.run);     // round 65: a line under pressure runs full, end to end at once
+        if (!f.water[k]) f.water[k] = makeWater(pipes, f.pathDown, boreOf(f), set.kind, pressure, k + '_' + f.run, areaOf(GPM[k] || 2));
+        const w = f.water[k]; if (!w) continue;
         let s0 = 0, delay = 0;
         if (!supply && set.runs) { if (endPt) { s0 = nearestS(w, endPt); } delay = lead + dist / WATER_V; dist += w.L - s0; endPt = w.P[w.P.length - 1]; }
-        const prev = want.get(f.run); if (!prev || (set.kind === 'waste' && prev.w.kind !== 'waste') || (set.kind === prev.w.kind && s0 < prev.s0)) want.set(f.run, { w, s0, delay });     // waste over water; of two fixtures on one drain, the one that joins it further up
+        wantOn.add(w); setWater(w, true, delay, s0);
       }
     }
-    for (const f of flows) { if (!f.water) continue; const pick = want.get(f.run); for (const key in f.water) { const w = f.water[key]; if (!w) continue; if (pick && pick.w === w) setWater(w, true, pick.delay, pick.s0); else setWater(w, false); } }
+    for (const f of flows) { if (!f.water) continue; for (const key in f.water) { const w = f.water[key]; if (w && !wantOn.has(w)) setWater(w, false); } }
   }
   // a model's own water: any node carrying a flow_path extra (model frame, Blender axes). flow_clips turn it on as water,
   // waste_clips as waste; flow_lead is how long the water takes to reach the start of the path (down the stream and the throat).
@@ -1469,7 +1572,9 @@
     for (let i = waters.length - 1; i >= 0; i--) { const w = waters[i]; if (w.inst && !w.inst.parent) { w.mesh.geometry.dispose(); waters.splice(i, 1); } }     // the yard was changed: its models went
     const byInst = new Map();
     for (const w of waters) { if (!w.inst) continue; const A = w.inst.userData.anim; const on = !!A && waterOn && w.clips.some(c => A.state[c] && A.state[c].open); w.wantOn = on; if (on && w.kind === 'waste') byInst.set(w.inst, true); }
-    for (const w of waters) { if (!w.inst) continue; const on = w.wantOn && !(w.kind === 'water' && byInst.get(w.inst)); setWater(w, on, w.lead, 0); }
+    for (const w of waters) { if (!w.inst) continue; const on = w.wantOn && !(w.kind === 'water' && byInst.get(w.inst));
+      if (on && !w.on) { const pl = w.inst.userData.pl, fx = pl && FIXTURES.filter(x => x.socket === pl.socket && (w.kind === 'waste') === (x.key === 'disposal')); if (fx && fx.length) resizeWater(w, areaOf(GPM[fx[0].key] || 2)); }
+      setWater(w, on, w.lead, 0); }
   }
   function stepFlow(dt) {
     for (const sl of slugs) {
@@ -1477,7 +1582,7 @@
       sl.userData.t = (sl.userData.t + dt * 0.32) % 1;
       sl.position.copy(pointAt(sl.userData.path, sl.userData.t));
     }
-    syncFixtureFlows(); stepModelWater(); stepWater(dt);
+    syncFixtureFlows(); stepModelWater(); stepWater(dt); syncPlant();
   }
   // Round 61: a clip that tells a story once (the food going down) is not played backwards to switch it off: the scraps would come
   // back up out of the ring. It stops, and the model is at rest. And the disposal is run with the water on: if the faucet is off
@@ -2823,16 +2928,9 @@
     refreshStreams(inst); afterClip(inst, name, on); return c.duration;
   }
   function systemRun() {
-    sysOn = !sysOn; for (const t of sysTimers) clearTimeout(t); sysTimers = [];
+    sysOn = !sysOn;
     if (sysOn) running.add('sewer'); else running.delete('sewer'); showFlows();
-    equip.children.forEach(inst => {
-      const seq = CYCLES[inst.userData.model], A = inst.userData.anim; if (!seq || !A) return;
-      const stopAll = () => { for (const n of seq) if (A.state[n] && A.state[n].open) playNamed(inst, n, false); };
-      if (!sysOn) { stopAll(); return; }
-      const round = (t0) => { let t = t0; for (const n of seq) { const c = A.clips.find(x => x.name === n); if (!c) continue; if (/pump|aerate/.test(n) && !breakers.septic) continue; sysTimers.push(setTimeout(() => { if (sysOn) playNamed(inst, n, true); }, t)); t += c.duration * 1000 + 600; } return t; };
-      const again = () => { if (!sysOn) return; stopAll(); const t = round(1200); sysTimers.push(setTimeout(again, t + 3000)); };
-      const t1 = round(2500); sysTimers.push(setTimeout(again, t1 + 3000));
-    });
+    plantCycle(sysOn, false);     // round 65: one cycle runner, shared with the water that arrives from a fixture
     if (sysOn && CONFIG.sewer.startsWith('city')) return CONFIG.fault === 'belly' ? 'water down the sewer to the street: cut the lateral open at the belly and see what stands in it (click again to stop)' : 'water down the sewer to the street (click again to stop)';
     return sysOn ? 'water into the tank: watch it fill, flow over and the pump come on (click again to stop)' : 'water off';
   }
@@ -3422,7 +3520,7 @@
     }
     return renderer.domElement.toDataURL("image/png");
   }
-  window.walk = { waters, stepFlow, syncFixtureFlows, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
+  window.walk = { waters, stepFlow, syncFixtureFlows, syncPlant, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
     // verification: put a lead on a named part, the same call a click on it makes
     meterTest: (nm, hitAt) => { const o = scene.getObjectByName(nm); if (!o) return 'no part called ' + nm;
       const at = hitAt ? new T.Vector3(hitAt[0], hitAt[1], hitAt[2]) : new T.Box3().setFromObject(o).getCenter(new T.Vector3());

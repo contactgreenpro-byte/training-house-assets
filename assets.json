@@ -1,7 +1,7 @@
 {
- "published": "2026-09-20T10:18:57",
- "house": "r64c",
- "note": "round 64: every fixture's water to the street and through the manhole, a cut that is only a window, the street tap fixed",
+ "published": "2026-09-20T12:35:28",
+ "house": "r66c",
+ "note": "rounds 65 and 66: the water arrives in all eight yards as a waterfall sized by the fixture, a flush travels as a surge, the tank pushes its effluent out",
  "files": {
   "app_shell.html": {
    "v": "23e1e6ecd1",
@@ -116,8 +116,8 @@
    "bytes": 230600
   },
   "house_furniture.glb": {
-   "v": "4bb623b438",
-   "bytes": 8863224
+   "v": "0e55443505",
+   "bytes": 8858252
   },
   "house_site.glb": {
    "v": "fbe4b19de1",
@@ -168,7 +168,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "8be4cc8278",
+   "v": "10d911a620",
    "bytes": 17995
   },
   "info.json": {
@@ -208,12 +208,12 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "e4e797a02f",
-   "bytes": 2808764
+   "v": "b919f86203",
+   "bytes": 2829624
   },
   "pipes_gas.glb": {
-   "v": "dabdfaec32",
-   "bytes": 813092
+   "v": "49e16f688d",
+   "bytes": 813048
   },
   "pipes_hvac.glb": {
    "v": "511a2643ba",
@@ -336,8 +336,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "1ae0aa8c80",
-   "bytes": 288690
+   "v": "3b725bf327",
+   "bytes": 298899
   },
   "washer.glb": {
    "v": "7e04f19827",
