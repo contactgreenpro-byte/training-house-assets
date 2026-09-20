@@ -1,7 +1,7 @@
 {
- "published": "2026-09-20T09:17:05",
- "house": "r61c",
- "note": "round 63: sewer exits, a 45 pair inside, under the footing, straight to every tank",
+ "published": "2026-09-20T10:18:57",
+ "house": "r64c",
+ "note": "round 64: every fixture's water to the street and through the manhole, a cut that is only a window, the street tap fixed",
  "files": {
   "app_shell.html": {
    "v": "23e1e6ecd1",
@@ -24,8 +24,8 @@
    "bytes": 568328
   },
   "bath_vanity.glb": {
-   "v": "fecff0812a",
-   "bytes": 607916
+   "v": "da7c7e138e",
+   "bytes": 609804
   },
   "checklists.json": {
    "v": "30e716c8ac",
@@ -116,8 +116,8 @@
    "bytes": 230600
   },
   "house_furniture.glb": {
-   "v": "101270e314",
-   "bytes": 8863160
+   "v": "4bb623b438",
+   "bytes": 8863224
   },
   "house_site.glb": {
    "v": "fbe4b19de1",
@@ -168,7 +168,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "4a4c472350",
+   "v": "8be4cc8278",
    "bytes": 17995
   },
   "info.json": {
@@ -208,16 +208,16 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "8ab9c8fdf2",
-   "bytes": 2764228
+   "v": "e4e797a02f",
+   "bytes": 2808764
   },
   "pipes_gas.glb": {
-   "v": "0079d6b4b0",
-   "bytes": 814524
+   "v": "dabdfaec32",
+   "bytes": 813092
   },
   "pipes_hvac.glb": {
-   "v": "3c985e5683",
-   "bytes": 2087600
+   "v": "511a2643ba",
+   "bytes": 2087624
   },
   "pipes_supply.glb": {
    "v": "ba333f64c9",
@@ -276,12 +276,12 @@
    "bytes": 600944
   },
   "shower.glb": {
-   "v": "5be91add82",
-   "bytes": 748276
+   "v": "9570e5d2a3",
+   "bytes": 751044
   },
   "shower_two.glb": {
-   "v": "b1e8ff51d0",
-   "bytes": 734604
+   "v": "ab55dcb1eb",
+   "bytes": 737368
   },
   "spray_head_180_r22.glb": {
    "v": "774057bfcf",
@@ -336,8 +336,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "b8872c5438",
-   "bytes": 281246
+   "v": "1ae0aa8c80",
+   "bytes": 288690
   },
   "washer.glb": {
    "v": "7e04f19827",

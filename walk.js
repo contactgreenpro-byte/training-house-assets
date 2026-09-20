@@ -312,8 +312,8 @@
   function runWithFlow(inst, o, name, on) {
     if (on && !powered(inst)) return noPower(inst);
     const d = playNamed(inst, name, on); if (!d) return null;
-    const fk = FLOW_OF_CLIP[name] || ((RUN_PREF.test(name) && o) ? flowKeyFor(o) : null);
-    if (fk) { if (on) running.add(fk); else running.delete(fk); }
+    const fk = fixtureKey(inst, name) || FLOW_OF_CLIP[name] || ((RUN_PREF.test(name) && o) ? flowKeyFor(o) : null);
+    if (fk && !FIX_KEYS.has(fk)) { if (on) running.add(fk); else running.delete(fk); }     // round 64: a fixture's flow follows its clips (syncFixtureFlows)
     if (/^(fan_run|fire_up|run)$/.test(name) && /furnace|air_handler|package/.test(inst.userData.model || '')) { if (on) running.add('fan'); else running.delete('fan'); }
     showFlows(); refreshStreams(inst);
     return name + (on ? '' : ' (back)') + (fk ? (on ? '  ' + (FLOW_SETS[fk].say || FLOW_SETS[fk].label) : '  ' + (FLOW_SETS[fk].off || 'water off')) : '');
@@ -397,7 +397,7 @@
         else if (CLIP_REMOVE.test(c.name)) acts.push([(on ? 'Put back: ' : 'Take off: ') + lab, () => playNamed(inst, c.name, !on) && (lab + (on ? ' back' : ' off')), comp]);
         else acts.push([lab, () => playNamed(inst, c.name, !on) && lab, comp]);
       }
-      const fks = [].concat(flowKeyFor(o) ? [flowKeyFor(o)] : [], PACK_FLOWS[pack] || []).filter((v, i, arr) => arr.indexOf(v) === i);
+      const fks = [].concat(flowKeyFor(o) ? [flowKeyFor(o)] : [], PACK_FLOWS[pack] || []).filter((v, i, arr) => arr.indexOf(v) === i && !FIX_KEYS.has(v));     // round 64: a fixture's water has no switch of its own, its Run buttons are the switch
       const FLOW_COMP = { faucet: 'Faucet and valve', disposal: 'Garbage disposal', tub: 'Faucet and valve', laundry: 'Washer' };
       for (const fk of fks) acts.push([(running.has(fk) ? 'Water off: ' : 'Water on: ') + FLOW_SETS[fk].label, () => toggleFlow(fk), FLOW_COMP[fk] || here]);
       if (inst.userData.reveal) { let trig = null; inst.traverse(x => { if (!trig && x.isMesh && inst.userData.reveal.trigger.includes(partName(x))) trig = x; }); if (trig) acts.push([inst.userData.revealOpen ? 'Close the wall' : 'Open the wall', () => reveal(trig), 'unit']); }
@@ -1178,9 +1178,29 @@
     const n = new T.Vector3();
     if (hit && hit.face) n.copy(hit.face.normal).transformDirection(o.matrixWorld).negate(); else camera.getWorldDirection(n);
     const at = hit && hit.point ? hit.point : o.getWorldPosition(new T.Vector3());
-    const plane = new T.Plane(n, -n.dot(at) - 0.010);     // keep what is 1 cm past the wall you clicked: the near wall goes, the bore shows
+    // Round 64 (Jake: "the pipe to the street, when I click on it the whole thing disappeared instead of only just the cutaway"). One plane
+    // through the click cuts the WHOLE run on that plane, and a long sewer falls as it goes: click the top of the lateral down by the
+    // street and everything uphill of the click is above the plane, which is the entire pipe. A house pipe is now cut along ITS OWN
+    // AXIS at the click (the plane is turned to hold the pipe's direction there, so the cut stays a half pipe however it falls) and only
+    // inside a window 1.2 m either side of the click: three planes with clipIntersection, which removes only what all three agree on.
+    let planes = null;
+    if (!o.userData.inst) {
+      const fl = flows.find(f => f.run === nm && f.path && f.path.length > 1); let pathW = fl ? fl.path : null;
+      if (!pathW && DRAINS[nm] && DRAINS[nm].pts) pathW = DRAINS[nm].pts.map(q => new T.Vector3(q[0], q[2], -q[1]));
+      if (pathW) {
+        let best = 1e9, ax = null;
+        for (let i = 1; i < pathW.length; i++) { const a = pathW[i - 1], b = pathW[i], ab = b.clone().sub(a), L2 = ab.lengthSq(); if (L2 < 1e-10) continue;
+          const t = Math.max(0, Math.min(1, at.clone().sub(a).dot(ab) / L2)), d = a.clone().addScaledVector(ab, t).distanceTo(at); if (d < best) { best = d; ax = ab.normalize(); } }
+        if (ax) {
+          const nn = n.clone().addScaledVector(ax, -n.dot(ax)); if (nn.lengthSq() > 0.04) n.copy(nn.normalize());
+          const W = 1.2, c0 = ax.dot(at);
+          planes = [new T.Plane(n.clone(), -n.dot(at) - 0.010), new T.Plane(ax.clone(), -c0 - W), new T.Plane(ax.clone().negate(), c0 - W)];
+        }
+      }
+    }
+    const plane = planes ? planes[0] : new T.Plane(n, -n.dot(at) - 0.010);     // keep what is 1 cm past the wall you clicked: the near wall goes, the bore shows
     const src = Array.isArray(o.material) ? o.material[0] : o.material;
-    const cut = src.clone(); cut.clippingPlanes = [plane]; cut.side = T.DoubleSide; cut.clipShadows = true; cut.needsUpdate = true;
+    const cut = src.clone(); cut.clippingPlanes = planes || [plane]; cut.clipIntersection = !!planes; cut.side = T.DoubleSide; cut.clipShadows = true; cut.needsUpdate = true;
     const sec = [], also = [], inst = o.userData.inst;
     if (inst) {
       const pn = partName(o), want = pn + '_section', alt = pn.replace(/_(body|shell|housing|case|cabinet)$/, '') + '_section';
@@ -1239,17 +1259,54 @@
   // the corner between the ends.
   // every yard's sewer is listed: each column is only shown in its own layout (showFlows checks the config), and the
   // gravity, overland and lift yards got their sewers laid again on 2026-09-13
+  // Round 64 (Jake: "I want all faucets to flow the exact way that the kitchen faucet did. I could see where the water went. But I want it to
+  // also flow into the street sewer line and through the manhole, so we can trace it all the way through"). Every fixture has its own set:
+  // its branch, the building drain from where the branch joins it, the sewer of whichever yard is up, the lift station's force main and
+  // the city main out to the end of the street. showFlows() starts each run where the one before it lands on it.
+  const SEWER_RUNS = ['pipe_dwv_sewer_septic', 'pipe_dwv_sewer_pumptank', 'pipe_dwv_sewer_gravity', 'pipe_dwv_sewer_overland', 'pipe_dwv_sewer_overland_aquaklear', 'pipe_dwv_sewer_lift', 'pipe_dwv_sewer_city', 'pipe_dwv_sewer_city_belly', 'pipe_dwv_force_main_lift', 'pipe_dwv_city_main'];
+  const TO_STREET = ['pipe_dwv_building_drain_west'].concat(SEWER_RUNS), VIA_HALL = ['pipe_dwv_building_drain'].concat(TO_STREET);
+  const DRAIN_SAY = ': down its trap, along the building drain and out to the tank or the street (cut a pipe open anywhere on the way to watch it)';
+  const fixtureSet = (label, branch) => ({ kind: 'water', label, say: label + DRAIN_SAY, off: 'water off: what is in the pipes runs on down the drain', runs: branch.concat(VIA_HALL) });
   const FLOW_SETS = {
-    faucet: { kind: 'water', label: 'water running', say: 'water running: into the bowl, through the disposal and the trap, down the drain (cut a pipe open to watch it)', off: 'water off: what is in the pipes runs on down the drain', runs: ['pipe_supply_branch_kitchen_cold', 'pipe_supply_branch_kitchen_hot', 'pipe_dwv_kitchen', 'pipe_dwv_building_drain_west', 'pipe_dwv_sewer_septic', 'pipe_dwv_sewer_pumptank', 'pipe_dwv_sewer_gravity', 'pipe_dwv_sewer_overland', 'pipe_dwv_sewer_overland_aquaklear', 'pipe_dwv_sewer_lift', 'pipe_dwv_sewer_city', 'pipe_dwv_sewer_city_belly'] },
-    disposal: { kind: 'waste', label: 'grinding, waste down the drain', say: 'water on, grinding: the waste goes out the discharge, through the trap and down the drain (cut a pipe open to watch it)', off: 'disposal off: the last of it runs on down the drain', runs: ['pipe_dwv_kitchen', 'pipe_dwv_building_drain_west', 'pipe_dwv_sewer_septic', 'pipe_dwv_sewer_pumptank', 'pipe_dwv_sewer_gravity', 'pipe_dwv_sewer_overland', 'pipe_dwv_sewer_overland_aquaklear', 'pipe_dwv_sewer_lift', 'pipe_dwv_sewer_city', 'pipe_dwv_sewer_city_belly'] },
-    laundry: { kind: 'water', label: 'washer draining', runs: ['pipe_dwv_laundry_standpipe', 'pipe_dwv_laundry', 'pipe_dwv_building_drain_west', 'pipe_dwv_sewer_septic', 'pipe_dwv_sewer_pumptank', 'pipe_dwv_sewer_gravity', 'pipe_dwv_sewer_overland', 'pipe_dwv_sewer_overland_aquaklear', 'pipe_dwv_sewer_lift', 'pipe_dwv_sewer_city', 'pipe_dwv_sewer_city_belly'] },
-    tub: { kind: 'water', label: 'tub draining', runs: ['pipe_dwv_hallbath_tub', 'pipe_dwv_building_drain_west', 'pipe_dwv_sewer_septic', 'pipe_dwv_sewer_pumptank', 'pipe_dwv_sewer_gravity', 'pipe_dwv_sewer_overland', 'pipe_dwv_sewer_overland_aquaklear', 'pipe_dwv_sewer_lift', 'pipe_dwv_sewer_city', 'pipe_dwv_sewer_city_belly'] },
+    faucet: { kind: 'water', label: 'water running', say: 'water running: into the bowl, through the disposal and the trap, down the drain (cut a pipe open to watch it)', off: 'water off: what is in the pipes runs on down the drain', runs: ['pipe_supply_branch_kitchen_cold', 'pipe_supply_branch_kitchen_hot', 'pipe_dwv_kitchen'].concat(TO_STREET) },
+    disposal: { kind: 'waste', label: 'grinding, waste down the drain', say: 'water on, grinding: the waste goes out the discharge, through the trap and down the drain (cut a pipe open to watch it)', off: 'disposal off: the last of it runs on down the drain', runs: ['pipe_dwv_kitchen'].concat(TO_STREET) },
+    laundry: fixtureSet('washer draining', ['pipe_dwv_laundry_standpipe', 'pipe_dwv_laundry']),
+    tub: fixtureSet('hall bath tub running', ['pipe_dwv_hallbath_tub']),
+    tub_master: fixtureSet('master shower running', ['pipe_dwv_master_tub']),
+    vanity_hall: fixtureSet('hall bath sink running', ['pipe_dwv_hallbath_vanity']),
+    vanity_master: fixtureSet('master bath sink running', ['pipe_dwv_master_vanity']),
+    toilet_hall: fixtureSet('hall bath toilet flushed', ['pipe_dwv_hallbath_toilet']),
+    toilet_master: fixtureSet('master toilet flushed', ['pipe_dwv_master_toilet']),
     // round 20: the air in every supply duct, for the fan (Jake: "we're gonna flow test all this stuff and actually watch it work")
     fan: { kind: 'air', label: 'air moving in the ducts', match: /^(flex_hvac_|duct_hvac_(supply_trunk|plenum_riser|ahu_supply)|takeoff_hvac_)/ },
     // round 27: water into the tank (Jake: turn water on at the inlet, watch it fill, flow over to the spray tank, the float bring the pump on)
-    sewer: { kind: 'waste', label: 'water into the tank', match: /^(pipe_dwv_building_drain|pipe_dwv_sewer_|pipe_dwv_effluent_)/ }
+    sewer: { kind: 'waste', label: 'water into the tank', match: /^(pipe_dwv_building_drain|pipe_dwv_sewer_|pipe_dwv_effluent_|pipe_dwv_force_main_|pipe_dwv_city_main)/ }
   };
   const inSet = (set, run) => set.runs ? set.runs.indexOf(run) >= 0 : set.match.test(run);
+  // Round 64: a fixture's water FOLLOWS ITS HANDLE. It used to be a separate switch that every click flipped, so a second way of turning
+  // the faucet (the panel, the handle, the auto start with the disposal) left the pipes running with the tap shut or dry with it open.
+  // window: for a clip that tells one story (the flush), the seconds of it during which water is leaving the fixture.
+  const WET_CLIPS = ['tub_on', 'shower_on', 'hot_on', 'cold_on'];
+  const FIXTURES = [
+    { socket: 'sock_kitchen_sink_kitchen', key: 'faucet', clips: ['faucet_run'] }, { socket: 'sock_kitchen_sink_kitchen', key: 'disposal', clips: ['disposal_run'] },
+    { socket: 'sock_vanity_hall_bath', key: 'vanity_hall', clips: ['hot_on', 'cold_on'] }, { socket: 'sock_vanity_master_bath', key: 'vanity_master', clips: ['hot_on', 'cold_on'] },
+    { socket: 'sock_tub_hall_bath', key: 'tub', clips: WET_CLIPS }, { socket: 'sock_tub_master_bath', key: 'tub_master', clips: WET_CLIPS },
+    { socket: 'sock_toilet_hall_bath', key: 'toilet_hall', clips: ['flush'], window: [1.3, 3.4] }, { socket: 'sock_toilet_wc', key: 'toilet_master', clips: ['flush'], window: [1.3, 3.4] }];
+  // (the washer has no clip of its own, so its drain stays a plain switch: a click on the washer turns 'laundry' on and off)
+  const FIX_KEYS = new Set(FIXTURES.map(f => f.key));
+  function fixtureOpen(inst, f, anyTime) {
+    const A = inst.userData.anim; if (!A) return false;
+    return f.clips.some(cn => { const st = A.state[cn]; if (!st || !st.open) return false; if (!f.window || anyTime) return true;
+      const c = A.clips.find(x => x.name === cn); const t = c ? A.mixer.clipAction(c).time : 0; return t >= f.window[0] && t <= f.window[1]; });
+  }
+  function fixtureKey(inst, clipName) { const pl = inst && inst.userData.pl; if (!pl) return null; const f = FIXTURES.find(x => x.socket === pl.socket && x.clips.indexOf(clipName) >= 0); return f ? f.key : null; }
+  function syncFixtureFlows() {
+    const want = new Set();
+    for (const inst of equip.children) { const pl = inst.userData.pl; if (!pl) continue; for (const f of FIXTURES) if (f.socket === pl.socket && waterOn && fixtureOpen(inst, f)) want.add(f.key); }
+    let changed = false;
+    for (const k of FIX_KEYS) if (want.has(k) !== running.has(k)) { changed = true; if (want.has(k)) running.add(k); else running.delete(k); }
+    if (changed) showFlows();
+  }
   const running = new Set(); const slugs = [];
   const SLUG_MAT = { water: new T.MeshStandardMaterial({ color: 0x8fd0ff, emissive: 0x2a6d99, roughness: 0.15 }),
                      waste: new T.MeshStandardMaterial({ color: 0x9a8355, emissive: 0x3a2f18, roughness: 0.6 }),
@@ -1262,6 +1319,11 @@
   }
   function toggleFlow(key) {
     const set = FLOW_SETS[key]; if (!set) return null;
+    if (FIX_KEYS.has(key)) {     // a fixture: its clips decide, this only says what is happening
+      syncFixtureFlows();
+      const open = equip.children.some(inst => FIXTURES.some(f => f.key === key && inst.userData.pl && f.socket === inst.userData.pl.socket && fixtureOpen(inst, f, true)));
+      return open ? (set.say || set.label) : (set.off || set.label + ' off');
+    }
     if (running.has(key)) running.delete(key); else running.add(key);
     showFlows();
     return running.has(key) ? (set.say || set.label) : (set.off || set.label + ' off');
@@ -1303,7 +1365,8 @@
   // the body of water along a centreline (points in the frame of whatever it will hang on, y up). R is the bore. full: a pipe under
   // pressure, round and centred; otherwise a drain, part full: low and wide on the flat, round where it falls.
   function waterGeometry(path, R, full) {
-    const P = [path[0].clone()]; for (let i = 1; i < path.length; i++) if (path[i].distanceTo(P[P.length - 1]) > 0.004) P.push(path[i].clone());
+    // round 64: a long straight leg is cut into 15 cm pieces, or the water's front (which shows whole pieces) jumps the length of the leg at once
+    const P = [path[0].clone()]; for (let i = 1; i < path.length; i++) { const a0 = P[P.length - 1], d = path[i].distanceTo(a0); if (d <= 0.004) continue; const n = Math.ceil(d / 0.15); for (let k = 1; k <= n; k++) P.push(a0.clone().lerp(path[i], k / n)); }
     if (P.length < 2) return null;
     const n = P.length, K = WATER_K, posA = [], uvA = [], idx = [], cum = [0]; for (let i = 1; i < n; i++) cum.push(cum[i - 1] + P[i].distanceTo(P[i - 1]));
     const t = new T.Vector3(), up = new T.Vector3(), side = new T.Vector3(1, 0, 0), c = new T.Vector3(), v = new T.Vector3(), DOWN = new T.Vector3(0, -1, 0);
@@ -1325,19 +1388,29 @@
     const mesh = new T.Mesh(G.geo, waterMaterial(kind)); mesh.name = 'flow_live_' + name; mesh.visible = false; mesh.frustumCulled = false; mesh.renderOrder = 2;
     mesh.raycast = () => { };     // contents are not controls: a click goes through the water to the pipe
     mesh.userData.isStream = true; mesh.userData.liveWater = true; parent.add(mesh);
-    const w = { mesh, cum: G.cum, L: G.cum[G.cum.length - 1], P: G.P, kind, full, on: false, t: 0, s0: 0, delay: 0, front: 0, tail: 0 }; waters.push(w); return w;
+    const w = { mesh, cum: G.cum, L: G.cum[G.cum.length - 1], P: G.P, kind, full, on: false, active: false, t: 0, tOff: Infinity, s0: 0, delay: 0, front: 0, tail: 0 }; waters.push(w); return w;
   }
   function segAt(w, d) { let i = 0; const c = w.cum; while (i < c.length - 1 && c[i + 1] <= d + 1e-6) i++; return i; }
   function stepWater(dt) {
     for (const k in waterTex) waterTex[k].offset.x = (waterTex[k].offset.x - dt * WATER_SCROLL / WATER_TILE) % 1;
     for (const w of waters) {
-      if (w.on) { w.t += dt; w.tail = w.s0; w.front = w.full ? w.L : Math.min(w.L, w.s0 + Math.max(0, w.t - w.delay) * WATER_V); }
-      else if (w.front > w.tail) w.tail = w.full ? w.front : Math.min(w.front, w.tail + dt * WATER_V);
-      const a = segAt(w, w.tail), b = segAt(w, w.front), show = b > a && (!w.inst || w.inst.parent);
+      if (w.active) {
+        w.t += dt; const run = Math.max(0, w.t - w.delay) * WATER_V, gone = Math.max(0, w.t - w.tOff - w.delay) * WATER_V;
+        w.front = w.full ? w.L : Math.min(w.L, w.s0 + run);
+        w.tail = w.full ? (w.tOff < Infinity ? w.L : w.s0) : Math.min(w.L, w.s0 + gone);
+        if (w.tOff < Infinity && w.tail >= Math.min(w.front, w.L) - 1e-6 && w.t - w.tOff > w.delay) w.active = false;
+      }
+      const a = segAt(w, w.tail), b = segAt(w, w.front), show = w.active && b > a && (!w.inst || w.inst.parent);
       w.mesh.visible = !!show; if (show) w.mesh.geometry.setDrawRange(a * 6 * WATER_K, (b - a) * 6 * WATER_K);
     }
   }
-  function setWater(w, on, delay, s0) { if (on && !w.on) { w.t = 0; w.delay = delay || 0; w.s0 = s0 || 0; w.front = w.tail = w.s0; } w.on = on; }
+  // on: the water sets off from s0 after delay. off: the supply stops, and what is already in the pipe runs on and out (the tail follows
+  // the front at the same speed), so a flush is a slug of water that travels the whole way to the tank or the street.
+  function setWater(w, on, delay, s0) {
+    if (on) { if (!w.on || (s0 || 0) < w.s0 - 0.01) { w.t = 0; w.delay = delay || 0; w.s0 = s0 || 0; w.front = w.tail = w.s0; w.active = true; } w.tOff = Infinity; }
+    else if (w.on && w.active && w.tOff === Infinity) w.tOff = w.t;
+    w.on = on;
+  }
   // a house run's bore, read off the column Blender drew in it (the column is never shown any more: it stood still)
   function boreOf(f) {
     if (f.bore) return f.bore;
@@ -1345,7 +1418,9 @@
     let r = Math.min((so.x - sp.x) / 2, (so.y - sp.y) / 2, (so.z - sp.z) / 2); if (!(r > 0.0015)) r = 0.004;
     return (f.bore = Math.min(0.08, r / 0.60 * 0.86));     // build_pipes draws the column at 0.60 of the pipe's outside radius; the bore is about 0.86 of it
   }
-  function nearestS(w, pt) { let best = 0, bd = 1e9; for (let i = 0; i < w.P.length; i++) { const d = w.P[i].distanceToSquared(pt); if (d < bd) { bd = d; best = w.cum[i]; } } return best; }
+  // how far along w the point pt joins it: measured on the SEGMENTS (round 64: it read the corners only, and a straight building drain has two,
+  // so a bath branch half way down it started its water at the top)
+  function nearestS(w, pt) { let best = 0, bd = 1e9; for (let i = 1; i < w.P.length; i++) { const a = w.P[i - 1], ab = w.P[i].clone().sub(a), L2 = ab.lengthSq(); const t = L2 < 1e-12 ? 0 : Math.max(0, Math.min(1, pt.clone().sub(a).dot(ab) / L2)); const d = a.clone().addScaledVector(ab, t).distanceToSquared(pt); if (d < bd) { bd = d; best = w.cum[i - 1] + t * Math.sqrt(L2); } } return best; }
   function showFlows() {
     const live = [...running];
     // air keeps its column and its two slugs; water and waste are bodies that move (above)
@@ -1363,7 +1438,7 @@
     // which runs are wet, and as what: waste wins over water where both are going down the same drain
     const want = new Map();
     for (const k of live) { const set = FLOW_SETS[k]; if (set.kind === 'air') continue;
-      let dist = 0, endPt = null; const lead = set.runs ? (k === 'faucet' || k === 'disposal' ? 1.9 : 0.4) : 0;
+      let dist = 0, endPt = null; const lead = set.runs ? (k === 'faucet' || k === 'disposal' ? 1.9 : (FIX_KEYS.has(k) ? 1.4 : 0.4)) : 0;
       const list = flows.filter(f => f.kind === set.kind && inSet(set, f.run) && inConfig(f.obj.userData.config) && f.path.length > 1);
       if (set.runs) list.sort((p, q) => set.runs.indexOf(p.run) - set.runs.indexOf(q.run));
       for (const f of list) {
@@ -1373,7 +1448,7 @@
         const w = f.water[key]; if (!w) continue;
         let s0 = 0, delay = 0;
         if (!supply && set.runs) { if (endPt) { s0 = nearestS(w, endPt); } delay = lead + dist / WATER_V; dist += w.L - s0; endPt = w.P[w.P.length - 1]; }
-        const prev = want.get(f.run); if (!prev || set.kind === 'waste') want.set(f.run, { w, s0, delay });
+        const prev = want.get(f.run); if (!prev || (set.kind === 'waste' && prev.w.kind !== 'waste') || (set.kind === prev.w.kind && s0 < prev.s0)) want.set(f.run, { w, s0, delay });     // waste over water; of two fixtures on one drain, the one that joins it further up
       }
     }
     for (const f of flows) { if (!f.water) continue; const pick = want.get(f.run); for (const key in f.water) { const w = f.water[key]; if (!w) continue; if (pick && pick.w === w) setWater(w, true, pick.delay, pick.s0); else setWater(w, false); } }
@@ -1402,7 +1477,7 @@
       sl.userData.t = (sl.userData.t + dt * 0.32) % 1;
       sl.position.copy(pointAt(sl.userData.path, sl.userData.t));
     }
-    stepModelWater(); stepWater(dt);
+    syncFixtureFlows(); stepModelWater(); stepWater(dt);
   }
   // Round 61: a clip that tells a story once (the food going down) is not played backwards to switch it off: the scraps would come
   // back up out of the ring. It stops, and the model is at rest. And the disposal is run with the water on: if the faucet is off
@@ -1415,11 +1490,15 @@
     else if (!on && inst.userData.autoFaucet) { inst.userData.autoFaucet = false; if (fa) { playNamed(inst, 'faucet_run', false); running.delete('faucet'); showFlows(); } }
   }
   function flowKeyFor(o) {
-    const n = nodeName(o);
-    if (/^(faucet|sprayer|pulldown|aerator|diverter)/.test(n)) return 'faucet';
-    if (/^disposal/.test(n) || n === 'grind_chamber' || n === 'turntable') return 'disposal';
+    const n = nodeName(o), inst = o.userData.inst, sock = inst && inst.userData.pl && inst.userData.pl.socket;
+    if (sock === 'sock_kitchen_sink_kitchen' || !sock) {
+      if (/^(faucet|sprayer|pulldown|aerator|diverter)/.test(n)) return 'faucet';
+      if (/^disposal/.test(n) || n === 'grind_chamber' || n === 'turntable') return 'disposal';
+    }
     if (/^washer/.test(n)) return 'laundry';
-    if (/^(trip_lever|tub)/.test(n) && (o.userData.pack || '') === 'shower') return 'tub';     // the toilet has a trip lever too (round 20)
+    // round 64: the fixture this part belongs to, by where it stands (two vanities, two toilets and two tubs share their models)
+    const f = sock && FIXTURES.find(x => x.socket === sock && x.key !== 'faucet' && x.key !== 'disposal');
+    if (f && /^(handle|trip_lever|tub|spout|shower|faucet|cartridge|stem|diverter|tank|bowl|flapper|chain)/.test(n)) return f.key;
     return null;
   }
   // ---------------------------------------------------------------- a cover you can take off
@@ -3343,7 +3422,7 @@
     }
     return renderer.domElement.toDataURL("image/png");
   }
-  window.walk = { waters, stepFlow, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
+  window.walk = { waters, stepFlow, syncFixtureFlows, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
     // verification: put a lead on a named part, the same call a click on it makes
     meterTest: (nm, hitAt) => { const o = scene.getObjectByName(nm); if (!o) return 'no part called ' + nm;
       const at = hitAt ? new T.Vector3(hitAt[0], hitAt[1], hitAt[2]) : new T.Box3().setFromObject(o).getCenter(new T.Vector3());
