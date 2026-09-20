@@ -1,7 +1,7 @@
 {
- "published": "2026-09-20T06:21:46",
- "house": "r60l",
- "note": "shell and shim published so the apps fetch them at run time; rights notice",
+ "published": "2026-09-20T07:57:42",
+ "house": "r61c",
+ "note": "round 61: disposal internals, food grinding, pull down stream, moving water in the pipes",
  "files": {
   "app_shell.html": {
    "v": "23e1e6ecd1",
@@ -168,7 +168,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "165e11d69e",
+   "v": "4a4c472350",
    "bytes": 17995
   },
   "info.json": {
@@ -180,8 +180,8 @@
    "bytes": 64807
   },
   "kitchen_sink.glb": {
-   "v": "2d695bfa7d",
-   "bytes": 1544536
+   "v": "89e64c0103",
+   "bytes": 1605780
   },
   "lift_station_r12.glb": {
    "v": "ca907c9603",
@@ -336,8 +336,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "630439bce3",
-   "bytes": 268185
+   "v": "b8872c5438",
+   "bytes": 281246
   },
   "washer.glb": {
    "v": "7e04f19827",
