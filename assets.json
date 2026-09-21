@@ -1,7 +1,7 @@
 {
- "published": "2026-09-20T22:48:30",
+ "published": "2026-09-21T00:05:29",
  "house": "r71b",
- "note": "round 71: tub and water heater stubs enter their adapters, no capped water lines, the hall toilet vent seats in its hub, go to a unit behind a closed door stands you at the door, furnace leads clear of each other",
+ "note": "Round 73: Lee control panel removed, furnace vent rises plumb off the inducer (3 in B vent on the 80, rubber coupling and PVC on the 96)",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -120,12 +120,12 @@
    "bytes": 1119516
   },
   "house_framing.glb": {
-   "v": "114e16604b",
-   "bytes": 226968
+   "v": "f44f6ea996",
+   "bytes": 226792
   },
   "house_furniture.glb": {
-   "v": "5bf1c1f9bd",
-   "bytes": 8863208
+   "v": "846bb91bfb",
+   "bytes": 8858304
   },
   "house_site.glb": {
    "v": "fbe4b19de1",
@@ -152,12 +152,12 @@
    "bytes": 4718784
   },
   "hvac_furnace_cond96.glb": {
-   "v": "967635f319",
-   "bytes": 2723916
+   "v": "6384efb913",
+   "bytes": 2738416
   },
   "hvac_furnace_std80.glb": {
-   "v": "e8e12e6dd9",
-   "bytes": 2706560
+   "v": "44dc1c9b0b",
+   "bytes": 2723236
   },
   "hvac_minisplit.glb": {
    "v": "adf7affdb4",
@@ -220,20 +220,20 @@
    "bytes": 2828996
   },
   "pipes_gas.glb": {
-   "v": "e3f283cc8f",
-   "bytes": 816280
+   "v": "3b5b51d048",
+   "bytes": 817708
   },
   "pipes_hvac.glb": {
-   "v": "c169f4a76f",
-   "bytes": 2084132
+   "v": "1a3824c0a6",
+   "bytes": 2084144
   },
   "pipes_supply.glb": {
    "v": "2182ce9521",
    "bytes": 2660772
   },
   "placements.json": {
-   "v": "51718bb476",
-   "bytes": 65835
+   "v": "5d05255919",
+   "bytes": 63738
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -272,12 +272,12 @@
    "bytes": 297260
   },
   "septic_lee.glb": {
-   "v": "de85b1a528",
-   "bytes": 961380
+   "v": "e120997e9a",
+   "bytes": 952804
   },
   "septic_lee_overland.glb": {
-   "v": "08247a17f8",
-   "bytes": 891488
+   "v": "5391aefb2b",
+   "bytes": 883092
   },
   "septic_tank_risers.glb": {
    "v": "d6d8714865",
