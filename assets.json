@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T08:33:48",
- "house": "r84a",
- "note": "r84a: condenser 8 in further off the wall, data plate leaves with its panel, spare stat conductors taped back, clamp pop-up emptied, meter no longer goes under the unit",
+ "published": "2026-09-21T09:01:46",
+ "house": "r85a",
+ "note": "r85a: condenser control box re-dressed (feed and ground out of the connector, real grommets, no wire through a wire), condenser pad only with a condenser",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -124,12 +124,12 @@
    "bytes": 226780
   },
   "house_furniture.glb": {
-   "v": "104409bc74",
-   "bytes": 8863200
+   "v": "8a6afe1391",
+   "bytes": 8863204
   },
   "house_site.glb": {
-   "v": "628dedeaaa",
-   "bytes": 7374868
+   "v": "c7bfedf0ba",
+   "bytes": 7374948
   },
   "house_slab.glb": {
    "v": "e170461dbb",
@@ -144,12 +144,12 @@
    "bytes": 2887176
   },
   "hvac_condenser_ac.glb": {
-   "v": "6ed88a6a94",
-   "bytes": 4092800
+   "v": "62a6fb832b",
+   "bytes": 4140900
   },
   "hvac_condenser_heatpump.glb": {
-   "v": "e0eaf34378",
-   "bytes": 4817280
+   "v": "d7636cc3fb",
+   "bytes": 4904924
   },
   "hvac_furnace_cond96.glb": {
    "v": "9bac2e34ab",
@@ -176,7 +176,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "3105a04e8f",
+   "v": "c67d1d3d11",
    "bytes": 18604
   },
   "info.json": {
@@ -228,8 +228,8 @@
    "bytes": 2924208
   },
   "pipes_gas.glb": {
-   "v": "ac4ce86e61",
-   "bytes": 815880
+   "v": "a305a1fd21",
+   "bytes": 815468
   },
   "pipes_hvac.glb": {
    "v": "68f2495ee7",
