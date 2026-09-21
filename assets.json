@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T03:34:06",
- "house": "r76a",
- "note": "Round 76: furnace direct spark electrode, lift station amps with the pump running, pliers on the lift station capacitors",
+ "published": "2026-09-21T03:40:59",
+ "house": "r77a",
+ "note": "Round 77: lift station amps corrected, start up kick on the clamp, capacitors read with a lead pulled, pulled leads stay off",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -144,12 +144,12 @@
    "bytes": 2887176
   },
   "hvac_condenser_ac.glb": {
-   "v": "83518f742f",
-   "bytes": 4088340
+   "v": "4863f11b7d",
+   "bytes": 4086980
   },
   "hvac_condenser_heatpump.glb": {
-   "v": "8c703a3963",
-   "bytes": 4807532
+   "v": "61a217fef0",
+   "bytes": 4812296
   },
   "hvac_furnace_cond96.glb": {
    "v": "9bac2e34ab",
@@ -176,7 +176,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "a227ebe4b7",
+   "v": "f46451a561",
    "bytes": 18406
   },
   "info.json": {
@@ -344,8 +344,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "c12257af81",
-   "bytes": 345274
+   "v": "1423b62ffc",
+   "bytes": 350069
   },
   "washer.glb": {
    "v": "7e04f19827",

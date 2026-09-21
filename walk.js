@@ -1596,7 +1596,7 @@
       const callOn = one ? (one.made || lifted) : (fOn && fOn.made), callOff = one ? (!one.made && !lifted) : (fOff && !fOff.made);
       let want = S.pumpOn; if (callOn || manual) want = true; if (callOff && !manual) want = false; if (S.hand) want = S.level > cfg.floor_z + 0.12; if (!pw) want = false;
       if (manual && !want) { st.open = false; if (clip) A.mixer.clipAction(clip).stop(); refreshStreams(S.inst); }     // Run pressed with the switch open: nothing runs
-      if (want !== S.pumpOn) { S.pumpOn = want;
+      if (want !== S.pumpOn) { S.pumpOn = want; if (want) S.pumpOnAt = performance.now();
         if (cfg.run_state_only) { (A.state[cfg.run_clip] || (A.state[cfg.run_clip] = { open: false })).open = want; }
         else if (want) { if (!(st && st.open)) playNamed(S.inst, cfg.run_clip, true); }
         else { const s2 = A.state[cfg.run_clip]; if (s2) s2.open = false; if (clip) { const act = A.mixer.clipAction(clip); act.time = Math.max(act.time, 72 / 24); } refreshStreams(S.inst); }
@@ -2037,9 +2037,9 @@
   const LIFT_AMPS = {
     wire_l1: [15.0, 'L1 coming in from the disconnect. 15 amps is the full load of the Champion 2 HP grinder at 230 volts, so this is a healthy pump working'],
     wire_l2: [15.0, 'L2, the other leg. On a 230 volt pump both legs carry the same current, so this should match L1'],
-    wire_pump_w: [15.0, 'white, the motor common: everything both windings draw comes back on it, so it matches the line'],
-    wire_pump_b: [13.6, 'black, the main (run) winding. It carries most of the load. The book gives the 15 amp total, not this split, so take it as the usual figure'],
-    wire_pump_r: [5.6, 'red, the start winding, fed through the 45 microfarad run capacitor while it runs. A reading of zero here with the pump running is an open run capacitor'],
+    wire_pump_w: [15.0, 'white, one of the two line leads to the motor in this panel (the contactor feeds black and white). It carries the whole load, so it matches L1 and L2'],
+    wire_pump_b: [15.0, 'black, the other line lead. In this panel it also feeds both capacitors, so everything the motor draws goes through it. It should match the white'],
+    wire_pump_r: [5.6, 'red, the start winding, fed from black through the 45 microfarad run capacitor while it runs. The book gives only the 15 amp total, so take this as the usual figure. Zero here with the pump running is an open run capacitor or an open start winding'],
     cap_lead_run_b: [5.6, 'the run capacitor lead: the start winding runs through this capacitor the whole time the pump is on'],
     cap_lead_run_r: [5.6, 'the run capacitor lead: the start winding runs through this capacitor the whole time the pump is on'],
     cap_lead_link: [0.0, 'the start capacitor is only in the circuit for the half second the start relay holds it in. Once the pump is up to speed this reads zero, and it should'],
@@ -2054,7 +2054,13 @@
     const ps_ = inst.userData.plantSim, on_ = ps_ ? !!ps_.pumpOn : running.has('lift_pump');     // the basin's own sim says when the pump is on (HAND, or the ON float up)
     if (!on_) return { text: '0.0 A', note: 'the pump is not running, so there is nothing to read. Put the HOA in HAND (or run water until the ON float lifts) and clamp it again' };
     const [a, why] = LIFT_AMPS[nm];
-    return { text: a.toFixed(1) + ' A', note: why };
+    // the first moment after the contactor pulls in the rotor is standing still: locked rotor amps, then it falls to the running figure.
+    // Champion prints no locked rotor figure for this grinder (their 2 HP sewage pump is 29 A, a different motor), so these are the usual size of it.
+    const age = ps_ && ps_.pumpOnAt ? performance.now() - ps_.pumpOnAt : 1e9;
+    if (age < 900) { const k_ = /^wire_pump_r$|^cap_lead_run/.test(nm) ? 9.0 : (/^cap_lead_(link|start)$/.test(nm) ? 18.0 : 52.0);
+      return { text: k_.toFixed(1) + ' A', note: 'STARTING: that is the locked rotor kick, three or four times the running amps for under a second. Watch it fall' }; }
+    const seen = ps_ && ps_.pumpOnAt && age < 60000 ? '. It kicked to about 52 amps for an instant as it started, which is normal' : '';
+    return { text: a.toFixed(1) + ' A', note: why + (a >= 15 ? seen : '') };
   }
   function readAmps(o) {
     const nm = partName(o) || base(o.name);
@@ -2063,6 +2069,9 @@
     if (!c) return { text: 'OL', note: 'that is not a conductor the clamp can read' };
     if (/jacket|romex|^cable_|whip$/.test(nm) && !/conductor/.test(nm)) return { text: '0.0 A', note: 'the jaw is round the whole cable, so the two conductors cancel. Clamp ONE conductor.' };
     if (c.breaker && breakers && breakers[c.breaker] === false) return { text: '0.0 A', note: c.label + ' is off at the breaker' };
+    { const want = /condenser/.test(c.label) ? /hvac_condenser|hvac_minisplit/ : (/air handler/.test(c.label) ? /hvac_air_handler|hvac_furnace/ : null);     // round 77
+      if (want) { const on = equip.children.some(u => u.visible && want.test(u.userData.model || '') && u.userData.anim && Object.entries(u.userData.anim.state || {}).some(([n_, s_]) => s_ && s_.open && /fan_run|fire_up|cool_run|heat_run|run$/.test(n_)));
+        if (!on) return { text: '0.0 A', note: c.label.replace(/ \(.*$/, '') + ' is not running right now, so there is nothing to read. Run it (tap Run on the unit) and clamp it again' }; } }
     return { text: c.amps.toFixed(1) + ' A', note: c.label + ' with the load running' };
   }
 
@@ -2198,7 +2207,14 @@
       : 'nothing in this house is set up to come off yet.') + ' Esc puts them down';
   }
   function pliersDown() {
-    if (inHand) { leadHome(inHand, inHand.spec.terminal); }
+    // Round 77 (Jake: pull the wire, THEN test). Putting the pliers down used to put the lead back on its tab, so nothing could ever be
+    // read with a lead off: the meter and the pliers are two tools. The lead is left hanging 3.5 cm off its tab now, still OFF as far as
+    // the unit and the meter are concerned, and the pliers pick it up again from there to put it back.
+    if (inHand) { const L = inHand, o = L.o, st = grabState(L.inst);
+      L.home.parent.attach(o); o.matrix.copy(L.home.matrix); o.matrix.decompose(o.position, o.quaternion, o.scale);
+      const d = new T.Vector3(L.spec.pull[0], L.spec.pull[2], -L.spec.pull[1]).transformDirection(L.inst.matrixWorld).normalize().multiplyScalar(0.035);
+      o.position.add(o.parent.worldToLocal(o.parent.localToWorld(new T.Vector3()).add(d)));
+      (st.hang || (st.hang = {}))[L.nm] = L.home; inHand = null; jawsShut(false); }
     grabMarkClear();
     if (pliers) { camera.remove(pliers); pliers = null; pliersJaw = null; }
     setTool('look'); grabButtons();
@@ -2284,7 +2300,8 @@
   function leadOff(g, at) {
     const o = scene.getObjectByName(g.nm) || (() => { let f = null; g.inst.traverse(x => { if (!f && (partName(x) || base(x.name)) === g.nm) f = x; }); return f; })();
     if (!o) return 'cannot find ' + g.nm;
-    const home = { parent: o.parent, matrix: o.matrix.clone() };
+    const st0 = grabState(g.inst), hung = st0.hang && st0.hang[g.nm];
+    const home = hung || { parent: o.parent, matrix: o.matrix.clone() }; if (hung) delete st0.hang[g.nm];
     const pull = new T.Vector3(g.spec.pull[0], g.spec.pull[2], -g.spec.pull[1]);
     const dir = pull.clone().transformDirection(g.inst.matrixWorld).normalize();
     scene.attach(o);
@@ -2466,7 +2483,8 @@
   // has every number with its page). A part with terminals reads between any two of them; a part without reads across itself, both
   // leads on it. `typ` marks a value no manual in the library prints: the note says so rather than passing it off as the maker's.
   const BENCH = [
-    { model: /hvac_condenser/, name: 'the dual run capacitor', terms: [[/^cap_lead_herm$/, 'HERM'], [/^cap_lead_fan$/, 'FAN'], [/^cap_lead_c_(fan|line)$/, 'C']],
+    { model: /hvac_condenser/, name: 'the dual run capacitor', terms: [[/^cap_lead_herm$|^cap_tab_herm$/, 'HERM'], [/^cap_lead_fan$|^cap_tab_fan$/, 'FAN'], [/^cap_lead_c_(fan|line)$|^cap_tab_c$/, 'C']],
+      free: { 'C-HERM': [['cap_lead_herm'], ['cap_lead_c_line', 'cap_lead_c_fan']], 'C-FAN': [['cap_lead_fan'], ['cap_lead_c_line', 'cap_lead_c_fan']], 'FAN-HERM': [['cap_lead_herm'], ['cap_lead_fan']] },
       uf: { 'C-HERM': [40.0, 'the compressor side, 40 microfarads: what Copeland lists for the 2-1/2 ton scroll (ZP25K, Electrical Handbook)'],
             'C-FAN': [5.0, 'the fan side, 5 microfarads (the usual fan section; Rheem does not print it)'],
             'FAN-HERM': [4.4, 'HERM to FAN is the two sections in series, so it reads smaller than either. Read each one to C'] } },
@@ -2487,12 +2505,15 @@
     { model: /^electric_tank_water_heater/, part: /^lower_thermostat$/, name: 'the lower thermostat body', ohms: ['OL', 'the body is plastic. Put the leads on its two screws'] },
     { model: /electric_tank_water_heater|hybrid_water_heater/, part: /^upper_thermostat$/, name: 'the upper thermostat', ohms: [0.2, 'closed to the upper element while the top of the tank is cold; when the top is hot it flips over and sends power to the lower one'] },
     { model: /electric_tank_water_heater|hybrid_water_heater/, part: /^lower_thermostat$/, name: 'the lower thermostat', ohms: [0.2, 'closed while the bottom of the tank is below its setting, open once it is satisfied'] },
-    { model: /lift_station/, part: /^run_capacitor$/, name: 'the run capacitor', uf: [45.0, '45 microfarads, 370 volts: the Champion sewage pump manual and the can in the panel both say so'] },
-    { model: /lift_station/, part: /^start_capacitor$/, name: 'the start capacitor', uf: [297, 'rated 270 to 324 microfarads, so anything in that window is good. It is only in the circuit for the second the start relay holds it in'] },
+    { model: /lift_station/, part: /^run_capacitor$/, name: 'the run capacitor', free: { '*': [['cap_lead_run_b'], ['cap_lead_run_r']] }, uf: [45.0, '45 microfarads, 370 volts: the Champion sewage pump manual and the can in the panel both say so'] },
+    { model: /lift_station/, part: /^start_capacitor$/, name: 'the start capacitor', free: { '*': [['cap_lead_link'], ['cap_lead_start']] }, uf: [297, 'rated 270 to 324 microfarads, so anything in that window is good. It is only in the circuit for the second the start relay holds it in'] },
     { model: /lift_station/, name: 'the grinder pump motor', terms: [[/^motor_term_w$/, 'W'], [/^motor_term_b$/, 'B'], [/^motor_term_r$/, 'R']],
-      ohms: { 'B-W': [1.3, 'black to white is the main winding: 1.3 ohms (Champion 2 HP grinder manual)'], 'R-W': [3.7, 'red to white is the start winding: 3.7 ohms (Champion 2 HP grinder manual)'],
-              'B-R': [2.4, 'black to red: 2.4 ohms (Champion 2 HP grinder manual). Read all three and compare them to the book before you pull a pump'] } },
-    { model: /lift_station/, part: /^pump$|^panel_wire_motor$/, name: 'the grinder pump motor', ohms: [1.3, 'the main winding, black to white: 1.3 ohms on the Champion 2 HP grinder. Red to white (start) is 3.7 and black to red is 2.4. Read each winding on its own at the panel: the W, B and R terminals on the strip'] },
+      ohms: { 'B-W': [1.3, 'black to white: 1.3 ohms in the Champion 2 HP grinder manual (p.4)'], 'R-W': [3.7, 'red to white: 3.7 ohms in the Champion manual (p.4). It is the biggest of the three because it is the other two added together'],
+              'B-R': [2.4, 'black to red: 2.4 ohms in the Champion manual (p.4). The two smaller readings add up to the big one: that is how you know all three windings are whole'] } },
+    { model: /lift_station/, part: /^pump$|^panel_wire_motor$/, name: 'the grinder pump motor', ohms: [1.3, 'black to white, 1.3 ohms (Champion 2 HP grinder manual). Read all three at the panel, on the W, B and R terminals of the strip: 1.3, 2.4 and 3.7'] },
+    { model: /hvac_condenser/, part: /^contactor$/, name: 'the contactor coil', typ: true, ohms: [12.0, 'a 24 volt contactor coil. Rheem prints no resistance; 10 to 20 ohms is usual. OL is an open coil: the stat calls, 24 volts shows up at the coil, and nothing pulls in'] },
+    { model: /lift_station/, part: /^contactor$|^contactor_armature$/, name: 'the contactor coil', typ: true, ohms: [580, 'a 240 volt contactor coil, A1 to A2. No book figure; several hundred ohms is usual. OL is an open coil: HAND or the ON float puts 240 on it and nothing pulls in'] },
+    { model: /lift_station/, part: /^start_relay$/, name: 'the start relay coil', typ: true, ohms: [10500, 'a Packard PR9068 potential relay, coil across 5 and 2. No book figure; around ten thousand ohms is usual. Its contacts, 1 to 2, are CLOSED at rest and read near zero: they open once the motor is up to speed and drop the start capacitor out'] },
     { model: /hvac_condenser/, part: /^fan_motor$|^fan$/, name: 'the condenser fan motor', typ: true, ohms: [11.6, 'a small PSC fan motor. Rheem does not print its winding resistance, so this is a usual value, not the maker\'s'] },
     { model: /hvac_furnace|hvac_air_handler|hvac_package/, part: /^blower_motor$|^blower$/, name: 'the blower motor', ohms: ['OL', 'this is a constant torque ECM motor with its own electronics, so an ohmmeter across it tells you nothing. Check for line voltage at its plug and 24 volts on its speed tap instead'] },
     { model: /hvac_furnace/, part: /^flame_sensor$/, name: 'the flame sensor', typ: true, ua: [3.2, 'with the burners lit. Rheem gives only the flame light on the board, not a number; 1 to 6 microamps DC is the usual window, and under 1 it drops out'] },
@@ -2500,9 +2521,10 @@
   ];
   function benchFor(o) {
     const nm = partName(o) || base(o.name); const inst = o.userData.inst || (typeof unitOf === 'function' ? unitOf(o) : null); const model = (inst && inst.userData.model) || '';
+    { const gs_ = inst && GRAB_STATE.get(inst); if (gs_ && gs_.off && gs_.off[nm]) return null; }     // a lead in your pliers is not on anything
     for (const B of BENCH) { if (!B.model.test(model)) continue;
-      if (B.terms) { for (const [re, t] of B.terms) if (re.test(nm)) return { B, term: t, key: model + '|' + B.name }; }
-      else if (B.part.test(nm)) return { B, term: null, key: model + '|' + B.name }; }
+      if (B.terms) { for (const [re, t] of B.terms) if (re.test(nm)) return { B, term: t, key: model + '|' + B.name, inst }; }
+      else if (B.part.test(nm)) return { B, term: null, key: model + '|' + B.name, inst }; }
     return null;
   }
   function benchRead(x, y) {
@@ -2512,6 +2534,10 @@
       const k = [x.term, y.term].sort().join('-'); what = B.name + ', ' + x.term + ' to ' + y.term;
       spec = fn === 'cap' ? (B.uf && B.uf[k]) : (fn === 'ua' ? null : (B.ohms && B.ohms[k]));
     } else spec = fn === 'cap' ? B.uf : (fn === 'ua' ? B.ua : B.ohms);
+    if (fn === 'cap' && spec && B.free) {
+      const k2 = B.terms ? [x.term, y.term].sort().join('-') : '*', sets = B.free[k2] || B.free['*'] || [], gs = x.inst && GRAB_STATE.get(x.inst), off = (gs && gs.off) || {};
+      if (sets.length && !sets.some(set => set.every(n_ => off[n_]))) return { text: 'OL', note: what + ': it is still wired in, so the motor winding is across it and the meter cannot charge it. Kill the power, short it, pull one of its leads with the pliers, then read it' };
+    }
     if (!spec) {
       if (fn === 'cap') return { text: 'OL', note: what + ' is not a capacitor. Turn the dial to ohms for this one' };
       if (fn === 'ua') return { text: '0.0', note: 'microamps is for the flame sensor, in series with its wire, with the burners lit' };
@@ -2711,6 +2737,8 @@
     if (meter.a && meter.b) { const r = readVolts(meter.a, meter.b); return 'red on ' + pretty(meter.a.nm) + ', black on ' + pretty(meter.b.nm) + ': ' + r.text + '. ' + r.note; }
     return 'red lead on ' + pretty(p.nm) + ' (' + p.why + '). Now click where the black one goes';
   }
+  // round 77: a clamp left on a conductor keeps reading, so you can throw the HOA and WATCH the amps come up and settle
+  setInterval(() => { if (meter && meter.kind === 'amps' && meter.a) { try { showMeter(); } catch (e) {} } }, 250);
   function meterDown() {
     meter = null; meterUp = false;
     if (meterObj) { camera.remove(meterObj); meterObj = null; }
