@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T02:54:01",
- "house": "r75a",
- "note": "Round 75: the meter reads parts separately to the makers numbers, compressor C S R pins, capacitor 40/5",
+ "published": "2026-09-21T02:58:32",
+ "house": "r75b",
+ "note": "Round 75b: pump W B R terminals, thermostat screws, compressor leads on their pins",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -64,8 +64,8 @@
    "bytes": 657852
   },
   "electric_tank_water_heater.glb": {
-   "v": "d54998ff6f",
-   "bytes": 1971780
+   "v": "45599bb998",
+   "bytes": 1975200
   },
   "electric_tankless_water_heater.glb": {
    "v": "ec8d6ac0e3",
@@ -144,12 +144,12 @@
    "bytes": 2887176
   },
   "hvac_condenser_ac.glb": {
-   "v": "fe303360a6",
-   "bytes": 4076220
+   "v": "7c2731fca9",
+   "bytes": 4085620
   },
   "hvac_condenser_heatpump.glb": {
-   "v": "4ef8645703",
-   "bytes": 4796668
+   "v": "36458492e8",
+   "bytes": 4811056
   },
   "hvac_furnace_cond96.glb": {
    "v": "ac15a34ee8",
@@ -176,7 +176,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "2477b6ad57",
+   "v": "0989bcce33",
    "bytes": 18406
   },
   "info.json": {
@@ -192,8 +192,8 @@
    "bytes": 1605780
   },
   "lift_station_r12.glb": {
-   "v": "1a89f99c40",
-   "bytes": 1507788
+   "v": "f8daa7ed96",
+   "bytes": 1510544
   },
   "multimeter.glb": {
    "v": "e1e2aa643f",
@@ -344,8 +344,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "0a8cc61197",
-   "bytes": 338320
+   "v": "968513a332",
+   "bytes": 340200
   },
   "washer.glb": {
    "v": "7e04f19827",
