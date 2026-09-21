@@ -935,7 +935,8 @@
   // drawn down to the off float, which lies on the surface, and the on float hangs dry. Back in AUTO the contactor drops
   // out and the floats have it again. Its state parts are listed under "states" in placements.json.
   function liftSwitch(inst) {
-    const st = inst.userData.lift || (inst.userData.lift = { on: false }); if (!st.on && !breakers.septic) return 'HOA: no power, the SEPTIC breaker in the load centre is off'; st.on = !st.on; const on = st.on;
+    const st = inst.userData.lift || (inst.userData.lift = { on: false }); if (!st.on && !breakers.septic) return 'HOA: no power, the SEPTIC breaker in the load centre is off';
+    if (!st.on) { const gs_ = GRAB_STATE.get(inst); if (gs_ && gs_.discPulled) return 'HOA: nothing happens. The disconnect beside the panel is off'; const gf_ = grabFault(inst); if (gf_) return 'HOA in HAND: ' + gf_; } st.on = !st.on; const on = st.on;
     setState(inst, 'hoa_lever_hand', on); setState(inst, 'hoa_lever_auto', !on);
     if (inst.userData.plantSim) { inst.userData.plantSim.hand = on; return on ? 'HOA in HAND: the pump runs whatever the floats say, and draws the basin down' : 'HOA back in AUTO: the floats run the pump'; }     // round 68: the basin is driven, nothing is swapped
     setState(inst, 'water_off', on); setState(inst, 'water_on', !on);
@@ -1041,7 +1042,12 @@
     if (/electric_tank|electric_tankless|hybrid/.test(m)) return 'wh';
     return null;
   }
-  function powered(inst) { const k = inst && breakerOf(inst.userData.model); return !k || breakers[k]; }
+  // round 76: a unit whose own disconnect has been thrown with the pliers is dead too, and so is one with a capacitor lead in your hand or on
+  // the wrong blade (the motor cannot start), so the basin's pump stops and will not come on until it is put right
+  function powered(inst) { const k = inst && breakerOf(inst.userData.model); if (k && !breakers[k]) return false;
+    const gs = inst && typeof GRAB_STATE !== 'undefined' ? GRAB_STATE.get(inst) : null;
+    if (gs && (gs.discPulled || Object.keys(gs.off || {}).length || Object.keys(gs.wrong || {}).length) && /lift_station/.test(inst.userData.model || '')) return false;
+    return true; }
   function noPower(inst) { const k = breakerOf(inst.userData.model); return 'no power: the ' + BREAKER_LABEL[k] + ' breaker in the load centre is off'; }
   function setBreaker(inst, key, on) {
     breakers[key] = on; playNamed(inst, 'breaker_' + key, !on);
@@ -2024,8 +2030,35 @@
     else note = 'nothing between those two';
     return { text: v.toFixed(v >= 100 ? 0 : 1) + ' V AC', v, note };
   }
+  // Round 76 (Jake: "if I go to a lift station panel and put my amp clamp on one of the incoming power wires, or down to the pump wire, I
+  // should be able to turn the pump on and see amperage"). The clamp reads the conductor it is round, and only while the pump RUNS:
+  // HOA in HAND, or the ON float up. 15 A is the Champion 2 HP grinder's full load at 230 V (its manual, p.4). The split between the
+  // main and the start winding is not in the book, so those two notes say they are the usual figures.
+  const LIFT_AMPS = {
+    wire_l1: [15.0, 'L1 coming in from the disconnect. 15 amps is the full load of the Champion 2 HP grinder at 230 volts, so this is a healthy pump working'],
+    wire_l2: [15.0, 'L2, the other leg. On a 230 volt pump both legs carry the same current, so this should match L1'],
+    wire_pump_w: [15.0, 'white, the motor common: everything both windings draw comes back on it, so it matches the line'],
+    wire_pump_b: [13.6, 'black, the main (run) winding. It carries most of the load. The book gives the 15 amp total, not this split, so take it as the usual figure'],
+    wire_pump_r: [5.6, 'red, the start winding, fed through the 45 microfarad run capacitor while it runs. A reading of zero here with the pump running is an open run capacitor'],
+    cap_lead_run_b: [5.6, 'the run capacitor lead: the start winding runs through this capacitor the whole time the pump is on'],
+    cap_lead_run_r: [5.6, 'the run capacitor lead: the start winding runs through this capacitor the whole time the pump is on'],
+    cap_lead_link: [0.0, 'the start capacitor is only in the circuit for the half second the start relay holds it in. Once the pump is up to speed this reads zero, and it should'],
+    cap_lead_start: [0.0, 'the start capacitor is only in the circuit for the half second the start relay holds it in. Once the pump is up to speed this reads zero, and it should'],
+  };
+  function liftAmps(o, nm) {
+    const inst = o.userData.inst || unitOf(o); if (!inst || !/lift_station/.test(inst.userData.model || '') || !LIFT_AMPS[nm]) return null;
+    const st = GRAB_STATE.get(inst);
+    if (breakers && breakers.septic === false) return { text: '0.0 A', note: 'the SEPTIC breaker in the load centre is off, so nothing in this panel is drawing' };
+    if (st && st.discPulled) return { text: '0.0 A', note: 'the disconnect beside the panel is off' };
+    if (st && st.off && st.off[nm]) return { text: '0.0 A', note: 'that lead is off its terminal and in your pliers' };
+    const ps_ = inst.userData.plantSim, on_ = ps_ ? !!ps_.pumpOn : running.has('lift_pump');     // the basin's own sim says when the pump is on (HAND, or the ON float up)
+    if (!on_) return { text: '0.0 A', note: 'the pump is not running, so there is nothing to read. Put the HOA in HAND (or run water until the ON float lifts) and clamp it again' };
+    const [a, why] = LIFT_AMPS[nm];
+    return { text: a.toFixed(1) + ' A', note: why };
+  }
   function readAmps(o) {
     const nm = partName(o) || base(o.name);
+    { const la = liftAmps(o, nm); if (la) return la; }
     const c = circuitFor(o);
     if (!c) return { text: 'OL', note: 'that is not a conductor the clamp can read' };
     if (/jacket|romex|^cable_|whip$/.test(nm) && !/conductor/.test(nm)) return { text: '0.0 A', note: 'the jaw is round the whole cable, so the two conductors cancel. Clamp ONE conductor.' };
@@ -2103,6 +2136,9 @@
     // cover, click two pulls the block, click three puts it all back.
     if (!inst) return null;
     const st = grabState(inst);
+    { const U_ = grabSpec(inst);     // round 76: a lever disconnect (the lift station's) is one move, not a cover and a pull out block
+      if (U_ && U_.power && U_.power.disconnect_kind === 'lever') { st.discPulled = want === false ? false : !st.discPulled;
+        return st.discPulled ? 'disconnect OFF: the panel is dead from here on. The capacitors are not: they still hold what they had' : 'disconnect back ON: the panel is live'; } }
     const has = n => { const A = inst.userData.anim; return A && A.clips.some(c => c.name === n); };
     if (want === false) {
       if (has('disconnect_pull')) playNamed(inst, 'disconnect_pull', false);
@@ -2196,7 +2232,7 @@
     // disconnect is between the panel and the unit, so with the block in your pocket the unit is dead whatever the breaker is
     // doing. Either one kills it. What is never acceptable is reaching in with both of them made.
     const st = grabState(inst), P = U.power || {};
-    const live = P.breaker && breakers && breakers[P.breaker] !== false;
+    const live = P.breaker ? (breakers && breakers[P.breaker] !== false) : !!P.always_live;
     const pulled = !!(P.disconnect && st.discPulled);
     if (!pulled && live) {
       return { stop: true, why: 'that circuit is still ON at the panel and the disconnect is still in. Pull the disconnect, or kill the '
@@ -2212,7 +2248,7 @@
     if (inHand) {
       if (!U || inst !== inHand.inst) return 'you are holding ' + pretty(inHand.nm) + ': put it back on a tab first';
       const near = at ? nearestTerm(inst, U, at) : null;
-      if (!near || near.d > 0.09) return 'aim at one of the tabs on the capacitor: C, FAN or HERM';
+      if (!near || near.d > 0.09) return 'aim at one of the terminals it can go on: ' + Object.keys(U.terminals || {}).join(', ');
       return leadHome(inHand, near.k);
     }
     // the disconnect: pull it or put it back
@@ -2233,8 +2269,8 @@
         if (!t_.userData.inst) { let f_ = null; o.traverse(x => { if (!f_ && x.isMesh && x.userData.inst) f_ = x; }); if (f_) t_ = f_; }
         const r = lookAction(t_, hit); grabMarkFace(); return r;
       }
-      if (U) return pretty(nm) + ': nothing to take hold of there. The leads that come off are ringed in yellow, on the capacitor.';
-      return pretty(nm) + ': the pliers have nothing to take hold of here. What comes off is ringed in yellow: the capacitor leads in the outdoor unit, behind its service panel.';
+      if (U) return pretty(nm) + ': nothing to take hold of there. The leads that come off are ringed in yellow, on the capacitors.';
+      return pretty(nm) + ': the pliers have nothing to take hold of here. What comes off is ringed in yellow: the capacitor leads in the outdoor unit and in the lift station panel.';
     }
     const P = powerCheck(inst, U);
     if (P.stop) return 'STOP: that lead is on a live capacitor tab. ' + P.why;
@@ -2285,8 +2321,10 @@
     const st = GRAB_STATE.get(inst); if (!st) return null;
     const off = Object.keys(st.off || {}), wrong = Object.keys(st.wrong || {});
     if (!off.length && !wrong.length) return null;
+    if (off.length && U.fault_off) return U.fault_off.replace('{lead}', 'the ' + pretty(off[0]));
     if (off.length) return 'the contactor pulls in and the compressor hums, then the overload trips: ' + pretty(off[0]) + ' is still in your hand, so that winding has no capacitor on it.';
     const w = wrong[0];
+    if (U.fault_wrong) return U.fault_wrong.replace('{lead}', 'the ' + pretty(w)).replace('{on}', st.wrong[w]).replace('{home}', U.parts[w].terminal);
     return 'the contactor pulls in and it will not start: ' + pretty(w) + ' is landed on ' + st.wrong[w] + ' instead of ' + U.parts[w].terminal + ', so the run capacitor is across the wrong winding.';
   }
 
@@ -2635,7 +2673,12 @@
     if (fn === 'ua' && meter.kind === 'volts') {
       if (!meter.a) return { text: '0.0', note: 'microamps reads the flame sensor: put the leads on it with the burners lit' };
       const x = benchFor(meter.a.o), y = meter.b ? benchFor(meter.b.o) : null;
-      if (x && x.B.ua && (!meter.b || (y && y.key === x.key))) return benchRead(x, x);
+      if (x && x.B.ua && (!meter.b || (y && y.key === x.key))) {
+        // round 76: there is only a flame current while there is a flame. Run the furnace, then read it
+        const fi_ = meter.a.o.userData.inst || unitOf(meter.a.o), A_ = fi_ && fi_.userData.anim;
+        const lit_ = !!(A_ && Object.entries(A_.state || {}).some(([n_, s_]) => /^fire_up/.test(n_) && s_ && s_.open));
+        if (!lit_) return { text: '0.0', note: 'the flame sensor: no flame, no flame current. Run the furnace (tap Run on it), wait for the burners to light, and read it again' };
+        return benchRead(x, x); }
       return { text: '0.0', note: 'microamps is for the flame sensor, in series with its wire, with the burners lit. Nothing else in the house is read on this range' };
     }
     if (fn === 'adc') return { text: '0.0', note: 'that load is alternating current, so a DC amp range reads about zero' };

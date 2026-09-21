@@ -552,7 +552,7 @@
   "hvac_furnace": {
    "name": "Gas Furnace",
    "clips": {
-    "fire_up": "Call for heat: igniter, burners, blower"
+    "fire_up": "Call for heat: spark, burners, blower"
    },
    "hotspots": {
     "gas_pipe": [
@@ -595,7 +595,7 @@
    "labels": {
     "burner_assembly": "In shot burners in the burner box, one per heat exchanger cell",
     "gas_valve": "Gas valve on the manifold, orifice spuds into each burner mouth",
-    "igniter": "Silicon nitride hot surface igniter at the right burner",
+    "igniter": "Spark electrode at the right burner. These Rheem furnaces are direct spark: a ceramic insulator, an electrode and a ground rod with a 1/8 in gap",
     "flame_sensor": "Flame sensor rod at the left burner",
     "heat_exchanger": "Primary heat exchanger cells above the burners, collector at the top",
     "inducer": "Draft inducer pulling the flue gases through the cells",
@@ -619,7 +619,7 @@
     "filter_out": "Filter pulled from the side rack",
     "data_plate": "Rating plate on the right front post",
     "flames": "Burner flames into the cells",
-    "igniter_glow": "Igniter glowing on a heat call",
+    "igniter_glow": "The spark snapping across the gap during the trial for ignition",
     "inducer_shaft": "Inducer motor shaft",
     "float_switch": "Float switch in the trap cleanout, kills the call if the drain backs up",
     "sight_glass": "Sight glass in the burner door"

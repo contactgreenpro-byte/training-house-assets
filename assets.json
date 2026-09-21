@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T02:58:32",
- "house": "r75b",
- "note": "Round 75b: pump W B R terminals, thermostat screws, compressor leads on their pins",
+ "published": "2026-09-21T03:34:06",
+ "house": "r76a",
+ "note": "Round 76: furnace direct spark electrode, lift station amps with the pump running, pliers on the lift station capacitors",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -36,8 +36,8 @@
    "bytes": 609804
   },
   "checklists.json": {
-   "v": "677b65633c",
-   "bytes": 17526
+   "v": "e628528a2e",
+   "bytes": 17532
   },
   "clamp_meter.glb": {
    "v": "5262a30852",
@@ -104,8 +104,8 @@
    "bytes": 44800
   },
   "grab.json": {
-   "v": "39ed65b28f",
-   "bytes": 3831
+   "v": "fe86fb6c02",
+   "bytes": 6256
   },
   "house_attic.glb": {
    "v": "18bd27794c",
@@ -144,20 +144,20 @@
    "bytes": 2887176
   },
   "hvac_condenser_ac.glb": {
-   "v": "7c2731fca9",
-   "bytes": 4085620
+   "v": "83518f742f",
+   "bytes": 4088340
   },
   "hvac_condenser_heatpump.glb": {
-   "v": "36458492e8",
-   "bytes": 4811056
+   "v": "8c703a3963",
+   "bytes": 4807532
   },
   "hvac_furnace_cond96.glb": {
-   "v": "ac15a34ee8",
-   "bytes": 2737124
+   "v": "9bac2e34ab",
+   "bytes": 2738488
   },
   "hvac_furnace_std80.glb": {
-   "v": "4626359d9e",
-   "bytes": 2721068
+   "v": "3b16aa0d16",
+   "bytes": 2722316
   },
   "hvac_minisplit.glb": {
    "v": "adf7affdb4",
@@ -176,12 +176,12 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "0989bcce33",
+   "v": "a227ebe4b7",
    "bytes": 18406
   },
   "info.json": {
-   "v": "ab73b86fe7",
-   "bytes": 111127
+   "v": "02cfa926f3",
+   "bytes": 111247
   },
   "interactions.json": {
    "v": "6d4391bdd5",
@@ -192,8 +192,8 @@
    "bytes": 1605780
   },
   "lift_station_r12.glb": {
-   "v": "f8daa7ed96",
-   "bytes": 1510544
+   "v": "0d6bb8091b",
+   "bytes": 1506308
   },
   "multimeter.glb": {
    "v": "e1e2aa643f",
@@ -344,8 +344,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "968513a332",
-   "bytes": 340200
+   "v": "c12257af81",
+   "bytes": 345274
   },
   "washer.glb": {
    "v": "7e04f19827",

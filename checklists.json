@@ -66,11 +66,11 @@
   },
   "hvac_furnace": {
    "what": "A gas furnace. The blower pushes house air over a heat exchanger warmed by the burners.",
-   "how": "The thermostat calls, the inducer proves draft, the igniter lights the burners, the blower runs after the exchanger warms. Exhaust goes out the flue (or PVC on a condensing unit).",
+   "how": "The thermostat calls, the inducer proves draft, the spark lights the burners, the blower runs after the exchanger warms. Exhaust goes out the flue (or PVC on a condensing unit).",
    "checks": [
     "Filter",
     "Heat exchanger (cracks, rust)",
-    "Flame sensor and igniter",
+    "Flame sensor and spark electrode",
     "Inducer and pressure switch",
     "Blower wheel and capacitor",
     "Gas pressure and combustion",
