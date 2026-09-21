@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T00:05:29",
- "house": "r71b",
- "note": "Round 73: Lee control panel removed, furnace vent rises plumb off the inducer (3 in B vent on the 80, rubber coupling and PVC on the 96)",
+ "published": "2026-09-21T00:05:49",
+ "house": "r73a",
+ "note": "Round 73: house label r73a",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -176,7 +176,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "3e15b482a6",
+   "v": "7ae0a39f72",
    "bytes": 17995
   },
   "info.json": {
