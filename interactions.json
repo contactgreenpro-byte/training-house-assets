@@ -1390,8 +1390,21 @@
    "contactor_2_armature": {
     "look": "clip:contactor_2_pull"
    },
+   "ctl_power_lever": {
+    "look": "clip:ctl_power_off"
+   },
+   "fuse_alarm": {
+    "look": "clip:fuse_alarm_pull"
+   },
+   "fuse_control": {
+    "look": "clip:fuse_control_pull"
+   },
    "hoa_lever": {
     "look": "clip:hoa_1_off"
+   },
+   "lead_select_lever": {
+    "work": "lead_select_1",
+    "look": "clip:lead_select_1"
    },
    "panel_door": {
     "look": "clip:panel_door_open"

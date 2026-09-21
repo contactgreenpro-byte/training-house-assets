@@ -416,6 +416,20 @@
     "A test pour: it runs and stops",
     "No water on the closet floor"
    ]
+  },
+  "lift_station_duplex": {
+   "what": "A duplex lift station: two grinder pumps on guide rails in one basin, pushing sewage up to the city sewer. Two pumps so the house still drains when one is down.",
+   "how": "Four floats on a tree run it. STOP and LEAD start the lead pump. If the water keeps rising, LAG brings the second pump on. ALARM lights the beacon. The panel swaps the lead pump every cycle so both wear evenly. Each pump lifts out on its chain, up its rail, with nothing to unbolt.",
+   "checks": [
+    "Each pump in HAND: 15 amps running on the clamp, and the level drops",
+    "Lead pump alternates from one cycle to the next",
+    "Float order and action: stop, lead, lag, alarm",
+    "TEST button: beacon and horn. Fuses F1 and F2 good",
+    "Check valves hold, ball valves open, handles along the pipe",
+    "Pumps seated on their base elbows, chains and rails sound",
+    "Junction box dry, cord grips tight",
+    "Lid bolted, gasket good, vent clear"
+   ]
   }
  }
 }

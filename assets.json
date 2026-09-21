@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T07:53:48",
- "house": "r82a",
- "note": "r82a: duplex grinder lift station on guide rails (48 x 96 basin, SJE 122 panel, new sewer choice); clamp meter goes out to the wire, hangs upright, pulls the wire out; romex conductors read their circuit",
+ "published": "2026-09-21T08:15:52",
+ "house": "r83a",
+ "note": "r83a: the SJE 122 board works (control power, lead select, test, silence, fuses), duplex layout audits clean, setup screen label, condenser capacitor leads read amps, clamp search faster beside dense parts",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -12,8 +12,8 @@
    "bytes": 22820
   },
   "app_shell.html": {
-   "v": "23e1e6ecd1",
-   "bytes": 40287
+   "v": "a343c89d06",
+   "bytes": 41133
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -36,8 +36,8 @@
    "bytes": 609804
   },
   "checklists.json": {
-   "v": "e628528a2e",
-   "bytes": 17532
+   "v": "2a9230af08",
+   "bytes": 18527
   },
   "clamp_meter.glb": {
    "v": "5262a30852",
@@ -48,7 +48,7 @@
    "bytes": 311332
   },
   "drains.json": {
-   "v": "0b7fb37730",
+   "v": "580671c7aa",
    "bytes": 8197
   },
   "dryer.glb": {
@@ -124,8 +124,8 @@
    "bytes": 226780
   },
   "house_furniture.glb": {
-   "v": "5eb95d9922",
-   "bytes": 8858308
+   "v": "f8d2dc3d0c",
+   "bytes": 8858228
   },
   "house_site.glb": {
    "v": "3025db1071",
@@ -176,16 +176,16 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "dd76d6d5f1",
+   "v": "3ef9d73aae",
    "bytes": 18604
   },
   "info.json": {
-   "v": "90348dc4a2",
-   "bytes": 118161
+   "v": "effbc8c2e3",
+   "bytes": 119267
   },
   "interactions.json": {
-   "v": "628b58f27c",
-   "bytes": 65211
+   "v": "1af0c67d7c",
+   "bytes": 65492
   },
   "kitchen_sink.glb": {
    "v": "89e64c0103",
@@ -196,8 +196,8 @@
    "bytes": 737540
   },
   "lift_station_duplex_panel.glb": {
-   "v": "f52b7d4f55",
-   "bytes": 1205412
+   "v": "92e5239be3",
+   "bytes": 1206428
   },
   "lift_station_r12.glb": {
    "v": "0d6bb8091b",
@@ -224,12 +224,12 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "8d49e03012",
-   "bytes": 2924220
+   "v": "26d5acdecb",
+   "bytes": 2924208
   },
   "pipes_gas.glb": {
-   "v": "fd24621905",
-   "bytes": 808276
+   "v": "ade137c6c1",
+   "bytes": 809076
   },
   "pipes_hvac.glb": {
    "v": "6f817dd009",
@@ -352,8 +352,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "1185bb6d22",
-   "bytes": 393477
+   "v": "737a174eef",
+   "bytes": 402439
   },
   "washer.glb": {
    "v": "7e04f19827",

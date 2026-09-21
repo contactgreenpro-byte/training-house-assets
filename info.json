@@ -983,7 +983,12 @@
     "jb_cover_off": "Junction box cover off",
     "panel_door_open": "Open the panel",
     "fill_from_house": "Fill from the house",
-    "pump_down": "Pump down"
+    "pump_down": "Pump down",
+    "ctl_power_off": "Control power off",
+    "lead_select_1": "Lead select: pump 1",
+    "lead_select_2": "Lead select: pump 2",
+    "fuse_control_pull": "Pull fuse F1",
+    "fuse_alarm_pull": "Pull fuse F2"
    },
    "hotspots": {
     "rail_1": [
@@ -1000,6 +1005,9 @@
     ],
     "contactor_1": [
      "Clamp one conductor of a pump in HAND. 15 amps is right. Around 10 with the pump running means it is moving no water: a shut valve, a stuck check, an air lock. Near 8 means it is running dry."
+    ],
+    "test_button": [
+     "On the board: CONTROL POWER, LEAD SELECT, TEST and SILENCE, and two glass fuses. F1 is the control fuse, F2 the alarm fuse. Push TEST every visit. A blown F2 means a flooded basin with no warning."
     ]
    },
    "labels": {
@@ -1059,8 +1067,8 @@
     "run_light_2": "Pump 2 run light",
     "run_light_1_lit": "Pump 1 running",
     "run_light_2_lit": "Pump 2 running",
-    "fuse_control": "Control fuse",
-    "fuse_alarm": "Alarm fuse",
+    "fuse_control": "F1, the 2 amp control fuse. Out, and nothing runs",
+    "fuse_alarm": "F2, the 1 amp alarm fuse. Out, and a high water alarm is silent and dark",
     "terminal_strip": "TB1: 1 alarm hot, 2 control hot, 3 neutral, stop float 3-4, lead 5-6, lag 7-8, alarm 9-10",
     "float_lights": "Float status lights: STOP, LEAD, LAG, ALARM",
     "din_rail": "DIN rail",
@@ -1080,7 +1088,13 @@
     "p1_t1": "Pump 1 terminal T1",
     "p1_t2": "Pump 1 terminal T2",
     "p2_t1": "Pump 2 terminal T1",
-    "p2_t2": "Pump 2 terminal T2"
+    "p2_t2": "Pump 2 terminal T2",
+    "ctl_power_lever": "CONTROL POWER switch on the board. Off kills the floats, the alternator and the contactor coils. The alarm has its own hot and still works",
+    "lead_select_lever": "LEAD SELECT: 1, ALT or 2. ALT swaps the lead pump every cycle. 1 or 2 holds that pump on lead",
+    "test_button": "TEST: lights the beacon and sounds the horn. Push it on every visit",
+    "silence_button": "SILENCE: stops the horn. The beacon stays lit until the water drops",
+    "din_rail_low": "DIN rail for the pump terminal blocks",
+    "panel_stand": "Panel stand"
    }
   },
   "pressure_tank": {

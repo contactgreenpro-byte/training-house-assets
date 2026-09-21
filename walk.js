@@ -1937,6 +1937,12 @@
   // what a circuit carries with its load running, and the breaker that feeds it
   const CIRCUITS = [
     [/cable_wh_branch_romex|whip_wh_flex|box_wh_junction|breaker_wh/, { amps: 18.8, breaker: 'wh', label: 'the water heater, 30 A two pole' }],
+    // round 83: the condenser's own capacitor leads. Rheem prints the compressor's 14.1 and the fan's 0.8; what flows through a run
+    // capacitor they do not print, so these are WORKED (I = 2 pi f C V, with the 330 volts or so that stands across a run capacitor) and say so
+    [/^cap_lead_herm$/, { amps: 5.0, breaker: 'hvac', label: "the condenser compressor's start winding, through the 40 microfarad side of the capacitor (worked from the capacitor's size, not Rheem's figure). Near zero here with the compressor running means an open capacitor" }],
+    [/^cap_lead_fan$/, { amps: 0.6, breaker: 'hvac', label: "the condenser fan's start winding, through the 5 microfarad side (worked from the capacitor's size, not Rheem's figure)" }],
+    [/^cap_lead_c_line$/, { amps: 5.6, breaker: 'hvac', label: "the condenser capacitor's common: both start windings together (worked, not Rheem's figure)" }],
+    [/^cap_lead_c_fan$/, { amps: 0.6, breaker: 'hvac', label: "the condenser fan's side of the capacitor common (worked, not Rheem's figure)" }],
     [/whip|disconnect|contactor|^t1$|^t2$|term_l1|term_l2|breaker_hvac/, { amps: 14.9, breaker: 'hvac', label: 'the condenser (compressor 14.1 rated load plus the 0.8 amp fan, Rheem RA14 030)' }],
     [/cable_hvac_ahu|air_handler/, { amps: 6.4, breaker: 'hvac', label: 'the air handler' }],
     [/lv_|tstat|term_(r|c|w1|w2|y1|y2|g|o)/, { amps: 0.4, breaker: null, label: 'the 24 V control circuit' }],
@@ -2823,6 +2829,36 @@
     for (let i = 0; i < 24; i++) d.set(xx * d.x + xy * d.y + xz * d.z, xy * d.x + yy * d.y + yz * d.z, xz * d.x + yz * d.y + zz * d.z).normalize();
     return { c: c0.addScaledVector(d, at.clone().sub(c0).dot(d)), d, r: 0.0025 };
   }
+  // Round 83: a dense mesh (a condenser coil is 100,000 triangles) costs a millisecond a ray the ordinary way, and a fit is thousands
+  // of rays, so one click took two seconds beside a coil. Every mesh over 600 triangles that is not a conductor gets a grid of 5 cm cells in its OWN space,
+  // built once and kept on its geometry: a feeler is turned into that space and only the triangles in the cells it passes are tried,
+  // both faces at once. Anything lighter still goes through the ordinary raycaster.
+  function triGrid(geo) {
+    if (geo.userData.triGrid) return geo.userData.triGrid;
+    const P = geo.attributes.position, I = geo.index, nT = Math.floor((I ? I.count : P.count) / 3), C = 0.05, cells = new Map(), big = [];
+    const pos = new Float32Array(nT * 9); const ix = k => I ? I.getX(k) : k;
+    for (let t = 0; t < nT; t++) { let x0 = 1e9, y0 = 1e9, z0 = 1e9, x1 = -1e9, y1 = -1e9, z1 = -1e9;
+      for (let k = 0; k < 3; k++) { const i = ix(t * 3 + k), x = P.getX(i), y = P.getY(i), z = P.getZ(i); pos[t * 9 + k * 3] = x; pos[t * 9 + k * 3 + 1] = y; pos[t * 9 + k * 3 + 2] = z;
+        if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; if (z < z0) z0 = z; if (z > z1) z1 = z; }
+      const a0 = Math.floor(x0 / C), a1 = Math.floor(x1 / C), b0 = Math.floor(y0 / C), b1 = Math.floor(y1 / C), c0 = Math.floor(z0 / C), c1 = Math.floor(z1 / C);
+      if ((a1 - a0 + 1) * (b1 - b0 + 1) * (c1 - c0 + 1) > 256) { big.push(t); continue; }
+      for (let a = a0; a <= a1; a++) for (let b = b0; b <= b1; b++) for (let c = c0; c <= c1; c++) { const key = a + ',' + b + ',' + c; let L = cells.get(key); if (!L) cells.set(key, L = []); L.push(t); } }
+    return (geo.userData.triGrid = { C, cells, big, pos });
+  }
+  const _ga = new T.Vector3(), _gb = new T.Vector3(), _gm = new T.Matrix4();
+  function gridHit(mesh, a, b) {
+    const G = triGrid(mesh.geometry), C = G.C, pos = G.pos; _gm.copy(mesh.matrixWorld).invert(); _ga.copy(a).applyMatrix4(_gm); _gb.copy(b).applyMatrix4(_gm);
+    const ox = _ga.x, oy = _ga.y, oz = _ga.z, dx = _gb.x - ox, dy = _gb.y - oy, dz = _gb.z - oz;
+    const tri = t => { const o = t * 9, e1x = pos[o + 3] - pos[o], e1y = pos[o + 4] - pos[o + 1], e1z = pos[o + 5] - pos[o + 2], e2x = pos[o + 6] - pos[o], e2y = pos[o + 7] - pos[o + 1], e2z = pos[o + 8] - pos[o + 2];
+      const px = dy * e2z - dz * e2y, py = dz * e2x - dx * e2z, pz = dx * e2y - dy * e2x, det = e1x * px + e1y * py + e1z * pz; if (det > -1e-14 && det < 1e-14) return false;
+      const inv = 1 / det, tx = ox - pos[o], ty = oy - pos[o + 1], tz = oz - pos[o + 2], u = (tx * px + ty * py + tz * pz) * inv; if (u < 0 || u > 1) return false;
+      const qx = ty * e1z - tz * e1y, qy = tz * e1x - tx * e1z, qz = tx * e1y - ty * e1x, v = (dx * qx + dy * qy + dz * qz) * inv; if (v < 0 || u + v > 1) return false;
+      const w = (e2x * qx + e2y * qy + e2z * qz) * inv; return w >= 0 && w <= 1; };
+    for (const t of G.big) if (tri(t)) return true;
+    const a0 = Math.floor(Math.min(ox, _gb.x) / C), a1 = Math.floor(Math.max(ox, _gb.x) / C), b0 = Math.floor(Math.min(oy, _gb.y) / C), b1 = Math.floor(Math.max(oy, _gb.y) / C), c0 = Math.floor(Math.min(oz, _gb.z) / C), c1 = Math.floor(Math.max(oz, _gb.z) / C);
+    for (let x = a0; x <= a1; x++) for (let y = b0; y <= b1; y++) for (let z = c0; z <= c1; z++) { const L = G.cells.get(x + ',' + y + ',' + z); if (L) for (const t of L) if (tri(t)) return true; }
+    return false;
+  }
   function clampGo(rec) {
     if (!meterObj || !rec || !rec.at || !rec.o) return;
     const F = clampFrame(); let W = wireLine((rec.hit && rec.hit.object) || rec.o, rec.at, rec.hit); if (!F || !W) return;
@@ -2833,10 +2869,12 @@
     if (W.thick !== undefined) { if (!wireObj.geometry.boundingBox) wireObj.geometry.computeBoundingBox(); const sz = wireObj.geometry.boundingBox.getSize(new T.Vector3());
       if (W.thick > 0.03 || W.width > 0.03 || Math.max(sz.x, sz.y, sz.z) < 0.025) { rec.clampFit = { notWire: true, thick: +W.thick.toFixed(3), width: +W.width.toFixed(3) }; return; } }
     const shown = x => { for (let q = x; q; q = q.parent) if (!q.visible) return false; return true; };
-    unit.traverse(x => { if (x.isMesh && x !== wireObj && shown(x) && !/^(water|flow_|bubbles)/.test(partName(x) || '')) near.push(x); });
-    const rc = new T.Raycaster(), seg = (a, b_) => { const v = b_.clone().sub(a), n = v.length(); if (n < 1e-5) return 0; v.multiplyScalar(1 / n);
+    const heavy = [], triCount = g_ => Math.floor((g_.index ? g_.index.count : g_.attributes.position.count) / 3);
+    unit.traverse(x => { if (x.isMesh && x !== wireObj && shown(x) && !x.isSkinnedMesh && !/^(water|flow_|bubbles)/.test(partName(x) || '')) ((triCount(x.geometry) > 600 && !/^(wire|lead)_(?!duct)|_(wire|lead)(_|$)|conductor|cord/.test(partName(x) || x.name || '')) ? heavy : near).push(x); });     // conductors stay with the raycaster: it is what tells a soft touch from a hard one
+    const _hs = new T.Sphere(), rc = new T.Raycaster(), seg = (a, b_) => { const v = b_.clone().sub(a), n = v.length(); if (n < 1e-5) return 0; v.multiplyScalar(1 / n);
       // what it touches matters: another CONDUCTOR gives way to a hand (1), a device, a wall, a duct or the board does not (10)
       const soft = h => /^(wire|lead)_(?!duct)|_(wire|lead)(_|$)|conductor|cord/.test(partName(h.object) || h.object.name || ''), cost = hs => hs.length ? (hs.every(soft) ? 1 : 10) : 0;
+      for (const hm of heavy) { if (!hm.geometry.boundingSphere) hm.geometry.computeBoundingSphere(); _hs.copy(hm.geometry.boundingSphere).applyMatrix4(hm.matrixWorld); if (_hs.distanceToPoint(a) < n && gridHit(hm, a, b_)) return 10; }
       rc.set(a, v); rc.far = n; const c1 = cost(rc.intersectObjects(near, false)); if (c1 === 10) return 10; rc.set(b_, v.negate()); return Math.max(c1, cost(rc.intersectObjects(near, false))); };
     // what the RING touches at a spot on the wire, standing with its axis along f_
     const ringAt = (c0, f_) => { const e1 = Math.abs(f_.y) < 0.9 ? new T.Vector3(0, 1, 0) : new T.Vector3(1, 0, 0); e1.addScaledVector(f_, -e1.dot(f_)).normalize(); const e2 = new T.Vector3().crossVectors(f_, e1); let n = 0;
@@ -2915,6 +2953,7 @@
     pullBack();
     let pullWhy = '';
     const tryPull = W0 => {
+      if (performance.now() > dead) return null;
       const Pw = wireObj.geometry.attributes.position, v = new T.Vector3(); let tA = 0, tB = 0, offA = -0.09, offB = 0.09;
       for (let i = 0; i < Pw.count; i++) { v.fromBufferAttribute(Pw, i).applyMatrix4(wireObj.matrixWorld).sub(W0.c); const t = v.dot(W0.d); if (Math.abs(t) > 0.09) continue;
         // The straight run you clicked, from its own vertices: a ring ON the line (within the wire's thickness of it) is still the run,
@@ -2926,10 +2965,10 @@
       const e1 = eye.clone().sub(W0.c); e1.addScaledVector(W0.d, -e1.dot(W0.d)); if (e1.lengthSq() < 1e-6) e1.copy(upW).addScaledVector(W0.d, -upW.dot(W0.d)); e1.normalize(); const e2 = new T.Vector3().crossVectors(W0.d, e1);
       const tp = performance.now();
       let blocked = 0, ringed = 0, tried = 0; const why1 = [];
-      // which ways is it open round this wire? Seven ways on your side of it, each sounded out to 14 cm; the most open are tried first
-      const ways = [0, 1, 11, 2, 10, 3, 9].map(k => { const t = k * Math.PI / 6, out = e1.clone().multiplyScalar(Math.cos(t)).addScaledVector(e2, Math.sin(t)); let free = 0.14;
+      // which ways is it open round this wire? Twelve ways round it, each sounded out to 14 cm; the most open are tried first
+      const ways = [0, 1, 11, 2, 10, 3, 9, 4, 8, 5, 7, 6].map(k => { const t = k * Math.PI / 6, out = e1.clone().multiplyScalar(Math.cos(t)).addScaledVector(e2, Math.sin(t)); let free = 0.14;
         rc.set(W0.c.clone().addScaledVector(out, W0.r * 1.5), out); rc.far = 0.14; const hs = rc.intersectObjects(near, false).filter(x => !/^(wire|lead)_(?!duct)/.test(partName(x.object) || x.object.name || '')); if (hs.length) free = hs[0].distance;
-        return { k, out, free: free + (k === 0 ? 0.01 : 0) }; }).sort((x, y) => y.free - x.free).slice(0, 4);
+        return { k, out, free: free + 0.02 * Math.cos(t) }; }).sort((x, y) => y.free - x.free).slice(0, 5);     // round 83: ALL the way round the wire, the open side wins, your side breaks a tie (a lead in the corner of a condenser's box only comes out one way)
       for (const wy of ways) for (const h of [0.03, 0.05, 0.07, 0.09]) { if (performance.now() - tp > 600 || performance.now() > dead) break; if (h + 0.02 > wy.free) { blocked++; continue; } const out = wy.out, k = wy.k;
         if (seg(W0.c.clone().addScaledVector(out, W0.r * 1.5), W0.c.clone().addScaledVector(out, h + 0.01)) >= 10) { blocked++; continue; }     // something solid is in the way of pulling it that way
         const W1 = { c: W0.c.clone().addScaledVector(out, h), d: W0.d, r: W0.r };
@@ -2944,7 +2983,7 @@
       // If none is clean as it lies, the nearest few are tried pulled out.
       const P = wireObj.geometry.attributes.position, I = wireObj.geometry.index, nT = Math.floor((I ? I.count : P.count) / 3), step = Math.max(1, Math.floor(nT / 24));
       const v = i => new T.Vector3().fromBufferAttribute(P, i), spots = [], tq = performance.now();
-      for (let t = 0; t < nT; t += step) { const a = I ? I.getX(t * 3) : t * 3, b_ = I ? I.getX(t * 3 + 1) : t * 3 + 1, c_ = I ? I.getX(t * 3 + 2) : t * 3 + 2, pa = v(a), pb = v(b_), pc = v(c_);
+      for (let t = 0; t < nT && performance.now() < dead; t += step) { const a = I ? I.getX(t * 3) : t * 3, b_ = I ? I.getX(t * 3 + 1) : t * 3 + 1, c_ = I ? I.getX(t * 3 + 2) : t * 3 + 2, pa = v(a), pb = v(b_), pc = v(c_);
         const nrm = pb.clone().sub(pa).cross(pc.clone().sub(pa)); if (nrm.lengthSq() < 1e-12) continue; nrm.normalize();
         const cw = pa.clone().add(pb).add(pc).multiplyScalar(1 / 3).applyMatrix4(wireObj.matrixWorld), Wx = wireLine(wireObj, cw, { face: { a, b: b_, c: c_, normal: nrm }, point: cw }); if (Wx) spots.push(Wx); }
       spots.sort((x, y) => x.c.distanceTo(W.c) - y.c.distanceTo(W.c));
@@ -3627,18 +3666,19 @@
   // 15 A full load and 53 A locked rotor for the LSG202M (D3672 spec p4).
   const duplexSim = () => plantSims.find(S => S.cfg.duplex && S.inst.visible && S.inst.parent) || null;
   const duplexPanel = () => equip.children.find(u => u.visible && /lift_station_duplex_panel/.test(u.userData.model || '')) || null;
-  function duplexState(S) { return S.dx || (S.dx = { lead: 1, on: { 1: false, 2: false }, onAt: { 1: 0, 2: 0 }, hoa: { 1: 'auto', 2: 'auto' }, brk: { 1: true, 2: true, c: true }, lagAt: 0, lagOn: false, cycle: false, cycles: 0 }); }
+  function duplexState(S) { return S.dx || (S.dx = { lead: 1, on: { 1: false, 2: false }, onAt: { 1: 0, 2: 0 }, hoa: { 1: 'auto', 2: 'auto' }, brk: { 1: true, 2: true, c: true }, lagAt: 0, lagOn: false, cycle: false, cycles: 0, ctlSw: true, sel: 'alt', fuse: { c: true, a: true }, silenced: false, testUntil: 0 }); }
   function duplexOut(S, k) { const A = S.inst.userData.anim, st = (A && A.state) || {}; return { pulled: !!(st['pump_' + k + '_pull'] && st['pump_' + k + '_pull'].open), shut: !!(st['valve_' + k + '_close'] && st['valve_' + k + '_close'].open) }; }
   function duplexStep(S, cfg, dt) {
     const D = duplexState(S), f = r => S.floats.find(F => F.d.role === r), off = f('off'), lead = f('on'), lag = f('lag'), al = f('alarm');
-    const panel = duplexPanel(), now = performance.now(), pw = !(breakers && breakers.septic === false), ctl = pw && D.brk.c;
+    const panel = duplexPanel(), now = performance.now(), pw = !(breakers && breakers.septic === false), ctl = pw && D.brk.c && D.ctlSw && D.fuse.c;
+    if (D.sel !== 'alt' && !D.cycle) D.lead = +D.sel;     // round 83: LEAD SELECT held on 1 or 2 stops the alternation and that pump leads every cycle
     if (ctl && off && lead && off.made && lead.made) D.cycle = true;
-    if (!off || !off.made || !ctl) { if (D.cycle && off && !off.made) { D.lead = D.lead === 1 ? 2 : 1; D.cycles++; } D.cycle = false; D.lagAt = 0; D.lagOn = false; }
+    if (!off || !off.made || !ctl) { if (D.cycle && off && !off.made) { if (D.sel === 'alt') D.lead = D.lead === 1 ? 2 : 1; D.cycles++; } D.cycle = false; D.lagAt = 0; D.lagOn = false; }
     if (ctl && lag && lag.made && off && off.made) { if (!D.lagAt) D.lagAt = now; if (now - D.lagAt > 3000) { D.lagOn = true; D.cycle = true; } }
     let eff = 0;
     for (const k of [1, 2]) {
       const can = pw && D.brk[k]; let want = false;
-      if (D.hoa[k] === 'hand') want = can && S.level > cfg.floor_z + 0.12;
+      if (D.hoa[k] === 'hand') want = can && pw && D.brk.c && D.ctlSw && D.fuse.c && S.level > cfg.floor_z + 0.12;     // round 83: HAND feeds the coil from the same fused control power
       else if (D.hoa[k] === 'auto') want = can && ctl && D.cycle && (D.lead === k || D.lagOn);
       if (want !== D.on[k]) { D.on[k] = want; if (want) D.onAt[k] = now;
         if (panel) { playNamed(panel, 'contactor_' + k + '_pull', want); const rl = panel.getObjectByName('run_light_' + k + '_lit'); if (rl) rl.traverse(x => { x.visible = want; }); } }
@@ -3646,12 +3686,17 @@
     }
     S.pumpOn = D.on[1] || D.on[2]; S.gpmNow = eff === 2 ? cfg.pump_gpm * 1.6 : eff * cfg.pump_gpm;     // two pumps into one 2 in header do not double the flow
     const A = S.inst.userData.anim; if (A) (A.state[cfg.run_clip] || (A.state[cfg.run_clip] = { open: false })).open = eff > 0;
-    if (al && al.made !== S.alarm) { S.alarm = al.made; if (panel) { const o = panel.getObjectByName('alarm_lit'); if (o) o.traverse(x => { x.visible = S.alarm; }); } }
+    // the alarm side: its own fuse (F2) and the alarm hot, not the control switch. TEST lights it for three seconds. SILENCE quiets the
+    // horn until the water drops, the beacon stays on, which is the point of a beacon
+    const alarmPw = pw && D.brk.c && D.fuse.a, high = !!(al && al.made); if (!high) D.silenced = false;
+    const lit = alarmPw && (high || now < D.testUntil);
+    if (lit !== S.alarm) { S.alarm = lit; if (panel) { const o = panel.getObjectByName('alarm_lit'); if (o) o.traverse(x => { x.visible = lit; }); } }
+    S.horn = lit && !D.silenced;
   }
   function duplexSay(S) {
     const D = duplexState(S), a = [];
     for (const k of [1, 2]) { const o_ = duplexOut(S, k); a.push('pump ' + k + (D.on[k] ? ' RUNNING' : ' off') + (D.hoa[k] !== 'auto' ? ' (' + D.hoa[k].toUpperCase() + ')' : '') + (D.brk[k] ? '' : ', breaker off') + (o_.pulled ? ', pulled up its rail' : '') + (o_.shut ? ', its ball valve shut' : '')); }
-    return a.join('; ') + '. Lead pump next cycle: ' + D.lead + '.';
+    return a.join('; ') + '. Lead pump next cycle: ' + D.lead + (D.sel === 'alt' ? ' (alternating)' : ' (LEAD SELECT is held on ' + D.sel + ', so it does not alternate)') + '.' + (D.ctlSw ? '' : ' CONTROL POWER is switched OFF on the board.') + (D.fuse.c ? '' : ' Fuse F1 is out: no control power.') + (D.fuse.a ? '' : ' Fuse F2 is out: no alarm.');
   }
   function duplexClick(o) {
     const inst = o.userData.inst || unitOf(o); if (!inst || !/lift_station_duplex/.test(inst.userData.model || '')) return null;
@@ -3660,13 +3705,22 @@
       playNamed(inst, 'hoa_' + k + '_hand', nx === 'hand'); playNamed(inst, 'hoa_' + k + '_off', nx === 'off');
       return 'Pump ' + k + ' HOA: ' + (nx === 'hand' ? 'HAND. It runs whatever the floats say. Watch the level, a grinder run dry cooks its seal' : nx === 'off' ? 'OFF. This pump is out. The other one carries the basin, and the LAG float still brings it on' : 'AUTO. The floats and the alternator have it') + '. Tap again for the next position.'; }
     if ((m = /^breaker_(pump_1|pump_2|control)/.exec(nm))) { const key = m[1] === 'control' ? 'c' : (m[1] === 'pump_1' ? 1 : 2); D.brk[key] = !D.brk[key]; playNamed(inst, 'breaker_' + m[1] + '_off', !D.brk[key]);
-      return (key === 'c' ? 'Control breaker' : 'Pump ' + key + ' breaker') + (D.brk[key] ? ' ON.' : ' OFF. ' + (key === 'c' ? 'No floats, no alternator, no alarm: only HAND will run a pump now' : 'That pump is dead. The panel will try it, nothing pulls, and the other pump does the work')); }
+      return (key === 'c' ? 'Control breaker' : 'Pump ' + key + ' breaker') + (D.brk[key] ? ' ON.' : ' OFF. ' + (key === 'c' ? 'No floats, no alternator, no alarm, and no coil power either: HAND will not pull a contactor in with this off' : 'That pump is dead. The panel will try it, nothing pulls, and the other pump does the work')); }
     if ((m = /^(?:valve_handle|ball_valve)_([12])/.exec(nm))) { const k = +m[1], st = inst.userData.anim && inst.userData.anim.state['valve_' + k + '_close'], shut = !(st && st.open); playNamed(inst, 'valve_' + k + '_close', shut);
       return 'Pump ' + k + ' ball valve: ' + (shut ? 'SHUT, handle across the pipe. That pump can run but it moves nothing, and its amps drop. This is the valve you shut to pull a check or a pump with the header still full' : 'OPEN, handle along the pipe') + '.'; }
     if ((m = /^(?:pump|lift_chain)_([12])$/.exec(nm))) { const k = +m[1], st = inst.userData.anim && inst.userData.anim.state['pump_' + k + '_pull'], up = !(st && st.open);
       if (up && D.on[k]) return 'Pump ' + k + ' is RUNNING. Put its HOA to OFF before you pull it: a grinder coming up its rail under power is how fingers get lost.';
       playNamed(inst, 'pump_' + k + '_pull', up);
       return up ? 'Pump ' + k + ' comes off the base elbow and up its rail on the chain. Nothing to unbolt: that is what the rail is for. The other pump keeps the basin.' : 'Pump ' + k + ' goes back down its rail and seats on the base elbow by its own weight.'; }
+    if (/^ctl_power_lever/.test(nm)) { D.ctlSw = !D.ctlSw; playNamed(inst, 'ctl_power_off', !D.ctlSw);
+      return 'CONTROL POWER: ' + (D.ctlSw ? 'ON. The floats, the alternator and the contactor coils have their 115 volts back' : 'OFF. The floats and the alternator are dead, so nothing starts in AUTO. HAND is on the same control power in a 122, so it will not pull a contactor in either. The alarm is on its own hot and still works'); }
+    if (/^lead_select_lever/.test(nm)) { D.sel = { alt: '1', '1': '2', '2': 'alt' }[D.sel]; playNamed(inst, 'lead_select_1', D.sel === '1'); playNamed(inst, 'lead_select_2', D.sel === '2');
+      return 'LEAD SELECT: ' + (D.sel === 'alt' ? 'ALT. The lead pump swaps every cycle, so both wear evenly. This is where it lives' : 'pump ' + D.sel + ' leads EVERY cycle and the other only comes on with the LAG float. Use it to keep a weak pump off lead until it is changed, then put it back to ALT'); }
+    if ((m = /^fuse_(control|alarm)/.exec(nm))) { const key = m[1] === 'control' ? 'c' : 'a'; if (D.fuse[key] && D.brk.c && !(breakers && breakers.septic === false)) return 'That fuse is LIVE: 115 volts on its clips. Turn the CONTROL breaker off before you pull it.';
+      D.fuse[key] = !D.fuse[key]; playNamed(inst, 'fuse_' + m[1] + '_pull', !D.fuse[key]);
+      return (key === 'c' ? 'F1, the 2 amp control fuse' : 'F2, the 1 amp alarm fuse') + (D.fuse[key] ? ' is back in its clips.' : ' is out. Ohm it end to end: a good one reads near zero, a blown one reads OL. ' + (key === 'c' ? 'With F1 out nothing runs in AUTO' : 'With F2 out a high water alarm is silent and dark, which is how basements flood')); }
+    if (/^test_button/.test(nm)) { if (!(D.brk.c && D.fuse.a) || (breakers && breakers.septic === false)) return 'TEST: nothing. No beacon, no horn. The alarm circuit has no power: check the control breaker and fuse F2.'; D.testUntil = performance.now() + 3000; return 'TEST: the beacon lights and the horn sounds for as long as you hold it. Do this on every visit. An alarm nobody has tested is not an alarm.'; }
+    if (/^silence_button/.test(nm)) { const al = S.floats.find(F => F.d.role === 'alarm'); if (!(al && al.made)) return 'SILENCE: there is no alarm to silence right now.'; D.silenced = true; return 'SILENCE: the horn stops, the beacon STAYS lit until the water drops below the alarm float. Silencing it fixes nothing: find out why the water got that high.'; }
     if (/^control_board|^alternating_relay|^lag_delay/.test(nm)) return 'SJE 122 board. ' + duplexSay(S);
     return null;
   }

@@ -152,7 +152,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '60k';
+  var SHELL = '83a';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -248,7 +248,7 @@
     septic_spray: 'Septic, spray field', septic_spray_two_tank: 'Septic, spray field, two tanks',
     septic_gravity: 'Septic, gravity field', septic_overland: 'Septic, overland discharge',
     septic_overland_lee: 'Septic, Lee overland', septic_overland_aquaklear: 'Septic, AquaKlear overland',
-    city_lift: 'City sewer with a lift station', city_gravity: 'City sewer, gravity',
+    city_lift: 'City sewer with a lift station', city_lift_duplex: 'City sewer, duplex lift station on rails', city_gravity: 'City sewer, gravity',
     city_filter: 'City water', well: 'Well with a pressure tank',
     yes: 'Yes', no: 'No', programmable: 'Programmable', smart_ecobee: 'ecobee', smart_nest: 'Nest',
     cpvc: 'CPVC', pex: 'PEX', galvanized: 'Galvanized', natural: 'Natural gas', propane: 'Propane tank',
@@ -274,6 +274,7 @@
     { id: 'country', name: 'Country house', blurb: 'Well and septic spray field, propane',
       set: { sewer: 'septic_spray', water: 'well', gas: 'propane' } },
     { id: 'lift', name: 'City with a lift station', blurb: 'City sewer through a lift station', set: { sewer: 'city_lift' } },
+    { id: 'duplex', name: 'Duplex lift station', blurb: 'Two grinder pumps on guide rails, SJE 122 panel', set: { sewer: 'city_lift_duplex' } },
     { id: 'electric', name: 'All electric', blurb: 'Heat pump and an electric water heater',
       set: { hvac: 'heatpump_attic', water_heater: 'attic_electric_tank' } },
   ];
