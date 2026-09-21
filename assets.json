@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T00:17:53",
- "house": "r73b",
- "note": "Round 73b: plenum trim clear of the vent, pressure switch hose rerouted, Lee checklist wording",
+ "published": "2026-09-21T00:44:55",
+ "house": "r74a",
+ "note": "Round 74: visible manual dampers on every takeoff, Sweet Air on top of the vent pipe, pop ups in plain words",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -124,8 +124,8 @@
    "bytes": 226792
   },
   "house_furniture.glb": {
-   "v": "846bb91bfb",
-   "bytes": 8858304
+   "v": "5e234d8df8",
+   "bytes": 8858292
   },
   "house_site.glb": {
    "v": "fbe4b19de1",
@@ -176,12 +176,12 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "164df77e23",
-   "bytes": 17995
+   "v": "b8af037a2c",
+   "bytes": 18604
   },
   "info.json": {
-   "v": "f1938fcae5",
-   "bytes": 44449
+   "v": "ab73b86fe7",
+   "bytes": 111127
   },
   "interactions.json": {
    "v": "0a824b6894",
@@ -220,20 +220,20 @@
    "bytes": 2828996
   },
   "pipes_gas.glb": {
-   "v": "3b5b51d048",
-   "bytes": 817708
+   "v": "44fe3ed67c",
+   "bytes": 815412
   },
   "pipes_hvac.glb": {
-   "v": "1a3824c0a6",
-   "bytes": 2084144
+   "v": "6f817dd009",
+   "bytes": 2161608
   },
   "pipes_supply.glb": {
    "v": "2182ce9521",
    "bytes": 2660772
   },
   "placements.json": {
-   "v": "5d05255919",
-   "bytes": 63738
+   "v": "0425a4d1f1",
+   "bytes": 64010
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -344,8 +344,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "5aeb36cbca",
-   "bytes": 316263
+   "v": "fd7e02eaa5",
+   "bytes": 325400
   },
   "washer.glb": {
    "v": "7e04f19827",

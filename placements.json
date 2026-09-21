@@ -736,7 +736,7 @@
    "offset": [
     0,
     0,
-    0
+    0.45
    ],
    "hide": [
     "ctx_stack",
@@ -748,7 +748,7 @@
     "gas_packets",
     "clean_packets"
    ],
-   "note": "Sweet Air charcoal vent filter (charcoal_vent_filter, 2026-09-14) on the hall bath vent stack where it comes through the roof (vent_dwv_hallbath_stack, top at (-2.9258, 14.478, 5.126)). Built in sock_hosebib_front's frame, so yaw 0, offset 0; its own stack stub, flashing and shingle patch hidden. Clips: cap_off (twist to OPEN, lift, set aside), lid_off, carbon_spent (fault), air_flow (+_loop: sewer gas up the stack into the carbon, clean air out the slots)."
+   "note": "Sweet Air charcoal vent filter (charcoal_vent_filter, 2026-09-14) on the hall bath vent stack where it comes through the roof (vent_dwv_hallbath_stack, top at (-2.9258, 14.478, 5.126)). Built in sock_hosebib_front's frame when that socket stood at z 0.42; the socket is at -0.03 now, which dropped the canister 45 cm INTO the roof (Jake, round 74), so offset z 0.45 puts its socket back over the top of the pipe. If the bib socket moves again this offset moves with it: check the chamber sits at z 5.08 to 5.36; its own stack stub, flashing and shingle patch hidden. Clips: cap_off (twist to OPEN, lift, set aside), lid_off, carbon_spent (fault), air_flow (+_loop: sewer gas up the stack into the carbon, clean air out the slots)."
   },
   {
    "socket": "sock_lift_back",

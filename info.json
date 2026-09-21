@@ -37,6 +37,38 @@
     "cabinet": [
      "Water damage in the cabinet floor. Find the source above it before it is patched."
     ]
+   },
+   "labels": {
+    "cabinet": "30 in shaker vanity, open back for the rough in",
+    "door_left": "Left door",
+    "door_right": "Right door",
+    "vanity_top": "Cultured marble top with the integral oval bowl, overflow at the back, 4 in centerset holes",
+    "faucet": "4 in centerset two handle faucet: base plate, low arc spout, aerator",
+    "handle_hot": "Hot lever",
+    "handle_cold": "Cold lever",
+    "faucet_tubes": "1/2 in supply tubes under the deck to the braided lines",
+    "popup_body": "Mechanical pop-up: flange, body, pivot boss and nut, 1-1/4 in tailpiece",
+    "stopper": "Pop-up stopper",
+    "popup_linkage": "Pivot rod, clevis strap, spring clip, lift rod up through the faucet",
+    "popup_gunk": "Hair and scum on the stopper stem",
+    "p_trap": "1-1/4 in P-trap: slip nut at the tailpiece, J-bend, jam nut below the 90, trap arm smooth into the wall behind the escutcheon",
+    "s_trap": "Illegal S-trap: second bend straight down through the floor, no vent, siphons dry",
+    "stop_hot": "Hot angle stop on the 1/2 in copper stub",
+    "stop_cold": "Cold angle stop",
+    "stop_hot_handle": "Hot stop handle",
+    "stop_cold_handle": "Cold stop handle",
+    "supply_hot": "Braided hot supply line",
+    "supply_cold": "Braided cold supply line",
+    "stop_seep": "Green crust and a wet ring under the stop",
+    "supply_corroded": "Corroded, kinked supply line",
+    "faucet_base_drip": "Water pooling at the faucet base",
+    "aerator_scale": "Scale packed in the aerator",
+    "trap_leak": "Seep at the slip joints, puddle on the cabinet floor",
+    "cabinet_damage": "Stained, swollen cabinet floor",
+    "bowl_water": "Water in the bowl",
+    "water_stream": "Water from the spout",
+    "wall": "Wall and mirror",
+    "floor": "Tile floor"
    }
   },
   "condensate_pump": {
@@ -73,6 +105,30 @@
     "inlet_hose": [
      "Test pour: pour water in until it runs, watch it pump down, shut off, and not run back."
     ]
+   },
+   "labels": {
+    "reservoir": "Condensate pump reservoir: a condensing furnace makes water all heating season, and in a closet with no drain this lifts it out",
+    "reservoir_water": "Normal level, float down, pump off",
+    "water_full": "Reservoir full to the brim: the pump is not running",
+    "lid": "Lid with three inlet holes and the motor on top. Lift it off to clean the tank: it should be clean, no slime or grit",
+    "float": "Float on its arm: the water lifts it and it starts the pump. Push it up by hand, it should move free and the motor should start",
+    "float_stuck": "Float stuck down with slime on the hinge: the pump never starts",
+    "impeller": "Impeller in the intake cage: keep the cage clear of sludge",
+    "motor_fan": "Motor cooling fan: a hot, humming motor that will not pump is a bad motor or a clogged impeller",
+    "check_valve": "Check valve on the outlet: it keeps the water in the tube from running back down. If it leaks back the pump short cycles",
+    "check_valve_section": "Check valve cut open: the ball on its seat",
+    "pump_section": "Reservoir cut open: the float, the intake cage and the impeller",
+    "inlet_hose": "3/4 in vinyl from the furnace's condensate trap into one inlet hole, falling all the way, no sags that hold water",
+    "inlet_clamp": "Clamp on the trap's drain outlet",
+    "discharge_tube": "3/8 in vinyl discharge up the wall: routed smooth, clipped, not kinked or pinched, and sloped down once it tops out",
+    "discharge_stub": "Where the discharge leaves the closet for the attic and outside",
+    "tube_clips": "Clips holding the discharge on the wall",
+    "discharge_clamp": "Clamp on the check valve barb",
+    "flow_packets": "Water pumped up the discharge",
+    "safety_leads": "Safety switch leads to the furnace: wired in series with the thermostat's R circuit so a full reservoir shuts the furnace off",
+    "receptacle": "Receptacle on the closet wall: the pump plugs in on its own receptacle, not an extension cord",
+    "power_cord": "Pump cord, 115 V",
+    "puddle": "Water on the platform: the reservoir ran over"
    }
   },
   "disposal": {
@@ -160,6 +216,51 @@
     "wall_switch": [
      "Switch plate warm to the touch. Electrical finding for an electrician."
     ]
+   },
+   "labels": {
+    "sink": "33 x 22 drop-in stainless (Elkay Dayton)",
+    "sink_undermount": "Undermount stainless, 1/2 in reveal, clips under the counter",
+    "sink_castiron": "Enameled cast iron top-mount (Kohler Deerfield)",
+    "faucet_cartridge": "Single-handle cartridge faucet",
+    "faucet_ball": "Ball-type single-handle faucet",
+    "faucet_pulldown": "Pull-down high-arc faucet",
+    "cartridge": "Cartridge (Moen 1225 style)",
+    "ball_valve": "Ball, seats and springs",
+    "disc_cartridge": "Ceramic disc cartridge",
+    "sprayer": "Side spray and hose",
+    "faucet_tubes": "Faucet supply tubes",
+    "strainer_right": "Basket strainer",
+    "tailpiece_right": "Tailpiece",
+    "waste_tee": "Baffle tee (continuous waste)",
+    "waste_arm": "Waste arm from the disposal",
+    "p_trap": "P-trap and trap arm into the wall",
+    "stop_hot": "Hot angle stop (dual outlet feeds the dishwasher)",
+    "stop_cold": "Cold angle stop",
+    "stop_hot_handle": "Hot stop handle",
+    "stop_cold_handle": "Cold stop handle",
+    "supply_hot": "Hot supply line",
+    "supply_cold": "Cold supply line",
+    "dw_supply": "Braided dishwasher supply off the hot stop",
+    "dw_hose": "Dishwasher drain hose on a high loop",
+    "dw_hose_branch": "Dishwasher drain hose to the branch tailpiece",
+    "disposal_body": "Disposal (Badger 5 size)",
+    "disposal_section": "Disposal cut open: grind chamber, turntable, grind ring, motor",
+    "disposal_mount": "Sink flange and mounting assembly",
+    "splash_guard": "Splash guard",
+    "turntable": "Turntable with swivel impellers",
+    "grind_chamber": "Grind ring and chamber",
+    "motor": "Motor: stator windings and rotor",
+    "discharge_elbow": "Discharge elbow",
+    "disposal_cord": "Cord and plug",
+    "receptacle": "Receptacle (half switched)",
+    "wall_switch": "Disposal switch",
+    "air_gap": "Dishwasher air gap",
+    "ro_system": "Reverse osmosis: 3 pre-filter housings, membrane, storage tank, drain saddle, RO faucet",
+    "door_left": "Cabinet door",
+    "door_right": "Cabinet door",
+    "cabinet": "Sink base cabinet",
+    "counter": "Counter",
+    "dishwasher": "Dishwasher"
    }
   },
   "electric_tankless_water_heater": {
@@ -196,7 +297,8 @@
     "junction_box": [
      "Feed comes straight from the panel with nothing on it. One power blink can take out the control board."
     ]
-   }
+   },
+   "labels": {}
   },
   "electric_tank_water_heater": {
    "name": "Electric Tank Water Heater",
@@ -236,7 +338,8 @@
      "Pan fitting with no drain line: the pan can only hold what it holds.",
      "Upper floor or attic: a leak sensor in the pan is the only warning they will get."
     ]
-   }
+   },
+   "labels": {}
   },
   "gas_tankless_water_heater": {
    "name": "Gas Tankless Water Heater",
@@ -282,7 +385,8 @@
     "receptacle": [
      "Control board on a bare receptacle. One power blink can take it out."
     ]
-   }
+   },
+   "labels": {}
   },
   "gas_tank_water_heater": {
    "name": "Gas Tank Water Heater",
@@ -338,7 +442,8 @@
      "Screen packed with lint and dust: the burner is starving for air. Vacuum the screen.",
      "Sealed closet with no combustion air opening: the burner needs air from somewhere."
     ]
-   }
+   },
+   "labels": {}
   },
   "hvac_air_handler": {
    "name": "Indoor Air Handler and Coil",
@@ -389,7 +494,8 @@
     "surge_protector": [
      "Surge device present but not working. Service or replace it."
     ]
-   }
+   },
+   "labels": {}
   },
   "hvac_condenser": {
    "name": "Outdoor Unit: Condenser or Heat Pump",
@@ -440,7 +546,8 @@
     "soft_start": [
      "Soft start fitted but not doing its job: check the wiring and the fault light."
     ]
-   }
+   },
+   "labels": {}
   },
   "hvac_furnace": {
    "name": "Gas Furnace",
@@ -484,6 +591,38 @@
     "coil_box": [
      "No coil light. The coil and the drain grow biofilm all season. Quote the lamp."
     ]
+   },
+   "labels": {
+    "burner_assembly": "In shot burners in the burner box, one per heat exchanger cell",
+    "gas_valve": "Gas valve on the manifold, orifice spuds into each burner mouth",
+    "igniter": "Silicon nitride hot surface igniter at the right burner",
+    "flame_sensor": "Flame sensor rod at the left burner",
+    "heat_exchanger": "Primary heat exchanger cells above the burners, collector at the top",
+    "inducer": "Draft inducer pulling the flue gases through the cells",
+    "pressure_switch": "Pressure switch proving the inducer draft, silicone hose to the housing tap",
+    "limit_switches": "Main limit, over temperature (roll out) switches and the auxiliary limit",
+    "air_diffuser": "Combustion air inlet diffuser on top",
+    "control_board": "Integrated furnace control on the plate over the blower, transformer and low voltage terminal at the left",
+    "blower_housing": "Blower housing, inlets both sides",
+    "blower_wheel": "Blower wheel",
+    "blower_motor": "ECM blower motor on a belly band",
+    "secondary_hx": "Secondary heat exchanger under the inducer (condensing)",
+    "exhaust_transition": "Clamped rubber coupling from the inducer outlet into the 2 in PVC exhaust",
+    "furnace_trap": "Condensate trap on the jacket, hoses from the secondary and the inducer",
+    "vent_pipes": "2 in PVC exhaust and intake",
+    "flue": "3 in type B vent straight up off the inducer collar",
+    "gas_pipe": "Gas line: shutoff, union, tee",
+    "drip_leg": "Sediment trap (drip leg) below the tee",
+    "drain_line": "Coil condensate drain with the trap and cleanout",
+    "co_detector": "CO detector in the hallway outside the closet",
+    "uv_light": "UV lamp in the coil box",
+    "filter_out": "Filter pulled from the side rack",
+    "data_plate": "Rating plate on the right front post",
+    "flames": "Burner flames into the cells",
+    "igniter_glow": "Igniter glowing on a heat call",
+    "inducer_shaft": "Inducer motor shaft",
+    "float_switch": "Float switch in the trap cleanout, kills the call if the drain backs up",
+    "sight_glass": "Sight glass in the burner door"
    }
   },
   "hvac_minisplit": {
@@ -495,7 +634,43 @@
     "3": "3",
     "4": "4"
    },
-   "hotspots": {}
+   "hotspots": {},
+   "labels": {
+    "chassis": "Wall mounted indoor head, 12k class: return air in through the grille on top",
+    "wall_plate": "Steel mounting plate behind the head, level, lagged into studs",
+    "coil": "Evaporator coil, the angled fin bank behind the filters",
+    "coil_matted": "Coil matted with dust and mold",
+    "blower_wheel": "Cross flow blower wheel, the length of the unit",
+    "blower_wheel_mold": "Blower wheel black with mold: the smell the homeowner calls about",
+    "blower_motor": "Blower motor on the right end",
+    "condensate_pan": "Condensate pan under the coil, drains out the right end into the hose",
+    "front_panel": "Front panel, lifts on its top edge for the filters",
+    "filter_a": "Filter screen, left",
+    "filter_b": "Filter screen, right",
+    "filter_a_dirty": "Screens caked, airflow choked",
+    "filter_b_dirty": "Screens caked, airflow choked",
+    "vane": "Motorised louver along the underside, swings down when it runs",
+    "display": "Indicator lamp and remote receiver",
+    "wall_sleeve": "3 in sleeve through the wall behind the head's right end",
+    "lineset": "3/8 suction and 1/4 liquid in foam, the power and communication cable to the head, the condensate hose: all inside the cover",
+    "lineset_cover": "Lineset cover: wall inlet over the sleeve, down the siding, elbow out, end elbow into the service cover",
+    "cabinet": "Outdoor unit on its feet on the pad, front discharge",
+    "fan_grille": "Fan guard",
+    "fan": "Outdoor fan, three blades",
+    "outdoor_coil": "Condenser coil across the back",
+    "back_vents": "Rear coil guard: keep leaves and siding clear of it",
+    "pad": "Pad at grade",
+    "service_valves": "Service valves: liquid (1/4) and suction (3/8) flare nuts, stem caps, service ports",
+    "valve_cover": "Service cover over the valves and the terminal block",
+    "terminal_block": "Terminal block: power in from the whip, 1 2 3 and ground out to the head",
+    "disconnect": "Outdoor disconnect beside the unit: feed in the top, whip out the bottom",
+    "whip": "Liquid tight whip out the bottom of the disconnect, into the knockout under the service cover",
+    "feed_conduit": "Liquid tight feed from inside the wall into the top of the disconnect",
+    "drain_stain": "Condensate draining slow: stain and drips down the wall under the head",
+    "drain_pitch": "Condensate hose bellied on the grass, water standing in it, backing up to the head",
+    "vanes_vertical": "Vertical vanes behind the louver, steer the air left and right",
+    "feet": "Mounting feet, bolted to the pad"
+   }
   },
   "hvac_package": {
    "name": "Package Unit and Gas Pack",
@@ -549,6 +724,35 @@
     "control_board": [
      "No soft start. Hard inrush every cycle on the shared panel. Quote it."
     ]
+   },
+   "labels": {
+    "outdoor_coil": "Outdoor coil, L shaped behind the louvers",
+    "coil_grille": "Louvered coil guard",
+    "fan": "Condenser fan under the top grille",
+    "compressor": "Scroll compressor with the accumulator and filter drier",
+    "evap_coil": "Evaporator slab across the rear strip, hairpins at the tube sheets, TXV and distributor",
+    "blower_housing": "Blower in the right strip on its deck, rear inlet from the return path, discharge up and back to the supply",
+    "blower_wheel": "Blower wheel",
+    "blower_motor": "Blower motor on a belly band",
+    "burner_assembly": "In shot burners on the burner tray",
+    "gas_valve": "Gas valve and manifold, gas in from the side entrance",
+    "heat_exchanger": "Tubular heat exchanger, three passes to the collector",
+    "inducer": "Induced draft blower out the exhaust hood on the side",
+    "hoods": "Flue exhaust hood and combustion air inlet hood",
+    "control_board": "Control box: contactor, dual capacitor, furnace control, transformer, Comfort Alert",
+    "soft_start": "Compressor soft start",
+    "filter": "Unit mounted filter in the return opening",
+    "duct_connection": "Galvanized duct enclosure between the unit and the crawl space wall",
+    "gas_pipe": "Gas riser: shutoff, union, tee",
+    "drip_leg": "Sediment trap below the tee",
+    "condensate_drain": "3/4 in condensate drain with the trap, to grade",
+    "disconnect": "Disconnect on the house wall",
+    "data_plate": "Data plate on the right side",
+    "flames": "Burner flames on a heat call",
+    "lower_panels": "Solid lower panels over the compressor compartment",
+    "unit_wiring": "Field power and control wires in at the front entrances, contactor, capacitor, board, compressor, fan, burner and motor leads",
+    "compressor_panel_cover": "Compressor and control compartment panel",
+    "whip": "Whip from the disconnect into the power entrance on the side toward the wall"
    }
   },
   "kitchen_sink": {
@@ -636,6 +840,51 @@
     "wall_switch": [
      "Switch plate warm to the touch. Electrical finding for an electrician."
     ]
+   },
+   "labels": {
+    "sink": "33 x 22 drop-in stainless (Elkay Dayton)",
+    "sink_undermount": "Undermount stainless, 1/2 in reveal, clips under the counter",
+    "sink_castiron": "Enameled cast iron top-mount (Kohler Deerfield)",
+    "faucet_cartridge": "Single-handle cartridge faucet",
+    "faucet_ball": "Ball-type single-handle faucet",
+    "faucet_pulldown": "Pull-down high-arc faucet",
+    "cartridge": "Cartridge (Moen 1225 style)",
+    "ball_valve": "Ball, seats and springs",
+    "disc_cartridge": "Ceramic disc cartridge",
+    "sprayer": "Side spray and hose",
+    "faucet_tubes": "Faucet supply tubes",
+    "strainer_right": "Basket strainer",
+    "tailpiece_right": "Tailpiece",
+    "waste_tee": "Baffle tee (continuous waste)",
+    "waste_arm": "Waste arm from the disposal",
+    "p_trap": "P-trap and trap arm into the wall",
+    "stop_hot": "Hot angle stop (dual outlet feeds the dishwasher)",
+    "stop_cold": "Cold angle stop",
+    "stop_hot_handle": "Hot stop handle",
+    "stop_cold_handle": "Cold stop handle",
+    "supply_hot": "Hot supply line",
+    "supply_cold": "Cold supply line",
+    "dw_supply": "Braided dishwasher supply off the hot stop",
+    "dw_hose": "Dishwasher drain hose on a high loop",
+    "dw_hose_branch": "Dishwasher drain hose to the branch tailpiece",
+    "disposal_body": "Disposal (Badger 5 size)",
+    "disposal_section": "Disposal cut open: grind chamber, turntable, grind ring, motor",
+    "disposal_mount": "Sink flange and mounting assembly",
+    "splash_guard": "Splash guard",
+    "turntable": "Turntable with swivel impellers",
+    "grind_chamber": "Grind ring and chamber",
+    "motor": "Motor: stator windings and rotor",
+    "discharge_elbow": "Discharge elbow",
+    "disposal_cord": "Cord and plug",
+    "receptacle": "Receptacle (half switched)",
+    "wall_switch": "Disposal switch",
+    "air_gap": "Dishwasher air gap",
+    "ro_system": "Reverse osmosis: 3 pre-filter housings, membrane, storage tank, drain saddle, RO faucet",
+    "door_left": "Cabinet door",
+    "door_right": "Cabinet door",
+    "cabinet": "Sink base cabinet",
+    "counter": "Counter",
+    "dishwasher": "Dishwasher"
    }
   },
   "lift_station": {
@@ -649,7 +898,79 @@
     "pump_down": "Run the pump down",
     "slide_up": "Pull the slide gate up"
    },
-   "hotspots": {}
+   "hotspots": {},
+   "labels": {
+    "basin": "24 in smooth wall fiberglass basin, 60 in deep, anti-flotation flange at the bottom, bolt flange at the top; 4 in inlet grommet 16 in down, 1-1/4 in discharge seal 6 in under the cover",
+    "riser": "12 in fiberglass riser extension bolted on the basin flange so the cover comes to grade (6 in also made)",
+    "lid": "Hard flat cover, 1/2 in, bolted to the flange: vent, conduit hub, lift hook underneath. Unsecured on a wet well is a safety finding",
+    "vent": "2 in vent stub through the centre of the cover with the mushroom vent cap: the basin has to breathe or it pulls a vacuum and pushes sewer gas",
+    "pump": "Champion 2 HP grinder on its leveling legs, cutter plate under the volute, vertical discharge port | E/One build: Extreme wet well core (grey painted cast housings, black composite cover, level sensor housing and shroud) on its two piece wire stand: inlet shroud, shredder ring and cutter wheel, suction housing, seal housing, banded motor housing with the four tie bolts, motor controls under the composite pump cover, LSH cap with the eye bolt, cable connector, level sensor housing with the ON/OFF and ALARM pressure switches (no floats), AS/CV anti siphon check valve on the discharge side with the 1-1/4 in coupling",
+    "discharge": "1-1/4 in PVC discharge riser with the male adapter into the pump, quick disconnect union up top | E/One build: 1-1/4 in flexible discharge hose, stainless swivel end on the core's coupling, the other end slid over the nipple of the slide face adapter with a worm clamp. The check valve is built into the core (AS/CV), so there is no check valve, gate valve or union on this station",
+    "check_valve": "In-line PVC check valve on the riser: keeps the force main from draining back into the basin every cycle. Arrow points up",
+    "gate_valve": "Brass gate valve with the red handwheel at the wall, wrench hex on both ends: the shutoff so the check can be cleaned and the pump pulled",
+    "lift_chain": "Stainless lift chain shackled to the pump bail, hooked under the cover on the far side from the cords. Pull the pump by this, never the cord | E/One build: yellow lift rope from the eye bolt on the top housing to the hook under the cover",
+    "cords": "Pump cord and three float cords zip tied down the outside of the discharge pipe, over to the conduit hub in the wall; no float tree, no cable weights on this one | E/One build: 6 conductor power and alarm cable off the top housing up to the NEMA 6P electrical quick disconnect hanging loose on the cable near the top of the riser (no bracket, zip tied up at the hub), then through the hub to the panel",
+    "conduit": "1-1/2 in conduit off the panel hub: straight down the wall on straps, one 90, level to the basin, one 90 into the hub in the side of the riser (Jake: just 90 and 90, straight in)",
+    "control_panel": "E/One Sentry simplex alarm panel from Jake's photo: beige NEMA 4X thermoplastic box, red beacon dome on its bracket, SILENCE toggle underneath, pump cable in the bottom hub, supply in the brown seal tite",
+    "alarm_lit": "Red beacon on the panel lit: the high level float tipped (ALM 5 6). Test it, do not assume it",
+    "sewer_line": "4 in sewer from the house at 1/4 in per ft into the basin inlet grommet; open pipe, look up it for a blockage",
+    "cleanout": "Two way cleanout between the house and the basin, sometimes there, sometimes not (they are usually close to the wall)",
+    "force_main": "1-1/4 in force main out the basin wall to where gravity can take over; pressure line, no slope needed",
+    "house_wall": "House wall, panel and disconnect on it",
+    "water_off": "Level at pump OFF: the pump just stopped",
+    "water_on": "Level at pump ON: just under the inlet",
+    "water_alarm": "Level above the inlet: alarm, the house is about to back up",
+    "grease_mat": "Grease and rag mat on the surface: clogs again soon, clean the basin",
+    "soil": "Backfill",
+    "grass": "Yard",
+    "panel_door": "Hinged door, latched on the right, the as-built wiring sheet in the door. Water inside this box is what kills panels out here",
+    "hoa_switch": "OFF / HAND / AUTO toggle on the silver plate: HAND runs the pump straight off the switch, AUTO hands it to the floats. Three spades on the back: common, HAND, AUTO",
+    "start_relay": "Packard PR9068 potential start relay, mounted with the blades facing out: 1 2 on the left carry the start capacitor, coil 2 5 sits across the start winding and drops the start cap out once the motor is up to speed",
+    "run_capacitor": "45 MFD run capacitor (silver can): sits between B and R the whole time the pump runs",
+    "start_capacitor": "270 to 324 MFD start capacitor (black can): the kick that gets the 2 HP grinder spinning, in the circuit only through the relay contacts",
+    "fuse_holder": "ETI VLC10 10 x 38 fuse holder with the FNM 3 control fuse: protects the 115 V control side (switch, floats, coil, alarm), not the pump. Wires land in the clamps behind it",
+    "contactor": "GE CL02 contactor: 1L1 3L2 5L3 and the 13 14 auxiliary across the top, 2T1 4T2 6T3 across the bottom, coil A1 A2 on the corners. The coil pulls in on a RUN float call and closes the two pump legs; 13 14 seals the RUN float in",
+    "motor_starter": "GE GPS1BHAM manual motor starter: the pump overload, three pole, rotary ON / OFF knob, fed from the line block above it, load side to the contactor. Trips on amps out of range",
+    "wire_duct": "Slotted wire duct: every conductor drops into it and comes out under its terminal",
+    "terminal_strip": "Terminal strip, your left to right: W B R pump leads, 1 2 OFF float, 3 4 RUN float, 5 6 ALARM float, 7 8 TS thermal switch (jumpered), N. Sequence wrong here and the pump never gets the call",
+    "ground_lug": "Ground lug: the pump ground and the incoming ground land here",
+    "disconnect": "Customer's disconnect: the double pole disconnect within sight of the station, feeds the panel through the flex",
+    "flex_conduit": "Liquid tight flex from the disconnect into the small hub in the panel bottom",
+    "float_off_surface": "OFF float at the water line: the pump just stopped, this float is tipping down to open the circuit",
+    "float_off_wet": "OFF float under water, floating straight up on its cord (full of air): its switch is closed, the pump is allowed to run",
+    "float_on_dry": "ON float hanging dry below the water line: no call for the pump yet",
+    "float_on_surface": "ON float at the water line, tipping over to call the pump (terminals 3 4)",
+    "float_on_wet": "ON float under water, floating up: the pump has been called and has not caught up",
+    "float_alarm_dry": "High level alarm float hanging dry above the inlet line: normal",
+    "float_alarm_surface": "High level alarm float tipping at the water line: water is over the inlet, the beacon lights (terminals 5 6)",
+    "duct_cover": "Wire duct cover: snaps off so you can trace the runs",
+    "panel_wire_power": "Incoming 230 V: L1 black and L2 red from the disconnect hub, up the left channel, across the top of the plate and down into the line block",
+    "panel_wire_motor": "Motor circuit: line block down into the starter L1 L3; starter T1 T3 out the bottom into the duct, up the gap beside the starter and down into the contactor 1L1 5L3 from above; 2T1 down to B, 6T3 down to W",
+    "panel_wire_start": "Start circuit: B out of the duct to the run cap, white link run cap to start cap, run cap to R, start cap red up the left channel to relay 1, relay 2 to R, relay 5 to W",
+    "panel_wire_control": "Control at 115 V: line block across the top into the fuse; fuse bottom behind the plate to the HOA common; HAND down into the duct and up the gap into A1; AUTO to 1; 2 to 3; 13 out the top round the gap to 3; 14 to 4; 4 to A1; A2 to 7; TS jumper 7 8; 8 to N",
+    "panel_wire_alarm": "Alarm: fuse side to 5, ALARM float 5 6, yellow out of the duct between the switch plate and the fuse holder up to the beacon, white back down to N",
+    "panel_wire_neutral_ground": "Neutral white from the disconnect to N, green to the ground lug",
+    "panel_wire_field": "Field wiring up from the basin conduit: pump W B R and ground, the three float pairs on 1 to 6",
+    "contactor_armature": "Contactor armature: pulls in when the coil is called and closes the two pump legs",
+    "fuse_cart": "FNM 3 control fuse in its carrier: pull it to kill the control side (switch, floats, coil, alarm) without touching the pump power",
+    "hoa_lever_hand": "Switch in HAND: the pump runs straight off the switch, floats ignored. Your manual call",
+    "hoa_lever_off": "Switch in OFF: nothing runs, the alarm still works",
+    "hoa_lever_auto": "Switch in AUTO: the floats run the pump",
+    "starter_knob_on": "Motor starter engaged: knob across, the overload is passing power to the contactor",
+    "starter_knob_tripped": "Motor starter tripped: knob straight up and down. Amps went out of range, the pump is dead until it is reset",
+    "water_fill": "Water coming in from the house, rising in the basin",
+    "inflow": "Flow out of the inlet pipe while the house drains",
+    "discharge_run": "Existing run out through the basin wall to the force main",
+    "equalizer": "E/One equalizer: the ribbed breather disc on its 3/16 tube from the level sensor housing barb, strapped to the pump cable below the quick disconnect. Keeps the pressure switches reading true. No floats on this station",
+    "sentry_breakers": "Breakers top left: PUMP L1 L2 two pole plus the ALARM BREAKER (On/I Off/O), red ATTENTION SUPPLY POWER INPUT label",
+    "sentry_terminals": "Grey neutral terminals on the rail beside the breakers",
+    "sentry_led_running": "Pump running light (D1) on",
+    "sentry_led_alarm": "High level alarm light (D2) on",
+    "sentry_horn": "Audible alarm bottom left and the silence switch under it",
+    "sentry_pcb": "E/One PC1139G level control board: two orange relays that run the pump and the alarm, RUN toggle for a manual run, D1 D2 D3 lights, green terminal blocks (all connections not to exceed 2 amps), data sheet under it, ground bar to the right",
+    "slide_adapter": "Slide face adapter (Jake): steel plate bolted to the inside of the basin wall over the discharge hole, cast body with a pull up slide gate instead of a twist gate valve, 1-1/4 in PVC nipple pointing down that the hose slides onto",
+    "slide_blade": "Slide gate blade: pull it up by the tab to open the discharge, drop it to isolate the station"
+   }
   },
   "pressure_tank": {
    "name": "Well Pressure Tank (garage)",
@@ -679,6 +1000,35 @@
     "disconnect": [
      "Disconnect: lock it off before the switch cover comes off"
     ]
+   },
+   "labels": {
+    "tank": "20 gal diaphragm pressure tank (Amtrol WX-202 class)",
+    "tank_label": "Tank label: size, max pressure, factory precharge",
+    "tank_section": "The tank cut open",
+    "tank_diaphragm_section": "Diaphragm: air above, water below, they never touch",
+    "tank_air_section": "Air charge: set 2 psi under the cut in with the tank drained",
+    "water_tank_body": "Water side of the diaphragm",
+    "tank_waterlogged_section": "Waterlogged: the diaphragm failed, no air cushion, the pump short cycles",
+    "base_ring": "Base ring the tank stands on",
+    "tank_tee": "Brass tank tee: every fitting on one manifold",
+    "inlet_stub": "Well service up through the slab",
+    "check_valve": "Check valve on the inlet",
+    "gauge": "Pressure gauge, 0 to 100 psi",
+    "gauge_needle": "Needle: watch the cut in and cut out",
+    "pressure_switch": "Pressure switch inside: contacts, range spring, differential spring",
+    "switch_cover": "Square D 40/60 switch cover",
+    "boiler_drain": "Boiler drain: drain the tank to check the air charge",
+    "ball_valve": "1 in ball valve: isolate the house from the tank",
+    "outlet_stub": "Outlet up the wall to the softener and the house",
+    "nm_cable": "12/2 NM from the switch to the disconnect",
+    "nm_staples": "Cable staples",
+    "disconnect": "Pump disconnect on the wall",
+    "disconnect_cover": "Disconnect cover and switch",
+    "wire_stub": "Feed on to the panel",
+    "water_tank_inlet": "Water in the inlet",
+    "water_tank_outlet": "Water out to the house",
+    "flow_packets_in": "Pump running: water in",
+    "flow_packets_out": "House drawing: water out"
    }
   },
   "pump_tank": {
@@ -690,7 +1040,8 @@
     "pump_down": "Pump it down",
     "float_test": "Lift the float",
     "pump_pull": "Pull the pump",
-    "heads_up": "Heads pop up"
+    "heads_up": "Heads pop up",
+    "sleeves_back": "Slide the heat shrink back"
    },
    "hotspots": {
     "riser": [
@@ -714,16 +1065,106 @@
     "union": [
      "Joint weeping inside the riser. Every dose drops part of itself back in the tank."
     ],
-    "conduit": [
-     "No panel at the tank. The pump is wired straight back to the house through this conduit, so the breaker and any timer live inside. Check them there.",
-     "There is no high level alarm on this tank. The aerator panel at the house is the only alarm the homeowner has, so test that one."
+    "uf_cable": [
+     "No panel at the tank. The pump plugs in at the house on a gray direct burial cable and the float in the tank breaks the hot, so the breaker and the receptacle are at the house. Check them there.",
+     "UF-B direct burial cable, gray, no conduit: a cord cap on the house end plugs into the outdoor GFCI receptacle, the cable drops into the trench and runs out to the tank with the rest of the lines."
+    ],
+    "cord_grip": [
+     "There is no high level alarm on this tank. The aerator panel at the house is the only alarm the homeowner has, so test that one.",
+     "Cord grip through the riser wall below grade: the only hole, and the only place the cable is held. No conduit, no box, no panel out here; the splices hang inside the riser under the lid. The cable comes straight in with a slight fall into the tank, so any water that gets in runs on through, and a bead of sealant goes round it."
     ],
     "spray_head0": [
      "Three rotors in a line, 60 ft apart, 30 ft radius each. Every head fires, coverage on target, nothing spraying the fence, the drive, or a window."
     ],
     "spray_head2": [
      "Last head set to a full circle: it is spraying over the property line. Set it back to the 180."
+    ],
+    "splice_hot_to_float_sleeve": [
+     "Hot to the float: the UF black goes to one lead of the float switch. The float breaks the hot, so with the float down the pump has no power. Clear adhesive lined heat shrink, just bigger than the wire, with a raised section over the barrel: you can see the silver connector through it. Heat it and the adhesive flows and seals it watertight. Click it to slide it back."
+    ],
+    "splice_float_to_pump_sleeve": [
+     "Float to pump: the float's other lead to the pump cord's black. Two splices on the hot, one on the neutral, one on the ground, staggered so no two sit side by side."
+    ],
+    "splice_neutral_sleeve": [
+     "Neutral straight through: UF white to the pump cord's white."
+    ],
+    "splice_ground_sleeve": [
+     "Ground straight through: UF green (or bare) to the pump cord's green."
+    ],
+    "splice_hot_to_float_crimp": [
+     "The connection is a 12 AWG butt connector: a silver barrel both conductors go into from the ends and get crimped. It is barely bigger than the wire."
+    ],
+    "label_float": [
+     "A label wrapped on each cord, PUMP and FLOAT, reading along the cord, so the next person in the riser knows which is which without tracing them."
+    ],
+    "label_pump": [
+     "The pump cord, labelled PUMP: black, white and green, or on some pumps brown hot, blue common and green ground. Its hot comes off the float, its common and ground straight from the UF."
+    ],
+    "cords": [
+     "The pump cord and the float wire: up the discharge with a zip tie every foot, over the lip under the lid with a zip tie through its hole (the highest, driest point in the riser), down in a slack loop and straight up into the splices."
     ]
+   },
+   "labels": {
+    "tank": "Infiltrator IM-540 poly pump tank, 552 gal total, 475 working, 12 in of cover",
+    "tank_section": "Tank cut at the centre",
+    "seam": "Mid-height seam: gasket, alignment dowels, locking seam clips",
+    "riser": "24 in riser to grade",
+    "lid": "Locking lid",
+    "lid_bolts": "Lid bolts",
+    "water": "Effluent, normal level between the off and on floats",
+    "water_section": "Effluent",
+    "inlet": "4 in inlet from the aerobic unit",
+    "chlorinator": "Inline tablet chlorinator on the inlet",
+    "chlor_tablets": "Chlorine tablets (septic grade, never pool)",
+    "lid_buried": "Lid under the grass",
+    "lid_cracked": "Cracked lid",
+    "pump": "High head effluent pump on the tank floor, 4 in stainless, intake screen 12 in up, check valve built into the head",
+    "discharge": "1-1/4 in head reduced to 1 in, up the riser, 90 out through the riser wall",
+    "union": "Union under the 90, so the pump comes out",
+    "spray_line": "1 in purple PVC to the heads, 10 in deep: coupling at the tank, glued 90s, a tee at each head",
+    "spray_head0": "K-Rain reclaimed water rotor 1, 30 ft radius, full circle, fed by black swing pipe off the tee, flush to grade",
+    "stream0": "Spray",
+    "stream1": "Spray",
+    "stream2": "Spray",
+    "spray_head1": "Rotor 2, 60 ft down the line so the patterns never overlap",
+    "spray_head2": "Rotor 3 on a 180 against the property line",
+    "head_stem0": "Pop-up stem and nozzle",
+    "head_stem1": "Pop-up stem and nozzle",
+    "head_stem2": "Pop-up stem and nozzle",
+    "spray_pattern": "30 ft spray patterns, no overlap, 180 at the fence",
+    "spray_overlap": "Rotor 3 turned to a full circle, spraying over the property line",
+    "discharge_leak": "Leak at the union",
+    "intake_fouled": "Intake screen fouled",
+    "float_onoff": "One tethered on/off float on the discharge pipe, 30 in up",
+    "cords": "Pump cord and float wire: zip tied up the discharge every 12 in, over the lip tab under the lid with a zip tie through its hole, down in a slack loop and up into the splices",
+    "float_tangled": "Float cord wrapped around the discharge pipe",
+    "cord_chafed": "Cord chafed at the entry",
+    "soil": "Soil",
+    "soil_front": "Soil",
+    "backfill": "Backfill over the tank",
+    "grass": "Grade",
+    "cord_grip": "Cord grip through the riser wall below grade: the one hole, and the only place the cable is held",
+    "uf_cable": "Gray flat UF-B direct burial cable from the plug at the house, no conduit: straight in 7 in under grade with a slight fall into the tank",
+    "uf_black": "UF black: the hot, to the float",
+    "uf_white": "UF white: the neutral, straight through to the pump",
+    "uf_green": "UF green: the ground, straight through to the pump",
+    "float_lead_black": "Float lead, black: takes the hot in",
+    "float_lead_white": "Float lead, white: the switched hot back out to the pump",
+    "pump_hot": "Pump hot: comes off the float",
+    "pump_common": "Pump common: straight from the UF white",
+    "pump_ground": "Pump ground: straight from the UF green",
+    "label_pump": "Label wrapped on the pump cord, reading along the cord",
+    "label_float": "Label wrapped on the float cord, reading along the cord",
+    "splice_hot_to_float_crimp": "Butt connector, hot to the float: a silver 12 AWG barrel, both wires in from the ends, crimped",
+    "splice_hot_to_float_sleeve": "Clear adhesive lined heat shrink over the hot to the float splice: click it to slide it back",
+    "splice_float_to_pump_crimp": "Butt connector, float back to the pump: a silver 12 AWG barrel, both wires in from the ends, crimped",
+    "splice_float_to_pump_sleeve": "Clear adhesive lined heat shrink over the float back to the pump splice: click it to slide it back",
+    "splice_neutral_crimp": "Butt connector, neutral through: a silver 12 AWG barrel, both wires in from the ends, crimped",
+    "splice_neutral_sleeve": "Clear adhesive lined heat shrink over the neutral through splice: click it to slide it back",
+    "splice_ground_crimp": "Butt connector, ground through: a silver 12 AWG barrel, both wires in from the ends, crimped",
+    "splice_ground_sleeve": "Clear adhesive lined heat shrink over the ground through splice: click it to slide it back",
+    "entry_sealant": "Bead of duct seal round the cable where it comes through the riser wall",
+    "cord_ends": "The cut ends of the pump cord and the float cord: the jacket stripped back, the conductors leaving side by side"
    }
   },
   "pump_wiring": {
@@ -771,7 +1212,8 @@
     "zip_tie": [
      "The zip tie through the lip: both cords hang from it, then drop down the riser wall to the pump and the float."
     ]
-   }
+   },
+   "labels": {}
   },
   "septic_atu": {
    "name": "Advanced Treatment Unit (AquaKlear AK500 / Aqua Safe AS500)",
@@ -785,14 +1227,74 @@
     "lid_chlorinator_off": "Open the chlorinator lid",
     "panel_door_open": "Open the control panel"
    },
-   "hotspots": {}
+   "hotspots": {},
+   "labels": {
+    "tank": "AquaKlear AK500 tank, aeration zone at the inlet end, clarifier at the outlet end",
+    "baffle": "Baffle wall and clarifier hopper: settled solids slide back under it into the aeration zone",
+    "diffuser": "Air diffuser (item B): short drilled foot at the bottom of the inlet wall",
+    "airlift": "Air lift pump and skimmer (item E): the U skims the clarifier surface, air lifts it up and through the baffle just over the water",
+    "outlet": "4 in PVC effluent outlet assembly (item D), invert 8 in below the top",
+    "inlet": "4 in PVC influent through a grommet with a drop elbow",
+    "float_switch": "High water float, tethered to the PVC air line, wired to the alarm in the control box",
+    "air_pump": "Linear diaphragm air pump on its pad. Runs 24/7. Soft hum is normal",
+    "riser_aeration": "Aeration access riser, lid nearest the inlet end",
+    "riser_clarifier": "Clarifier access riser, lid nearest the outlet end",
+    "chlorinator": "Chlorinator: 3 in drop tube in the discharge cross, up through the hole in the riser lid, cap on top for the tablets",
+    "float_cable": "Float switch cable, along the air line and out through the cover",
+    "pump_cover": "Hiblow HP-120 cover shell on the base tray (lift for the diaphragms and magnet)",
+    "pump_filter_cover": "Inlet filter cover: one screw, check the foam filter every 3 months",
+    "pump_filter": "Foam inlet filter under the filter cover",
+    "pump_internals": "On the base plate: air channel block, frame posts, upright electromagnet with the bobbin coil, a diaphragm and check valve head each side, hoses out of the heads",
+    "sewer_line": "4 in sch 40 sewer line back to the house at 1/4 in per ft, hubbed coupling at the tank stub, same trench as the air line",
+    "cleanout": "Cleanout on the 4 in sewer line: hubbed sch 40 DWV tee (AquaKlear) or double sweep two way tee (Aqua Safe), riser to grade, female adapter with the plug or backflow preventer cap",
+    "cleanout_plug": "Cleanout adapter with the square head plug",
+    "cleanout_backflow_cap": "Backflow preventer cap on the cleanout (in place of the plug)",
+    "power_cord": "Pump power cord: stays above ground, off the pump and along the grass to the house outlet (never in the trench)",
+    "alarm_lit": "High water beacon on the control panel",
+    "clarifier": "Cone clarifier hung from the top ring (the ice cream cone): mixed liquor enters from the open bottom, solids settle back out",
+    "discharge": "Discharge tee with the T-baffle in the centre of the cone, 4 in out through the chlorination compartment",
+    "chlorine_tablets": "Chlorine tablets in the drop tube",
+    "cu_baffle": "4 in PVC baffle tee dropping into the 68 gal chlorination compartment",
+    "cu_water": "Chlorination compartment (68 gal, sloped floor)",
+    "diffusers": "Four 1/2 in x 64 in drop lines off the 1/2 in loop ring, holes facing the clarifier (figure 14)",
+    "air_line": "3/4 in sch 40 air distribution line from the compressor, union outside the tank, loop ring at the top",
+    "riser_center": "20 in Tuf-Tite riser on the centre access",
+    "riser_chlorinator": "16 in Tuf-Tite riser over the chlorinator",
+    "lid_center": "Centre access lid (20 in)",
+    "lid_chlorinator": "Chlorinator riser lid (16 in)",
+    "compressor": "Hiblow HP-120 aerator on its pad at the house wall (same pump as the AquaKlear build)",
+    "compressor_pad": "Compressor pad",
+    "compressor_hose": "Compressor hose to the buried 3/4 in air line",
+    "compressor_cord": "Compressor cord: stays above ground, along the foot of the wall and up beside the conduit into the control panel",
+    "control_panel": "Aqua Safe control panel on the house wall (Model 202 PC-3BAP style) with the red high water beacon",
+    "panel_door": "Control panel door",
+    "panel_internals": "Inside the panel: three breakers (15, 15, 20 A), terminal strip ALARM ALARM COMP PUMP PUMP TEST, neutral and ground bars, relay",
+    "conduit": "3/4 in PVC conduit from the panel down the wall and out to the tank in the trench",
+    "house_wall": "House wall"
+   }
   },
   "septic_field": {
    "name": "Absorption field (Infiltrator Quick4 Plus chambers)",
    "clips": {
     "lid_dbox_off": "Open the d-box"
    },
-   "hotspots": {}
+   "hotspots": {},
+   "labels": {
+    "trench1": "Run 1: twelve Quick4 Plus Standard chambers (34 x 12 in, 4 ft each) in a level 36 in trench; All-in-One 12 endcaps (33 x 13 in) both ends, 4 in sch 40 pipe 2.5 in into the inlet endcap at the 8 in invert; trench bottom 28 in down, never past 3 ft",
+    "trench2": "Trench 2, same run, 9 ft centres (6 ft between sidewalls, MSDH)",
+    "trench3": "Trench 3, same run",
+    "laterals": "Laterals: one 4 in sch 40 line per run straight out of the riser d-box, one hubbed 1/4 bend into each inlet endcap, no manifold",
+    "dbox": "Distribution box: a Tuf-Tite 24 in riser stack with a bottom (when one is used); level outlets, a flow leveler on each",
+    "lid_dbox": "D-box lid (comes off onto the grass)",
+    "effluent_line": "Effluent line: 4 in sch 40 DWV pipe off the tank outlet at 1/4 in per ft, real hubbed fittings (Charlotte style short sweep 1/4 bends, 2 in sockets) and a 4 x 4 x 4 tee where two runs split; the pipe glues 2.5 in into the endcap socket",
+    "backfill": "Native backfill over the chambers, 16 in of cover here (12 in minimum, 12 in compacted before any wheel load)",
+    "soil": "Native soil",
+    "grass": "Lawn over the field",
+    "ponded_effluent": "Effluent standing in the chambers: the field is not taking it",
+    "biomat": "Biomat sealing the trench bottom",
+    "wet_spot": "Wet, soggy spot over the first trench",
+    "lush_strips": "Grass greener over the trenches than the rest of the yard"
+   }
   },
   "septic_lee": {
    "name": "Advanced Treatment Unit, Spray Field",
@@ -801,10 +1303,10 @@
     "aerate": "Aerate",
     "lids_off": "Lids off",
     "blower_filter_off": "Filter cover off",
-    "panel_door_open": "Open the panel",
     "chlorinator_pull": "Pull the tablets",
     "float_test": "Lift the float",
-    "pump_pull": "Pull the pump"
+    "pump_pull": "Pull the pump",
+    "sleeves_back": "Slide the heat shrink back"
    },
    "hotspots": {
     "riser_pump": [
@@ -829,15 +1331,8 @@
     "aeration_pipe": [
      "Diffuser bar on the floor under the air drop. Weak or no bubbling with the blower running means it is clogged: pull it up the aeration hatch and clean the orifices."
     ],
-    "control_panel": [
-     "Aerator panel on the post. Door open: alarm light, breaker, HOA, and whether the alarm actually sounds when you push test.",
-     "Water inside the enclosure. Find where it gets in before the breaker or the contactor goes."
-    ],
     "surge_device": [
-     "Surge device on the feed to the plant panel. Lightning takes out more aerator panels than anything else out here."
-    ],
-    "panel_inside": [
-     "Most of these dose on the float only. Where there is a timer, the settings belong to the design: read them off and write them down."
+     "Plug in surge protector at the post receptacle. Lightning takes out more air pumps and spray pumps than anything else out here."
     ],
     "chlorinator": [
      "Tablet tube through the slab where the clarifier water crosses into the pump room. Pull the cap: tablets stacked, water touching the bottom one, feeding.",
@@ -865,7 +1360,127 @@
     ],
     "union": [
      "Joint weeping inside the riser. Every dose drops part of itself back in the tank."
+    ],
+    "uf_cable": [
+     "UF-B direct burial cable, gray, no conduit: a cord cap on the house end plugs into the outdoor GFCI receptacle, the cable drops into the trench and runs out to the tank with the rest of the lines."
+    ],
+    "cord_grip": [
+     "Cord grip through the riser wall below grade, on the house side: the only hole, and the only place the cable is held. No conduit, no box, no panel out here; the splices hang inside the riser under the lid. The cable comes straight in with a slight fall into the tank, so any water that gets in runs on through, and a bead of sealant goes round it."
+    ],
+    "splice_hot_to_float_sleeve": [
+     "Hot to the float: the UF black goes to one lead of the float switch. The float breaks the hot, so with the float down the pump has no power. Clear adhesive lined heat shrink, just bigger than the wire, with a raised section over the barrel: you can see the silver connector through it. Heat it and the adhesive flows and seals it watertight. Click it to slide it back."
+    ],
+    "splice_float_to_pump_sleeve": [
+     "Float to pump: the float's other lead to the pump cord's black. Two splices on the hot, one on the neutral, one on the ground, staggered so no two sit side by side."
+    ],
+    "splice_neutral_sleeve": [
+     "Neutral straight through: UF white to the pump cord's white."
+    ],
+    "splice_ground_sleeve": [
+     "Ground straight through: UF green (or bare) to the pump cord's green."
+    ],
+    "splice_hot_to_float_crimp": [
+     "The connection is a 12 AWG butt connector: a silver barrel both conductors go into from the ends and get crimped. It is barely bigger than the wire."
+    ],
+    "label_float": [
+     "A label wrapped on each cord, PUMP and FLOAT, reading along the cord, so the next person in the riser knows which is which without tracing them."
+    ],
+    "label_pump": [
+     "The pump cord, labelled PUMP: black, white and green, or on some pumps brown hot, blue common and green ground. Its hot comes off the float, its common and ground straight from the UF."
+    ],
+    "cords": [
+     "The pump cord and the float wire: up the discharge with a zip tie every foot, over the lip under the lid with a zip tie through its hole (the highest, driest point in the riser), down in a slack loop and straight up into the splices."
     ]
+   },
+   "labels": {
+    "tank": "Lee Precast 520 GPD aerobic plant: one concrete tank, 124-1/2 x 63 x 67-3/4 in, walls 3-1/2, four rooms under 12 in of cover",
+    "tank_section": "Tank cut down the middle: trash room, aeration, clarifier, pump room",
+    "riser_pump": "24 in Tuf-Tite riser over the pump room",
+    "riser_aer": "24 in riser over the aeration room",
+    "riser_inlet": "24 in riser over the trash room",
+    "lid_pump": "Pump room lid",
+    "lid_aer": "Aeration lid",
+    "lid_inlet": "Trash room lid",
+    "bolts_pump": "Lid bolts",
+    "bolts_aer": "Lid bolts",
+    "bolts_inlet": "Lid bolts",
+    "cleanout": "4 in cleanout off the inlet tee, 9 in from the end wall, capped at grade",
+    "inlet": "4 in inlet tee at 59 in, the house sewer drops into the trash room",
+    "sludge": "Sludge in the trash room, the plant's first tank",
+    "sludge_section": "Sludge in the trash room",
+    "water_inlet": "Raw sewage, trash room",
+    "water_aer": "Mixed liquor in the aeration room, light brown and rolling is healthy",
+    "water_clar": "Clear water settling in the clarifier",
+    "water_pump": "Treated, chlorinated effluent in the pump room",
+    "water_inlet_section": "Raw sewage",
+    "water_aer_section": "Mixed liquor",
+    "water_clar_section": "Settled water",
+    "water_pump_section": "Treated effluent",
+    "aeration_pipe": "1/2 in PVC air line down the wall to the diffuser bar on the floor, 4 orifices",
+    "bubbles": "Air roll off the diffuser",
+    "diffuser_clogged": "Diffuser bar packed with solids",
+    "air_line": "1/2 in air supply from the blower, through the slab",
+    "blower": "Hiblow linear air pump on a gravel pad, runs 24 hours a day",
+    "blower_filter_cover": "Filter cover on top of the blower",
+    "blower_filter": "Foam air filter, clean it every 3 months",
+    "blower_filter_dirty": "Filter never cleaned, choking the blower",
+    "blower_cord": "Air pump cord, plugged into the receptacle on the post",
+    "surge_device": "Plug in surge protector at the receptacle",
+    "transfer": "Transfer from the clarifier to the pump room at the water line",
+    "chlorinator": "Tablet chlorinator tube through the slab where the water crosses into the pump room",
+    "chlor_tablets": "Septic chlorine tablets (calcium hypochlorite)",
+    "chlor_pool_tablets": "Pool tablets (trichlor), the wrong chemistry, a gas hazard in a closed tank",
+    "outlet_tee": "Gravity outlet tee at the water line, plugged on a spray system (the pump does the work)",
+    "lid_buried": "Lid under the grass",
+    "lid_cracked": "Cracked lid",
+    "pump": "High head effluent pump on the pump room floor, intake screen 12 in up, check built into the head",
+    "discharge": "1-1/4 in head reduced to 1 in, up the riser, 90 out through the riser wall 10 in under grade",
+    "union": "Union under the 90, so the pump comes out",
+    "float_onoff": "One tethered on/off float on the discharge pipe",
+    "cords": "Pump cord and float wire: zip tied up the discharge every 12 in, over the lip tab under the lid with a zip tie through its hole, down in a slack loop and up into the splices",
+    "float_tangled": "Float cord wrapped around the pipe",
+    "cord_chafed": "Cord chafed at the entry",
+    "discharge_leak": "Leak at the union",
+    "intake_fouled": "Intake screen fouled",
+    "spray_line": "1 in purple PVC to the heads, 10 in deep, a tee at each head",
+    "spray_head0": "K-Rain reclaimed water rotor 1, 30 ft radius, full circle",
+    "spray_head1": "Rotor 2, 60 ft down the line",
+    "spray_head2": "Rotor 3 on a 180 at the property line",
+    "head_stem0": "Pop-up stem and nozzle",
+    "head_stem1": "Pop-up stem and nozzle",
+    "head_stem2": "Pop-up stem and nozzle",
+    "stream0": "Spray",
+    "stream1": "Spray",
+    "stream2": "Spray",
+    "spray_pattern": "30 ft patterns, no overlap, 180 at the fence",
+    "spray_overlap": "Rotor 3 turned to a full circle over the property line",
+    "soil": "Soil",
+    "soil_front": "Soil",
+    "backfill": "Backfill over the slab",
+    "grass": "Grade",
+    "cord_grip": "Cord grip through the riser wall below grade: the one hole, and the only place the cable is held",
+    "uf_cable": "Gray flat UF-B direct burial cable from the plug at the house, no conduit: straight in 7 in under grade with a slight fall into the tank",
+    "uf_black": "UF black: the hot, to the float",
+    "uf_white": "UF white: the neutral, straight through to the pump",
+    "uf_green": "UF green: the ground, straight through to the pump",
+    "float_lead_black": "Float lead, black: takes the hot in",
+    "float_lead_white": "Float lead, white: the switched hot back out to the pump",
+    "pump_hot": "Pump hot: comes off the float",
+    "pump_common": "Pump common: straight from the UF white",
+    "pump_ground": "Pump ground: straight from the UF green",
+    "label_pump": "Label wrapped on the pump cord, reading along the cord",
+    "label_float": "Label wrapped on the float cord, reading along the cord",
+    "splice_hot_to_float_crimp": "Butt connector, hot to the float: a silver 12 AWG barrel, both wires in from the ends, crimped",
+    "splice_hot_to_float_sleeve": "Clear adhesive lined heat shrink over the hot to the float splice: click it to slide it back",
+    "splice_float_to_pump_crimp": "Butt connector, float back to the pump: a silver 12 AWG barrel, both wires in from the ends, crimped",
+    "splice_float_to_pump_sleeve": "Clear adhesive lined heat shrink over the float back to the pump splice: click it to slide it back",
+    "splice_neutral_crimp": "Butt connector, neutral through: a silver 12 AWG barrel, both wires in from the ends, crimped",
+    "splice_neutral_sleeve": "Clear adhesive lined heat shrink over the neutral through splice: click it to slide it back",
+    "splice_ground_crimp": "Butt connector, ground through: a silver 12 AWG barrel, both wires in from the ends, crimped",
+    "splice_ground_sleeve": "Clear adhesive lined heat shrink over the ground through splice: click it to slide it back",
+    "entry_sealant": "Bead of duct seal round the cable where it comes through the riser wall",
+    "cord_ends": "The cut ends of the pump cord and the float cord: the jacket stripped back, the conductors leaving side by side",
+    "blower_receptacle": "Weatherproof in-use receptacle on a post. No control panel on this plant: the air pump and the spray pump are both plug in"
    }
   },
   "septic_tank": {
@@ -876,7 +1491,38 @@
     "plug_inlet_off": "Lift the inlet lid",
     "plug_outlet_off": "Lift the outlet lid"
    },
-   "hotspots": {}
+   "hotspots": {},
+   "labels": {
+    "tank": "Tank: 1000 gal single compartment. Precast concrete (Bonner, 8 ft 3 in x 5 ft 3 in x 5 ft 5 in, 3 in walls, 4 in slab) or the Infiltrator IM-1060 injection molded poly tank (127 x 62.2 x 54.7 in, 0.2 in walls, 44 in liquid depth, 1070 gal working, two 24 in ports, burial 6 to 48 in, non traffic). The IM-1060 is also the pump tank on time dosed drip and spray systems.",
+    "tank_section": "Tank, cut open",
+    "inlet_tee": "4 in sch 40 DWV sanitary tee (hubbed, Charlotte style): open stub up under the slab, the wall branch sweeps down, drop 12 in under the liquid",
+    "outlet_tee": "4 in sch 40 DWV sanitary tee turned so the drop sweeps up into the outlet: drop to 40 percent of the liquid depth, keeps scum out of the field",
+    "outlet_stub": "4 in outlet through the wall, invert 3 in below the inlet",
+    "effluent_filter": "Effluent filter (recommended, not usually there): slotted cartridge in the outlet tee housing, pull handle up to the access",
+    "water": "Liquid at the outlet invert (normal)",
+    "water_high": "Liquid over the inlet invert: backed up, field or outlet problem",
+    "water_low": "Liquid under the outlet invert: leaking tank or just pumped",
+    "scum_normal": "Scum layer, normal, uneven across the whole tank",
+    "scum_heavy": "Heavy scum, within 3 in of the outlet tee: pump it",
+    "sludge_normal": "Sludge on the floor, normal, uneven across the whole tank",
+    "sludge_high": "Sludge within 12 in of the outlet tee: pump it",
+    "riser_inlet": "Green riser to grade, 18 in Tuf-Tite straight on the concrete slab or 24 in on the IM-1060 port collar",
+    "riser_outlet": "Green riser to grade, 18 in Tuf-Tite straight on the concrete slab or 24 in on the IM-1060 port collar",
+    "lid_inlet": "Inlet riser lid (comes off onto the grass)",
+    "lid_outlet": "Outlet riser lid (comes off onto the grass)",
+    "plug_inlet": "12 x 19 in concrete wedge lid over the inlet, the long way across the tank (lift it out with the rebar handle)",
+    "plug_outlet": "12 x 19 in concrete wedge lid over the outlet, the long way across the tank",
+    "sewer_line": "4 in sch 40 sewer line from the house at 1/4 in per ft, hubbed coupling where the house run meets the tank stub",
+    "cleanout": "Two way cleanout: 4 in double sweep tee (both directions sweep up into the riser hub), riser to grade, female adapter with the plug or backflow cap",
+    "cleanout_plug": "Cleanout adapter with the square head plug",
+    "cleanout_backflow_cap": "Backflow preventer cap on the cleanout (in place of the plug)",
+    "outlet_line": "4 in effluent line toward the absorption field (next model)",
+    "house_wall": "House wall",
+    "dirt_inlet": "Dirt over the inlet lid, dug out with a shovel on a click",
+    "dirt_outlet": "Dirt over the outlet lid, dug out with a shovel on a click",
+    "seam": "IM-1060 mid height seam: top and bottom halves on 34 alignment dowels over a continuous elastomeric gasket, locked with 64 hammer on seam clips; 4 lifting lugs on the ends",
+    "fg_supports": "2 x 2 in fiberglass supports inside the IM-1060 holding the top half under backfill load"
+   }
   },
   "shower": {
    "name": "Shower, Single Handle",
@@ -908,6 +1554,50 @@
     "strainer": [
      "Slow drain on a hair clog. It tightens every week until there is standing water around their feet. Snake it."
     ]
+   },
+   "labels": {
+    "tub": "60 x 30 alcove tub, 16-1/2 in rim",
+    "tub_apron": "Tub apron",
+    "caulk": "Caulk bead at the tub and tile seam",
+    "valve_wall": "Tiled valve wall (6 in tile on cement board)",
+    "wall_back": "Back wall tile",
+    "wall_right": "End wall tile",
+    "walls_paint": "Painted drywall above the tile",
+    "framing": "2x4 studs, bottom plate, 2x6 blocking at the spout ell, the valve, and the shower ell",
+    "wall_outside": "Drywall on the other side of the wall",
+    "floor": "Tile floor over the subfloor",
+    "joists": "Floor joists",
+    "valve_body": "Pressure balancing rough valve (Delta R10000 MultiChoice style): brass body in the plasterguard, hot inlet forward, cold to the rear, top outlet to the shower, bottom to the spout, threaded unions on all four",
+    "plaster_ground": "Plasterguard box, face flush with the finished wall, tile cut 4-1/2 in around it",
+    "cartridge": "Moen 1222 Posi-Temp cartridge: white body, two O rings, side ports, balance spool at the back, brass stem with the notch down",
+    "supply_hot": "1/2 in hot riser into the front inlet",
+    "supply_cold": "1/2 in cold riser into the rear inlet",
+    "shower_riser": "Shower riser to the drop ell on the blocking at 78 in",
+    "spout_drop": "Spout drop to the drop ell and the 1/2 in copper stub at 20-1/2 in",
+    "escutcheon": "7 in escutcheon",
+    "stop_tube": "Stop tube, key stop and hot limit stop on the stem. The limit stop sets how hot the handle can go",
+    "handle": "Lever handle, off at 6 o'clock, counterclockwise to on",
+    "spout": "Slip-fit tub spout, set screw underneath",
+    "diverter_knob": "Pull-up diverter knob",
+    "shower_arm": "Shower arm and flange",
+    "shower_head": "4 in shower head on the ball joint",
+    "shower_stream": "Spray",
+    "spout_stream": "Water from the spout",
+    "spout_drip": "Drip from the spout after shutoff",
+    "diverter_split": "Water splitting back out the spout with the diverter up",
+    "head_scale": "Scale on the head face",
+    "strainer": "Drain strainer and grate",
+    "waste_overflow": "Waste and overflow: shoe, tee, overflow tube, tailpiece through the floor",
+    "overflow_plate": "Overflow plate",
+    "trip_lever": "Trip lever",
+    "p_trap": "1-1/2 in P-trap and arm under the floor",
+    "drain_line": "Sanitary tee and the drain drop",
+    "drain_clog": "Hair at the strainer, standing water",
+    "caulk_split": "Split caulk at the tub seam, water getting behind the wall",
+    "grout_missing": "Grout missing at the base of the tile",
+    "retainer_clip": "Retainer clip: the U shaped brass clip that locks the cartridge in the body. Lift it out before you pull the cartridge, and never turn the water on without it",
+    "door_glass": "Sliding glass panel: slides behind the fixed panel to open the tub",
+    "glass_doors": "Bypass glass doors: track, header, jambs and the fixed panel"
    }
   },
   "shower_two": {
@@ -938,6 +1628,53 @@
     "strainer": [
      "Slow drain on a hair clog. It tightens every week until there is standing water around their feet. Snake it."
     ]
+   },
+   "labels": {
+    "tub": "60 x 30 alcove tub, 16-1/2 in rim",
+    "tub_apron": "Tub apron",
+    "caulk": "Caulk bead at the tub and tile seam",
+    "valve_wall": "Tiled valve wall (6 in tile on cement board)",
+    "wall_back": "Back wall tile",
+    "wall_right": "End wall tile",
+    "walls_paint": "Painted drywall above the tile",
+    "framing": "2x4 studs, bottom plate, 2x6 blocking at the spout ell, the valve, and the shower ell",
+    "wall_outside": "Drywall on the other side of the wall",
+    "floor": "Tile floor over the subfloor",
+    "joists": "Floor joists",
+    "valve_body": "Two valve brass body on 8 in centres: hot stem, cold stem, mixing tube between them teeing up to the riser and down to the spout. No pressure balance, no limit stop: nothing here keeps a scald off the person in the tub",
+    "plaster_ground": "Plasterguard box, face flush with the finished wall, tile cut 4-1/2 in around it",
+    "supply_hot": "1/2 in hot riser into the front inlet",
+    "supply_cold": "1/2 in cold riser into the rear inlet",
+    "shower_riser": "Shower riser to the drop ell on the blocking at 78 in",
+    "spout_drop": "Spout drop to the drop ell and the 1/2 in copper stub at 20-1/2 in",
+    "escutcheon": "Hot escutcheon and sleeve",
+    "handle": "Hot knob, H index cap, counterclockwise to open",
+    "spout": "Slip-fit tub spout, set screw underneath",
+    "diverter_knob": "Pull-up diverter knob",
+    "shower_arm": "Shower arm and flange",
+    "shower_head": "4 in shower head on the ball joint",
+    "shower_stream": "Spray",
+    "spout_stream": "Water from the spout",
+    "spout_drip": "Drip from the spout after shutoff",
+    "diverter_split": "Water splitting back out the spout with the diverter up",
+    "head_scale": "Scale on the head face",
+    "strainer": "Drain strainer and grate",
+    "waste_overflow": "Waste and overflow: shoe, tee, overflow tube, tailpiece through the floor",
+    "overflow_plate": "Overflow plate",
+    "trip_lever": "Trip lever",
+    "p_trap": "1-1/2 in P-trap and arm under the floor",
+    "drain_line": "Sanitary tee and the drain drop",
+    "drain_clog": "Hair at the strainer, standing water",
+    "caulk_split": "Split caulk at the tub seam, water getting behind the wall",
+    "grout_missing": "Grout missing at the base of the tile",
+    "stem_hot": "Hot stem: bonnet, packing nut, stem, rubber washer on the end. Drips at the spout mean this washer and its seat",
+    "stem_cold": "Cold stem: the same parts, the cold side",
+    "seat_hot": "Brass seat the hot washer closes on; pitted seats chew new washers",
+    "seat_cold": "Brass seat, cold side",
+    "escutcheon_cold": "Cold escutcheon and sleeve",
+    "handle_cold": "Cold knob, C index cap, clockwise to open",
+    "stem_leak_hot": "Hot side dripping: worn washer and seat, water down the tile under the hot escutcheon and out the spout",
+    "stem_leak_cold": "Cold side dripping: worn washer and seat"
    }
   },
   "sump_pump": {
@@ -949,7 +1686,35 @@
     "3": "3",
     "4": "4"
    },
-   "hotspots": {}
+   "hotspots": {},
+   "labels": {
+    "basin": "24 x 30 poly basin set in the crawl dirt, sealed",
+    "lid": "Gasketed bolted lid: discharge, vent and cord grommets",
+    "lid_unsealed": "Lid set on loose, bolts missing: sewer gas in the crawl",
+    "basin_water": "Normal level, pump off",
+    "basin_water_high": "Water at the alarm float",
+    "basin_silt": "Silt and grit on the basin floor",
+    "pump": "Grinder pump: cast volute, cutter plate under it, 2 hp motor",
+    "pump_plate": "The pump's plate: read the amps against it",
+    "lift_chain": "Lift chain to the lid: how the pump comes out",
+    "rag": "Wipes and rags wound in the cutter: what kills these",
+    "float_pump": "Pump float, tethered on the riser: on and off",
+    "float_alarm": "Alarm float above it: high water",
+    "float_pump_stuck": "Pump float hung on the basin wall: it never rises, the pump never starts",
+    "discharge": "2 in discharge: riser, 90, under the girder, 45 into the drain",
+    "wye": "Wye on the building drain laid in the direction of flow",
+    "check_valve": "Swing check on the riser, unions both sides, arrow up",
+    "ball_valve": "Ball valve above the check: isolate the pump",
+    "check_backflow": "Check failed: the pumped water runs back down into the pit, the pump short cycles",
+    "vent": "2 in basin vent off the lid up to a real vent",
+    "inlet": "3 in inlet from the fixtures this basin serves",
+    "panel": "Simplex pump control on the girder, HOA and horn",
+    "alarm_light": "High water alarm light",
+    "alarm_light_on": "Alarm on",
+    "panel_feed": "Dedicated circuit into the panel",
+    "cords": "Pump and float cords through the lid grommet to the panel",
+    "ext_cord": "An extension cord instead of a circuit: the pump quits in the storm"
+   }
   },
   "toilet": {
    "name": "Toilet",
@@ -1024,6 +1789,33 @@
     "seat": [
      "It is in the Happy Homes Guide. Mention it while you are already at the toilet; check for an outlet within reach."
     ]
+   },
+   "labels": {
+    "seat_lid": "Lid",
+    "seat": "Seat",
+    "seat_hinges": "Seat hinges",
+    "trip_lever": "Flush handle and trip lever",
+    "handle": "Flush handle",
+    "tank_lid": "Tank lid",
+    "tank_shell": "Tank",
+    "bowl": "Bowl",
+    "bowl_water": "Bowl water: what is in the bowl is the trap seal",
+    "flapper": "Flapper",
+    "flush_valve": "Flush valve and overflow tube",
+    "fill_valve": "Fill valve",
+    "float_cup": "Float cup: sets the water level",
+    "chain": "Lift chain",
+    "angle_stop": "Angle stop",
+    "supply_line": "Supply line",
+    "flange": "Closet flange",
+    "wax_ring": "Wax ring",
+    "tank_bolts": "Tank-to-bowl bolts",
+    "bowl_section": "Cut view: rim channel, sump, S trapway, flange",
+    "water_half": "Bowl water and the trap seal",
+    "leak_stream": "Water slipping past the flapper",
+    "overflow_stream": "Water going down the overflow tube",
+    "tank_water_high": "Water line above the overflow tube",
+    "tank_section": "Tank with the front wall off"
    }
   },
   "water_filter": {
@@ -1056,6 +1848,33 @@
     "hose_bib": [
      "Hose bib weeping. Repack or replace it before it fills the box."
     ]
+   },
+   "labels": {
+    "valve_box": "Jumbo poly meter box, 15 x 22 in inner, set level with grade on the gravel bed",
+    "box_lid": "Box lid, level with the grass",
+    "gravel_bed": "Pea gravel levelling bed under the box",
+    "manifold": "HP filter manifold: T column (city to the filter), B column (filter to the house), crossover, V4 riser",
+    "v1_handle": "V1 red: city into the filter",
+    "v3_handle": "V3 blue: bypass, shut in normal service",
+    "v4_handle": "V4 green: filtered water to the house",
+    "hose_bib": "3/4 in brass hose bib in the top of the threaded tee, straight up: flush and sample point",
+    "unions": "1 in unions glued on site to the city and house stubs",
+    "filter_adapters": "Female adapters and brass PEX adapters on the two filter stubs",
+    "tank": "10 x 54 in mineral tank, buried beside the box",
+    "head": "In/out head, two 1 in ports toward the box",
+    "pex_jumpers": "1 in PEX jumpers, box to head, crimped",
+    "riser": "Riser tube, head to the diffuser plate",
+    "diffuser_plate": "Diffuser plate at the bottom: water collects here and goes up the riser",
+    "media": "Carbon bed, downflow: black granular carbon, the top layer loads up first",
+    "media_band": "Loaded layer at the top of the bed",
+    "particles": "What the bed traps: sediment, chlorine by-products, metals, caught in the top of the carbon",
+    "bib_handle": "Bib wheel",
+    "tank_water": "Clean city water above the bed",
+    "flow_arrows": "Flow: down through the media, up the riser",
+    "city_line": "1 in service line from the meter into V1",
+    "house_line": "1 in line to the house out of V4",
+    "soil": "Backfill",
+    "house_wall": "House"
    }
   },
   "water_softener": {
@@ -1080,6 +1899,39 @@
     "drain_stub": [
      "Drain: needs an air gap at the standpipe"
     ]
+   },
+   "labels": {
+    "resin_tank": "10 x 54 in resin tank, black wound fibreglass, 150 psi. Ion exchange happens in here: hardness (calcium, magnesium) swaps onto the resin beads, sodium comes off",
+    "resin_tank_section": "Cut open: gravel underbed, about a cubic foot of resin, water above the bed, the riser tube from the bottom basket up to the head, the top basket under the neck",
+    "valve_head": "Control valve on the tank neck: piston, injector, brine and drain connections. It steers service, backwash, brine draw, rinse and refill",
+    "meter_dome": "Meter on the outlet: counts gallons so the valve regenerates on use, not on the calendar",
+    "control_cover": "Cover with the display and four buttons. Time of day, gallons left, hardness and regen time are set here",
+    "control_board": "Timer board under the cover: the clock, the meter input, the motor drive. 24 VAC from the wall transformer",
+    "display_service": "Service: what the display normally shows, with the time of day",
+    "display_regen": "Backwash: the display during a regeneration cycle",
+    "bypass_valve": "Bypass on the back of the head: IN and OUT. Levers straight up is service; a quarter turn out is bypass, the house drinks hard water round the softener",
+    "bypass_lever_in": "Inlet lever: up for service",
+    "bypass_lever_out": "Outlet lever: up for service",
+    "inlet_stub": "3/4 in copper hard water in: union at the bypass, up 5 cm, to the wall, down to the slab (continues below the slab)",
+    "outlet_stub": "3/4 in copper soft water out: union at the bypass, down the wall to the slab (continues below the slab)",
+    "drain_line": "1/2 in drain line off the head's drain elbow, along the wall, down to the slab. Backwash and brine rinse go out here",
+    "drain_stub": "Drain line at the slab: the house takes it to the laundry standpipe with an air gap",
+    "brine_tank": "18 x 40 in brine tank, cream polyethylene: holds the salt and makes the brine",
+    "brine_lid": "Brine tank lid: lift it to check the salt",
+    "brine_tank_section": "Cut open: salt on the grid, brine below the grid, the brine well with its safety float",
+    "salt_grid": "Salt grid a few inches up: the salt sits on it, the brine forms below it",
+    "brine_water": "Brine below the grid: the valve draws this up the brine line during regeneration",
+    "salt_bed": "Salt at about 60 percent: normal. Keep it above half, below the top",
+    "salt_bridge": "Salt bridge: a crust hangs at the old level over an empty cavity, the tank looks full but no salt reaches the brine. Push a broom handle through it",
+    "brine_well": "Brine well: the slotted tube that keeps salt off the float and the brine line",
+    "brine_float": "Safety float and air check in the well: stops the refill if the valve fails to shut, so the brine tank cannot overflow",
+    "brine_line": "3/8 in brine line, head to the brine well",
+    "wall_transformer": "24 VAC wall transformer: the head's power",
+    "receptacle": "Receptacle on the wall for the transformer",
+    "cover_plate": "Cover plate",
+    "power_cord": "Transformer cord to the head",
+    "regen_packets": "Backwash: down the riser, up through the bed, out the drain",
+    "service_packets": "Service: in the inlet, down through the resin, up the riser, out the outlet"
    }
   },
   "well_pump": {
@@ -1115,6 +1967,34 @@
     "water_well_column": [
      "Static level: measure it, then again after a long run for drawdown"
     ]
+   },
+   "labels": {
+    "casing": "6 in steel well casing: 18 in over grade, the well goes on down",
+    "casing_section": "The casing cut open: drop pipe, water level, pump",
+    "well_cap": "Vented well cap: bolted on, screened vent, conduit out the side",
+    "cap_seal": "Cap gasket: keeps bugs and surface water out of the well",
+    "well_seal_cracked": "Cap seal cracked and lifted: bugs and surface water get in the well, test the water",
+    "pitless_adapter": "Pitless adapter below frost: the water leaves the casing here, the pump pulls up through it",
+    "service_stub": "1 in poly service to the pressure tank in the garage",
+    "drop_pipe": "1 in drop pipe from the pump up to the pitless",
+    "check_valve": "Check valve above the pump: holds the water in the pipe when the pump stops",
+    "pump": "4 in submersible pump: intake screen, stages, motor below",
+    "pump_plate": "Pump plate: hp, volts, gpm. Read the amps against it",
+    "torque_arrestor": "Torque arrestor: keeps the pump centred when the motor kicks on",
+    "pump_cable": "Submersible pump cable, taped to the drop pipe",
+    "cable_tape": "Tape bands every few feet hold the cable to the pipe",
+    "cap_conduit": "Conduit from the cap down to the box",
+    "jbox": "Weatherproof junction box on the casing",
+    "jbox_cover": "Box cover",
+    "wire_splice": "Splice: pump cable to the UF feed. Look for heat, corrosion, loose nuts",
+    "wire_conduit": "Conduit down into the ground",
+    "wire_stub": "UF cable to the house: pressure switch and disconnect",
+    "water_well_column": "Standing water in the well, with the static level line",
+    "water_well_drop": "Water in the drop pipe",
+    "water_well_service": "Water in the service line",
+    "flow_packets_up": "Pump running: water up the drop pipe",
+    "flow_packets_out": "Out the pitless to the house",
+    "backflow_packets": "Check valve failed: the water runs back down the well with the pump off"
    }
   }
  }

@@ -294,6 +294,51 @@
   // window.HOUSE_INFO = { packs: { <pack>: { name, text, hotspots: { <part>: [text] } } } } before the page loads.
   const infoEl = document.getElementById('info'); let CHECKS = {}; let WIRES = { runs: {}, parts: [] }; let DRAINS = {}; let ball = null;
   const pretty = n => String(n || '').replace(/\.glb$/, '').replace(/^little\//, '').replace(/__/g, ' ').replace(/_/g, ' ');
+  // Round 74 (Jake, from gameplay: "you have little pop-ups to tell you what things are. It's very weird, computery text. We need to
+  // be very friendly and bubbly"). Every message the page shows goes through labelEl, and most were built from object names:
+  // "hvac_furnace: inducer (Run runs it)", "pipe_supply_hot_wh_attic (cut open)". friendly() is the one place they are put into
+  // plain words: the unit by its pack's name, the part by the pack's own label (info.json carries them now), a house pipe by what
+  // it carries and where it goes, and the stage directions as something a person would say. Nothing upstream changed, so the
+  // test handles (walk.lookAction and the rest) still return the raw strings.
+  const HOUSE_WORDS = [[/^pipe_supply_hot/, 'Hot water line'], [/^pipe_supply_cold/, 'Cold water line'], [/^pipe_supply_recirc/, 'Hot water recirculation line'], [/^pipe_supply_service/, 'Water service from the street'],
+    [/^pipe_supply/, 'Water line'], [/^pipe_dwv_sewer/, 'Sewer line'], [/^pipe_dwv_building_drain/, 'Main drain under the house'], [/^pipe_dwv_effluent/, 'Effluent line'], [/^pipe_dwv/, 'Drain line'],
+    [/^vent_dwv/, 'Plumbing vent'], [/^cleanout_dwv/, 'Cleanout'], [/^vent_gas/, 'Gas flue'], [/^vent_hvac/, 'Furnace vent pipe'], [/^pipe_gas/, 'Gas line'], [/^pipe_hvac_lineset_suction/, 'AC suction line'],
+    [/^pipe_hvac_lineset_liquid/, 'AC liquid line'], [/^pipe_hvac_lineset/, 'AC lineset'], [/^pipe_hvac_condensate/, 'Condensate drain'], [/^pipe_hvac/, 'HVAC line'], [/^pipe_septic_air/, 'Air line to the septic tank'],
+    [/^pipe_septic|^pipe_spray/, 'Spray line'], [/^flex_hvac/, 'Flex duct'], [/^takeoff_[a-z]+/, 'Takeoff with its manual damper'], [/^duct_hvac_supply_trunk/, 'Main supply trunk'], [/^duct_hvac_plenum_riser/, 'Supply plenum'],
+    [/^duct_dryer/, 'Dryer vent'], [/^duct_hvac|^duct/, 'Duct'], [/^register_hvac/, 'Supply register'], [/^boot_hvac/, 'Register boot'], [/^cable/, 'Cable'], [/^conduit/, 'Conduit'], [/^fit_[a-z]+/, 'Fitting'], [/^valve/, 'Valve'], [/^pipe/, 'Pipe']];
+  const PLACE_WORDS = { wh: 'water heater', hallbath: 'hall bath', masterbath: 'master bath', hb: 'hall bath', mb: 'master bath', ks: 'kitchen sink', wc: 'toilet', lav: 'sink', dw: 'dishwasher', cw: 'washer', uf: '', dwv: '', hvac: '', bed2: 'bedroom 2', bed3: 'bedroom 3', master: 'master bedroom', living: 'living room', std80: '', cond96: '', bib: 'hose bib', tstat: 'thermostat', ahu: 'air handler' };
+  const capFirst = t => t ? t.charAt(0).toUpperCase() + t.slice(1) : t;
+  // add ons that have no inspector pack of their own, so info.json has no words for them
+  const EXTRA_PACKS = { sweet_air: { name: 'Sweet Air vent filter', labels: { chamber: 'Carbon canister. It sits on top of the vent pipe, outside, above the roof', cap: 'Twist cap. Turn it to OPEN and lift it off', vent_lid: 'Vented lid over the carbon',
+    carbon: 'Activated carbon. It soaks up the sewer gas smell', carbon_spent: 'Spent carbon. Time for a fresh charge', bottom_grid: 'Grid that holds the carbon up', label: 'Sweet Air label' } } };
+  function plainId(id) {
+    for (const [re, lab] of HOUSE_WORDS) { const m = re.exec(id); if (!m) continue;
+      const rest = id.slice(m[0].length).split('_').filter(Boolean).filter(w => !/^\d+$/.test(w)).map(w => w in PLACE_WORDS ? PLACE_WORDS[w] : w).filter(Boolean).join(' ');
+      return rest ? lab + ' (' + rest + ')' : lab; }
+    return capFirst(pretty(id));
+  }
+  function plainPart(pack, part) {
+    const P = (INFO.packs && INFO.packs[pack]) || EXTRA_PACKS[pack] || {}; const L = P.labels || {};
+    return L[part] || L[part.replace(/_\d+$/, '')] || capFirst(pretty(part));
+  }
+  function plainPack(pack) { const P = (INFO.packs && INFO.packs[pack]) || EXTRA_PACKS[pack] || {}; return P.name || capFirst(pretty(pack)); }
+  function friendly(v) {
+    let t = String(v == null ? '' : v); if (!t) return t;
+    let tail = '';
+    t = t.replace(/\s*\[[a-z0-9_]+\]\s*$/i, '');                                            // the clip's own name
+    t = t.replace(/\s*\(Run runs it\)/, () => { tail = ' Tap Run and watch it go!'; return ''; });
+    t = t.replace(/\s*\(cut open(?:, \d+ parts sectioned)?\)/, () => { tail = ' You are looking inside it now. Tap it again to close it back up.'; return ''; });
+    t = t.replace(/:?\s*cut open \(\d+ parts sectioned\)/, () => { tail = ' You are looking inside it now. Tap it again to close it back up.'; return ''; });
+    t = t.replace(/[.\s]*\(click it again to work its parts; walking lets go\)/, '. Tap it again to work on it, or just walk away!').replace(/\(click again\)/, '(tap again)');
+    const m = /^([a-z][a-z0-9]*(?:_[a-z0-9]+)*): ([a-z][a-z0-9_]*)\b/.exec(t);
+    if (m && ((INFO.packs && INFO.packs[m[1]]) || EXTRA_PACKS[m[1]] || /_/.test(m[1]))) t = plainPack(m[1]) + ': ' + plainPart(m[1], m[2]) + t.slice(m[0].length);
+    else { const m1 = /^([a-z][a-z0-9]*(?:_[a-z0-9]+)+): /.exec(t); if (m1) t = plainPack(m1[1]) + ': ' + t.slice(m1[0].length); }
+    t = t.replace(/\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b/g, id => plainId(id));                  // any name still left in it
+    t = capFirst(t.trim()); if (tail && !/[.!?]$/.test(t)) t += '.';
+    return t + tail;
+  }
+  { const d = Object.getOwnPropertyDescriptor(Node.prototype, 'textContent');
+    Object.defineProperty(labelEl, 'textContent', { configurable: true, get() { return d.get.call(this); }, set(v) { let f = v; try { f = friendly(v); } catch (e) { f = v; } d.set.call(this, f); } }); }
   const PACK_FLOWS = { kitchen_sink: ['faucet', 'disposal'], shower: ['tub'], 'little/washer': ['laundry'] };
   let panelFor = null, panelVerb = { key: null, verb: null };
   // Round 34 (Jake: "if I click the disposal and it makes a cutaway, it should say garbage disposal, run it; it needs to be very clear"):
@@ -376,7 +421,7 @@
     noteUnit(o);
     const pack = o.userData.pack || (inst && inst.userData.model) || ''; const ext = (window.HOUSE_INFO && window.HOUSE_INFO.packs && window.HOUSE_INFO.packs[pack]) || {};
     const P = Object.assign({}, INFO.packs[pack] || {}, ext);
-    const title = P.name || (inst ? pretty(inst.userData.model) : 'House: ' + pretty(nm));
+    const title = P.name || (inst ? pretty(inst.userData.model) : plainId(nm));
     const notes = [].concat((P.hotspots && P.hotspots[nm]) || [], (ext.hotspots && ext.hotspots[nm]) || []); const wt = wireText(o); if (wt) notes.unshift(wt);     // round 40: where the wire goes and why
     const acts = [];     // [label, fn, group]
     const mine = new Set(); for (let q = o; q && q !== inst; q = q.parent) mine.add(q.name);     // the clicked part and its node chain
@@ -483,7 +528,7 @@
       if (panelVerb.verb === 'about') for (const t of notes.concat(P.text ? [P.text] : [])) { const d = document.createElement('div'); d.className = 'inote'; d.textContent = t; body.appendChild(d); }
       const row = document.createElement('div'); row.className = 'iacts'; for (const [lab, fn] of byVerb[panelVerb.verb]) wire(row, lab, fn); body.appendChild(row);
     }
-    if (!any) { const d = document.createElement('div'); d.className = 'inote'; d.textContent = 'Nothing on this part moves. Click a cover, a handle, a pipe or the unit itself.'; infoEl.appendChild(d); }
+    if (!any) { const d = document.createElement('div'); d.className = 'inote'; d.textContent = 'Nothing to open or run on this one. Try tapping a cover, a handle, a pipe, or the whole unit!'; infoEl.appendChild(d); }
     infoEl.style.display = 'block';
   }
   // Round 28 self test (Jake: 'do a full comb through of the entire app, make sure all the clicks are actually working'): every part the
@@ -3177,7 +3222,7 @@
       // round 60, the working view: a click on a placed unit you are not standing at takes you in front of it and does nothing else
       const u0 = unitOf(o), isUnit = !!u0 && u0.parent === equip;
       if (isUnit && !fly && !ball && !held && (tool === 'look' || hits[0].distance > REACH) && !nearUnit(u0)) {
-        const m = goToUnit(u0); if (m) { lastUnit = u0; return say(String(u0.userData.pack || u0.userData.model || 'unit').replace(/\.glb$/, '').replace(/_/g, ' ') + ': ' + m + ' (click it again to work its parts; walking lets go)'); }
+        const m = goToUnit(u0); if (m) { lastUnit = u0; return say(unitNameOf(u0) + ': ' + m + ' (click it again to work its parts; walking lets go)'); }
       }
       if (hits[0].distance > REACH) { labelEl.style.display = 'none'; return; }
     }
