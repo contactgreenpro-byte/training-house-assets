@@ -1,7 +1,7 @@
 {
- "published": "2026-09-20T12:58:20",
- "house": "r67a",
- "note": "round 67: the Lee's pump chamber fills with what arrives, its wide angle float rides the surface and runs the pump, water moves through the chambers",
+ "published": "2026-09-20T21:41:50",
+ "house": "r68e",
+ "note": "rounds 68 and 69: pumped systems run on their floats with loose rope cords; the Lee and the 540 show the plug in splice connection under the lid, no box, no conduit",
  "files": {
   "app_shell.html": {
    "v": "23e1e6ecd1",
@@ -116,8 +116,8 @@
    "bytes": 230600
   },
   "house_furniture.glb": {
-   "v": "0e55443505",
-   "bytes": 8858252
+   "v": "715c911ea6",
+   "bytes": 8863180
   },
   "house_site.glb": {
    "v": "fbe4b19de1",
@@ -168,7 +168,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "94d59b574f",
+   "v": "7562716c30",
    "bytes": 17995
   },
   "info.json": {
@@ -184,8 +184,8 @@
    "bytes": 1605780
   },
   "lift_station_r12.glb": {
-   "v": "ca907c9603",
-   "bytes": 1477324
+   "v": "1a89f99c40",
+   "bytes": 1507788
   },
   "multimeter.glb": {
    "v": "e1e2aa643f",
@@ -208,24 +208,24 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "b919f86203",
-   "bytes": 2829624
+   "v": "6e9f55779d",
+   "bytes": 2833196
   },
   "pipes_gas.glb": {
-   "v": "49e16f688d",
-   "bytes": 813048
+   "v": "9f5f938ce9",
+   "bytes": 815888
   },
   "pipes_hvac.glb": {
-   "v": "511a2643ba",
-   "bytes": 2087624
+   "v": "3c985e5683",
+   "bytes": 2087600
   },
   "pipes_supply.glb": {
    "v": "ba333f64c9",
    "bytes": 2661028
   },
   "placements.json": {
-   "v": "2e4a06e698",
-   "bytes": 66327
+   "v": "51718bb476",
+   "bytes": 65835
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -236,8 +236,8 @@
    "bytes": 553272
   },
   "pump_tank.glb": {
-   "v": "ea2b0f608b",
-   "bytes": 570716
+   "v": "4877fdc579",
+   "bytes": 748624
   },
   "pump_wiring.glb": {
    "v": "e689bab46c",
@@ -264,12 +264,12 @@
    "bytes": 297260
   },
   "septic_lee.glb": {
-   "v": "244d967459",
-   "bytes": 849588
+   "v": "de85b1a528",
+   "bytes": 961380
   },
   "septic_lee_overland.glb": {
-   "v": "f43dc7728e",
-   "bytes": 891828
+   "v": "08247a17f8",
+   "bytes": 891488
   },
   "septic_tank_risers.glb": {
    "v": "d6d8714865",
@@ -336,8 +336,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "ca54fd0b0c",
-   "bytes": 306622
+   "v": "02c36d36ef",
+   "bytes": 314782
   },
   "washer.glb": {
    "v": "7e04f19827",

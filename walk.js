@@ -864,6 +864,7 @@
   function liftSwitch(inst) {
     const st = inst.userData.lift || (inst.userData.lift = { on: false }); if (!st.on && !breakers.septic) return 'HOA: no power, the SEPTIC breaker in the load centre is off'; st.on = !st.on; const on = st.on;
     setState(inst, 'hoa_lever_hand', on); setState(inst, 'hoa_lever_auto', !on);
+    if (inst.userData.plantSim) { inst.userData.plantSim.hand = on; return on ? 'HOA in HAND: the pump runs whatever the floats say, and draws the basin down' : 'HOA back in AUTO: the floats run the pump'; }     // round 68: the basin is driven, nothing is swapped
     setState(inst, 'water_off', on); setState(inst, 'water_on', !on);
     setState(inst, 'float_off_surface', on); setState(inst, 'float_off_wet', !on);
     setState(inst, 'float_on_dry', on); setState(inst, 'float_on_surface', !on);
@@ -1350,6 +1351,11 @@
       const t1 = round(2500); plantTimers.push(setTimeout(again, t1 + 3000));
     });
   }
+  function deliveringOn(re) {
+    let A = 0; for (const f of flows) { if (!f.water || !re.test(f.run) || !inConfig(f.obj.userData.config)) continue;
+      for (const k in f.water) { const w = f.water[k]; if (w && w.active && w.front >= w.L - 0.02 && w.tail < w.L - 0.02) A += w.A; } }
+    return A;
+  }
   function deliveringSewer() {
     const got = [];
     for (const f of flows) { if (!f.water || !/^pipe_dwv_sewer_/.test(f.run) || /^pipe_dwv_sewer_city/.test(f.run) || !inConfig(f.obj.userData.config)) continue;
@@ -1364,13 +1370,14 @@
   // the invert at the end of the pipe, at the speed it was running, and falls the way thrown water falls (a parabola), as thick as that
   // fixture's flow and thinning as it speeds up. Where the pipe ends inside a plant's own inlet tee (the Lee, the gravity tank) the far
   // wall of the tee is 6 cm away, so the arc runs into it and goes down the drop. A pipe end under the liquid just runs out.
-  function makePour(w) {
+  function makePour(w, levelY) {
     const n = w.P.length, E = w.P[n - 1].clone(), Ep = w.P[Math.max(0, n - 3)], dir = E.clone().sub(Ep); dir.y = 0; const flat = dir.length() > 0.01; if (flat) dir.normalize();
     let level = E.y - 0.40, under = false, tee = false, seenShown = false; const bx = new T.Box3(), probe = E.clone().addScaledVector(dir, flat ? 0.06 : 0);
     equip.children.forEach(inst => inst.traverse(o => { if (!o.isMesh) return; const pn = partName(o);
       if (/^inlet_tee$|^inlet$/.test(pn) && /septic_lee|septic_tank/.test(inst.userData.model || '')) { bx.setFromObject(o); if (bx.distanceToPoint(E) < 0.15) tee = true; }
       const shown = shownInTree(o); if (!/^(water|cu_water)/.test(pn) || (!shown && /_high|alarm|_on$|_fill/.test(pn)) || (!shown && seenShown)) return; o.updateWorldMatrix(true, false); bx.setFromBufferAttribute(o.geometry.attributes.position).applyMatrix4(o.matrixWorld);     // the REST surface: setFromObject takes in the morph targets, and a plant's water carries its high water alarm level as one
       if (probe.x < bx.min.x - 0.05 || probe.x > bx.max.x + 0.05 || probe.z < bx.min.z - 0.05 || probe.z > bx.max.z + 0.05) return; if (bx.max.y > E.y + 0.03) { if (bx.min.y < E.y && shown) under = true; return; } if (shown && !seenShown) { seenShown = true; level = bx.max.y; } else if (bx.max.y > level || level === E.y - 0.40) level = bx.max.y; }));     // the liquid you can SEE wins: a basin carries its off, on and alarm levels as separate bodies and shows one
+    if (levelY !== undefined && levelY !== null) { level = levelY; under = levelY > E.y + 0.03; }     // round 68: a driven basin says where its surface is NOW
     const A = w.A, dep = Math.min(w.R * 0.62, Math.max(0.0035, Math.sqrt(A / (2.2 * Math.PI)))), lip = E.clone(); lip.y -= (w.R - dep);     // it leaves from the bottom of the pipe
     const path = [];
     if (under || !flat) { path.push(lip.clone(), new T.Vector3(lip.x, lip.y - 0.10, lip.z)); }
@@ -1382,14 +1389,16 @@
     const pw = makeWater(pipes, path, 0.05, w.kind, false, 'pour_' + w.mesh.name, A, true);
     // the pour falls INSIDE the plant's own inlet tee, where nobody can see it. In the side cutaway (Elevation) it is drawn over the tee, so the
     // trainee sees the water go down the drop and into the liquid; walking the yard it is hidden like everything else inside a pipe.
-    if (pw) { pw.isPour = true; pw.mesh.material = pw.mesh.material.clone(); pw.mesh.renderOrder = 9; } return pw;
+    if (pw) { pw.isPour = true; pw.levelY = level; pw.mesh.material = pw.mesh.material.clone(); pw.mesh.renderOrder = 9; } return pw;
   }
   function syncPlant() {
     const w = deliveringSewer();
+    let basinY = null; for (const S of plantSims) if (S.cfg.pump && !S.drop && S.inst.parent && /sewer/.test(S.cfg.feed || '')) { S.inst.updateWorldMatrix(true, false); basinY = S.inst.localToWorld(new T.Vector3(0, S.level, 0)).y; }
+    if (w && arrivingW && w.sig === arrivingW.sig && pourW && basinY !== null && Math.abs(pourW.levelY - basinY) > 0.03) { const old = pourW; old.kill = true; setWater(old, false); old.active = false; pourW = makePour(w, basinY); if (pourW) { setWater(pourW, true, 0, 0); pourW.t = 5; } }     // the basin's surface has moved: the fall is that much shorter or longer
     if (pourW && pourW.mesh.material.depthTest !== !elev) { pourW.mesh.material.depthTest = !elev; pourW.mesh.material.needsUpdate = true; }
     if (!!w !== !!arrivingW || (w && arrivingW && w.sig !== arrivingW.sig)) {
       if (pourW) setWater(pourW, false);
-      if (w) { pourW = makePour(w); if (pourW) setWater(pourW, true, 0, 0); running.add('plant_out'); if (!sysOn && !plantOn) plantCycle(true, true); }
+      if (w) { pourW = makePour(w, basinY); if (pourW) setWater(pourW, true, 0, 0); GPM.plant_out = Math.max(0.5, gpmOfArea(w.A)); for (const f of flows) if (f.water && f.water.plant_out) resizeWater(f.water.plant_out, w.A); running.add('plant_out'); if (!sysOn && !plantOn) plantCycle(true, true); }
       else { running.delete('plant_out'); if (!sysOn) plantCycle(false, true); }
       arrivingW = w; showFlows();
     }
@@ -1414,59 +1423,110 @@
   // stand and watch that. Everything in the chamber (what comes in, what the pump takes out) runs SIM_GAIN times faster than the clock.
   const SIM_GAIN = 30, plantSims = [];
   const gpmOfArea = A => A * 0.61 / 6.309e-5;
+  // Round 68: a basin can carry ONE float (a wide angle pump switch: the Lee, the 540) or SEVERAL (the lift station's narrow angle off, on and
+  // alarm floats, each under its own cable weight). Each float is a body whose origin is its tie point; its cord is a rope hung here.
   function setupPlantSim(inst) {
     let cfg = null; inst.traverse(o => { if (!cfg && o.userData && o.userData.plant_sim) { try { cfg = JSON.parse(o.userData.plant_sim); } catch (e) { } } });
     const A = inst.userData.anim; if (!cfg || !A) return;
-    const S = { cfg, inst, pumpOn: false, float: inst.getObjectByName(cfg.float), waters: cfg.water.map(n => inst.getObjectByName(n)).filter(Boolean), through: [], dropW: null, dropAt: null, wasIn: false };
     const toG = q => new T.Vector3(q[0], q[2], -q[1]);
-    S.levelOf = deg => cfg.tie[2] - cfg.tether * Math.cos(deg * Math.PI / 180); S.onZ = S.levelOf(cfg.on_deg); S.offZ = S.levelOf(cfg.off_deg);
-    S.level = cfg.pump ? S.offZ : cfg.rest_top_z;
-    const clip = A.clips.find(c => c.name === cfg.run_clip);
-    if (clip && S.float) {
-      const tr = clip.tracks.find(t => t.name === cfg.float + '.quaternion');
-      if (tr) { const q0 = new T.Quaternion().fromArray(tr.values, 0); let best = 0; S.qUp = q0.clone(); for (let i = 0; i < tr.values.length; i += 4) { const q = new T.Quaternion().fromArray(tr.values, i), a = q0.angleTo(q); if (a > best) { best = a; S.qUp = q; } } S.q0 = q0; }
-      clip.tracks = clip.tracks.filter(t => t.name !== cfg.float + '.quaternion' && !cfg.water.some(n => t.name === n + '.scale'));
+    const defs = cfg.floats || [{ name: cfg.float, role: 'onoff', tie: cfg.tie, tether: cfg.tether, theta0_deg: cfg.theta0_deg, up_deg: cfg.up_deg, on_deg: cfg.on_deg, off_deg: cfg.off_deg, cord: cfg.cord, cord_tip_rel: cfg.cord_tip_rel, cord_r: cfg.cord_r }];
+    const S = { cfg, inst, feed: cfg.feed ? new RegExp(cfg.feed) : /^pipe_dwv_sewer_/, pumpOn: false, alarm: false, hand: false, floats: [], waters: cfg.water.map(n => inst.getObjectByName(n)).filter(Boolean), through: [], dropW: null, dropAt: null, wasIn: false };
+    const names = defs.map(d => d.name);
+    for (const d of defs) {
+      const F = { d, obj: inst.getObjectByName(d.name), made: false, theta: 0 }; if (!F.obj) continue;
+      F.levelOf = deg => d.tie[2] - d.tether * Math.cos(deg * Math.PI / 180); F.onZ = F.levelOf(d.on_deg); F.offZ = F.levelOf(d.off_deg);
+      // its swing, read out of whichever clip turns it: the rest pose and the pose furthest from it give the axis it turns about
+      for (const c of A.clips) { const tr = c.tracks.find(t => t.name === d.name + '.quaternion'); if (!tr || F.axis) continue;
+        const q0 = new T.Quaternion().fromArray(tr.values, 0); let best = 0, qUp = q0.clone(); for (let k = 0; k < tr.values.length; k += 4) { const q = new T.Quaternion().fromArray(tr.values, k), a = q0.angleTo(q); if (a > best) { best = a; qUp = q; } }
+        if (best > 0.2) { const rel = q0.clone().invert().multiply(qUp), sn = Math.sqrt(Math.max(1e-9, 1 - rel.w * rel.w)); F.q0 = q0; F.axis = new T.Vector3(rel.x / sn, rel.y / sn, rel.z / sn); F.sgn = (2 * Math.acos(Math.max(-1, Math.min(1, rel.w)))) / (d.up_deg * Math.PI / 180); } }
+      if (d.cord) F.cordObj = inst.getObjectByName(d.cord) || null;
+      if (d.cord_tip_rel) {
+        F.tipLocal = toG(d.cord_tip_rel); F.tieG = toG(d.tie); F.ropeLen = Math.max(0.02, F.tipLocal.length()) * 1.18;
+        const N = 14, K = 6, pos = new Float32Array((N + 1) * K * 3), idx = []; for (let a = 0; a < N; a++) for (let k = 0; k < K; k++) { const u = a * K + k, v = a * K + (k + 1) % K; idx.push(u, v, u + K, v, v + K, u + K); }
+        const g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(pos, 3)); g.setIndex(idx);
+        F.rope = new T.Mesh(g, new T.MeshStandardMaterial({ color: 0x141414, roughness: 0.8 })); F.rope.name = 'float_rope'; F.rope.frustumCulled = false; F.rope.raycast = () => { };
+        F.rope.userData.inst = inst; F.rope.userData.label = 'float_rope'; F.rope.userData.part = 'float_rope'; inst.add(F.rope); F.N = N; F.K = K;
+      }
+      S.floats.push(F);
     }
-    for (let i = 0; i < (cfg.through || []).length; i++) { const w = makeWater(inst, cfg.through[i].map(toG), 0.05, 'water', false, 'through' + i + '_' + (inst.userData.model || ''), areaOf(2), true); if (w) { w.isThrough = true; w.lead = 1.5 + i * 2.0; w.mesh.material = w.mesh.material.clone(); w.mesh.renderOrder = 8; S.through.push(w); } }
+    // the floats and the chamber's water belong to the WATER in every clip of the model; only the hand test still lifts a float
+    for (const c of A.clips) c.tracks = c.tracks.filter(t => !(names.some(n => t.name === n + '.quaternion') && c.name !== 'float_test') && !cfg.water.some(n => t.name === n + '.scale'));
+    const low = S.floats.find(F => F.d.role === 'onoff' || F.d.role === 'off');
+    S.level = !cfg.pump ? cfg.rest_top_z : (cfg.start_level !== undefined ? cfg.start_level : (low ? low.offZ : cfg.rest_top_z));
+    for (let k = 0; k < (cfg.through || []).length; k++) { const w = makeWater(inst, cfg.through[k].map(toG), 0.05, 'water', false, 'through' + k + '_' + (inst.userData.model || ''), areaOf(2), true); if (w) { w.isThrough = true; w.lead = 1.5 + k * 2.0; w.mesh.material = w.mesh.material.clone(); w.mesh.renderOrder = 8; S.through.push(w); } }
     S.drop = cfg.drop ? toG(cfg.drop) : null;
     inst.userData.plantSim = S; plantSims.push(S);
   }
+  // the cord from the tie (or the cable weight) to the float's tip: a ROPE (Jake: "it's not stiff, it's like a rope, it's loose"), a fifth longer
+  // than the straight line between them can ever be, hanging in a parabola of that length; straight down, it is the rope and nothing sags
+  function ropeStep(S, F) {
+    if (F.cordObj) F.cordObj.traverse(o => { if (o.isMesh) o.visible = false; });
+    if (!F.rope) return;
+    F.rope.visible = shownInTree(F.obj);
+    F.obj.updateWorldMatrix(true, false); S.inst.updateWorldMatrix(true, false);
+    const A = F.tieG, B = S.inst.worldToLocal(F.obj.localToWorld(F.tipLocal.clone())), chord = A.distanceTo(B);
+    const sag = chord < F.ropeLen ? Math.sqrt(3 * chord * (F.ropeLen - chord) / 8) : 0, flat = Math.hypot(B.x - A.x, B.z - A.z) / Math.max(1e-6, chord);
+    const N = F.N, K = F.K, r = F.d.cord_r || 0.0035, pos = F.rope.geometry.attributes.position.array, P = [];
+    for (let a = 0; a <= N; a++) { const t = a / N, q = A.clone().lerp(B, t); q.y -= sag * flat * 4 * t * (1 - t); P.push(q); }
+    const up = new T.Vector3(0, 1, 0), tn = new T.Vector3(), n1 = new T.Vector3(), n2 = new T.Vector3();
+    for (let a = 0; a <= N; a++) { tn.copy(P[Math.min(N, a + 1)]).sub(P[Math.max(0, a - 1)]).normalize(); n1.crossVectors(tn, Math.abs(tn.y) > 0.95 ? new T.Vector3(1, 0, 0) : up).normalize(); n2.crossVectors(tn, n1);
+      for (let k = 0; k < K; k++) { const an = 2 * Math.PI * k / K, o = (a * K + k) * 3; pos[o] = P[a].x + (n1.x * Math.cos(an) + n2.x * Math.sin(an)) * r; pos[o + 1] = P[a].y + (n1.y * Math.cos(an) + n2.y * Math.sin(an)) * r; pos[o + 2] = P[a].z + (n1.z * Math.cos(an) + n2.z * Math.sin(an)) * r; } }
+    F.rope.geometry.attributes.position.needsUpdate = true; F.rope.geometry.computeVertexNormals();
+  }
   function stepPlantSims(dt) {
     for (let i = plantSims.length - 1; i >= 0; i--) if (!plantSims[i].inst.parent) { const S = plantSims[i]; for (const w of S.through.concat(S.dropW ? [S.dropW] : [])) { w.kill = true; w.active = false; w.on = false; } plantSims.splice(i, 1); }
-    const inA = arrivingW ? arrivingW.A : 0, gpmIn = inA ? gpmOfArea(inA) : 0;
     for (const S of plantSims) {
-      const cfg = S.cfg, A = S.inst.userData.anim, st = A.state[cfg.run_clip], clip = A.clips.find(c => c.name === cfg.run_clip);
+      const cfg = S.cfg, A = S.inst.userData.anim, clip = A.clips.find(c => c.name === cfg.run_clip);
+      const inA = deliveringOn(S.feed), gpmIn = inA ? gpmOfArea(inA) : 0, flowing = gpmIn > 0;
       // what is moving through the plant, and what drops into the pump chamber at the far end of it
-      const flowing = gpmIn > 0;
-      if (flowing !== S.wasIn || (flowing && Math.abs(inA - (S.lastA || 0)) / inA > 0.12)) { S.wasIn = flowing; S.lastA = inA;
-        for (const w of S.through) { if (flowing) resizeWater(w, inA); setWater(w, flowing, w.lead, 0); } }
+      if (flowing !== S.wasIn || (flowing && Math.abs(inA - (S.lastA || 0)) / inA > 0.12)) { S.wasIn = flowing; S.lastA = inA; for (const w of S.through) { if (flowing) resizeWater(w, inA); setWater(w, flowing, w.lead, 0); } }
       for (const w of S.through) if (w.mesh.material.depthTest !== !elev) { w.mesh.material.depthTest = !elev; w.mesh.material.needsUpdate = true; }
       if (S.drop) {
-        const want = flowing && S.through.length && S.through[S.through.length - 1].front >= S.through[S.through.length - 1].L - 0.02;
+        const last = S.through[S.through.length - 1], want = flowing && (!last || last.front >= last.L - 0.02);
         if (want && (!S.dropW || Math.abs(S.dropAt - S.level) > 0.025 || Math.abs(S.dropW.A - inA) / inA > 0.12)) {
           if (S.dropW) { S.dropW.kill = true; setWater(S.dropW, false); }
           const bottom = S.drop.clone(); bottom.y = Math.min(S.drop.y - 0.03, S.level - 0.08);
           S.dropW = makeWater(S.inst, [S.drop.clone(), bottom], 0.05, 'water', false, 'drop_' + (S.inst.userData.model || ''), inA, true);
-          if (S.dropW) { S.dropW.isDrop = true; S.dropW.mesh.material = S.dropW.mesh.material.clone(); S.dropW.mesh.renderOrder = 8; setWater(S.dropW, true, 0, 0); S.dropW.front = S.dropW.L; S.dropAt = S.level; }
+          if (S.dropW) { S.dropW.isDrop = true; S.dropW.mesh.material = S.dropW.mesh.material.clone(); S.dropW.mesh.renderOrder = 8; setWater(S.dropW, true, 0, 0); S.dropAt = S.level; }
         } else if (!want && S.dropW && S.dropW.on) setWater(S.dropW, false);
         if (S.dropW && S.dropW.mesh.material.depthTest !== !elev) { S.dropW.mesh.material.depthTest = !elev; S.dropW.mesh.material.needsUpdate = true; }
       }
-      if (!cfg.pump) continue;
-      // the chamber: in at what is arriving, out at the pump's rate, both times SIM_GAIN
-      const k = SIM_GAIN * 6.309e-5 / cfg.area_m2;
-      S.level += k * gpmIn * dt; if (S.pumpOn) S.level -= k * cfg.pump_gpm * dt;
-      S.level = Math.max(cfg.floor_z + 0.05, Math.min(S.onZ + 0.22, S.level));
+      // parts the model drew for the old switched poses stay away while the basin is driven
+      if (cfg.hide) for (const n of cfg.hide) { const o = S.inst.getObjectByName(n); if (o && o.visible) o.traverse(x => { x.visible = false; }); }
+      for (const o of S.waters) if (!o.userData.placeHidden && !/_section$/.test(o.name) && !S.inst.userData.sectionOpen && !elev && !o.visible) o.visible = true;
+      if (cfg.pump) {
+        // the chamber: in at what is arriving, out at the pump's rate, both times SIM_GAIN
+        // (a lift basin is a quarter of the plan area of a tank's pump chamber and its pump is twice the size: at 30 x its whole cycle was over in seven seconds, so it runs at 12 x)
+        const k = (cfg.gain || (cfg.floats ? 12 : SIM_GAIN)) * 6.309e-5 / cfg.area_m2;
+        S.level += k * gpmIn * dt; if (S.pumpOn) S.level -= k * cfg.pump_gpm * dt;
+        S.level = Math.max(cfg.floor_z + 0.08, Math.min(cfg.rest_top_z + (cfg.floats ? 0.12 : 0.40), S.level));
+      }
       for (const o of S.waters) o.scale.y = (S.level - cfg.floor_z) / (cfg.rest_top_z - cfg.floor_z);
-      // the float rides the surface on its tether: hanging until the water reaches it, straight up when the water is past its reach
-      const c = (cfg.tie[2] - S.level) / cfg.tether; let th = c >= 1 ? 0 : (c <= -1 ? 180 : Math.acos(c) * 180 / Math.PI); th = Math.max(th, cfg.theta0_deg); S.theta = th;
+      // every float rides the surface on its tether: hanging until the water reaches it, straight up when the water is past its reach
       const lifted = A.state.float_test && A.state.float_test.open;
-      if (S.float && S.q0 && !lifted) S.float.quaternion.copy(S.q0).slerp(S.qUp, Math.max(0, Math.min(1, (th - cfg.theta0_deg) / cfg.up_deg)));
-      // the switch: makes at the ON angle, breaks at the OFF angle; a hand on the float (float_test) or on the Run button makes it too
-      const manual = st && st.open && !S.pumpOn;
-      if (!S.pumpOn && (th >= cfg.on_deg || lifted || manual) && powered(S.inst) && S.level > S.offZ + 0.01) { S.pumpOn = true; if (!(st && st.open)) playNamed(S.inst, cfg.run_clip, true); }
-      else if (manual && !S.pumpOn) { st.open = false; if (clip) A.mixer.clipAction(clip).stop(); refreshStreams(S.inst); }     // Run pressed with the float hanging: the switch is open, nothing runs
-      else if (S.pumpOn && (th <= cfg.off_deg || !powered(S.inst)) && !lifted) { S.pumpOn = false; const s2 = A.state[cfg.run_clip]; if (s2) s2.open = false; if (clip) { const act = A.mixer.clipAction(clip); act.time = Math.max(act.time, 72 / 24); } refreshStreams(S.inst); }
-      if (S.pumpOn && clip) { const act = A.mixer.clipAction(clip); if (act.time > 70 / 24) act.time = 20 / 24; }     // the heads stay up and keep turning for as long as the pump runs
+      for (const F of S.floats) { const d = F.d, c = (d.tie[2] - S.level) / d.tether; F.theta = c >= 1 ? 0 : (c <= -1 ? 180 : Math.acos(c) * 180 / Math.PI);
+        const thShow = Math.max(d.theta0_deg > 1 ? 18 : 0, F.theta);     // a float tied to a pipe lies against it when it hangs: it cannot swing in under its tie
+        if (F.axis && !(lifted && d.role === 'onoff')) F.obj.quaternion.copy(F.q0).multiply(new T.Quaternion().setFromAxisAngle(F.axis, F.sgn * (thShow - d.theta0_deg) * Math.PI / 180));
+        if (F.theta >= d.on_deg) F.made = true; else if (F.theta <= d.off_deg) F.made = false;     // makes at its ON angle, breaks at its OFF angle, holds in between
+        ropeStep(S, F); }
+      S.theta = S.floats.length ? S.floats[S.floats.length > 1 ? 1 : 0].theta : 0;
+      if (!cfg.pump) continue;
+      // the control: one wide angle float is the switch; with off / on / alarm floats the pump starts when ON makes and runs until OFF breaks
+      const one = S.floats.find(F => F.d.role === 'onoff'), fOff = S.floats.find(F => F.d.role === 'off'), fOn = S.floats.find(F => F.d.role === 'on'), fAl = S.floats.find(F => F.d.role === 'alarm');
+      const st = A.state[cfg.run_clip], manual = !cfg.run_state_only && st && st.open && !S.pumpOn, pw = powered(S.inst);
+      const callOn = one ? (one.made || lifted) : (fOn && fOn.made), callOff = one ? (!one.made && !lifted) : (fOff && !fOff.made);
+      let want = S.pumpOn; if (callOn || manual) want = true; if (callOff && !manual) want = false; if (S.hand) want = S.level > cfg.floor_z + 0.12; if (!pw) want = false;
+      if (manual && !want) { st.open = false; if (clip) A.mixer.clipAction(clip).stop(); refreshStreams(S.inst); }     // Run pressed with the switch open: nothing runs
+      if (want !== S.pumpOn) { S.pumpOn = want;
+        if (cfg.run_state_only) { (A.state[cfg.run_clip] || (A.state[cfg.run_clip] = { open: false })).open = want; }
+        else if (want) { if (!(st && st.open)) playNamed(S.inst, cfg.run_clip, true); }
+        else { const s2 = A.state[cfg.run_clip]; if (s2) s2.open = false; if (clip) { const act = A.mixer.clipAction(clip); act.time = Math.max(act.time, 72 / 24); } refreshStreams(S.inst); }
+        if (cfg.contactor_clip && !S.hand) { const cc = A.clips.find(x => x.name === cfg.contactor_clip); if (cc) { const act = A.mixer.clipAction(cc); act.loop = T.LoopOnce; act.clampWhenFinished = true; act.enabled = true; act.paused = false; if (want) { act.reset(); act.timeScale = 1; act.play(); } else { act.timeScale = -1; act.time = cc.duration; act.play(); } } }
+        // the pump screen rides the pump it is on: it runs when that pump runs
+        equip.children.forEach(u => { if (/spray_pump_filter/.test(u.userData.model || '') && u.userData.anim && u.userData.anim.clips.some(c => c.name === 'pump_run')) playNamed(u, 'pump_run', want); });
+      }
+      if (S.pumpOn && clip && !cfg.run_state_only) { const act = A.mixer.clipAction(clip); if (act.time > 70 / 24) act.time = 20 / 24; }     // the heads stay up and keep turning for as long as the pump runs
+      if (fAl && fAl.made !== S.alarm) { S.alarm = fAl.made; if (cfg.alarm_part) { const o = S.inst.getObjectByName(cfg.alarm_part); if (o) o.traverse(x => { x.visible = S.alarm; }); } }
     }
     for (let i = waters.length - 1; i >= 0; i--) { const x = waters[i]; if (x.kill && !x.active) { if (x.mesh.parent) x.mesh.parent.remove(x.mesh); x.mesh.geometry.dispose(); waters.splice(i, 1); } }
   }
@@ -1549,7 +1609,7 @@
     const G = waterGeometry(path, R, full, A, free); if (!G) return null;
     const mesh = new T.Mesh(G.geo, waterMaterial(kind)); mesh.name = 'flow_live_' + name; mesh.visible = false; mesh.frustumCulled = false; mesh.renderOrder = 2;
     mesh.raycast = () => { };     // contents are not controls: a click goes through the water to the pipe
-    mesh.userData.isStream = true; mesh.userData.liveWater = true; parent.add(mesh);
+    mesh.userData.isStream = true; mesh.userData.liveWater = true; mesh.userData.label = mesh.name; parent.add(mesh);
     const w = { mesh, cum: G.cum, L: G.cum[G.cum.length - 1], P: G.P, kind, full, on: false, active: false, t: 0, tOff: Infinity, s0: 0, delay: 0, front: 0, tail: 0, path0: path, R, A: A || areaOf(2), free: !!free }; waters.push(w); return w;
   }
   // the same body at another flow: a faucet's ribbon becomes a flush's surge when the flush joins it, and goes back
@@ -2989,7 +3049,7 @@
   // the pump on (pump_run), the level drops (pump_down), and it repeats while the water runs. Each plant plays the clips it has.
   let sysOn = false, sysTimers = [];
   const CYCLES = { 'pump_tank.glb': ['high_water', 'pump_run', 'pump_down'], 'septic_lee.glb': ['float_test', 'pump_run'], 'septic_lee_overland.glb': ['float_test'],
-                   'septic_aquaklear.glb': ['high_water'], 'septic_aquasafe.glb': ['high_water'], 'spray_pump_filter.glb': ['pump_run'], 'lift_station_r12.glb': ['fill_from_house', 'pump_down'] };
+                    'lift_station_r12.glb': ['fill_from_house', 'pump_down'] };     // (round 68: every plant that carries a plant_sim is skipped by plantCycle: its floats run it, not this table)
   function playNamed(inst, name, on) {
     const A = inst.userData.anim; if (!A) return 0; const c = A.clips.find(x => x.name === name); if (!c) return 0;
     const act = A.mixer.clipAction(c); act.loop = T.LoopOnce; act.clampWhenFinished = true; const st = A.state[c.name] || (A.state[c.name] = { open: false }); st.open = on;

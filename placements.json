@@ -958,6 +958,7 @@
     "discharge",
     "union",
     "float_onoff",
+    "float_cord",
     "cords",
     "conduit",
     "discharge_leak",
@@ -1260,33 +1261,17 @@
     "inlet_stub",
     "intake_fouled",
     "float_tangled",
-    "cord_chafed",
-    "conduit"
+    "cord_chafed"
    ],
    "config": "sewer=septic_spray_two_tank",
    "alternate": true,
-   "note": "Two tank alternate: AquaKlear ATU at sock_septic_tank_back feeding this IM-540 pump tank. Its inline chlorinator is hidden: the AquaKlear in front of it carries the tablet feeder on its own outlet, and a train gets one, not two. 2026-09-12: inlet_stub is the model's own feed pipe for viewing it alone; in the house the effluent line comes through the saddle gasket into the inlet tee. The float, intake and cord fault states are hidden: Blender's hide does not travel in a GLB. 2026-09-13: moved up to a metre clear of the AquaKlear (offset -1.29; Jake: the spray tank was too far from the plant). Round 31: its own conduit stub is hidden; the pump is fed by UF cable from the outdoor receptacle (build_pipes cable_septic_pump_uf) and the splices are pump_wiring.glb in its riser.",
+   "note": "Two tank alternate: AquaKlear ATU at sock_septic_tank_back feeding this IM-540 pump tank. Its inline chlorinator is hidden: the AquaKlear in front of it carries the tablet feeder on its own outlet, and a train gets one, not two. 2026-09-12: inlet_stub is the model's own feed pipe for viewing it alone; in the house the effluent line comes through the saddle gasket into the inlet tee. The float, intake and cord fault states are hidden: Blender's hide does not travel in a GLB. 2026-09-13: moved up to a metre clear of the AquaKlear (offset -1.29; Jake: the spray tank was too far from the plant). Round 31: the pump is fed by UF cable from the outdoor receptacle (build_pipes cable_septic_pump_uf). Round 69: the splices are the model's own now (WIRING splice: cord grip, UF, four butt splices under clear shrink under the lid, the cords over a lip tab), so pump_wiring.glb is no longer placed here and there is no conduit stub to hide.",
    "offset": [
     -1.29,
     0,
     0
    ],
    "elevation_group": "two_tank_spray"
-  },
-  {
-   "socket": "sock_pump_wiring_two_tank",
-   "file": "site",
-   "pack": "pump_wiring",
-   "model": "pump_wiring.glb",
-   "yaw": 0,
-   "offset": [
-    0,
-    0,
-    0
-   ],
-   "config": "sewer=septic_spray_two_tank",
-   "hide": [],
-   "note": "Round 31 (Jake: the plug in on gray direct burial Romex, the float breaking the hot, the crimp and adhesive sleeve splices): the wiring inside the 540's riser. The socket is the riser's centre at grade; the UF comes through the cord grip on the west side where cable_septic_pump_uf ends. Clip sleeves_back slides the four sleeves off their crimps. Every part comes out on Take apart."
   },
   {
    "socket": "sock_pump_tank_back",
@@ -1328,9 +1313,7 @@
     "soil_section",
     "house_wall",
     "water_alarm",
-    "water_fill",
     "grease_mat",
-    "alarm_lit",
     "float_alarm_surface",
     "hoa_lever_off",
     "starter_knob_tripped",
@@ -1342,12 +1325,14 @@
    "config": "sewer=city_lift",
    "alternate": true,
    "states": [
+    "alarm_lit",
     "water_off",
     "float_off_surface",
     "float_on_dry",
     "hoa_lever_hand"
    ],
    "show": [
+    "water_fill",
     "float_off_wet"
    ],
    "note": "2026-09-13: every level, float pose and HOA lever position the builder hides was showing at once (Blender's hide does not travel in a GLB, and nothing had read this model's HIDDEN list): four bodies of water, the grease mat, the alarm light on, three levers. The fault states are hidden; the drawn down water, its floats and the HAND lever are states, which the HOA switch in the panel swaps in (walk.js liftSwitch). float_off_wet is the off float as built, and the _wet hide pattern had taken it. 2026-09-13, the yard redone (Jake): turned so its inlet faces the house and set on the sewer line at (-10.0, 7.62), clear of the back door stairs. Built with PANEL_MOVE: the panel is on the house wall at y 6.93. Its own sewer line, cleanout, force main stub and conduit are hidden; the house draws the sewer straight in, the force main to the street and the panel conduit.",
