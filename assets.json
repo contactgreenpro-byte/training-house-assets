@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T08:15:52",
- "house": "r83a",
- "note": "r83a: the SJE 122 board works (control power, lead select, test, silence, fuses), duplex layout audits clean, setup screen label, condenser capacitor leads read amps, clamp search faster beside dense parts",
+ "published": "2026-09-21T08:33:48",
+ "house": "r84a",
+ "note": "r84a: condenser 8 in further off the wall, data plate leaves with its panel, spare stat conductors taped back, clamp pop-up emptied, meter no longer goes under the unit",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -104,8 +104,8 @@
    "bytes": 44800
   },
   "grab.json": {
-   "v": "fe86fb6c02",
-   "bytes": 6256
+   "v": "368de950a2",
+   "bytes": 6258
   },
   "house_attic.glb": {
    "v": "18bd27794c",
@@ -124,12 +124,12 @@
    "bytes": 226780
   },
   "house_furniture.glb": {
-   "v": "f8d2dc3d0c",
-   "bytes": 8858228
+   "v": "104409bc74",
+   "bytes": 8863200
   },
   "house_site.glb": {
-   "v": "3025db1071",
-   "bytes": 7374872
+   "v": "628dedeaaa",
+   "bytes": 7374868
   },
   "house_slab.glb": {
    "v": "e170461dbb",
@@ -144,12 +144,12 @@
    "bytes": 2887176
   },
   "hvac_condenser_ac.glb": {
-   "v": "4863f11b7d",
-   "bytes": 4086980
+   "v": "6ed88a6a94",
+   "bytes": 4092800
   },
   "hvac_condenser_heatpump.glb": {
-   "v": "61a217fef0",
-   "bytes": 4812296
+   "v": "e0eaf34378",
+   "bytes": 4817280
   },
   "hvac_furnace_cond96.glb": {
    "v": "9bac2e34ab",
@@ -176,7 +176,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "3ef9d73aae",
+   "v": "3105a04e8f",
    "bytes": 18604
   },
   "info.json": {
@@ -228,12 +228,12 @@
    "bytes": 2924208
   },
   "pipes_gas.glb": {
-   "v": "ade137c6c1",
-   "bytes": 809076
+   "v": "ac4ce86e61",
+   "bytes": 815880
   },
   "pipes_hvac.glb": {
-   "v": "6f817dd009",
-   "bytes": 2161608
+   "v": "68f2495ee7",
+   "bytes": 2163124
   },
   "pipes_supply.glb": {
    "v": "2182ce9521",
@@ -352,8 +352,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "737a174eef",
-   "bytes": 402439
+   "v": "365adb8d6c",
+   "bytes": 404903
   },
   "washer.glb": {
    "v": "7e04f19827",

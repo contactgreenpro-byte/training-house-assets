@@ -2730,6 +2730,11 @@
     if (fn === 'adc') return { text: '0.0', note: 'that load is alternating current, so a DC amp range reads about zero' };
     return { text: 'OL', note: 'a multimeter reads current in series, so it will not read a live panel. Use the clamp meter for amps.' };
   }
+  function clampLine(r) {
+    if (!meter || !meter.a) return '';                                    // in your hand: nothing to say, the buttons are there
+    if (!r || parseFloat(r.text) > 0) return '';                          // a reading: it is on the meter
+    const first = String(r.note || '').split(/(?<=[.:])\s/)[0].replace(/[.:]$/, ''); return first ? '0.0: ' + first : '';
+  }
   function showMeter() {
     const el = meterCard();
     if (!meter) { el.style.display = 'none'; meterShowText('    '); meterKeys(); return; }
@@ -2740,6 +2745,11 @@
     el.style.display = 'none';
     const lead_ = r_ => { const bx = r_.o ? benchFor(r_.o) : null; return bx ? (bx.term ? bx.term + ' of ' + bx.B.name : bx.B.name) : pretty(r_.nm); };
     const where = (meter.a ? (meter.kind === 'amps' ? 'jaw round ' : 'red on ') + lead_(meter.a) : (meter.kind === 'amps' ? 'not on a conductor yet' : 'red not placed')) + (meter.kind === 'volts' ? ', ' + (meter.b ? 'black on ' + lead_(meter.b) : 'black not placed') : '');
+    // Round 84 (Jake: "the text you're putting on is too much. We're seeing the amps. We know it's around the wire. I don't think we need
+    // any other instructions on that page. It's redundant, and it's going to get in the way of being able to see anything"). With the
+    // clamp ON a wire the reading is on the meter and nothing is written over the work. The one thing the meter cannot say is WHY it
+    // reads nothing, so a 0.0 gets its reason, in one short line, and that is all.
+    if (meter.kind === 'amps') { const line = clampLine(r); labelEl.textContent = line; labelEl.style.display = line ? 'block' : 'none'; meterKeys(); return; }
     labelEl.textContent = FN_LABEL[meter.fn] + ': ' + r.text.trim() + '. ' + where + '. ' + r.note + (('ontouchstart' in window) ? '' : '  (click the dial to turn it, R to read it close, Esc to put it down)');
     labelEl.style.display = 'block'; meterKeys();
   }
@@ -2841,8 +2851,8 @@
       for (let k = 0; k < 3; k++) { const i = ix(t * 3 + k), x = P.getX(i), y = P.getY(i), z = P.getZ(i); pos[t * 9 + k * 3] = x; pos[t * 9 + k * 3 + 1] = y; pos[t * 9 + k * 3 + 2] = z;
         if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; if (z < z0) z0 = z; if (z > z1) z1 = z; }
       const a0 = Math.floor(x0 / C), a1 = Math.floor(x1 / C), b0 = Math.floor(y0 / C), b1 = Math.floor(y1 / C), c0 = Math.floor(z0 / C), c1 = Math.floor(z1 / C);
-      if ((a1 - a0 + 1) * (b1 - b0 + 1) * (c1 - c0 + 1) > 256) { big.push(t); continue; }
-      for (let a = a0; a <= a1; a++) for (let b = b0; b <= b1; b++) for (let c = c0; c <= c1; c++) { const key = a + ',' + b + ',' + c; let L = cells.get(key); if (!L) cells.set(key, L = []); L.push(t); } }
+      if ((a1 - a0 + 1) * (b1 - b0 + 1) * (c1 - c0 + 1) > 256) { big.push(t, x0, y0, z0, x1, y1, z1); continue; }
+      for (let a = a0; a <= a1; a++) for (let b = b0; b <= b1; b++) for (let c = c0; c <= c1; c++) { const key = ((a + 8192) * 16384 + (b + 8192)) * 16384 + (c + 8192); let L = cells.get(key); if (!L) cells.set(key, L = []); L.push(t); } }
     return (geo.userData.triGrid = { C, cells, big, pos });
   }
   const _ga = new T.Vector3(), _gb = new T.Vector3(), _gm = new T.Matrix4();
@@ -2854,9 +2864,10 @@
       const inv = 1 / det, tx = ox - pos[o], ty = oy - pos[o + 1], tz = oz - pos[o + 2], u = (tx * px + ty * py + tz * pz) * inv; if (u < 0 || u > 1) return false;
       const qx = ty * e1z - tz * e1y, qy = tz * e1x - tx * e1z, qz = tx * e1y - ty * e1x, v = (dx * qx + dy * qy + dz * qz) * inv; if (v < 0 || u + v > 1) return false;
       const w = (e2x * qx + e2y * qy + e2z * qz) * inv; return w >= 0 && w <= 1; };
-    for (const t of G.big) if (tri(t)) return true;
+    { const B = G.big, lx = Math.min(ox, _gb.x), hx = Math.max(ox, _gb.x), ly = Math.min(oy, _gb.y), hy = Math.max(oy, _gb.y), lz = Math.min(oz, _gb.z), hz = Math.max(oz, _gb.z);
+      for (let i = 0; i < B.length; i += 7) if (B[i + 1] <= hx && B[i + 4] >= lx && B[i + 2] <= hy && B[i + 5] >= ly && B[i + 3] <= hz && B[i + 6] >= lz && tri(B[i])) return true; }
     const a0 = Math.floor(Math.min(ox, _gb.x) / C), a1 = Math.floor(Math.max(ox, _gb.x) / C), b0 = Math.floor(Math.min(oy, _gb.y) / C), b1 = Math.floor(Math.max(oy, _gb.y) / C), c0 = Math.floor(Math.min(oz, _gb.z) / C), c1 = Math.floor(Math.max(oz, _gb.z) / C);
-    for (let x = a0; x <= a1; x++) for (let y = b0; y <= b1; y++) for (let z = c0; z <= c1; z++) { const L = G.cells.get(x + ',' + y + ',' + z); if (L) for (const t of L) if (tri(t)) return true; }
+    for (let x = a0; x <= a1; x++) for (let y = b0; y <= b1; y++) for (let z = c0; z <= c1; z++) { const L = G.cells.get(((x + 8192) * 16384 + (y + 8192)) * 16384 + (z + 8192)); if (L) for (const t of L) if (tri(t)) return true; }
     return false;
   }
   function clampGo(rec) {
@@ -2869,11 +2880,18 @@
     if (W.thick !== undefined) { if (!wireObj.geometry.boundingBox) wireObj.geometry.computeBoundingBox(); const sz = wireObj.geometry.boundingBox.getSize(new T.Vector3());
       if (W.thick > 0.03 || W.width > 0.03 || Math.max(sz.x, sz.y, sz.z) < 0.025) { rec.clampFit = { notWire: true, thick: +W.thick.toFixed(3), width: +W.width.toFixed(3) }; return; } }
     const shown = x => { for (let q = x; q; q = q.parent) if (!q.visible) return false; return true; };
-    const heavy = [], triCount = g_ => Math.floor((g_.index ? g_.index.count : g_.attributes.position.count) / 3);
+    const heavy = [], heavyHouse = [], triCount = g_ => Math.floor((g_.index ? g_.index.count : g_.attributes.position.count) / 3);
+    // Round 84 (Jake: "currently the meter, it's up underneath the condenser"). Only the UNIT's own parts were felt for, and the pad, the
+    // lawn and the house wall are not the unit's: the body went down into the pad beside the base pan and nothing stopped it. Whatever
+    // of the house and its pipes comes within the meter's reach of the wire is felt for as well, through the same grids.
+    { const reach = F.len + 0.20, bx = new T.Box3(), sp = new T.Sphere(W.c, reach);
+      for (const grp of [house, pipes]) grp.traverse(x => { if (!x.isMesh || x === wireObj || x.isSkinnedMesh || !shown(x) || /^(water|flow_|bubbles|grass_blades)/.test(x.name || '')) return;
+        if (!x.geometry.boundingBox) x.geometry.computeBoundingBox(); bx.copy(x.geometry.boundingBox).applyMatrix4(x.matrixWorld); if (bx.intersectsSphere(sp)) heavyHouse.push(x); }); }
     unit.traverse(x => { if (x.isMesh && x !== wireObj && shown(x) && !x.isSkinnedMesh && !/^(water|flow_|bubbles)/.test(partName(x) || '')) ((triCount(x.geometry) > 600 && !/^(wire|lead)_(?!duct)|_(wire|lead)(_|$)|conductor|cord/.test(partName(x) || x.name || '')) ? heavy : near).push(x); });     // conductors stay with the raycaster: it is what tells a soft touch from a hard one
     const _hs = new T.Sphere(), rc = new T.Raycaster(), seg = (a, b_) => { const v = b_.clone().sub(a), n = v.length(); if (n < 1e-5) return 0; v.multiplyScalar(1 / n);
       // what it touches matters: another CONDUCTOR gives way to a hand (1), a device, a wall, a duct or the board does not (10)
       const soft = h => /^(wire|lead)_(?!duct)|_(wire|lead)(_|$)|conductor|cord/.test(partName(h.object) || h.object.name || ''), cost = hs => hs.length ? (hs.every(soft) ? 1 : 10) : 0;
+      for (const hm of heavyHouse) if (gridHit(hm, a, b_)) return 10;
       for (const hm of heavy) { if (!hm.geometry.boundingSphere) hm.geometry.computeBoundingSphere(); _hs.copy(hm.geometry.boundingSphere).applyMatrix4(hm.matrixWorld); if (_hs.distanceToPoint(a) < n && gridHit(hm, a, b_)) return 10; }
       rc.set(a, v); rc.far = n; const c1 = cost(rc.intersectObjects(near, false)); if (c1 === 10) return 10; rc.set(b_, v.negate()); return Math.max(c1, cost(rc.intersectObjects(near, false))); };
     // what the RING touches at a spot on the wire, standing with its axis along f_
@@ -3048,7 +3066,7 @@
       if (meter.fn === 'amps' || meter.fn === 'adc') clampGo(rec); clampLast = rec.clampFit || null;
       if (rec.clampFit && rec.clampFit.notWire) { if (clampOn) clampToHand(); meter.a = null; showMeter(); return rec.clampFit.thick <= 0.03 && rec.clampFit.width <= 0.03 ? 'That bit of ' + pretty(p.nm) + ' is too short to get the jaw round. Clamp the same wire further along.' : 'The jaw goes round a wire, not round the ' + pretty(p.nm) + '. Clamp one of the wires on it.'; }
       if (rec.clampFit && rec.clampFit.noRoom) { if (clampOn) clampToHand(); meter.a = null; showMeter(); return 'There is no room to get the jaw round ' + pretty(p.nm) + ' anywhere along it without the meter going through something: it runs in a duct or tight against the box. Clamp the same circuit on a wire that runs clear.'; }
-      { const fit = rec.clampFit, tip = (fit && fit.pulled ? ' The wire is pulled out a little, just enough to get the jaw round it.' : '') + (fit && fit.moved ? ' It went on where that wire runs clear: a jaw cannot close round a wire in a duct or flat on the plate.' : '') + (fit && fit.facing < 0.25 ? ' The screen faces away from where you stand: stand taller or step round it, or Read it close.' : ''); return 'clamped on ' + pretty(p.nm) + ': ' + r.text + '. ' + r.note + tip; } return 'clamped on ' + pretty(p.nm) + ': ' + r.text + '. ' + r.note; }
+      { if (clampOn === rec) return clampLine(r); const fit = rec.clampFit, tip = (fit && fit.pulled ? ' The wire is pulled out a little, just enough to get the jaw round it.' : '') + (fit && fit.moved ? ' It went on where that wire runs clear: a jaw cannot close round a wire in a duct or flat on the plate.' : '') + (fit && fit.facing < 0.25 ? ' The screen faces away from where you stand: stand taller or step round it, or Read it close.' : ''); return 'clamped on ' + pretty(p.nm) + ': ' + r.text + '. ' + r.note + tip; } return 'clamped on ' + pretty(p.nm) + ': ' + r.text + '. ' + r.note; }
     if (meter.a && meter.b) { const r = readVolts(meter.a, meter.b); return 'red on ' + pretty(meter.a.nm) + ', black on ' + pretty(meter.b.nm) + ': ' + r.text + '. ' + r.note; }
     return 'red lead on ' + pretty(p.nm) + ' (' + p.why + '). Now click where the black one goes';
   }
@@ -3822,7 +3840,7 @@
     if (held && (tool === 'apart' || held.view)) { const m = putBack(); if (!hits.length) return say(m); }     // round 30: with a part in your hands, the next click puts it back first; round 39: a viewed part too
     if (!hits.length) { labelEl.style.display = 'none'; return; }
     const o = hits[0].object; let dr = o; while (dr && !dr.userData.isDoor) dr = dr.parent;
-    const say = t => { labelEl.textContent = t; labelEl.style.display = 'block'; };
+    const say = t => { labelEl.textContent = t || ''; labelEl.style.display = t ? 'block' : 'none'; };
     if (!(elev && elev.orbit)) {
       // round 60, the working view: a click on a placed unit you are not standing at takes you in front of it and does nothing else
       const u0 = unitOf(o), isUnit = !!u0 && u0.parent === equip;
