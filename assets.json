@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T00:05:49",
- "house": "r73a",
- "note": "Round 73: house label r73a",
+ "published": "2026-09-21T00:17:53",
+ "house": "r73b",
+ "note": "Round 73b: plenum trim clear of the vent, pressure switch hose rerouted, Lee checklist wording",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -36,8 +36,8 @@
    "bytes": 609804
   },
   "checklists.json": {
-   "v": "30e716c8ac",
-   "bytes": 17031
+   "v": "677b65633c",
+   "bytes": 17526
   },
   "clamp_meter.glb": {
    "v": "5262a30852",
@@ -152,12 +152,12 @@
    "bytes": 4718784
   },
   "hvac_furnace_cond96.glb": {
-   "v": "6384efb913",
-   "bytes": 2738416
+   "v": "ac15a34ee8",
+   "bytes": 2737124
   },
   "hvac_furnace_std80.glb": {
-   "v": "44dc1c9b0b",
-   "bytes": 2723236
+   "v": "4626359d9e",
+   "bytes": 2721068
   },
   "hvac_minisplit.glb": {
    "v": "adf7affdb4",
@@ -176,7 +176,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "7ae0a39f72",
+   "v": "164df77e23",
    "bytes": 17995
   },
   "info.json": {
