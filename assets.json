@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T00:50:31",
- "house": "r74b",
- "note": "Round 74b: damper levers turn on a tap, friendlier system messages",
+ "published": "2026-09-21T02:54:01",
+ "house": "r75a",
+ "note": "Round 75: the meter reads parts separately to the makers numbers, compressor C S R pins, capacitor 40/5",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -124,8 +124,8 @@
    "bytes": 226792
   },
   "house_furniture.glb": {
-   "v": "5e234d8df8",
-   "bytes": 8858292
+   "v": "1027178c65",
+   "bytes": 8858380
   },
   "house_site.glb": {
    "v": "fbe4b19de1",
@@ -144,12 +144,12 @@
    "bytes": 2887176
   },
   "hvac_condenser_ac.glb": {
-   "v": "69f4e328bf",
-   "bytes": 3995780
+   "v": "fe303360a6",
+   "bytes": 4076220
   },
   "hvac_condenser_heatpump.glb": {
-   "v": "d9bbaeee99",
-   "bytes": 4718784
+   "v": "4ef8645703",
+   "bytes": 4796668
   },
   "hvac_furnace_cond96.glb": {
    "v": "ac15a34ee8",
@@ -176,7 +176,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "a720438f10",
+   "v": "2477b6ad57",
    "bytes": 18406
   },
   "info.json": {
@@ -184,8 +184,8 @@
    "bytes": 111127
   },
   "interactions.json": {
-   "v": "0a824b6894",
-   "bytes": 64807
+   "v": "6d4391bdd5",
+   "bytes": 63459
   },
   "kitchen_sink.glb": {
    "v": "89e64c0103",
@@ -220,8 +220,8 @@
    "bytes": 2828996
   },
   "pipes_gas.glb": {
-   "v": "44fe3ed67c",
-   "bytes": 815412
+   "v": "805046d5ee",
+   "bytes": 816184
   },
   "pipes_hvac.glb": {
    "v": "6f817dd009",
@@ -344,8 +344,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "5d588e5676",
-   "bytes": 329656
+   "v": "0a8cc61197",
+   "bytes": 338320
   },
   "washer.glb": {
    "v": "7e04f19827",

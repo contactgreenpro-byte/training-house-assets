@@ -205,6 +205,44 @@
     "work": "soft_start"
    }
   },
+  "electric_tank_water_heater.glb": {
+   "anode_access_cover": {
+    "look": "aside"
+   },
+   "lower_access_panel": {
+    "look": "aside"
+   },
+   "top_cover": {
+    "look": "aside"
+   },
+   "upper_access_panel": {
+    "look": "aside"
+   },
+   "cold_supply_line": {
+    "look": "cut"
+   },
+   "drain_pan": {
+    "look": "cut"
+   },
+   "hot_supply_line": {
+    "look": "cut"
+   },
+   "lower_stat_cover": {
+    "look": "aside"
+   },
+   "upper_stat_cover": {
+    "look": "aside"
+   },
+   "tp_discharge_connection": {
+    "look": "cut"
+   },
+   "drain_valve": {
+    "look": "cut"
+   },
+   "dip_tube": {
+    "look": "cut"
+   }
+  },
   "electric_tankless_water_heater.glb": {
    "status_led_on": {
     "work": "heat_on"
@@ -536,10 +574,31 @@
    "lineset_insulation": {
     "look": "cut"
    },
+   "liquid_line_in": {
+    "look": "cut"
+   },
+   "suction_line": {
+    "look": "cut"
+   },
    "aux_pan_drain": {
     "look": "cut"
    },
    "drain_line": {
+    "look": "cut"
+   },
+   "piston_outlet_nut": {
+    "look": "cut"
+   },
+   "piston_outlet_tube": {
+    "look": "cut"
+   },
+   "txv_cap_tube": {
+    "look": "cut"
+   },
+   "txv_outlet_tube": {
+    "look": "cut"
+   },
+   "txv_tube_grommet": {
     "look": "cut"
    },
    "feed_conduit": {
@@ -553,6 +612,12 @@
    }
   },
   "hvac_condenser_ac.glb": {
+   "disconnect_cover": {
+    "look": "clip:disconnect_cover_open"
+   },
+   "disconnect_pullout": {
+    "look": "clip:disconnect_pull"
+   },
    "control_panel_cover": {
     "look": "clip:panel_off"
    },
@@ -582,6 +647,12 @@
    },
    "heat_stream": {
     "work": "fan_run"
+   },
+   "cap_lead_c_line": {
+    "look": "cut"
+   },
+   "compressor_terminal_cover": {
+    "look": "aside"
    },
    "feed_conduit": {
     "look": "cut"
@@ -607,6 +678,12 @@
    }
   },
   "hvac_condenser_heatpump.glb": {
+   "disconnect_cover": {
+    "look": "clip:disconnect_cover_open"
+   },
+   "disconnect_pullout": {
+    "look": "clip:disconnect_pull"
+   },
    "control_panel_cover": {
     "look": "clip:panel_off"
    },
@@ -636,6 +713,12 @@
    },
    "heat_stream": {
     "work": "fan_run"
+   },
+   "cap_lead_c_line": {
+    "look": "cut"
+   },
+   "compressor_terminal_cover": {
+    "look": "aside"
    },
    "feed_conduit": {
     "look": "cut"
@@ -751,6 +834,9 @@
    "lineset_insulation": {
     "look": "cut"
    },
+   "txv_cap_tube": {
+    "look": "cut"
+   },
    "furnace_trap": {
     "look": "cut"
    },
@@ -855,6 +941,9 @@
    "lineset_insulation": {
     "look": "cut"
    },
+   "txv_cap_tube": {
+    "look": "cut"
+   },
    "feed_conduit": {
     "look": "cut"
    },
@@ -880,7 +969,7 @@
    },
    "front_panel": {
     "work": "run",
-    "look": "clip:front_open"
+    "look": "clip:control_open"
    },
    "vane": {
     "work": "run"
@@ -897,12 +986,21 @@
    "coil_matted": {
     "work": "wheel_mold"
    },
+   "control_cover": {
+    "look": "clip:control_open"
+   },
    "drain_pitch": {
     "work": "drain_pitch",
     "look": "cut"
    },
    "drain_stain": {
     "work": "drain_slow"
+   },
+   "elec_cover": {
+    "look": "clip:valve_cover_off"
+   },
+   "valve_cover": {
+    "look": "clip:valve_cover_off"
    },
    "filter_a_dirty": {
     "look": "clip:front_open",
@@ -912,21 +1010,6 @@
     "look": "clip:front_open",
     "work": "filters_dirty"
    },
-   "lineset_cover": {
-    "look": "clip:cover_off"
-   },
-   "valve_cover": {
-    "look": "clip:valve_cover_off"
-   },
-   "feed_conduit": {
-    "look": "cut"
-   },
-   "lineset": {
-    "look": "cut"
-   },
-   "back_plate": {
-    "look": "aside"
-   },
    "filter_left": {
     "look": "clip:front_open",
     "work": "filters_dirty"
@@ -935,73 +1018,29 @@
     "look": "clip:front_open",
     "work": "filters_dirty"
    },
-   "control_cover": {
-    "look": "clip:control_open",
-    "note": "the control cover comes off the right end of the head, onto the board and its 1 2 3 G strip"
+   "lineset_cover": {
+    "look": "clip:cover_off"
    },
-   "board": {
-    "look": "control",
-    "note": "the indoor board: the stat cable, the fan tap and the fault code LED"
+   "back_plate": {
+    "look": "aside"
    },
    "drain_pan": {
-    "look": "aside",
-    "note": "the pan under the coil and the drain hose out of it, the first thing to check on a head that drips"
+    "look": "cut"
    },
-   "elec_cover": {
-    "look": "clip:valve_cover_off",
-    "note": "the outdoor electrical cover: the terminal strip and the whip land behind it"
+   "feed_conduit": {
+    "look": "cut"
    },
    "line_exit_cover": {
-    "look": "aside",
-    "note": "the cover over the pipes where they leave the back of the head"
+    "look": "aside"
    },
-   "intake_grille": {
-    "look": "aside",
-    "note": "the top intake grille: the coil is straight behind it"
+   "lineset": {
+    "look": "cut"
    },
-   "service_valve_liquid": {
-    "look": "control",
-    "note": "the liquid service valve: stem cap off, hex key, and the Schrader port beside it"
+   "lineset_tape": {
+    "look": "cut"
    },
-   "service_valve_suction": {
-    "look": "control",
-    "note": "the suction service valve, where gauges go"
-   },
-   "terminal_block": {
-    "look": "control",
-    "note": "1, 2, 3 and ground: the interconnecting cable lands one conductor per screw"
-   },
-   "power_block": {
-    "look": "control",
-    "note": "L1, L2 and ground from the disconnect"
-   },
-   "term_1": {
-    "look": "control",
-    "note": "one terminal: its letter, its colour and where the conductor goes"
-   },
-   "term_2": {
-    "look": "control",
-    "note": "one terminal: its letter, its colour and where the conductor goes"
-   },
-   "term_3": {
-    "look": "control",
-    "note": "one terminal: its letter, its colour and where the conductor goes"
-   },
-   "term_ground": {
-    "look": "control",
-    "note": "one terminal: its letter, its colour and where the conductor goes"
-   },
-   "term_l1": {
-    "look": "control",
-    "note": "one terminal: its letter, its colour and where the conductor goes"
-   },
-   "term_l2": {
-    "look": "control",
-    "note": "one terminal: its letter, its colour and where the conductor goes"
-   },
-   "term_pg": {
-    "look": "control",
-    "note": "one terminal: its letter, its colour and where the conductor goes"
+   "outlet_throat": {
+    "look": "cut"
    }
   },
   "hvac_package_gaspack.glb": {
@@ -1094,6 +1133,21 @@
    "hp_front_panel": {
     "look": "clip:hp_panel_off"
    },
+   "anode_access_cover": {
+    "look": "clip:anode_cover_off"
+   },
+   "lower_access_panel": {
+    "look": "clip:panels_off"
+   },
+   "lower_panel_screws": {
+    "look": "clip:panels_off"
+   },
+   "upper_access_panel": {
+    "look": "clip:panels_off"
+   },
+   "upper_panel_screws": {
+    "look": "clip:panels_off"
+   },
    "air_inlet_grille": {
     "look": "cut"
    },
@@ -1103,8 +1157,8 @@
    "condensate_drain": {
     "look": "cut"
    },
-   "duct_collar_cover": {
-    "look": "aside"
+   "duct_collar": {
+    "look": "cut"
    },
    "exhaust_duct": {
     "look": "cut"
@@ -1115,14 +1169,14 @@
    "drain_valve": {
     "look": "cut"
    },
-   "lower_access_panel": {
+   "pan_drain_line": {
+    "look": "cut"
+   },
+   "tank_top_cover": {
     "look": "aside"
    },
    "tp_discharge_connection": {
     "look": "cut"
-   },
-   "upper_access_panel": {
-    "look": "aside"
    },
    "cold_supply_line": {
     "look": "cut"
@@ -1135,29 +1189,14 @@
    },
    "filter_slot_trim": {
     "look": "clip:filter_out"
-   },
-   "anode_access_cover": {
-    "look": "clip:anode_cover_off",
-    "note": "the anode port under the top cover: pull the rod to read how much is left"
-   },
-   "upper_panel": {
-    "look": "clip:panels_off",
-    "note": "the access panels come off to the elements and the thermostats"
-   },
-   "lower_panel": {
-    "look": "clip:panels_off",
-    "note": "the access panels come off to the elements and the thermostats"
    }
   },
   "kitchen_sink.glb": {
-   "turntable": {
-    "work": "disposal_run"
+   "drain_chamber_stream": {
+    "work": "faucet_run"
    },
-   "door_left": {
-    "look": "clip:doors_open"
-   },
-   "door_right": {
-    "look": "clip:doors_open"
+   "throat_stream": {
+    "work": "faucet_run"
    },
    "bowl_film": {
     "work": "faucet_run"
@@ -1174,8 +1213,32 @@
     "work": "faucet_run",
     "look": "clip:faucet_run"
    },
+   "faucet_pulldown_section": {
+    "work": "faucet_run"
+   },
    "faucet_stream": {
     "work": "faucet_run"
+   },
+   "pulldown_head": {
+    "work": "faucet_run"
+   },
+   "pulldown_stream": {
+    "work": "faucet_run"
+   },
+   "food_scrap": {
+    "work": "disposal_run"
+   },
+   "grind_slurry": {
+    "work": "disposal_run"
+   },
+   "turntable": {
+    "work": "disposal_run"
+   },
+   "door_left": {
+    "look": "clip:doors_open"
+   },
+   "door_right": {
+    "look": "clip:doors_open"
    },
    "spray_stream": {
     "work": "sprayer"
@@ -1207,7 +1270,16 @@
    "waste_tee": {
     "look": "cut"
    },
+   "ro_drain_saddle": {
+    "look": "cut"
+   },
    "pulldown_hose": {
+    "look": "cut"
+   },
+   "dw_drain_bore": {
+    "look": "cut"
+   },
+   "dw_drain_grommet": {
     "look": "cut"
    },
    "dw_hose": {
@@ -1219,7 +1291,16 @@
    "dw_hose_low": {
     "look": "cut"
    },
+   "dw_hose_strap": {
+    "look": "cut"
+   },
    "dw_supply": {
+    "look": "cut"
+   },
+   "dw_supply_bore": {
+    "look": "cut"
+   },
+   "dw_supply_grommet": {
     "look": "cut"
    },
    "supply_cold": {
@@ -1238,6 +1319,18 @@
    },
    "contactor_armature": {
     "look": "clip:contactor_pull"
+   },
+   "float_alarm": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_off": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_on": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
    },
    "fuse_cart": {
     "look": "clip:fuse_pull"
@@ -1318,13 +1411,93 @@
    }
   },
   "little/electric_panel.glb": {
+   "breaker_bath_handle": {
+    "work": "breaker_bath",
+    "look": "clip:breaker_bath"
+   },
+   "breaker_bed2_handle": {
+    "work": "breaker_bed2",
+    "look": "clip:breaker_bed2"
+   },
+   "breaker_bed3_handle": {
+    "work": "breaker_bed3",
+    "look": "clip:breaker_bed3"
+   },
+   "breaker_dining_handle": {
+    "work": "breaker_dining",
+    "look": "clip:breaker_dining"
+   },
+   "breaker_dishwasher_handle": {
+    "work": "breaker_dishwasher",
+    "look": "clip:breaker_dishwasher"
+   },
+   "breaker_disposal_handle": {
+    "work": "breaker_disposal",
+    "look": "clip:breaker_disposal"
+   },
+   "breaker_exterior_handle": {
+    "work": "breaker_exterior",
+    "look": "clip:breaker_exterior"
+   },
+   "breaker_fridge_handle": {
+    "work": "breaker_fridge",
+    "look": "clip:breaker_fridge"
+   },
+   "breaker_garage_handle": {
+    "work": "breaker_garage",
+    "look": "clip:breaker_garage"
+   },
+   "breaker_gdo_handle": {
+    "work": "breaker_gdo",
+    "look": "clip:breaker_gdo"
+   },
    "breaker_hvac_handle": {
     "work": "breaker_hvac",
     "look": "clip:breaker_hvac"
    },
+   "breaker_kitchen_a_handle": {
+    "work": "breaker_kitchen_a",
+    "look": "clip:breaker_kitchen_a"
+   },
+   "breaker_kitchen_b_handle": {
+    "work": "breaker_kitchen_b",
+    "look": "clip:breaker_kitchen_b"
+   },
+   "breaker_laundry_handle": {
+    "work": "breaker_laundry",
+    "look": "clip:breaker_laundry"
+   },
+   "breaker_lights_1_handle": {
+    "work": "breaker_lights_1",
+    "look": "clip:breaker_lights_1"
+   },
+   "breaker_lights_2_handle": {
+    "work": "breaker_lights_2",
+    "look": "clip:breaker_lights_2"
+   },
+   "breaker_living_handle": {
+    "work": "breaker_living",
+    "look": "clip:breaker_living"
+   },
+   "breaker_master_handle": {
+    "work": "breaker_master",
+    "look": "clip:breaker_master"
+   },
    "breaker_septic_handle": {
     "work": "breaker_septic",
     "look": "clip:breaker_septic"
+   },
+   "breaker_smoke_handle": {
+    "work": "breaker_smoke",
+    "look": "clip:breaker_smoke"
+   },
+   "breaker_softener_handle": {
+    "work": "breaker_softener",
+    "look": "clip:breaker_softener"
+   },
+   "breaker_washer_handle": {
+    "work": "breaker_washer",
+    "look": "clip:breaker_washer"
    },
    "breaker_wh_handle": {
     "work": "breaker_wh",
@@ -1358,16 +1531,6 @@
    },
    "ice_line": {
     "look": "cut"
-   }
-  },
-  "little/thermostat.glb": {
-   "stat_up": {
-    "look": "control",
-    "note": "set point up one degree"
-   },
-   "stat_down": {
-    "look": "control",
-    "note": "set point down one degree"
    }
   },
   "little/washer.glb": {
@@ -1492,6 +1655,20 @@
    "stream2": {
     "work": "pump_run"
    },
+   "splice_float_to_pump_sleeve": {
+    "work": "sleeves_back",
+    "look": "clip:sleeves_back"
+   },
+   "splice_ground_sleeve": {
+    "work": "sleeves_back"
+   },
+   "splice_hot_to_float_sleeve": {
+    "work": "sleeves_back",
+    "look": "clip:sleeves_back"
+   },
+   "splice_neutral_sleeve": {
+    "work": "sleeves_back"
+   },
    "pump": {
     "look": "clip:pump_pull"
    },
@@ -1500,9 +1677,6 @@
    },
    "lid_bolts": {
     "look": "clip:lid_off"
-   },
-   "conduit": {
-    "look": "cut"
    },
    "spray_line": {
     "look": "cut"
@@ -1530,31 +1704,6 @@
    },
    "tank": {
     "look": "section"
-   }
-  },
-  "pump_wiring.glb": {
-   "splice_float_to_pump_sleeve": {
-    "work": "sleeves_back",
-    "look": "clip:sleeves_back",
-    "note": "the adhesive lined heat shrink slides back off the crimp"
-   },
-   "splice_ground_sleeve": {
-    "work": "sleeves_back",
-    "look": "clip:sleeves_back",
-    "note": "the adhesive lined heat shrink slides back off the crimp"
-   },
-   "splice_hot_to_float_sleeve": {
-    "work": "sleeves_back",
-    "look": "clip:sleeves_back",
-    "note": "the adhesive lined heat shrink slides back off the crimp"
-   },
-   "splice_neutral_sleeve": {
-    "work": "sleeves_back",
-    "look": "clip:sleeves_back",
-    "note": "the adhesive lined heat shrink slides back off the crimp"
-   },
-   "riser_lip_tab": {
-    "look": "cut"
    }
   },
   "septic_aquaklear.glb": {
@@ -1751,9 +1900,6 @@
    "blower_air_filter_cover": {
     "look": "clip:blower_air_filter_off"
    },
-   "panel_door": {
-    "look": "clip:panel_door_open"
-   },
    "head_stem0": {
     "work": "pump_run"
    },
@@ -1778,6 +1924,20 @@
    },
    "pump": {
     "look": "clip:pump_pull"
+   },
+   "splice_float_to_pump_sleeve": {
+    "work": "sleeves_back",
+    "look": "clip:sleeves_back"
+   },
+   "splice_ground_sleeve": {
+    "work": "sleeves_back"
+   },
+   "splice_hot_to_float_sleeve": {
+    "work": "sleeves_back",
+    "look": "clip:sleeves_back"
+   },
+   "splice_neutral_sleeve": {
+    "work": "sleeves_back"
    },
    "bolts_aer": {
     "look": "clip:lids_off"
@@ -1810,9 +1970,6 @@
     "look": "cut"
    },
    "spray_line": {
-    "look": "cut"
-   },
-   "conduit": {
     "look": "cut"
    },
    "discharge": {
@@ -1855,9 +2012,6 @@
    },
    "blower_air_filter_cover": {
     "look": "clip:blower_air_filter_off"
-   },
-   "panel_door": {
-    "look": "clip:panel_door_open"
    },
    "head_stem0": {
     "work": "pump_run"
@@ -2008,7 +2162,7 @@
    },
    "door_glass": {
     "look": "clip:door_open",
-    "note": "the sliding leaf runs behind the fixed panel and the shower is open"
+    "note": "round 42 (Jake: the master bath sliding glass door does not open on a click): the inner panel slides behind the fixed one"
    },
    "shower_stream": {
     "work": "shower_on"
@@ -2041,6 +2195,9 @@
    },
    "shower_arm": {
     "look": "cut"
+   },
+   "handle_cap": {
+    "look": "aside"
    },
    "riser_cold": {
     "look": "cut"
@@ -2311,6 +2468,24 @@
     "look": "clip:lid_off"
    }
   },
+  "thermostat_programmable.glb": {
+   "head_cover": {
+    "look": "clip:cover_open"
+   },
+   "sub_plate": {
+    "look": "aside"
+   }
+  },
+  "thermostat_smart_ecobee.glb": {
+   "sub_plate": {
+    "look": "aside"
+   }
+  },
+  "thermostat_smart_nest.glb": {
+   "sub_plate": {
+    "look": "aside"
+   }
+  },
   "toilet.glb": {
    "rim_flow": {
     "work": "flush"
@@ -2404,35 +2579,6 @@
    },
    "machined": {
     "look": "section"
-   }
-  },
-  "vfd_drive.glb": {
-   "control_board": {
-    "work": "run"
-   },
-   "enclosure": {
-    "work": "run"
-   },
-   "fan_frame": {
-    "work": "run"
-   },
-   "heatsink": {
-    "work": "run"
-   },
-   "led_lit_power": {
-    "work": "run"
-   },
-   "led_lit_run": {
-    "work": "run"
-   },
-   "power_board": {
-    "work": "run"
-   },
-   "cover": {
-    "look": "clip:cover_off"
-   },
-   "led_lit_fault": {
-    "work": "fault"
    }
   },
   "water_filter.glb": {
@@ -3668,169 +3814,34 @@
     "0": "."
    }
   },
-  "electric_tank_water_heater.glb": {},
   "hvac_air_handler_upflow.glb": {},
   "outlet_surge.glb": {},
-  "thermostat_programmable.glb": {
-   "head_shell": {
-    "look": "clip:head_off",
-    "note": "the head lifts off its subbase: behind it are the lettered terminals and the stat cable"
-   },
-   "head_glass": {
-    "look": "clip:head_off",
-    "note": "the head lifts off its subbase"
-   },
-   "head_ring": {
-    "look": "clip:head_off",
-    "note": "the head lifts off its subbase"
-   },
-   "head_cover": {
-    "look": "clip:cover_open",
-    "note": "the front cover hinges down over the buttons"
-   },
-   "head_ctl_up": {
+  "little/thermostat.glb": {
+   "stat_up": {
     "look": "control",
     "note": "set point up one degree"
    },
-   "head_ctl_down": {
+   "stat_down": {
     "look": "control",
     "note": "set point down one degree"
-   },
-   "head_ctl_mode": {
-    "look": "control",
-    "note": "heat, cool, auto, off"
-   },
-   "head_ctl_fan": {
-    "look": "control",
-    "note": "fan auto or on"
-   },
-   "head_ctl_schedule": {
-    "look": "control",
-    "note": "the schedule: wake, leave, return, sleep"
-   },
-   "head_ctl_hold": {
-    "look": "control",
-    "note": "hold the set point, off schedule"
-   },
-   "head_ctl_run": {
-    "look": "control",
-    "note": "back on the schedule"
-   },
-   "head_ctl_press": {
-    "look": "clip:dial_press",
-    "note": "press the dial"
-   },
-   "head_ring_dial": {
-    "look": "clip:dial_turn",
-    "note": "turn the dial to change the set point"
    }
   },
-  "thermostat_smart_ecobee.glb": {
-   "head_shell": {
-    "look": "clip:head_off",
-    "note": "the head lifts off its subbase: behind it are the lettered terminals and the stat cable"
+  "pump_wiring.glb": {
+   "splice_hot_to_float_sleeve": {
+    "look": "clip:sleeves_back",
+    "note": "the adhesive lined heat shrink slides back off the crimp"
    },
-   "head_glass": {
-    "look": "clip:head_off",
-    "note": "the head lifts off its subbase"
+   "splice_float_to_pump_sleeve": {
+    "look": "clip:sleeves_back",
+    "note": "the adhesive lined heat shrink slides back off the crimp"
    },
-   "head_ring": {
-    "look": "clip:head_off",
-    "note": "the head lifts off its subbase"
+   "splice_neutral_sleeve": {
+    "look": "clip:sleeves_back",
+    "note": "the adhesive lined heat shrink slides back off the crimp"
    },
-   "head_cover": {
-    "look": "clip:cover_open",
-    "note": "the front cover hinges down over the buttons"
-   },
-   "head_ctl_up": {
-    "look": "control",
-    "note": "set point up one degree"
-   },
-   "head_ctl_down": {
-    "look": "control",
-    "note": "set point down one degree"
-   },
-   "head_ctl_mode": {
-    "look": "control",
-    "note": "heat, cool, auto, off"
-   },
-   "head_ctl_fan": {
-    "look": "control",
-    "note": "fan auto or on"
-   },
-   "head_ctl_schedule": {
-    "look": "control",
-    "note": "the schedule: wake, leave, return, sleep"
-   },
-   "head_ctl_hold": {
-    "look": "control",
-    "note": "hold the set point, off schedule"
-   },
-   "head_ctl_run": {
-    "look": "control",
-    "note": "back on the schedule"
-   },
-   "head_ctl_press": {
-    "look": "clip:dial_press",
-    "note": "press the dial"
-   },
-   "head_ring_dial": {
-    "look": "clip:dial_turn",
-    "note": "turn the dial to change the set point"
-   }
-  },
-  "thermostat_smart_nest.glb": {
-   "head_shell": {
-    "look": "clip:head_off",
-    "note": "the head lifts off its subbase: behind it are the lettered terminals and the stat cable"
-   },
-   "head_glass": {
-    "look": "clip:head_off",
-    "note": "the head lifts off its subbase"
-   },
-   "head_ring": {
-    "look": "clip:head_off",
-    "note": "the head lifts off its subbase"
-   },
-   "head_cover": {
-    "look": "clip:cover_open",
-    "note": "the front cover hinges down over the buttons"
-   },
-   "head_ctl_up": {
-    "look": "control",
-    "note": "set point up one degree"
-   },
-   "head_ctl_down": {
-    "look": "control",
-    "note": "set point down one degree"
-   },
-   "head_ctl_mode": {
-    "look": "control",
-    "note": "heat, cool, auto, off"
-   },
-   "head_ctl_fan": {
-    "look": "control",
-    "note": "fan auto or on"
-   },
-   "head_ctl_schedule": {
-    "look": "control",
-    "note": "the schedule: wake, leave, return, sleep"
-   },
-   "head_ctl_hold": {
-    "look": "control",
-    "note": "hold the set point, off schedule"
-   },
-   "head_ctl_run": {
-    "look": "control",
-    "note": "back on the schedule"
-   },
-   "head_ctl_press": {
-    "look": "clip:dial_press",
-    "note": "press the dial"
-   },
-   "head_ring_dial": {
-    "look": "clip:dial_turn",
-    "note": "turn the dial to change the set point"
+   "splice_ground_sleeve": {
+    "look": "clip:sleeves_back",
+    "note": "the adhesive lined heat shrink slides back off the crimp"
    }
   }
  }

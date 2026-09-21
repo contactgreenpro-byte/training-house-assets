@@ -1929,7 +1929,7 @@
   // what a circuit carries with its load running, and the breaker that feeds it
   const CIRCUITS = [
     [/cable_wh_branch_romex|whip_wh_flex|box_wh_junction|breaker_wh/, { amps: 18.8, breaker: 'wh', label: 'the water heater, 30 A two pole' }],
-    [/whip|disconnect|contactor|^t1$|^t2$|term_l1|term_l2|breaker_hvac/, { amps: 14.2, breaker: 'hvac', label: 'the condenser' }],
+    [/whip|disconnect|contactor|^t1$|^t2$|term_l1|term_l2|breaker_hvac/, { amps: 14.9, breaker: 'hvac', label: 'the condenser (compressor 14.1 rated load plus the 0.8 amp fan, Rheem RA14 030)' }],
     [/cable_hvac_ahu|air_handler/, { amps: 6.4, breaker: 'hvac', label: 'the air handler' }],
     [/lv_|tstat|term_(r|c|w1|w2|y1|y2|g|o)/, { amps: 0.4, breaker: null, label: 'the 24 V control circuit' }],
     [/service_entrance_cable|se_conductor|hot_bus_bars/, { amps: 47.5, breaker: null, label: 'the service, everything the house is drawing' }],
@@ -1973,6 +1973,7 @@
       return { nm, p: { v: 0, node: 'w:' + (inst.userData.model || '') + ':' + nm }, why: 'a conductor in ' + pretty(inst.userData.model || 'this unit') };
     }
     // a motor and a compressor are windings, which is the thing you actually put an ohmmeter across out here
+    { const bx = benchFor(o); if (bx) return { nm, p: { v: 0, node: 'b:' + bx.key + ':' + (bx.term || nm) }, why: (bx.term ? bx.term + ' on ' : '') + bx.B.name }; }
     if (inst && WINDING[nm]) return { nm, p: { v: 0, node: 'm:' + nm }, why: WINDING[nm].why };
     for (const [re_, p, why] of POINTS) if (re_.test(nm)) return { nm, p, why };
     const m = /^(lead|wire|conductor)s?_(red|black|white|blue|green|yellow|brown|orange)/.exec(nm);
@@ -2421,7 +2422,64 @@
     if (/run_cap|capacitor|dual_cap|start_cap/.test(nm)) return { uf: 45.0, why: 'a 45 microfarad run capacitor' };
     return null;
   }
+  // Round 75 (Jake: "we need to be able to read things separately. They need different readings. You can match them to manufacturer
+  // specs. Nothing would read failed yet because we haven't put bad stuff in there yet"). BENCH is the parts a tech puts an ohmmeter
+  // or the capacitance range across, each with its own GOOD value and where that value comes from (test_meters/meter_specs_r75.json
+  // has every number with its page). A part with terminals reads between any two of them; a part without reads across itself, both
+  // leads on it. `typ` marks a value no manual in the library prints: the note says so rather than passing it off as the maker's.
+  const BENCH = [
+    { model: /hvac_condenser/, name: 'the dual run capacitor', terms: [[/^cap_lead_herm$/, 'HERM'], [/^cap_lead_fan$/, 'FAN'], [/^cap_lead_c_(fan|line)$/, 'C']],
+      uf: { 'C-HERM': [40.0, 'the compressor side, 40 microfarads: what Copeland lists for the 2-1/2 ton scroll (ZP25K, Electrical Handbook)'],
+            'C-FAN': [5.0, 'the fan side, 5 microfarads (the usual fan section; Rheem does not print it)'],
+            'FAN-HERM': [4.4, 'HERM to FAN is the two sections in series, so it reads smaller than either. Read each one to C'] } },
+    { model: /hvac_condenser/, name: 'the compressor', terms: [[/^comp_term_c$/, 'C'], [/^comp_term_s$/, 'S'], [/^comp_term_r$/, 'R']],
+      ohms: { 'C-R': [0.98, 'the run winding, common to run: Copeland lists 0.98 ohms for the 2-1/2 ton scroll, give or take 10 percent'],
+              'C-S': [1.78, 'the start winding, common to start: Copeland lists 1.78 ohms, give or take 10 percent'],
+              'R-S': [2.76, 'run to start is both windings in series, so it is the other two added together. That sum is how you prove which pin is which'] } },
+    { model: /hvac_condenser/, part: /^compressor$/, name: 'the compressor shell', shell: true, ohms: ['OL', 'the shell is not a test point. Take the terminal cover off the side of the compressor and put the leads on the C, S and R pins under it']},
+    { model: /electric_tank_water_heater|hybrid_water_heater/, part: /^upper_heating_element$/, name: 'the upper element', ohms: [12.8, 'a 4500 watt 240 volt element: 240 x 240 / 4500 = 12.8 ohms. Anywhere from 5 to 25 is a live element (A. O. Smith service guide); OL is a burned out one'] },
+    { model: /electric_tank_water_heater|hybrid_water_heater/, part: /^lower_heating_element$/, name: 'the lower element', ohms: [12.8, 'a 4500 watt 240 volt element: 12.8 ohms, the same as the upper. Then one lead to the tank: a good element reads OL to ground'] },
+    { model: /electric_tank_water_heater|hybrid_water_heater/, part: /^upper_thermostat$/, name: 'the upper thermostat', ohms: [0.2, 'closed to the upper element while the top of the tank is cold; when the top is hot it flips over and sends power to the lower one'] },
+    { model: /electric_tank_water_heater|hybrid_water_heater/, part: /^lower_thermostat$/, name: 'the lower thermostat', ohms: [0.2, 'closed while the bottom of the tank is below its setting, open once it is satisfied'] },
+    { model: /lift_station/, part: /^run_capacitor$/, name: 'the run capacitor', uf: [45.0, '45 microfarads, 370 volts: the Champion sewage pump manual and the can in the panel both say so'] },
+    { model: /lift_station/, part: /^start_capacitor$/, name: 'the start capacitor', uf: [297, 'rated 270 to 324 microfarads, so anything in that window is good. It is only in the circuit for the second the start relay holds it in'] },
+    { model: /lift_station/, part: /^pump$|^panel_wire_motor$/, name: 'the grinder pump motor', ohms: [1.3, 'the main winding, black to white: 1.3 ohms on the Champion 2 HP grinder. Red to white (start) is 3.7 and black to red is 2.4. The three leads are not separate parts in the panel yet, so this reads the main'] },
+    { model: /hvac_condenser/, part: /^fan_motor$|^fan$/, name: 'the condenser fan motor', typ: true, ohms: [11.6, 'a small PSC fan motor. Rheem does not print its winding resistance, so this is a usual value, not the maker\'s'] },
+    { model: /hvac_furnace|hvac_air_handler|hvac_package/, part: /^blower_motor$|^blower$/, name: 'the blower motor', ohms: ['OL', 'this is a constant torque ECM motor with its own electronics, so an ohmmeter across it tells you nothing. Check for line voltage at its plug and 24 volts on its speed tap instead'] },
+    { model: /hvac_furnace/, part: /^flame_sensor$/, name: 'the flame sensor', typ: true, ua: [3.2, 'with the burners lit. Rheem gives only the flame light on the board, not a number; 1 to 6 microamps DC is the usual window, and under 1 it drops out'] },
+    { model: /hvac_air_handler/, part: /^transformer_24v$/, name: 'the control transformer', ohms: [38, 'primary side. A 40 VA 240 to 24 volt transformer (Rheem RH1T manual); the maker prints no resistance, so look for a winding that is not open rather than a number'], typ: true },
+  ];
+  function benchFor(o) {
+    const nm = partName(o) || base(o.name); const inst = o.userData.inst || (typeof unitOf === 'function' ? unitOf(o) : null); const model = (inst && inst.userData.model) || '';
+    for (const B of BENCH) { if (!B.model.test(model)) continue;
+      if (B.terms) { for (const [re, t] of B.terms) if (re.test(nm)) return { B, term: t, key: model + '|' + B.name }; }
+      else if (B.part.test(nm)) return { B, term: null, key: model + '|' + B.name }; }
+    return null;
+  }
+  function benchRead(x, y) {
+    const B = x.B, fn = meter.fn; let spec = null, what = B.name;
+    if (B.terms) {
+      if (x.term === y.term) return { text: fn === 'cap' ? 'OL' : '0.0', note: 'both leads are on ' + x.term + ' of ' + B.name + ': move one to another terminal' };
+      const k = [x.term, y.term].sort().join('-'); what = B.name + ', ' + x.term + ' to ' + y.term;
+      spec = fn === 'cap' ? (B.uf && B.uf[k]) : (fn === 'ua' ? null : (B.ohms && B.ohms[k]));
+    } else spec = fn === 'cap' ? B.uf : (fn === 'ua' ? B.ua : B.ohms);
+    if (!spec) {
+      if (fn === 'cap') return { text: 'OL', note: what + ' is not a capacitor. Turn the dial to ohms for this one' };
+      if (fn === 'ua') return { text: '0.0', note: 'microamps is for the flame sensor, in series with its wire, with the burners lit' };
+      if (B.uf) return { text: 'OL', note: what + ': a good capacitor reads open on ohms once the meter has charged it. Turn the dial to capacitance' };
+      return { text: 'OL', note: what + ' has no reading on this range' };
+    }
+    const v = spec[0]; const txt = typeof v === 'number' ? (v >= 100 ? String(Math.round(v)) : (v < 10 && (fn === 'ohms' || fn === 'cont') ? v.toFixed(2) : v.toFixed(1))) : String(v);
+    return { text: txt, note: what + ': ' + spec[1] + (B.typ || typeof v !== 'number' ? '' : '. That is a good one') };
+  }
   function readOhms(a, b) {
+    { const x = benchFor(a.o), y = benchFor(b.o);
+      if (x && y && x.key === y.key) return benchRead(x, y);
+      const shell = r_ => r_ && r_.B.part && /\^compressor\$/.test(String(r_.B.part));
+      if (x && y && (shell(x) !== shell(y)) && x.key.split('|')[0] === y.key.split('|')[0] && (x.B.terms || y.B.terms)) return { text: 'OL', note: 'a compressor pin to the shell: open, which is right. Any reading here is a winding shorted to ground, and that compressor is done' };
+      if (x && y) return { text: 'OL', note: 'those are two different parts (' + x.B.name + ' and ' + y.B.name + '). Put both leads on the same one' };
+      const one = x || y, other = x ? b : a;
+      if (one && one.B.ohms && meter.fn !== 'cap' && (!other.p || other.p.node === 'G')) return { text: 'OL', note: one.B.name + ' to the cabinet or ground: open, which is right. Any reading here is a winding or an element shorted to ground' }; }
     // a winding read: both leads on the same motor or compressor
     const wa = WINDING[a.nm], wb = WINDING[b.nm];
     if (wa && a.nm === b.nm && meter.fn !== 'cap') return { text: wa.ohms.toFixed(1), note: wa.why + ', which is what it should read' };
@@ -2563,6 +2621,12 @@
       const r = meter.a ? readAmps(meter.a.o) : null;
       return { text: r ? r.text : 'OL', note: r ? r.note : 'click a conductor and the jaw closes round it' };
     }
+    if (fn === 'ua' && meter.kind === 'volts') {
+      if (!meter.a) return { text: '0.0', note: 'microamps reads the flame sensor: put the leads on it with the burners lit' };
+      const x = benchFor(meter.a.o), y = meter.b ? benchFor(meter.b.o) : null;
+      if (x && x.B.ua && (!meter.b || (y && y.key === x.key))) return benchRead(x, x);
+      return { text: '0.0', note: 'microamps is for the flame sensor, in series with its wire, with the burners lit. Nothing else in the house is read on this range' };
+    }
     if (fn === 'adc') return { text: '0.0', note: 'that load is alternating current, so a DC amp range reads about zero' };
     return { text: 'OL', note: 'a multimeter reads current in series, so it will not read a live panel. Use the clamp meter for amps.' };
   }
@@ -2574,7 +2638,8 @@
     const r = meterRead();
     meterShowText(r.text);
     el.style.display = 'none';
-    const where = (meter.a ? 'red on ' + pretty(meter.a.nm) : 'red not placed') + (meter.kind === 'volts' ? ', ' + (meter.b ? 'black on ' + pretty(meter.b.nm) : 'black not placed') : '');
+    const lead_ = r_ => { const bx = r_.o ? benchFor(r_.o) : null; return bx ? (bx.term ? bx.term + ' of ' + bx.B.name : bx.B.name) : pretty(r_.nm); };
+    const where = (meter.a ? 'red on ' + lead_(meter.a) : 'red not placed') + (meter.kind === 'volts' ? ', ' + (meter.b ? 'black on ' + lead_(meter.b) : 'black not placed') : '');
     labelEl.textContent = FN_LABEL[meter.fn] + ': ' + r.text.trim() + '. ' + where + '. ' + r.note + (('ontouchstart' in window) ? '' : '  (click the dial to turn it, R to read it close, Esc to put it down)');
     labelEl.style.display = 'block'; meterKeys();
   }
