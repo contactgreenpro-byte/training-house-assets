@@ -1,15 +1,15 @@
 {
- "published": "2026-09-20T22:14:14",
- "house": "r68e",
- "note": "round 70: the septic receptacle is a duplex GFCI with one plug in each outlet; the furnace inducer's leads no longer run through the exhaust transition",
+ "published": "2026-09-20T22:48:30",
+ "house": "r71b",
+ "note": "round 71: tub and water heater stubs enter their adapters, no capped water lines, the hall toilet vent seats in its hub, go to a unit behind a closed door stands you at the door, furnace leads clear of each other",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
    "bytes": 17829
   },
   "_r70_runs.json": {
-   "v": "81c0c87478",
-   "bytes": 22586
+   "v": "f9a52e39a5",
+   "bytes": 22820
   },
   "app_shell.html": {
    "v": "23e1e6ecd1",
@@ -120,12 +120,12 @@
    "bytes": 1119516
   },
   "house_framing.glb": {
-   "v": "1eac7b6bfd",
-   "bytes": 230600
+   "v": "114e16604b",
+   "bytes": 226968
   },
   "house_furniture.glb": {
-   "v": "62b612712d",
-   "bytes": 8858308
+   "v": "5bf1c1f9bd",
+   "bytes": 8863208
   },
   "house_site.glb": {
    "v": "fbe4b19de1",
@@ -152,12 +152,12 @@
    "bytes": 4718784
   },
   "hvac_furnace_cond96.glb": {
-   "v": "5bb98eee30",
-   "bytes": 2720000
+   "v": "967635f319",
+   "bytes": 2723916
   },
   "hvac_furnace_std80.glb": {
-   "v": "8df88d76d0",
-   "bytes": 2702660
+   "v": "e8e12e6dd9",
+   "bytes": 2706560
   },
   "hvac_minisplit.glb": {
    "v": "adf7affdb4",
@@ -176,7 +176,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "7562716c30",
+   "v": "3e15b482a6",
    "bytes": 17995
   },
   "info.json": {
@@ -216,20 +216,20 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "3151aca1ae",
-   "bytes": 2833212
+   "v": "b7963a135a",
+   "bytes": 2828996
   },
   "pipes_gas.glb": {
-   "v": "10480b3afd",
-   "bytes": 815764
+   "v": "e3f283cc8f",
+   "bytes": 816280
   },
   "pipes_hvac.glb": {
-   "v": "511a2643ba",
-   "bytes": 2087624
+   "v": "c169f4a76f",
+   "bytes": 2084132
   },
   "pipes_supply.glb": {
-   "v": "ba333f64c9",
-   "bytes": 2661028
+   "v": "2182ce9521",
+   "bytes": 2660772
   },
   "placements.json": {
    "v": "51718bb476",
@@ -344,8 +344,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "02c36d36ef",
-   "bytes": 314782
+   "v": "5aeb36cbca",
+   "bytes": 316263
   },
   "washer.glb": {
    "v": "7e04f19827",

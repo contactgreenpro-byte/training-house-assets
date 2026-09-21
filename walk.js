@@ -726,20 +726,34 @@
     const sides = [[0, 0, 1], [0, 0, -1], [1, 0, 0], [-1, 0, 0]].map(a => { const v = new T.Vector3(a[0], a[1], a[2]).applyQuaternion(q); v.y = 0; return v.normalize(); });
     const toMe = new T.Vector3(pos.x - c.x, 0, pos.z - c.z); if (toMe.lengthSq() > 1e-6) toMe.normalize();
     const room = roomAt(c.x, c.z); let best = null;
+    // Round 71 (Jake, under the house: "I can't see the furnace from here because I can't stand up. I'm still crawling and it makes me go
+    // underneath the house"). A unit behind a closed closet door has no place to stand in its own room and no clear line from the next one,
+    // so this only turned you to face it and left you where you were, which for him was the crawl space. A second pass takes the first
+    // spot on the unit's own FLOOR that is in front of it, whatever room it is in and whatever door is shut in between: you land on the
+    // hall floor looking at the closet door, standing, and open it.
+    for (const pass of [0, 1]) {
+    if (best) break;
+    if (pass) {     // the door's own approach mark first: the nearest wp_approach_* within 2.5 m of the unit, on the unit's floor
+      let bw = null; for (const wn in waypoints) { if (!/^wp_approach_/.test(wn)) continue; const wp_ = waypoints[wn].getWorldPosition(new T.Vector3()); const dd = Math.hypot(wp_.x - c.x, wp_.z - c.z);
+        if (dd > 2.5 || (bw && dd >= bw.dd)) continue; const gr = floorBelow(wp_.x, wp_.z, c.y + 1.2); if (gr === null || gr > box.min.y + 0.15 || gr < box.min.y - 1.0) continue; bw = { dd, px: wp_.x, pz: wp_.z, ground: gr }; }
+      if (bw) { best = { px: bw.px, pz: bw.pz, ground: bw.ground, ey: EYE, score: 1 }; break; }
+    }
     for (let i = 0; i < 4; i++) {
       const n = sides[i], half = Math.abs(n.x) * size.x * 0.5 + Math.abs(n.z) * size.z * 0.5;
-      for (let st = back; st >= 0.55; st -= 0.15) {
+      for (let st = pass ? Math.max(back, 1.3) : back; st >= 0.55; st -= 0.15) {
         const px = c.x + n.x * (half + st), pz = c.z + n.z * (half + st);
-        if (room && roomAt(px, pz) !== room) continue;
+        if (!pass && room && roomAt(px, pz) !== room) continue;
+        if (pass && (!roomAt(px, pz) || roomAt(px, pz) === room)) continue;
         const ground = floorBelow(px, pz, c.y + 1.2);
         if (ground === null || ground > box.min.y + 0.15 || ground < box.min.y - 1.0) continue;
         const ey = Math.max(0.55, Math.min(EYE, c.y - ground + 0.35));
         const from = new T.Vector3(px, ground + ey, pz), face = new T.Vector3(c.x + n.x * (half + 0.15), c.y, c.z + n.z * (half + 0.15));
-        if (!clearLine(from, face)) continue;
-        const score = n.dot(toMe) + (i === 0 ? 0.25 : 0) + 0.2 * (st / back);
+        if (!pass && !clearLine(from, face)) continue;
+        const score = (pass ? 0 : n.dot(toMe)) + (i === 0 ? 0.25 : 0) + 0.2 * (st / back);
         if (!best || score > best.score) best = { px, pz, ground, ey, score };
         break;
       }
+    }
     }
     // nowhere to stand that frames it (a unit in a chase, or out in the open with no room marker and a fence round it): turn to it
     const tx = best ? best.px : pos.x, tz = best ? best.pz : pos.z, ty = best ? best.ground + best.ey : pos.y;
