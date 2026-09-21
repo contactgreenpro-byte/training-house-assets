@@ -313,7 +313,7 @@
     carbon: 'Activated carbon. It soaks up the sewer gas smell', carbon_spent: 'Spent carbon. Time for a fresh charge', bottom_grid: 'Grid that holds the carbon up', label: 'Sweet Air label' } } };
   function plainId(id) {
     for (const [re, lab] of HOUSE_WORDS) { const m = re.exec(id); if (!m) continue;
-      const rest = id.slice(m[0].length).split('_').filter(Boolean).filter(w => !/^\d+$/.test(w)).map(w => w in PLACE_WORDS ? PLACE_WORDS[w] : w).filter(Boolean).join(' ');
+      const rest = id.slice(m[0].length).split('_').filter(Boolean).filter(w => !/^\d+$/.test(w)).map(w => w in PLACE_WORDS ? PLACE_WORDS[w] : w).filter(Boolean).join(' ').replace(/master bedroom (bath|closet)/, 'master $1');
       return rest ? lab + ' (' + rest + ')' : lab; }
     return capFirst(pretty(id));
   }
@@ -322,8 +322,22 @@
     return L[part] || L[part.replace(/_\d+$/, '')] || capFirst(pretty(part));
   }
   function plainPack(pack) { const P = (INFO.packs && INFO.packs[pack]) || EXTRA_PACKS[pack] || {}; return P.name || capFirst(pretty(pack)); }
+  // the page's own short messages, said the way a person would say them. The sources keep their wording (the self test and the
+  // handles read those); this is only what reaches the bubble.
+  const PHRASES = [[/^meter down$/i, 'Meter is put away.'], [/^pliers down$/i, 'Pliers are put away.'], [/^out of the drain$/i, 'And you are back out of the drain!'],
+    [/^that did not work: /, 'Hmm, that did not work: '], [/: nothing to cut here$/, ': nothing to cut open on this one. Try a pipe or a tank!'],
+    [/: that does not come off$/, ': that part stays put. Try a cover, a lid or a plug!'], [/: nothing here runs, the panel lists what does$/, ': nothing runs here. The panel up top shows what does!'],
+    [/: elevation is for a placed fixture or unit$/, ': pick a fixture or a unit and I will stand you back for the full view.'],
+    [/^eye height (\d+) in \(([\d.]+) m\)\. Let go and it holds there, hold again to go back the other way$/, 'Eye height $1 in. Let go and you stay right there. Hold again to go back the other way.'],
+    [/^holding at (\d+) in\. Hold the button again to go back the other way, tap it for the presets$/, 'Holding at $1 in. Hold again to go the other way, or tap for stand, crouch and crawl.'],
+    [/^end of the line: (.*)\. S rolls back, Esc gets out$/, 'End of the line: $1. S rolls you back, Esc hops out.'],
+    [/^you are inside the (.*?)\. Drag to look round in here, S rolls back up the pipe, Esc gets out$/, 'You are inside the $1! Drag to look around, S rolls back up the pipe, Esc hops out.'],
+    [/^ball: /, 'Riding the ball: ']];
+  const TOUCH = 'ontouchstart' in window;
   function friendly(v) {
     let t = String(v == null ? '' : v); if (!t) return t;
+    for (const [re, to] of PHRASES) t = t.replace(re, to);
+    if (TOUCH) t = t.replace(/\bClick\b/g, 'Tap').replace(/\bclick\b/g, 'tap').replace(/\bdouble tap\b/g, 'double tap');
     let tail = '';
     t = t.replace(/\s*\[[a-z0-9_]+\]\s*$/i, '');                                            // the clip's own name
     t = t.replace(/\s*\(Run runs it\)/, () => { tail = ' Tap Run and watch it go!'; return ''; });
@@ -3163,11 +3177,31 @@
     if (/^ladder_sec/.test(nm)) return ladderClimb(inst);
     playNamed(inst, 'ladder_down', !down); return down ? 'ladder folded back up into the ceiling' : 'ladder down: click the ladder to climb it';
   }
+  // Round 74 (Jake wanted manual dampers on every takeoff off the attic trunk; this makes them work). A tap on a damper's lever or
+  // blade turns both about the shaft: as the balancer left it (a quarter closed), wide open, half, shut, and round again. The
+  // lever lies along the blade, so you can read the blade's position from outside the duct, which is the point of the thing.
+  const DAMPER_STEPS = [[25, 'set where the balancer left it, about a quarter closed.'], [0, 'wide open. All the air this run can carry!'], [45, 'half closed. Less air here, a little more for every other room.'],
+    [90, 'shut. No air to this room, and the lever sits straight across the duct to tell you so.']];
+  function damperTurn(o) {
+    let n = o; while (n && !/^takeoff_(handle|damper)_/.test(n.name || '')) n = n.parent; if (!n) return null;
+    // a lever with two materials arrives as a group with numbered children (takeoff_handle_bed2_1_1), so peel numbers until the blade is found
+    let key = String(n.name).replace(/^takeoff_(handle|damper)_/, ''), blade = null;
+    for (let i = 0; i < 3 && !blade; i++) { blade = scene.getObjectByName('takeoff_damper_' + key); if (!blade) key = key.replace(/_\d+$/, ''); }
+    if (!blade) return null; const lever = scene.getObjectByName('takeoff_handle_' + key);
+    const st = blade.userData.dmp || 0, nx = (st + 1) % DAMPER_STEPS.length; blade.userData.dmp = nx;
+    const P = blade.getWorldPosition(new T.Vector3()); let trunkX = P.x; const tr = scene.getObjectByName('duct_hvac_supply_trunk'); if (tr) trunkX = new T.Box3().setFromObject(tr).getCenter(new T.Vector3()).x;
+    const d = (P.x < trunkX ? -1 : 1) * (DAMPER_STEPS[nx][0] - DAMPER_STEPS[st][0]) * Math.PI / 180, Y = new T.Vector3(0, 1, 0);
+    for (const x of [blade, lever]) { if (!x) continue;
+      const w = x.getWorldPosition(new T.Vector3()).sub(P).applyAxisAngle(Y, d).add(P); if (x.parent) x.parent.worldToLocal(w); x.position.copy(w); x.rotateOnWorldAxis(Y, d); x.updateMatrixWorld(true); }
+    const room = key.replace(/_\d+$/, '').split('_').map(w_ => PLACE_WORDS[w_] || w_).join(' ').replace(/master bedroom (bath|closet)/, 'master $1');
+    return capFirst(room) + ' damper: ' + DAMPER_STEPS[nx][1] + ' Tap it again to turn it.';
+  }
   function lookAction(o, hit) {
     const nm = partName(o) || o.userData.label || base(o.name), pk = o.userData.pack ? o.userData.pack + ': ' : '';
     if (o.userData.inst && /attic_ladder/.test(o.userData.inst.userData.model || '')) return pk + ladderAction(o, o.userData.inst);
     // Look: the first obvious layer. Controls and switches, then whatever comes off (a plug, a lid, a door, a cover), then the
     // cutaways (a section set, a part's section, a pipe), then the name.
+    const dm = damperTurn(o); if (dm) return dm;     // round 74: the manual dampers on the attic trunk's takeoffs
     const sv = shutoffValve(o) || meterCover(o); if (sv) return (sv);
     // round 55: a disconnect is a control, like a valve handle. Look pulls it.
     if (/^disconnect(_pullout|_cover)?$/.test(nm) && (o.userData.inst || unitOf(o))) { const m_ = discPull(o.userData.inst || unitOf(o)); if (m_) return pk + m_; }

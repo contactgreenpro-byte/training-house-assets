@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T00:44:55",
- "house": "r74a",
- "note": "Round 74: visible manual dampers on every takeoff, Sweet Air on top of the vent pipe, pop ups in plain words",
+ "published": "2026-09-21T00:50:31",
+ "house": "r74b",
+ "note": "Round 74b: damper levers turn on a tap, friendlier system messages",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -176,8 +176,8 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "b8af037a2c",
-   "bytes": 18604
+   "v": "a720438f10",
+   "bytes": 18406
   },
   "info.json": {
    "v": "ab73b86fe7",
@@ -344,8 +344,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "fd7e02eaa5",
-   "bytes": 325400
+   "v": "5d588e5676",
+   "bytes": 329656
   },
   "washer.glb": {
    "v": "7e04f19827",
