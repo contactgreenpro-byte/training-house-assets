@@ -1,8 +1,16 @@
 {
- "published": "2026-09-20T21:41:50",
+ "published": "2026-09-20T22:14:14",
  "house": "r68e",
- "note": "rounds 68 and 69: pumped systems run on their floats with loose rope cords; the Lee and the 540 show the plug in splice connection under the lid, no box, no conduit",
+ "note": "round 70: the septic receptacle is a duplex GFCI with one plug in each outlet; the furnace inducer's leads no longer run through the exhaust transition",
  "files": {
+  "_r70_ends.json": {
+   "v": "ff2cf5794f",
+   "bytes": 17829
+  },
+  "_r70_runs.json": {
+   "v": "81c0c87478",
+   "bytes": 22586
+  },
   "app_shell.html": {
    "v": "23e1e6ecd1",
    "bytes": 40287
@@ -16,8 +24,8 @@
    "bytes": 28852
   },
   "atu_blower_outlet.glb": {
-   "v": "bfcc9796d1",
-   "bytes": 137648
+   "v": "84d1063b49",
+   "bytes": 149976
   },
   "atu_blower_panel.glb": {
    "v": "b1c34937bc",
@@ -116,8 +124,8 @@
    "bytes": 230600
   },
   "house_furniture.glb": {
-   "v": "715c911ea6",
-   "bytes": 8863180
+   "v": "62b612712d",
+   "bytes": 8858308
   },
   "house_site.glb": {
    "v": "fbe4b19de1",
@@ -144,12 +152,12 @@
    "bytes": 4718784
   },
   "hvac_furnace_cond96.glb": {
-   "v": "2d16937ae5",
-   "bytes": 2720544
+   "v": "5bb98eee30",
+   "bytes": 2720000
   },
   "hvac_furnace_std80.glb": {
-   "v": "d523dfa4c3",
-   "bytes": 2703168
+   "v": "8df88d76d0",
+   "bytes": 2702660
   },
   "hvac_minisplit.glb": {
    "v": "adf7affdb4",
@@ -208,16 +216,16 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "6e9f55779d",
-   "bytes": 2833196
+   "v": "3151aca1ae",
+   "bytes": 2833212
   },
   "pipes_gas.glb": {
-   "v": "9f5f938ce9",
-   "bytes": 815888
+   "v": "10480b3afd",
+   "bytes": 815764
   },
   "pipes_hvac.glb": {
-   "v": "3c985e5683",
-   "bytes": 2087600
+   "v": "511a2643ba",
+   "bytes": 2087624
   },
   "pipes_supply.glb": {
    "v": "ba333f64c9",
