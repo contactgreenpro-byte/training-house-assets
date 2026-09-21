@@ -1310,6 +1310,102 @@
     "look": "cut"
    }
   },
+  "lift_station_duplex.glb": {
+   "jb_cover": {
+    "look": "clip:jb_cover_off"
+   },
+   "lid": {
+    "look": "clip:lid_off"
+   },
+   "water_fill": {
+    "work": "fill_from_house"
+   },
+   "float_alarm": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_lag": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_lead": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_off": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "lift_chain": {
+    "look": "clip:pump_1_pull"
+   },
+   "pump": {
+    "look": "clip:pump_1_pull"
+   },
+   "valve_handle": {
+    "work": "valve_1_close",
+    "look": "clip:valve_1_close"
+   },
+   "basin": {
+    "look": "section"
+   },
+   "inlet_grommet": {
+    "look": "cut"
+   },
+   "vent": {
+    "look": "cut"
+   },
+   "base_elbow": {
+    "look": "cut"
+   },
+   "discharge_header": {
+    "look": "cut"
+   },
+   "riser": {
+    "look": "cut"
+   },
+   "sewer_line": {
+    "look": "cut"
+   },
+   "grass": {
+    "look": "section"
+   },
+   "soil": {
+    "look": "section"
+   }
+  },
+  "lift_station_duplex_panel.glb": {
+   "breaker_control_handle": {
+    "look": "clip:breaker_control_off"
+   },
+   "breaker_pump_1_handle": {
+    "look": "clip:breaker_pump_1_off"
+   },
+   "breaker_pump_2_handle": {
+    "look": "clip:breaker_pump_2_off"
+   },
+   "contactor_1_armature": {
+    "look": "clip:contactor_1_pull"
+   },
+   "contactor_2_armature": {
+    "look": "clip:contactor_2_pull"
+   },
+   "hoa_lever": {
+    "look": "clip:hoa_1_off"
+   },
+   "panel_door": {
+    "look": "clip:panel_door_open"
+   },
+   "control_panel": {
+    "look": "aside"
+   },
+   "duct_cover": {
+    "look": "aside"
+   },
+   "wire_duct": {
+    "look": "cut"
+   }
+  },
   "lift_station_r12.glb": {
    "lid": {
     "look": "clip:lid_off"

@@ -165,7 +165,8 @@
   const CONFIG_CHOICES = {
     water_heater: ['attic_gas_tank', 'closet_gas_tank', 'attic_electric_tank', 'closet_electric_tank', 'garage_tankless', 'garage_hybrid', 'garage_electric_tankless'],     // round 46: the electric tank in both tank spots (Jake)
     hvac: ['split_furnace', 'split_furnace_cond96', 'heatpump_attic', 'gas_pack'],
-    sewer: ['septic_spray', 'septic_spray_two_tank', 'septic_gravity', 'septic_overland', 'septic_overland_lee', 'septic_overland_aquaklear', 'city_lift', 'city_gravity'],     // round 29: gravity to the street (Jake)
+    sewer: ['septic_spray', 'septic_spray_two_tank', 'septic_gravity', 'septic_overland', 'septic_overland_lee', 'septic_overland_aquaklear', 'city_lift', 'city_lift_duplex', 'city_gravity'],     // round 78: the duplex grinder station (Jake)
+        // round 29: gravity to the street (Jake)
     water: ['city_filter', 'well'],     // round 41: a well with a pressure tank in the garage (Jake)
     softener: ['yes', 'no'],     // round 42: with a softener the Flo is at the softener in the garage, without one it is under the house (Jake)
     filter: ['no', 'yes'],       // round 42: the spray pump filter is an add on, not on by default (Jake)
@@ -1362,7 +1363,7 @@
     // the lift station's force main and the street main past it run when the basin's pump does, not when the house water gets to the basin
     plant_out: { kind: 'water', label: 'effluent leaving the tank', match: /^(pipe_dwv_effluent_|pipe_septic_overland_discharge)/ },
     plant_spray: { kind: 'water', label: 'spray line under pressure', match: /^pipe_septic_spray_line/ },
-    lift_pump: { kind: 'waste', label: 'force main to the street', runs: ['pipe_dwv_force_main_lift', 'pipe_dwv_city_main'] },
+    lift_pump: { kind: 'waste', label: 'force main to the street', runs: ['pipe_dwv_force_main_lift', 'pipe_dwv_force_main_lift_duplex', 'pipe_dwv_city_main'] },
     // round 20: the air in every supply duct, for the fan (Jake: "we're gonna flow test all this stuff and actually watch it work")
     fan: { kind: 'air', label: 'air moving in the ducts', match: /^(flex_hvac_|duct_hvac_(supply_trunk|plenum_riser|ahu_supply)|takeoff_hvac_)/ },
     // round 27: water into the tank (Jake: turn water on at the inlet, watch it fill, flow over to the spray tank, the float bring the pump on)
@@ -1577,7 +1578,7 @@
         // the chamber: in at what is arriving, out at the pump's rate, both times SIM_GAIN
         // (a lift basin is a quarter of the plan area of a tank's pump chamber and its pump is twice the size: at 30 x its whole cycle was over in seven seconds, so it runs at 12 x)
         const k = (cfg.gain || (cfg.floats ? 12 : SIM_GAIN)) * 6.309e-5 / cfg.area_m2;
-        S.level += k * gpmIn * dt; if (S.pumpOn) S.level -= k * cfg.pump_gpm * dt;
+        S.level += k * gpmIn * dt; if (S.pumpOn) S.level -= k * (S.gpmNow !== undefined ? S.gpmNow : cfg.pump_gpm) * dt;     // round 78: a duplex basin says what it is really moving
         S.level = Math.max(cfg.floor_z + 0.08, Math.min(cfg.rest_top_z + (cfg.floats ? 0.12 : 0.40), S.level));
       }
       for (const o of S.waters) o.scale.y = (S.level - cfg.floor_z) / (cfg.rest_top_z - cfg.floor_z);
@@ -1590,6 +1591,7 @@
         ropeStep(S, F); }
       S.theta = S.floats.length ? S.floats[S.floats.length > 1 ? 1 : 0].theta : 0;
       if (!cfg.pump) continue;
+      if (cfg.duplex) { duplexStep(S, cfg, dt); continue; }     // round 78: two pumps, lead and lag, alternating
       // the control: one wide angle float is the switch; with off / on / alarm floats the pump starts when ON makes and runs until OFF breaks
       const one = S.floats.find(F => F.d.role === 'onoff'), fOff = S.floats.find(F => F.d.role === 'off'), fOn = S.floats.find(F => F.d.role === 'on'), fAl = S.floats.find(F => F.d.role === 'alarm');
       const st = A.state[cfg.run_clip], manual = !cfg.run_state_only && st && st.open && !S.pumpOn, pw = powered(S.inst);
@@ -1749,7 +1751,7 @@
     const wantOn = new Set();
     for (const k of live) { const set = FLOW_SETS[k]; if (set.kind === 'air') continue;
       let dist = 0, endPt = null; const lead = set.runs ? (k === 'faucet' || k === 'disposal' ? 1.9 : (FIX_KEYS.has(k) ? 1.4 : 0.4)) : 0;
-      const list = flows.filter(f => f.kind === set.kind && inSet(set, f.run) && inConfig(f.obj.userData.config) && f.path.length > 1 && !(k !== 'lift_pump' && k !== 'sewer' && CONFIG.sewer === 'city_lift' && f.run === 'pipe_dwv_city_main'));
+      const list = flows.filter(f => f.kind === set.kind && inSet(set, f.run) && inConfig(f.obj.userData.config) && f.path.length > 1 && !(k !== 'lift_pump' && k !== 'sewer' && CONFIG.sewer.startsWith('city_lift') && f.run === 'pipe_dwv_city_main'));
       if (set.runs) list.sort((p, q) => set.runs.indexOf(p.run) - set.runs.indexOf(q.run));
       for (const f of list) {
         const supply = /^pipe_supply/.test(f.run); if (supply && !waterOn) continue;
@@ -1951,6 +1953,7 @@
     const nm = partName(o) || base(o.name);
     const inst = o.userData.inst || (typeof unitOf === 'function' ? unitOf(o) : null);
     // the panel's own parts first: they carry which circuit and which leg in their names
+    { const dp_ = duplexPoint(o, nm, inst); if (dp_) return dp_; }     // round 78: the 122 panel's own conductors and terminals
     const sl = slugOf(nm);
     if (sl) {
       const C = CIRCUITS_BY_SLUG[sl];
@@ -2064,10 +2067,12 @@
   }
   function readAmps(o) {
     const nm = partName(o) || base(o.name);
-    { const la = liftAmps(o, nm); if (la) return la; }
+    { const la = liftAmps(o, nm) || duplexAmps(o, nm); if (la) return la; }
     const c = circuitFor(o);
     if (!c) return { text: 'OL', note: 'that is not a conductor the clamp can read' };
-    if (/jacket|romex|^cable_|whip$/.test(nm) && !/conductor/.test(nm)) return { text: '0.0 A', note: 'the jaw is round the whole cable, so the two conductors cancel. Clamp ONE conductor.' };
+    // round 82: romex_kitchen_a_black is ONE conductor of that cable, not the cable. It read 0.0 as "the whole cable" until now
+    if (/_(ground|bare|egc)$/.test(nm)) return { text: '0.0 A', note: 'that is the equipment ground. It carries nothing unless there is a fault, and any reading here is a problem to find' };
+    if (/jacket|romex|^cable_|whip$/.test(nm) && !/conductor|_(black|white|red|blue|hot|neutral)$/.test(nm)) return { text: '0.0 A', note: 'the jaw is round the whole cable, so the two conductors cancel. Clamp ONE conductor.' };
     if (c.breaker && breakers && breakers[c.breaker] === false) return { text: '0.0 A', note: c.label + ' is off at the breaker' };
     { const want = /condenser/.test(c.label) ? /hvac_condenser|hvac_minisplit/ : (/air handler/.test(c.label) ? /hvac_air_handler|hvac_furnace/ : null);     // round 77
       if (want) { const on = equip.children.some(u => u.visible && want.test(u.userData.model || '') && u.userData.anim && Object.entries(u.userData.anim.state || {}).some(([n_, s_]) => s_ && s_.open && /fan_run|fire_up|cool_run|heat_run|run$/.test(n_)));
@@ -2354,6 +2359,12 @@
   async function meterModel(kind) {
     let g; try { g = await loadModel(METER_FILE[kind]); } catch (e) { return null; }
     const o = g.scene.clone(true); stampParts(g, o); tuneMaterials(o);
+    // Round 80 (Jake: "it's got like a rod through the center of the meter"). ctx_cable is the sample cable the meter's own QA pictures
+    // clamp round. Blender had it hidden, and hide does not travel in a GLB, so every clamp meter came with a rod through its jaw.
+    const junk = []; o.traverse(x => { if (/^ctx_/.test(x.name || '')) junk.push(x); }); for (const x of junk) x.parent.remove(x);
+    // the jaw's open pose, read off the model's own jaw_open clip (its last key), so the page never guesses the hinge's axis
+    const jc = (g.animations || []).find(a => a.name === 'jaw_open');
+    if (jc) { o.userData.jawOpen = {}; for (const t of jc.tracks) { const m = /^(.*)\.quaternion$/.exec(t.name); if (m) { const v = t.values, n = v.length; o.userData.jawOpen[m[1]] = new T.Quaternion(v[n - 4], v[n - 3], v[n - 2], v[n - 1]); } } }
     return o;
   }
   function meterSegs(obj) {
@@ -2427,7 +2438,7 @@
     return t ? t.getWorldPosition(new T.Vector3()) : null;
   }
   async function meterInHand(kind) {
-    if (meterObj) { camera.remove(meterObj); meterObj = null; }
+    if (meterObj) { clampStop(); if (meterObj.parent) meterObj.parent.remove(meterObj); meterObj = null; }
     const o = await meterModel(kind); if (!o) return;
     // the pose a hand holds it in, worked out on the page: face toward you, dial and display readable, clear of the crosshair
     meterPose(o);
@@ -2548,6 +2559,7 @@
     return { text: txt, note: what + ': ' + spec[1] + (B.typ || typeof v !== 'number' ? '' : '. That is a good one') };
   }
   function readOhms(a, b) {
+    { const dz_ = duplexOhms(a, b); if (dz_) return dz_; }
     { const x = benchFor(a.o), y = benchFor(b.o);
       if (x && y && x.key === y.key) return benchRead(x, y);
       const shell = r_ => r_ && r_.B.part && /\^compressor\$/.test(String(r_.B.part));
@@ -2608,6 +2620,7 @@
   function meterPull() {
     if (!meterObj) return 'no meter in your hand';
     meterUp = !meterUp;
+    if (clampOn) clampToHand();     // round 80: it comes off the conductor to your eye, and the reading holds
     // round 51: back off far enough that the dial is in the picture too, not just the display. You turn the dial while it is up.
     meterPose(meterObj); meterKeys();
     return meterUp ? 'meter up: read it, click the dial to change range, R to drop it back to your hand' : 'meter back in your hand';
@@ -2631,6 +2644,7 @@
     for (const l of leadLines) { scene.remove(l); if (l.geometry) l.geometry.dispose(); }
     leadLines = [];
     if (!meterObj) return;
+    if (meter && meter.kind === 'amps') return;     // round 80: a clamp reads with its jaw, its leads stay put
     for (const [side, colour] of [['a', 'red'], ['b', 'black']]) {
       const probe = meterNode('lead_' + colour + '_probe');
       const wire = meterNode('lead_' + colour + '_wire');
@@ -2719,29 +2733,291 @@
     meterShowText(r.text);
     el.style.display = 'none';
     const lead_ = r_ => { const bx = r_.o ? benchFor(r_.o) : null; return bx ? (bx.term ? bx.term + ' of ' + bx.B.name : bx.B.name) : pretty(r_.nm); };
-    const where = (meter.a ? 'red on ' + lead_(meter.a) : 'red not placed') + (meter.kind === 'volts' ? ', ' + (meter.b ? 'black on ' + lead_(meter.b) : 'black not placed') : '');
+    const where = (meter.a ? (meter.kind === 'amps' ? 'jaw round ' : 'red on ') + lead_(meter.a) : (meter.kind === 'amps' ? 'not on a conductor yet' : 'red not placed')) + (meter.kind === 'volts' ? ', ' + (meter.b ? 'black on ' + lead_(meter.b) : 'black not placed') : '');
     labelEl.textContent = FN_LABEL[meter.fn] + ': ' + r.text.trim() + '. ' + where + '. ' + r.note + (('ontouchstart' in window) ? '' : '  (click the dial to turn it, R to read it close, Esc to put it down)');
     labelEl.style.display = 'block'; meterKeys();
+  }
+  // Round 80 (Jake: "I should be able to take the meter, make sure it's in amps, and then click the wire and the meter goes out and clamps
+  // around that particular wire"). The clamp leaves your hand, its jaw opens, it goes to the conductor you clicked, the jaw closes round
+  // THAT conductor and it stays there reading while you work the HOA. The conductor's line is measured off its own mesh round the click
+  // (the long axis of the nearby vertices), the jaw's loop is stood square to it and then leaned 40 degrees toward you, which is what a
+  // hand does so the display can be read, and the body hangs down and toward you. "Read it close" or "Put it down" takes it off.
+  let clampOn = null, clampTimer = null, clampLast = null;
+  function clampStop() { if (clampTimer) { clearInterval(clampTimer); clampTimer = null; } clampOn = null; pullBack(); }
+  let pullState = null;
+  function pullBack() {
+    if (!pullState) return; const S = pullState; pullState = null;
+    if (S.hump.parent) S.hump.parent.remove(S.hump); S.hump.geometry.dispose();
+    if (S.mat) { S.wire.material = S.mat; S.clone.dispose(); }
+  }
+  function pullOut(wire, pl) {
+    const c = pl.from.c, d = pl.from.d, r = pl.from.r, out = pl.out, h = pl.h, A = c.clone().addScaledVector(d, pl.tA), B = c.clone().addScaledVector(d, pl.tB);
+    const at = (t, k) => c.clone().addScaledVector(d, t).addScaledVector(out, h * k);
+    const curve = new T.CatmullRomCurve3([at(pl.tA - 0.004, 0), A, at(pl.tA * 0.62, 0.42), at(pl.tA * 0.30, 0.93), at(0, 1), at(pl.tB * 0.30, 0.93), at(pl.tB * 0.62, 0.42), B, at(pl.tB + 0.004, 0)], false, 'centripetal');
+    const hump = new T.Mesh(new T.TubeGeometry(curve, 40, r, 10, false), Array.isArray(wire.material) ? wire.material[0] : wire.material); hump.name = 'clamp_pull'; scene.add(hump);
+    // the real wire between A and B is cut out of the picture: a clip box (six planes, normals OUT, clipIntersection) on a copy of its material
+    let mat = null, clone = null;
+    if (!Array.isArray(wire.material)) { const e1 = out.clone(), e2 = new T.Vector3().crossVectors(d, e1).normalize(), R = r * 2.2, mid = A.clone().lerp(B, 0.5), half = A.distanceTo(B) / 2 - 0.0005;
+      const pln = (n, dist) => new T.Plane().setFromNormalAndCoplanarPoint(n, mid.clone().addScaledVector(n, dist));
+      mat = wire.material; clone = mat.clone(); clone.clippingPlanes = [pln(d.clone(), half), pln(d.clone().negate(), half), pln(e1.clone(), R), pln(e1.clone().negate(), R), pln(e2.clone(), R), pln(e2.clone().negate(), R)]; clone.clipIntersection = true; wire.material = clone; }
+    pullState = { wire, hump, mat, clone };
+  }
+  function jawSet(k) {
+    const J = meterObj && meterObj.userData.jawOpen; if (!J) return;
+    for (const nm in J) { const n = meterNode(nm); if (!n) continue; if (!n.userData.restQ) n.userData.restQ = n.quaternion.clone(); n.quaternion.copy(n.userData.restQ).slerp(J[nm], k); }
+  }
+  function clampFrame() {
+    // the meter's own axes, measured off the model: the loop's axis is the thin way through the fixed jaw, signed toward the display,
+    // and "up" runs from the display to the middle of the jaw
+    if (meterObj.userData.clampFrame) return meterObj.userData.clampFrame;
+    meterObj.updateMatrixWorld(true);
+    const inv = new T.Matrix4().copy(meterObj.matrixWorld).invert(), jf = meterNode('jaw_fixed'), jc = meterNode('jaw_centre'), df = meterNode('display_face');
+    if (!jf || !jc || !df) return null;
+    const box = new T.Box3(), v = new T.Vector3(), m = new T.Matrix4();
+    jf.traverse(x => { if (!x.isMesh) return; m.multiplyMatrices(inv, x.matrixWorld); const P = x.geometry.attributes.position; for (let i = 0; i < P.count; i++) box.expandByPoint(v.fromBufferAttribute(P, i).applyMatrix4(m)); });
+    const sz = box.getSize(new T.Vector3()), ax = sz.x <= sz.y && sz.x <= sz.z ? 'x' : (sz.y <= sz.z ? 'y' : 'z');
+    const c = jc.getWorldPosition(new T.Vector3()).applyMatrix4(inv), d = df.getWorldPosition(new T.Vector3()).applyMatrix4(inv);
+    const f = new T.Vector3(); f[ax] = 1; if (d.clone().sub(c).dot(f) < 0) f.negate();
+    const up = c.clone().sub(d); up.addScaledVector(f, -up.dot(f)).normalize();
+    // its size in that frame, off the parts' own boxes (leads left out): how far the body hangs below the jaw's middle, the ring's
+    // reach, and the body's width and depth either side of the jaw's plane
+    const side = new T.Vector3().crossVectors(f, up), bb = new T.Box3(), mm = new T.Matrix4(), q = new T.Vector3(); let len = 0, ring = 0, a0 = 0, a1 = 0, s0 = 0, s1 = 0;
+    meterObj.traverse(x => { if (!x.isMesh || /^(lead_|ctx_)/.test(x.name || '') || /^lead_/.test((x.parent && x.parent.name) || '')) return;
+      if (!x.geometry.boundingBox) x.geometry.computeBoundingBox(); mm.multiplyMatrices(inv, x.matrixWorld); bb.copy(x.geometry.boundingBox);
+      for (let i = 0; i < 8; i++) { q.set(i & 1 ? bb.max.x : bb.min.x, i & 2 ? bb.max.y : bb.min.y, i & 4 ? bb.max.z : bb.min.z).applyMatrix4(mm).sub(c);
+        const u = q.dot(up), a = q.dot(f), w = q.dot(side); len = Math.max(len, -u); ring = Math.max(ring, u); if (u < -0.03) { a0 = Math.min(a0, a); a1 = Math.max(a1, a); s0 = Math.min(s0, w); s1 = Math.max(s1, w); } } });
+    return (meterObj.userData.clampFrame = { f, up, c, len, ring, a0, a1, s0, s1 });
+  }
+  function wireLine(o, at, hit) {
+    // the conductor's centre and direction where you clicked it
+    const P = o.geometry && o.geometry.attributes.position; if (!P) return null;
+    o.updateMatrixWorld(true);
+    // A swept wire has vertices only where its path turns, so a click in the middle of a straight run has NO vertices near it (the first
+    // pass of this measured the nearest corner instead and clamped on air). The face you hit tells it all: on a smooth tube the two
+    // ends of the edge that runs ALONG the wire share a normal, and the wire's middle is half way to the far side of the tube.
+    if (hit && hit.face) {
+      const N = o.geometry.attributes.normal, ids = [hit.face.a, hit.face.b, hit.face.c], w = i => new T.Vector3().fromBufferAttribute(P, i).applyMatrix4(o.matrixWorld);
+      let best = null;
+      for (let i = 0; i < 3; i++) { const a = ids[i], b = ids[(i + 1) % 3], e = w(b).sub(w(a)), len = e.length(); if (len < 1e-6) continue;
+        const same = N ? new T.Vector3().fromBufferAttribute(N, a).dot(new T.Vector3().fromBufferAttribute(N, b)) : 0;
+        const score = same * 10 + len; if (!best || score > best.score) best = { score, d: e.normalize() }; }
+      const n = hit.face.normal.clone().transformDirection(o.matrixWorld);
+      if (best) {
+        const d = best.d.clone().addScaledVector(n, -best.d.dot(n)).normalize(), c = at.clone().addScaledVector(n, -0.003);
+        const rc = new T.Raycaster(at.clone().addScaledVector(n, -0.06), n.clone(), 0, 0.0595), hs = rc.intersectObject(o, false);
+        let thick = 1, width = 1;
+        if (hs.length) { thick = hs[hs.length - 1].point.distanceTo(at); c.copy(hs[hs.length - 1].point).lerp(at, 0.5); }
+        // how wide is it the OTHER way across? A wire is as wide as it is thick. A cover plate is thin one way and a foot wide the other.
+        { const e = new T.Vector3().crossVectors(n, d).normalize(), r1 = new T.Raycaster(c.clone().addScaledVector(e, -0.06), e.clone(), 0, 0.06), r2 = new T.Raycaster(c.clone().addScaledVector(e, 0.06), e.clone().negate(), 0, 0.06);
+          const h1 = r1.intersectObject(o, false), h2 = r2.intersectObject(o, false); if (h1.length && h2.length) width = h1[h1.length - 1].point.distanceTo(h2[h2.length - 1].point); }
+        return { c, d, thick, width, r: Math.min(0.015, Math.max(0.0012, at.clone().sub(c).addScaledVector(d, -at.clone().sub(c).dot(d)).length())) };
+      }
+    }
+    const v = new T.Vector3(), pts = []; let R = 0.02;
+    for (let pass = 0; pass < 3 && pts.length < 12; pass++, R *= 2) { pts.length = 0; for (let i = 0; i < P.count; i++) { v.fromBufferAttribute(P, i).applyMatrix4(o.matrixWorld); if (v.distanceToSquared(at) < R * R) pts.push(v.clone()); } }
+    if (pts.length < 6) return null;
+    const c0 = new T.Vector3(); for (const q of pts) c0.add(q); c0.multiplyScalar(1 / pts.length);
+    let xx = 0, xy = 0, xz = 0, yy = 0, yz = 0, zz = 0;
+    for (const q of pts) { const a = q.x - c0.x, b = q.y - c0.y, c = q.z - c0.z; xx += a * a; xy += a * b; xz += a * c; yy += b * b; yz += b * c; zz += c * c; }
+    let d = new T.Vector3(1, 0.7, 0.4).normalize();
+    for (let i = 0; i < 24; i++) d.set(xx * d.x + xy * d.y + xz * d.z, xy * d.x + yy * d.y + yz * d.z, xz * d.x + yz * d.y + zz * d.z).normalize();
+    return { c: c0.addScaledVector(d, at.clone().sub(c0).dot(d)), d, r: 0.0025 };
+  }
+  function clampGo(rec) {
+    if (!meterObj || !rec || !rec.at || !rec.o) return;
+    const F = clampFrame(); let W = wireLine((rec.hit && rec.hit.object) || rec.o, rec.at, rec.hit); if (!F || !W) return;
+    const wireObj = (rec.hit && rec.hit.object) || rec.o, unit = unitOf(wireObj) || wireObj.parent, near = [];
+    // Round 82: the jaw opens 30 mm and goes round a WIRE. A contactor, a disconnect, a cover or a terminal is on the circuit and used to
+    // get a reading, which was never true of a clamp, and now that the meter really goes out to what you click it would have clamped a
+    // contactor. Round and no thicker than the jaw, and long enough to be a run of something: otherwise it stays in your hand.
+    if (W.thick !== undefined) { if (!wireObj.geometry.boundingBox) wireObj.geometry.computeBoundingBox(); const sz = wireObj.geometry.boundingBox.getSize(new T.Vector3());
+      if (W.thick > 0.03 || W.width > 0.03 || Math.max(sz.x, sz.y, sz.z) < 0.025) { rec.clampFit = { notWire: true, thick: +W.thick.toFixed(3), width: +W.width.toFixed(3) }; return; } }
+    const shown = x => { for (let q = x; q; q = q.parent) if (!q.visible) return false; return true; };
+    unit.traverse(x => { if (x.isMesh && x !== wireObj && shown(x) && !/^(water|flow_|bubbles)/.test(partName(x) || '')) near.push(x); });
+    const rc = new T.Raycaster(), seg = (a, b_) => { const v = b_.clone().sub(a), n = v.length(); if (n < 1e-5) return 0; v.multiplyScalar(1 / n);
+      // what it touches matters: another CONDUCTOR gives way to a hand (1), a device, a wall, a duct or the board does not (10)
+      const soft = h => /^(wire|lead)_(?!duct)|_(wire|lead)(_|$)|conductor|cord/.test(partName(h.object) || h.object.name || ''), cost = hs => hs.length ? (hs.every(soft) ? 1 : 10) : 0;
+      rc.set(a, v); rc.far = n; const c1 = cost(rc.intersectObjects(near, false)); if (c1 === 10) return 10; rc.set(b_, v.negate()); return Math.max(c1, cost(rc.intersectObjects(near, false))); };
+    // what the RING touches at a spot on the wire, standing with its axis along f_
+    const ringAt = (c0, f_) => { const e1 = Math.abs(f_.y) < 0.9 ? new T.Vector3(0, 1, 0) : new T.Vector3(1, 0, 0); e1.addScaledVector(f_, -e1.dot(f_)).normalize(); const e2 = new T.Vector3().crossVectors(f_, e1); let n = 0;
+      for (let k = 0; k < 8; k++) { const t = k * Math.PI / 4, r_ = e1.clone().multiplyScalar(Math.cos(t)).addScaledVector(e2, Math.sin(t)); n += seg(c0.clone().addScaledVector(r_, 0.007), c0.clone().addScaledVector(r_, F.ring)); }
+      return n; };
+    if (meterUp) { meterUp = false; meterKeys(); }
+    const upW = new T.Vector3(0, 1, 0), eye = camera.getWorldPosition(new T.Vector3()), camUp = new T.Vector3().setFromMatrixColumn(camera.matrixWorld, 1).normalize();
+    // Round 81 (Jake: "test your angles a little bit more because you're going through the face of the panel and through the contactor and
+    // the components themselves. The user might just have to be a little bit taller to be able to see the screen still"). NOT going
+    // through things comes first, reading the screen from where you stand comes second. Every way the meter could sit on this wire is
+    // tried: the ring square to the wire or leaned either way, the display facing either way along it, the body swung right round the
+    // wire in 30 degree steps. Each one is FELT OUT against the unit's own parts with rays the size of the meter (along the body's four
+    // edges and middle, across it at three stations, out round the ring, every ray both ways because a ray that starts inside a part
+    // sees nothing). They are tried in the order you would like to read them, and the first one that touches nothing wins; if none is
+    // clean it takes the one that touches least, the body counting ten times the ring (a wire lying on the back plate always has the
+    // plate inside the ring's reach, and a hand would lift the wire clear).
+    const feel = (f_, b_, c0) => {
+      const U = b_.clone().negate(), S = new T.Vector3().crossVectors(f_, U), P = (a, u, s_) => c0.clone().addScaledVector(f_, a).addScaledVector(U, u).addScaledVector(S, s_);
+      const a0 = F.a0 * 0.85, a1 = F.a1 * 0.85, s0 = F.s0 * 0.85, s1 = F.s1 * 0.85, am = (a0 + a1) / 2, sm = (s0 + s1) / 2, top = -F.ring - 0.004, bot = -F.len + 0.006; let body = 0, ring = 0;
+      // the long feelers start AT the wire, not under the ring: a wall 2 cm from the wire sits inside the ring's reach, and feelers that
+      // began below the ring stepped over it and stood the meter up through the roof of the box
+      for (const [a, s_] of [[a0, s0], [a0, s1], [a1, s0], [a1, s1], [am, sm]]) body += seg(P(a * 0.5, -0.009, s_ * 0.5), P(a, top, s_)) + seg(P(a, top, s_), P(a, bot, s_));
+      for (const u of [top - 0.02, (top + bot) / 2, bot + 0.02]) for (const a of [a0, am, a1]) body += seg(P(a, u, s0), P(a, u, s1));
+      return body;
+    };
+    const dead = performance.now() + 1100;     // the whole search gets under a second, whatever it finds
+    const fitAt = (Wx, capMs) => {
+      const toCam = eye.clone().sub(Wx.c).normalize();
+      const d = Wx.d.clone(); if (d.dot(toCam.clone().addScaledVector(upW, 0.3)) < 0) d.negate();
+      const c = toCam.clone().addScaledVector(d, -toCam.dot(d)); if (c.lengthSq() < 1e-4) c.copy(upW).addScaledVector(d, -upW.dot(d)); c.normalize();
+      const cands = [];
+      for (const sign of [1, -1]) for (const lean of [0.70, 0.35, 0]) {
+        const f_ = d.clone().multiplyScalar(sign * Math.cos(lean)).addScaledVector(c, Math.sin(lean)).normalize();
+        const e1 = toCam.clone().addScaledVector(f_, -toCam.dot(f_)); if (e1.lengthSq() < 1e-4) e1.copy(upW).addScaledVector(f_, -upW.dot(f_)); e1.normalize();
+        const e2 = new T.Vector3().crossVectors(f_, e1);
+        for (let k = 0; k < 12; k++) { const t = k * Math.PI / 6, b_ = e1.clone().multiplyScalar(Math.cos(t)).addScaledVector(e2, Math.sin(t)).normalize();
+          // Round 82 (Jake: "we don't want these turning into upside down. It's okay if it's a weird angle and we can even kind of hang from
+          // the wire"). The top of the screen is the jaw end. Seen from where you stand it may point up, sideways or away from you, never down.
+          if (b_.dot(camUp) > 0.15) continue;
+          // a screen facing UP can be read by standing taller, one facing down cannot
+          cands.push({ f: f_, b: b_, like: f_.dot(toCam) * 2 + f_.dot(upW) * 1.2 + b_.dot(toCam) * 0.6 - b_.dot(upW) * 1.0 }); }
+      }
+      cands.sort((x, y) => y.like - x.like);
+      // The wire does not have to sit in the MIDDLE of the jaw. A clamp left on a wire hangs from it: the wire rests against the inside of
+      // the jaw's far end and the whole meter drops away by the jaw's inside radius. Each pose is felt both ways, centred first, then
+      // hanging, which is what gets the ring out from under the roof of a box or off the back plate.
+      const hang = Math.max(0, F.ring - 0.0125 - Wx.r);     // the jaw bar is 11.6 mm across, so its inside radius is the ring's reach less that
+      let pickd = null; const t00 = performance.now();
+      search: for (const q of cands) for (const off of [0, hang]) {
+        const cR = Wx.c.clone().addScaledVector(q.b, off), ring = ringAt(cR, q.f);
+        if (ring >= 10) { if (!pickd || ring + 100 < pickd.touch) pickd = { f: q.f, b: q.b, centre: cR, body: 99, ring, touch: ring + 100 }; if ((performance.now() - t00 > (capMs || 250) || performance.now() > dead)) break search; continue; }
+        const body = feel(q.f, q.b, cR), touch = body + ring;
+        if (!pickd || touch < pickd.touch) pickd = { f: q.f, b: q.b, centre: cR, body, ring, touch, hung: off > 0 };
+        if (body <= 2 || (performance.now() - t00 > (capMs || 250) || performance.now() > dead)) break search;
+      }
+      return { f: pickd.f, b: pickd.b, centre: pickd.centre, hung: !!pickd.hung, body: pickd.body, ring: pickd.ring, touch: pickd.touch, toCam, ms: Math.round(performance.now() - t00) };
+    };
+    // A jaw cannot close round a wire where it lies in a duct, flat on the back plate or hard under the roof of the box, and a tech
+    // does not try: the clamp goes on where that conductor runs CLEAR. If no way of sitting at the spot you clicked is free of hard
+    // parts, the same wire is looked along (spots off its own faces, each given a quick six way feel) and the clamp goes to the
+    // clearest, the nearer the better, and is fitted properly there. The reading is that wire's either way.
+    // a quick yes or no for a spot: five plain ways of sitting there (body toward you, down, between the two, and either side), centred
+    // and hanging. Ten milliseconds, against a quarter second for a full fit, so every spot along a wire can be asked.
+    const quickClean = Wx => { const toCam = eye.clone().sub(Wx.c).normalize(), d = Wx.d, pr = v_ => v_.clone().addScaledVector(d, -v_.dot(d));
+      const c = pr(toCam), dn = pr(upW.clone().negate()), sd = new T.Vector3().crossVectors(d, c.lengthSq() > 1e-4 ? c : dn), hang = Math.max(0, F.ring - 0.0125 - Wx.r);
+      for (const b_ of [c, dn, c.clone().add(dn), sd, sd.clone().negate()]) { if (b_.lengthSq() < 1e-4) continue; b_.normalize(); if (b_.dot(camUp) > 0.15) continue;
+        for (const off of [0, hang]) { const cR = Wx.c.clone().addScaledVector(b_, off); if (ringAt(cR, d) < 10 && feel(d, b_, cR) < 10) return true; } }
+      return false; };
+    let moved = false, pulled = null, fit = fitAt(W);
+    // Round 82 (Jake: "the wire's flexible... the wires can be pulled out some too, if needed. Pull the wire out just a little bit, just
+    // enough to clamp around, so we can get good readings"). When the wire will not take the meter where it lies, it is pulled out where
+    // you clicked, the way a hand hooks a finger behind it: the straight run you clicked (from the bend before to the bend after) humps
+    // out 3, 5 or 7 cm, whichever is the least that lets the meter on, in whichever way round the wire is open (toward you first). The
+    // hump is a tube of the wire's own material and the stretch of the real wire under it is cut out of the picture with a clip box, so
+    // it is ONE wire that bows, not a second wire. It goes back when the meter comes off.
+    pullBack();
+    let pullWhy = '';
+    const tryPull = W0 => {
+      const Pw = wireObj.geometry.attributes.position, v = new T.Vector3(); let tA = 0, tB = 0, offA = -0.09, offB = 0.09;
+      for (let i = 0; i < Pw.count; i++) { v.fromBufferAttribute(Pw, i).applyMatrix4(wireObj.matrixWorld).sub(W0.c); const t = v.dot(W0.d); if (Math.abs(t) > 0.09) continue;
+        // The straight run you clicked, from its own vertices: a ring ON the line (within the wire's thickness of it) is still the run,
+        // the first ring OFF the line is where it bends away. A swept wire may have rings only at its bends, a drawn one every inch: both work.
+        const off = v.addScaledVector(W0.d, -t).length();
+        if (off <= W0.r * 1.7) { if (t < tA) tA = t; if (t > tB) tB = t; } }
+      if (tA > -0.004) tA = offA; if (tB < 0.004) tB = offB;     // no ring that side within reach: a long straight run, take the full 9 cm
+      if (tB - tA < 0.045) { pullWhy = 'run ' + (tB - tA).toFixed(3); return null; }
+      const e1 = eye.clone().sub(W0.c); e1.addScaledVector(W0.d, -e1.dot(W0.d)); if (e1.lengthSq() < 1e-6) e1.copy(upW).addScaledVector(W0.d, -upW.dot(W0.d)); e1.normalize(); const e2 = new T.Vector3().crossVectors(W0.d, e1);
+      const tp = performance.now();
+      let blocked = 0, ringed = 0, tried = 0; const why1 = [];
+      // which ways is it open round this wire? Seven ways on your side of it, each sounded out to 14 cm; the most open are tried first
+      const ways = [0, 1, 11, 2, 10, 3, 9].map(k => { const t = k * Math.PI / 6, out = e1.clone().multiplyScalar(Math.cos(t)).addScaledVector(e2, Math.sin(t)); let free = 0.14;
+        rc.set(W0.c.clone().addScaledVector(out, W0.r * 1.5), out); rc.far = 0.14; const hs = rc.intersectObjects(near, false).filter(x => !/^(wire|lead)_(?!duct)/.test(partName(x.object) || x.object.name || '')); if (hs.length) free = hs[0].distance;
+        return { k, out, free: free + (k === 0 ? 0.01 : 0) }; }).sort((x, y) => y.free - x.free).slice(0, 4);
+      for (const wy of ways) for (const h of [0.03, 0.05, 0.07, 0.09]) { if (performance.now() - tp > 600 || performance.now() > dead) break; if (h + 0.02 > wy.free) { blocked++; continue; } const out = wy.out, k = wy.k;
+        if (seg(W0.c.clone().addScaledVector(out, W0.r * 1.5), W0.c.clone().addScaledVector(out, h + 0.01)) >= 10) { blocked++; continue; }     // something solid is in the way of pulling it that way
+        const W1 = { c: W0.c.clone().addScaledVector(out, h), d: W0.d, r: W0.r };
+        if (!quickClean(W1)) { ringed++; continue; }
+        tried++; const f1 = fitAt(W1); why1.push(h + '/' + k + ':b' + f1.body + 'r' + f1.ring);
+        if (f1.body < 10 && f1.ring < 10) return { W: W1, fit: f1, out, h, tA, tB, from: W0 }; }
+      pullWhy = 'blocked ' + blocked + ' ringed ' + ringed + ' tried ' + tried + ' ' + why1.join(' '); return null;
+    };
+    if (fit.body >= 10 || fit.ring >= 10) { const pl = tryPull(W); if (pl) { pulled = pl; W = pl.W; fit = pl.fit; } }
+    if (!pulled && (fit.body >= 10 || fit.ring >= 10)) {
+      // along the same wire: spots off its own faces, NEAREST the click first, each given a real (short) fit; the first clean one wins.
+      // If none is clean as it lies, the nearest few are tried pulled out.
+      const P = wireObj.geometry.attributes.position, I = wireObj.geometry.index, nT = Math.floor((I ? I.count : P.count) / 3), step = Math.max(1, Math.floor(nT / 24));
+      const v = i => new T.Vector3().fromBufferAttribute(P, i), spots = [], tq = performance.now();
+      for (let t = 0; t < nT; t += step) { const a = I ? I.getX(t * 3) : t * 3, b_ = I ? I.getX(t * 3 + 1) : t * 3 + 1, c_ = I ? I.getX(t * 3 + 2) : t * 3 + 2, pa = v(a), pb = v(b_), pc = v(c_);
+        const nrm = pb.clone().sub(pa).cross(pc.clone().sub(pa)); if (nrm.lengthSq() < 1e-12) continue; nrm.normalize();
+        const cw = pa.clone().add(pb).add(pc).multiplyScalar(1 / 3).applyMatrix4(wireObj.matrixWorld), Wx = wireLine(wireObj, cw, { face: { a, b: b_, c: c_, normal: nrm }, point: cw }); if (Wx) spots.push(Wx); }
+      spots.sort((x, y) => x.c.distanceTo(W.c) - y.c.distanceTo(W.c));
+      for (const Wx of spots) { if (performance.now() - tq > 500 || performance.now() > dead) break; if (!quickClean(Wx)) continue; const f2 = fitAt(Wx); if (f2.body < 10 && f2.ring < 10) { W = Wx; fit = f2; moved = true; break; } }
+      if (fit.body >= 10 || fit.ring >= 10) for (const Wx of spots.filter((_, i) => i % 3 === 0)) { if (performance.now() > dead) break;     // every third spot, nearest first: the near ones share the clicked spot's trouble (the same duct), so reach along the whole wire
+        const pl = tryPull(Wx); if (pl) { pulled = pl; W = pl.W; fit = pl.fit; moved = true; break; } }
+    }
+    // nowhere on this wire takes the meter without the body going through something hard: it does not go. A tech would not force it either
+    if (fit.body >= 10 || fit.ring >= 20) { rec.clampFit = { noRoom: true, body: fit.body, ring: fit.ring, pullWhy }; return; }
+    if (pulled) pullOut(wireObj, pulled);
+    const f = fit.f, b = fit.b; rec.clampFit = { pulled: pulled ? pulled.h : 0, hung: fit.hung, upright: +(-b.dot(camUp)).toFixed(2), moved, body: fit.body, ring: fit.ring, touch: fit.touch, facing: +f.dot(fit.toCam).toFixed(2), ms: fit.ms };
+    const Mm = new T.Matrix4().makeBasis(F.f, F.up, new T.Vector3().crossVectors(F.f, F.up));
+    const Mw = new T.Matrix4().makeBasis(f, b.clone().negate(), new T.Vector3().crossVectors(f, b.clone().negate()));
+    const q1 = new T.Quaternion().setFromRotationMatrix(Mw.multiply(Mm.transpose()));
+    const p1 = fit.centre.clone().sub(F.c.clone().applyQuaternion(q1));
+    if (meterObj.parent !== scene) { scene.attach(meterObj); meterObj.traverse(x => { x.layers.set(0); if (/^lead_/.test(x.name || '')) x.visible = false; }); }     // the test leads are unplugged for an amp reading     // out of the overlay pass: it is in the room now, behind and in front of things
+    const p0 = meterObj.position.clone(), q0 = meterObj.quaternion.clone(), s0 = meterObj.scale.x, t0 = performance.now(), me = meterObj;
+    // it backs off the conductor toward you first, so the open jaw comes ON from the side instead of passing through the wire
+    const pm = p1.clone().addScaledVector(b, 0.05);
+    if (clampTimer) clearInterval(clampTimer);
+    clampOn = rec;
+    clampTimer = setInterval(() => {
+      if (meterObj !== me) { clearInterval(clampTimer); clampTimer = null; return; }
+      const k = Math.min(1, (performance.now() - t0) / 900), e = x => x * x * (3 - 2 * x);
+      const ka = e(Math.min(1, k / 0.6)), kb = e(Math.min(1, Math.max(0, (k - 0.6) / 0.25))), kc = Math.min(1, Math.max(0, (k - 0.85) / 0.15));
+      me.position.copy(p0).lerp(pm, ka).lerp(p1, kb); me.quaternion.copy(q0).slerp(q1, ka); me.scale.setScalar(s0 + (1 - s0) * ka);
+      jawSet(k < 0.85 ? Math.min(1, k / 0.25) : 1 - kc);
+      if (k >= 1) { clearInterval(clampTimer); clampTimer = null; }
+    }, 16);
+  }
+  // a test hook: clamp a conductor's mesh at a spot along it (frac 0 to 1, by height, of the faces turned toward you), as a click would
+  function clampTest(mesh, frac) {
+    if (!meter || !mesh || !mesh.geometry) return null; mesh.updateMatrixWorld(true);
+    const P = mesh.geometry.attributes.position, I = mesh.geometry.index, nT = Math.floor((I ? I.count : P.count) / 3), eye = camera.getWorldPosition(new T.Vector3()), out = [];
+    for (let t = 0; t < nT; t++) { const a = I ? I.getX(t * 3) : t * 3, b = I ? I.getX(t * 3 + 1) : t * 3 + 1, c = I ? I.getX(t * 3 + 2) : t * 3 + 2;
+      const pa = new T.Vector3().fromBufferAttribute(P, a), pb = new T.Vector3().fromBufferAttribute(P, b), pc = new T.Vector3().fromBufferAttribute(P, c);
+      const n = pb.clone().sub(pa).cross(pc.clone().sub(pa)); if (n.lengthSq() < 1e-14) continue; n.normalize();
+      const cw = pa.add(pb).add(pc).multiplyScalar(1 / 3).applyMatrix4(mesh.matrixWorld);
+      if (n.clone().transformDirection(mesh.matrixWorld).dot(eye.clone().sub(cw).normalize()) > 0.6) out.push({ a, b, c, n, cw }); }
+    if (!out.length) return null; out.sort((x, y) => x.cw.y - y.cw.y); const h = out[Math.min(out.length - 1, Math.floor(out.length * (frac || 0.5)))];
+    clampLast = null; const msg = meterClick(mesh, { object: mesh, point: h.cw, face: { a: h.a, b: h.b, c: h.c, normal: h.n } });
+    return { msg, fit: clampLast };
+  }
+  function clampToHand() {
+    if (!meterObj) return; clampStop(); jawSet(0);
+    if (meterObj.parent !== camera) { camera.add(meterObj); meterObj.traverse(x => { x.layers.set(1); if (/^lead_/.test(x.name || '') && !/_cap$/.test(x.name)) x.visible = true; }); }
+    meterPose(meterObj);
   }
   function meterClick(o, hit) {
     // the dial and the buttons on the meter in your hand are not test points
     const dn = partName(o) || base(o.name);
     if (/^dial|^knob|^shell|^holster|^button|^jack/.test(dn) && meterObj && isDescendant(o, meterObj)) return meterDial(1);
     const p = pointFor(o);
-    const rec = { nm: p.nm, p: p.p, why: p.why, o, at: hit && hit.point ? hit.point.clone() : null };
+    const rec = { nm: p.nm, p: p.p, why: p.why, o, at: hit && hit.point ? hit.point.clone() : null, hit: hit && hit.face ? hit : null };
     if (meter.kind === 'amps') meter.a = rec;
     else if (!meter.a || (meter.a && meter.b)) { meter.a = rec; meter.b = null; }
     else meter.b = rec;
     meterLeads(); showMeter();
-    if (meter.kind === 'amps') { const r = readAmps(o); return 'clamped on ' + pretty(p.nm) + ': ' + r.text + '. ' + r.note; }
+    if (meter.kind === 'amps') { const r = readAmps(o);
+      // it only goes out to something a clamp can go round. A click that lands on the box or a device keeps it in your hand and says so
+      if (r.text === 'OL') { if (clampOn) clampToHand(); meter.a = null; showMeter(); return 'The clamp goes round ONE conductor. That is ' + pretty(p.nm) + ', ' + r.note + '. Click a wire'; }
+      if (meter.fn === 'amps' || meter.fn === 'adc') clampGo(rec); clampLast = rec.clampFit || null;
+      if (rec.clampFit && rec.clampFit.notWire) { if (clampOn) clampToHand(); meter.a = null; showMeter(); return rec.clampFit.thick <= 0.03 && rec.clampFit.width <= 0.03 ? 'That bit of ' + pretty(p.nm) + ' is too short to get the jaw round. Clamp the same wire further along.' : 'The jaw goes round a wire, not round the ' + pretty(p.nm) + '. Clamp one of the wires on it.'; }
+      if (rec.clampFit && rec.clampFit.noRoom) { if (clampOn) clampToHand(); meter.a = null; showMeter(); return 'There is no room to get the jaw round ' + pretty(p.nm) + ' anywhere along it without the meter going through something: it runs in a duct or tight against the box. Clamp the same circuit on a wire that runs clear.'; }
+      { const fit = rec.clampFit, tip = (fit && fit.pulled ? ' The wire is pulled out a little, just enough to get the jaw round it.' : '') + (fit && fit.moved ? ' It went on where that wire runs clear: a jaw cannot close round a wire in a duct or flat on the plate.' : '') + (fit && fit.facing < 0.25 ? ' The screen faces away from where you stand: stand taller or step round it, or Read it close.' : ''); return 'clamped on ' + pretty(p.nm) + ': ' + r.text + '. ' + r.note + tip; } return 'clamped on ' + pretty(p.nm) + ': ' + r.text + '. ' + r.note; }
     if (meter.a && meter.b) { const r = readVolts(meter.a, meter.b); return 'red on ' + pretty(meter.a.nm) + ', black on ' + pretty(meter.b.nm) + ': ' + r.text + '. ' + r.note; }
     return 'red lead on ' + pretty(p.nm) + ' (' + p.why + '). Now click where the black one goes';
   }
   // round 77: a clamp left on a conductor keeps reading, so you can throw the HOA and WATCH the amps come up and settle
   setInterval(() => { if (meter && meter.kind === 'amps' && meter.a) { try { showMeter(); } catch (e) {} } }, 250);
   function meterDown() {
-    meter = null; meterUp = false;
-    if (meterObj) { camera.remove(meterObj); meterObj = null; }
+    meter = null; meterUp = false; clampStop();
+    if (meterObj) { if (meterObj.parent) meterObj.parent.remove(meterObj); meterObj = null; }
     for (const l of leadLines) { scene.remove(l); if (l.geometry) l.geometry.dispose(); }
     leadLines = [];
     for (const nm of ['lead_red_probe', 'lead_black_probe']) { const p = scene.getObjectByName(nm); if (p && p.userData.meterPart) scene.remove(p); }
@@ -2752,14 +3028,14 @@
     meterInHand(kind).then(() => { meterSetFn(kind === 'volts' ? 'vac' : 'amps'); showMeter(); meterButtons(); });
     meterLeads(); showMeter();
     return kind === 'volts' ? 'multimeter in hand: click where the red lead goes, then where the black one goes'
-      : 'clamp meter in hand: click a conductor and the jaw closes round it';
+      : 'clamp meter in hand: click a conductor and the meter goes out and clamps round it';
   }
   let tool = 'look';
   // Round 21 (Jake: "the first obvious layer: cabinet doors open, the garbage disposal makes a cutaway, the pipe makes a cutaway, riser
   // lids come off, all on the first click. It's when something else needs to function: Elevation takes you zoomed in on the side,
   // and the run tool makes something actually run"). So Look is doors, lids, covers, plugs, cutaways and the handles; Work runs.
   const TOOL_HINT = { meter: 'Multimeter: click where the red lead goes, then where the black one goes, and it reads what is between them',
-                      clamp: 'Clamp meter: click a conductor and the jaw closes round it',
+                      clamp: 'Clamp meter: click a conductor and the meter goes out and clamps round it',
                       grab: 'Pliers: click a lead to pull it off its tab and click a tab to put it back. Kill the power and discharge the capacitor first, or it will teach you why',
                       apart: 'Take apart: click a part of a unit and it comes out in front of you, turning, so you can look it over from every side; click again (or Put it back) and it goes back where it was',
                       look: 'Look: click a part. Doors, lids, covers and plugs come off, a part or a pipe cuts open, handles and switches work',
@@ -3343,7 +3619,101 @@
     const room = key.replace(/_\d+$/, '').split('_').map(w_ => PLACE_WORDS[w_] || w_).join(' ').replace(/master bedroom (bath|closet)/, 'master $1');
     return capFirst(room) + ' damper: ' + DAMPER_STEPS[nx][1] + ' Tap it again to turn it.';
   }
+  // ================================================================ round 78: the DUPLEX lift station (Jake 2026-09-21)
+  // Liberty D3672 on GR20 rails with an SJE Rhombus 122 panel. The basin and the panel are two placed units. What the 122 does, from SJE's
+  // sequence of operation: with the OFF float up, the LEAD float starts the lead pump; if the level still climbs to the LAG float the
+  // other pump comes on 3 seconds later; both run the basin down to the OFF float; the lead swaps every cycle; the ALARM float lights
+  // the beacon. Each pump has its own HOA and its own breaker, and the control circuit has its own breaker. The amps are Liberty's:
+  // 15 A full load and 53 A locked rotor for the LSG202M (D3672 spec p4).
+  const duplexSim = () => plantSims.find(S => S.cfg.duplex && S.inst.visible && S.inst.parent) || null;
+  const duplexPanel = () => equip.children.find(u => u.visible && /lift_station_duplex_panel/.test(u.userData.model || '')) || null;
+  function duplexState(S) { return S.dx || (S.dx = { lead: 1, on: { 1: false, 2: false }, onAt: { 1: 0, 2: 0 }, hoa: { 1: 'auto', 2: 'auto' }, brk: { 1: true, 2: true, c: true }, lagAt: 0, lagOn: false, cycle: false, cycles: 0 }); }
+  function duplexOut(S, k) { const A = S.inst.userData.anim, st = (A && A.state) || {}; return { pulled: !!(st['pump_' + k + '_pull'] && st['pump_' + k + '_pull'].open), shut: !!(st['valve_' + k + '_close'] && st['valve_' + k + '_close'].open) }; }
+  function duplexStep(S, cfg, dt) {
+    const D = duplexState(S), f = r => S.floats.find(F => F.d.role === r), off = f('off'), lead = f('on'), lag = f('lag'), al = f('alarm');
+    const panel = duplexPanel(), now = performance.now(), pw = !(breakers && breakers.septic === false), ctl = pw && D.brk.c;
+    if (ctl && off && lead && off.made && lead.made) D.cycle = true;
+    if (!off || !off.made || !ctl) { if (D.cycle && off && !off.made) { D.lead = D.lead === 1 ? 2 : 1; D.cycles++; } D.cycle = false; D.lagAt = 0; D.lagOn = false; }
+    if (ctl && lag && lag.made && off && off.made) { if (!D.lagAt) D.lagAt = now; if (now - D.lagAt > 3000) { D.lagOn = true; D.cycle = true; } }
+    let eff = 0;
+    for (const k of [1, 2]) {
+      const can = pw && D.brk[k]; let want = false;
+      if (D.hoa[k] === 'hand') want = can && S.level > cfg.floor_z + 0.12;
+      else if (D.hoa[k] === 'auto') want = can && ctl && D.cycle && (D.lead === k || D.lagOn);
+      if (want !== D.on[k]) { D.on[k] = want; if (want) D.onAt[k] = now;
+        if (panel) { playNamed(panel, 'contactor_' + k + '_pull', want); const rl = panel.getObjectByName('run_light_' + k + '_lit'); if (rl) rl.traverse(x => { x.visible = want; }); } }
+      const o_ = duplexOut(S, k); if (want && !o_.pulled && !o_.shut) eff++;
+    }
+    S.pumpOn = D.on[1] || D.on[2]; S.gpmNow = eff === 2 ? cfg.pump_gpm * 1.6 : eff * cfg.pump_gpm;     // two pumps into one 2 in header do not double the flow
+    const A = S.inst.userData.anim; if (A) (A.state[cfg.run_clip] || (A.state[cfg.run_clip] = { open: false })).open = eff > 0;
+    if (al && al.made !== S.alarm) { S.alarm = al.made; if (panel) { const o = panel.getObjectByName('alarm_lit'); if (o) o.traverse(x => { x.visible = S.alarm; }); } }
+  }
+  function duplexSay(S) {
+    const D = duplexState(S), a = [];
+    for (const k of [1, 2]) { const o_ = duplexOut(S, k); a.push('pump ' + k + (D.on[k] ? ' RUNNING' : ' off') + (D.hoa[k] !== 'auto' ? ' (' + D.hoa[k].toUpperCase() + ')' : '') + (D.brk[k] ? '' : ', breaker off') + (o_.pulled ? ', pulled up its rail' : '') + (o_.shut ? ', its ball valve shut' : '')); }
+    return a.join('; ') + '. Lead pump next cycle: ' + D.lead + '.';
+  }
+  function duplexClick(o) {
+    const inst = o.userData.inst || unitOf(o); if (!inst || !/lift_station_duplex/.test(inst.userData.model || '')) return null;
+    const S = duplexSim(); if (!S) return null; const D = duplexState(S); const nm = partName(o) || base(o.name); let m;
+    if ((m = /^hoa_(?:switch|lever)_([12])/.exec(nm))) { const k = +m[1], nx = { auto: 'hand', hand: 'off', off: 'auto' }[D.hoa[k]]; D.hoa[k] = nx;
+      playNamed(inst, 'hoa_' + k + '_hand', nx === 'hand'); playNamed(inst, 'hoa_' + k + '_off', nx === 'off');
+      return 'Pump ' + k + ' HOA: ' + (nx === 'hand' ? 'HAND. It runs whatever the floats say. Watch the level, a grinder run dry cooks its seal' : nx === 'off' ? 'OFF. This pump is out. The other one carries the basin, and the LAG float still brings it on' : 'AUTO. The floats and the alternator have it') + '. Tap again for the next position.'; }
+    if ((m = /^breaker_(pump_1|pump_2|control)/.exec(nm))) { const key = m[1] === 'control' ? 'c' : (m[1] === 'pump_1' ? 1 : 2); D.brk[key] = !D.brk[key]; playNamed(inst, 'breaker_' + m[1] + '_off', !D.brk[key]);
+      return (key === 'c' ? 'Control breaker' : 'Pump ' + key + ' breaker') + (D.brk[key] ? ' ON.' : ' OFF. ' + (key === 'c' ? 'No floats, no alternator, no alarm: only HAND will run a pump now' : 'That pump is dead. The panel will try it, nothing pulls, and the other pump does the work')); }
+    if ((m = /^(?:valve_handle|ball_valve)_([12])/.exec(nm))) { const k = +m[1], st = inst.userData.anim && inst.userData.anim.state['valve_' + k + '_close'], shut = !(st && st.open); playNamed(inst, 'valve_' + k + '_close', shut);
+      return 'Pump ' + k + ' ball valve: ' + (shut ? 'SHUT, handle across the pipe. That pump can run but it moves nothing, and its amps drop. This is the valve you shut to pull a check or a pump with the header still full' : 'OPEN, handle along the pipe') + '.'; }
+    if ((m = /^(?:pump|lift_chain)_([12])$/.exec(nm))) { const k = +m[1], st = inst.userData.anim && inst.userData.anim.state['pump_' + k + '_pull'], up = !(st && st.open);
+      if (up && D.on[k]) return 'Pump ' + k + ' is RUNNING. Put its HOA to OFF before you pull it: a grinder coming up its rail under power is how fingers get lost.';
+      playNamed(inst, 'pump_' + k + '_pull', up);
+      return up ? 'Pump ' + k + ' comes off the base elbow and up its rail on the chain. Nothing to unbolt: that is what the rail is for. The other pump keeps the basin.' : 'Pump ' + k + ' goes back down its rail and seats on the base elbow by its own weight.'; }
+    if (/^control_board|^alternating_relay|^lag_delay/.test(nm)) return 'SJE 122 board. ' + duplexSay(S);
+    return null;
+  }
+  // what the clamp reads in the 122 panel: Liberty's own figures for the LSG202M
+  function duplexAmps(o, nm) {
+    const inst = o.userData.inst || unitOf(o); if (!inst || !/lift_station_duplex/.test(inst.userData.model || '')) return null;
+    const S = duplexSim(); if (!S) return null; const D = duplexState(S); let m;
+    if (/^pump_cord_[12]$/.test(nm)) return { text: '0.0 A', note: 'the jaw is round the whole pump cord, so its two conductors cancel. Clamp ONE conductor, at the panel' };
+    if (/^wire_ctl_(l1|n)$/.test(nm)) return { text: (D.brk.c ? '0.3 A' : '0.0 A'), note: D.brk.c ? 'the 115 volt control feed: the board, the float circuits and the contactor coils. A fraction of an amp' : 'the control breaker is off' };
+    if (!(m = /^(?:wire|jumper|lead)_p([12])_/.exec(nm))) return null;
+    const k = +m[1], o_ = duplexOut(S, k);
+    if (breakers && breakers.septic === false) return { text: '0.0 A', note: 'the SEPTIC breaker in the load centre is off, so nothing in this panel is drawing' };
+    if (!D.brk[k]) return { text: '0.0 A', note: 'pump ' + k + ' breaker is off in this panel' };
+    if (!D.on[k]) return { text: '0.0 A', note: 'pump ' + k + ' is not running. ' + (D.hoa[k] === 'off' ? 'Its HOA is OFF' : 'In AUTO it waits for the floats, and it only takes every other cycle: put its HOA in HAND to test it') };
+    const age = performance.now() - D.onAt[k];
+    if (age < 900) return { text: '53.0 A', note: 'STARTING: 53 amps is Liberty\'s locked rotor figure for this grinder. It lasts under a second. Watch it fall' };
+    if (o_.pulled) return { text: '8.2 A', note: 'pump ' + k + ' is up its rail and running DRY: low amps, no load. Shut it off, the seal is cooking. (A usual figure, Liberty does not print one.)' };
+    if (o_.shut) return { text: '10.4 A', note: 'pump ' + k + ' is running against a SHUT ball valve: it moves no water, so it does less work and draws less. Low amps on a running pump means no flow. (A usual figure.)' };
+    return { text: '15.0 A', note: 'pump ' + k + ' at full load: 15 amps is Liberty\'s figure for the LSG202M at 230 volts. Both of its conductors read the same' };
+  }
+  // what a meter lead is on in the 122 panel
+  function duplexPoint(o, nm, inst) {
+    if (!inst || !/lift_station_duplex_panel/.test(inst.userData.model || '')) return null;
+    const S = duplexSim(); if (!S) return null; const D = duplexState(S), pw = !(breakers && breakers.septic === false); let m;
+    const dead = why => ({ nm, p: { v: 0, node: 'dead:' + nm }, why });
+    if ((m = /^wire_p([12])_l([12])$/.exec(nm))) return pw ? { nm, p: m[2] === '1' ? HOT_A : HOT_B, why: 'L' + m[2] + ' of the pump ' + m[1] + ' feed, ahead of its breaker' } : dead('the SEPTIC breaker in the load centre is off');
+    if ((m = /^jumper_p([12])_l([12])$/.exec(nm))) return pw && D.brk[+m[1]] ? { nm, p: m[2] === '1' ? HOT_A : HOT_B, why: 'L' + m[2] + ' between the pump ' + m[1] + ' breaker and its contactor' } : dead('pump ' + m[1] + ' breaker is off');
+    if ((m = /^(?:lead_p|wire_p|p)([12])_t([12])$/.exec(nm))) return pw && D.brk[+m[1]] && D.on[+m[1]] ? { nm, p: m[2] === '1' ? HOT_A : HOT_B, why: 'T' + m[2] + ' to pump ' + m[1] + ', live because its contactor is in' } : dead('T' + m[2] + ' to pump ' + m[1] + ' is only live while its contactor is pulled in');
+    if (/^wire_ctl_l1$|^tb1_[12]$/.test(nm)) return pw && (nm === 'wire_ctl_l1' || D.brk.c) ? { nm, p: HOT_A, why: 'the 115 volt control and alarm hot' } : dead('the control circuit is off');
+    if (/^wire_ctl_n$|^tb1_3$/.test(nm)) return { nm, p: { v: 0, node: 'N' }, why: 'the control neutral' };
+    if (/^ground_bar/.test(nm)) return { nm, p: { v: 0, node: 'G' }, why: 'the ground bar' };
+    if ((m = /^tb1_(\d+)$/.exec(nm))) return { nm, p: { v: 0, node: 'tb1:' + m[1] }, why: 'TB1 terminal ' + m[1] };
+    return null;
+  }
+  // a float across its own pair of TB1 screws: stop 3-4, lead 5-6, lag 7-8, alarm 9-10 (SJE's numbering)
+  function duplexOhms(a, b) {
+    const ia = a.o.userData.inst || unitOf(a.o); if (!ia || !/lift_station_duplex_panel/.test(ia.userData.model || '')) return null;
+    const ma = /^tb1_(\d+)$/.exec(a.nm), mb = /^tb1_(\d+)$/.exec(b.nm); if (!ma || !mb) return null;
+    const S = duplexSim(); if (!S) return null; const D = duplexState(S), lo = Math.min(+ma[1], +mb[1]), hi = Math.max(+ma[1], +mb[1]);
+    const PAIR = { '3-4': ['off', 'the STOP float'], '5-6': ['on', 'the LEAD float'], '7-8': ['lag', 'the LAG float'], '9-10': ['alarm', 'the ALARM float'] }[lo + '-' + hi];
+    if (!PAIR) return { text: 'OL', note: 'TB1 ' + lo + ' and ' + hi + ' are not one float\'s pair. The pairs are 3-4 stop, 5-6 lead, 7-8 lag, 9-10 alarm' };
+    if (D.brk.c && !(breakers && breakers.septic === false)) return { text: 'OL', note: 'the control circuit is LIVE: there is 115 volts on these terminals. Turn the control breaker off before you put an ohmmeter on a float' };
+    const F = S.floats.find(x => x.d.role === PAIR[0]), made = !!(F && F.made);
+    return { text: made ? '0.4' : 'OL', note: PAIR[1] + ' across TB1 ' + lo + ' and ' + hi + ': ' + (made ? 'CLOSED, it is tipped up in the water' : 'OPEN, it is hanging down. Lift it with the hook, or run water in, and it should close') };
+  }
   function lookAction(o, hit) {
+    { const dc_ = duplexClick(o); if (dc_) return dc_; }
     const nm = partName(o) || o.userData.label || base(o.name), pk = o.userData.pack ? o.userData.pack + ': ' : '';
     if (o.userData.inst && /attic_ladder/.test(o.userData.inst.userData.model || '')) return pk + ladderAction(o, o.userData.inst);
     // Look: the first obvious layer. Controls and switches, then whatever comes off (a plug, a lid, a door, a cover), then the
@@ -3861,7 +4231,7 @@
   const gb = document.getElementById('grabbtn'); if (gb) gb.onclick = () => { takePliers().then(m => { labelEl.textContent = m; labelEl.style.display = 'block'; }); };
   for (const b of document.querySelectorAll('[data-go]')) b.onclick = () => goTo(b.dataset.go);
   for (const c of document.querySelectorAll('[data-layer]')) c.onchange = () => { const k = c.dataset.layer; if (k === 'equipment') equip.visible = c.checked; else if (layers[k]) layers[k].visible = c.checked; };
-  addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); if (meterObj) meterPose(meterObj); });
+  addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); if (meterObj && !clampOn) meterPose(meterObj); });
   // ---------------------------------------------------------------- go
   (async () => {
     // Round 60 (Jake, on his phone: a minute and a half on "Building the house"): you are let in as soon as there is a house to
@@ -3890,7 +4260,7 @@
     }
     return renderer.domElement.toDataURL("image/png");
   }
-  window.walk = { plantSims, waters, stepFlow, syncFixtureFlows, syncPlant, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
+  window.walk = { plantSims, waters, stepFlow, syncFixtureFlows, syncPlant, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, clampTest, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
     // verification: put a lead on a named part, the same call a click on it makes
     meterTest: (nm, hitAt) => { const o = scene.getObjectByName(nm); if (!o) return 'no part called ' + nm;
       const at = hitAt ? new T.Vector3(hitAt[0], hitAt[1], hitAt[2]) : new T.Box3().setFromObject(o).getCenter(new T.Vector3());

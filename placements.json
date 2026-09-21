@@ -1831,6 +1831,55 @@
      "hide": []
     }
    }
+  },
+  {
+   "socket": "sock_lift_back",
+   "file": "site",
+   "pack": "lift_station_duplex",
+   "model": "lift_station_duplex.glb",
+   "yaw": 180,
+   "offset": [
+    4.572,
+    -0.8528,
+    0
+   ],
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "sewer_line",
+    "force_main",
+    "basin_section",
+    "water_fill_section"
+   ],
+   "config": "sewer=city_lift_duplex",
+   "alternate": true,
+   "show": [
+    "water_fill"
+   ],
+   "note": "Round 78 (Jake 2026-09-21): the duplex grinder station (lift_station_duplex, Liberty D3672 on GR20 rails). Basin centre at house (-9.9968, 7.62): on the simplex station's sewer line and on the force main's line to the west manhole. sock_lift_back is rot 90 and yaw 180 makes 270 in all: the model's +y (inlet) faces the house (east), its +x (bulkhead) faces the street (south), its -x (JB70) faces north. offset = R(270) inverse of (centre - socket). The house draws the sewer in, the 2 in force main out and the conduit to the JB70 (build_pipes.py)."
+  },
+  {
+   "socket": "sock_lift_back",
+   "file": "site",
+   "pack": "lift_station_duplex",
+   "model": "lift_station_duplex_panel.glb",
+   "yaw": 90,
+   "offset": [
+    -0.6874,
+    5.262,
+    0.48
+   ],
+   "hide": [],
+   "config": "sewer=city_lift_duplex",
+   "alternate": true,
+   "states": [
+    "alarm_lit",
+    "run_light_1_lit",
+    "run_light_2_lit"
+   ],
+   "note": "Round 78: the SJE 122 duplex panel on the west wall of the house where the simplex panel hangs in its layout (back on the wall at x -6.797, centre y 6.93, centre z 0.83), facing the yard. Built facing +x at model x -1.507, so yaw 90 on the rot 90 socket turns it to face west. Its stand and its own conduit are not in this file. Round 79: the 16 x 14 x 6 enclosure is 6 in deep and its back is at model x -1.6596, so offset x is -0.6874 to keep the back on the siding at -6.797."
   }
  ],
  "hide_patterns": [

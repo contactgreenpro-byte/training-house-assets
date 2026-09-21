@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T03:40:59",
- "house": "r77a",
- "note": "Round 77: lift station amps corrected, start up kick on the clamp, capacitors read with a lead pulled, pulled leads stay off",
+ "published": "2026-09-21T07:53:48",
+ "house": "r82a",
+ "note": "r82a: duplex grinder lift station on guide rails (48 x 96 basin, SJE 122 panel, new sewer choice); clamp meter goes out to the wire, hangs upright, pulls the wire out; romex conductors read their circuit",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -48,8 +48,8 @@
    "bytes": 311332
   },
   "drains.json": {
-   "v": "0557e25d20",
-   "bytes": 7687
+   "v": "0b7fb37730",
+   "bytes": 8197
   },
   "dryer.glb": {
    "v": "0c266ce22a",
@@ -120,16 +120,16 @@
    "bytes": 1119516
   },
   "house_framing.glb": {
-   "v": "f44f6ea996",
-   "bytes": 226792
+   "v": "83e903c0f6",
+   "bytes": 226780
   },
   "house_furniture.glb": {
-   "v": "1027178c65",
-   "bytes": 8858380
+   "v": "5eb95d9922",
+   "bytes": 8858308
   },
   "house_site.glb": {
-   "v": "fbe4b19de1",
-   "bytes": 7319556
+   "v": "3025db1071",
+   "bytes": 7374872
   },
   "house_slab.glb": {
    "v": "e170461dbb",
@@ -176,20 +176,28 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "f46451a561",
-   "bytes": 18406
+   "v": "dd76d6d5f1",
+   "bytes": 18604
   },
   "info.json": {
-   "v": "02cfa926f3",
-   "bytes": 111247
+   "v": "90348dc4a2",
+   "bytes": 118161
   },
   "interactions.json": {
-   "v": "6d4391bdd5",
-   "bytes": 63459
+   "v": "628b58f27c",
+   "bytes": 65211
   },
   "kitchen_sink.glb": {
    "v": "89e64c0103",
    "bytes": 1605780
+  },
+  "lift_station_duplex.glb": {
+   "v": "e3e1dacf06",
+   "bytes": 737540
+  },
+  "lift_station_duplex_panel.glb": {
+   "v": "f52b7d4f55",
+   "bytes": 1205412
   },
   "lift_station_r12.glb": {
    "v": "0d6bb8091b",
@@ -216,12 +224,12 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "b7963a135a",
-   "bytes": 2828996
+   "v": "8d49e03012",
+   "bytes": 2924220
   },
   "pipes_gas.glb": {
-   "v": "805046d5ee",
-   "bytes": 816184
+   "v": "fd24621905",
+   "bytes": 808276
   },
   "pipes_hvac.glb": {
    "v": "6f817dd009",
@@ -232,8 +240,8 @@
    "bytes": 2660772
   },
   "placements.json": {
-   "v": "0425a4d1f1",
-   "bytes": 64010
+   "v": "d8ef10d852",
+   "bytes": 67851
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -344,8 +352,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "1423b62ffc",
-   "bytes": 350069
+   "v": "1185bb6d22",
+   "bytes": 393477
   },
   "washer.glb": {
    "v": "7e04f19827",

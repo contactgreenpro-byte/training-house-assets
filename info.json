@@ -972,6 +972,117 @@
     "slide_blade": "Slide gate blade: pull it up by the tab to open the discharge, drop it to isolate the station"
    }
   },
+  "lift_station_duplex": {
+   "name": "Duplex Lift Station on Rails",
+   "clips": {
+    "pump_1_pull": "Pull pump 1 up its rail",
+    "pump_2_pull": "Pull pump 2 up its rail",
+    "valve_1_close": "Shut pump 1's ball valve",
+    "valve_2_close": "Shut pump 2's ball valve",
+    "lid_off": "Cover off",
+    "jb_cover_off": "Junction box cover off",
+    "panel_door_open": "Open the panel",
+    "fill_from_house": "Fill from the house",
+    "pump_down": "Pump down"
+   },
+   "hotspots": {
+    "rail_1": [
+     "This is the whole point of a rail station: the pump is not plumbed in. A claw on its discharge rides the rail down and lands on the base elbow, and the pump's own weight makes the seal. To service it you pull the chain. Nobody goes in the basin."
+    ],
+    "ball_valve_1": [
+     "Check valve first, ball valve above it, both up high where a hand reaches them. Shut the ball valve and you can pull the pump or the check with the header still full."
+    ],
+    "float_lead": [
+     "Four floats on a tree. STOP keeps the motors under water. LEAD starts a pump. LAG means one pump is losing, so the second joins it. ALARM is above all of them. If the lag float is doing the lead float's job, a float has failed or a pump is weak."
+    ],
+    "control_board": [
+     "The 122 swaps the lead pump every cycle so both wear evenly. If one pump does all the work, check that pump's HOA, its breaker, and then put a clamp on it in HAND: 15 amps running is a healthy LSG202M, 53 for an instant as it starts."
+    ],
+    "contactor_1": [
+     "Clamp one conductor of a pump in HAND. 15 amps is right. Around 10 with the pump running means it is moving no water: a shut valve, a stuck check, an air lock. Near 8 means it is running dry."
+    ]
+   },
+   "labels": {
+    "basin": "48 x 96 fiberglass basin with an anti-flotation flange. Bigger and deeper than Liberty's 36 in package, fitted with the same Liberty pumps, rails and valves",
+    "lid": "54-1/2 in fiberglass cover, bolted, with the vent in it",
+    "bulkhead": "2 in threaded PVC bulkhead where the header leaves the basin",
+    "pump_1": "Pump 1: Liberty Omnivore LSG202M 2 HP grinder. It hangs on its base elbow by a claw, feet off the floor. 15 amps running, 53 starting",
+    "pump_2": "Pump 2: the same grinder. The panel swaps which one leads every cycle",
+    "base_elbow_1": "GR20 base elbow, bolted to the floor. The pump seals against its face by its own weight",
+    "base_elbow_2": "GR20 base elbow for pump 2",
+    "rail_1": "Guide rail: one 1-1/4 in steel pipe. The pump's claw rides it down onto the base",
+    "rail_2": "Guide rail for pump 2",
+    "lift_chain_1": "Lifting chain. Pull it and the pump comes up the rail, nothing to unbolt",
+    "lift_chain_2": "Lifting chain for pump 2",
+    "riser_1": "1-1/4 in schedule 80 riser from pump 1",
+    "riser_2": "1-1/4 in schedule 80 riser from pump 2",
+    "check_valve_1": "Check valve on pump 1's riser. It stops the header draining back through an idle pump",
+    "check_valve_2": "Check valve on pump 2's riser",
+    "ball_valve_1": "PVC ball valve above the check. Shut it to service the check or pull the pump with the header full",
+    "ball_valve_2": "PVC ball valve on pump 2's riser",
+    "valve_handle_1": "Ball valve handle: along the pipe is open, across is shut",
+    "valve_handle_2": "Ball valve handle: along the pipe is open, across is shut",
+    "discharge_header": "2 in schedule 80 header. The two risers tee together here and go out to the force main",
+    "pump_cord_1": "Pump 1 power cord, up to the junction box",
+    "pump_cord_2": "Pump 2 power cord, up to the junction box",
+    "float_tree": "Float tree. The four floats clamp to it, out of the inlet stream",
+    "float_clamps": "Float clamps: each float on a 3-1/2 in tether",
+    "float_cords": "Float cords up to the junction box",
+    "float_off": "STOP float, 13 in off the floor. Both pumps run down to here. It keeps the motors covered",
+    "float_lead": "LEAD float, 36 in. It starts the lead pump",
+    "float_lag": "LAG float, 44 in. The lead pump is losing, so the second pump comes on 3 seconds later",
+    "float_alarm": "ALARM float, 52 in. Beacon and horn at the panel",
+    "junction_box": "JB70 junction box on the outside of the basin wall. The pump and float cords splice here to the conduit wires",
+    "jb_cover": "Junction box cover",
+    "inlet_grommet": "Inlet seal. The 4 in hub ships loose and is cut in on site",
+    "water_fill": "Sewage in the basin",
+    "inflow": "Flow coming in from the house",
+    "control_panel": "SJE Rhombus 122 duplex panel, NEMA 4X, red alarm beacon on top. The horn and the silence and test buttons are on the board inside",
+    "panel_door": "Panel door. The schematic is inside it",
+    "alarm_lit": "Alarm beacon lit: high water",
+    "breaker_pump_1": "Pump 1 breaker, two pole 30 amp",
+    "breaker_pump_2": "Pump 2 breaker, two pole 30 amp",
+    "breaker_control": "Control breaker, 15 amp 115 volt: the board, the floats and the alarm",
+    "breaker_pump_1_handle": "Pump 1 breaker handle",
+    "breaker_pump_2_handle": "Pump 2 breaker handle",
+    "breaker_control_handle": "Control breaker handle",
+    "contactor_1": "Pump 1 contactor. The board pulls it in to run the pump",
+    "contactor_2": "Pump 2 contactor",
+    "contactor_1_armature": "Pump 1 contactor, pulled in when it runs",
+    "contactor_2_armature": "Pump 2 contactor, pulled in when it runs",
+    "control_board": "The 122's board: alternator, lag delay, a light for every float, the lead and lag selector, the control power switch",
+    "hoa_switch_1": "Pump 1 Hand, Off, Auto switch",
+    "hoa_switch_2": "Pump 2 Hand, Off, Auto switch",
+    "hoa_lever_1": "Pump 1 HOA lever",
+    "hoa_lever_2": "Pump 2 HOA lever",
+    "run_light_1": "Pump 1 run light",
+    "run_light_2": "Pump 2 run light",
+    "run_light_1_lit": "Pump 1 running",
+    "run_light_2_lit": "Pump 2 running",
+    "fuse_control": "Control fuse",
+    "fuse_alarm": "Alarm fuse",
+    "terminal_strip": "TB1: 1 alarm hot, 2 control hot, 3 neutral, stop float 3-4, lead 5-6, lag 7-8, alarm 9-10",
+    "float_lights": "Float status lights: STOP, LEAD, LAG, ALARM",
+    "din_rail": "DIN rail",
+    "wire_duct": "Slotted wire duct: the gutter up the left and the cross duct under the contactors",
+    "duct_cover": "Wire duct cover",
+    "ground_bar": "Ground bar",
+    "wire_p1_l1": "Pump 1 feed, L1",
+    "wire_p1_l2": "Pump 1 feed, L2",
+    "wire_p2_l1": "Pump 2 feed, L1",
+    "wire_p2_l2": "Pump 2 feed, L2",
+    "wire_ctl_l1": "115 volt control feed, hot",
+    "wire_ctl_n": "Control feed, neutral",
+    "wire_p1_t1": "Out to pump 1, T1",
+    "wire_p1_t2": "Out to pump 1, T2",
+    "wire_p2_t1": "Out to pump 2, T1",
+    "wire_p2_t2": "Out to pump 2, T2",
+    "p1_t1": "Pump 1 terminal T1",
+    "p1_t2": "Pump 1 terminal T2",
+    "p2_t1": "Pump 2 terminal T1",
+    "p2_t2": "Pump 2 terminal T2"
+   }
+  },
   "pressure_tank": {
    "name": "Well Pressure Tank (garage)",
    "clips": {
