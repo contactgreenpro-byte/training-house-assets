@@ -62,6 +62,13 @@
   #setup .go button:disabled { opacity: .45; cursor: default; }
   #setup .note { color: #94a3b8; font-size: 12px; }
   #setup .err { color: #fca5a5; }
+  /* Show mode (2026-09-22): the "See it in 3D" link from Comms and the Home Portal opens the house already pointed at one thing.
+     The setup screen is only its loading line, and the tools, the Keys, Layout and Add ons tabs and Fly are gone
+     (Jake: "I've never used the fly, it goes"). The Views tab, the Layers tab, the stick, the eye slider and the gloves stay. */
+  body.showmode #setup .wrap > :not(#build):not(#ver) { display: none; }
+  body.showmode #setup .build { margin-top: 48px; }
+  body.showmode #toolbox, body.showmode #toolboxmenu, body.showmode #fly,
+  body.showmode [data-tab="keys"], body.showmode [data-tab="layout"], body.showmode [data-tab="addons"] { display: none !important; }
   /* Round 60: the eye height slider, directly above the thumb stick. Top is standing, bottom is crawling. */
   #eyebar { position: fixed; left: 27px; bottom: 162px; width: 46px; height: clamp(110px, calc(100vh - 232px), 260px); z-index: 40;
             touch-action: none; user-select: none; -webkit-user-select: none; cursor: ns-resize; }
@@ -152,7 +159,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '83a';
+  var SHELL = '86a';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -204,9 +211,14 @@
     });
   }
 
-  function start(map) {
+  function start(map, show) {
     if (window.__ASSETS) return;
     window.__ASSETS = map;
+    // Show mode: the parent named one thing to land on. The setup screen is never seen, the job's layout is built, and
+    // nothing about it is remembered (Jake, 2026-09-22: the job's layout is not the person's training pick, and a
+    // homeowner's guess is not a fact). An open with no start behaves as it always has.
+    SHOW = (show && show.mode === 'show') ? show : null;
+    if (SHOW) document.body.classList.add('showmode');
     window.__patchWalkLoader();
     if (!map['walk.js'] || !map['index.html']) {
       say('The walk page files are not uploaded yet. On the Assets page, upload walk.js and index.html from ' +
@@ -215,7 +227,7 @@
     }
     // build in the last layout this person entered, or the app's default house
     var last = remembered();
-    window.__WALK_START = Object.assign({}, APP_DEFAULTS, (last && last.set) || {});
+    window.__WALK_START = Object.assign({}, APP_DEFAULTS, (last && last.set) || {}, (SHOW && SHOW.set) || {});
     text(map['index.html'])
       .then(function (html) { mountPage(html); return text(map['walk.js']); })
       .then(function (code) { var x = expose(code); canSet = x.ok; return runScript(x.code); })
@@ -225,13 +237,13 @@
 
   window.addEventListener('message', function (e) {
     if (e.origin !== location.origin) return;
-    if (e.data && e.data.type === 'house-assets') { window.__HOUSE_SOURCE = e.data.source || ''; start(e.data.map); }
+    if (e.data && e.data.type === 'house-assets') { window.__HOUSE_SOURCE = e.data.source || ''; start(e.data.map, e.data.start); }
   });
   if (window.parent !== window) window.parent.postMessage({ type: 'house-ready' }, location.origin);
   else say('Open this from the app, which hands it the uploaded files.', true);
 
   // ------------------------------------------------------------------ the setup screen
-  var canSet = false, picked = {}, currentPreset = null, BASE = null;
+  var canSet = false, picked = {}, currentPreset = null, BASE = null, SHOW = null;
 
   var KEY_LABEL = {
     water_heater: 'Water heater', hvac: 'Heating and cooling', sewer: 'Sewer', water: 'Water supply',
@@ -400,6 +412,7 @@
       say('House is ready');
       $('build').classList.add('ready');
       $('enter').disabled = false;
+      if (SHOW) enterHouse();     // no Enter tap in show mode: the link opened the door
     })();
   }
 
@@ -429,23 +442,25 @@
     tab.addEventListener('click', function (e) { e.stopImmediatePropagation(); e.preventDefault(); openLayout(); }, true);
   }
 
-  $('enter').onclick = function () {
+  // The Enter tap, and in show mode the moment the house is ready. lockLandscape() only works from a person's own tap, so
+  // show mode skips it: the "Turn your phone sideways" screen still covers a phone held upright.
+  function enterHouse() {
     if (!isReady()) return;
     $('enter').disabled = true;
     var W = window.walk;
     var change = {};
     if (canSet && W.CONFIG) Object.keys(picked).forEach(function (k) { if (W.CONFIG[k] !== picked[k]) change[k] = picked[k]; });
-    remember({ preset: currentPreset, set: picked });
-    if (!inHouse) lockLandscape();
+    if (!SHOW) remember({ preset: currentPreset, set: picked });
+    if (!inHouse && !SHOW) lockLandscape();
     var go = function () {
-      setupEl.style.display = 'none';
+      if (!SHOW) setupEl.style.display = 'none';     // show mode keeps its loading line up until it has landed
       if (inHouse) return;
       inHouse = true;
       document.body.classList.add('inhouse');
       addGloves();
       addTouch();
       addEyeSlider();
-      hookLayoutTab();
+      if (SHOW) showLanding(); else hookLayoutTab();
     };
     if (!Object.keys(change).length) return go();
     $('enternote').textContent = 'Setting up your layout...';
@@ -453,7 +468,61 @@
     // keep the walk page's own Layers tab showing the same thing
     document.querySelectorAll('#layout select').forEach(function (sel) { if (change[sel.title] !== undefined) sel.value = change[sel.title]; });
     Promise.resolve(W.reconfigure()).then(go, function (e) { $('enternote').textContent = 'Could not set that up: ' + e.message; go(); });
-  };
+  }
+  $('enter').onclick = enterHouse;
+
+  // ------------------------------------------------------------------ show mode: land on the one thing the link named
+  // start: { mode: 'show', set: {...CONFIG keys}, model: 'toilet.glb', socket: 'sock_toilet_hall_bath', part: 'flush_valve',
+  //          view: 'part' | 'unit' | 'elevation' | 'layer', layer: 'pipes_gas' }
+  // The placed equipment arrives after the door opens, and only what is within reach (round 44: placements load on approach,
+  // the six nearest at start and the rest within 20 m or in view). So the person is first stood beside the unit's socket,
+  // which makes walk.js fetch it, and once it is in the scene goToUnit() puts them on the proper spot in front of it.
+  // Nothing here throws and nothing leaves a blank screen: whatever is not found, the house opens at the door as it does now.
+  function showLanding() {
+    var W = window.walk, S = SHOW;
+    var done = function () { setupEl.style.display = 'none'; };
+    try {
+      // the Keys tab is the one open by default and it is gone in this mode, so the Views tab takes its place
+      var views = document.querySelector('[data-tab="views"]'); if (views) views.click();
+      if (S.view === 'layer') { showLayer(S.layer); return done(); }
+      if (!S.model || !W.equip) return done();
+      var sk = S.socket && W.sockets && W.sockets[S.socket];
+      if (sk) { var sp = sk.getWorldPosition(new THREE.Vector3()); W.pos.x = sp.x; W.pos.z = sp.z; }     // beside its socket, so it loads
+      say('Finding the ' + (S.part || S.model).replace(/\.glb$/, '').replace(/_/g, ' ') + '...');
+      var tries = 0;
+      (function find() {
+        var u = null;
+        W.equip.children.forEach(function (c) { if (c.userData.model === S.model && (!S.socket || c.userData.socket === S.socket)) u = c; });
+        if (!u) {
+          if (!sk && tries === 12 && W.loadAll) W.loadAll();     // no socket to stand beside: after 3 s fetch the rest
+          if (++tries < 480) return setTimeout(find, 250);      // two minutes on a slow phone, then the house as it is
+          return done();
+        }
+        // the tick it is placed its world box is still empty and goToUnit has nothing to frame: it says so with null, so ask again
+        if (!W.goToUnit(u)) { if (++tries < 480) return setTimeout(find, 250); return done(); }
+        if (S.view !== 'elevation' && (S.view !== 'part' || !S.part)) return done();
+        // once the glide to the unit has ended (it moves you every frame, and would move you out of the elevation's pose)
+        var waits = 0;
+        (function settle() {
+          if (W.gliding && W.gliding() && ++waits < 130) return setTimeout(settle, 150);     // a throttled tab draws few frames and glides slowly
+          if (S.view === 'elevation') { try { W.elevation(u); } catch (e) { console.warn(e); } return done(); }
+          var part = null;
+          u.traverse(function (o) { if (!part && o.isMesh && o.visible && W.nodeName(o) === S.part) part = o; });
+          if (!part) { console.warn('show: no visible part called ' + S.part + ' on ' + S.model); return done(); }
+          try { W.viewPart(part); W.openPanel(part); } catch (e) { console.warn(e); }
+          done();
+        })();
+      })();
+    } catch (e) { console.warn(e); done(); }
+  }
+  // view 'layer': the gas line or the ductwork card. No unit: x-ray on, only that layer and the equipment showing, at the door.
+  function showLayer(layer) {
+    var x = document.getElementById('xray'); if (x && !x.classList.contains('on')) x.click();
+    document.querySelectorAll('[data-layer]').forEach(function (c) {
+      var keep = c.dataset.layer === 'equipment' || c.dataset.layer === layer;
+      if (c.checked !== keep) { c.checked = keep; if (c.onchange) c.onchange(); }
+    });
+  }
 
   // Sideways. Called straight from the Enter tap, because a browser only allows full screen and an orientation lock from a
   // person's own gesture. Android Chrome does both. An iPhone does neither from a web page, and nothing here throws: the

@@ -1,7 +1,7 @@
 {
- "published": "2026-09-21T09:01:46",
- "house": "r85a",
- "note": "r85a: condenser control box re-dressed (feed and ground out of the connector, real grommets, no wire through a wire), condenser pad only with a condenser",
+ "published": "2026-09-22T00:29:29",
+ "house": "r86a",
+ "note": "r86a: show mode for the See it in 3D link (start object on house-assets), socket stamp and viewPart export, toilet.glb loads again (all-zero morph target kept dense)",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -12,8 +12,8 @@
    "bytes": 22820
   },
   "app_shell.html": {
-   "v": "a343c89d06",
-   "bytes": 41133
+   "v": "38c7258929",
+   "bytes": 45908
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -144,12 +144,12 @@
    "bytes": 2887176
   },
   "hvac_condenser_ac.glb": {
-   "v": "62a6fb832b",
-   "bytes": 4140900
+   "v": "b6e49f851b",
+   "bytes": 4141720
   },
   "hvac_condenser_heatpump.glb": {
-   "v": "d7636cc3fb",
-   "bytes": 4904924
+   "v": "0000294629",
+   "bytes": 4907632
   },
   "hvac_furnace_cond96.glb": {
    "v": "9bac2e34ab",
@@ -176,8 +176,8 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "c67d1d3d11",
-   "bytes": 18604
+   "v": "94f55c92f6",
+   "bytes": 18406
   },
   "info.json": {
    "v": "effbc8c2e3",
@@ -336,8 +336,8 @@
    "bytes": 249036
   },
   "toilet.glb": {
-   "v": "f4bf294da8",
-   "bytes": 1260444
+   "v": "070260fab9",
+   "bytes": 1262108
   },
   "trampoline.glb": {
    "v": "4ab95d8399",
@@ -352,8 +352,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "365adb8d6c",
-   "bytes": 404903
+   "v": "f3941779c1",
+   "bytes": 400693
   },
   "washer.glb": {
    "v": "7e04f19827",

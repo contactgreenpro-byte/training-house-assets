@@ -228,7 +228,7 @@
   async function place(pl) {
     const sock = sockets[pl.socket]; if (!sock) { console.warn('no socket', pl.socket); return; }
     let g; try { g = await loadModel(pl.model.replace(/^little\//, '')); } catch (e) { console.warn(e.message); return; }
-    const inst = g.scene.clone(true); stampParts(g, inst); inst.userData.elevGroup = pl.elevation_group || null; tuneMaterials(inst); inst.userData.model = pl.model;
+    const inst = g.scene.clone(true); stampParts(g, inst); inst.userData.elevGroup = pl.elevation_group || null; tuneMaterials(inst); inst.userData.model = pl.model; inst.userData.socket = pl.socket;     // 2026-09-22: the socket tells the hall bath toilet from the master's for the show link
     if (g.animations && g.animations.length) { const mixer = new T.AnimationMixer(inst); mixers.push(mixer); inst.userData.anim = { mixer, clips: g.animations.map(c => c.clone()), state: {} }; }
     // the shower's two streams belong to the valve AND the diverter (Jake: the diverter sends the water to the spout or the head),
     // so the page owns them: their scale tracks come out of the clips and showerStreams() below shows the one the diverter picks
@@ -4332,7 +4332,7 @@
     }
     return renderer.domElement.toDataURL("image/png");
   }
-  window.walk = { plantSims, waters, stepFlow, syncFixtureFlows, syncPlant, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, clampTest, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
+  window.walk = { plantSims, waters, stepFlow, syncFixtureFlows, syncPlant, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, clampTest, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, viewPart, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
     // verification: put a lead on a named part, the same call a click on it makes
     meterTest: (nm, hitAt) => { const o = scene.getObjectByName(nm); if (!o) return 'no part called ' + nm;
       const at = hitAt ? new T.Vector3(hitAt[0], hitAt[1], hitAt[2]) : new T.Box3().setFromObject(o).getCenter(new T.Vector3());
