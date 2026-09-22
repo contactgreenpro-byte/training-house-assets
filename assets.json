@@ -1,7 +1,7 @@
 {
- "published": "2026-09-22T00:29:29",
- "house": "r86a",
- "note": "r86a: show mode for the See it in 3D link (start object on house-assets), socket stamp and viewPart export, toilet.glb loads again (all-zero morph target kept dense)",
+ "published": "2026-09-22T01:42:26",
+ "house": "r87a",
+ "note": "r87a: part cards (parts.json) in the panel, About card restyled and finds its pack, names for every placed unit, 12 new checklists, elevation opens from the cut side, show mode opens the door it faces",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -12,8 +12,8 @@
    "bytes": 22820
   },
   "app_shell.html": {
-   "v": "38c7258929",
-   "bytes": 45908
+   "v": "b81e2d57ea",
+   "bytes": 47220
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -36,8 +36,8 @@
    "bytes": 609804
   },
   "checklists.json": {
-   "v": "2a9230af08",
-   "bytes": 18527
+   "v": "fd7a45fd13",
+   "bytes": 26091
   },
   "clamp_meter.glb": {
    "v": "5262a30852",
@@ -176,12 +176,12 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "94f55c92f6",
-   "bytes": 18406
+   "v": "64ce7f136b",
+   "bytes": 19610
   },
   "info.json": {
-   "v": "effbc8c2e3",
-   "bytes": 119267
+   "v": "7a3157db47",
+   "bytes": 120738
   },
   "interactions.json": {
    "v": "1af0c67d7c",
@@ -214,6 +214,10 @@
   "outlet_surge.glb": {
    "v": "b6e3e4c637",
    "bytes": 598472
+  },
+  "parts.json": {
+   "v": "076bcaae44",
+   "bytes": 37065
   },
   "pipes.json": {
    "v": "161fcf7f90",
@@ -352,8 +356,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "f3941779c1",
-   "bytes": 400693
+   "v": "949741670d",
+   "bytes": 402798
   },
   "washer.glb": {
    "v": "7e04f19827",

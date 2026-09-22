@@ -356,6 +356,14 @@
     Object.defineProperty(labelEl, 'textContent', { configurable: true, get() { return d.get.call(this); }, set(v) { let f = v; try { f = friendly(v); } catch (e) { f = v; } d.set.call(this, f); } }); }
   const PACK_FLOWS = { kitchen_sink: ['faucet', 'disposal'], shower: ['tub'], 'little/washer': ['laundry'] };
   let panelFor = null, panelVerb = { key: null, verb: null };
+  // Round 87 (Jake: "when you click on it... what it is, how it works. Very simple. This is a capacitor"). parts.json: one short
+  // card per part name, and a prefix table for families (breaker_*, romex_*). Exact name first, then the longest prefix that fits.
+  let PARTS = {}, PART_PREFIX = [];
+  function partCard(nm) {
+    const n = String(nm || ''); if (!n) return null; if (PARTS[n]) return PARTS[n];
+    let best = null; for (const [p, t] of PART_PREFIX) if (n.startsWith(p) && (!best || p.length > best[0].length)) best = [p, t];
+    return best ? best[1] : null;
+  }
   // Round 34 (Jake: "if I click the disposal and it makes a cutaway, it should say garbage disposal, run it; it needs to be very clear"):
   // every part and every clip is filed under the component it belongs to, by name, and the panel is one section per component with the
   // clicked one first and open. The unit's own things (elevation, the whole unit out, the wall) sit last under the unit's name.
@@ -410,7 +418,10 @@
     b.el.style.display = 'block'; b.el.style.left = ((bx + 1) / 2 * innerWidth) + 'px'; b.el.style.top = ((1 - by) / 2 * innerHeight) + 'px';
   }
   function aboutUnit(inst, comp) {
-    const model = String(inst.userData.model || '').replace(/\.glb$/, '').replace(/^little\//, ''); const pack = inst.userData.pack || model;
+    const model = String(inst.userData.model || '').replace(/\.glb$/, '').replace(/^little\//, '');
+    // round 87: the pack is on the PLACEMENT (hvac_condenser), not the file name (hvac_condenser_ac); read from the file name the About card
+    // said "No notes for this unit yet" on every model whose file is not named like its pack
+    const pack = inst.userData.pack || (inst.userData.pl && inst.userData.pl.pack) || model;
     const ck = String(comp || '').toLowerCase().replace(/[^a-z]+/g, '_').replace(/^_|_$/g, '');
     const cc = (ck && (CHECKS[ck] || CHECKS[CHECK_ALIAS[ck]])) || null;
     const c = cc || CHECKS[pack] || CHECKS[model] || CHECKS[model.replace(/_(inside|attic|wall|two_tank|overland.*|softener)$/, '')] || null;
@@ -498,6 +509,8 @@
     // then what all I can do with it"). The part line is gone; the tab of the component you touched is the one that opens, which says it.
     // The close button sits in the title row now, so the panel can dock at the very top without a row of its own at the bottom.
     const xb = document.createElement('button'); xb.className = 'iclose'; xb.textContent = '×'; xb.title = 'close'; xb.onclick = () => { infoEl.style.display = 'none'; }; h.insertBefore(xb, h.firstChild);
+    // Round 87: the part's own card, right under the title: its name, what it is, how it works. From parts.json; nothing when the part has none.
+    const card = partCard(nm); if (card) { const w = document.createElement('div'); w.className = 'iwhat'; const b = document.createElement('b'); b.textContent = plainId(nm); const p = document.createElement('span'); p.textContent = card; w.appendChild(b); w.appendChild(p); infoEl.appendChild(w); }
     // Round 60 (Jake: "someone that built the app, like myself, I know where to go and what to do, but it's not very conducive to
     // someone being like, what's capable with this app? Can I see an elevation of something? Can I flush the toilet?"). Every unit
     // wears THE SAME verbs in THE SAME order: Use, Open, Cut away, Take apart, Elevation, About, and More for what is only on
@@ -576,7 +589,8 @@
     try { GRAB = await (await fetch('./grab.json' + CB)).json(); } catch (e) { GRAB = {}; }     // round 52: what the pliers can take hold of, and what has to be dead first
     try { INTER = await (await fetch('./interactions.json' + CB)).json(); } catch (e) { console.warn('no interactions.json: only pipes cut'); INTER = { models: {} }; }
     try { INFO = await (await fetch('./info.json' + CB)).json(); } catch (e) { INFO = { packs: {} }; }
-    try { CHECKS = (await (await fetch('./checklists.json' + CB)).json()).packs || {}; } catch (e) { CHECKS = {}; }     // round 39: what it is, how it works, what we check     // cache busted like the models: a stale placements file hid a new key for a whole test (round 19)
+    try { CHECKS = (await (await fetch('./checklists.json' + CB)).json()).packs || {}; } catch (e) { CHECKS = {}; }
+    try { const pj = await (await fetch('./parts.json' + CB)).json(); PARTS = pj.parts || {}; PART_PREFIX = Object.entries(pj._prefix || {}); } catch (e) { PARTS = {}; PART_PREFIX = []; }     // round 87: the card a tapped part shows     // round 39: what it is, how it works, what we check     // cache busted like the models: a stale placements file hid a new key for a whole test (round 19)
     queuePlacements(placements.placements.filter(wants));
     status.textContent = 'placing what is in reach'; await placeNearest(6);
     pumpsOnByDefault();
@@ -4115,7 +4129,14 @@
     // stand on the side the section took away, which is the open face; a unit with no sections is looked at from its
     // FRONT, which is the socket's +Y in Blender and the placed root's -Z here (the toilet's bowl end, the furnace's doors)
     let dir = null;
-    if (secs.length) { const away = c.clone().sub(cut.getCenter(new T.Vector3())); away.y = 0; if (away.lengthSq() > 1e-4) dir = away.normalize(); }
+    // Round 87 (Jake, the buried filter opened from its closed side: "spin around to the other side, the cutaway is coming from the
+    // other end"). The open face is the side of the SOLID the section replaced that the kept half does not cover. Measured against
+    // the whole unit's box instead, the excavation's soil block pulled the centre off the housing and the camera stood on the wrong side.
+    if (secs.length) {
+      const sb = new T.Box3(); for (const o of solids) sb.expandByObject(o);
+      const ref = sb.isEmpty() ? c : sb.getCenter(new T.Vector3());
+      const away = ref.clone().sub(cut.getCenter(new T.Vector3())); away.y = 0; if (away.lengthSq() > 1e-4) dir = away.normalize();
+    }
     if (!dir) { dir = new T.Vector3(0, 0, -1).applyQuaternion(root.getWorldQuaternion(new T.Quaternion())); dir.y = 0; dir = dir.lengthSq() > 1e-4 ? dir.normalize() : new T.Vector3(0, 0, 1); }
     const span = Math.max(size.x, size.y, size.z);
     const FOVE = 22; let d = (span * 0.62) / Math.tan(FOVE * Math.PI / 360) + span * 0.3;

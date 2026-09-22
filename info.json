@@ -888,7 +888,7 @@
    }
   },
   "lift_station": {
-   "name": "Residential simplex lift station (24 in fiberglass basin, 2 HP grinder)",
+   "name": "Lift Station (simplex grinder)",
    "clips": {
     "lid_off": "Unbolt and set the cover off",
     "panel_door_open": "Open the panel door",
@@ -1341,7 +1341,7 @@
    "labels": {}
   },
   "septic_atu": {
-   "name": "Advanced Treatment Unit (AquaKlear AK500 / Aqua Safe AS500)",
+   "name": "Aerobic Treatment Unit (AquaSafe)",
    "clips": {
     "aerate": "Aerator running (roll)",
     "high_water": "High water alarm",
@@ -2121,6 +2121,78 @@
     "flow_packets_out": "Out the pitless to the house",
     "backflow_packets": "Check valve failed: the water runs back down the well with the pump off"
    }
+  },
+  "easystart": {
+   "name": "Soft Starter (condenser)"
+  },
+  "flo_shutoff": {
+   "name": "Automatic Shutoff Valve (Flo)"
+  },
+  "flo_shutoff_attic": {
+   "name": "Automatic Shutoff Valve (attic)"
+  },
+  "flo_shutoff_wall": {
+   "name": "Automatic Shutoff Valve (wall)"
+  },
+  "smart_shutoff_valve": {
+   "name": "Automatic Shutoff Valve (Flo)"
+  },
+  "hvac_surge": {
+   "name": "Condenser Surge Protector"
+  },
+  "hybrid_water_heater": {
+   "name": "Heat Pump Water Heater"
+  },
+  "sweet_air": {
+   "name": "Hose Bib (frost free)"
+  },
+  "whole_house_spd": {
+   "name": "Whole House Surge Protector"
+  },
+  "outlet_surge": {
+   "name": "Surge Receptacle (air pump)"
+  },
+  "electric_panel": {
+   "name": "Electric Panel"
+  },
+  "thermostat": {
+   "name": "Thermostat"
+  },
+  "thermostat_programmable": {
+   "name": "Thermostat (programmable)"
+  },
+  "thermostat_smart_ecobee": {
+   "name": "Thermostat (ecobee)"
+  },
+  "thermostat_smart_nest": {
+   "name": "Thermostat (Nest)"
+  },
+  "spray_pump_filter": {
+   "name": "Spray Pump Filter"
+  },
+  "septic_aquaklear": {
+   "name": "Advanced Treatment Unit (AquaKlear)"
+  },
+  "uni_lateral": {
+   "name": "Uni Lateral Check Valve"
+  },
+  "atu_blower_panel": {
+   "name": "Air Pump and Control Panel"
+  },
+  "atu_blower_outlet": {
+   "name": "Air Pump on a Receptacle"
+  },
+  "spray_head_r22": {
+   "name": "Spray Head"
+  },
+  "spray_head_180_r22": {
+   "name": "Spray Head (half circle)"
+  },
+  "washer_box": {
+   "name": "Washer Box"
+  },
+  "attic_ladder": {
+   "name": "Attic Ladder"
   }
  }
 }

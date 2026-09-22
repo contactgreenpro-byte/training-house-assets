@@ -159,7 +159,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '86a';
+  var SHELL = '87a';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -500,12 +500,13 @@
         }
         // the tick it is placed its world box is still empty and goToUnit has nothing to frame: it says so with null, so ask again
         if (!W.goToUnit(u)) { if (++tries < 480) return setTimeout(find, 250); return done(); }
-        if (S.view !== 'elevation' && (S.view !== 'part' || !S.part)) return done();
         // once the glide to the unit has ended (it moves you every frame, and would move you out of the elevation's pose)
         var waits = 0;
         (function settle() {
           if (W.gliding && W.gliding() && ++waits < 130) return setTimeout(settle, 150);     // a throttled tab draws few frames and glides slowly
+          openDoorTo(u);
           if (S.view === 'elevation') { try { W.elevation(u); } catch (e) { console.warn(e); } return done(); }
+          if (S.view !== 'part' || !S.part) return done();     // the unit view: standing in front of it, its door open
           var part = null;
           u.traverse(function (o) { if (!part && o.isMesh && o.visible && W.nodeName(o) === S.part) part = o; });
           if (!part) { console.warn('show: no visible part called ' + S.part + ' on ' + S.model); return done(); }
@@ -514,6 +515,24 @@
         })();
       })();
     } catch (e) { console.warn(e); done(); }
+  }
+  // Round 87 (Jake, the furnace link landed on the closed closet door): walk.js's own rule stands you on the hall floor facing a
+  // closed closet and leaves the door to you. For a link, the door between where you stand and the unit is opened.
+  function openDoorTo(u) {
+    var W = window.walk; if (!W.doors || !W.toggleDoor || !W.pos || !W.where) return;
+    try {
+      // the door you are facing: walk.js stands you square to a closet and its unit's box (ducts and all) is no guide to where the
+      // door is, so the nearest closed door inside 2 m and within about 45 degrees of where you look is the one
+      var p = W.pos, yaw = W.where().yaw, lx = -Math.sin(yaw), lz = -Math.cos(yaw), best = null;
+      W.doors.forEach(function (d) {
+        if (d.userData.open || d.userData.garage) return;
+        var bc = new THREE.Box3().setFromObject(d).getCenter(new THREE.Vector3()); if (Math.abs(bc.y - p.y) > 2.2) return;
+        var vx = bc.x - p.x, vz = bc.z - p.z, dist = Math.hypot(vx, vz); if (dist < 0.05 || dist > 2.0) return;
+        if ((vx * lx + vz * lz) / dist < 0.7) return;
+        if (!best || dist < best.dist) best = { d: d, dist: dist };
+      });
+      if (best) W.toggleDoor(best.d);
+    } catch (e) { console.warn(e); }
   }
   // view 'layer': the gas line or the ductwork card. No unit: x-ray on, only that layer and the equipment showing, at the door.
   function showLayer(layer) {

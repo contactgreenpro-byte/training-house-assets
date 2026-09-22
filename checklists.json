@@ -91,8 +91,8 @@
    ]
   },
   "hvac_condenser": {
-   "what": "The outdoor unit of a split air conditioner. Compressor, condenser coil and fan.",
-   "how": "Refrigerant absorbs heat inside, the compressor pumps it out here, the fan blows outdoor air across the coil to dump that heat.",
+   "what": "The outdoor unit of a split system, air conditioner or heat pump. Compressor, outdoor coil and fan.",
+   "how": "Refrigerant absorbs heat inside, the compressor pumps it out here, the fan blows outdoor air across the coil to dump that heat. A heat pump runs the same loop backwards in winter through its reversing valve, pulling heat from the outdoor air into the house.",
    "checks": [
     "Coil clean",
     "Capacitor and contactor",
@@ -276,7 +276,7 @@
    ]
   },
   "smart_shutoff_valve": {
-   "what": "An automatic (Flo) shutoff valve on the main.",
+   "what": "An automatic (Flo) shutoff valve on the main, the same device as the Flo shutoff card.",
    "how": "It watches flow and pressure and closes the valve on a leak or by the app.",
    "checks": [
     "Wi Fi and power",
@@ -429,6 +429,157 @@
     "Pumps seated on their base elbows, chains and rails sound",
     "Junction box dry, cord grips tight",
     "Lid bolted, gasket good, vent clear"
+   ]
+  },
+  "thermostat": {
+   "what": "The thermostat. It reads the room and tells the furnace, the air conditioner and the fan when to run.",
+   "how": "Five low voltage wires: R is 24 volt power, W calls heat, Y calls cool, G runs the fan, C is common. When the room drifts past the set point it closes the call and the equipment starts.",
+   "checks": [
+    "Level and tight on the wall, sub base wires on the right terminals",
+    "Set point versus what the room reads",
+    "Heat, cool and fan each start on a call",
+    "Batteries or C wire power",
+    "Schedule set, not on hold by accident",
+    "Placement: not over a lamp, a register or in the sun"
+   ]
+  },
+  "thermostat_programmable": {
+   "what": "The thermostat. It reads the room and tells the furnace, the air conditioner and the fan when to run.",
+   "how": "Five low voltage wires: R is 24 volt power, W calls heat, Y calls cool, G runs the fan, C is common. When the room drifts past the set point it closes the call and the equipment starts.",
+   "checks": [
+    "Level and tight on the wall, sub base wires on the right terminals",
+    "Set point versus what the room reads",
+    "Heat, cool and fan each start on a call",
+    "Batteries or C wire power",
+    "Schedule set, not on hold by accident",
+    "Placement: not over a lamp, a register or in the sun"
+   ]
+  },
+  "thermostat_smart_ecobee": {
+   "what": "An ecobee smart thermostat. Reads the room, learns the schedule, and can be set from a phone.",
+   "how": "Five low voltage wires: R is 24 volt power, W calls heat, Y calls cool, G runs the fan, C is common. When the room drifts past the set point it closes the call and the equipment starts.",
+   "checks": [
+    "Level and tight on the wall, sub base wires on the right terminals",
+    "Set point versus what the room reads",
+    "Heat, cool and fan each start on a call",
+    "Batteries or C wire power",
+    "Schedule set, not on hold by accident",
+    "Placement: not over a lamp, a register or in the sun"
+   ]
+  },
+  "thermostat_smart_nest": {
+   "what": "A Nest smart thermostat. Reads the room, learns the schedule, and can be set from a phone.",
+   "how": "Five low voltage wires: R is 24 volt power, W calls heat, Y calls cool, G runs the fan, C is common. When the room drifts past the set point it closes the call and the equipment starts.",
+   "checks": [
+    "Level and tight on the wall, sub base wires on the right terminals",
+    "Set point versus what the room reads",
+    "Heat, cool and fan each start on a call",
+    "Batteries or C wire power",
+    "Schedule set, not on hold by accident",
+    "Placement: not over a lamp, a register or in the sun"
+   ]
+  },
+  "shower_two": {
+   "what": "The tub and shower with two handles: a hot valve, a cold valve, a spout with a diverter, and the head.",
+   "how": "Each handle opens its own stem valve and the two streams mix in the spout. Lifting the diverter on the spout sends the water up to the head. Waste goes down the drain shoe and the overflow to the trap.",
+   "checks": [
+    "Stems and seats: a drip at the spout means a worn washer or seat",
+    "Stem leaks behind the handles into the wall",
+    "Diverter holds: no water out the spout while showering",
+    "Drain shoe and overflow seals",
+    "Caulk at the tub and the trim",
+    "Head flow and scale"
+   ]
+  },
+  "spray_pump_filter": {
+   "what": "The filter on the spray pump: a screen around the intake that keeps solids out of the spray heads.",
+   "how": "Water is drawn in through the screen; the heads downstream have small orifices and a clogged head means the filter let something through or is torn.",
+   "checks": [
+    "Screen intact, no tears",
+    "Hose it off at every service",
+    "Pump seated back on its stand after cleaning"
+   ]
+  },
+  "septic_aquaklear": {
+   "what": "An AquaKlear aerobic treatment unit: an aerator, a clarifier and a pump in a fiberglass tank.",
+   "how": "Air from the blower keeps the bacteria working in the aeration chamber, the clarifier settles the solids and the airlift returns them, and the pump sends the clear water out to the spray heads through the chlorinator.",
+   "checks": [
+    "Aerator running, air line intact",
+    "Chlorine tablets in the chlorinator",
+    "Pump and floats",
+    "Sludge level and scum",
+    "Lids secure",
+    "Panel and alarm"
+   ]
+  },
+  "uni_lateral": {
+   "what": "A uni lateral check valve on the lift station force main: a check valve with a lever and weight.",
+   "how": "The flapper opens as the pump pushes water up and drops shut when it stops, so the force main does not drain back into the basin. The lever shows whether it is open or shut and lets you hold it open to drain the line.",
+   "checks": [
+    "Flapper seats: the basin does not refill from the force main after the pump stops",
+    "Lever moves freely",
+    "No weeping at the body or the unions"
+   ]
+  },
+  "atu_blower_panel": {
+   "what": "The air pump for the treatment plant with its control panel, at the house wall.",
+   "how": "The panel powers the pump and watches it: a pressure or current alarm sounds if the air stops. The pump runs all the time and pushes air down the air line to the plant.",
+   "checks": [
+    "Pump running, warm not hot",
+    "Filter pad clean",
+    "Alarm test",
+    "Air line from the pump to the plant intact",
+    "Panel dry, cord grips tight"
+   ]
+  },
+  "atu_blower_outlet": {
+   "what": "The air pump for the treatment plant, plugged into a receptacle at the house wall with no panel.",
+   "how": "The pump runs all the time on its own GFCI receptacle and pushes air down the air line to the plant. With no panel there is no alarm: a stopped pump shows up as a plant gone septic.",
+   "checks": [
+    "Pump running, warm not hot",
+    "Filter pad clean",
+    "GFCI receptacle holds, cover closes",
+    "Air line intact",
+    "Surge receptacle where fitted"
+   ]
+  },
+  "spray_head_r22": {
+   "what": "A spray head on the treatment plant's spray line. It pops up under pressure and throws the treated water over the lawn.",
+   "how": "The pump pressurizes the line, the head rises against its spring and the nozzle turns as it sprays. When the pump stops the head drops back flush with the grass.",
+   "checks": [
+    "Rises and turns when the pump runs",
+    "Spray pattern even, no clogged nozzle",
+    "Drops back down when the pump stops",
+    "Pattern stays on the lawn, off the house and the drive"
+   ]
+  },
+  "spray_head_180_r22": {
+   "what": "A half circle spray head at the edge of the field. It throws a 180 degree pattern so the spray stays off the fence or the drive.",
+   "how": "The pump pressurizes the line, the head rises against its spring and the nozzle turns as it sprays. When the pump stops the head drops back flush with the grass.",
+   "checks": [
+    "Rises and turns when the pump runs",
+    "Spray pattern even, no clogged nozzle",
+    "Drops back down when the pump stops",
+    "Pattern stays on the lawn, off the house and the drive"
+   ]
+  },
+  "washer_box": {
+   "what": "The washer box: the recessed box in the laundry wall with the hot and cold hose bibs and the standpipe.",
+   "how": "The hoses run from the bibs to the washer. The washer pumps its water up into the standpipe, which drains down through a trap. The bibs are the shutoffs when the washer is not in use.",
+   "checks": [
+    "Hoses: rubber ones over five years get replaced with braided",
+    "Bibs turn and shut",
+    "Standpipe height and trap",
+    "No water on the floor of the box"
+   ]
+  },
+  "attic_ladder": {
+   "what": "The pull down attic ladder in the garage ceiling.",
+   "how": "The door swings down on springs and the ladder unfolds. It is the way up to the attic equipment.",
+   "checks": [
+    "Springs and hinges tight",
+    "Ladder feet sit flat",
+    "Door closes and seals"
    ]
   }
  }
