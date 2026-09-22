@@ -159,7 +159,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '87b';
+  var SHELL = '88a';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -248,6 +248,7 @@
   var KEY_LABEL = {
     water_heater: 'Water heater', hvac: 'Heating and cooling', sewer: 'Sewer', water: 'Water supply',
     softener: 'Water softener', filter: 'Spray pump filter', thermostat: 'Thermostat', plumbing: 'Supply pipe',
+    sump: 'Sump pump in the crawl', shutoff_extra: 'Second shutoff valve',
     gas: 'Gas', fault: 'Fault to find',
   };
   var VAL_LABEL = {
@@ -265,6 +266,7 @@
     yes: 'Yes', no: 'No', programmable: 'Programmable', smart_ecobee: 'ecobee', smart_nest: 'Nest',
     cpvc: 'CPVC', pex: 'PEX', galvanized: 'Galvanized', natural: 'Natural gas', propane: 'Propane tank',
     none: 'None', belly: 'Belly in the sewer line',
+    wall: 'In the laundry wall', attic: 'On the attic cold run',
   };
   function nice(v) { return VAL_LABEL[v] || String(v).replace(/_/g, ' '); }
 
@@ -274,7 +276,7 @@
   var GROUPS = [
     { name: 'Heating and cooling', keys: ['hvac', 'thermostat'] },
     { name: 'Water heater', keys: ['water_heater'] },
-    { name: 'Water and sewer', keys: ['sewer', 'water', 'softener', 'filter'] },
+    { name: 'Water and sewer', keys: ['sewer', 'water', 'softener', 'filter', 'shutoff_extra', 'sump'] },
     { name: 'Piping and gas', keys: ['plumbing', 'gas'] },
     { name: 'Training', keys: ['fault'] },
   ];
@@ -364,7 +366,7 @@
       var t = d.dataset.keys.split(',').map(function (k) {
         var v = picked[k], lab = (KEY_LABEL[k] || k.replace(/_/g, ' ')).toLowerCase();
         if (v === 'yes') return lab;
-        if (v === 'no') return 'no ' + lab;
+        if (v === 'no' || v === 'none') return 'no ' + lab;     // round 88: 'no second shutoff valve', not a bare None
         return nice(v);
       }).join(', ');
       d.querySelector('summary em').textContent = t;
@@ -508,7 +510,11 @@
           return done();
         }
         // the tick it is placed its world box is still empty and goToUnit has nothing to frame: it says so with null, so ask again
-        if (!W.goToUnit(u)) { if (++tries < 480) return setTimeout(find, 250); return done(); }
+        var went = W.goToUnit(u);
+        if (!went) { if (++tries < 480) return setTimeout(find, 250); return done(); }
+        // nowhere to stand in front of it (the Flo over the attic joists: no floor within reach): show it in elevation instead of
+        // leaving the person on the floor below staring at a ceiling
+        if (/^no clear place/.test(went) && S.view === 'unit') S.view = 'elevation';
         // once the glide to the unit has ended (it moves you every frame, and would move you out of the elevation's pose)
         var waits = 0;
         (function settle() {

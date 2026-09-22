@@ -1,7 +1,7 @@
 {
- "published": "2026-09-22T03:24:37",
- "house": "r87a",
- "note": "r87b: house_links.json (check line to part map for Comms), plain unit name on the show mode loading line, shell 87b",
+ "published": "2026-09-22T04:37:35",
+ "house": "r88a",
+ "note": "r88a: sump pump basin and the wall and attic Flo valves placed behind sump and shutoff_extra switches, elevation fallback when there is nowhere to stand, links map updated",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -12,8 +12,8 @@
    "bytes": 22820
   },
   "app_shell.html": {
-   "v": "cbd61ddc92",
-   "bytes": 48012
+   "v": "8a2440c8bb",
+   "bytes": 48564
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -128,8 +128,8 @@
    "bytes": 8863204
   },
   "house_links.json": {
-   "v": "0b8bb6c199",
-   "bytes": 42172
+   "v": "ef61fd0c24",
+   "bytes": 43257
   },
   "house_site.glb": {
    "v": "c7bfedf0ba",
@@ -180,7 +180,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "64ce7f136b",
+   "v": "21244f50b6",
    "bytes": 19610
   },
   "info.json": {
@@ -248,8 +248,8 @@
    "bytes": 2660772
   },
   "placements.json": {
-   "v": "d8ef10d852",
-   "bytes": 67851
+   "v": "6e1692706f",
+   "bytes": 68842
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -360,8 +360,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "949741670d",
-   "bytes": 402798
+   "v": "b93c50b521",
+   "bytes": 403202
   },
   "washer.glb": {
    "v": "7e04f19827",

@@ -159,15 +159,31 @@
   },
   "flo_shutoff_attic": {
    "name": "Automatic Shutoff Valve (attic)",
-   "in_house": false,
-   "start_view": "unit",
-   "placements": []
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "flo_shutoff_attic.glb",
+     "socket": "sock_wh_attic",
+     "set": {
+      "shutoff_extra": "attic"
+     }
+    }
+   ]
   },
   "flo_shutoff_wall": {
    "name": "Automatic Shutoff Valve (wall)",
-   "in_house": false,
-   "start_view": "unit",
-   "placements": []
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "flo_shutoff_wall.glb",
+     "socket": "sock_laundry_box_laundry",
+     "set": {
+      "shutoff_extra": "wall"
+     }
+    }
+   ]
   },
   "gas_tank_water_heater": {
    "name": "Gas Tank Water Heater",
@@ -509,7 +525,8 @@
    "name": "Automatic Shutoff Valve (Flo)",
    "in_house": false,
    "start_view": "unit",
-   "placements": []
+   "placements": [],
+   "note": "same device as flo_shutoff: link to flo_shutoff.glb"
   },
   "spray_head_180_r22": {
    "name": "Spray Head (half circle)",
@@ -565,9 +582,17 @@
   },
   "sump_pump": {
    "name": "Pump Basin (crawl)",
-   "in_house": false,
-   "start_view": "unit",
-   "placements": []
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "sump_pump.glb",
+     "socket": "sock_toilet_hall_bath",
+     "set": {
+      "sump": "yes"
+     }
+    }
+   ]
   },
   "sweet_air": {
    "name": "Hose Bib (frost free)",
@@ -611,21 +636,45 @@
   },
   "thermostat_programmable": {
    "name": "Thermostat (programmable)",
-   "in_house": false,
+   "in_house": true,
    "start_view": "unit",
-   "placements": []
+   "placements": [
+    {
+     "model": "thermostat_programmable.glb",
+     "socket": "sock_stat_hall",
+     "set": {
+      "thermostat": "programmable"
+     }
+    }
+   ]
   },
   "thermostat_smart_ecobee": {
    "name": "Thermostat (ecobee)",
-   "in_house": false,
+   "in_house": true,
    "start_view": "unit",
-   "placements": []
+   "placements": [
+    {
+     "model": "thermostat_smart_ecobee.glb",
+     "socket": "sock_stat_hall",
+     "set": {
+      "thermostat": "smart_ecobee"
+     }
+    }
+   ]
   },
   "thermostat_smart_nest": {
    "name": "Thermostat (Nest)",
-   "in_house": false,
+   "in_house": true,
    "start_view": "unit",
-   "placements": []
+   "placements": [
+    {
+     "model": "thermostat_smart_nest.glb",
+     "socket": "sock_stat_hall",
+     "set": {
+      "thermostat": "smart_nest"
+     }
+    }
+   ]
   },
   "toilet": {
    "name": "Toilet",
@@ -998,40 +1047,40 @@
   "flo_shutoff_attic": [
    {
     "check": "Power and Wi Fi",
-    "part": null,
+    "part": "plug",
     "card": false
    },
    {
     "check": "Test close",
-    "part": null,
-    "card": false
+    "part": "flo_handle",
+    "card": true
    },
    {
     "check": "PEX transitions for leaks",
-    "part": null,
+    "part": "pex_run",
     "card": false
    },
    {
     "check": "Strapped on its block",
-    "part": null,
+    "part": "nm_cable",
     "card": false
    }
   ],
   "flo_shutoff_wall": [
    {
     "check": "Power and Wi Fi",
-    "part": null,
+    "part": "plug",
     "card": false
    },
    {
     "check": "Test close",
-    "part": null,
-    "card": false
+    "part": "flo_handle",
+    "card": true
    },
    {
     "check": "Leaks at the unions",
-    "part": null,
-    "card": false
+    "part": "flo_unions",
+    "card": true
    }
   ],
   "gas_tank_water_heater": [
@@ -1801,23 +1850,23 @@
   "sump_pump": [
    {
     "check": "Float free",
-    "part": null,
-    "card": false
+    "part": "float_pump",
+    "card": true
    },
    {
     "check": "Check valve",
-    "part": null,
-    "card": false
+    "part": "check_valve",
+    "card": true
    },
    {
     "check": "Discharge clear",
-    "part": null,
-    "card": false
+    "part": "discharge",
+    "card": true
    },
    {
     "check": "Test by filling the pit",
-    "part": null,
-    "card": false
+    "part": "basin",
+    "card": true
    }
   ],
   "sweet_air": [
@@ -1872,8 +1921,8 @@
   "thermostat_programmable": [
    {
     "check": "Level and tight on the wall, sub base wires on the right terminals",
-    "part": null,
-    "card": false
+    "part": "sub_plate",
+    "card": true
    },
    {
     "check": "Set point versus what the room reads",
@@ -1882,8 +1931,8 @@
    },
    {
     "check": "Heat, cool and fan each start on a call",
-    "part": null,
-    "card": false
+    "part": "head_ctl_mode",
+    "card": true
    },
    {
     "check": "Batteries or C wire power",
@@ -1892,8 +1941,8 @@
    },
    {
     "check": "Schedule set, not on hold by accident",
-    "part": null,
-    "card": false
+    "part": "head_ctl_schedule",
+    "card": true
    },
    {
     "check": "Placement",
@@ -1904,8 +1953,8 @@
   "thermostat_smart_ecobee": [
    {
     "check": "Level and tight on the wall, sub base wires on the right terminals",
-    "part": null,
-    "card": false
+    "part": "sub_plate",
+    "card": true
    },
    {
     "check": "Set point versus what the room reads",
@@ -1914,8 +1963,8 @@
    },
    {
     "check": "Heat, cool and fan each start on a call",
-    "part": null,
-    "card": false
+    "part": "head_ctl_mode",
+    "card": true
    },
    {
     "check": "Batteries or C wire power",
@@ -1924,8 +1973,8 @@
    },
    {
     "check": "Schedule set, not on hold by accident",
-    "part": null,
-    "card": false
+    "part": "head_ctl_schedule",
+    "card": true
    },
    {
     "check": "Placement",
@@ -1936,8 +1985,8 @@
   "thermostat_smart_nest": [
    {
     "check": "Level and tight on the wall, sub base wires on the right terminals",
-    "part": null,
-    "card": false
+    "part": "sub_plate",
+    "card": true
    },
    {
     "check": "Set point versus what the room reads",
@@ -1946,8 +1995,8 @@
    },
    {
     "check": "Heat, cool and fan each start on a call",
-    "part": null,
-    "card": false
+    "part": "head_ctl_mode",
+    "card": true
    },
    {
     "check": "Batteries or C wire power",
@@ -1956,8 +2005,8 @@
    },
    {
     "check": "Schedule set, not on hold by accident",
-    "part": null,
-    "card": false
+    "part": "head_ctl_schedule",
+    "card": true
    },
    {
     "check": "Placement",

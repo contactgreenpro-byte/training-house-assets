@@ -157,7 +157,8 @@
   // The equipment layout. Ten alternates ship with the house and none of them could be reached here: this was one
   // hardcoded object with no UI, so the walk page has only ever shown the default. The picker below changes it.
   const CONFIG = { water_heater: 'attic_gas_tank', hvac: 'split_furnace', sewer: 'septic_spray', water: 'city_filter', softener: 'yes', filter: 'no', plumbing: 'cpvc', gas: 'natural', fault: 'none',
-    soft_start: 'no', surge_condenser: 'no', surge_panel: 'no', reverse_osmosis: 'no', thermostat: 'programmable', expansion_tank: 'no' };     // round 45 (Jake): the add ons all start off
+    soft_start: 'no', surge_condenser: 'no', surge_panel: 'no', reverse_osmosis: 'no', thermostat: 'programmable', expansion_tank: 'no',
+    sump: 'no', shutoff_extra: 'none' };     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
   // The septic plant, the tank, the sewer and the water service are all BURIED, so the ground gets its own switch.
   const GROUND = ['floor_terrain', 'floor_lot', 'floor_street', 'floor_patch_lawn', 'trim_riser_collar', 'site_mow_stripes', 'site_beds', 'site_shrubs', 'floor_driveway', 'floor_walkway', 'floor_crawl', 'soil', 'grass', 'backfill'];
   let groundOn = true;
@@ -173,6 +174,8 @@
     thermostat: ['programmable', 'smart_ecobee', 'smart_nest'],     // round 45: which stat is on the hall wall (Jake)
     plumbing: ['cpvc', 'pex', 'galvanized'],     // round 25: the supply exists three ways (Jake: run everything in PEX, galvanized)
     gas: ['natural', 'propane'],                 // round 29: the utility meter set, or a 250 gallon tank in the side yard with its regulators (Jake)
+    sump: ['no', 'yes'],                         // round 88: the indoor pump basin under the hall bath (Jake: place the sump pump)
+    shutoff_extra: ['none', 'wall', 'attic'],    // round 88: a second Flo shutoff, in the laundry wall or on the attic cold run
     fault: ['none', 'belly']                     // round 29: the fault scenario: a belly in the city gravity lateral, standing water in it (Jake)
   };
   // a config value may list several layouts separated by a bar, for a run shared by two of them

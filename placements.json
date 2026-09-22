@@ -1,5 +1,5 @@
 {
- "_about": "Stage 2 (2026-09-08): which equipment GLB drops at which house socket, and what to hide when it does. Every inspection GLB carries its own scene context (a wall, a floor, grass, soil, a closet) so it can be inspected alone; in the house that context is hidden and the house provides it. The loader drops the model at the socket's world matrix (socket local +Y = front of the equipment), then applies yaw (degrees about the up axis) because most models were built with their front toward -Y and their wall side at +Y. Models live in the app under public/models and in the viewer under electric_tank_water_heater/viewer/models. Alternates share a socket; only the default is placed unless the house config picks the alternate. 'replaces' names the house fix_ placeholder boxes the loader hides when the model is present. 'offset' is a model-space translation (metres, applied before yaw) that moves the model's own wall plane onto the origin, so a socket placed on the house wall face lands the model against that wall: M = socket \u00d7 Rz(yaw) \u00d7 T(offset).",
+ "_about": "Stage 2 (2026-09-08): which equipment GLB drops at which house socket, and what to hide when it does. Every inspection GLB carries its own scene context (a wall, a floor, grass, soil, a closet) so it can be inspected alone; in the house that context is hidden and the house provides it. The loader drops the model at the socket's world matrix (socket local +Y = front of the equipment), then applies yaw (degrees about the up axis) because most models were built with their front toward -Y and their wall side at +Y. Models live in the app under public/models and in the viewer under electric_tank_water_heater/viewer/models. Alternates share a socket; only the default is placed unless the house config picks the alternate. 'replaces' names the house fix_ placeholder boxes the loader hides when the model is present. 'offset' is a model-space translation (metres, applied before yaw) that moves the model's own wall plane onto the origin, so a socket placed on the house wall face lands the model against that wall: M = socket × Rz(yaw) × T(offset).",
  "defaults": {
   "water_heater": "attic_gas_tank",
   "hvac": "split_furnace",
@@ -1880,6 +1880,100 @@
     "run_light_2_lit"
    ],
    "note": "Round 78: the SJE 122 duplex panel on the west wall of the house where the simplex panel hangs in its layout (back on the wall at x -6.797, centre y 6.93, centre z 0.83), facing the yard. Built facing +x at model x -1.507, so yaw 90 on the rot 90 socket turns it to face west. Its stand and its own conduit are not in this file. Round 79: the 16 x 14 x 6 enclosure is 6 in deep and its back is at model x -1.6596, so offset x is -0.6874 to keep the back on the siding at -6.797."
+  },
+  {
+   "socket": "sock_toilet_hall_bath",
+   "file": "floor1",
+   "pack": "sump_pump",
+   "model": "sump_pump.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "sump=yes",
+   "hide": [
+    "ctx_dirt",
+    "ctx_drain",
+    "ctx_floor",
+    "ctx_girder",
+    "ctx_joists"
+   ],
+   "states": [
+    "alarm_light_on",
+    "basin_water_high",
+    "check_backflow",
+    "ext_cord",
+    "float_pump_stuck",
+    "flow_packets",
+    "lid_unsealed",
+    "rag"
+   ],
+   "note": "Round 88 (Jake, 2026-09-22: place the sump pump). The indoor pump basin under the hall bath, built in this socket's frame (sump_pump/HANDOFF.md): 24 x 30 basin in the crawl dirt a metre west of the toilet drop, grinder pump, floats, 2 in discharge into a wye that sleeves over the building drain, simplex panel on the girder. Add on, off by default. Still owed by the house side: tie its vent into the hall bath vent, run its capped 3 in inlet from a fixture group, run the panel feed to the garage panel."
+  },
+  {
+   "socket": "sock_wh_attic",
+   "file": "attic",
+   "pack": "flo_shutoff_attic",
+   "model": "flo_shutoff_attic.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "shutoff_extra=attic",
+   "hide": [
+    "ctx_attic"
+   ],
+   "states": [
+    "flo_led_alert",
+    "flow_packets"
+   ],
+   "note": "Round 88 (Jake: place the other Flo valves). The Flo on the attic cold run, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, attic variant): CPVC x PEX transitions at y 7.80 and 8.80 on the cold riser at x -3.025 z 3.31, the brick in a receptacle on the joist. Add on, off by default. Owed by the pipe layer: cut the house cold riser between those two points, run the Romex on from 30 cm under the deck."
+  },
+  {
+   "socket": "sock_laundry_box_laundry",
+   "file": "floor1",
+   "pack": "flo_shutoff_wall",
+   "model": "flo_shutoff_wall.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "shutoff_extra=wall",
+   "hide": [
+    "ctx_drywall_hall",
+    "ctx_drywall_laundry",
+    "ctx_floor",
+    "ctx_framing",
+    "ctx_trunk"
+   ],
+   "states": [
+    "flo_led_alert",
+    "flow_packets"
+   ],
+   "reveal": {
+    "trigger": [
+     "access_door"
+    ],
+    "hide": [
+     "access_door"
+    ],
+    "bore": [
+     "access_frame",
+     "flo_body",
+     "flo_unions",
+     "riser",
+     "receptacle",
+     "plug"
+    ],
+    "note": "Round 88: click the access door and it comes off; the drywall is bored out around the box while it is open."
+   },
+   "note": "Round 88 (Jake: place the other Flo valves). The Flo in the laundry wall, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, wall variant): a 14 x 22 in access box in the x 0 wall at y 5.334, the riser up through the bottom plate, its NM cable ending in the crawl. Add on, off by default. Owed by the house: the opening cut in the laundry drywall (the reveal bores it while the door is open), the trunk cut at y 5.284 to 5.439."
   }
  ],
  "hide_patterns": [
