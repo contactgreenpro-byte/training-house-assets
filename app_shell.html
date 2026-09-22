@@ -159,7 +159,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '87a';
+  var SHELL = '87b';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -489,6 +489,15 @@
       var sk = S.socket && W.sockets && W.sockets[S.socket];
       if (sk) { var sp = sk.getWorldPosition(new THREE.Vector3()); W.pos.x = sp.x; W.pos.z = sp.z; }     // beside its socket, so it loads
       say('Finding the ' + (S.part || S.model).replace(/\.glb$/, '').replace(/_/g, ' ') + '...');
+      // the unit's plain name for the loading line, off the same info.json and placements.json the house reads (round 87b)
+      try {
+        var A = window.__ASSETS || {};
+        if (!S.part && A['placements.json'] && A['info.json']) Promise.all([text(A['placements.json']), text(A['info.json'])]).then(function (r) {
+          var pl = (JSON.parse(r[0]).packs || JSON.parse(r[0]).placements || []).filter(function (x) { return x.model === S.model && (!S.socket || x.socket === S.socket); })[0];
+          var nm = pl && pl.pack && JSON.parse(r[1]).packs[pl.pack] && JSON.parse(r[1]).packs[pl.pack].name;
+          if (nm && setupEl.style.display !== 'none') say('Finding the ' + nm.replace(/\s*\(.*\)$/, '').toLowerCase() + '...');
+        }).catch(function () {});
+      } catch (e) {}
       var tries = 0;
       (function find() {
         var u = null;

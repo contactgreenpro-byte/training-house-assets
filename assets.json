@@ -1,7 +1,7 @@
 {
- "published": "2026-09-22T02:32:36",
+ "published": "2026-09-22T03:24:37",
  "house": "r87a",
- "note": "r87b: 28 more part cards (alarm light, stems, base elbows, flow sensor, displays, spray pattern, lids, hose bib)",
+ "note": "r87b: house_links.json (check line to part map for Comms), plain unit name on the show mode loading line, shell 87b",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -12,8 +12,8 @@
    "bytes": 22820
   },
   "app_shell.html": {
-   "v": "b81e2d57ea",
-   "bytes": 47220
+   "v": "cbd61ddc92",
+   "bytes": 48012
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -126,6 +126,10 @@
   "house_furniture.glb": {
    "v": "8a6afe1391",
    "bytes": 8863204
+  },
+  "house_links.json": {
+   "v": "0b8bb6c199",
+   "bytes": 42172
   },
   "house_site.glb": {
    "v": "c7bfedf0ba",

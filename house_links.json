@@ -1,0 +1,2153 @@
+{
+ "note": "Round 87b (2026-09-22): the house side of the See it in 3D link, for src/lib/houseLink.js in Comms. packs: for each checklist card, the model files and sockets that carry it (with the CONFIG tag each needs), the plain name, and the start view we recommend when the link has no part (elevation for buried tanks and pumps, unit otherwise). checks: one row per line of the card, in the card's order, with the part to land on (null: open the unit) and whether that part has its own card. Built by hand and by word match against the GLB node names; a part listed here exists as a visible node in that model. Regenerate with tools/build_house_links.py.",
+ "packs": {
+  "attic_ladder": {
+   "name": "Attic Ladder",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "attic_ladder.glb",
+     "socket": "sock_attic_ladder_garage",
+     "set": null
+    }
+   ]
+  },
+  "atu_blower_outlet": {
+   "name": "Air Pump on a Receptacle",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "atu_blower_outlet.glb",
+     "socket": "sock_atu_blower_panel",
+     "set": "sewer=septic_spray|septic_spray_two_tank|septic_overland_lee|septic_overland_aquaklear"
+    }
+   ]
+  },
+  "atu_blower_panel": {
+   "name": "Air Pump and Control Panel",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "atu_blower_panel.glb",
+     "socket": "sock_atu_blower_panel",
+     "set": {
+      "sewer": "septic_overland"
+     }
+    }
+   ]
+  },
+  "bath_vanity": {
+   "name": "Bathroom Sink and Vanity",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "bath_vanity.glb",
+     "socket": "sock_vanity_hall_bath",
+     "set": null
+    },
+    {
+     "model": "bath_vanity.glb",
+     "socket": "sock_vanity_master_bath",
+     "set": null
+    }
+   ]
+  },
+  "condensate_pump": {
+   "name": "Condensate Pump (furnace closet)",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "condensate_pump.glb",
+     "socket": "sock_ahu_closet_hall",
+     "set": {
+      "hvac": "split_furnace_cond96"
+     }
+    }
+   ]
+  },
+  "disposal": {
+   "name": "Garbage Disposal",
+   "in_house": false,
+   "start_view": "unit",
+   "placements": []
+  },
+  "easystart": {
+   "name": "Soft Starter (condenser)",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "easystart.glb",
+     "socket": "sock_cond_side",
+     "set": "hvac=split_furnace|split_furnace_cond96|heatpump_attic&soft_start=yes"
+    }
+   ]
+  },
+  "electric_panel": {
+   "name": "Electric Panel",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "electric_panel.glb",
+     "socket": "sock_panel_garage",
+     "set": null
+    }
+   ]
+  },
+  "electric_tank_water_heater": {
+   "name": "Electric Tank Water Heater",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "electric_tank_water_heater.glb",
+     "socket": "sock_wh_attic",
+     "set": {
+      "water_heater": "attic_electric_tank"
+     }
+    },
+    {
+     "model": "electric_tank_water_heater.glb",
+     "socket": "sock_wh_closet_coat",
+     "set": {
+      "water_heater": "closet_electric_tank"
+     }
+    }
+   ]
+  },
+  "electric_tankless_water_heater": {
+   "name": "Electric Tankless Water Heater",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "electric_tankless_water_heater.glb",
+     "socket": "sock_wh_garage",
+     "set": {
+      "water_heater": "garage_electric_tankless"
+     }
+    }
+   ]
+  },
+  "flo_shutoff": {
+   "name": "Automatic Shutoff Valve (Flo)",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "flo_shutoff.glb",
+     "socket": "sock_shutoff_front",
+     "set": {
+      "water": "city_filter",
+      "softener": "no"
+     }
+    },
+    {
+     "model": "flo_shutoff_softener.glb",
+     "socket": "sock_softener_garage",
+     "set": {
+      "softener": "yes"
+     }
+    }
+   ]
+  },
+  "flo_shutoff_attic": {
+   "name": "Automatic Shutoff Valve (attic)",
+   "in_house": false,
+   "start_view": "unit",
+   "placements": []
+  },
+  "flo_shutoff_wall": {
+   "name": "Automatic Shutoff Valve (wall)",
+   "in_house": false,
+   "start_view": "unit",
+   "placements": []
+  },
+  "gas_tank_water_heater": {
+   "name": "Gas Tank Water Heater",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "gas_tank_water_heater.glb",
+     "socket": "sock_wh_attic",
+     "set": {
+      "water_heater": "attic_gas_tank"
+     }
+    },
+    {
+     "model": "gas_tank_water_heater.glb",
+     "socket": "sock_wh_closet_coat",
+     "set": {
+      "water_heater": "closet_gas_tank"
+     }
+    }
+   ]
+  },
+  "gas_tankless_water_heater": {
+   "name": "Gas Tankless Water Heater",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "gas_tankless_water_heater_condensing.glb",
+     "socket": "sock_wh_garage",
+     "set": {
+      "water_heater": "garage_tankless"
+     }
+    }
+   ]
+  },
+  "hvac_air_handler": {
+   "name": "Indoor Air Handler and Coil",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "hvac_air_handler_horizontal.glb",
+     "socket": "sock_ahu_attic",
+     "set": {
+      "hvac": "heatpump_attic"
+     }
+    }
+   ]
+  },
+  "hvac_condenser": {
+   "name": "Outdoor Unit: Condenser or Heat Pump",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "hvac_condenser_ac.glb",
+     "socket": "sock_cond_side",
+     "set": "hvac=split_furnace|split_furnace_cond96"
+    },
+    {
+     "model": "hvac_condenser_heatpump.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "heatpump_attic"
+     }
+    }
+   ]
+  },
+  "hvac_furnace": {
+   "name": "Gas Furnace",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "hvac_furnace_std80.glb",
+     "socket": "sock_ahu_closet_hall",
+     "set": {
+      "hvac": "split_furnace"
+     }
+    },
+    {
+     "model": "hvac_furnace_cond96.glb",
+     "socket": "sock_ahu_closet_hall",
+     "set": {
+      "hvac": "split_furnace_cond96"
+     }
+    }
+   ]
+  },
+  "hvac_minisplit": {
+   "name": "Mini Split",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "hvac_minisplit.glb",
+     "socket": "sock_hosebib_back",
+     "set": null
+    }
+   ]
+  },
+  "hvac_package": {
+   "name": "Package Unit and Gas Pack",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "hvac_package_gaspack.glb",
+     "socket": "sock_pkg_side",
+     "set": {
+      "hvac": "gas_pack"
+     }
+    }
+   ]
+  },
+  "hvac_surge": {
+   "name": "Condenser Surge Protector",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "hvac_surge.glb",
+     "socket": "sock_cond_side",
+     "set": "hvac=split_furnace|split_furnace_cond96|heatpump_attic&surge_condenser=yes"
+    }
+   ]
+  },
+  "hybrid_water_heater": {
+   "name": "Heat Pump Water Heater",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "hybrid_water_heater.glb",
+     "socket": "sock_wh_garage",
+     "set": {
+      "water_heater": "garage_hybrid"
+     }
+    }
+   ]
+  },
+  "kitchen_sink": {
+   "name": "Kitchen Sink and Cabinet",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "kitchen_sink.glb",
+     "socket": "sock_kitchen_sink_kitchen",
+     "set": null
+    }
+   ]
+  },
+  "lift_station": {
+   "name": "Lift Station (simplex grinder)",
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "lift_station_r12.glb",
+     "socket": "sock_lift_back",
+     "set": {
+      "sewer": "city_lift"
+     }
+    }
+   ]
+  },
+  "lift_station_duplex": {
+   "name": "Duplex Lift Station on Rails",
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "lift_station_duplex.glb",
+     "socket": "sock_lift_back",
+     "set": {
+      "sewer": "city_lift_duplex"
+     }
+    },
+    {
+     "model": "lift_station_duplex_panel.glb",
+     "socket": "sock_lift_back",
+     "set": {
+      "sewer": "city_lift_duplex"
+     }
+    }
+   ]
+  },
+  "outlet_surge": {
+   "name": "Surge Receptacle (air pump)",
+   "in_house": false,
+   "start_view": "unit",
+   "placements": []
+  },
+  "pressure_tank": {
+   "name": "Well Pressure Tank (garage)",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "pressure_tank.glb",
+     "socket": "sock_pressure_tank_garage",
+     "set": {
+      "water": "well"
+     }
+    }
+   ]
+  },
+  "pump_tank": {
+   "name": "Pump Tank and Dosing",
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "pump_tank.glb",
+     "socket": "sock_pump_tank_back",
+     "set": {
+      "sewer": "septic_spray_two_tank"
+     }
+    }
+   ]
+  },
+  "pump_wiring": {
+   "name": "Spray pump wiring: plug in, UF direct burial, float and pump splices",
+   "in_house": false,
+   "start_view": "unit",
+   "placements": []
+  },
+  "septic_aquaklear": {
+   "name": "Advanced Treatment Unit (AquaKlear)",
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "septic_aquaklear.glb",
+     "socket": "sock_atu_back",
+     "set": {
+      "sewer": "septic_spray_two_tank"
+     }
+    },
+    {
+     "model": "septic_aquaklear.glb",
+     "socket": "sock_atu_back",
+     "set": {
+      "sewer": "septic_overland_aquaklear"
+     }
+    }
+   ]
+  },
+  "septic_atu": {
+   "name": "Aerobic Treatment Unit (AquaSafe)",
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "septic_aquasafe.glb",
+     "socket": "sock_septic_tank_back",
+     "set": {
+      "sewer": "septic_overland"
+     }
+    }
+   ]
+  },
+  "septic_field": {
+   "name": "Absorption field (Infiltrator Quick4 Plus chambers)",
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "septic_field_dbox.glb",
+     "socket": "sock_septic_dbox_back",
+     "set": {
+      "sewer": "septic_gravity"
+     }
+    }
+   ]
+  },
+  "septic_lee": {
+   "name": "Advanced Treatment Unit, Spray Field",
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "septic_lee.glb",
+     "socket": "sock_atu_back",
+     "set": {
+      "sewer": "septic_spray"
+     }
+    },
+    {
+     "model": "septic_lee_overland.glb",
+     "socket": "sock_atu_back",
+     "set": {
+      "sewer": "septic_overland_lee"
+     }
+    }
+   ]
+  },
+  "septic_tank": {
+   "name": "Septic tank (1000 gal concrete or Infiltrator IM-1060 poly)",
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "septic_tank_risers.glb",
+     "socket": "sock_septic_tank_back",
+     "set": {
+      "sewer": "septic_gravity"
+     }
+    }
+   ]
+  },
+  "shower": {
+   "name": "Shower, Single Handle",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "shower.glb",
+     "socket": "sock_tub_master_bath",
+     "set": null
+    }
+   ]
+  },
+  "shower_two": {
+   "name": "Tub and Shower, Two Handle",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "shower_two.glb",
+     "socket": "sock_tub_hall_bath",
+     "set": null
+    }
+   ]
+  },
+  "smart_shutoff_valve": {
+   "name": "Automatic Shutoff Valve (Flo)",
+   "in_house": false,
+   "start_view": "unit",
+   "placements": []
+  },
+  "spray_head_180_r22": {
+   "name": "Spray Head (half circle)",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "spray_head_180_r22.glb",
+     "socket": "sock_spray_3",
+     "set": "sewer=septic_spray|septic_spray_two_tank"
+    }
+   ]
+  },
+  "spray_head_r22": {
+   "name": "Spray Head",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "spray_head_r22.glb",
+     "socket": "sock_spray_1",
+     "set": "sewer=septic_spray|septic_spray_two_tank"
+    },
+    {
+     "model": "spray_head_r22.glb",
+     "socket": "sock_spray_2",
+     "set": "sewer=septic_spray|septic_spray_two_tank"
+    }
+   ]
+  },
+  "spray_pump_filter": {
+   "name": "Spray Pump Filter",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "spray_pump_filter.glb",
+     "socket": "sock_atu_back",
+     "set": {
+      "sewer": "septic_spray",
+      "filter": "yes"
+     }
+    },
+    {
+     "model": "spray_pump_filter.glb",
+     "socket": "sock_pump_tank_back",
+     "set": {
+      "sewer": "septic_spray_two_tank",
+      "filter": "yes"
+     }
+    }
+   ]
+  },
+  "sump_pump": {
+   "name": "Pump Basin (crawl)",
+   "in_house": false,
+   "start_view": "unit",
+   "placements": []
+  },
+  "sweet_air": {
+   "name": "Hose Bib (frost free)",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "sweet_air.glb",
+     "socket": "sock_hosebib_front",
+     "set": null
+    }
+   ]
+  },
+  "thermostat": {
+   "name": "Thermostat",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "thermostat_programmable.glb",
+     "socket": "sock_stat_hall",
+     "set": {
+      "thermostat": "programmable"
+     }
+    },
+    {
+     "model": "thermostat_smart_ecobee.glb",
+     "socket": "sock_stat_hall",
+     "set": {
+      "thermostat": "smart_ecobee"
+     }
+    },
+    {
+     "model": "thermostat_smart_nest.glb",
+     "socket": "sock_stat_hall",
+     "set": {
+      "thermostat": "smart_nest"
+     }
+    }
+   ]
+  },
+  "thermostat_programmable": {
+   "name": "Thermostat (programmable)",
+   "in_house": false,
+   "start_view": "unit",
+   "placements": []
+  },
+  "thermostat_smart_ecobee": {
+   "name": "Thermostat (ecobee)",
+   "in_house": false,
+   "start_view": "unit",
+   "placements": []
+  },
+  "thermostat_smart_nest": {
+   "name": "Thermostat (Nest)",
+   "in_house": false,
+   "start_view": "unit",
+   "placements": []
+  },
+  "toilet": {
+   "name": "Toilet",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "toilet.glb",
+     "socket": "sock_toilet_wc",
+     "set": null
+    },
+    {
+     "model": "toilet.glb",
+     "socket": "sock_toilet_hall_bath",
+     "set": null
+    }
+   ]
+  },
+  "uni_lateral": {
+   "name": "Uni Lateral Check Valve",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "uni_lateral.glb",
+     "socket": "sock_lift_back",
+     "set": {
+      "sewer": "city_lift"
+     }
+    }
+   ]
+  },
+  "washer_box": {
+   "name": "Washer Box",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "washer_box.glb",
+     "socket": "sock_laundry_box_laundry",
+     "set": null
+    }
+   ]
+  },
+  "water_filter": {
+   "name": "Whole House Filter (HP buried KDF 55)",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "water_filter.glb",
+     "socket": "sock_filter_street",
+     "set": {
+      "water": "city_filter"
+     }
+    }
+   ]
+  },
+  "water_softener": {
+   "name": "Water Softener (garage)",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "water_softener.glb",
+     "socket": "sock_softener_garage",
+     "set": {
+      "softener": "yes"
+     }
+    }
+   ]
+  },
+  "well_pump": {
+   "name": "Well and Submersible Pump",
+   "in_house": true,
+   "start_view": "elevation",
+   "placements": [
+    {
+     "model": "well_pump.glb",
+     "socket": "sock_well_side",
+     "set": {
+      "water": "well"
+     }
+    }
+   ]
+  },
+  "whole_house_spd": {
+   "name": "Whole House Surge Protector",
+   "in_house": true,
+   "start_view": "unit",
+   "placements": [
+    {
+     "model": "whole_house_spd_inside.glb",
+     "socket": "sock_panel_garage",
+     "set": {
+      "surge_panel": "yes"
+     }
+    }
+   ]
+  }
+ },
+ "checks": {
+  "attic_ladder": [
+   {
+    "check": "Springs and hinges tight",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Ladder feet sit flat",
+    "part": "ladder_sec3",
+    "card": false
+   },
+   {
+    "check": "Door closes and seals",
+    "part": "ladder_door",
+    "card": true
+   }
+  ],
+  "atu_blower_outlet": [
+   {
+    "check": "Pump running, warm not hot",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Filter pad clean",
+    "part": "blower_pad",
+    "card": true
+   },
+   {
+    "check": "GFCI receptacle holds, cover closes",
+    "part": "receptacle_cover",
+    "card": false
+   },
+   {
+    "check": "Air line intact",
+    "part": "air_stub",
+    "card": true
+   },
+   {
+    "check": "Surge receptacle where fitted",
+    "part": "receptacle",
+    "card": true
+   }
+  ],
+  "atu_blower_panel": [
+   {
+    "check": "Pump running, warm not hot",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Filter pad clean",
+    "part": "blower_pad",
+    "card": true
+   },
+   {
+    "check": "Alarm test",
+    "part": "alarm_lit",
+    "card": true
+   },
+   {
+    "check": "Air line from the pump to the plant intact",
+    "part": "air_stub",
+    "card": true
+   },
+   {
+    "check": "Panel dry, cord grips tight",
+    "part": "panel_door",
+    "card": true
+   }
+  ],
+  "bath_vanity": [
+   {
+    "check": "Leaks at stops and lines",
+    "part": "stop_cold",
+    "card": true
+   },
+   {
+    "check": "Pop up linkage and seal",
+    "part": "popup_linkage",
+    "card": true
+   },
+   {
+    "check": "Trap and slip joints",
+    "part": "s_trap",
+    "card": false
+   },
+   {
+    "check": "Faucet cartridge",
+    "part": "cartridge_hot",
+    "card": true
+   }
+  ],
+  "condensate_pump": [
+   {
+    "check": "Reservoir clean, float free",
+    "part": "float",
+    "card": true
+   },
+   {
+    "check": "Check valve and discharge tube not kinked, routed to a real drain",
+    "part": "check_valve",
+    "card": true
+   },
+   {
+    "check": "Safety switch wired to the furnace and tested",
+    "part": "safety_leads",
+    "card": true
+   },
+   {
+    "check": "Cord on its own receptacle",
+    "part": "receptacle",
+    "card": true
+   },
+   {
+    "check": "A test pour",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "No water on the closet floor",
+    "part": "reservoir",
+    "card": true
+   }
+  ],
+  "disposal": [
+   {
+    "check": "Reset button and the hex wrench",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Splash guard and mount gasket for leaks",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Cord and switch",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Dishwasher inlet knockout",
+    "part": null,
+    "card": false
+   }
+  ],
+  "easystart": [
+   {
+    "check": "Wiring per the diagram",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Start current on a meter",
+    "part": null,
+    "card": false
+   }
+  ],
+  "electric_panel": [
+   {
+    "check": "Breaker sizes match the loads",
+    "part": "breaker_wh",
+    "card": true
+   },
+   {
+    "check": "No double taps",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Dead front on",
+    "part": "deadfront",
+    "card": true
+   },
+   {
+    "check": "SPD status light",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Torque and heat marks",
+    "part": null,
+    "card": false
+   }
+  ],
+  "electric_tank_water_heater": [
+   {
+    "check": "T&P relief valve and its discharge line",
+    "part": "tp_relief_valve",
+    "card": true
+   },
+   {
+    "check": "Element condition and amp draw",
+    "part": "upper_heating_element",
+    "card": true
+   },
+   {
+    "check": "Thermostats and the high limit (reset button)",
+    "part": "high_limit_control",
+    "card": true
+   },
+   {
+    "check": "Wiring, disconnect, ground",
+    "part": "electrical_junction_box",
+    "card": true
+   },
+   {
+    "check": "Sediment at the lower element",
+    "part": "lower_heating_element",
+    "card": true
+   },
+   {
+    "check": "Anode rod and tank age",
+    "part": "anode_rod",
+    "card": true
+   },
+   {
+    "check": "Leaks at the fittings and the pan drain",
+    "part": "drain_pan",
+    "card": true
+   }
+  ],
+  "electric_tankless_water_heater": [
+   {
+    "check": "Breaker sizes and wire gauge match the unit",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Inlet screen",
+    "part": "inlet_filter_screen",
+    "card": true
+   },
+   {
+    "check": "Scale on the elements (flush)",
+    "part": "heating_elements",
+    "card": true
+   },
+   {
+    "check": "Flow rate versus the unit's rating",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Error codes",
+    "part": null,
+    "card": false
+   }
+  ],
+  "flo_shutoff": [
+   {
+    "check": "Wi Fi and power",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Valve closes on a test",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Leaks at the unions",
+    "part": "flo_unions",
+    "card": true
+   }
+  ],
+  "flo_shutoff_attic": [
+   {
+    "check": "Power and Wi Fi",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Test close",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "PEX transitions for leaks",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Strapped on its block",
+    "part": null,
+    "card": false
+   }
+  ],
+  "flo_shutoff_wall": [
+   {
+    "check": "Power and Wi Fi",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Test close",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Leaks at the unions",
+    "part": null,
+    "card": false
+   }
+  ],
+  "gas_tank_water_heater": [
+   {
+    "check": "T&P relief valve",
+    "part": "tp_relief_valve",
+    "card": true
+   },
+   {
+    "check": "Venting",
+    "part": "draft_hood",
+    "card": true
+   },
+   {
+    "check": "Gas",
+    "part": "gas_control_valve",
+    "card": true
+   },
+   {
+    "check": "Expansion tank where the system is closed",
+    "part": "exp_tank_shell_front",
+    "card": true
+   },
+   {
+    "check": "Sediment",
+    "part": "sediment",
+    "card": true
+   },
+   {
+    "check": "Anode rod and tank age",
+    "part": "anode_rod",
+    "card": true
+   },
+   {
+    "check": "Combustion air and clearances",
+    "part": "air_hot_0",
+    "card": true
+   },
+   {
+    "check": "Condition of the flame",
+    "part": "burner_flame",
+    "card": true
+   }
+  ],
+  "gas_tankless_water_heater": [
+   {
+    "check": "Descale the heat exchanger (isolation valves and a pump)",
+    "part": "primary_heat_exchanger",
+    "card": true
+   },
+   {
+    "check": "Inlet water filter screen",
+    "part": "inlet_filter_screen",
+    "card": true
+   },
+   {
+    "check": "Condensate line and neutralizer where required",
+    "part": "condensate_line",
+    "card": true
+   },
+   {
+    "check": "Gas line size and pressure",
+    "part": "gas_in_line",
+    "card": true
+   },
+   {
+    "check": "Intake and exhaust terminations clear",
+    "part": "intake_vent",
+    "card": true
+   },
+   {
+    "check": "Error codes on the display",
+    "part": "display_fault",
+    "card": true
+   },
+   {
+    "check": "Venting slope and condensate traps",
+    "part": "exhaust_vent",
+    "card": true
+   }
+  ],
+  "hvac_air_handler": [
+   {
+    "check": "Filter",
+    "part": "filter",
+    "card": true
+   },
+   {
+    "check": "Coil clean",
+    "part": "evap_coil",
+    "card": true
+   },
+   {
+    "check": "Primary drain clear, float switch in the secondary pan",
+    "part": "drain_pan",
+    "card": true
+   },
+   {
+    "check": "Blower and capacitor",
+    "part": "blower_motor",
+    "card": true
+   },
+   {
+    "check": "Duct connections sealed",
+    "part": "connections",
+    "card": true
+   },
+   {
+    "check": "Refrigerant lines insulated",
+    "part": "lineset",
+    "card": true
+   }
+  ],
+  "hvac_condenser": [
+   {
+    "check": "Coil clean",
+    "part": "condenser_coil",
+    "card": true
+   },
+   {
+    "check": "Capacitor and contactor",
+    "part": "capacitor",
+    "card": true
+   },
+   {
+    "check": "Refrigerant pressures and superheat",
+    "part": "service_valves",
+    "card": true
+   },
+   {
+    "check": "Disconnect and whip",
+    "part": "disconnect",
+    "card": true
+   },
+   {
+    "check": "Level pad, clearances",
+    "part": "pad",
+    "card": true
+   },
+   {
+    "check": "Fan motor and blades",
+    "part": "fan_motor",
+    "card": true
+   }
+  ],
+  "hvac_furnace": [
+   {
+    "check": "Filter",
+    "part": "filter",
+    "card": true
+   },
+   {
+    "check": "Heat exchanger (cracks, rust)",
+    "part": "heat_exchanger",
+    "card": true
+   },
+   {
+    "check": "Flame sensor and spark electrode",
+    "part": "flame_sensor",
+    "card": true
+   },
+   {
+    "check": "Inducer and pressure switch",
+    "part": "pressure_switch",
+    "card": true
+   },
+   {
+    "check": "Blower wheel and capacitor",
+    "part": "blower_wheel",
+    "card": true
+   },
+   {
+    "check": "Gas pressure and combustion",
+    "part": "gas_valve",
+    "card": true
+   },
+   {
+    "check": "Condensate on a condensing unit",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Return air sealed",
+    "part": "return_platform",
+    "card": false
+   }
+  ],
+  "hvac_minisplit": [
+   {
+    "check": "Head filters",
+    "part": "filter_left",
+    "card": true
+   },
+   {
+    "check": "Condensate drain from the head",
+    "part": "drain_pan",
+    "card": true
+   },
+   {
+    "check": "Line set insulation and the wall sleeve",
+    "part": "wall_sleeve",
+    "card": false
+   },
+   {
+    "check": "Outdoor unit pad and clearances",
+    "part": "pad",
+    "card": true
+   },
+   {
+    "check": "Disconnect",
+    "part": "disconnect",
+    "card": true
+   },
+   {
+    "check": "Blower wheel in the head",
+    "part": "blower_wheel",
+    "card": true
+   }
+  ],
+  "hvac_package": [
+   {
+    "check": "Filter",
+    "part": "filter",
+    "card": true
+   },
+   {
+    "check": "Heat exchanger and burners",
+    "part": "heat_exchanger",
+    "card": true
+   },
+   {
+    "check": "Coil and refrigerant",
+    "part": "evap_coil",
+    "card": true
+   },
+   {
+    "check": "Duct connections through the wall",
+    "part": "duct_connection",
+    "card": true
+   },
+   {
+    "check": "Condensate",
+    "part": "condensate_stub",
+    "card": true
+   },
+   {
+    "check": "Pad and clearances",
+    "part": "pad",
+    "card": true
+   }
+  ],
+  "hvac_surge": [
+   {
+    "check": "Indicator light",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Connections tight",
+    "part": null,
+    "card": false
+   }
+  ],
+  "hybrid_water_heater": [
+   {
+    "check": "Air filter",
+    "part": "air_filter",
+    "card": true
+   },
+   {
+    "check": "Condensate drain clear",
+    "part": "condensate_drain",
+    "card": true
+   },
+   {
+    "check": "Room volume and clearances for the air it needs",
+    "part": "air_inlet_grille",
+    "card": true
+   },
+   {
+    "check": "Mode setting (heat pump, hybrid, electric)",
+    "part": "hp_front_panel",
+    "card": false
+   },
+   {
+    "check": "T&P and expansion tank",
+    "part": "expansion_tank",
+    "card": true
+   },
+   {
+    "check": "Anode rod",
+    "part": "anode_rod",
+    "card": true
+   }
+  ],
+  "kitchen_sink": [
+   {
+    "check": "Leaks at the stops, the supply lines, the trap",
+    "part": "p_trap",
+    "card": true
+   },
+   {
+    "check": "Disposal",
+    "part": "disposal_body",
+    "card": true
+   },
+   {
+    "check": "Dishwasher drain high loop or air gap",
+    "part": "air_gap",
+    "card": true
+   },
+   {
+    "check": "Faucet cartridge and aerator",
+    "part": "faucet_cartridge",
+    "card": true
+   },
+   {
+    "check": "Cabinet floor for water damage",
+    "part": "cabinet",
+    "card": true
+   }
+  ],
+  "lift_station": [
+   {
+    "check": "Pump and floats",
+    "part": "pump",
+    "card": true
+   },
+   {
+    "check": "Check valve",
+    "part": "check_valve",
+    "card": true
+   },
+   {
+    "check": "Alarm and panel",
+    "part": "control_panel",
+    "card": true
+   },
+   {
+    "check": "Lid seal and vent",
+    "part": "lid",
+    "card": true
+   }
+  ],
+  "lift_station_duplex": [
+   {
+    "check": "Each pump in HAND",
+    "part": "pump_2",
+    "card": true
+   },
+   {
+    "check": "Lead pump alternates from one cycle to the next",
+    "part": "control_panel",
+    "card": true
+   },
+   {
+    "check": "Float order and action",
+    "part": "float_lag",
+    "card": true
+   },
+   {
+    "check": "TEST button",
+    "part": "test_button",
+    "card": true
+   },
+   {
+    "check": "Check valves hold, ball valves open, handles along the pipe",
+    "part": "ball_valve_1",
+    "card": true
+   },
+   {
+    "check": "Pumps seated on their base elbows, chains and rails sound",
+    "part": "base_elbow_1",
+    "card": true
+   },
+   {
+    "check": "Junction box dry, cord grips tight",
+    "part": "junction_box",
+    "card": true
+   },
+   {
+    "check": "Lid bolted, gasket good, vent clear",
+    "part": "lid",
+    "card": true
+   }
+  ],
+  "outlet_surge": [
+   {
+    "check": "Indicator light",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "GFCI where required",
+    "part": null,
+    "card": false
+   }
+  ],
+  "pressure_tank": [
+   {
+    "check": "Air charge 2 psi under cut in with the tank empty",
+    "part": "tank",
+    "card": true
+   },
+   {
+    "check": "Switch settings and clean contacts",
+    "part": "switch_cover",
+    "card": false
+   },
+   {
+    "check": "Gauge reads and holds",
+    "part": "gauge",
+    "card": true
+   },
+   {
+    "check": "No short cycling (a waterlogged tank starts the pump every few seconds)",
+    "part": "pressure_switch",
+    "card": true
+   },
+   {
+    "check": "Check valve holds, no backflow",
+    "part": "check_valve",
+    "card": true
+   },
+   {
+    "check": "Drain and gauge fittings dry",
+    "part": "boiler_drain",
+    "card": true
+   },
+   {
+    "check": "Disconnect labelled, wire size right for the pump",
+    "part": "disconnect",
+    "card": true
+   }
+  ],
+  "pump_tank": [
+   {
+    "check": "Pump runs on the float",
+    "part": "float_onoff",
+    "card": true
+   },
+   {
+    "check": "Cord and plug (the plug in wiring in the riser)",
+    "part": "cord_grip",
+    "card": true
+   },
+   {
+    "check": "Filter screen on the pump",
+    "part": "pump",
+    "card": true
+   },
+   {
+    "check": "Riser lid",
+    "part": "lid",
+    "card": true
+   }
+  ],
+  "pump_wiring": [
+   {
+    "check": "Splices dry, shrink intact",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Zip tie at the lip, cords clear of the discharge",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Float swings free",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Cord grip tight",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "GFCI on the feed",
+    "part": null,
+    "card": false
+   }
+  ],
+  "septic_aquaklear": [
+   {
+    "check": "Aerator running, air line intact",
+    "part": "air_line",
+    "card": true
+   },
+   {
+    "check": "Chlorine tablets in the chlorinator",
+    "part": "chlorinator",
+    "card": true
+   },
+   {
+    "check": "Pump and floats",
+    "part": "pump_cover",
+    "card": true
+   },
+   {
+    "check": "Sludge level and scum",
+    "part": "scum_layer",
+    "card": true
+   },
+   {
+    "check": "Lids secure",
+    "part": "lid_aeration",
+    "card": true
+   },
+   {
+    "check": "Panel and alarm",
+    "part": "alarm_lit",
+    "card": true
+   }
+  ],
+  "septic_atu": [
+   {
+    "check": "Aerator and air line",
+    "part": "air_line",
+    "card": true
+   },
+   {
+    "check": "Chlorine",
+    "part": "chlorine_tablets",
+    "card": true
+   },
+   {
+    "check": "Pump and floats",
+    "part": "pump_cover",
+    "card": true
+   },
+   {
+    "check": "Lids",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Sludge level",
+    "part": "sludge_blanket",
+    "card": true
+   },
+   {
+    "check": "Panel and alarm where fitted",
+    "part": "alarm_lit",
+    "card": true
+   }
+  ],
+  "septic_field": [
+   {
+    "check": "D box level, outlets equal",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Field surface dry",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "No roots or driving over it",
+    "part": null,
+    "card": false
+   }
+  ],
+  "septic_lee": [
+   {
+    "check": "Aerator running, air line intact",
+    "part": "air_line",
+    "card": true
+   },
+   {
+    "check": "Chlorine tablets",
+    "part": "chlor_tablets",
+    "card": true
+   },
+   {
+    "check": "Pump and float in the pump chamber",
+    "part": "float_onoff",
+    "card": true
+   },
+   {
+    "check": "Spray heads turning, clear",
+    "part": "spray_head0",
+    "card": true
+   },
+   {
+    "check": "Lids secure",
+    "part": "lid_pump",
+    "card": true
+   },
+   {
+    "check": "Sludge and scum levels",
+    "part": "sludge",
+    "card": true
+   },
+   {
+    "check": "Plug in wiring",
+    "part": "cords",
+    "card": true
+   }
+  ],
+  "septic_tank": [
+   {
+    "check": "Sludge and scum level (pump when it is a third full)",
+    "part": "scum_normal",
+    "card": false
+   },
+   {
+    "check": "Inlet and outlet baffles",
+    "part": "inlet_tee",
+    "card": true
+   },
+   {
+    "check": "Effluent filter",
+    "part": "effluent_filter",
+    "card": true
+   },
+   {
+    "check": "Lids and risers",
+    "part": "lid_inlet",
+    "card": true
+   },
+   {
+    "check": "Field",
+    "part": null,
+    "card": false
+   }
+  ],
+  "shower": [
+   {
+    "check": "Valve cartridge and the trim",
+    "part": "cartridge",
+    "card": true
+   },
+   {
+    "check": "Diverter",
+    "part": "diverter_knob",
+    "card": true
+   },
+   {
+    "check": "Drain shoe and overflow seals",
+    "part": "drain_tee",
+    "card": true
+   },
+   {
+    "check": "Caulk at the tub",
+    "part": "caulk",
+    "card": true
+   },
+   {
+    "check": "Head flow and scale",
+    "part": "shower_head",
+    "card": true
+   }
+  ],
+  "shower_two": [
+   {
+    "check": "Stems and seats",
+    "part": "stem_hot",
+    "card": true
+   },
+   {
+    "check": "Stem leaks behind the handles into the wall",
+    "part": "stem_cold",
+    "card": true
+   },
+   {
+    "check": "Diverter holds",
+    "part": "diverter_knob",
+    "card": true
+   },
+   {
+    "check": "Drain shoe and overflow seals",
+    "part": "drain_tee",
+    "card": true
+   },
+   {
+    "check": "Caulk at the tub and the trim",
+    "part": "caulk",
+    "card": true
+   },
+   {
+    "check": "Head flow and scale",
+    "part": "shower_head",
+    "card": true
+   }
+  ],
+  "smart_shutoff_valve": [
+   {
+    "check": "Wi Fi and power",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Valve closes on a test",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Leaks at the unions",
+    "part": null,
+    "card": false
+   }
+  ],
+  "spray_head_180_r22": [
+   {
+    "check": "Rises and turns when the pump runs",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Spray pattern even, no clogged nozzle",
+    "part": "spray_pattern",
+    "card": true
+   },
+   {
+    "check": "Drops back down when the pump stops",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Pattern stays on the lawn, off the house and the drive",
+    "part": "spray_pattern",
+    "card": true
+   }
+  ],
+  "spray_head_r22": [
+   {
+    "check": "Rises and turns when the pump runs",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Spray pattern even, no clogged nozzle",
+    "part": "spray_pattern",
+    "card": true
+   },
+   {
+    "check": "Drops back down when the pump stops",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Pattern stays on the lawn, off the house and the drive",
+    "part": "spray_pattern",
+    "card": true
+   }
+  ],
+  "spray_pump_filter": [
+   {
+    "check": "Screen intact, no tears",
+    "part": "screen",
+    "card": true
+   },
+   {
+    "check": "Hose it off at every service",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Pump seated back on its stand after cleaning",
+    "part": "pump",
+    "card": true
+   }
+  ],
+  "sump_pump": [
+   {
+    "check": "Float free",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Check valve",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Discharge clear",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Test by filling the pit",
+    "part": null,
+    "card": false
+   }
+  ],
+  "sweet_air": [
+   {
+    "check": "Drips at the stem",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Vacuum breaker",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Frost free slope",
+    "part": null,
+    "card": false
+   }
+  ],
+  "thermostat": [
+   {
+    "check": "Level and tight on the wall, sub base wires on the right terminals",
+    "part": "sub_plate",
+    "card": true
+   },
+   {
+    "check": "Set point versus what the room reads",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Heat, cool and fan each start on a call",
+    "part": "head_ctl_mode",
+    "card": true
+   },
+   {
+    "check": "Batteries or C wire power",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Schedule set, not on hold by accident",
+    "part": "head_ctl_schedule",
+    "card": true
+   },
+   {
+    "check": "Placement",
+    "part": null,
+    "card": false
+   }
+  ],
+  "thermostat_programmable": [
+   {
+    "check": "Level and tight on the wall, sub base wires on the right terminals",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Set point versus what the room reads",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Heat, cool and fan each start on a call",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Batteries or C wire power",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Schedule set, not on hold by accident",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Placement",
+    "part": null,
+    "card": false
+   }
+  ],
+  "thermostat_smart_ecobee": [
+   {
+    "check": "Level and tight on the wall, sub base wires on the right terminals",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Set point versus what the room reads",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Heat, cool and fan each start on a call",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Batteries or C wire power",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Schedule set, not on hold by accident",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Placement",
+    "part": null,
+    "card": false
+   }
+  ],
+  "thermostat_smart_nest": [
+   {
+    "check": "Level and tight on the wall, sub base wires on the right terminals",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Set point versus what the room reads",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Heat, cool and fan each start on a call",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Batteries or C wire power",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Schedule set, not on hold by accident",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Placement",
+    "part": null,
+    "card": false
+   }
+  ],
+  "toilet": [
+   {
+    "check": "Flapper seal (dye test)",
+    "part": "flapper",
+    "card": true
+   },
+   {
+    "check": "Fill valve and float level",
+    "part": "fill_valve",
+    "card": true
+   },
+   {
+    "check": "Supply stop and line",
+    "part": "angle_stop",
+    "card": true
+   },
+   {
+    "check": "Wax ring",
+    "part": "wax_ring",
+    "card": true
+   },
+   {
+    "check": "Bolts and the flange",
+    "part": "flange",
+    "card": true
+   }
+  ],
+  "uni_lateral": [
+   {
+    "check": "Flapper seats",
+    "part": "ul_flapper",
+    "card": true
+   },
+   {
+    "check": "Lever moves freely",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "No weeping at the body or the unions",
+    "part": "body",
+    "card": true
+   }
+  ],
+  "washer_box": [
+   {
+    "check": "Hoses",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Bibs turn and shut",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Standpipe height and trap",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "No water on the floor of the box",
+    "part": "box_shell",
+    "card": false
+   }
+  ],
+  "water_filter": [
+   {
+    "check": "Cartridge change",
+    "part": "carbon_media",
+    "card": true
+   },
+   {
+    "check": "Bypass valve",
+    "part": "valve_box",
+    "card": true
+   },
+   {
+    "check": "Housing O ring",
+    "part": "tank",
+    "card": true
+   },
+   {
+    "check": "Pressure drop across it",
+    "part": null,
+    "card": false
+   }
+  ],
+  "water_softener": [
+   {
+    "check": "Bypass levers in SERVICE, not bypass",
+    "part": "bypass_valve",
+    "card": true
+   },
+   {
+    "check": "Salt level and no salt bridge (push a broom handle through the salt)",
+    "part": "salt_bridge",
+    "card": true
+   },
+   {
+    "check": "Brine float free, brine well clean",
+    "part": "brine_well",
+    "card": true
+   },
+   {
+    "check": "Regen time set at night, hardness set to the test",
+    "part": "display_regen",
+    "card": true
+   },
+   {
+    "check": "Drain line to the standpipe with an air gap, not kinked",
+    "part": "drain_line",
+    "card": true
+   },
+   {
+    "check": "Hardness test at a tap after regen",
+    "part": "display_service",
+    "card": false
+   },
+   {
+    "check": "Resin age",
+    "part": "resin_tank",
+    "card": true
+   },
+   {
+    "check": "Power to the head, time showing",
+    "part": "valve_head",
+    "card": true
+   }
+  ],
+  "well_pump": [
+   {
+    "check": "Cap sealed and vented, casing 12 in over grade",
+    "part": "casing",
+    "card": true
+   },
+   {
+    "check": "Amps against the nameplate",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Drawdown and recovery",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Check valve holds pressure overnight",
+    "part": "check_valve",
+    "card": true
+   },
+   {
+    "check": "Splice and cable condition at the pull",
+    "part": "wire_splice",
+    "card": false
+   },
+   {
+    "check": "Grade slopes away from the casing",
+    "part": "casing",
+    "card": true
+   },
+   {
+    "check": "Sample for bacteria and hardness",
+    "part": null,
+    "card": false
+   }
+  ],
+  "whole_house_spd": [
+   {
+    "check": "Status light green",
+    "part": "lead_green",
+    "card": true
+   },
+   {
+    "check": "Short leads",
+    "part": null,
+    "card": false
+   },
+   {
+    "check": "Its own breaker",
+    "part": "spd_breaker",
+    "card": true
+   }
+  ]
+ }
+}
