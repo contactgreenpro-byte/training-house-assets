@@ -1,7 +1,7 @@
 {
- "published": "2026-09-22T04:37:35",
- "house": "r88a",
- "note": "r88a: sump pump basin and the wall and attic Flo valves placed behind sump and shutoff_extra switches, elevation fallback when there is nowhere to stand, links map updated",
+ "published": "2026-09-23T20:19:08",
+ "house": "r89a",
+ "note": "round 89: new add ons (mixing valve CPVC and PEX, WH surge, air quality monitor, media cabinet, purifier, ERV, hose bib freeze cover and vacuum breaker, SludgeHammer), trash tank, commercial grease lot, teaching clips, link landing fixes",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -11,9 +11,13 @@
    "v": "f9a52e39a5",
    "bytes": 22820
   },
+  "air_quality_monitor.glb": {
+   "v": "786ae84dd4",
+   "bytes": 349616
+  },
   "app_shell.html": {
-   "v": "8a2440c8bb",
-   "bytes": 48564
+   "v": "cf62c06ca5",
+   "bytes": 49484
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -36,20 +40,24 @@
    "bytes": 609804
   },
   "checklists.json": {
-   "v": "fd7a45fd13",
-   "bytes": 26091
+   "v": "f1eb13228d",
+   "bytes": 31837
   },
   "clamp_meter.glb": {
    "v": "5262a30852",
    "bytes": 372084
+  },
+  "commercial_storefront.glb": {
+   "v": "5e2118d61f",
+   "bytes": 330424
   },
   "condensate_pump.glb": {
    "v": "16040ed594",
    "bytes": 311332
   },
   "drains.json": {
-   "v": "580671c7aa",
-   "bytes": 8197
+   "v": "542886c1c3",
+   "bytes": 9424
   },
   "dryer.glb": {
    "v": "0c266ce22a",
@@ -64,12 +72,16 @@
    "bytes": 657852
   },
   "electric_tank_water_heater.glb": {
-   "v": "45599bb998",
-   "bytes": 1975200
+   "v": "d6a2df9d13",
+   "bytes": 2170468
   },
   "electric_tankless_water_heater.glb": {
-   "v": "ec8d6ac0e3",
-   "bytes": 805752
+   "v": "6eab360dd5",
+   "bytes": 906220
+  },
+  "erv.glb": {
+   "v": "0015128202",
+   "bytes": 1084960
   },
   "explode.json": {
    "v": "fa7d2b752b",
@@ -92,8 +104,8 @@
    "bytes": 1458864
   },
   "gas_tank_water_heater.glb": {
-   "v": "705f168d63",
-   "bytes": 2254696
+   "v": "a87efa994b",
+   "bytes": 2534744
   },
   "gas_tankless_water_heater_condensing.glb": {
    "v": "ae7dad6a66",
@@ -106,6 +118,14 @@
   "grab.json": {
    "v": "368de950a2",
    "bytes": 6258
+  },
+  "grease_interceptor.glb": {
+   "v": "c0593679f4",
+   "bytes": 967544
+  },
+  "hosebib_protection.glb": {
+   "v": "e438a7d1f7",
+   "bytes": 351588
   },
   "house_attic.glb": {
    "v": "18bd27794c",
@@ -120,20 +140,20 @@
    "bytes": 1119516
   },
   "house_framing.glb": {
-   "v": "83e903c0f6",
-   "bytes": 226780
+   "v": "824c92a953",
+   "bytes": 227820
   },
   "house_furniture.glb": {
-   "v": "8a6afe1391",
-   "bytes": 8863204
+   "v": "6520f0b3c5",
+   "bytes": 8863196
   },
   "house_links.json": {
    "v": "ef61fd0c24",
    "bytes": 43257
   },
   "house_site.glb": {
-   "v": "c7bfedf0ba",
-   "bytes": 7374948
+   "v": "cceb25685c",
+   "bytes": 7634712
   },
   "house_slab.glb": {
    "v": "e170461dbb",
@@ -180,16 +200,20 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "21244f50b6",
-   "bytes": 19610
+   "v": "b6aba2c044",
+   "bytes": 19816
+  },
+  "induct_purifier.glb": {
+   "v": "3eafbe7e55",
+   "bytes": 334432
   },
   "info.json": {
-   "v": "7a3157db47",
-   "bytes": 120738
+   "v": "abeb8bb70d",
+   "bytes": 168778
   },
   "interactions.json": {
-   "v": "1af0c67d7c",
-   "bytes": 65492
+   "v": "31a801fe21",
+   "bytes": 86312
   },
   "kitchen_sink.glb": {
    "v": "89e64c0103",
@@ -207,6 +231,10 @@
    "v": "0d6bb8091b",
    "bytes": 1506308
   },
+  "media_air_cleaner.glb": {
+   "v": "1a7e5427d0",
+   "bytes": 264564
+  },
   "multimeter.glb": {
    "v": "e1e2aa643f",
    "bytes": 403004
@@ -220,8 +248,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "ce3bf5c6bc",
-   "bytes": 41035
+   "v": "02dfd14024",
+   "bytes": 69099
   },
   "pipes.json": {
    "v": "161fcf7f90",
@@ -232,24 +260,24 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "26d5acdecb",
-   "bytes": 2924208
+   "v": "3a05a04dac",
+   "bytes": 3238836
   },
   "pipes_gas.glb": {
-   "v": "a305a1fd21",
-   "bytes": 815468
+   "v": "f223d3afbe",
+   "bytes": 815548
   },
   "pipes_hvac.glb": {
-   "v": "68f2495ee7",
-   "bytes": 2163124
+   "v": "5f9c44670a",
+   "bytes": 2223344
   },
   "pipes_supply.glb": {
-   "v": "2182ce9521",
-   "bytes": 2660772
+   "v": "761c3106b0",
+   "bytes": 2797568
   },
   "placements.json": {
-   "v": "6e1692706f",
-   "bytes": 68842
+   "v": "5e60d5ddf0",
+   "bytes": 97133
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -262,6 +290,10 @@
   "pump_tank.glb": {
    "v": "4877fdc579",
    "bytes": 748624
+  },
+  "pump_tank_trash.glb": {
+   "v": "f8d6bba519",
+   "bytes": 790552
   },
   "pump_wiring.glb": {
    "v": "e689bab46c",
@@ -307,6 +339,10 @@
    "v": "ab55dcb1eb",
    "bytes": 737368
   },
+  "sludgehammer.glb": {
+   "v": "28b87ce6f8",
+   "bytes": 492684
+  },
   "spray_head_180_r22.glb": {
    "v": "774057bfcf",
    "bytes": 54120
@@ -343,9 +379,17 @@
    "v": "264202b524",
    "bytes": 249036
   },
+  "thermostatic_mixing_valve.glb": {
+   "v": "ca0ebe8c26",
+   "bytes": 432996
+  },
+  "thermostatic_mixing_valve_pex.glb": {
+   "v": "5ee1168cb1",
+   "bytes": 747036
+  },
   "toilet.glb": {
-   "v": "070260fab9",
-   "bytes": 1262108
+   "v": "abbd3cae80",
+   "bytes": 1225448
   },
   "trampoline.glb": {
    "v": "4ab95d8399",
@@ -360,8 +404,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "b93c50b521",
-   "bytes": 403202
+   "v": "5b572b8bb5",
+   "bytes": 418294
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -382,6 +426,10 @@
   "well_pump.glb": {
    "v": "730b5d85b1",
    "bytes": 402236
+  },
+  "wh_surge_protector.glb": {
+   "v": "62048e035d",
+   "bytes": 610664
   },
   "whole_house_spd.glb": {
    "v": "c3dc4e9887",

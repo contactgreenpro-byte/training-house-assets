@@ -196,7 +196,8 @@
     "soft_floor",
     "closet_bend",
     "tp_holder",
-    "ballcock"
+    "ballcock",
+    "bidet_seat"
    ],
    "note": "Round 17 (Jake: the toilet room isn't deep enough): the water closet is 6 ft deep and the toilet sits on its long axis against the north wall facing the door end, clear floor in front. closet_bend and slab belong to the pipe layer under the floor.",
    "replaces": [
@@ -223,6 +224,16 @@
      "seat_hinges"
     ],
     "note": "Round 18 (Jake: 'when you click the side of it, the whole cutaway should happen. The bowl, the trap, side of the tank, everything'). A click on any of these parts swaps every one of them for its half at once; a second click puts them all back. The lid and hinges come off while it is open."
+   },
+   "addon": {
+    "bidet": {
+     "show": [
+      "bidet_seat"
+     ],
+     "hide": [
+      "seat"
+     ]
+    }
    }
   },
   {
@@ -239,7 +250,8 @@
     "soft_floor",
     "closet_bend",
     "tp_holder",
-    "ballcock"
+    "ballcock",
+    "bidet_seat"
    ],
    "replaces": [
     "fix_toilet_hall_bath"
@@ -266,7 +278,17 @@
     ],
     "note": "Round 18 (Jake: 'when you click the side of it, the whole cutaway should happen. The bowl, the trap, side of the tank, everything'). A click on any of these parts swaps every one of them for its half at once; a second click puts them all back. The lid and hinges come off while it is open."
    },
-   "note": "Round 18 hall bath (Jake: six inches between the front of the toilet and the tub, fix this layout once for all): the toilet faces down the room from a 42 in ledge wall on the north wall beside the tub, 18-1/2 in from its centre to the tub apron and to the east wall, 6 ft of floor in front of it. Its supply and vent live in the ledge wall, not the outside wall. ballcock is the old style fill valve state; closet_bend belongs to the pipe layer."
+   "note": "Round 18 hall bath (Jake: six inches between the front of the toilet and the tub, fix this layout once for all): the toilet faces down the room from a 42 in ledge wall on the north wall beside the tub, 18-1/2 in from its centre to the tub apron and to the east wall, 6 ft of floor in front of it. Its supply and vent live in the ledge wall, not the outside wall. ballcock is the old style fill valve state; closet_bend belongs to the pipe layer.",
+   "addon": {
+    "bidet": {
+     "show": [
+      "bidet_seat"
+     ],
+     "hide": [
+      "seat"
+     ]
+    }
+   }
   },
   {
    "socket": "sock_tub_hall_bath",
@@ -439,10 +461,38 @@
       "exp_tank_piping",
       "exp_tank_strap",
       "exp_tank_air_valve",
-      "exp_tank_label"
+      "exp_tank_label",
+      "exp_tank_diaphragm",
+      "exp_tank_water_chamber",
+      "exp_tank_air_chamber"
+     ],
+     "hide": []
+    },
+    "scale_inhibitor": {
+     "show": [
+      "scale_inhibitor"
      ],
      "hide": []
     }
+   },
+   "states": [
+    "anode_rod_pitted",
+    "anode_rod_bare",
+    "exp_tank_waterlogged"
+   ],
+   "section_set": {
+    "pairs": {
+     "outer_jacket": "outer_jacket_section",
+     "insulation": "insulation_section",
+     "inner_tank": "inner_tank_section",
+     "water_volume": "water_volume_section",
+     "exp_tank_shell_front": "exp_tank_section",
+     "combustion_chamber": "combustion_chamber_section",
+     "air_intake": "air_intake_section"
+    },
+    "also_hide": [
+     "data_plate"
+    ]
    }
   },
   {
@@ -458,7 +508,8 @@
     "exp_tank_shell_front",
     "exp_tank_shell_rear",
     "exp_tank_strap",
-    "thermal_expansion_tank"
+    "thermal_expansion_tank",
+    "scale_inhibitor"
    ],
    "config": "water_heater=closet_gas_tank",
    "alternate": true,
@@ -475,7 +526,32 @@
       "exp_tank_label"
      ],
      "hide": []
+    },
+    "scale_inhibitor": {
+     "show": [
+      "scale_inhibitor"
+     ],
+     "hide": []
     }
+   },
+   "states": [
+    "anode_rod_pitted",
+    "anode_rod_bare",
+    "exp_tank_waterlogged"
+   ],
+   "section_set": {
+    "pairs": {
+     "outer_jacket": "outer_jacket_section",
+     "insulation": "insulation_section",
+     "inner_tank": "inner_tank_section",
+     "water_volume": "water_volume_section",
+     "exp_tank_shell_front": "exp_tank_section",
+     "combustion_chamber": "combustion_chamber_section",
+     "air_intake": "air_intake_section"
+    },
+    "also_hide": [
+     "data_plate"
+    ]
    }
   },
   {
@@ -553,8 +629,17 @@
    ],
    "note": "Round 29 (Jake: I do not see an electric tankless option): tankless_electric_water_heater on the garage wall socket, its 0.29 wall plane cancelled by the offset like the gas unit's 0.30. Its lines go down and into the wall at 0.66 where build_pipes lands the house's cold and hot; its junction box on the wall below takes the 8/2 from the load centre. No scale inhibitor (plain copper in its place).",
    "show": [
-    "flow_sensor"
-   ]
+    "flow_sensor",
+    "turbine_rotor"
+   ],
+   "addon": {
+    "scale_inhibitor": {
+     "show": [
+      "scale_inhibitor"
+     ],
+     "hide": []
+    }
+   }
   },
   {
    "socket": "sock_ahu_closet_hall",
@@ -570,7 +655,8 @@
     "qa_floor",
     "drain_line",
     "float_switch",
-    "uv_light"
+    "uv_light",
+    "co_detector"
    ],
    "config": "hvac=split_furnace",
    "note": "Default: 80 percent gas furnace, B vent. Round 18: stands on its own 24 in return platform (in the model) with a 20 x 25 filter grille in its front, wall to wall in the closet; the louvered closet door is the return. The cased coil is set back flush with the furnace's back and the vent rises in front of it; the lineset leaves the coil on the right and goes straight up to the ceiling, the gas comes down the left side. The model's own condensate line, float switch and UV lamp are hidden: the pipe layer runs the primary condensate from the pan's low port. Round 54 (Jake: typically we don't have an emergency overflow): there is no second line and the pan's high port keeps its own cap, drain_cap_aux.",
@@ -578,7 +664,39 @@
     0,
     0,
     0
-   ]
+   ],
+   "addon": {
+    "co_detector": {
+     "show": [
+      "co_detector"
+     ],
+     "hide": []
+    },
+    "uv_light": {
+     "show": [
+      "uv_light"
+     ],
+     "hide": []
+    },
+    "media_cabinet": {
+     "show": [],
+     "hide": [
+      "filter",
+      "filter_door",
+      "filter_base",
+      "filter_dirty",
+      "filter_out",
+      "air_return_0",
+      "air_return_1",
+      "air_return_2",
+      "air_return_3",
+      "air_return_up_0",
+      "air_return_up_1",
+      "air_return_up_2",
+      "air_return_up_3"
+     ]
+    }
+   }
   },
   {
    "socket": "sock_ahu_closet_hall",
@@ -594,7 +712,8 @@
     "qa_floor",
     "drain_line",
     "float_switch",
-    "uv_light"
+    "uv_light",
+    "co_detector"
    ],
    "config": "hvac=split_furnace_cond96",
    "alternate": true,
@@ -603,7 +722,21 @@
     0,
     0
    ],
-   "note": "Condensing, 2 in PVC exhaust and intake through the roof. Round 18: stands on its own 24 in return platform (in the model) with a 20 x 25 filter grille in its front, wall to wall in the closet; the louvered closet door is the return. The cased coil is set back flush with the furnace's back and the vent rises in front of it; the lineset leaves the coil on the right and goes straight up to the ceiling, the gas comes down the left side. The model's own condensate line, float switch and UV lamp are hidden: the pipe layer runs the primary condensate from the pan's low port. Round 54 (Jake: typically we don't have an emergency overflow): there is no second line and the pan's high port keeps its own cap, drain_cap_aux."
+   "note": "Condensing, 2 in PVC exhaust and intake through the roof. Round 18: stands on its own 24 in return platform (in the model) with a 20 x 25 filter grille in its front, wall to wall in the closet; the louvered closet door is the return. The cased coil is set back flush with the furnace's back and the vent rises in front of it; the lineset leaves the coil on the right and goes straight up to the ceiling, the gas comes down the left side. The model's own condensate line, float switch and UV lamp are hidden: the pipe layer runs the primary condensate from the pan's low port. Round 54 (Jake: typically we don't have an emergency overflow): there is no second line and the pan's high port keeps its own cap, drain_cap_aux.",
+   "addon": {
+    "co_detector": {
+     "show": [
+      "co_detector"
+     ],
+     "hide": []
+    },
+    "uv_light": {
+     "show": [
+      "uv_light"
+     ],
+     "hide": []
+    }
+   }
   },
   {
    "socket": "sock_cond_side",
@@ -800,7 +933,8 @@
     "coil_frozen",
     "scroll_inlet",
     "qa_wall",
-    "qa_floor"
+    "qa_floor",
+    "dehumidifier"
    ],
    "config": "hvac=heatpump_attic",
    "alternate": true,
@@ -816,6 +950,26 @@
      0,
      0
     ]
+   },
+   "addon": {
+    "uv_light": {
+     "show": [
+      "uv_light"
+     ],
+     "hide": []
+    },
+    "dehumidifier": {
+     "show": [
+      "dehumidifier"
+     ],
+     "hide": []
+    },
+    "fresh_air": {
+     "show": [
+      "fresh_air_duct"
+     ],
+     "hide": []
+    }
    }
   },
   {
@@ -968,7 +1122,7 @@
     "grass",
     "spray_pattern"
    ],
-   "config": "sewer=septic_spray|septic_spray_two_tank",
+   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash",
    "arc": 360,
    "radius_ft": 22
   },
@@ -982,7 +1136,7 @@
     "grass",
     "spray_pattern"
    ],
-   "config": "sewer=septic_spray|septic_spray_two_tank",
+   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash",
    "arc": 360,
    "radius_ft": 22
   },
@@ -996,7 +1150,7 @@
     "grass",
     "spray_pattern"
    ],
-   "config": "sewer=septic_spray|septic_spray_two_tank",
+   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash",
    "arc": 180,
    "note": "At the back property line, half circle facing the house.",
    "radius_ft": 22
@@ -1394,7 +1548,7 @@
     0,
     0
    ],
-   "config": "sewer=septic_spray|septic_spray_two_tank|septic_overland_lee|septic_overland_aquaklear",
+   "config": "sewer=septic_spray|septic_spray_two_tank|septic_overland_lee|septic_overland_aquaklear|septic_spray_trash",
    "note": "The overland air pump (round 17, Jake: no panel with overland discharge, the alarm works off the air pump itself, it plugs into an outlet on the outside of the wall, and it needs a concrete base): the Hiblow with its own alarm on a poured pad, an in-use GFCI receptacle on the siding with the cord plugged in. All three overland plants take their air from its stub. Round 36 (Jake): the Lee and the AquaKlear plants get the blower on its outlet, no panel."
   },
   {
@@ -1477,7 +1631,13 @@
     0,
     0
    ],
-   "hide": [],
+   "hide": [
+    "hammer_arrestor_cold",
+    "hammer_arrestor_hot",
+    "hammer_air_cushion",
+    "hammer_piston",
+    "hammer_water"
+   ],
    "replaces": [
     "fix_laundry_box_laundry"
    ],
@@ -1488,6 +1648,18 @@
     },
     "also_hide": [],
     "note": "Round 41 (Jake: do the hammer arrestor): a click on the hot arrestor swaps in its cut half, the piston and the air cushion show."
+   },
+   "addon": {
+    "hammer_arrestors": {
+     "show": [
+      "hammer_arrestor_cold",
+      "hammer_arrestor_hot",
+      "hammer_air_cushion",
+      "hammer_piston",
+      "hammer_water"
+     ],
+     "hide": []
+    }
    }
   },
   {
@@ -1793,10 +1965,39 @@
       "exp_tank_piping",
       "exp_tank_strap",
       "exp_tank_air_valve",
-      "exp_tank_label"
+      "exp_tank_label",
+      "exp_tank_diaphragm",
+      "exp_tank_water_chamber",
+      "exp_tank_air_chamber"
+     ],
+     "hide": []
+    },
+    "scale_inhibitor": {
+     "show": [
+      "scale_inhibitor"
      ],
      "hide": []
     }
+   },
+   "states": [
+    "anode_rod_pitted",
+    "anode_rod_bare",
+    "exp_tank_waterlogged",
+    "element_buried"
+   ],
+   "section_set": {
+    "pairs": {
+     "outer_jacket": "outer_jacket_section",
+     "insulation": "insulation_section",
+     "inner_tank": "inner_tank_section",
+     "water_volume": "water_volume_section",
+     "exp_tank_shell_front": "exp_tank_section"
+    },
+    "also_hide": [
+     "data_plate",
+     "upper_access_panel",
+     "lower_access_panel"
+    ]
    }
   },
   {
@@ -1812,7 +2013,8 @@
     "exp_tank_shell_front",
     "exp_tank_shell_rear",
     "exp_tank_strap",
-    "thermal_expansion_tank"
+    "thermal_expansion_tank",
+    "scale_inhibitor"
    ],
    "config": "water_heater=closet_electric_tank",
    "alternate": true,
@@ -1829,7 +2031,33 @@
       "exp_tank_label"
      ],
      "hide": []
+    },
+    "scale_inhibitor": {
+     "show": [
+      "scale_inhibitor"
+     ],
+     "hide": []
     }
+   },
+   "states": [
+    "anode_rod_pitted",
+    "anode_rod_bare",
+    "exp_tank_waterlogged",
+    "element_buried"
+   ],
+   "section_set": {
+    "pairs": {
+     "outer_jacket": "outer_jacket_section",
+     "insulation": "insulation_section",
+     "inner_tank": "inner_tank_section",
+     "water_volume": "water_volume_section",
+     "exp_tank_shell_front": "exp_tank_section"
+    },
+    "also_hide": [
+     "data_plate",
+     "upper_access_panel",
+     "lower_access_panel"
+    ]
    }
   },
   {
@@ -1974,6 +2202,735 @@
     "note": "Round 88: click the access door and it comes off; the drywall is bored out around the box while it is open."
    },
    "note": "Round 88 (Jake: place the other Flo valves). The Flo in the laundry wall, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, wall variant): a 14 x 22 in access box in the x 0 wall at y 5.334, the riser up through the bottom plate, its NM cable ending in the crawl. Add on, off by default. Owed by the house: the opening cut in the laundry drywall (the reveal bores it while the door is open), the trunk cut at y 5.284 to 5.439."
+  },
+  {
+   "socket": "sock_trash_tank_back",
+   "file": "site",
+   "pack": "trash_tank",
+   "model": "pump_tank_trash.glb",
+   "yaw": 0,
+   "hide": [
+    "grass",
+    "soil",
+    "soil_front",
+    "backfill",
+    "spray_line",
+    "spray_head0",
+    "spray_head1",
+    "spray_head2",
+    "head_stem0",
+    "head_stem1",
+    "head_stem2",
+    "stream0",
+    "stream1",
+    "stream2",
+    "spray_pattern",
+    "spray_overlap",
+    "chlorinator",
+    "chlor_tablets",
+    "inlet_stub",
+    "outlet_stub",
+    "pump",
+    "discharge",
+    "union",
+    "discharge_leak",
+    "intake_fouled",
+    "float_onoff",
+    "float_cord",
+    "float_tangled",
+    "cords",
+    "cord_chafed",
+    "cord_ends",
+    "cord_grip",
+    "entry_sealant",
+    "float_lead_black",
+    "float_lead_white",
+    "label_float",
+    "label_pump",
+    "pump_common",
+    "pump_ground",
+    "pump_hot",
+    "splice_float_to_pump_crimp",
+    "splice_float_to_pump_sleeve",
+    "splice_ground_crimp",
+    "splice_ground_sleeve",
+    "splice_hot_to_float_crimp",
+    "splice_hot_to_float_sleeve",
+    "splice_neutral_crimp",
+    "splice_neutral_sleeve",
+    "uf_black",
+    "uf_cable",
+    "uf_green",
+    "uf_white"
+   ],
+   "config": "sewer=septic_spray_trash",
+   "alternate": true,
+   "note": "2026-09-23 (Jake: \"I like the trash tank idea. Let's do that. You can use the 540 Infiltrator. Just put that in front\"): the trash tank, a primary settling tank in FRONT of the Lee plant, so the house sewer runs house, trash tank, plant. The IM-540 built with its outlet end (build_pump_tank.py MODE trash, 11 in of cover): the house sewer through the inlet saddle's gasket into the inlet tee, the effluent out of the outlet tee (3 in lower, dipping 40 percent of the liquid) through the outlet gasket to the Lee. It has NO pump, float or wiring, so those are hidden here with the model's own spray field, chlorinator and the two stubs it carries for being viewed alone."
+  },
+  {
+   "socket": "sock_atu_trash_back",
+   "file": "site",
+   "pack": "septic_lee",
+   "model": "septic_lee.glb",
+   "yaw": 0,
+   "hide": [
+    "grass",
+    "soil",
+    "soil_front",
+    "backfill",
+    "spray_line",
+    "spray_head0",
+    "spray_head1",
+    "spray_head2",
+    "head_stem0",
+    "head_stem1",
+    "head_stem2",
+    "stream0",
+    "stream1",
+    "stream2",
+    "spray_pattern",
+    "spray_overlap",
+    "blower",
+    "blower_air_filter_cover",
+    "blower_air_filter",
+    "blower_air_filter_dirty",
+    "air_line",
+    "blower_cord",
+    "blower_receptacle",
+    "surge_device",
+    "chlor_pool_tablets",
+    "intake_fouled",
+    "float_tangled",
+    "cord_chafed",
+    "inlet_stub"
+   ],
+   "config": "sewer=septic_spray_trash",
+   "note": "2026-09-23, the trash tank layout: the same Lee Precast 520 plant, turned on sock_atu_trash_back (-90) so its inlet faces the trash tank in front of it on the train at x -35 ft. It is fed by the trash tank's effluent line, not the house sewer (sim_feed tells the page's plant sim which run fills it). Everything else as the default yard: blower at the house, plug in pump, three heads.",
+   "alternate": true,
+   "sim_feed": "^pipe_dwv_effluent_trash$"
+  },
+  {
+   "socket": "sock_atu_trash_back",
+   "file": "site",
+   "pack": "spray_pump_filter",
+   "model": "spray_pump_filter.glb",
+   "yaw": 0,
+   "offset": [
+    -1.17475,
+    -0.18,
+    -1.94945
+   ],
+   "config": "sewer=septic_spray_trash&filter=yes",
+   "hide": [
+    "pump",
+    "pump_intake_slots",
+    "discharge",
+    "lift_rope"
+   ],
+   "states": [
+    "screen_fouled",
+    "inflow_arrows",
+    "up_arrows"
+   ],
+   "note": "2026-09-23: the spray pump filter over the Lee's pump in the trash tank layout, the same offset on the plant's turned socket. Spray pump filter (pump screen) dropped over the Lee plant's own pump: same socket as the plant, offset = its pump base (PX, PY, PZ0 of build_lee_atu.py), its own pump and discharge hidden. Clips: filter_pull (cap and pump lift out, the screen stays), pump_run (+_loop: inflow arrows turn, up arrows climb), fouled; screen/cap _section parts cut at y = 0 keeping +y.",
+   "alternate": true
+  },
+  {
+   "socket": "sock_wh_attic",
+   "file": "attic",
+   "pack": "wh_surge_protector",
+   "model": "wh_surge_protector.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "water_heater=attic_electric_tank&surge_wh=yes",
+   "hide": [
+    "ctx_whs_deck",
+    "ctx_whs_rafter",
+    "ctx_whs_heater"
+   ],
+   "states": [
+    "whs_led_dark",
+    "whs_mov_1_burnt",
+    "whs_mov_glow",
+    "whs_soot",
+    "whs_housing_crack",
+    "whs_surge_bolt",
+    "whs_surge_bolt_ground"
+   ],
+   "note": "Round 89 (Jake 2026-09-23: surge protection as the add on for the water heater). wh_surge_protector/HANDOFF.md: built in this socket's frame, a Type 1/2 SPD in a handy box on a 2x4 post nailed to the rafter, its whip into the heater's junction box beside the house feed (cable_wh_attic_feed, round 89). Remove: cover_off; Work: surge; fault: protection_lost."
+  },
+  {
+   "socket": "sock_wh_attic",
+   "file": "attic",
+   "pack": "thermostatic_mixing_valve",
+   "model": "thermostatic_mixing_valve.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "water_heater=attic_gas_tank|attic_electric_tank&plumbing=cpvc&mixing_valve=yes",
+   "hide": [
+    "tmv_context",
+    "ctx_house_cold",
+    "ctx_house_hot_drop"
+   ],
+   "states": [
+    "element_failed",
+    "shuttle_stuck",
+    "packets_hot",
+    "packets_cold",
+    "packets_mixed",
+    "packets_scald"
+   ],
+   "section_set": {
+    "pairs": {
+     "tmv_body": "tmv_body_section"
+    },
+    "also_hide": [
+     "tmv_bonnet",
+     "tmv_unions"
+    ]
+   },
+   "note": "Round 89 (Jake: anti-scald / thermostatic mixing valve, definitely). Watts LFMMVM1-CPVC on either attic tank (the nipples are the same). The house hot starts in the valve's mixed outlet coupling when mixing_valve=yes (pipe_supply_hot_wh_attic_tmv); the cold tee sleeves over the whole cold riser. Galvanized gets no valve: a written recommendation only (thermostatic_mixing_valve/HANDOFF.md)."
+  },
+  {
+   "socket": "sock_wh_attic",
+   "file": "attic",
+   "pack": "thermostatic_mixing_valve_pex",
+   "model": "thermostatic_mixing_valve_pex.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "water_heater=attic_gas_tank|attic_electric_tank&plumbing=pex&mixing_valve=yes",
+   "hide": [
+    "tmv_context",
+    "ctx_house_cold",
+    "ctx_house_hot_drop"
+   ],
+   "states": [
+    "element_failed",
+    "shuttle_stuck",
+    "packets_hot",
+    "packets_cold",
+    "packets_mixed",
+    "packets_scald"
+   ],
+   "section_set": {
+    "pairs": {
+     "tmv_body": "tmv_body_section",
+     "hot_crimp_90_lo": "crimp_joint_section"
+    },
+    "also_hide": [
+     "tmv_bonnet",
+     "tmv_unions",
+     "hot_tube_drop",
+     "hot_tube_in"
+    ]
+   },
+   "note": "Round 89 (Jake 2026-09-23: the PEX variant, highest quality, real fittings and joints). Watts LFMMVM1-PEX with its own 18 in stainless connector off the hot nipple (the house's hot connector steps aside, mixing_valve=no on it); the house PEX cold riser is cut at the valve's crimp tee (pipe_supply_cold_riser_tmv_lo/hi__pex) and the house hot starts on the coupling (pipe_supply_hot_wh_attic_tmv__pex)."
+  },
+  {
+   "socket": "sock_stat_hall",
+   "file": "floor1",
+   "pack": "air_quality_monitor",
+   "model": "air_quality_monitor.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "iaq_monitor=yes",
+   "hide": [
+    "ctx_wall",
+    "ctx_floor",
+    "ctx_baseboard",
+    "ctx_thermostat"
+   ],
+   "states": [
+    "display_poor",
+    "display_dark",
+    "adapter_unplugged",
+    "air_in_packets",
+    "air_out_packets"
+   ],
+   "section_set": {
+    "pairs": {
+     "monitor_body": "monitor_body_section"
+    },
+    "also_hide": [
+     "power_button"
+    ]
+   },
+   "note": "Round 89 (Jake: air quality monitor, yes). Awair Omni class on the hall wall 0.5 m beside the thermostat, USB-C in a cord channel to its adapter in its own receptacle below (the house draws no circuit to that box). If the outlet surge device is ever placed on this wall, hide this model's receptacle while it shows (same footprint)."
+  },
+  {
+   "socket": "sock_ahu_closet_hall",
+   "file": "floor1",
+   "pack": "media_air_cleaner",
+   "model": "media_air_cleaner.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "hvac=split_furnace&media_cabinet=yes",
+   "states": [
+    "media_loaded",
+    "media_air_dusty_in",
+    "media_air_dusty_up",
+    "media_air_clean_up"
+   ],
+   "section_set": {
+    "pairs": {
+     "media_cabinet": "media_cabinet_section"
+    }
+   },
+   "note": "Round 89 (Jake: media air cleaner cabinet, yes). AprilAire 2210 class laid flat in the furnace's return platform; the furnace's own 1 in filter, its door and base, and the furnace's return air packets go while it is in (the furnace placement's media_cabinet add on block): two filters in series starve the blower, and the cabinet's airflow clip tells the return story."
+  },
+  {
+   "socket": "sock_ahu_closet_hall",
+   "file": "floor1",
+   "pack": "induct_purifier",
+   "model": "induct_purifier.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "hvac=split_furnace&purifier=yes",
+   "states": [
+    "cell_dark",
+    "purify_packets_0",
+    "purify_packets_1",
+    "purify_packets_2",
+    "purify_packets_3",
+    "purify_packets_4"
+   ],
+   "section_set": {
+    "pairs": {
+     "halo_probe": "halo_probe_section"
+    }
+   },
+   "note": "Round 89 (Jake: carbon or PCO purifier, yes). REME HALO class on the front of the supply plenum, its transformer on a box by the furnace switch. 80 percent furnace only: on the condensing furnace its PVC intake stands where the purifier sits (move it before allowing it there)."
+  },
+  {
+   "socket": "sock_hosebib_front",
+   "file": "site",
+   "pack": "hosebib_protection",
+   "model": "hosebib_protection.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "hide": [
+    "freeze_cover_root",
+    "vacuum_breaker_root",
+    "ctx_house",
+    "ctx_bib",
+    "ctx_block",
+    "ctx_wall",
+    "ctx_bed"
+   ],
+   "states": [
+    "cover_gasket_gap",
+    "cover_cutaway",
+    "warm_band",
+    "cold_packets",
+    "vb_story_hose",
+    "vb_story_bucket",
+    "vb_air_packets",
+    "vb_hose_packets",
+    "vb_vent_drip"
+   ],
+   "addon": {
+    "freeze_cover": {
+     "show": [
+      "freeze_cover_root"
+     ],
+     "hide": []
+    },
+    "vacuum_breaker": {
+     "show": [
+      "vacuum_breaker_root"
+     ],
+     "hide": []
+    }
+   },
+   "section_set": {
+    "pairs": {
+     "cover_shell": "cover_shell_section",
+     "vb_body": "vb_body_section"
+    },
+    "also_hide": [
+     "cover_foam",
+     "cover_gasket",
+     "vb_cap",
+     "vb_hose_thread"
+    ]
+   },
+   "note": "Round 89 (Jake: freeze cover on the hose bibs, and the hose bib vacuum breaker). ALWAYS placed, so the spigot link lands on this unit whatever its add ons are; the two add ons are its blocks (freeze_cover, vacuum_breaker). Built in this socket's frame as it stands now (z -0.03): yaw 0, offset 0 (not the Sweet Air's z 0.45). walk.js will not run the front bib through the cover: cover_off first."
+  },
+  {
+   "socket": "sock_ahu_attic",
+   "file": "attic",
+   "pack": "erv",
+   "model": "erv.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "erv=yes&hvac=split_furnace|split_furnace_cond96",
+   "hide": [
+    "ctx_joists",
+    "ctx_insulation",
+    "ctx_walkway",
+    "ctx_ceiling",
+    "ctx_trunk",
+    "ctx_rafters",
+    "ctx_roof",
+    "ctx_wall",
+    "interlock_cable_ahu"
+   ],
+   "states": [
+    "core_clogged",
+    "filters_dirty",
+    "fresh_packet_00",
+    "fresh_packet_01",
+    "fresh_packet_02",
+    "fresh_packet_03",
+    "fresh_packet_04",
+    "fresh_packet_05",
+    "fresh_packet_06",
+    "fresh_packet_07",
+    "fresh_packet_08",
+    "fresh_packet_09",
+    "fresh_packet_10",
+    "fresh_packet_11",
+    "fresh_packet_12",
+    "fresh_packet_13",
+    "fresh_packet_14",
+    "fresh_packet_15",
+    "fresh_packet_16",
+    "fresh_packet_17",
+    "fresh_packet_18",
+    "fresh_packet_19",
+    "fresh_packet_20",
+    "fresh_packet_21",
+    "fresh_packet_22",
+    "fresh_packet_23",
+    "fresh_packet_24",
+    "fresh_packet_25",
+    "fresh_packet_26",
+    "stale_packet_00",
+    "stale_packet_01",
+    "stale_packet_02",
+    "stale_packet_03",
+    "stale_packet_04",
+    "stale_packet_05",
+    "stale_packet_06",
+    "stale_packet_07",
+    "stale_packet_08",
+    "stale_packet_09",
+    "stale_packet_10",
+    "stale_packet_11",
+    "stale_packet_12",
+    "stale_packet_13",
+    "stale_packet_14",
+    "stale_packet_15",
+    "stale_packet_16",
+    "stale_packet_17",
+    "stale_packet_18",
+    "stale_packet_19",
+    "stale_packet_20",
+    "stale_packet_21",
+    "stale_packet_22",
+    "stale_packet_23",
+    "stale_packet_24",
+    "stale_packet_25"
+   ],
+   "section_set": {
+    "pairs": {
+     "cabinet": "cabinet_section",
+     "core": "core_section",
+     "duct_fresh_in": "duct_fresh_in_section",
+     "duct_exhaust_out": "duct_exhaust_out_section",
+     "duct_stale_in": "duct_stale_in_section",
+     "duct_supply_out": "duct_supply_out_section"
+    },
+    "also_hide": [
+     "door",
+     "core_filters"
+    ]
+   },
+   "note": "Round 89 (Jake: ERV, yes). Broan ERV90HCS hung from two rafters by the attic walkway, fresh air into the supply trunk, stale from the kitchen ceiling, two roof caps. Rides the trunk, which is the same object with either furnace; its interlock drops to the furnace (cable_erv_interlock) and its feed runs to the panel (cable_erv_feed). Show this or the heat pump's fresh_air duct, not both."
+  },
+  {
+   "socket": "sock_ahu_attic",
+   "file": "attic",
+   "pack": "erv",
+   "model": "erv.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "erv=yes&hvac=heatpump_attic",
+   "hide": [
+    "ctx_joists",
+    "ctx_insulation",
+    "ctx_walkway",
+    "ctx_ceiling",
+    "ctx_trunk",
+    "ctx_rafters",
+    "ctx_roof",
+    "ctx_wall",
+    "interlock_cable"
+   ],
+   "states": [
+    "core_clogged",
+    "filters_dirty",
+    "fresh_packet_00",
+    "fresh_packet_01",
+    "fresh_packet_02",
+    "fresh_packet_03",
+    "fresh_packet_04",
+    "fresh_packet_05",
+    "fresh_packet_06",
+    "fresh_packet_07",
+    "fresh_packet_08",
+    "fresh_packet_09",
+    "fresh_packet_10",
+    "fresh_packet_11",
+    "fresh_packet_12",
+    "fresh_packet_13",
+    "fresh_packet_14",
+    "fresh_packet_15",
+    "fresh_packet_16",
+    "fresh_packet_17",
+    "fresh_packet_18",
+    "fresh_packet_19",
+    "fresh_packet_20",
+    "fresh_packet_21",
+    "fresh_packet_22",
+    "fresh_packet_23",
+    "fresh_packet_24",
+    "fresh_packet_25",
+    "fresh_packet_26",
+    "stale_packet_00",
+    "stale_packet_01",
+    "stale_packet_02",
+    "stale_packet_03",
+    "stale_packet_04",
+    "stale_packet_05",
+    "stale_packet_06",
+    "stale_packet_07",
+    "stale_packet_08",
+    "stale_packet_09",
+    "stale_packet_10",
+    "stale_packet_11",
+    "stale_packet_12",
+    "stale_packet_13",
+    "stale_packet_14",
+    "stale_packet_15",
+    "stale_packet_16",
+    "stale_packet_17",
+    "stale_packet_18",
+    "stale_packet_19",
+    "stale_packet_20",
+    "stale_packet_21",
+    "stale_packet_22",
+    "stale_packet_23",
+    "stale_packet_24",
+    "stale_packet_25"
+   ],
+   "section_set": {
+    "pairs": {
+     "cabinet": "cabinet_section",
+     "core": "core_section",
+     "duct_fresh_in": "duct_fresh_in_section",
+     "duct_exhaust_out": "duct_exhaust_out_section",
+     "duct_stale_in": "duct_stale_in_section",
+     "duct_supply_out": "duct_supply_out_section"
+    },
+    "also_hide": [
+     "door",
+     "core_filters"
+    ]
+   },
+   "note": "Round 89: the ERV in the heat pump layout, its interlock onto the air handler's low voltage entry (cable_erv_interlock_hp)."
+  },
+  {
+   "socket": "sock_septic_tank_back",
+   "file": "site",
+   "pack": "sludgehammer",
+   "model": "sludgehammer.glb",
+   "yaw": 90,
+   "offset": [
+    0,
+    -1.101,
+    0.002
+   ],
+   "config": "sewer=septic_gravity&sludgehammer=yes",
+   "hide": [
+    "airline_seal_24in"
+   ],
+   "show": [
+    "air_line_buried"
+   ],
+   "states": [
+    "pump_dead",
+    "air_bubbles",
+    "bacteria_0",
+    "bacteria_1",
+    "bacteria_2",
+    "bacteria_3",
+    "bacteria_4",
+    "bacteria_5"
+   ],
+   "section_set": {
+    "pairs": {
+     "column": "column_section",
+     "base": "base_section",
+     "centre_tube": "centre_tube_section",
+     "media": "media_section"
+    }
+   },
+   "note": "Round 89 (Jake: SludgeHammer bacteria generator, yes). S-46 hung from the gravity tank's inlet riser (the first compartment), the Secoh in a vented basin west of the tank, GFCI and alarm box on a post; the house runs its feed (cable_sludgehammer_feed_gravity). The tank's risers are 18 in, so the 24 in seal goes (the integration list had the two seals the other way round; measured: septic_tank_risers 0.26 m outside radius, the IM-540's 0.36). air_line_buried is shown on purpose (the buried hide pattern would take it). The agent gave its offsets in the SOCKET frame (1.101, 0 there); a placement offset is in the MODEL frame, applied before the yaw (M = socket x yaw x offset), so with yaw 90 it is (0, -1.101): the first placement hung the unit 1.1 m west of the riser, outside the tank."
+  },
+  {
+   "socket": "sock_trash_tank_back",
+   "file": "site",
+   "pack": "sludgehammer",
+   "model": "sludgehammer.glb",
+   "yaw": 90,
+   "offset": [
+    -0.05,
+    -0.05,
+    0.05
+   ],
+   "config": "sewer=septic_spray_trash&sludgehammer=yes",
+   "hide": [
+    "airline_seal_18in"
+   ],
+   "show": [
+    "air_line_buried"
+   ],
+   "states": [
+    "pump_dead",
+    "air_bubbles",
+    "bacteria_0",
+    "bacteria_1",
+    "bacteria_2",
+    "bacteria_3",
+    "bacteria_4",
+    "bacteria_5"
+   ],
+   "section_set": {
+    "pairs": {
+     "column": "column_section",
+     "base": "base_section",
+     "centre_tube": "centre_tube_section",
+     "media": "media_section"
+    }
+   },
+   "note": "Round 89: the SludgeHammer in the trash tank in front of the Lee (the IM-540 takes a 24 in riser, so the 18 in seal goes), standing on the tank floor; the house runs its feed (cable_sludgehammer_feed_trash)."
+  },
+  {
+   "socket": "sock_commercial_lot",
+   "file": "site",
+   "pack": "grease_interceptor",
+   "model": "grease_interceptor.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "commercial_lot=yes",
+   "states": [
+    "grease_cap_high",
+    "grease_cap_high_section",
+    "solids_high",
+    "solids_high_section",
+    "baffle_broken",
+    "baffle_broken_section",
+    "outlet_tee_corroded",
+    "outlet_tee_corroded_section",
+    "lid_cracked",
+    "lid_unrated",
+    "inlet_greased",
+    "grease_carryover",
+    "packets_in",
+    "packets_drop",
+    "packets_grease",
+    "packets_cross",
+    "packets_out",
+    "packets_exit",
+    "vac_hose"
+   ],
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "baffle": "baffle_section",
+     "water": "water_section",
+     "grease_cap": "grease_cap_section",
+     "solids": "solids_section",
+     "inlet_tee": "inlet_tee_section",
+     "outlet_tee": "outlet_tee_section",
+     "inlet_line": "inlet_line_section",
+     "sample_box": "sample_box_section",
+     "soil": "soil_section",
+     "backfill": "backfill_section",
+     "backfill_bedding": "backfill_bedding_section",
+     "floor_lot_commercial_pad": "floor_lot_commercial_pad_section",
+     "floor_lot_commercial_asphalt": "floor_lot_commercial_asphalt_section",
+     "floor_lot_commercial_base": "floor_lot_commercial_base_section"
+    },
+    "also_hide": [
+     "restroom_line",
+     "co_restroom"
+    ]
+   },
+   "show": [
+    "soil",
+    "backfill"
+   ],
+   "unhide": [
+    "soil_section",
+    "backfill_section"
+   ],
+   "note": "Round 89 (Jake: grease trap, its own commercial lot across the street). Generic 1,000 gallon two compartment precast interceptor out back in the asphalt, traffic rated lids, cleanouts, a sampling port, the 6 in building sewer across the street into a saddle tap on the city main's south side (bored in build_pipes, plug_city_main_commercial_tap fills the hole when the lot is off). Its soil and backfill are its own: shown, and their cut halves taken out of hide_common with unhide (walk.js), so the cutaway can swap them in. The section only ever shows a fault's cut half while that fault is on (walk.js clipReveal)."
+  },
+  {
+   "socket": "sock_commercial_lot",
+   "file": "site",
+   "pack": "commercial_storefront",
+   "model": "commercial_storefront.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "commercial_lot=yes",
+   "note": "Round 89: the storefront the interceptor serves (kitchen, three compartment sink, floor sinks, restroom), on its own slab 6 in up; walk.js stands you on its floor_ meshes and collides its *_body walls."
   }
  ],
  "hide_patterns": [

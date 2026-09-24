@@ -2193,6 +2193,767 @@
   },
   "attic_ladder": {
    "name": "Attic Ladder"
+  },
+  "trash_tank": {
+   "name": "Trash Tank (in front of the plant)",
+   "clips": {
+    "lid_off": "Lid off"
+   },
+   "hotspots": {
+    "tank": [
+     "A trash tank is a small septic tank in front of the aerobic plant. It holds back what will not break down (grease, wipes, the heavy solids) so the plant only has to treat the liquid."
+    ],
+    "riser": [
+     "Lid under the grass. Every future pump out starts with a shovel. Bring the access to grade with a riser."
+    ],
+    "lid": [
+     "Cracked lid over a full tank. Replace it today, it is a child safety item."
+    ],
+    "inlet": [
+     "Look at the inlet tee with the lid off: the drop must be there and open. A missing inlet tee lets the incoming flow stir the scum and push it toward the outlet."
+    ],
+    "outlet": [
+     "The outlet tee sits 3 in under the inlet and dips into the clear middle. If it is missing or broken, scum and solids go straight into the plant and foul its aeration and its pump."
+    ],
+    "water": [
+     "Measure the scum and the sludge. When they fill a third of the tank it is time to pump it, or the solids carry over into the plant. The trash tank gets pumped more often than the plant.",
+     "Normal level is the bottom of the outlet pipe. Liquid up in the riser means the outlet or the line to the plant is blocked. Low means the tank is leaking."
+    ]
+   },
+   "labels": {
+    "tank": "Infiltrator IM-540 poly tank set as a trash tank in front of the aerobic plant, 552 gal, 11 in of cover",
+    "tank_section": "Tank cut at the centre",
+    "seam": "Mid-height seam: gasket, alignment dowels, locking seam clips",
+    "riser": "24 in riser to grade",
+    "riser_adapter": "Riser adapter ring, ten stainless screws",
+    "lid": "Locking lid",
+    "lid_bolts": "Lid bolts",
+    "water": "Liquid standing at the outlet invert: a trash tank is always full",
+    "water_section": "Liquid, scum on top and sludge on the floor stay here",
+    "inlet": "4 in inlet sanitary tee from the house sewer, its drop under the scum",
+    "inlet_gasket": "Inlet gasket in a 5 in hole through the moulded saddle",
+    "outlet": "Outlet sanitary tee, 3 in lower than the inlet, its leg dipping into the clear middle",
+    "outlet_gasket": "Outlet gasket in a 5 in hole through the moulded saddle",
+    "lid_buried": "Lid under the grass",
+    "lid_cracked": "Cracked lid"
+   }
+  },
+  "wh_surge_protector": {
+   "name": "Water Heater Surge Protector (attic)",
+   "clips": {
+    "surge": "Surge",
+    "cover_off": "Cover off",
+    "protection_lost": "Protection lost"
+   },
+   "hotspots": {
+    "whs_led_lit": [
+     "Green light on means protected. Power on and no light means it is spent: replace it."
+    ],
+    "whs_spd_nipple": [
+     "Look for black soot at the nipple or cracks in the case. Either one means it is done."
+    ],
+    "whs_spd_lead_white": [
+     "240 V heater, no neutral: the two blacks go on L1 and L2, the white goes to ground."
+    ],
+    "whs_whip": [
+     "Keep the run short and straight. Every extra foot of wire lets more of the spike through."
+    ],
+    "whs_connector_heater": [
+     "Lands in the heater's own junction box, on the same circuit it protects. Kill the breaker before you open it."
+    ],
+    "whs_post": [
+     "No wall in an attic: a stand off nailed to the rafter holds it. Never screw into the heater jacket."
+    ]
+   },
+   "labels": {
+    "whs_spd_body": "Surge protective device (Type 1 / Type 2, 240 V): wired across the heater's two hots and ground",
+    "whs_spd_label": "Rating label: 120/240 V single phase, green light means protected",
+    "whs_led_bezel": "Status light",
+    "whs_led_lit": "Green light on: the surge parts inside are still good",
+    "whs_led_dark": "Light out with the power on: the device is spent, it is not protecting anything",
+    "whs_led_text": "Status light: look at it every visit",
+    "whs_mov_1": "MOV, line 1 to ground: turns into a short for a split second when the voltage spikes",
+    "whs_mov_2": "MOV, line 2 to ground",
+    "whs_mov_3": "MOV, line 1 to line 2",
+    "whs_mov_1_burnt": "Burnt MOV: it took one surge too many and its thermal link let go",
+    "whs_mov_glow": "The MOV taking the hit",
+    "whs_spd_board": "Light board inside the device",
+    "whs_spd_leads_inside": "Factory leads out of the potting",
+    "whs_spd_body_section": "Cut open: three MOVs potted in the housing, each with a thermal link",
+    "whs_spd_nipple": "1/2 in nipple into the handy box, locknut inside",
+    "whs_handy_box": "Steel handy box on the post: the splices live here",
+    "whs_handy_box_screws": "Wood screws holding the box to the post",
+    "whs_handy_cover": "Blank cover: take it off to see the splices",
+    "whs_handy_cover_screws": "Cover screws",
+    "whs_box_ground_screw": "Green ground screw: the steel box is bonded",
+    "whs_box_pigtail": "Ground pigtail to the box",
+    "whs_spd_lead_black_1": "Device lead, black: goes to line 1",
+    "whs_spd_lead_black_2": "Device lead, black: goes to line 2",
+    "whs_spd_lead_white": "Device lead, white: on a 240 V heater it goes to GROUND, not a neutral (there is none)",
+    "whs_thhn_black_1": "#12 THHN to line 1 at the heater",
+    "whs_thhn_black_2": "#12 THHN to line 2 at the heater",
+    "whs_thhn_green": "#12 THHN ground to the heater's ground screw",
+    "whs_wire_nuts": "Wire nuts: tug test every one",
+    "whs_connector_box": "3/8 in flex connector in the box's top knockout",
+    "whs_connector_heater": "3/8 in flex connector in the heater's junction box, beside the feed",
+    "whs_whip": "3/8 in flexible metal conduit: the leads ride in it to the heater",
+    "whs_whip_strap": "One hole strap: the flex is fastened to the post",
+    "whs_jbox_leads": "In the heater's junction box: blacks on L1 and L2 with the feed, green on the ground screw",
+    "whs_post": "2x4 stand off nailed to the rafter and the platform: something solid to mount on in an attic",
+    "whs_post_nails": "Nails through the rafter and toe nails into the deck",
+    "whs_soot": "Black soot at the nipple and on the housing: the device has failed, replace it",
+    "whs_housing_crack": "Cracked housing: replace it",
+    "whs_surge_bolt": "Surge coming in on the line",
+    "whs_surge_bolt_ground": "The surge dumped to ground through the device instead of through the heater's controls"
+   }
+  },
+  "thermostatic_mixing_valve": {
+   "name": "Thermostatic Mixing Valve (attic water heater)",
+   "clips": {
+    "mix": "Hot and cold in, tempered out",
+    "cap_off": "Take the cap off",
+    "set_temp": "Set the temperature",
+    "scald": "Failed element: scald"
+   },
+   "hotspots": {
+    "tmv_body": [
+     "Mixing valve at the heater. The tank can store water hot enough to kill bacteria, and every tap still gets 120 F or less."
+    ],
+    "tmv_marks": [
+     "Read the marks: hot to H, cold to C, M goes to the house. A valve piped hot to C sends cold to the taps and scalds on a cold tank."
+    ],
+    "cold_check": [
+     "Cold teed off the supply with a check, arrow toward the valve. No check and hot creeps back into the cold lines."
+    ],
+    "tmv_cap": [
+     "Setting: run the nearest tap two minutes, read it with a thermometer, adjust under the cap, lock the cap back down."
+    ],
+    "mixed_coupling": [
+     "Test it: tap temperature steady near the set point with the tank at 140. Tap as hot as the tank means the element has failed."
+    ],
+    "tmv_unions": [
+     "Unions both inlets and the outlet: shut the water off, open the unions, and the valve comes out to clean the screens or swap the cartridge."
+    ]
+   },
+   "labels": {
+    "tmv_body": "Thermostatic mixing valve, 3/4 in, at the heater. Hot in one side, cold in the other, tempered water out the bottom to the house",
+    "tmv_marks": "Cast marks: H is the hot inlet, C the cold inlet, M and the arrow the mixed outlet. Piped backwards, it cannot work",
+    "tmv_bonnet": "Bonnet with the setting scale, 80 to 120 F",
+    "tmv_cap": "Locking adjustment cap. Loosen the screw on top and lift it off to reach the stem",
+    "tmv_stem": "Adjusting stem: counterclockwise is hotter, clockwise is cooler. Set it by the thermometer at the nearest tap, not by the marks",
+    "tmv_unions": "Union ends: the valve comes out without cutting pipe. Filter washers and checks sit behind them",
+    "tmv_internals": "Seats, springs, the check valves in both inlets and the filter washers",
+    "tmv_element": "Wax thermostat: it swells in hotter water and moves the shuttle toward the hot seat",
+    "tmv_shuttle": "Shuttle between the hot seat and the cold seat: it throttles both at once to hold the set temperature",
+    "tmv_body_section": "Valve cut open: the shuttle between its two seats, the wax element under it, the inlet checks",
+    "element_failed": "Failed element: split, wax gone. It no longer swells, so nothing pushes the shuttle off the hot seat",
+    "shuttle_stuck": "Shuttle jammed up on the cold seat: the hot is wide open and the cold is shut",
+    "hot_line": "3/4 in CPVC hot from the heater's hot outlet, over the tank top and down into the HOT port",
+    "cold_tee": "Tee on the cold supply above the heater's shutoff: the cold for the mixing valve",
+    "cold_line": "3/4 in CPVC cold from the tee around to the COLD port",
+    "cold_check": "Spring check on the cold feed, arrow toward the valve: hot cannot push back into the cold line",
+    "mixed_line": "Tempered water out of the bottom of the valve",
+    "mixed_coupling": "Where the house hot line picks up the tempered water",
+    "packets_hot": "Hot from the tank",
+    "packets_cold": "Cold from the supply",
+    "packets_mixed": "Tempered water to the taps",
+    "packets_scald": "Tank temperature going straight to the taps"
+   }
+  },
+  "thermostatic_mixing_valve_pex": {
+   "name": "Thermostatic Mixing Valve (attic water heater, PEX)",
+   "clips": {
+    "mix": "Hot and cold in, tempered out",
+    "cap_off": "Take the cap off",
+    "set_temp": "Set the temperature",
+    "scald": "Failed element: scald"
+   },
+   "hotspots": {
+    "tmv_body": [
+     "Mixing valve at the heater. The tank can store water hot enough to kill bacteria, and every tap still gets 120 F or less."
+    ],
+    "tmv_marks": [
+     "Read the marks: hot to H, cold to C, M goes to the house. A valve piped hot to C sends cold to the taps and scalds on a cold tank."
+    ],
+    "cold_check": [
+     "Cold teed off the supply with a check, arrow toward the valve. No check and hot creeps back into the cold lines."
+    ],
+    "tmv_cap": [
+     "Setting: run the nearest tap two minutes, read it with a thermometer, adjust under the cap, lock the cap back down."
+    ],
+    "mixed_coupling": [
+     "Test it: tap temperature steady near the set point with the tank at 140. Tap as hot as the tank means the element has failed."
+    ],
+    "tmv_unions": [
+     "Unions both inlets and the outlet: shut the water off, open the unions, and the valve comes out to clean the screens or swap the cartridge."
+    ],
+    "hot_connector": [
+     "Stainless connector off the hot outlet, then PEX: the first 18 in off a water heater is metal."
+    ],
+    "hot_crimp_90_lo": [
+     "Check every crimp with the go / no go gauge: ring square, 1/8 to 1/4 in back from the tube end, no gap at the shoulder."
+    ]
+   },
+   "labels": {
+    "tmv_body": "Thermostatic mixing valve, 3/4 in, at the heater. Hot in one side, cold in the other, tempered water out the bottom to the house",
+    "tmv_marks": "Cast marks: H is the hot inlet, C the cold inlet, M and the arrow the mixed outlet. Piped backwards, it cannot work",
+    "tmv_bonnet": "Bonnet with the setting scale, 80 to 120 F",
+    "tmv_cap": "Locking adjustment cap. Loosen the screw on top and lift it off to reach the stem",
+    "tmv_stem": "Adjusting stem: counterclockwise is hotter, clockwise is cooler. Set it by the thermometer at the nearest tap, not by the marks",
+    "tmv_unions": "Union ends with PEX crimp tails: the valve comes out without cutting tube. Filter washers and checks sit behind them",
+    "tmv_internals": "Seats, springs, the check valves in both inlets and the filter washers",
+    "tmv_element": "Wax thermostat: it swells in hotter water and moves the shuttle toward the hot seat",
+    "tmv_shuttle": "Shuttle between the hot seat and the cold seat: it throttles both at once to hold the set temperature",
+    "tmv_body_section": "Valve cut open: the shuttle between its two seats, the wax element under it, the inlet checks",
+    "element_failed": "Failed element: split, wax gone. It no longer swells, so nothing pushes the shuttle off the hot seat",
+    "shuttle_stuck": "Shuttle jammed up on the cold seat: the hot is wide open and the cold is shut",
+    "cold_tee": "Brass crimp tee cut into the cold supply above the heater's shutoff: the cold for the mixing valve",
+    "cold_check": "Crimp spring check, arrow away from the tee: hot cannot push back into the cold line",
+    "mixed_coupling": "Crimp coupling where the house hot line picks up the tempered water",
+    "packets_hot": "Hot from the tank",
+    "packets_cold": "Cold from the supply",
+    "packets_mixed": "Tempered water to the taps",
+    "packets_scald": "Tank temperature going straight to the taps",
+    "hot_connector": "18 in corrugated stainless water heater connector, FIP nut on the hot nipple, PEX barb on the far end. No PEX in the first 18 in off a water heater",
+    "hot_tube_top": "Red PEX-B from the connector to the first crimp 90, a copper crimp ring at each end",
+    "hot_crimp_90_hi": "Brass crimp 90: the turn is too tight to bend the tube (minimum bend about 5 in on 3/4)",
+    "hot_tube_drop": "Red PEX-B down in front of the tank",
+    "hot_crimp_90_lo": "Brass crimp 90 into the HOT tail",
+    "hot_tube_in": "Red PEX-B into the valve's hot tail",
+    "cold_tube_a": "Blue PEX-B from the tee to the check",
+    "cold_tube_b": "Blue PEX-B out to the front",
+    "cold_crimp_90_a": "Brass crimp 90",
+    "cold_tube_c": "Blue PEX-B across the front, held in a tube talon",
+    "cold_crimp_90_b": "Brass crimp 90 into the COLD tail",
+    "cold_tube_d": "Blue PEX-B into the valve's cold tail",
+    "mixed_tube": "Red PEX-B, tempered water down off the outlet tail",
+    "pex_supports": "2x4 stakes toe nailed to the platform with nail on tube talons: the valve and its tube are carried, not hanging on the fittings",
+    "crimp_joint_section": "Crimp joints cut open: the tube over the barb ribs, butted to the shoulder, the copper ring 3/16 in back from the tube end, crimped down"
+   }
+  },
+  "air_quality_monitor": {
+   "name": "Air Quality Monitor (hall wall)",
+   "clips": {
+    "sense": "Sense",
+    "plate_off": "Plate off",
+    "air_poor": "Air poor",
+    "no_power": "No power"
+   },
+   "hotspots": {
+    "monitor_body": [
+     "An air quality monitor tells the homeowner what the air in the house is doing: CO2, chemicals (VOC), fine dust, humidity and temperature. It is how they see the filter, the fresh air and the purifier working."
+    ],
+    "wall_bracket": [
+     "Mount it on an inside wall in the main living space, about thermostat height, out of sun, away from supply registers, kitchens and bath doors. Keep 2 in clear on both sides for the vents."
+    ],
+    "readings_a": [
+     "Read the numbers with the homeowner: CO2 under 1000 ppm, humidity 40 to 60 percent, PM2.5 under 12. High CO2 means not enough fresh air. High PM2.5 means the filter is not catching it."
+    ],
+    "display_poor": [
+     "Red ring: poor air. Check the filter, the fresh air duct and the return, and talk about ventilation, a media filter or a purifier."
+    ],
+    "pm_sensor": [
+     "Inside: a laser dust sensor with its own small fan pulls air in the left slots, past the CO2, VOC and humidity sensors, and out the right grille. Dust or tape over the slots gives wrong readings."
+    ],
+    "adapter": [
+     "Power: the 5 V adapter in the outlet under it, the cable in the cord channel. A blank screen is almost always the adapter pulled out or the outlet dead. Check the outlet before you blame the monitor."
+    ],
+    "bracket_screws": [
+     "Slide the monitor up to lift it off its wall mount. Two screws in anchors hold the mount."
+    ]
+   },
+   "labels": {
+    "monitor_unit": "Air quality monitor (Awair Omni class): reads CO2, VOC, fine dust (PM2.5), humidity and temperature in the room",
+    "monitor_body": "The monitor: air comes in the slots on the left side and out the grille on the right. Keep both sides clear, 2 in or more",
+    "monitor_body_section": "Cut open: the dust sensor behind the intake, the CO2 sensor and the humidity, temperature and VOC sensors on the main board",
+    "power_button": "Power button on the right side",
+    "display_window": "The display lens. The small dot at the top right is the light sensor",
+    "display_good": "Green ring and status light: the air is good",
+    "readings_a": "Live readings: air score, CO2, VOC, PM2.5, humidity, temperature",
+    "readings_b": "Live readings: the next update",
+    "display_poor": "Red ring and status light: poor air. CO2 and VOC are high: the house needs fresh air, the filter and ventilation get checked",
+    "display_dark": "Blank screen: no power to the monitor",
+    "sensor_board": "Main board with the Wi-Fi module",
+    "led_board": "The LED matrix behind the lens that draws the numbers",
+    "pm_sensor": "Laser dust sensor (PM2.5): its fan pulls room air in through the side slots",
+    "co2_sensor": "CO2 sensor (NDIR): CO2 climbs when people are in a closed up house",
+    "env_sensors": "VOC sensor and the humidity and temperature sensor, beside the exhaust grille",
+    "wall_bracket": "Wall mount: the monitor slides down into it. Two screws and anchors, level",
+    "bracket_screws": "The two mounting screws",
+    "usb_cable": "USB-C power cable into the bottom of the monitor",
+    "cord_channel": "Paintable cord channel: keeps the cable neat down the wall to the outlet",
+    "adapter": "5 V 2 A plug in adapter in the outlet under the monitor",
+    "adapter_unplugged": "Adapter pulled out of the outlet: the monitor goes dark and stops reporting",
+    "receptacle": "The outlet the adapter plugs into",
+    "air_in_packets": "Room air drawn in through the side slots",
+    "air_out_packets": "Sampled air out through the side grille"
+   }
+  },
+  "media_air_cleaner": {
+   "name": "Media Air Cleaner (return platform)",
+   "clips": {
+    "airflow": "Airflow",
+    "door_open": "Door open",
+    "media_pull": "Media pull",
+    "media_dirty": "Media dirty",
+    "cutaway": "Cutaway"
+   },
+   "hotspots": {
+    "media_pleats": [
+     "White or light grey on the inlet side, date on the end card inside 12 months. Put it back arrow up."
+    ],
+    "media_loaded": [
+     "Grey and caked on the bottom. Replace it (213 media), write the date on the end, and check the static pressure after."
+    ],
+    "media_return_grille": [
+     "No 1 in filter at the grille. Two filters in a row choke the blower; the media is the only filter."
+    ],
+    "media_transition": [
+     "Transition taped and sealed to the deck. A leak here lets dusty closet air around the media."
+    ],
+    "media_door": [
+     "Door seated and latched, arrow toward the furnace. A door left off pulls air around the media."
+    ]
+   },
+   "labels": {
+    "media_cabinet": "Media cabinet (20 x 25, 2210 class) laid flat under the furnace: the air goes up through it",
+    "media_cabinet_section": "Cabinet cut open: the pleated media sits in its channels between the two openings",
+    "media_door": "Cabinet door: two latches, the airflow arrow points at the furnace",
+    "media_pleats": "Deep pleat media, MERV 13: about 60 pleats folded like an accordion",
+    "media_frame": "Media ends and the blue spacers that keep the pleats open",
+    "media_loaded": "Loaded media: grey and caked on the bottom (inlet) side. Past due, the blower is starving for air",
+    "media_transition": "Transition from the cabinet up to the furnace's bottom opening, foil taped and sealed",
+    "media_supports": "Angle rails on 2 x 4 posts: the cabinet does not hang from the furnace",
+    "media_return_panel": "Block off panel over the old filter grille hole",
+    "media_return_grille": "Return grille, no filter in it: the media does the filtering now",
+    "media_air_dusty_in": "Room air in through the grille, dust and all",
+    "media_air_dusty_up": "Dusty air rising into the bottom of the media",
+    "media_air_clean_up": "Filtered air leaving the top, into the furnace blower"
+   }
+  },
+  "induct_purifier": {
+   "name": "In Duct Purifier (supply plenum)",
+   "clips": {
+    "purify": "Purify",
+    "probe_pull": "Probe pull",
+    "cell_failed": "Cell failed",
+    "cutaway": "Cutaway"
+   },
+   "hotspots": {
+    "status_glow": [
+     "Window lit with the blower running. Check the install date on the cell label."
+    ],
+    "halo_housing": [
+     "Window dark with power at the jack: lamp or cell is done. Power off, unplug, three screws, pull it and replace the cell."
+    ],
+    "halo_transformer": [
+     "Check 24 VAC at the jack. None: check the transformer and the furnace switch."
+    ],
+    "halo_gasket": [
+     "Gasket and screws tight: no supply air blowing out round the plate."
+    ]
+   },
+   "labels": {
+    "halo_housing": "Purifier on its plate: three screws, lamp window, 24 V jack. UV-C inside, power off before you pull it",
+    "status_glow": "Lamp window: lit means the lamp is on",
+    "halo_gasket": "Foam gasket under the plate: seals the hole",
+    "halo_foil_ring": "Foil ring round the 3-1/4 in hole",
+    "halo_duct_cut": "The 3-1/4 in hole in the plenum",
+    "halo_probe": "Probe in the supply air: UV-C lamp inside a catalytic cell, ionizer brushes on the tip",
+    "halo_probe_section": "Probe cut open: the lamp down the middle, the cell round it",
+    "halo_lamp_glow": "UV-C lamp on",
+    "cell_dark": "Lamp out and cell spent: nothing is being made. Replace the cell (about every 2 years)",
+    "halo_transformer": "24 VAC transformer on a box beside the furnace switch: off when the furnace is off",
+    "halo_cord": "18/2 cord up the wall and along the plenum to the unit's jack",
+    "purify_packets_0": "Oxidizer and ion packets carried off in the supply air"
+   }
+  },
+  "hosebib_protection": {
+   "name": "Hose Bib Freeze Cover and Vacuum Breaker (front)",
+   "clips": {
+    "cover_off": "Freeze cover off",
+    "cold_block": "What the cover does: cold stays out",
+    "cold_block_loop": "Cold air bouncing off the shell",
+    "cover_loose": "Cover cocked, daylight at the gasket",
+    "backflow_block": "Hose in a bucket, the pressure drops",
+    "backflow_block_loop": "Vent opens, air in, the hose drains back",
+    "vb_leak": "Vent dripping with the bib on",
+    "vb_leak_loop": "Drip off the breaker"
+   },
+   "hotspots": {
+    "cover_gasket": [
+     "Gasket flat on the block all round: no daylight at the edges"
+    ],
+    "cover_hook": [
+     "Cord pulled tight and hooked, or the cover rides off the wall"
+    ],
+    "cover_shell": [
+     "Cover goes on before the first freeze, hose off first"
+    ],
+    "vb_cap": [
+     "Vent dry with the bib running; a short spit at shut off is normal"
+    ],
+    "vb_set_screw": [
+     "Set screw snapped off: the breaker stays on"
+    ],
+    "vb_hose_thread": [
+     "Hose on the breaker, never straight on the bib"
+    ]
+   },
+   "labels": {
+    "cover_shell": "Insulated faucet cover: hard plastic shell over foam, the big size that fits over a vacuum breaker",
+    "cover_foam": "Foam lining: this is what holds the heat in",
+    "cover_gasket": "Foam gasket: seals flat against the siding all the way round",
+    "cover_loop": "Cord loop over the handle, onto the stem: it pulls the cover to the wall",
+    "cover_hook": "Hook on the end: pull the cord tight and hook it",
+    "cover_gasket_gap": "Cover cocked off the wall: daylight at the gasket, cold air gets straight to the bib",
+    "cover_shell_section": "The cover cut open: bib, breaker and cord inside",
+    "cover_cutaway": "The cover cut open: bib, breaker and cord inside",
+    "warm_band": "Heat coming out of the house along the bib: the cover keeps it there",
+    "cold_packets": "Cold air: it stops at the shell",
+    "vb_body": "Hose connection vacuum breaker, brass, 3/4 in hose thread in and out (Watts NF8 class, the frost free bib model)",
+    "vb_cap": "Vent cap: the atmospheric vent opens under its skirt",
+    "vb_set_screw": "Breakaway set screw, head snapped off: the breaker can't be unscrewed",
+    "vb_hose_thread": "Hose thread: the hose goes on here, never straight on the bib",
+    "vb_check_disc": "Check disc: pushed open by the supply, snaps shut when pressure drops",
+    "vb_spring": "Spring that shuts the disc",
+    "vb_body_section": "The breaker cut open: check disc, spring, vent ports under the cap",
+    "vb_vent_drip": "Water out of the vent with the bib on: the disc is not seating",
+    "vb_story_hose": "A hose left running into a bucket",
+    "vb_story_bucket": "Bucket of dirty water: what back siphoning would pull into the house",
+    "vb_air_packets": "Air drawn in at the vent: it breaks the siphon",
+    "vb_hose_packets": "The hose drains back into the bucket, not into the house",
+    "ctx_bib": "The frost free sillcock on the front wall",
+    "ctx_block": "Siding mounting block the bib and the cover gasket sit on"
+   }
+  },
+  "erv": {
+   "name": "Energy Recovery Ventilator (attic)",
+   "clips": {
+    "ventilate": "Ventilate",
+    "door_open": "Door open",
+    "core_pull": "Core pull",
+    "core_dirty": "Core dirty"
+   },
+   "hotspots": {
+    "core_filters": [
+     "Pull the core and check the two foam filters: wash them every 3 months, sooner if they look grey."
+    ],
+    "core_clogged": [
+     "Lint in the core's channel mouths means the filters were left too long. Clean the core, then fresh filters."
+    ],
+    "hood_intake": [
+     "Intake cap: screen clear of leaves and wasp nests, 6 ft or more from the exhaust cap and away from flues and vents."
+    ],
+    "port_supply_out": [
+     "Both port dampers wide open on an ERV; air in and air out should match."
+    ],
+    "duct_fresh_in": [
+     "Every run insulated with the vapour barrier whole: a torn jacket in an attic drips condensation."
+    ],
+    "supply_takeoff": [
+     "Fresh air lands in the supply trunk in steel, 18 in or more from the air handler; the interlock runs the blower with it."
+    ],
+    "hangers": [
+     "Hung level on its chains and springs, not sitting on the joists."
+    ],
+    "receptacle": [
+     "Plugged into its own receptacle within 3 ft; no extension cord."
+    ],
+    "wall_control": [
+     "VT4W: MIN runs low all the time, MAX high, INT 20 minutes on and 40 off. The unit's own button must be off for it to work."
+    ]
+   },
+   "labels": {
+    "cabinet": "Broan ERV90HCS energy recovery ventilator: 22-9/16 x 19-13/16 x 12-3/16 in, 44 to 99 cfm, hung in the attic",
+    "cabinet_section": "Cabinet cut open: foam lined, the core in the middle, a blower low at each end",
+    "door": "Bottom door: two latches on the south edge, hinged on the north edge. Core and filters come out here",
+    "core": "Enthalpic core: membrane plates stacked so house air and outside air pass each other in alternate layers and trade heat and moisture, never mixing",
+    "core_section": "Core cut open: the two air streams cross through it in alternate plates",
+    "core_filters": "The two core filters (washable foam) on the faces where outside air and house air come in",
+    "filters_dirty": "Filters loaded grey and brown: airflow falls off, wash or replace them",
+    "core_clogged": "Core packed with lint and dust in its channel mouths: the filters were left too long",
+    "blower_supply_wheel": "Supply blower: pushes the fresh air on to the house",
+    "blower_exhaust_wheel": "Exhaust blower: pushes the stale air out the roof",
+    "blower_housings": "Blower scrolls and motors",
+    "port_fresh_in": "Port: FRESH AIR FROM OUTSIDE (upper, cold end)",
+    "port_exhaust_out": "Port: EXHAUST AIR TO OUTSIDE (lower, cold end), balancing damper wide open",
+    "port_stale_in": "Port: EXHAUST AIR FROM BUILDING (upper, warm end)",
+    "port_supply_out": "Port: FRESH AIR TO BUILDING (lower, warm end), balancing damper wide open",
+    "duct_fresh_in": "5 in insulated flex from the intake roof cap to the fresh air port",
+    "duct_exhaust_out": "5 in insulated flex from the exhaust port up to the exhaust roof cap",
+    "duct_stale_in": "5 in insulated flex from the kitchen ceiling grille to the stale air port",
+    "duct_supply_out": "5 in insulated flex from the fresh-to-building port to the steel connection on the trunk",
+    "duct_fresh_in_section": "Intake run cut open",
+    "duct_exhaust_out_section": "Exhaust run cut open",
+    "duct_stale_in_section": "Stale air run cut open",
+    "duct_supply_out_section": "Supply run cut open",
+    "hood_intake": "Intake roof cap, screened: 6 ft 4 in from the exhaust cap and below it, more than 10 ft from the plumbing vents and the water heater flue",
+    "hood_exhaust": "Exhaust roof cap with its gravity damper, higher on the roof than the intake",
+    "grille_stale": "Stale air grille in the kitchen ceiling, 12 ft from the range (Broan: at least 4 ft)",
+    "supply_takeoff": "Steel start collar into the side of the supply trunk, 15 ft from the air handler, the elbow inside turned downstream",
+    "hangers": "Four chains and springs to eye screws in two rafters: the springs keep the hum out of the house",
+    "receptacle": "Receptacle within 3 ft of the unit for its 36 in cord (no extension cords)",
+    "receptacle_strut": "2 x 4 strut from the ceiling joist to the rafter, carries the receptacle box",
+    "power_cord": "The unit's 36 in cord, plugged in",
+    "feed_cable": "12/2 NM feed to the receptacle",
+    "electrical_drawer": "Removable electrical drawer with the integrated push button control",
+    "control_button": "Integrated control: push for off, low, high (leave it off to use the wall control)",
+    "control_led": "LED: amber low, green high, off means off or on the wall control, blinking is a fault code",
+    "terminal_block": "Terminal connector: the VT4W wall control and the air handler interlock land here",
+    "wall_control": "Broan VT4W main wall control on the living room side of the hall wall",
+    "control_cable": "Wall control cable from the unit, under the trunk and down the hall wall",
+    "interlock_cable": "Air handler interlock: brings the furnace or air handler blower on whenever the ERV runs",
+    "fresh_packet_00": "Fresh outdoor air",
+    "fresh_packet_01": "Fresh outdoor air",
+    "fresh_packet_02": "Fresh outdoor air",
+    "fresh_packet_03": "Fresh outdoor air",
+    "fresh_packet_04": "Fresh outdoor air",
+    "fresh_packet_05": "Fresh outdoor air",
+    "fresh_packet_06": "Fresh outdoor air",
+    "fresh_packet_07": "Fresh outdoor air",
+    "fresh_packet_08": "Fresh outdoor air",
+    "fresh_packet_09": "Fresh outdoor air",
+    "fresh_packet_10": "Fresh outdoor air",
+    "fresh_packet_11": "Fresh outdoor air",
+    "fresh_packet_12": "Fresh outdoor air",
+    "fresh_packet_13": "Fresh outdoor air",
+    "fresh_packet_14": "Fresh outdoor air",
+    "fresh_packet_15": "Fresh outdoor air",
+    "fresh_packet_16": "Fresh outdoor air",
+    "fresh_packet_17": "Fresh outdoor air",
+    "fresh_packet_18": "Fresh outdoor air",
+    "fresh_packet_19": "Fresh outdoor air",
+    "fresh_packet_20": "Fresh outdoor air",
+    "fresh_packet_21": "Fresh outdoor air",
+    "fresh_packet_22": "Fresh outdoor air",
+    "fresh_packet_23": "Fresh outdoor air",
+    "fresh_packet_24": "Fresh outdoor air",
+    "fresh_packet_25": "Fresh outdoor air",
+    "fresh_packet_26": "Fresh outdoor air",
+    "stale_packet_00": "Stale house air",
+    "stale_packet_01": "Stale house air",
+    "stale_packet_02": "Stale house air",
+    "stale_packet_03": "Stale house air",
+    "stale_packet_04": "Stale house air",
+    "stale_packet_05": "Stale house air",
+    "stale_packet_06": "Stale house air",
+    "stale_packet_07": "Stale house air",
+    "stale_packet_08": "Stale house air",
+    "stale_packet_09": "Stale house air",
+    "stale_packet_10": "Stale house air",
+    "stale_packet_11": "Stale house air",
+    "stale_packet_12": "Stale house air",
+    "stale_packet_13": "Stale house air",
+    "stale_packet_14": "Stale house air",
+    "stale_packet_15": "Stale house air",
+    "stale_packet_16": "Stale house air",
+    "stale_packet_17": "Stale house air",
+    "stale_packet_18": "Stale house air",
+    "stale_packet_19": "Stale house air",
+    "stale_packet_20": "Stale house air",
+    "stale_packet_21": "Stale house air",
+    "stale_packet_22": "Stale house air",
+    "stale_packet_23": "Stale house air",
+    "stale_packet_24": "Stale house air",
+    "stale_packet_25": "Stale house air"
+   }
+  },
+  "sludgehammer": {
+   "name": "SludgeHammer Bacteria Generator",
+   "clips": {
+    "aerate": "Aerate",
+    "lid_off": "Lid off",
+    "bag_pull": "Bag pull",
+    "no_air": "No air"
+   },
+   "hotspots": {
+    "centre_tube": [
+     "Lid off: a strong bubble plume over the unit, liquid rising through the centre. Weak or none, go to the pump."
+    ],
+    "blend_bag": [
+     "Pull the bag: a grey-brown coating 1/16 in or more is healthy. Black means pull the unit and hose it out."
+    ],
+    "column": [
+     "Probe the sludge and the scum: over 12 in of either, pump the tank."
+    ],
+    "air_pump": [
+     "Pump running and humming; shut it off and the alarm should come on. Turn it back on before you leave."
+    ],
+    "receptacle_gfci": [
+     "No air: test and reset the GFCI first."
+    ],
+    "clear_tube": [
+     "Clear tube and clamps tight, no kink; listen for leaks at the joints."
+    ],
+    "control_box": [
+     "Alarm lit and the power light dark: the pump has stopped. Likeliest cause is a torn diaphragm."
+    ],
+    "air_union": [
+     "Open the union to lift the unit out on its rope for cleaning."
+    ]
+   },
+   "labels": {
+    "column": "SludgeHammer S-46: black HDPE column, 12 in across, 36 in tall, standing on the tank floor in the first compartment",
+    "column_section": "Column cut open: the media wound round the 4 in centre tube",
+    "base": "Lattice base (15 in): tank liquid is drawn in here. The bottom twists off for cleaning",
+    "base_section": "Base cut open",
+    "centre_tube": "4 in centre tube: the air lift. Bubbles from the air line coupling at its foot carry liquid up through the unit",
+    "centre_tube_section": "Centre tube cut open: the air line and the Blend bag inside it",
+    "media": "Cuspated fixed-film media wrapped round the centre tube: where the bacteria grow",
+    "media_section": "Media cut open: layers of corrugated plastic",
+    "blend_bag": "SludgeHammer Blend bag on its 1/2 in stick, tee handle a few inches under the lid: pull it, check the coating, zip tie a new packet on",
+    "air_drop": "1/2 in PVC air line: down the centre tube to the coupling, the 90 in the riser",
+    "air_union": "Quick connect union on the air line in the riser: open it to pull the unit",
+    "rope": "Rope tied through the lugs, the spare tied off round the air line: the unit comes up on it",
+    "airline_seal_18in": "Air line through a 7/8 in hole in the 18 in riser, sealed with mastic",
+    "airline_seal_24in": "Air line through a 7/8 in hole in the 24 in riser, sealed with mastic",
+    "air_line_buried": "1/2 in air line in its trench to the pump basin",
+    "pump_basin": "Air pump basin: vented, set no more than a third into the ground, near power, in the shade",
+    "basin_lid": "Basin lid, two screws",
+    "air_pump": "Secoh EL-80-17 linear air pump (60 W, 2.4 cfm at 2 psi class). A dead pump is nearly always a torn diaphragm",
+    "clear_tube": "Clear tube from the pump outlet to the barb, two hose clamps: no kinks",
+    "sensor_tee": "Air pressure sensor tee between two close nipples, the PVC 90 and the barb",
+    "pressure_switch": "Air pressure switch: loses pressure when the pump stops and sets off the alarm",
+    "sensor_wire": "Pressure switch wires to the alarm box",
+    "receptacle_gfci": "GFCI receptacle in the basin: test and reset it before blaming the pump",
+    "pump_cord": "Pump cord to the GFCI",
+    "conduit": "Grey PVC conduit: the basin's entry L to the alarm box, and the feed toward the house",
+    "control_post": "4 x 4 post for the alarm box",
+    "control_box": "Air alarm and control box, horn and test switch",
+    "pump_light": "Pump power light: on while the pump has power",
+    "control_box_alarm_lens": "Alarm light: lights when the air pressure drops",
+    "pump_dead": "Pump dead: power light dark, alarm lit, no air. Check the GFCI, then change the pump (carry a spare) and rebuild the diaphragm at the shop",
+    "air_bubbles": "Air rising up the centre tube and the media",
+    "bacteria_0": "Bacteria drifting out into the tank",
+    "bacteria_1": "Bacteria drifting out into the tank",
+    "bacteria_2": "Bacteria drifting out into the tank",
+    "bacteria_3": "Bacteria drifting out into the tank",
+    "bacteria_4": "Bacteria drifting out into the tank",
+    "bacteria_5": "Bacteria drifting out into the tank"
+   }
+  },
+  "grease_interceptor": {
+   "name": "Grease Interceptor, Commercial (1,000 gal precast)",
+   "clips": {
+    "lid_inlet_off": "Lid inlet off",
+    "lid_middle_off": "Lid middle off",
+    "lid_outlet_off": "Lid outlet off",
+    "lid_co_upstream_off": "Lid co upstream off",
+    "lid_co_downstream_off": "Lid co downstream off",
+    "lid_co_restroom_off": "Lid co restroom off",
+    "lid_co_lot_line_off": "Lid co lot line off",
+    "lid_sample_off": "Lid sample off",
+    "flow": "Flow",
+    "pump_out": "Pump out",
+    "grease_cap_high": "Grease cap high",
+    "solids_high": "Solids high",
+    "baffle_broken": "Baffle broken",
+    "outlet_tee_corroded": "Outlet tee corroded",
+    "lid_cracked": "Lid cracked",
+    "lid_unrated": "Lid unrated",
+    "inlet_greased": "Inlet greased"
+   },
+   "hotspots": {},
+   "labels": {
+    "tank": "1,000 gal two compartment precast concrete grease interceptor, H-20 traffic rated, buried in the parking",
+    "tank_section": "The interceptor cut open: two compartments, the baffle, the tees, what floats and what sinks",
+    "baffle": "Baffle wall between the compartments, with the crossover opening in the middle of the water",
+    "baffle_section": "Baffle wall: the crossover opening sits below the grease and above the solids",
+    "baffle_broken": "Baffle broken: grease and solids go straight through to the outlet side",
+    "baffle_broken_section": "Baffle broken, a piece of it lying on the floor",
+    "inlet_tee": "Inlet tee turned down under the grease cap: the kitchen water comes in without stirring the cap",
+    "inlet_tee_section": "Inlet tee, cut open",
+    "outlet_tee": "Outlet tee drawing from low in the second compartment: clear water leaves, grease stays up top",
+    "outlet_tee_section": "Outlet tee, cut open: its mouth is low, over the solids",
+    "outlet_tee_corroded": "Outlet tee corroded off: the drop is gone, the tank now skims from the top where the grease is",
+    "outlet_tee_corroded_section": "Corroded outlet tee, the drop leg lying on the floor",
+    "water": "Water: the working level between the grease cap and the solids",
+    "water_section": "Water between the cap and the solids",
+    "grease_cap": "Grease cap floating on top: normal, a few inches",
+    "grease_cap_section": "Grease cap: measure it with a sludge judge, grease plus solids under a quarter of the depth is OK",
+    "grease_cap_high": "Grease cap down to the outlet tee's mouth: grease is going out to the city sewer. Pump it now",
+    "grease_cap_high_section": "Grease cap far too thick, down to the outlet",
+    "grease_carryover": "Grease up the outlet tee, down the outlet line and in the sample box: the city's inspector finds this",
+    "solids": "Settled food solids on the floor: normal",
+    "solids_section": "Solids on the floor, under the crossover",
+    "solids_high": "Solids over the crossover and up to the outlet tee: they carry over. Pump it",
+    "solids_high_section": "Solids too deep",
+    "rings_inlet": "Precast grade rings: bring the frame up to the pavement (2 rings max, 12 in max)",
+    "rings_middle": "Precast grade rings on the middle access",
+    "rings_outlet": "Precast grade rings on the outlet access",
+    "frame_inlet": "Cast iron traffic frame, set 1/4 in under the pavement",
+    "frame_middle": "Cast iron traffic frame over the baffle",
+    "frame_outlet": "Cast iron traffic frame over the outlet tee",
+    "lid_inlet": "24 in cast iron cover, GREASE TRAP, H-20: the inlet side, where the pump truck goes in first",
+    "lid_middle": "24 in cast iron cover over the baffle: check the baffle and the crossover from here",
+    "lid_outlet": "24 in cast iron cover over the outlet tee",
+    "lid_cracked": "Cover cracked, a piece dropped in: a hazard in a traffic lane. Replace the cover",
+    "lid_unrated": "A light plastic riser lid in the traffic lane: not rated for a car, never mind a truck. Needs an H-20 frame and cover",
+    "floor_lot_commercial_pad": "Concrete traffic pad round the frames, flush with the asphalt",
+    "grease_line": "Grease waste from the kitchen, 4 in, out under the back wall",
+    "inlet_line": "Inlet line into the interceptor",
+    "inlet_line_section": "Inlet line cut open",
+    "inlet_greased": "Inlet line nearly closed with grease: the kitchen floor sinks back up. Jet it and find out why",
+    "co_upstream": "Two way cleanout before the interceptor: rod or jet the inlet line from here",
+    "lid_co_upstream": "Traffic rated cleanout cover, upstream",
+    "outlet_line": "Outlet line to the sample box",
+    "sample_box": "Sampling box: the pipe runs through as an open channel so a cup can take what leaves the interceptor",
+    "sample_box_section": "Sampling box cut open: the channel",
+    "lid_sample": "Sampling box cover",
+    "co_downstream": "Two way cleanout after the interceptor",
+    "lid_co_downstream": "Traffic rated cleanout cover, downstream",
+    "restroom_line": "The restroom's sanitary line: goes round the interceptor, never through it",
+    "co_restroom": "Two way cleanout on the restroom line",
+    "lid_co_restroom": "Cleanout cover, restroom line",
+    "wye": "Where the interceptor's outlet and the restroom line meet: after the sample box",
+    "building_sewer": "6 in building sewer to the city main",
+    "co_lot_line": "Two way cleanout inside the lot line",
+    "lid_co_lot_line": "Cleanout cover at the lot line",
+    "tap_saddle": "Tap on the city sewer main",
+    "vac_hose": "Pump truck hose down the inlet side: pump both compartments, the whole tank",
+    "floor_lot_commercial_asphalt": "Asphalt parking",
+    "soil": "Native soil",
+    "backfill": "Backfill round the tank",
+    "backfill_bedding": "6 in of stone under the tank"
+   }
+  },
+  "commercial_storefront": {
+   "name": "Restaurant storefront (the grease trap lot)",
+   "clips": {
+    "door_store_front_open": "Door store front open",
+    "door_store_back_open": "Door store back open",
+    "door_restroom_open": "Door restroom open",
+    "lid_grease_cleanout_off": "Lid grease cleanout off"
+   },
+   "hotspots": {},
+   "labels": {
+    "fix_three_comp_sink": "3 compartment sink: wash, rinse, sanitize. The biggest grease source in the kitchen; it drains to floor sink A by an air gap",
+    "fix_dishwasher": "Dish machine: drains to floor sink B by an air gap, through the interceptor",
+    "fix_prep_sink": "Prep sink: indirect waste to floor sink B (food prep sinks must not connect direct)",
+    "fix_hand_sink": "Hand sink: its own trap, on the grease line",
+    "fix_mop_sink": "Mop sink: on the grease line, mop water carries grease too",
+    "kitchen_floor_sink_a": "Floor sink A, under the 3 compartment sink: indirect waste lands here, half grate",
+    "kitchen_floor_sink_b": "Floor sink B: the dish machine and the prep sink air gap into it",
+    "grease_drain": "Grease waste under the slab, separate from the restroom: every kitchen fixture, out the back wall to the interceptor",
+    "grease_cleanout": "Cleanout at the building exit on the grease line",
+    "lid_grease_cleanout": "Floor cleanout cover: rod the kitchen line from here",
+    "grease_vent": "3 in vent on the grease line, out the roof: the interceptor breathes through it",
+    "sanitary_drain": "The restroom's sanitary line: under the kitchen, out the back, round the interceptor",
+    "sanitary_vent": "Restroom vent through the roof",
+    "fix_toilet": "Restroom toilet",
+    "fix_lav": "Restroom lavatory",
+    "door_store_front": "Front door",
+    "door_store_back": "Kitchen back door to the lot",
+    "door_restroom": "Restroom door",
+    "wall_store_front_body": "Storefront",
+    "win_store_front": "Storefront glass",
+    "roof_store": "Flat roof behind the parapet",
+    "floor_store_slab": "Slab on grade",
+    "floor_store_kitchen_tile": "Quarry tile kitchen floor",
+    "curb_commercial": "Curb with the drive cut",
+    "floor_lot_commercial_sidewalk": "Sidewalk"
+   }
   }
  }
 }

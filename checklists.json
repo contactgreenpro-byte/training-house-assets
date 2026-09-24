@@ -581,6 +581,118 @@
     "Ladder feet sit flat",
     "Door closes and seals"
    ]
+  },
+  "trash_tank": {
+   "what": "A trash tank: a small septic tank in FRONT of the aerobic plant, the first tank the house sewer reaches.",
+   "how": "Solids settle to the floor, grease and paper float, and only the clear middle leaves through the outlet tee to the plant, so the plant treats liquid and not trash.",
+   "checks": [
+    "Lid at grade and bolted",
+    "Inlet and outlet tees in place and open",
+    "Scum and sludge under a third of the tank (pump it when they are not)",
+    "Level at the bottom of the outlet pipe"
+   ]
+  },
+  "wh_surge_protector": {
+   "what": "A surge protective device on the water heater's own circuit.",
+   "how": "It sits across the two hots and ground. When the voltage spikes it turns into a short for a split second and sends the surge to ground instead of through the heater's thermostats and elements. The green light says it still can.",
+   "checks": [
+    "Surge protection on the water heater circuit?",
+    "How it is wired"
+   ]
+  },
+  "thermostatic_mixing_valve": {
+   "what": "A thermostatic mixing valve on the water heater's hot outlet.",
+   "how": "Hot from the tank and cold from the supply meet in the valve. A wax element slides a shuttle between them so the water leaving is held at the set temperature, even with the tank turned up. It is the anti-scald protection for the whole house.",
+   "checks": [
+    "Mixing valve on the hot outlet?",
+    "Piping at the valve",
+    "Anti-scald protection"
+   ]
+  },
+  "thermostatic_mixing_valve_pex": {
+   "what": "A thermostatic mixing valve on the water heater's hot outlet, piped in PEX.",
+   "how": "Same valve: hot and cold meet, the wax element holds the mixed temperature. On PEX it is fed through an 18 in stainless connector off the tank, with crimp fittings and copper rings on every joint.",
+   "checks": [
+    "Mixing valve on the hot outlet?",
+    "Piping at the valve",
+    "Crimp joints",
+    "Anti-scald protection"
+   ]
+  },
+  "air_quality_monitor": {
+   "what": "An indoor air quality monitor on the hall wall.",
+   "how": "It draws room air through its sensors and reads particles, CO2, chemicals (VOCs), temperature and humidity, and scores the air. It is how the homeowner sees what a filter, a purifier or fresh air is doing.",
+   "checks": [
+    "Readings",
+    "Power",
+    "Placement",
+    "The offer"
+   ]
+  },
+  "media_air_cleaner": {
+   "what": "A media air cleaner cabinet under the furnace.",
+   "how": "All the return air passes through a deep pleated media filter before the blower. It catches far more than a 1 in filter and lasts a year or so; the old filter slot is blocked off.",
+   "checks": [
+    "Media cabinet",
+    "What filters the air"
+   ]
+  },
+  "induct_purifier": {
+   "what": "An in duct air purifier on the supply plenum.",
+   "how": "A UV lamp in a catalytic cell makes oxidizers and ions that ride out with the supply air to treat odors, germs and particles. It runs off 24 volts from the furnace.",
+   "checks": [
+    "In duct purifier"
+   ]
+  },
+  "hosebib_protection": {
+   "what": "A freeze cover and a vacuum breaker for the front hose bib.",
+   "how": "The foam cover holds the house's warmth around the bib in a freeze. The vacuum breaker on the hose thread keeps dirty hose water from being pulled back into the house when the pressure drops.",
+   "checks": [
+    "Freeze cover",
+    "Hose off for winter",
+    "Vacuum breaker",
+    "Right breaker for the bib"
+   ]
+  },
+  "erv": {
+   "what": "An energy recovery ventilator in the attic.",
+   "how": "Stale air leaves from the kitchen and fresh air comes in through the roof. The two streams pass each other in the core and trade heat and moisture without mixing, so the house gets fresh air without losing its comfort.",
+   "checks": [
+    "Core and filters",
+    "Outside caps",
+    "Ducts",
+    "Controls"
+   ]
+  },
+  "sludgehammer": {
+   "what": "A SludgeHammer aerobic bacteria generator in the septic tank.",
+   "how": "An air pump by the tank bubbles air up through media in the tank, growing aerobic bacteria that eat sludge and scum and clean the effluent before it reaches the field.",
+   "checks": [
+    "Air pump and alarm",
+    "Bubble plume",
+    "Blend bag",
+    "Sludge and scum"
+   ]
+  },
+  "grease_interceptor": {
+   "what": "A 1,000 gallon grease interceptor behind a restaurant.",
+   "how": "Kitchen water slows down in the first compartment: grease floats to the top, solids sink. The clear middle crosses the baffle and leaves through the outlet tee to the city sewer. It gets pumped out on a schedule.",
+   "checks": [
+    "Trap type and where it sits",
+    "Lid and access",
+    "Grease and solids depth",
+    "Baffles and tees",
+    "Inlet and outlet lines",
+    "Pump-out record on site"
+   ]
+  },
+  "commercial_storefront": {
+   "what": "The restaurant the grease interceptor serves.",
+   "how": "The kitchen's sinks, floor sinks and dishwasher drain to the interceptor out back; the restroom goes straight to the sewer.",
+   "checks": [
+    "What goes through the interceptor",
+    "At the building exit"
+   ]
   }
  }
 }

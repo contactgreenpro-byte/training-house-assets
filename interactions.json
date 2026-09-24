@@ -207,7 +207,7 @@
   },
   "electric_tank_water_heater.glb": {
    "anode_access_cover": {
-    "look": "aside"
+    "look": "clip:anode_pull"
    },
    "lower_access_panel": {
     "look": "aside"
@@ -241,6 +241,67 @@
    },
    "dip_tube": {
     "look": "cut"
+   },
+   "element_buried": {
+    "work": "element_buried"
+   },
+   "sediment": {
+    "work": "element_buried"
+   },
+   "anode_rod": {
+    "work": "anode_years",
+    "look": "clip:anode_pull"
+   },
+   "anode_rod_bare": {
+    "work": "anode_years",
+    "look": "clip:anode_pull"
+   },
+   "anode_rod_pitted": {
+    "work": "anode_years",
+    "look": "clip:anode_pull"
+   },
+   "exp_tank_air_chamber": {
+    "work": "expansion_take_up"
+   },
+   "exp_tank_diaphragm": {
+    "work": "expansion_take_up"
+   },
+   "exp_tank_shell_front": {
+    "work": "expansion_take_up",
+    "look": "section"
+   },
+   "exp_tank_shell_rear": {
+    "work": "expansion_take_up"
+   },
+   "exp_tank_water_chamber": {
+    "work": "expansion_take_up"
+   },
+   "take_up_slug": {
+    "work": "expansion_take_up"
+   },
+   "lower_element_glow": {
+    "work": "expansion_take_up"
+   },
+   "take_up_heat": {
+    "work": "expansion_take_up"
+   },
+   "take_up_hot": {
+    "work": "expansion_take_up"
+   },
+   "exp_tank_waterlogged": {
+    "work": "waterlogged"
+   },
+   "waterlogged_spike": {
+    "work": "waterlogged"
+   },
+   "outer_jacket": {
+    "look": "section"
+   },
+   "insulation": {
+    "look": "section"
+   },
+   "inner_tank": {
+    "look": "section"
    }
   },
   "electric_tankless_water_heater.glb": {
@@ -312,6 +373,25 @@
    },
    "inlet_screen_fouled": {
     "look": "cut"
+   },
+   "display_heating": {
+    "work": "heat_on"
+   },
+   "element_glow_first_stage": {
+    "work": "heat_on"
+   },
+   "heat_packets_delivery": {
+    "work": "heat_on"
+   },
+   "heat_packets_feed": {
+    "work": "heat_on"
+   },
+   "heat_packets_supply": {
+    "work": "heat_on",
+    "look": "cut"
+   },
+   "turbine_rotor": {
+    "work": "heat_on"
    }
   },
   "flo_shutoff.glb": {
@@ -377,7 +457,8 @@
     "work": "fire_up"
    },
    "combustion_chamber": {
-    "work": "fire_up"
+    "work": "fire_up",
+    "look": "section"
    },
    "gas_control_valve": {
     "work": "fire_up"
@@ -415,7 +496,8 @@
     "look": "clip:burner_door_off"
    },
    "anode_rod": {
-    "look": "clip:anode_pull"
+    "look": "clip:anode_pull",
+    "work": "anode_years"
    },
    "anode_access_cover": {
     "look": "clip:anode_pull"
@@ -446,6 +528,60 @@
    },
    "dip_tube": {
     "look": "cut"
+   },
+   "exp_tank_air_chamber": {
+    "work": "expansion_take_up"
+   },
+   "exp_tank_diaphragm": {
+    "work": "expansion_take_up"
+   },
+   "exp_tank_shell_front": {
+    "work": "expansion_take_up",
+    "look": "section"
+   },
+   "exp_tank_shell_rear": {
+    "work": "expansion_take_up"
+   },
+   "exp_tank_water_chamber": {
+    "work": "expansion_take_up"
+   },
+   "take_up_slug": {
+    "work": "expansion_take_up"
+   },
+   "take_up_heat": {
+    "work": "expansion_take_up"
+   },
+   "take_up_hot": {
+    "work": "expansion_take_up"
+   },
+   "exp_tank_waterlogged": {
+    "work": "waterlogged"
+   },
+   "waterlogged_spike": {
+    "work": "waterlogged"
+   },
+   "rumble_burst": {
+    "work": "sediment_rumble"
+   },
+   "rumble_steam": {
+    "work": "sediment_rumble"
+   },
+   "sediment": {
+    "work": "sediment_rumble"
+   },
+   "anode_rod_bare": {
+    "look": "clip:anode_pull",
+    "work": "anode_years"
+   },
+   "anode_rod_pitted": {
+    "look": "clip:anode_pull",
+    "work": "anode_years"
+   },
+   "insulation": {
+    "look": "section"
+   },
+   "inner_tank": {
+    "look": "section"
    }
   },
   "gas_tankless_water_heater_condensing.glb": {
@@ -2659,6 +2795,22 @@
    },
    "tank_shell": {
     "look": "section"
+   },
+   "drain_drop": {
+    "work": "flapper_cycle",
+    "look": "cut"
+   },
+   "fill_drop": {
+    "work": "flapper_cycle"
+   },
+   "flapper_bad": {
+    "work": "flapper_leak"
+   },
+   "flapper_drips": {
+    "work": "flapper_leak"
+   },
+   "refill_drop": {
+    "work": "flapper_leak"
    }
   },
   "uni_lateral.glb": {
@@ -3951,6 +4103,758 @@
    "splice_ground_sleeve": {
     "look": "clip:sleeves_back",
     "note": "the adhesive lined heat shrink slides back off the crimp"
+   }
+  },
+  "pump_tank_trash.glb": {
+   "lid": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolts": {
+    "look": "clip:lid_off"
+   },
+   "inlet": {
+    "look": "cut"
+   },
+   "inlet_gasket": {
+    "look": "cut"
+   },
+   "outlet": {
+    "look": "cut"
+   },
+   "outlet_gasket": {
+    "look": "cut"
+   },
+   "riser": {
+    "look": "cut"
+   },
+   "riser_adapter": {
+    "look": "cut"
+   },
+   "tank": {
+    "look": "section"
+   }
+  },
+  "wh_surge_protector.glb": {
+   "whs_handy_cover": {
+    "look": "clip:cover_off"
+   },
+   "whs_handy_cover_screws": {
+    "look": "clip:cover_off"
+   },
+   "whs_housing_crack": {
+    "work": "protection_lost"
+   },
+   "whs_led_dark": {
+    "work": "protection_lost"
+   },
+   "whs_led_lit": {
+    "work": "protection_lost"
+   },
+   "whs_mov": {
+    "work": "protection_lost"
+   },
+   "whs_mov_1_burnt": {
+    "work": "protection_lost"
+   },
+   "whs_soot": {
+    "work": "protection_lost"
+   },
+   "whs_mov_glow": {
+    "work": "surge"
+   },
+   "whs_surge_bolt": {
+    "work": "surge"
+   },
+   "whs_surge_bolt_ground": {
+    "work": "surge"
+   },
+   "whs_spd_body": {
+    "look": "section"
+   },
+   "whs_spd_nipple": {
+    "look": "cut"
+   }
+  },
+  "thermostatic_mixing_valve.glb": {
+   "cold_check": {
+    "work": "mix"
+   },
+   "cold_line": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "cold_tee": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "hot_line": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "mixed_coupling": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "mixed_line": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "packets_cold": {
+    "work": "mix"
+   },
+   "packets_hot": {
+    "work": "mix"
+   },
+   "packets_mixed": {
+    "work": "mix"
+   },
+   "tmv_body": {
+    "work": "mix",
+    "look": "section"
+   },
+   "tmv_bonnet": {
+    "work": "mix"
+   },
+   "tmv_marks": {
+    "work": "mix"
+   },
+   "tmv_unions": {
+    "work": "mix"
+   },
+   "element_failed": {
+    "work": "scald"
+   },
+   "packets_scald": {
+    "work": "scald"
+   },
+   "shuttle_stuck": {
+    "work": "scald"
+   },
+   "tmv_element": {
+    "work": "scald"
+   },
+   "tmv_shuttle": {
+    "work": "scald"
+   },
+   "tmv_cap": {
+    "look": "clip:cap_off",
+    "work": "set_temp"
+   },
+   "tmv_stem": {
+    "work": "set_temp"
+   }
+  },
+  "thermostatic_mixing_valve_pex.glb": {
+   "cold_check": {
+    "work": "mix"
+   },
+   "cold_crimp_90_a": {
+    "work": "mix"
+   },
+   "cold_crimp_90_b": {
+    "work": "mix"
+   },
+   "cold_tee": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "cold_tube_a": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "cold_tube_b": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "cold_tube_c": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "cold_tube_d": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "hot_connector": {
+    "work": "mix"
+   },
+   "hot_crimp_90_hi": {
+    "work": "mix"
+   },
+   "hot_crimp_90_lo": {
+    "work": "mix",
+    "look": "section"
+   },
+   "hot_tube_drop": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "hot_tube_in": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "hot_tube_top": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "mixed_coupling": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "mixed_tube": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "packets_cold": {
+    "work": "mix"
+   },
+   "packets_hot": {
+    "work": "mix"
+   },
+   "packets_mixed": {
+    "work": "mix"
+   },
+   "pex_supports": {
+    "work": "mix"
+   },
+   "tmv_body": {
+    "work": "mix",
+    "look": "section"
+   },
+   "tmv_bonnet": {
+    "work": "mix"
+   },
+   "tmv_marks": {
+    "work": "mix"
+   },
+   "tmv_unions": {
+    "work": "mix"
+   },
+   "element_failed": {
+    "work": "scald"
+   },
+   "packets_scald": {
+    "work": "scald"
+   },
+   "shuttle_stuck": {
+    "work": "scald"
+   },
+   "tmv_element": {
+    "work": "scald"
+   },
+   "tmv_shuttle": {
+    "work": "scald"
+   },
+   "tmv_cap": {
+    "look": "clip:cap_off",
+    "work": "set_temp"
+   },
+   "tmv_stem": {
+    "work": "set_temp"
+   }
+  },
+  "air_quality_monitor.glb": {
+   "adapter": {
+    "work": "no_power"
+   },
+   "adapter_unplugged": {
+    "work": "no_power"
+   },
+   "display_dark": {
+    "work": "no_power"
+   },
+   "display_good": {
+    "work": "no_power"
+   },
+   "readings_a": {
+    "work": "no_power"
+   },
+   "readings_b": {
+    "work": "no_power"
+   },
+   "air_in_packets": {
+    "work": "sense"
+   },
+   "air_out_packets": {
+    "work": "sense"
+   },
+   "display_poor": {
+    "work": "air_poor"
+   },
+   "monitor_body": {
+    "look": "section"
+   }
+  },
+  "media_air_cleaner.glb": {
+   "media_air_clean_up": {
+    "work": "airflow"
+   },
+   "media_air_dusty_in": {
+    "work": "airflow"
+   },
+   "media_air_dusty_up": {
+    "work": "airflow"
+   },
+   "media_return_grille": {
+    "work": "airflow"
+   },
+   "media_transition": {
+    "work": "airflow"
+   },
+   "media_cabinet": {
+    "work": "cutaway",
+    "look": "section"
+   },
+   "media_cabinet_section": {
+    "work": "cutaway"
+   },
+   "media_door": {
+    "look": "clip:door_open"
+   },
+   "media_frame": {
+    "look": "clip:media_pull"
+   },
+   "media_loaded": {
+    "look": "clip:media_pull",
+    "work": "media_dirty"
+   },
+   "media_pleats": {
+    "look": "clip:media_pull",
+    "work": "media_dirty"
+   },
+   "media_return_panel": {
+    "look": "aside"
+   }
+  },
+  "induct_purifier.glb": {
+   "cell_dark": {
+    "look": "clip:probe_pull",
+    "work": "cell_failed"
+   },
+   "halo_gasket": {
+    "look": "clip:probe_pull"
+   },
+   "halo_housing": {
+    "look": "clip:probe_pull"
+   },
+   "halo_lamp_glow": {
+    "look": "clip:probe_pull",
+    "work": "cell_failed"
+   },
+   "halo_probe": {
+    "look": "clip:probe_pull",
+    "work": "cutaway"
+   },
+   "halo_probe_section": {
+    "work": "cutaway"
+   },
+   "status_glow": {
+    "look": "clip:probe_pull",
+    "work": "cell_failed"
+   },
+   "halo_cord": {
+    "work": "purify"
+   },
+   "halo_transformer": {
+    "work": "purify"
+   },
+   "purify_packets": {
+    "work": "purify"
+   },
+   "halo_duct_cut": {
+    "look": "cut"
+   }
+  },
+  "hosebib_protection.glb": {
+   "cover_cutaway": {
+    "work": "cold_block",
+    "look": "aside"
+   },
+   "cover_foam": {
+    "work": "cold_block",
+    "look": "clip:cover_off"
+   },
+   "cover_gasket": {
+    "work": "cold_block",
+    "look": "clip:cover_off"
+   },
+   "cover_shell": {
+    "work": "cold_block",
+    "look": "clip:cover_off"
+   },
+   "warm_band": {
+    "work": "cold_block"
+   },
+   "cover_hook": {
+    "look": "clip:cover_off",
+    "work": "cover_loose"
+   },
+   "cover_loop": {
+    "look": "clip:cover_off",
+    "work": "cover_loose"
+   },
+   "cover_gasket_gap": {
+    "work": "cover_loose"
+   },
+   "vb_check_disc": {
+    "work": "backflow_block"
+   },
+   "vb_hose_packets": {
+    "work": "backflow_block",
+    "look": "cut"
+   },
+   "vb_spring": {
+    "work": "backflow_block"
+   },
+   "vb_story_bucket": {
+    "work": "backflow_block"
+   },
+   "vb_story_hose": {
+    "work": "backflow_block",
+    "look": "cut"
+   },
+   "vb_vent_drip": {
+    "work": "vb_leak"
+   },
+   "vb_body": {
+    "look": "section"
+   },
+   "vb_cap": {
+    "look": "aside"
+   },
+   "vb_hose_thread": {
+    "look": "cut"
+   }
+  },
+  "erv.glb": {
+   "cabinet": {
+    "work": "ventilate",
+    "look": "section"
+   },
+   "control_button": {
+    "work": "ventilate",
+    "look": "clip:ventilate"
+   },
+   "control_led": {
+    "work": "ventilate"
+   },
+   "fresh_packet": {
+    "work": "ventilate"
+   },
+   "stale_packet": {
+    "work": "ventilate"
+   },
+   "wall_control": {
+    "work": "ventilate"
+   },
+   "core": {
+    "look": "clip:core_pull"
+   },
+   "core_clogged": {
+    "look": "clip:core_pull",
+    "work": "core_dirty"
+   },
+   "core_filters": {
+    "look": "clip:core_pull",
+    "work": "core_dirty"
+   },
+   "door": {
+    "look": "clip:core_pull"
+   },
+   "filters_dirty": {
+    "look": "clip:core_pull",
+    "work": "core_dirty"
+   },
+   "blower_supply_wheel": {
+    "look": "cut"
+   },
+   "duct_exhaust_out": {
+    "look": "section"
+   },
+   "duct_fresh_in": {
+    "look": "section"
+   },
+   "duct_stale_in": {
+    "look": "section"
+   },
+   "duct_supply_out": {
+    "look": "section"
+   },
+   "port_supply_out": {
+    "look": "cut"
+   },
+   "supply_takeoff": {
+    "look": "cut"
+   }
+  },
+  "sludgehammer.glb": {
+   "air_bubbles": {
+    "work": "aerate"
+   },
+   "air_pump": {
+    "work": "aerate"
+   },
+   "bacteria": {
+    "work": "aerate"
+   },
+   "column": {
+    "work": "aerate",
+    "look": "section"
+   },
+   "control_box": {
+    "work": "aerate"
+   },
+   "pump_light": {
+    "work": "aerate"
+   },
+   "basin_lid": {
+    "look": "clip:lid_off"
+   },
+   "blend_bag": {
+    "look": "clip:bag_pull"
+   },
+   "pump_dead": {
+    "work": "no_air"
+   },
+   "ctx_riser": {
+    "look": "cut"
+   },
+   "ctx_tank_lid": {
+    "look": "aside"
+   },
+   "air_line_buried": {
+    "look": "cut"
+   },
+   "air_union": {
+    "look": "cut"
+   },
+   "base": {
+    "look": "section"
+   },
+   "centre_tube": {
+    "look": "section"
+   },
+   "clear_tube": {
+    "look": "cut"
+   },
+   "conduit": {
+    "look": "cut"
+   },
+   "media": {
+    "look": "section"
+   },
+   "sensor_tee": {
+    "look": "cut"
+   }
+  },
+  "grease_interceptor.glb": {
+   "baffle": {
+    "work": "baffle_broken",
+    "look": "section"
+   },
+   "baffle_broken": {
+    "work": "baffle_broken"
+   },
+   "baffle_broken_section": {
+    "work": "baffle_broken"
+   },
+   "baffle_section": {
+    "work": "baffle_broken"
+   },
+   "frame_outlet": {
+    "work": "lid_unrated",
+    "look": "cut"
+   },
+   "lid_outlet": {
+    "work": "lid_unrated",
+    "look": "clip:lid_outlet_off"
+   },
+   "lid_unrated": {
+    "work": "lid_unrated",
+    "look": "aside"
+   },
+   "grease_cap": {
+    "work": "pump_out",
+    "look": "section"
+   },
+   "grease_cap_section": {
+    "work": "pump_out"
+   },
+   "solids": {
+    "work": "pump_out",
+    "look": "section"
+   },
+   "solids_section": {
+    "work": "pump_out"
+   },
+   "vac_hose": {
+    "work": "pump_out",
+    "look": "cut"
+   },
+   "water": {
+    "work": "pump_out"
+   },
+   "water_section": {
+    "work": "pump_out"
+   },
+   "grease_cap_high": {
+    "work": "grease_cap_high",
+    "look": "section"
+   },
+   "grease_cap_high_section": {
+    "work": "grease_cap_high"
+   },
+   "grease_carryover": {
+    "work": "grease_cap_high"
+   },
+   "inlet_greased": {
+    "work": "inlet_greased",
+    "look": "cut"
+   },
+   "lid_co_downstream": {
+    "look": "clip:lid_co_downstream_off"
+   },
+   "lid_co_lot_line": {
+    "look": "clip:lid_co_lot_line_off"
+   },
+   "lid_co_restroom": {
+    "look": "clip:lid_co_restroom_off"
+   },
+   "lid_co_upstream": {
+    "look": "clip:lid_co_upstream_off"
+   },
+   "lid_cracked": {
+    "work": "lid_cracked"
+   },
+   "lid_middle": {
+    "work": "lid_cracked",
+    "look": "clip:lid_middle_off"
+   },
+   "lid_inlet": {
+    "look": "clip:lid_inlet_off"
+   },
+   "lid_sample": {
+    "look": "clip:lid_sample_off"
+   },
+   "outlet_tee": {
+    "work": "outlet_tee_corroded",
+    "look": "section"
+   },
+   "outlet_tee_corroded": {
+    "work": "outlet_tee_corroded"
+   },
+   "outlet_tee_corroded_section": {
+    "work": "outlet_tee_corroded"
+   },
+   "outlet_tee_section": {
+    "work": "outlet_tee_corroded"
+   },
+   "packets_cross": {
+    "work": "flow"
+   },
+   "packets_drop": {
+    "work": "flow"
+   },
+   "packets_exit": {
+    "work": "flow"
+   },
+   "packets_grease": {
+    "work": "flow"
+   },
+   "packets_in": {
+    "work": "flow"
+   },
+   "packets_out": {
+    "work": "flow"
+   },
+   "solids_high": {
+    "work": "solids_high",
+    "look": "section"
+   },
+   "solids_high_section": {
+    "work": "solids_high"
+   },
+   "backfill": {
+    "look": "section"
+   },
+   "backfill_bedding": {
+    "look": "section"
+   },
+   "co_lot_line": {
+    "look": "cut"
+   },
+   "co_lot_line_frame": {
+    "look": "cut"
+   },
+   "floor_lot_commercial_asphalt": {
+    "look": "section"
+   },
+   "floor_lot_commercial_base": {
+    "look": "section"
+   },
+   "floor_lot_commercial_collar_lot_line": {
+    "look": "cut"
+   },
+   "floor_lot_commercial_pad": {
+    "look": "section"
+   },
+   "frame_inlet": {
+    "look": "cut"
+   },
+   "grease_line": {
+    "look": "cut"
+   },
+   "inlet_line": {
+    "look": "section"
+   },
+   "inlet_tee": {
+    "look": "section"
+   },
+   "outlet_line": {
+    "look": "cut"
+   },
+   "restroom_line": {
+    "look": "cut"
+   },
+   "rings_inlet": {
+    "look": "cut"
+   },
+   "rings_outlet": {
+    "look": "cut"
+   },
+   "sample_box": {
+    "look": "section"
+   },
+   "soil": {
+    "look": "section"
+   },
+   "tank": {
+    "look": "section"
+   }
+  },
+  "commercial_storefront.glb": {
+   "door_restroom": {
+    "look": "clip:door_restroom_open"
+   },
+   "door_store_back": {
+    "look": "clip:door_store_back_open"
+   },
+   "door_store_front": {
+    "look": "clip:door_store_front_open"
+   },
+   "lid_grease_cleanout": {
+    "look": "clip:lid_grease_cleanout_off"
+   },
+   "grease_drain": {
+    "look": "cut"
+   },
+   "grease_vent": {
+    "look": "cut"
+   },
+   "sanitary_drain": {
+    "look": "cut"
+   },
+   "sanitary_vent": {
+    "look": "cut"
    }
   }
  }

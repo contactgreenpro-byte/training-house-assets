@@ -158,7 +158,10 @@
   // hardcoded object with no UI, so the walk page has only ever shown the default. The picker below changes it.
   const CONFIG = { water_heater: 'attic_gas_tank', hvac: 'split_furnace', sewer: 'septic_spray', water: 'city_filter', softener: 'yes', filter: 'no', plumbing: 'cpvc', gas: 'natural', fault: 'none',
     soft_start: 'no', surge_condenser: 'no', surge_panel: 'no', reverse_osmosis: 'no', thermostat: 'programmable', expansion_tank: 'no',
-    sump: 'no', shutoff_extra: 'none' };     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
+    sump: 'no', shutoff_extra: 'none',
+    // round 89 integration (Jake 2026-09-23 build list): the new add on models, all off, and the commercial lot across the street
+    mixing_valve: 'no', surge_wh: 'no', iaq_monitor: 'no', media_cabinet: 'no', purifier: 'no', erv: 'no', sludgehammer: 'no', freeze_cover: 'no', vacuum_breaker: 'no', commercial_lot: 'no',
+    bidet: 'no', co_detector: 'no', uv_light: 'no', dehumidifier: 'no', fresh_air: 'no', hammer_arrestors: 'no', scale_inhibitor: 'no' };     // round 89 (Jake 2026-09-23): parts the models already carry, now add ons, all off     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
   // The septic plant, the tank, the sewer and the water service are all BURIED, so the ground gets its own switch.
   const GROUND = ['floor_terrain', 'floor_lot', 'floor_street', 'floor_patch_lawn', 'trim_riser_collar', 'site_mow_stripes', 'site_beds', 'site_shrubs', 'floor_driveway', 'floor_walkway', 'floor_crawl', 'soil', 'grass', 'backfill'];
   let groundOn = true;
@@ -166,7 +169,8 @@
   const CONFIG_CHOICES = {
     water_heater: ['attic_gas_tank', 'closet_gas_tank', 'attic_electric_tank', 'closet_electric_tank', 'garage_tankless', 'garage_hybrid', 'garage_electric_tankless'],     // round 46: the electric tank in both tank spots (Jake)
     hvac: ['split_furnace', 'split_furnace_cond96', 'heatpump_attic', 'gas_pack'],
-    sewer: ['septic_spray', 'septic_spray_two_tank', 'septic_gravity', 'septic_overland', 'septic_overland_lee', 'septic_overland_aquaklear', 'city_lift', 'city_lift_duplex', 'city_gravity'],     // round 78: the duplex grinder station (Jake)
+    sewer: ['septic_spray', 'septic_spray_two_tank', 'septic_gravity', 'septic_overland', 'septic_overland_lee', 'septic_overland_aquaklear', 'city_lift', 'city_lift_duplex', 'city_gravity', 'septic_spray_trash'],     // round 78: the duplex grinder station (Jake)
+        // 2026-09-23: septic_spray_trash, the IM-540 trash tank in front of the Lee plant (Jake: "use the 540 Infiltrator, just put that in front")
         // round 29: gravity to the street (Jake)
     water: ['city_filter', 'well'],     // round 41: a well with a pressure tank in the garage (Jake)
     softener: ['yes', 'no'],     // round 42: with a softener the Flo is at the softener in the garage, without one it is under the house (Jake)
@@ -176,11 +180,12 @@
     gas: ['natural', 'propane'],                 // round 29: the utility meter set, or a 250 gallon tank in the side yard with its regulators (Jake)
     sump: ['no', 'yes'],                         // round 88: the indoor pump basin under the hall bath (Jake: place the sump pump)
     shutoff_extra: ['none', 'wall', 'attic'],    // round 88: a second Flo shutoff, in the laundry wall or on the attic cold run
+    commercial_lot: ['no', 'yes'],               // round 89: the storefront and its grease interceptor across the street, tapped into the city main
     fault: ['none', 'belly']                     // round 29: the fault scenario: a belly in the city gravity lateral, standing water in it (Jake)
   };
   // a config value may list several layouts separated by a bar, for a run shared by two of them
   // a tag may join several clauses with & (a heater layout's PEX cold riser: water_heater=attic_gas_tank&plumbing=pex): all must hold
-  function inConfig(c) { if (!c) return true; return c.split('&').every(cl => { const i = cl.indexOf('='); return CONFIG[cl.slice(0, i)] !== undefined && cl.slice(i + 1).split('|').includes(CONFIG[cl.slice(0, i)]); }); }
+  function inConfig(c) { if (!c) return true; return c.split(';').some(alt => alt.split('&').every(cl => { const i = cl.indexOf('='); return CONFIG[cl.slice(0, i)] !== undefined && cl.slice(i + 1).split('|').includes(CONFIG[cl.slice(0, i)]); })); }     // round 89: ; separates whole alternatives (the city main: a city sewer, or the commercial lot that taps it)
   function wants(pl) { if (!pl.model) return false; return inConfig(pl.config); }
   // the house carries layout tags too now (the lawn patch over the yard holes this layout does not use)
   // Flow columns carry their run's layout too, but they are off until something runs: the layout pass leaves them to
@@ -246,6 +251,7 @@
     }
     const hide = new Set([...(pl.hide || []), ...addOnHide, ...(placements.hide_common || [])]); const pats = (placements.hide_patterns || []).map(p => new RegExp(p));
     for (const nm2 of addOnShow) hide.delete(nm2);
+    for (const nm2 of (pl.unhide || [])) hide.delete(nm2);     // round 89: a hide_common name this model needs back (the interceptor's soil_section), still pattern hidden until its cutaway swaps it in
     // "show": a part the model shows that a hide pattern would swallow (the lift station's off float is float_off_wet, and
     // "_wet" took it, so the basin had no off float). "states": the other poses of a part a control swaps in, hidden at
     // load but NOT placement hidden, so the switch that owns them may show them (the lift station's HAND lever, its drawn
@@ -254,8 +260,12 @@
     inst.userData.sectionSet = pl.section_set || null; inst.userData.sectionOpen = false;
     inst.userData.reveal = pl.reveal || null; inst.userData.revealOpen = false;
     for (const [nm, dv] of Object.entries(pl.move || {})) { const mo = inst.getObjectByName(nm); if (mo) mo.position.add(new T.Vector3(dv[0], dv[2], -dv[1])); }
-    inst.traverse(o => { const nn = nodeName(o); if (!show.has(nn) && (hide.has(nn) || states.has(nn) || pats.some(r => r.test(nn)))) o.visible = false; if (hide.has(nn)) o.userData.placeHidden = true; if (o.isMesh) { o.userData.label = nn; o.userData.pack = pl.pack || pl.model; o.userData.inst = inst;
-      if (/stream|_flow$|_flow_half$|_jet$/.test(nn) && !/spray_pattern/.test(nn)) { o.visible = false; o.userData.isStream = true; }
+    // round 89: a part held back by a hide pattern or the placement's states (not by its hide list) is soft hidden: the clip that
+    // scales it up shows it while that clip is open (clipReveal). One that rests at 0.001 scale (the heaters' pitted and bare anode,
+    // the waterlogged expansion tank, the monitor's displays) rests at full scale here instead, still hidden, so a finding link that
+    // only switches it visible shows it whole; the clip keys its scale on top of that.
+    inst.traverse(o => { const nn = nodeName(o); if (!show.has(nn) && (hide.has(nn) || states.has(nn) || pats.some(r => r.test(nn)))) { o.visible = false; if (!hide.has(nn)) { o.userData.softHidden = true; if (o.scale.x < 0.01 && o.scale.y < 0.01 && o.scale.z < 0.01) o.scale.setScalar(1); } } if (hide.has(nn) && !show.has(nn)) o.userData.placeHidden = true; if (o.isMesh) {     /* round 89: a part the placement shows is not placement hidden (the interceptor's soil: hide_common names it, show brings it back, and the cutaway and the ground switch skipped it) */ o.userData.label = nn; o.userData.pack = pl.pack || pl.model; o.userData.inst = inst;
+      if (/(^|_)stream|_flow$|_flow_half$|_jet$/.test(nn) && !/spray_pattern/.test(nn)) { o.visible = false; o.userData.isStream = true; }     // round 89: (^|_) so the interceptor's co_upstream and co_downstream cleanouts are not taken for running water
       if (nn === 'bubbles' || nn === 'mix_arrows' || nn === 'airlift_spurt') o.visible = false;     // these only show while the blower is running
       if (!groundOn && isGround(o)) o.visible = false; } });     // placed while the ground is off: its own dirt stays off too
     const off = pl.offset || [0, 0, 0];
@@ -271,11 +281,19 @@
     // blocks, because you do not walk through a tub.
     const walkIn = /shower/.test(pl.model || '');
     inst.traverse(o => { if (o.isMesh && o.visible && !walkIn && (o.userData.label === 'cabinet' || o.userData.label === 'tub' || o.userData.label === 'range_body' || o.userData.label.endsWith('_body'))) colliders.push(o); });
+    // round 89: a placed model can bring its own ground (the storefront's slab 6 in up, the lot's asphalt and walks): its floor_ meshes
+    // are stood on and its roof_ meshes are overhead, the same as the house's. They go again when the layout changes (reconfigure).
+    inst.traverse(o => { if (!o.isMesh || !o.visible) return; const nn = nodeName(o);
+      if (/^floor_/.test(nn) && !/_section$/.test(nn)) { floors.push(o); placedFloors.push(o); }
+      if (/^roof_/.test(nn)) { overhead.push(o); placedFloors.push(o); } });
   }
+  const placedFloors = [];
   async function reconfigure() {
     await bootDone;     // round 60: you can be let in before the pipes and placements.json have arrived, and this needs both
     for (const c of [...equip.children]) equip.remove(c);
     colliders.length = 0; mixers.length = 0;
+    for (const o of placedFloors) { let i = floors.indexOf(o); if (i >= 0) floors.splice(i, 1); i = overhead.indexOf(o); if (i >= 0) overhead.splice(i, 1); }
+    placedFloors.length = 0;
     // the new yard's models come in at rest, so the switches start OFF. They used to keep the last yard's state: air
     // left on in one yard, the first click on the next yard's air pump said "OFF" and nothing moved.
     pumpOn = false; sprayOn = false;
@@ -486,10 +504,10 @@
       // place for me to add the expansion tank"): the add ons that belong to THIS unit, offered on the unit itself.
       const addonKeys = [];
       for (const k of Object.keys((inst.userData.pl && inst.userData.pl.addon) || {})) addonKeys.push(k);
-      for (const [re_, keys] of UNIT_ADDONS) if (re_.test(inst.userData.model || '')) for (const k of keys) if (!addonKeys.includes(k)) addonKeys.push(k);
+      for (const [re_, keys] of UNIT_ADDONS) if (re_.test(inst.userData.model || '')) for (const k of keys) if (!addonKeys.includes(k) && (CONFIG[k] === 'yes' || addonFits(k))) addonKeys.push(k);
       for (const k of addonKeys) {
         const on = CONFIG[k] === 'yes'; const lab = (on ? 'Remove the ' : 'Add the ') + ADDON_NAME[k];
-        acts.push([lab, async () => { CONFIG[k] = on ? 'no' : 'yes'; await reconfigure(); return ADDON_NAME[k] + ': ' + (CONFIG[k] === 'yes' ? 'in' : 'out'); }, 'Add ons']);
+        acts.push([lab, async () => { CONFIG[k] = on ? 'no' : 'yes'; addonExclusive(k); await reconfigure(); return ADDON_NAME[k] + ': ' + (CONFIG[k] === 'yes' ? 'in' : 'out'); }, 'Add ons']);
       }
       acts.push([blown && blown.inst === inst ? 'Put it together' : 'Take it apart (exploded view)', () => explodeUnit(inst), 'unit']);     // round 45
       if (/thermostat/.test(inst.userData.model || '')) {
@@ -775,6 +793,13 @@
   function workBox(u) {
     const b = new T.Box3(); u.updateWorldMatrix(true, true);
     u.traverse(o => { if (o.isMesh && o.geometry && shownInTree(o) && !o.userData.isStream && !isGround(o)) b.expandByObject(o); });
+    // round 89: a kit that is only its add ons (the hose bib freeze cover and vacuum breaker, both off) shows nothing, and a link
+    // to it never landed. Its hidden parts still say where it is: frame them, leaving out the context set pieces (ctx_*)
+    if (b.isEmpty()) u.traverse(o => {
+      if (!o.isMesh || !o.geometry || o.userData.isStream || isGround(o)) return;
+      for (let q = o; q && q !== u; q = q.parent) if (/^ctx_/.test(q.name)) return;
+      b.expandByObject(o);
+    });
     return b;
   }
   function floorBelow(x, z, fromY) {
@@ -802,6 +827,10 @@
     const q = u.getWorldQuaternion(new T.Quaternion());
     const sides = [[0, 0, 1], [0, 0, -1], [1, 0, 0], [-1, 0, 0]].map(a => { const v = new T.Vector3(a[0], a[1], a[2]).applyQuaternion(q); v.y = 0; return v.normalize(); });
     const toMe = new T.Vector3(pos.x - c.x, 0, pos.z - c.z); if (toMe.lengthSq() > 1e-6) toMe.normalize();
+    // round 89: a link lands you ON the socket first (so the unit loads) and then comes here. Where you are then says nothing
+    // about which side to see it from: the hose bib's socket sits a hair inside the wall, so the lawn side scored last and you
+    // were stood in the shrub bed looking along the wall. Standing within the unit's own footprint, no side is preferred.
+    if (pos.x > box.min.x - 0.3 && pos.x < box.max.x + 0.3 && pos.z > box.min.z - 0.3 && pos.z < box.max.z + 0.3) toMe.set(0, 0, 0);
     const room = roomAt(c.x, c.z); let best = null;
     // Round 71 (Jake, under the house: "I can't see the furnace from here because I can't stand up. I'm still crawling and it makes me go
     // underneath the house"). A unit behind a closed closet door has no place to stand in its own room and no clear line from the next one,
@@ -976,7 +1005,11 @@
   }
   // mode (round 20): 'look' reaches the machine switches and the control clips only; 'remove' the clips that take something off;
   // 'work' the switches and the clips that run something; undefined is the old anything goes
-  const CLIP_REMOVE = /off$|_open$|pull|lift$|door|lid|cover|panel|deadfront|open$/, CLIP_WORK = /run$|_on$|fire|flush|spray|aerate|pump|sprayer|cycle|backwash|service|bib|test|high_water|turn$|auto$|hoa/;
+  const CLIP_REMOVE = /off$|_open$|pull|lift$|door|lid|cover|panel|deadfront|open$/, CLIP_WORK = /run$|_on$|fire|flush|spray|aerate|pump|sprayer|cycle|backwash|service|bib|test|high_water|turn$|auto$|hoa|^sense$|^ventilate$|^purify$|^airflow$|^mix$|^surge$|^flow$|_block$|take_up$|rumble$|^anode_years$|^sediment_build$/;
+  // round 89: the fault states the new models carry (a cracked lid, a loose cover, a dead light). They are findings, not a cover to
+  // take off or a thing to run, so the Work and Remove tools pass them by (lid_cracked used to answer a click on the lid) and the
+  // panel lists them by name.
+  const CLIP_FAULT = /cracked|unrated|_loose$|_leak$|leak$|dirty|failed|_lost$|_poor$|^no_power$|^no_air$|clogged|corroded|broken|greased|carryover|_high$|^waterlogged$|^element_buried$|^scald$/;
   function playClipFor(o, mode) {
     const inst = o.userData.inst; if (!inst || !inst.userData.anim) return null;
     if (mode === 'remove' && !/^little\/electric_panel/.test(o.userData.pack || '')) return playClipOnly(o, CLIP_REMOVE);
@@ -1013,7 +1046,7 @@
     // keyed by the high water alarm clip, so looking into the tank filled it to the lid (Jake 2026-09-12: "the water
     // levels went up again"). Water, bubbles, the mixing arrows, scum and sludge do nothing when clicked. The alarm is
     // still reachable from the float and the alarm light, which are the things you would actually touch.
-    if (/^(water|bubbles|mix_arrows|airlift_spurt|scum|sludge)/.test(partName(o))) return null;
+    if (/^(water|bubbles|mix_arrows|airlift_spurt|scum|sludge|grease_cap|solids)/.test(partName(o))) return null;     // round 89: the interceptor's grease cap and solids are contents too
     if (mode === 'look' && !isControl(o)) return null;
     return playClipOnly(o, mode === 'work' ? CLIP_WORK : null);
   }
@@ -1028,7 +1061,7 @@
     return true;
   }
   function refreshStreams(inst) {
-    const A = inst.userData.anim; const wet = !!A && Object.entries(A.state).some(([k, v]) => v.open && /run$|_on$|sprayer|flush|spray|bib/.test(k));
+    const A = inst.userData.anim; const wet = !!A && Object.entries(A.state).some(([k, v]) => v.open && /run$|_on$|sprayer|flush|spray|bib|flapper_cycle/.test(k));
     inst.traverse(o => { if (o.userData.isStream) o.visible = wet && waterOn && !o.userData.placeHidden && streamOk(inst, o); });     // round 61: a stream the placement hides stays hidden (the cartridge faucet's stream ran in the other bowl)
     if (A) showerStreams(inst, A);
   }
@@ -1083,10 +1116,29 @@
     if (st.step === 1) { playNamed(inst, 'deadfront_off', true); st.step = 2; return 'dead front off: the breakers, the bus and the bars'; }
     playNamed(inst, 'deadfront_off', false); playNamed(inst, 'panel_door_open', false); st.step = 0; return 'dead front on, door closed';
   }
+  // Round 89 (integration list): a clip that scales up a part the hide patterns or the placement's states hold back (the toilet's
+  // flapper_bad under flapper_leak, the new models' packet trains, the fault parts) shows that part while the clip is open, and puts
+  // it away again when the clip closes. Only parts this function showed are put away, so a finding link that showed a fault keeps it.
+  // Cut open, a part with a _section twin in the same clip shows the twin instead (the interceptor's faults: only the fault that is
+  // on shows its cut half).
+  function clipReveal(inst) {
+    const A = inst && inst.userData.anim; if (!A) return;
+    const want = new Set();     // part names (a multi material part is a group whose meshes carry the group's part name)
+    for (const c of A.clips) { const b = c.name.replace(/_loop$/, ''); if (!(A.state[b] && A.state[b].open)) continue;
+      for (const t of c.tracks) if (/\.scale$/.test(t.name)) { const x = inst.getObjectByName(t.name.slice(0, -6)); if (x) want.add(partName(x)); } }
+    const sec = !!inst.userData.sectionOpen;
+    inst.traverse(o => {
+      if (!o.userData.softHidden || o.userData.isStream) return;
+      const p = partName(o);
+      if (!want.has(p)) { if (o.userData.revealed) { o.visible = false; o.userData.revealed = false; } return; }
+      const v = /_section$/.test(p) ? sec : !(sec && want.has(p + '_section'));
+      o.visible = v; o.userData.revealed = v;
+    });
+  }
   function playClipOnly(o, only) {
     const inst = o.userData.inst; if (!inst || !inst.userData.anim) return null;
     const A = inst.userData.anim; const names = new Set(); for (let p = o; p && p !== inst; p = p.parent) names.add(p.name);
-    const pickable = A.clips.filter(c => !/_loop$/.test(c.name) && (!only || only.test(c.name)));
+    const pickable = A.clips.filter(c => !/_loop$/.test(c.name) && (!only || (only.test(c.name) && !CLIP_FAULT.test(c.name))));
     // a part that more than one clip moves gets the clip that belongs to it: the float is tested by hand, it does not run the pump
     const PREFER = { float_onoff: 'float_test', cartridge: 'shower_on' };
     let clip = (PREFER[partName(o)] && pickable.find(c => c.name === PREFER[partName(o)])) || pickable.find(c => c.tracks.some(t => names.has(t.name.split('.')[0]))) || null;
@@ -1099,7 +1151,7 @@
     const act = A.mixer.clipAction(clip); act.loop = T.LoopOnce; act.clampWhenFinished = true;
     const st = A.state[clip.name] || (A.state[clip.name] = { open: false });
     st.open = !st.open;
-    if (/run$|_on$|sprayer|flush|spray|bib|divert/.test(clip.name)) {     // water follows the handle: show the streams while any run clip is playing
+    if (/run$|_on$|sprayer|flush|spray|bib|divert|flapper_cycle/.test(clip.name)) {     // water follows the handle: show the streams while any run clip is playing
       refreshStreams(inst);
     }
     // a clip called X_loop is the running motion that belongs with X: the blower spinning, the air travelling up through
@@ -1113,7 +1165,7 @@
     if (st.open) { act.reset(); act.timeScale = 1; act.play(); }
     else if (ONE_WAY.test(clip.name)) act.stop();
     else { act.paused = false; act.enabled = true; act.timeScale = -1; if (act.time <= 0 || act.time >= clip.duration - 1e-3) act.time = clip.duration; act.play(); }
-    afterClip(inst, clip.name, st.open);
+    clipReveal(inst); afterClip(inst, clip.name, st.open);
     return clip.name + (st.open ? '' : ' (back)');
   }
   // doors: every door_ mesh is exported with its origin on the hinge jamb, so a swing is a rotation about its own Y (Blender Z)
@@ -1254,7 +1306,7 @@
         else if (p === b) { x.visible = open; for (let q = x.parent; open && q && q !== inst; q = q.parent) q.visible = true; }
       }
     });
-    refreshStreams(inst);
+    clipReveal(inst); refreshStreams(inst);
     return open ? 'cut open (' + pairs.length + ' parts sectioned)' : 'back to solid';
   }
   function hasSection(o) {
@@ -1328,6 +1380,12 @@
     const nm = nodeName(o).replace(/_stream$/, '');
     if (!/^fix_hosebib_/.test(nm)) return null;
     if (!waterOn) return nm.replace('fix_hosebib_', 'Hose bib ') + ': no water, the shutoff in the box by the house is off';
+    // round 89: the front bib's freeze cover is on when that add on is in, and nobody runs a bib through its cover (the stream came
+    // out through the bottom of the dome): take it off first (the kit's cover_off), then the bib runs
+    if (nm === 'fix_hosebib_front' && CONFIG.freeze_cover === 'yes' && !bibsOn.get(nm)) {
+      const kit = equip.children.find(u => /hosebib_protection/.test(u.userData.model || '')); const A = kit && kit.userData.anim;
+      if (!(A && A.state.cover_off && A.state.cover_off.open)) return 'Hose bib front: the freeze cover is on it. Take the cover off first, then run the bib';
+    }
     const on = !bibsOn.get(nm); bibsOn.set(nm, on);
     pipes.traverse(x => { if (x.isMesh && nodeName(x) === nm + '_stream') x.visible = on; });
     return nm.replace('fix_hosebib_', 'Hose bib ') + (on ? ': water ON' : ': off');
@@ -1363,6 +1421,7 @@
   // its branch, the building drain from where the branch joins it, the sewer of whichever yard is up, the lift station's force main and
   // the city main out to the end of the street. showFlows() starts each run where the one before it lands on it.
   const SEWER_RUNS = ['pipe_dwv_sewer_septic', 'pipe_dwv_sewer_pumptank', 'pipe_dwv_sewer_gravity', 'pipe_dwv_sewer_overland', 'pipe_dwv_sewer_overland_aquaklear', 'pipe_dwv_sewer_lift', 'pipe_dwv_sewer_city', 'pipe_dwv_sewer_city_belly', 'pipe_dwv_city_main'];
+  SEWER_RUNS.splice(SEWER_RUNS.length - 1, 0, 'pipe_dwv_sewer_trash');     // 2026-09-23: the trash tank layout's sewer (before the city main, like the other yards)
   const TO_STREET = ['pipe_dwv_building_drain_west'].concat(SEWER_RUNS), VIA_HALL = ['pipe_dwv_building_drain'].concat(TO_STREET);
   const DRAIN_SAY = ': down its trap, along the building drain and out to the tank or the street (cut a pipe open anywhere on the way to watch it)';
   const fixtureSet = (label, branch) => ({ kind: 'water', label, say: label + DRAIN_SAY, off: 'water off: what is in the pipes runs on down the drain', runs: branch.concat(VIA_HALL) });
@@ -1395,7 +1454,7 @@
     { socket: 'sock_kitchen_sink_kitchen', key: 'faucet', clips: ['faucet_run'] }, { socket: 'sock_kitchen_sink_kitchen', key: 'disposal', clips: ['disposal_run'] },
     { socket: 'sock_vanity_hall_bath', key: 'vanity_hall', clips: ['hot_on', 'cold_on'] }, { socket: 'sock_vanity_master_bath', key: 'vanity_master', clips: ['hot_on', 'cold_on'] },
     { socket: 'sock_tub_hall_bath', key: 'tub', clips: WET_CLIPS }, { socket: 'sock_tub_master_bath', key: 'tub_master', clips: WET_CLIPS },
-    { socket: 'sock_toilet_hall_bath', key: 'toilet_hall', clips: ['flush'], window: [1.3, 3.4] }, { socket: 'sock_toilet_wc', key: 'toilet_master', clips: ['flush'], window: [1.3, 3.4] }];
+    { socket: 'sock_toilet_hall_bath', key: 'toilet_hall', clips: ['flush', 'flapper_cycle'], window: [1.3, 3.4] }, { socket: 'sock_toilet_wc', key: 'toilet_master', clips: ['flush', 'flapper_cycle'], window: [1.3, 3.4] }];     // round 89: flapper_cycle carries every flush track, so the bowl empties down the drain the same
   // (the washer has no clip of its own, so its drain stays a plain switch: a click on the washer turns 'laundry' on and off)
   const FIX_KEYS = new Set(FIXTURES.map(f => f.key));
   // Round 66 (Jake: "let's think about the amount of water a faucet would have, and a flush, because we want a flush to come in as well, and
@@ -1471,7 +1530,7 @@
     const n = w.P.length, E = w.P[n - 1].clone(), Ep = w.P[Math.max(0, n - 3)], dir = E.clone().sub(Ep); dir.y = 0; const flat = dir.length() > 0.01; if (flat) dir.normalize();
     let level = E.y - 0.40, under = false, tee = false, seenShown = false; const bx = new T.Box3(), probe = E.clone().addScaledVector(dir, flat ? 0.06 : 0);
     equip.children.forEach(inst => inst.traverse(o => { if (!o.isMesh) return; const pn = partName(o);
-      if (/^inlet_tee$|^inlet$/.test(pn) && /septic_lee|septic_tank/.test(inst.userData.model || '')) { bx.setFromObject(o); if (bx.distanceToPoint(E) < 0.15) tee = true; }
+      if (/^inlet_tee$|^inlet$/.test(pn) && /septic_lee|septic_tank|pump_tank_trash/.test(inst.userData.model || '')) { bx.setFromObject(o); if (bx.distanceToPoint(E) < 0.15) tee = true; }
       const shown = shownInTree(o); if (!/^(water|cu_water)/.test(pn) || (!shown && /_high|alarm|_on$|_fill/.test(pn)) || (!shown && seenShown)) return; o.updateWorldMatrix(true, false); bx.setFromBufferAttribute(o.geometry.attributes.position).applyMatrix4(o.matrixWorld);     // the REST surface: setFromObject takes in the morph targets, and a plant's water carries its high water alarm level as one
       if (probe.x < bx.min.x - 0.05 || probe.x > bx.max.x + 0.05 || probe.z < bx.min.z - 0.05 || probe.z > bx.max.z + 0.05) return; if (bx.max.y > E.y + 0.03) { if (bx.min.y < E.y && shown) under = true; return; } if (shown && !seenShown) { seenShown = true; level = bx.max.y; } else if (bx.max.y > level || level === E.y - 0.40) level = bx.max.y; }));     // the liquid you can SEE wins: a basin carries its off, on and alarm levels as separate bodies and shows one
     if (levelY !== undefined && levelY !== null) { level = levelY; under = levelY > E.y + 0.03; }     // round 68: a driven basin says where its surface is NOW
@@ -1527,7 +1586,8 @@
     const A = inst.userData.anim; if (!cfg || !A) return;
     const toG = q => new T.Vector3(q[0], q[2], -q[1]);
     const defs = cfg.floats || [{ name: cfg.float, role: 'onoff', tie: cfg.tie, tether: cfg.tether, theta0_deg: cfg.theta0_deg, up_deg: cfg.up_deg, on_deg: cfg.on_deg, off_deg: cfg.off_deg, cord: cfg.cord, cord_tip_rel: cfg.cord_tip_rel, cord_r: cfg.cord_r }];
-    const S = { cfg, inst, feed: cfg.feed ? new RegExp(cfg.feed) : /^pipe_dwv_sewer_/, pumpOn: false, alarm: false, hand: false, floats: [], waters: cfg.water.map(n => inst.getObjectByName(n)).filter(Boolean), through: [], dropW: null, dropAt: null, wasIn: false };
+    const simFeed = inst.userData.pl && inst.userData.pl.sim_feed;     // 2026-09-23: placements.json sim_feed overrides the model's own feed
+    const S = { cfg, inst, feed: simFeed ? new RegExp(simFeed) : (cfg.feed ? new RegExp(cfg.feed) : /^pipe_dwv_sewer_/), pumpOn: false, alarm: false, hand: false, floats: [], waters: cfg.water.map(n => inst.getObjectByName(n)).filter(Boolean), through: [], dropW: null, dropAt: null, wasIn: false };
     const names = defs.map(d => d.name);
     for (const d of defs) {
       const F = { d, obj: inst.getObjectByName(d.name), made: false, theta: 0 }; if (!F.obj) continue;
@@ -3625,7 +3685,7 @@
     const act = A.mixer.clipAction(c); act.loop = T.LoopOnce; act.clampWhenFinished = true; const st = A.state[c.name] || (A.state[c.name] = { open: false }); st.open = on;
     if (on) { act.reset(); act.timeScale = 1; act.play(); } else if (ONE_WAY.test(name)) act.stop(); else { act.paused = false; act.enabled = true; act.timeScale = -1; if (act.time <= 0) act.time = c.duration; act.play(); }
     const lp = A.clips.find(x => x.name === name + '_loop'); if (lp) { const la = A.mixer.clipAction(lp); la.loop = T.LoopRepeat; if (on) { la.reset(); la.play(); } else la.stop(); }
-    refreshStreams(inst); afterClip(inst, name, on); return c.duration;
+    clipReveal(inst); refreshStreams(inst); afterClip(inst, name, on); return c.duration;
   }
   function systemRun() {
     sysOn = !sysOn;
@@ -4197,8 +4257,25 @@
   })();
   // Round 45 (Jake: "I need to be able to toggle real quick and make sure all that looks actually good"): the add ons tab. Each one
   // is a config key the placement list reads, so turning it on puts the unit in and turning it off takes it out, with no reload.
-  const ADDON_NAME = { reverse_osmosis: 'reverse osmosis system', soft_start: 'soft start', surge_condenser: 'surge protector', surge_panel: 'whole house surge protector', softener: 'water softener', filter: 'spray pump filter', expansion_tank: 'thermal expansion tank' };
-  const UNIT_ADDONS = [[/condenser/, ['soft_start', 'surge_condenser']], [/electric_panel/, ['surge_panel']], [/kitchen_sink/, ['reverse_osmosis']], [/spray_pump_filter|septic_lee|aquaklear/, ['filter']], [/water_softener/, ['softener']]];
+  const ADDON_NAME = { reverse_osmosis: 'reverse osmosis system', soft_start: 'soft start', surge_condenser: 'surge protector', surge_panel: 'whole house surge protector', softener: 'water softener', filter: 'spray pump filter', expansion_tank: 'thermal expansion tank',
+    bidet: 'bidet seat', co_detector: 'CO detector', uv_light: 'UV coil light', dehumidifier: 'whole home dehumidifier', fresh_air: 'fresh air duct', hammer_arrestors: 'water hammer arrestors', scale_inhibitor: 'scale inhibitor',
+    mixing_valve: 'thermostatic mixing valve', surge_wh: 'water heater surge protector', iaq_monitor: 'air quality monitor', media_cabinet: 'media air cleaner', purifier: 'in duct air purifier', erv: 'ERV', sludgehammer: 'SludgeHammer', freeze_cover: 'hose bib freeze cover', vacuum_breaker: 'hose bib vacuum breaker' };
+  const UNIT_ADDONS = [[/condenser/, ['soft_start', 'surge_condenser']], [/electric_panel/, ['surge_panel']], [/kitchen_sink/, ['reverse_osmosis']], [/spray_pump_filter|septic_lee|aquaklear/, ['filter']], [/water_softener/, ['softener']],
+    // round 89: the new add ons, offered on the unit they go on (addonFits keeps the offer to layouts where it would actually be placed)
+    [/gas_tank_water_heater|electric_tank_water_heater|thermostatic_mixing_valve/, ['mixing_valve']], [/electric_tank_water_heater|wh_surge_protector/, ['surge_wh']],
+    [/^thermostat_|air_quality_monitor/, ['iaq_monitor']], [/hvac_furnace_std80|media_air_cleaner|induct_purifier/, ['media_cabinet', 'purifier']],
+    [/hvac_furnace|hvac_air_handler|^erv/, ['erv']], [/septic_tank_risers|pump_tank_trash|sludgehammer/, ['sludgehammer']]];
+  // does switching this add on on put anything in THIS layout (a placement whose config names the key, or an add on block on a unit
+  // this layout places)? The unit panel only offers what fits: the surge device is an attic electric tank add on, not a closet one.
+  // round 89: two add ons that do the same job on the same unit: the ERV and the heat pump air handler's own fresh air duct both bring in
+  // outside air (the ERV agent: show one), so switching one on switches the other off
+  const ADDON_EXCLUSIVE = { erv: 'fresh_air', fresh_air: 'erv' };
+  function addonExclusive(k) { const o = ADDON_EXCLUSIVE[k]; if (o && CONFIG[k] === 'yes' && CONFIG[o] === 'yes') CONFIG[o] = 'no'; }
+  function addonFits(k) {
+    const was = CONFIG[k]; CONFIG[k] = 'yes';
+    try { return ((placements && placements.placements) || []).some(pl => pl.model && (pl.addon && pl.addon[k] ? wants(pl) : (String(pl.config || '').indexOf(k + '=') >= 0 && wants(pl)))); }
+    finally { CONFIG[k] = was; }
+  }
   const ADDONS = [
     ['reverse_osmosis', 'Reverse osmosis under the kitchen sink'],
     ['soft_start', 'Soft start on the condenser'],
@@ -4206,6 +4283,24 @@
     ['surge_panel', 'Whole house surge at the panel'],
     ['softener', 'Water softener in the garage'],
     ['filter', 'Filter on the spray pump'],
+    // round 89 (Jake 2026-09-23): each shows only where its unit is placed in this layout
+    ['bidet', 'Bidet seat on the toilets'],
+    ['co_detector', 'CO detector at the furnace'],
+    ['uv_light', 'UV light on the coil'],
+    ['dehumidifier', 'Whole home dehumidifier (attic air handler)'],
+    ['fresh_air', 'Fresh air duct (attic air handler)'],
+    ['hammer_arrestors', 'Water hammer arrestors at the washer box'],
+    ['scale_inhibitor', 'Scale inhibitor at the water heater'],
+    // round 89 integration: the add on models built 2026-09-23
+    ['mixing_valve', 'Thermostatic mixing valve at the attic water heater'],
+    ['surge_wh', 'Surge protector on the attic electric water heater'],
+    ['iaq_monitor', 'Air quality monitor on the hall wall'],
+    ['media_cabinet', 'Media air cleaner under the furnace (80%)'],
+    ['purifier', 'In duct purifier on the furnace plenum (80%)'],
+    ['erv', 'ERV in the attic'],
+    ['sludgehammer', 'SludgeHammer in the septic tank (gravity or trash tank)'],
+    ['freeze_cover', 'Freeze cover on the front hose bib'],
+    ['vacuum_breaker', 'Vacuum breaker on the front hose bib'],
   ];
   (() => {
     const host = document.getElementById('addons'); if (!host) return;
@@ -4217,7 +4312,7 @@
         const b = document.createElement('button'); const on = CONFIG[k] === 'yes';
         b.textContent = on ? 'remove' : 'add'; b.classList.toggle('on', on);
         b.onclick = async () => {
-          CONFIG[k] = on ? 'no' : 'yes'; b.textContent = 'working'; await reconfigure(); draw();
+          CONFIG[k] = on ? 'no' : 'yes'; addonExclusive(k); b.textContent = 'working'; await reconfigure(); draw();
           labelEl.textContent = lab + ': ' + (CONFIG[k] === 'yes' ? 'in' : 'out'); labelEl.style.display = 'block';
         };
         row.appendChild(b); host.appendChild(row);
