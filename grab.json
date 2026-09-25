@@ -365,5 +365,136 @@
   "unit": "the lift station panel",
   "fault_off": "the contactor pulls in, the pump hums and does not turn, and the starter trips on overload: {lead} is still in your hand, so the start circuit is open.",
   "fault_wrong": "the contactor pulls in and the pump will not start: {lead} is landed on {on} instead of {home}."
+ },
+ "lift_station_r12_slab.glb": {
+  "parts": {
+   "cap_lead_run_b": {
+    "terminal": "RUN 1",
+    "pull": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "RUN 1",
+     "RUN 2",
+     "START 1",
+     "START 2"
+    ],
+    "flag": true,
+    "grab_at": [
+     -3.092,
+     0.611,
+     1.645
+    ]
+   },
+   "cap_lead_run_r": {
+    "terminal": "RUN 2",
+    "pull": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "RUN 1",
+     "RUN 2",
+     "START 1",
+     "START 2"
+    ],
+    "flag": true,
+    "grab_at": [
+     -3.092,
+     0.633,
+     1.645
+    ]
+   },
+   "cap_lead_link": {
+    "terminal": "START 1",
+    "pull": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "RUN 1",
+     "RUN 2",
+     "START 1",
+     "START 2"
+    ],
+    "flag": true,
+    "grab_at": [
+     -3.076,
+     0.611,
+     1.587
+    ]
+   },
+   "cap_lead_start": {
+    "terminal": "START 2",
+    "pull": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "RUN 1",
+     "RUN 2",
+     "START 1",
+     "START 2"
+    ],
+    "flag": true,
+    "grab_at": [
+     -3.076,
+     0.633,
+     1.587
+    ]
+   }
+  },
+  "terminals": {
+   "RUN 1": [
+    -3.092,
+    0.611,
+    1.645
+   ],
+   "RUN 2": [
+    -3.092,
+    0.633,
+    1.645
+   ],
+   "START 1": [
+    -3.076,
+    0.611,
+    1.587
+   ],
+   "START 2": [
+    -3.076,
+    0.633,
+    1.587
+   ]
+  },
+  "power": {
+   "always_live": true,
+   "breaker": "septic",
+   "disconnect": "disconnect",
+   "disconnect_kind": "lever",
+   "holds_charge": true,
+   "charge_v": 370,
+   "charge_note": "the 45 microfarad run capacitor and the big start capacitor both hold a charge after the power is off"
+  },
+  "group": "capacitor",
+  "unit": "the lift station panel",
+  "fault_off": "the contactor pulls in, the pump hums and does not turn, and the starter trips on overload: {lead} is still in your hand, so the start circuit is open.",
+  "fault_wrong": "the contactor pulls in and the pump will not start: {lead} is landed on {on} instead of {home}."
  }
 }

@@ -1,7 +1,7 @@
 {
- "published": "2026-09-25T07:45:55",
- "house": "r91a",
- "note": "round 91: non-condensing gas tankless in the garage (Category III stainless vent), fiberglass septic train (Infiltrator pre-treatment ahead of the AquaKlear, overland and spray, SludgeHammer option); menu sheet pictures for every HVAC column from the exact Rheem models",
+ "published": "2026-09-25T12:32:52",
+ "house": "r92a",
+ "note": "r92a: the slab house (slab on grade, drains under the slab, sewer through the thickened edge, water in the floor in PEX or soft copper from a coat closet manifold, closet heater with its own floor drain, furnace condensate to a floor drain, deeper yard tanks, gravity beds under 3 ft); crawl house unchanged",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -16,8 +16,8 @@
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "a4cebf34d9",
-   "bytes": 49766
+   "v": "dd670e5866",
+   "bytes": 52439
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -84,8 +84,8 @@
    "bytes": 1084960
   },
   "explode.json": {
-   "v": "fa7d2b752b",
-   "bytes": 27545
+   "v": "5d02c8c9c6",
+   "bytes": 37288
   },
   "flo_shutoff.glb": {
    "v": "d90d891b4c",
@@ -102,6 +102,10 @@
   "flo_shutoff_wall.glb": {
    "v": "7ef5d063ef",
    "bytes": 1458864
+  },
+  "flo_shutoff_wall_slab.glb": {
+   "v": "8f28325181",
+   "bytes": 1427744
   },
   "gas_tank_water_heater.glb": {
    "v": "b83398ef67",
@@ -120,8 +124,8 @@
    "bytes": 44800
   },
   "grab.json": {
-   "v": "368de950a2",
-   "bytes": 6258
+   "v": "c6b117f52e",
+   "bytes": 8714
   },
   "grease_interceptor.glb": {
    "v": "c0593679f4",
@@ -148,8 +152,8 @@
    "bytes": 251668
   },
   "house_furniture.glb": {
-   "v": "6e9c4cd5fa",
-   "bytes": 8858296
+   "v": "b2d28bc2a3",
+   "bytes": 8858300
   },
   "house_links.json": {
    "v": "a199beaecd",
@@ -191,6 +195,10 @@
    "v": "adf7affdb4",
    "bytes": 858988
   },
+  "hvac_minisplit_slab.glb": {
+   "v": "cdf83e984f",
+   "bytes": 852420
+  },
   "hvac_package_gaspack.glb": {
    "v": "532f589df9",
    "bytes": 2493612
@@ -203,9 +211,13 @@
    "v": "d1249c4829",
    "bytes": 601340
   },
+  "hybrid_water_heater_slab.glb": {
+   "v": "e33ebfef92",
+   "bytes": 601684
+  },
   "index.html": {
-   "v": "854b61dc25",
-   "bytes": 19610
+   "v": "2b0fb34f76",
+   "bytes": 19816
   },
   "induct_purifier.glb": {
    "v": "3eafbe7e55",
@@ -231,9 +243,17 @@
    "v": "92e5239be3",
    "bytes": 1206428
   },
+  "lift_station_duplex_slab.glb": {
+   "v": "96bbecafcf",
+   "bytes": 737556
+  },
   "lift_station_r12.glb": {
    "v": "0d6bb8091b",
    "bytes": 1506308
+  },
+  "lift_station_r12_slab.glb": {
+   "v": "26c112b91f",
+   "bytes": 1504980
   },
   "media_air_cleaner.glb": {
    "v": "1a7e5427d0",
@@ -256,8 +276,8 @@
    "bytes": 69099
   },
   "pipes.json": {
-   "v": "161fcf7f90",
-   "bytes": 20014
+   "v": "98a7c2f025",
+   "bytes": 23330
   },
   "pipes_alternates.glb": {
    "v": "1753c77613",
@@ -268,8 +288,8 @@
    "bytes": 3426188
   },
   "pipes_gas.glb": {
-   "v": "73d0d073de",
-   "bytes": 837804
+   "v": "6f5fbdc1c6",
+   "bytes": 845032
   },
   "pipes_hvac.glb": {
    "v": "bf857c6052",
@@ -280,8 +300,8 @@
    "bytes": 2899280
   },
   "placements.json": {
-   "v": "e32896cd50",
-   "bytes": 105337
+   "v": "6db579cf20",
+   "bytes": 140062
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -295,13 +315,25 @@
    "v": "4877fdc579",
    "bytes": 748624
   },
+  "pump_tank_slab.glb": {
+   "v": "4ae2247fab",
+   "bytes": 748464
+  },
   "pump_tank_train.glb": {
    "v": "c0376a7161",
    "bytes": 748216
   },
+  "pump_tank_train_slab.glb": {
+   "v": "230b3fae6d",
+   "bytes": 746608
+  },
   "pump_tank_trash.glb": {
    "v": "6132c3576a",
    "bytes": 789868
+  },
+  "pump_tank_trash_slab.glb": {
+   "v": "a8c7577876",
+   "bytes": 800280
   },
   "pump_wiring.glb": {
    "v": "e689bab46c",
@@ -319,9 +351,17 @@
    "v": "8614137c87",
    "bytes": 1252020
   },
+  "septic_aquaklear_slab.glb": {
+   "v": "ed8c42ef14",
+   "bytes": 1310420
+  },
   "septic_aquaklear_train.glb": {
    "v": "378d84c01c",
    "bytes": 1311320
+  },
+  "septic_aquaklear_train_slab.glb": {
+   "v": "765e7ff6fe",
+   "bytes": 1437452
   },
   "septic_aquasafe.glb": {
    "v": "865724c699",
@@ -330,6 +370,10 @@
   "septic_field_dbox.glb": {
    "v": "aa540758f1",
    "bytes": 297260
+  },
+  "septic_field_dbox_slab.glb": {
+   "v": "2d43288643",
+   "bytes": 297204
   },
   "septic_lee.glb": {
    "v": "e120997e9a",
@@ -343,17 +387,81 @@
    "v": "cd1caab3c4",
    "bytes": 959064
   },
+  "septic_lee_trash_slab.glb": {
+   "v": "76c2ffbfa3",
+   "bytes": 965156
+  },
   "septic_tank_risers.glb": {
    "v": "d6d8714865",
    "bytes": 600944
+  },
+  "septic_tank_risers_slab.glb": {
+   "v": "cd1e951f79",
+   "bytes": 720624
   },
   "shower.glb": {
    "v": "9570e5d2a3",
    "bytes": 751044
   },
+  "shower_slab.glb": {
+   "v": "e9578ff4c9",
+   "bytes": 735508
+  },
   "shower_two.glb": {
    "v": "ab55dcb1eb",
    "bytes": 737368
+  },
+  "shower_two_slab.glb": {
+   "v": "7e06285709",
+   "bytes": 724492
+  },
+  "slab_attic_ladder.glb": {
+   "v": "1c5c173545",
+   "bytes": 27304
+  },
+  "slab_drains.json": {
+   "v": "69ac8c9a19",
+   "bytes": 10580
+  },
+  "slab_house_floor1.glb": {
+   "v": "4b50c96fef",
+   "bytes": 1145792
+  },
+  "slab_house_framing.glb": {
+   "v": "15218c1beb",
+   "bytes": 99336
+  },
+  "slab_house_garagefurn.glb": {
+   "v": "22987b15c6",
+   "bytes": 382648
+  },
+  "slab_house_site.glb": {
+   "v": "59225c58a4",
+   "bytes": 7817552
+  },
+  "slab_house_slab.glb": {
+   "v": "8a32b0483b",
+   "bytes": 80592
+  },
+  "slab_pipes_alternates.glb": {
+   "v": "3f2346700a",
+   "bytes": 43256
+  },
+  "slab_pipes_dwv.glb": {
+   "v": "17bc8ab07a",
+   "bytes": 3478296
+  },
+  "slab_pipes_gas.glb": {
+   "v": "e855c2a9a5",
+   "bytes": 797500
+  },
+  "slab_pipes_hvac.glb": {
+   "v": "64a130211b",
+   "bytes": 2152656
+  },
+  "slab_pipes_supply.glb": {
+   "v": "2fc6df2c67",
+   "bytes": 1470936
   },
   "sludgehammer.glb": {
    "v": "28b87ce6f8",
@@ -420,8 +528,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "0b92801a90",
-   "bytes": 419549
+   "v": "d1d35f7b8d",
+   "bytes": 425863
   },
   "washer.glb": {
    "v": "7e04f19827",

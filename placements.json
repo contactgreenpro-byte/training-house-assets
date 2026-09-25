@@ -356,7 +356,78 @@
      "plaster_ground"
     ],
     "note": "Round 22 (Jake: the trim comes off with the wall, then the handle comes off and the cartridge shows; the back drywall sheet is gone). Click the tile wall: tile, escutcheon and stop tube off, the studs show, the house wall behind is bored. Then a click on the handle sets it aside (the cartridge stem stays and runs the water), the diverter knob sends the water to the spout."
-   }
+   },
+   "config": "foundation=crawl"
+  },
+  {
+   "socket": "sock_tub_hall_bath",
+   "file": "floor1",
+   "pack": "shower_two",
+   "model": "shower_two_slab.glb",
+   "yaw": 180,
+   "hide": [
+    "floor",
+    "framing",
+    "joists",
+    "plaster_ground",
+    "walls_paint",
+    "wall_outside",
+    "riser_hot_top",
+    "drain_line",
+    "spout_drip",
+    "diverter_split",
+    "head_scale",
+    "caulk_split",
+    "grout_missing",
+    "glass_doors",
+    "stem_leak_hot",
+    "stem_leak_cold"
+   ],
+   "keep_context": [
+    "tub",
+    "tub_apron"
+   ],
+   "note": "60 x 30 alcove tub along the west wall, valve end on the stub wall at the south, far end 3 mm off the north wall tile (round 17: the alcove was 57 in, the tub ran 3 in into the north wall). Curtain and rod. Round 17: the offset is 4 mm more than the model's back plane so its own tile (valve_wall, wall_back, wall_right, in hide_common, so listed under show) sits 3 mm proud of the house walls instead of inside them. Both risers come up from the crawl now (all hot distribution is under the house, Jake), so riser_hot shows and the stub up out of the drop ell (riser_hot_top) is hidden. drain_line is hidden because the house branch leaves the bottom of the tee. The fault states are hidden; the overflow plate and the waste and overflow are shown past the overflow hide pattern. Round 27 (Jake 2026-09-15, card P5): the hall bath carries the TWO HANDLE tub and shower valve (VARIANT two of build_shower.py: two stems on 8 in centres, spout diverter, no anti-scald), the master keeps the single handle (P4). Clips hot_on, cold_on, shower_on, tub_on, stem_pull_hot, stem_pull_cold, diverter_lift, trip_lever; states stem_leak_hot, stem_leak_cold plus the shower's own.",
+   "replaces": [
+    "fix_tub_hall_bath"
+   ],
+   "offset": [
+    0,
+    -0.765,
+    0
+   ],
+   "show": [
+    "valve_wall",
+    "wall_back",
+    "wall_right",
+    "overflow_plate",
+    "waste_overflow"
+   ],
+   "reveal": {
+    "trigger": [
+     "valve_wall"
+    ],
+    "hide": [
+     "valve_wall",
+     "escutcheon",
+     "stop_tube"
+    ],
+    "show": [
+     "framing"
+    ],
+    "bore": [
+     "framing",
+     "valve_body",
+     "supply_hot",
+     "supply_cold",
+     "shower_riser",
+     "spout_drop",
+     "plaster_ground"
+    ],
+    "note": "Round 22 (Jake: the trim comes off with the wall, then the handle comes off and the cartridge shows; the back drywall sheet is gone). Click the tile wall: tile, escutcheon and stop tube off, the studs show, the house wall behind is bored. Then a click on the handle sets it aside (the cartridge stem stays and runs the water), the diverter knob sends the water to the spout."
+   },
+   "config": "foundation=slab",
+   "slab_of": "shower_two.glb"
   },
   {
    "socket": "sock_tub_master_bath",
@@ -425,7 +496,79 @@
      "plaster_ground"
     ],
     "note": "Round 22 (Jake: the trim comes off with the wall, then the handle comes off and the cartridge shows; the back drywall sheet is gone). Click the tile wall: tile, escutcheon and stop tube off, the studs show, the house wall behind is bored. Then a click on the handle sets it aside (the cartridge stem stays and runs the water), the diverter knob sends the water to the spout."
-   }
+   },
+   "config": "foundation=crawl"
+  },
+  {
+   "socket": "sock_tub_master_bath",
+   "file": "floor1",
+   "pack": "shower",
+   "model": "shower_slab.glb",
+   "yaw": 180,
+   "hide": [
+    "floor",
+    "framing",
+    "joists",
+    "plaster_ground",
+    "walls_paint",
+    "wall_outside",
+    "riser_hot_top",
+    "drain_line",
+    "spout_drip",
+    "diverter_split",
+    "head_scale",
+    "caulk_split",
+    "grout_missing",
+    "shower_curtain",
+    "curtain_rod"
+   ],
+   "keep_context": [
+    "tub",
+    "tub_apron"
+   ],
+   "note": "Master tub and shower in its alcove: the west wall is the valve wall, the stub wall wall_tub_end_master_bath closes the east end, bypass glass doors on the deck (Jake round 17: a tub in the corner without another wall, without a curtain, without glass; the stand up shower is deleted). Round 17: the offset is 4 mm more than the model's back plane so its own tile (valve_wall, wall_back, wall_right, in hide_common, so listed under show) sits 3 mm proud of the house walls instead of inside them. Both risers come up from the crawl now (all hot distribution is under the house, Jake), so riser_hot shows and the stub up out of the drop ell (riser_hot_top) is hidden. drain_line is hidden because the house branch leaves the bottom of the tee. The fault states are hidden; the overflow plate and the waste and overflow are shown past the overflow hide pattern.",
+   "replaces": [
+    "fix_tub_master_bath"
+   ],
+   "offset": [
+    0,
+    -0.765,
+    0
+   ],
+   "show": [
+    "valve_wall",
+    "wall_back",
+    "wall_right",
+    "overflow_plate",
+    "waste_overflow",
+    "glass_doors",
+    "door_glass"
+   ],
+   "reveal": {
+    "trigger": [
+     "valve_wall"
+    ],
+    "hide": [
+     "valve_wall",
+     "escutcheon",
+     "stop_tube"
+    ],
+    "show": [
+     "framing"
+    ],
+    "bore": [
+     "framing",
+     "valve_body",
+     "supply_hot",
+     "supply_cold",
+     "shower_riser",
+     "spout_drop",
+     "plaster_ground"
+    ],
+    "note": "Round 22 (Jake: the trim comes off with the wall, then the handle comes off and the cartridge shows; the back drywall sheet is gone). Click the tile wall: tile, escutcheon and stop tube off, the studs show, the house wall behind is bored. Then a click on the handle sets it aside (the cartridge stem stays and runs the water), the diverter knob sends the water to the spout."
+   },
+   "config": "foundation=slab",
+   "slab_of": "shower.glb"
   },
   {
    "socket": "sock_wh_attic",
@@ -588,7 +731,7 @@
     "expansion_tank",
     "expansion_tee"
    ],
-   "config": "water_heater=garage_hybrid",
+   "config": "water_heater=garage_hybrid&foundation=crawl",
    "alternate": true,
    "note": "Round 29 (Jake: the hybrid does not look like a hybrid): hybrid_water_heater/scripts/build_hybrid.py, the heat pump module on the tank: grilles, the pull out filter (filter_out), the front panel off (hp_panel_off) to the compressor, coil and fan, fan_run with the air in and out, the condensate hose to the pan, the duct collar cover, the junction box on top where the house whip lands. Same socket and offset as the electric tank it replaces; its lines rise to 2.05 like the tank's.",
    "offset": [
@@ -606,6 +749,37 @@
      "hide": []
     }
    }
+  },
+  {
+   "socket": "sock_wh_garage",
+   "file": "floor1",
+   "pack": "hybrid_water_heater",
+   "model": "hybrid_water_heater_slab.glb",
+   "yaw": 180,
+   "hide": [
+    "expansion_bracket",
+    "expansion_tank",
+    "expansion_tee"
+   ],
+   "config": "water_heater=garage_hybrid&foundation=slab",
+   "alternate": true,
+   "note": "Round 29 (Jake: the hybrid does not look like a hybrid): hybrid_water_heater/scripts/build_hybrid.py, the heat pump module on the tank: grilles, the pull out filter (filter_out), the front panel off (hp_panel_off) to the compressor, coil and fan, fan_run with the air in and out, the condensate hose to the pan, the duct collar cover, the junction box on top where the house whip lands. Same socket and offset as the electric tank it replaces; its lines rise to 2.05 like the tank's.",
+   "offset": [
+    0,
+    -0.36,
+    0
+   ],
+   "addon": {
+    "expansion_tank": {
+     "show": [
+      "expansion_tank",
+      "expansion_tee",
+      "expansion_bracket"
+     ],
+     "hide": []
+    }
+   },
+   "slab_of": "hybrid_water_heater.glb"
   },
   {
    "socket": "sock_wh_garage",
@@ -893,7 +1067,7 @@
     "flow_packets"
    ],
    "note": "Flo by Moen smart shutoff (smart_shutoff_valve, 2026-09-14) inline on the main's riser inside the crawl at (-5.3, 0.12), z -0.53, right after the yard box with the shutoff and the PRV, window facing into the crawl, cord to a receptacle box on the stem wall. Built in sock_shutoff_front's frame, so yaw 0, offset 0. Its own riser, stem wall and joist stand-ins are hidden. Clips: valve_close (the green handle, a quarter turn), leak_alert (red LED, the valve closes), water_flow (+_loop), housing_off (Remove). Round 41: a city part; with a well the service comes from the well through the garage pressure tank.",
-   "config": "water=city_filter&softener=no",
+   "config": "water=city_filter&softener=no&foundation=crawl",
    "alternate": true
   },
   {
@@ -917,7 +1091,33 @@
     "gas_packets",
     "clean_packets"
    ],
-   "note": "Sweet Air charcoal vent filter (charcoal_vent_filter, 2026-09-14) on the hall bath vent stack where it comes through the roof (vent_dwv_hallbath_stack, top at (-2.9258, 14.478, 5.126)). Built in sock_hosebib_front's frame when that socket stood at z 0.42; the socket is at -0.03 now, which dropped the canister 45 cm INTO the roof (Jake, round 74), so offset z 0.45 puts its socket back over the top of the pipe. If the bib socket moves again this offset moves with it: check the chamber sits at z 5.08 to 5.36; its own stack stub, flashing and shingle patch hidden. Clips: cap_off (twist to OPEN, lift, set aside), lid_off, carbon_spent (fault), air_flow (+_loop: sewer gas up the stack into the carbon, clean air out the slots)."
+   "note": "Sweet Air charcoal vent filter (charcoal_vent_filter, 2026-09-14) on the hall bath vent stack where it comes through the roof (vent_dwv_hallbath_stack, top at (-2.9258, 14.478, 5.126)). Built in sock_hosebib_front's frame when that socket stood at z 0.42; the socket is at -0.03 now, which dropped the canister 45 cm INTO the roof (Jake, round 74), so offset z 0.45 puts its socket back over the top of the pipe. If the bib socket moves again this offset moves with it: check the chamber sits at z 5.08 to 5.36; its own stack stub, flashing and shingle patch hidden. Clips: cap_off (twist to OPEN, lift, set aside), lid_off, carbon_spent (fault), air_flow (+_loop: sewer gas up the stack into the carbon, clean air out the slots).",
+   "config": "foundation=crawl"
+  },
+  {
+   "socket": "sock_hosebib_front",
+   "file": "site",
+   "pack": "sweet_air",
+   "model": "sweet_air.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0.1028
+   ],
+   "hide": [
+    "ctx_stack",
+    "ctx_flashing",
+    "ctx_roof"
+   ],
+   "states": [
+    "carbon_spent",
+    "gas_packets",
+    "clean_packets"
+   ],
+   "note": "Sweet Air charcoal vent filter (charcoal_vent_filter, 2026-09-14) on the hall bath vent stack where it comes through the roof (vent_dwv_hallbath_stack, top at (-2.9258, 14.478, 5.126)). Built in sock_hosebib_front's frame when that socket stood at z 0.42; the socket is at -0.03 now, which dropped the canister 45 cm INTO the roof (Jake, round 74), so offset z 0.45 puts its socket back over the top of the pipe. If the bib socket moves again this offset moves with it: check the chamber sits at z 5.08 to 5.36; its own stack stub, flashing and shingle patch hidden. Clips: cap_off (twist to OPEN, lift, set aside), lid_off, carbon_spent (fault), air_flow (+_loop: sewer gas up the stack into the carbon, clean air out the slots).",
+   "config": "foundation=slab",
+   "slab_of": "sweet_air.glb"
   },
   {
    "socket": "sock_lift_back",
@@ -1215,7 +1415,7 @@
     "inlet_stub",
     "outlet_stub"
    ],
-   "config": "sewer=septic_gravity",
+   "config": "sewer=septic_gravity&foundation=crawl",
    "alternate": true,
    "note": "Conventional alternate: tank 10 ft behind the kitchen, dbox and chamber field in the west half of the back yard. 2026-09-13: the low water state and the heavy scum were showing over the normal ones, and the effluent filter the builder leaves out by default. Its own sewer cleanout is hidden too: its sewer_line is hidden because the house sewer comes in, so the cleanout stood alone in the lawn a metre south of the tank, on no pipe at all. The house has the yard cleanout (same rule as the AquaKlear, Jake 2026-09-12). 2026-09-13, the yard redone (Jake): built with 6 in of cover, moved 1.992 m north so its inlet end sits on the turn off the sewer line; the house sewer is the inlet pipe through the seal into the tee and the effluent line is the outlet pipe (inlet_stub and outlet_stub hidden).",
    "offset": [
@@ -1224,6 +1424,41 @@
     0
    ],
    "elevation_group": "gravity_train"
+  },
+  {
+   "socket": "sock_septic_tank_back",
+   "file": "site",
+   "pack": "septic_tank",
+   "variant": "risers",
+   "model": "septic_tank_risers_slab.glb",
+   "yaw": 0,
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "house_wall",
+    "sewer_line",
+    "outlet_line",
+    "water_low",
+    "scum_heavy",
+    "effluent_filter",
+    "cleanout",
+    "cleanout_plug",
+    "cleanout_backflow_cap",
+    "inlet_stub",
+    "outlet_stub"
+   ],
+   "config": "sewer=septic_gravity&foundation=slab",
+   "alternate": true,
+   "note": "Conventional alternate: tank 10 ft behind the kitchen, dbox and chamber field in the west half of the back yard. 2026-09-13: the low water state and the heavy scum were showing over the normal ones, and the effluent filter the builder leaves out by default. Its own sewer cleanout is hidden too: its sewer_line is hidden because the house sewer comes in, so the cleanout stood alone in the lawn a metre south of the tank, on no pipe at all. The house has the yard cleanout (same rule as the AquaKlear, Jake 2026-09-12). 2026-09-13, the yard redone (Jake): built with 6 in of cover, moved 1.992 m north so its inlet end sits on the turn off the sewer line; the house sewer is the inlet pipe through the seal into the tee and the effluent line is the outlet pipe (inlet_stub and outlet_stub hidden).",
+   "offset": [
+    1.992,
+    0,
+    0
+   ],
+   "elevation_group": "gravity_train",
+   "slab_of": "septic_tank_risers.glb"
   },
   {
    "socket": "sock_septic_dbox_back",
@@ -1245,7 +1480,7 @@
     "lush_strips",
     "effluent_line"
    ],
-   "config": "sewer=septic_gravity",
+   "config": "sewer=septic_gravity&foundation=crawl",
    "alternate": true,
    "note": "Round 27 (Jake): the chamber bed is two runs on a tee, no d-box; its elevation is its own (no tank in the frame).",
    "offset": [
@@ -1253,6 +1488,36 @@
     12.7848,
     0
    ]
+  },
+  {
+   "socket": "sock_septic_dbox_back",
+   "file": "site",
+   "pack": "septic_field",
+   "variant": "dbox",
+   "model": "septic_field_dbox_slab.glb",
+   "yaw": -90,
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "backfill",
+    "backfill_section",
+    "ponded_effluent",
+    "biomat",
+    "wet_spot",
+    "lush_strips",
+    "effluent_line"
+   ],
+   "config": "sewer=septic_gravity&foundation=slab",
+   "alternate": true,
+   "note": "Round 27 (Jake): the chamber bed is two runs on a tee, no d-box; its elevation is its own (no tank in the frame).",
+   "offset": [
+    3.048,
+    12.7848,
+    0
+   ],
+   "slab_of": "septic_field_dbox.glb"
   },
   {
    "socket": "sock_septic_tank_back",
@@ -1314,7 +1579,7 @@
     0,
     0
    ],
-   "config": "sewer=septic_spray_two_tank",
+   "config": "sewer=septic_spray_two_tank&foundation=crawl",
    "alternate": true,
    "hide": [
     "grass",
@@ -1349,6 +1614,49 @@
    "socket": "sock_atu_back",
    "file": "site",
    "pack": "septic_aquaklear",
+   "model": "septic_aquaklear_slab.glb",
+   "yaw": 90,
+   "offset": [
+    0.45,
+    0,
+    0
+   ],
+   "config": "sewer=septic_spray_two_tank&foundation=slab",
+   "alternate": true,
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "sewer_line",
+    "air_pump",
+    "pump_pad",
+    "pump_cover",
+    "pump_filter",
+    "pump_filter_cover",
+    "pump_filter_dirty",
+    "pump_internals",
+    "pump_hose",
+    "air_line_ground",
+    "alarm_lit",
+    "inlet",
+    "cleanout",
+    "cleanout_plug",
+    "cleanout_backflow_cap",
+    "scum_layer",
+    "sludge_blanket",
+    "water_gray",
+    "water_gray_section",
+    "power_cord"
+   ],
+   "note": "Two tank layout: AK500 aerobic unit in FRONT, turned so the tank runs along the flow. Inlet faces south to the house line, outlet faces north straight into the IM-540 pump tank behind it. Its own air pump, cover and cord are hidden: the blower and the panel live at the house on sock_atu_blower_panel, same as the Lee plant (Jake). 2026-09-12: its own inlet stub is hidden because the house sewer runs through the grommet itself (two pipes in one grommet drew a coupling at the wall), its own sewer cleanout is hidden because the house has the yard cleanout, and the scum and sludge layers are hidden because this is an aeration tank (Jake). water_gray is the gray water state, never the default.",
+   "elevation_group": "two_tank_spray",
+   "slab_of": "septic_aquaklear.glb"
+  },
+  {
+   "socket": "sock_atu_back",
+   "file": "site",
+   "pack": "septic_aquaklear",
    "model": "septic_aquaklear.glb",
    "yaw": 180,
    "offset": [
@@ -1356,7 +1664,7 @@
     0,
     0
    ],
-   "config": "sewer=septic_overland_aquaklear",
+   "config": "sewer=septic_overland_aquaklear&foundation=crawl",
    "alternate": true,
    "hide": [
     "grass",
@@ -1387,6 +1695,50 @@
     "power_cord"
    ],
    "note": "AquaKlear in its OVERLAND layout (round 17): turned end for end on the sewer line (yaw 180, inlet toward the house, the chlorinator tee on its outlet toward the hill), the discharge from the tee's far socket to daylight. Its own Hiblow, pad, hose and cord, and the float that went to the Hiblow's alarm, are hidden: the air pump is at the house on a concrete pad with its own alarm, plugged into an outlet, no panel (atu_blower_outlet.glb)."
+  },
+  {
+   "socket": "sock_atu_back",
+   "file": "site",
+   "pack": "septic_aquaklear",
+   "model": "septic_aquaklear_slab.glb",
+   "yaw": 180,
+   "offset": [
+    -1.456,
+    0,
+    0
+   ],
+   "config": "sewer=septic_overland_aquaklear&foundation=slab",
+   "alternate": true,
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "sewer_line",
+    "air_pump",
+    "pump_pad",
+    "pump_cover",
+    "pump_filter",
+    "pump_filter_cover",
+    "pump_filter_dirty",
+    "pump_internals",
+    "pump_hose",
+    "air_line_ground",
+    "alarm_lit",
+    "inlet",
+    "cleanout",
+    "cleanout_plug",
+    "cleanout_backflow_cap",
+    "scum_layer",
+    "sludge_blanket",
+    "water_gray",
+    "water_gray_section",
+    "float_switch",
+    "float_cable",
+    "power_cord"
+   ],
+   "note": "AquaKlear in its OVERLAND layout (round 17): turned end for end on the sewer line (yaw 180, inlet toward the house, the chlorinator tee on its outlet toward the hill), the discharge from the tee's far socket to daylight. Its own Hiblow, pad, hose and cord, and the float that went to the Hiblow's alarm, are hidden: the air pump is at the house on a concrete pad with its own alarm, plugged into an outlet, no panel (atu_blower_outlet.glb).",
+   "slab_of": "septic_aquaklear.glb"
   },
   {
    "socket": "sock_atu_back",
@@ -1443,7 +1795,7 @@
     "float_tangled",
     "cord_chafed"
    ],
-   "config": "sewer=septic_spray_two_tank",
+   "config": "sewer=septic_spray_two_tank&foundation=crawl",
    "alternate": true,
    "note": "Two tank alternate: AquaKlear ATU at sock_septic_tank_back feeding this IM-540 pump tank. Its inline chlorinator is hidden: the AquaKlear in front of it carries the tablet feeder on its own outlet, and a train gets one, not two. 2026-09-12: inlet_stub is the model's own feed pipe for viewing it alone; in the house the effluent line comes through the saddle gasket into the inlet tee. The float, intake and cord fault states are hidden: Blender's hide does not travel in a GLB. 2026-09-13: moved up to a metre clear of the AquaKlear (offset -1.29; Jake: the spray tank was too far from the plant). Round 31: the pump is fed by UF cable from the outdoor receptacle (build_pipes cable_septic_pump_uf). Round 69: the splices are the model's own now (WIRING splice: cord grip, UF, four butt splices under clear shrink under the lid, the cords over a lip tab), so pump_wiring.glb is no longer placed here and there is no conduit stub to hide.",
    "offset": [
@@ -1456,6 +1808,47 @@
   {
    "socket": "sock_pump_tank_back",
    "file": "site",
+   "pack": "pump_tank",
+   "model": "pump_tank_slab.glb",
+   "yaw": 0,
+   "hide": [
+    "grass",
+    "soil",
+    "soil_front",
+    "backfill",
+    "spray_line",
+    "spray_head0",
+    "spray_head1",
+    "spray_head2",
+    "head_stem0",
+    "head_stem1",
+    "head_stem2",
+    "stream0",
+    "stream1",
+    "stream2",
+    "spray_pattern",
+    "spray_overlap",
+    "chlorinator",
+    "chlor_tablets",
+    "inlet_stub",
+    "intake_fouled",
+    "float_tangled",
+    "cord_chafed"
+   ],
+   "config": "sewer=septic_spray_two_tank&foundation=slab",
+   "alternate": true,
+   "note": "Two tank alternate: AquaKlear ATU at sock_septic_tank_back feeding this IM-540 pump tank. Its inline chlorinator is hidden: the AquaKlear in front of it carries the tablet feeder on its own outlet, and a train gets one, not two. 2026-09-12: inlet_stub is the model's own feed pipe for viewing it alone; in the house the effluent line comes through the saddle gasket into the inlet tee. The float, intake and cord fault states are hidden: Blender's hide does not travel in a GLB. 2026-09-13: moved up to a metre clear of the AquaKlear (offset -1.29; Jake: the spray tank was too far from the plant). Round 31: the pump is fed by UF cable from the outdoor receptacle (build_pipes cable_septic_pump_uf). Round 69: the splices are the model's own now (WIRING splice: cord grip, UF, four butt splices under clear shrink under the lid, the cords over a lip tab), so pump_wiring.glb is no longer placed here and there is no conduit stub to hide.",
+   "offset": [
+    -1.29,
+    0,
+    0
+   ],
+   "elevation_group": "two_tank_spray",
+   "slab_of": "pump_tank.glb"
+  },
+  {
+   "socket": "sock_pump_tank_back",
+   "file": "site",
    "pack": "spray_pump_filter",
    "model": "spray_pump_filter.glb",
    "yaw": 0,
@@ -1464,7 +1857,7 @@
     -0.05,
     -1.75284
    ],
-   "config": "sewer=septic_spray_two_tank&filter=yes",
+   "config": "sewer=septic_spray_two_tank&filter=yes&foundation=crawl",
    "alternate": true,
    "hide": [
     "pump",
@@ -1478,6 +1871,33 @@
     "up_arrows"
    ],
    "note": "Round 27 (Jake: the filter sat outside the two compartment tank): over the pump tank's pump, the same x and y as pump_tank.glb's pump."
+  },
+  {
+   "socket": "sock_pump_tank_back",
+   "file": "site",
+   "pack": "spray_pump_filter",
+   "model": "spray_pump_filter.glb",
+   "yaw": 0,
+   "offset": [
+    -1.2395,
+    -0.05,
+    -1.80364
+   ],
+   "config": "sewer=septic_spray_two_tank&filter=yes&foundation=slab",
+   "alternate": true,
+   "hide": [
+    "pump",
+    "pump_intake_slots",
+    "discharge",
+    "lift_rope"
+   ],
+   "states": [
+    "screen_fouled",
+    "inflow_arrows",
+    "up_arrows"
+   ],
+   "note": "Round 27 (Jake: the filter sat outside the two compartment tank): over the pump tank's pump, the same x and y as pump_tank.glb's pump.",
+   "slab_of": "spray_pump_filter.glb"
   },
   {
    "socket": "sock_lift_back",
@@ -1502,7 +1922,7 @@
     "force_main",
     "conduit"
    ],
-   "config": "sewer=city_lift",
+   "config": "sewer=city_lift&foundation=crawl",
    "alternate": true,
    "states": [
     "alarm_lit",
@@ -1521,6 +1941,50 @@
     4.572,
     0
    ]
+  },
+  {
+   "socket": "sock_lift_back",
+   "file": "site",
+   "pack": "lift_station",
+   "variant": "r12",
+   "model": "lift_station_r12_slab.glb",
+   "yaw": 90,
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "house_wall",
+    "water_alarm",
+    "grease_mat",
+    "float_alarm_surface",
+    "hoa_lever_off",
+    "starter_knob_tripped",
+    "sewer_line",
+    "cleanout",
+    "force_main",
+    "conduit"
+   ],
+   "config": "sewer=city_lift&foundation=slab",
+   "alternate": true,
+   "states": [
+    "alarm_lit",
+    "water_off",
+    "float_off_surface",
+    "float_on_dry",
+    "hoa_lever_hand"
+   ],
+   "show": [
+    "water_fill",
+    "float_off_wet"
+   ],
+   "note": "2026-09-13: every level, float pose and HOA lever position the builder hides was showing at once (Blender's hide does not travel in a GLB, and nothing had read this model's HIDDEN list): four bodies of water, the grease mat, the alarm light on, three levers. The fault states are hidden; the drawn down water, its floats and the HAND lever are states, which the HOA switch in the panel swaps in (walk.js liftSwitch). float_off_wet is the off float as built, and the _wet hide pattern had taken it. 2026-09-13, the yard redone (Jake): turned so its inlet faces the house and set on the sewer line at (-10.0, 7.62), clear of the back door stairs. Built with PANEL_MOVE: the panel is on the house wall at y 6.93. Its own sewer line, cleanout, force main stub and conduit are hidden; the house draws the sewer straight in, the force main to the street and the panel conduit.",
+   "offset": [
+    0.856,
+    4.572,
+    0
+   ],
+   "slab_of": "lift_station_r12.glb"
   },
   {
    "socket": "sock_overland_back",
@@ -1749,7 +2213,24 @@
     0
    ],
    "hide": [],
-   "note": "Folding attic ladder in the hatch at the back of the garage (moved 2026-09-13: the open sectional door lay over the old hatch). Origin on the ceiling plane, hinge at the street end; ladder_down drops the door to 63 degrees and unfolds both sections until the feet stand on the slab."
+   "note": "Folding attic ladder in the hatch at the back of the garage (moved 2026-09-13: the open sectional door lay over the old hatch). Origin on the ceiling plane, hinge at the street end; ladder_down drops the door to 63 degrees and unfolds both sections until the feet stand on the slab.",
+   "config": "foundation=crawl"
+  },
+  {
+   "socket": "sock_attic_ladder_garage",
+   "file": "floor1",
+   "pack": null,
+   "model": "little/slab_attic_ladder.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "hide": [],
+   "note": "Folding attic ladder in the hatch at the back of the garage (moved 2026-09-13: the open sectional door lay over the old hatch). Origin on the ceiling plane, hinge at the street end; ladder_down drops the door to 63 degrees and unfolds both sections until the feet stand on the slab.",
+   "config": "foundation=slab",
+   "slab_of": "little/attic_ladder.glb"
   },
   {
    "socket": "sock_hosebib_back",
@@ -1777,7 +2258,38 @@
     "drain_pitch",
     "air_packets"
    ],
-   "note": "Round 27 (Jake 2026-09-15, card H4): single zone ductless mini split for bedroom 3. Head high on the west exterior wall, clear of the 33 to 38 ft window; outdoor unit on a pad outside that wall north of the hose bib; 3 in sleeve behind the head's right end (the house wall needs that hole, both faces); line set, drain hose and 14/4 in the line set cover down the siding; disconnect with its whip, feed conduit up the wall (run it to the panel). Built in the frame of sock_hosebib_back (rot -90): yaw 0 offset 0. Clips run/run_loop, front_open, cover_off, valve_cover_off; states filters_dirty, wheel_mold (+coil matted), drain_slow, drain_pitch."
+   "note": "Round 27 (Jake 2026-09-15, card H4): single zone ductless mini split for bedroom 3. Head high on the west exterior wall, clear of the 33 to 38 ft window; outdoor unit on a pad outside that wall north of the hose bib; 3 in sleeve behind the head's right end (the house wall needs that hole, both faces); line set, drain hose and 14/4 in the line set cover down the siding; disconnect with its whip, feed conduit up the wall (run it to the panel). Built in the frame of sock_hosebib_back (rot -90): yaw 0 offset 0. Clips run/run_loop, front_open, cover_off, valve_cover_off; states filters_dirty, wheel_mold (+coil matted), drain_slow, drain_pitch.",
+   "config": "foundation=crawl"
+  },
+  {
+   "socket": "sock_hosebib_back",
+   "file": "site",
+   "pack": "hvac_minisplit",
+   "model": "hvac_minisplit_slab.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "hide": [
+    "ctx_wall",
+    "ctx_siding",
+    "ctx_floor",
+    "ctx_grass"
+   ],
+   "states": [
+    "filter_a_dirty",
+    "filter_b_dirty",
+    "blower_wheel_mold",
+    "coil_matted",
+    "drain_stain",
+    "drain_pitch",
+    "air_packets"
+   ],
+   "note": "Round 27 (Jake 2026-09-15, card H4): single zone ductless mini split for bedroom 3. Head high on the west exterior wall, clear of the 33 to 38 ft window; outdoor unit on a pad outside that wall north of the hose bib; 3 in sleeve behind the head's right end (the house wall needs that hole, both faces); line set, drain hose and 14/4 in the line set cover down the siding; disconnect with its whip, feed conduit up the wall (run it to the panel). Built in the frame of sock_hosebib_back (rot -90): yaw 0 offset 0. Clips run/run_loop, front_open, cover_off, valve_cover_off; states filters_dirty, wheel_mold (+coil matted), drain_slow, drain_pitch.",
+   "config": "foundation=slab",
+   "slab_of": "hvac_minisplit.glb"
   },
   {
    "socket": "sock_softener_garage",
@@ -1855,7 +2367,7 @@
     "ctx_floor",
     "ctx_switch"
    ],
-   "config": "hvac=split_furnace_cond96",
+   "config": "hvac=split_furnace_cond96&foundation=crawl",
    "alternate": true,
    "note": "Round 41 (Jake: do the condensate pump): beside the condensing furnace in the hall closet, built in the furnace's frame; discharge tube up the closet wall and on through the attic to the eave.",
    "states": [
@@ -2117,12 +2629,41 @@
     "basin_section",
     "water_fill_section"
    ],
-   "config": "sewer=city_lift_duplex",
+   "config": "sewer=city_lift_duplex&foundation=crawl",
    "alternate": true,
    "show": [
     "water_fill"
    ],
    "note": "Round 78 (Jake 2026-09-21): the duplex grinder station (lift_station_duplex, Liberty D3672 on GR20 rails). Basin centre at house (-9.9968, 7.62): on the simplex station's sewer line and on the force main's line to the west manhole. sock_lift_back is rot 90 and yaw 180 makes 270 in all: the model's +y (inlet) faces the house (east), its +x (bulkhead) faces the street (south), its -x (JB70) faces north. offset = R(270) inverse of (centre - socket). The house draws the sewer in, the 2 in force main out and the conduit to the JB70 (build_pipes.py)."
+  },
+  {
+   "socket": "sock_lift_back",
+   "file": "site",
+   "pack": "lift_station_duplex",
+   "model": "lift_station_duplex_slab.glb",
+   "yaw": 180,
+   "offset": [
+    4.572,
+    -0.8528,
+    0
+   ],
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "sewer_line",
+    "force_main",
+    "basin_section",
+    "water_fill_section"
+   ],
+   "config": "sewer=city_lift_duplex&foundation=slab",
+   "alternate": true,
+   "show": [
+    "water_fill"
+   ],
+   "note": "Round 78 (Jake 2026-09-21): the duplex grinder station (lift_station_duplex, Liberty D3672 on GR20 rails). Basin centre at house (-9.9968, 7.62): on the simplex station's sewer line and on the force main's line to the west manhole. sock_lift_back is rot 90 and yaw 180 makes 270 in all: the model's +y (inlet) faces the house (east), its +x (bulkhead) faces the street (south), its -x (JB70) faces north. offset = R(270) inverse of (centre - socket). The house draws the sewer in, the 2 in force main out and the conduit to the JB70 (build_pipes.py).",
+   "slab_of": "lift_station_duplex.glb"
   },
   {
    "socket": "sock_lift_back",
@@ -2156,7 +2697,7 @@
     0,
     0
    ],
-   "config": "sump=yes",
+   "config": "sump=yes&foundation=crawl",
    "hide": [
     "ctx_dirt",
     "ctx_drain",
@@ -2208,7 +2749,7 @@
     0,
     0
    ],
-   "config": "shutoff_extra=wall",
+   "config": "shutoff_extra=wall&foundation=crawl",
    "hide": [
     "ctx_drywall_hall",
     "ctx_drywall_laundry",
@@ -2231,6 +2772,42 @@
     "note": "Round 88: click the access door and it comes off. Round 90: the laundry wall carries the opening itself (build_house.py FLO_WALL_CUT), so nothing is bored any more; the stud bay shows through the opening."
    },
    "note": "Round 88 (Jake: place the other Flo valves). The Flo in the laundry wall, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, wall variant): a 14 x 22 in access box in the x 0 wall at y 5.334, the riser up through the bottom plate, its NM cable ending in the crawl. Add on, off by default. Round 90: the opening is cut in the laundry wall (build_house.py FLO_WALL_CUT, a patch fills it in every other layout) and the house trunk stops 7 mm into the model's own trunk at each end (build_pipes.py flo_cut). Still owed: its receptacle's feed."
+  },
+  {
+   "socket": "sock_wh_closet_coat",
+   "file": "floor1",
+   "pack": "flo_shutoff_wall",
+   "model": "flo_shutoff_wall_slab.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "water=city_filter&softener=no&foundation=slab",
+   "hide": [
+    "ctx_drywall_hall",
+    "ctx_drywall_laundry",
+    "ctx_floor",
+    "ctx_framing",
+    "ctx_trunk"
+   ],
+   "states": [
+    "flo_led_alert",
+    "flow_packets"
+   ],
+   "reveal": {
+    "trigger": [
+     "access_door"
+    ],
+    "hide": [
+     "access_door"
+    ],
+    "bore": [],
+    "note": "Click the access door and it comes off. The closet wall carries the opening (build_house.py FLO_SLAB_CUT)."
+   },
+   "note": "2026-09-25 (SLAB_HOUSE_PLAN.md R5, Jake's default: yes): the slab house's Flo, on the service riser in the coat closet side of the x 8 ft wall, where the crawl house has its Flo under the house (city water, no softener; with a softener it is at the softener in the garage in both houses). smart_shutoff_valve build_flo.py VARIANT wall_slab: the laundry wall kit turned to face the closet, the service up through the slab into its copper stub at 0.173, the water on up out of its outlet stub at 0.807 into the feed to the manifold (pipes_slab_supply.py Z_E, FEED0). The opening is cut in the closet face (build_house.py FLO_SLAB_CUT, wall_patch_flo_closet fills it in every other layout). Its receptacle's cable comes down from the attic.",
+   "slab_of": "flo_shutoff_wall.glb"
   },
   {
    "socket": "sock_trash_tank_back",
@@ -2292,10 +2869,76 @@
     "uf_green",
     "uf_white"
    ],
-   "config": "sewer=septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train",
+   "config": "sewer=septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train&foundation=crawl",
    "alternate": true,
    "note": "2026-09-23 (Jake: \"I like the trash tank idea. Let's do that. You can use the 540 Infiltrator. Just put that in front\"): the trash tank, a primary settling tank in FRONT of the Lee plant, so the house sewer runs house, trash tank, plant. The IM-540 built with its outlet end (build_pump_tank.py MODE trash, 11 in of cover): the house sewer through the inlet saddle's gasket into the inlet tee, the effluent out of the outlet tee (3 in lower, dipping 40 percent of the liquid) through the outlet gasket to the Lee. It has NO pump, float or wiring, so those are hidden here with the model's own spray field, chlorinator and the two stubs it carries for being viewed alone.",
    "elevation_group": "fiberglass_train"
+  },
+  {
+   "socket": "sock_trash_tank_back",
+   "file": "site",
+   "pack": "trash_tank",
+   "model": "pump_tank_trash_slab.glb",
+   "yaw": 0,
+   "hide": [
+    "grass",
+    "soil",
+    "soil_front",
+    "backfill",
+    "spray_line",
+    "spray_head0",
+    "spray_head1",
+    "spray_head2",
+    "head_stem0",
+    "head_stem1",
+    "head_stem2",
+    "stream0",
+    "stream1",
+    "stream2",
+    "spray_pattern",
+    "spray_overlap",
+    "chlorinator",
+    "chlor_tablets",
+    "inlet_stub",
+    "outlet_stub",
+    "pump",
+    "discharge",
+    "union",
+    "discharge_leak",
+    "intake_fouled",
+    "float_onoff",
+    "float_cord",
+    "float_tangled",
+    "cords",
+    "cord_chafed",
+    "cord_ends",
+    "cord_grip",
+    "entry_sealant",
+    "float_lead_black",
+    "float_lead_white",
+    "label_float",
+    "label_pump",
+    "pump_common",
+    "pump_ground",
+    "pump_hot",
+    "splice_float_to_pump_crimp",
+    "splice_float_to_pump_sleeve",
+    "splice_ground_crimp",
+    "splice_ground_sleeve",
+    "splice_hot_to_float_crimp",
+    "splice_hot_to_float_sleeve",
+    "splice_neutral_crimp",
+    "splice_neutral_sleeve",
+    "uf_black",
+    "uf_cable",
+    "uf_green",
+    "uf_white"
+   ],
+   "config": "sewer=septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train&foundation=slab",
+   "alternate": true,
+   "note": "2026-09-23 (Jake: \"I like the trash tank idea. Let's do that. You can use the 540 Infiltrator. Just put that in front\"): the trash tank, a primary settling tank in FRONT of the Lee plant, so the house sewer runs house, trash tank, plant. The IM-540 built with its outlet end (build_pump_tank.py MODE trash, 11 in of cover): the house sewer through the inlet saddle's gasket into the inlet tee, the effluent out of the outlet tee (3 in lower, dipping 40 percent of the liquid) through the outlet gasket to the Lee. It has NO pump, float or wiring, so those are hidden here with the model's own spray field, chlorinator and the two stubs it carries for being viewed alone.",
+   "elevation_group": "fiberglass_train",
+   "slab_of": "pump_tank_trash.glb"
   },
   {
    "socket": "sock_atu_trash_back",
@@ -2334,10 +2977,53 @@
     "cord_chafed",
     "inlet_stub"
    ],
-   "config": "sewer=septic_spray_trash",
+   "config": "sewer=septic_spray_trash&foundation=crawl",
    "note": "2026-09-23, the trash tank layout: the same Lee Precast 520 plant, turned on sock_atu_trash_back (-90) so its inlet faces the trash tank in front of it on the train at x -35 ft. It is fed by the trash tank's effluent line, not the house sewer (sim_feed tells the page's plant sim which run fills it). Everything else as the default yard: blower at the house, plug in pump, three heads. Round 90 (Jake 2026-09-25: the trash tank's sewer at a full quarter inch per foot): septic_lee_trash.glb, the same plant built at 13 in of cover, so the train sits an inch deeper with the effluent's fall unchanged; the lids are at grade.",
    "alternate": true,
    "sim_feed": "^pipe_dwv_effluent_trash$"
+  },
+  {
+   "socket": "sock_atu_trash_back",
+   "file": "site",
+   "pack": "septic_lee",
+   "model": "septic_lee_trash_slab.glb",
+   "yaw": 0,
+   "hide": [
+    "grass",
+    "soil",
+    "soil_front",
+    "backfill",
+    "spray_line",
+    "spray_head0",
+    "spray_head1",
+    "spray_head2",
+    "head_stem0",
+    "head_stem1",
+    "head_stem2",
+    "stream0",
+    "stream1",
+    "stream2",
+    "spray_pattern",
+    "spray_overlap",
+    "blower",
+    "blower_air_filter_cover",
+    "blower_air_filter",
+    "blower_air_filter_dirty",
+    "air_line",
+    "blower_cord",
+    "blower_receptacle",
+    "surge_device",
+    "chlor_pool_tablets",
+    "intake_fouled",
+    "float_tangled",
+    "cord_chafed",
+    "inlet_stub"
+   ],
+   "config": "sewer=septic_spray_trash&foundation=slab",
+   "note": "2026-09-23, the trash tank layout: the same Lee Precast 520 plant, turned on sock_atu_trash_back (-90) so its inlet faces the trash tank in front of it on the train at x -35 ft. It is fed by the trash tank's effluent line, not the house sewer (sim_feed tells the page's plant sim which run fills it). Everything else as the default yard: blower at the house, plug in pump, three heads. Round 90 (Jake 2026-09-25: the trash tank's sewer at a full quarter inch per foot): septic_lee_trash.glb, the same plant built at 13 in of cover, so the train sits an inch deeper with the effluent's fall unchanged; the lids are at grade.",
+   "alternate": true,
+   "sim_feed": "^pipe_dwv_effluent_trash$",
+   "slab_of": "septic_lee_trash.glb"
   },
   {
    "socket": "sock_atu_trash_back",
@@ -2350,7 +3036,7 @@
     -0.18,
     -1.97485
    ],
-   "config": "sewer=septic_spray_trash&filter=yes",
+   "config": "sewer=septic_spray_trash&filter=yes&foundation=crawl",
    "hide": [
     "pump",
     "pump_intake_slots",
@@ -2364,6 +3050,33 @@
    ],
    "note": "2026-09-23: the spray pump filter over the Lee's pump in the trash tank layout, the same offset on the plant's turned socket. Spray pump filter (pump screen) dropped over the Lee plant's own pump: same socket as the plant, offset = its pump base (PX, PY, PZ0 of build_lee_atu.py), its own pump and discharge hidden. Clips: filter_pull (cap and pump lift out, the screen stays), pump_run (+_loop: inflow arrows turn, up arrows climb), fouled; screen/cap _section parts cut at y = 0 keeping +y.",
    "alternate": true
+  },
+  {
+   "socket": "sock_atu_trash_back",
+   "file": "site",
+   "pack": "spray_pump_filter",
+   "model": "spray_pump_filter.glb",
+   "yaw": 0,
+   "offset": [
+    -1.17475,
+    -0.18,
+    -2.05105
+   ],
+   "config": "sewer=septic_spray_trash&filter=yes&foundation=slab",
+   "hide": [
+    "pump",
+    "pump_intake_slots",
+    "discharge",
+    "lift_rope"
+   ],
+   "states": [
+    "screen_fouled",
+    "inflow_arrows",
+    "up_arrows"
+   ],
+   "note": "2026-09-23: the spray pump filter over the Lee's pump in the trash tank layout, the same offset on the plant's turned socket. Spray pump filter (pump screen) dropped over the Lee plant's own pump: same socket as the plant, offset = its pump base (PX, PY, PZ0 of build_lee_atu.py), its own pump and discharge hidden. Clips: filter_pull (cap and pump lift out, the screen stays), pump_run (+_loop: inflow arrows turn, up arrows climb), fouled; screen/cap _section parts cut at y = 0 keeping +y.",
+   "alternate": true,
+   "slab_of": "spray_pump_filter.glb"
   },
   {
    "socket": "sock_wh_attic",
@@ -2612,7 +3325,76 @@
      "vb_hose_thread"
     ]
    },
-   "note": "Round 89 (Jake: freeze cover on the hose bibs, and the hose bib vacuum breaker). ALWAYS placed, so the spigot link lands on this unit whatever its add ons are; the two add ons are its blocks (freeze_cover, vacuum_breaker). Built in this socket's frame as it stands now (z -0.03): yaw 0, offset 0 (not the Sweet Air's z 0.45). walk.js will not run the front bib through the cover: cover_off first."
+   "note": "Round 89 (Jake: freeze cover on the hose bibs, and the hose bib vacuum breaker). ALWAYS placed, so the spigot link lands on this unit whatever its add ons are; the two add ons are its blocks (freeze_cover, vacuum_breaker). Built in this socket's frame as it stands now (z -0.03): yaw 0, offset 0 (not the Sweet Air's z 0.45). walk.js will not run the front bib through the cover: cover_off first.",
+   "config": "foundation=crawl"
+  },
+  {
+   "socket": "sock_hosebib_front",
+   "file": "site",
+   "pack": "hosebib_protection",
+   "model": "hosebib_protection.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "hide": [
+    "freeze_cover_root",
+    "vacuum_breaker_root",
+    "ctx_house",
+    "ctx_bib",
+    "ctx_block",
+    "ctx_wall",
+    "ctx_bed"
+   ],
+   "states": [
+    "cover_gasket_gap",
+    "cover_cutaway",
+    "warm_band",
+    "cold_packets",
+    "vb_story_hose",
+    "vb_story_bucket",
+    "vb_air_packets",
+    "vb_hose_packets",
+    "vb_vent_drip"
+   ],
+   "addon": {
+    "freeze_cover": {
+     "show": [
+      "freeze_cover_root"
+     ],
+     "hide": []
+    },
+    "vacuum_breaker": {
+     "show": [
+      "vacuum_breaker_root"
+     ],
+     "hide": []
+    }
+   },
+   "section_set": {
+    "pairs": {
+     "cover_shell": "cover_shell_section",
+     "vb_body": "vb_body_section"
+    },
+    "also_hide": [
+     "cover_foam",
+     "cover_gasket",
+     "vb_cap",
+     "vb_hose_thread"
+    ]
+   },
+   "note": "Round 89 (Jake: freeze cover on the hose bibs, and the hose bib vacuum breaker). ALWAYS placed, so the spigot link lands on this unit whatever its add ons are; the two add ons are its blocks (freeze_cover, vacuum_breaker). Built in this socket's frame as it stands now (z -0.03): yaw 0, offset 0 (not the Sweet Air's z 0.45). walk.js will not run the front bib through the cover: cover_off first.",
+   "move": {
+    "vb_story_bucket": [
+     0,
+     0,
+     0.4028
+    ]
+   },
+   "config": "foundation=slab",
+   "slab_of": "hosebib_protection.glb"
   },
   {
    "socket": "sock_hosebib_back",
@@ -2678,7 +3460,76 @@
      0.0,
      -0.047
     ]
-   }
+   },
+   "config": "foundation=crawl"
+  },
+  {
+   "socket": "sock_hosebib_back",
+   "file": "site",
+   "pack": "hosebib_protection",
+   "model": "hosebib_protection.glb",
+   "yaw": 180,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "hide": [
+    "freeze_cover_root",
+    "vacuum_breaker_root",
+    "ctx_house",
+    "ctx_bib",
+    "ctx_block",
+    "ctx_wall",
+    "ctx_bed"
+   ],
+   "states": [
+    "cover_gasket_gap",
+    "cover_cutaway",
+    "warm_band",
+    "cold_packets",
+    "vb_story_hose",
+    "vb_story_bucket",
+    "vb_air_packets",
+    "vb_hose_packets",
+    "vb_vent_drip"
+   ],
+   "addon": {
+    "freeze_cover": {
+     "show": [
+      "freeze_cover_root"
+     ],
+     "hide": []
+    },
+    "vacuum_breaker": {
+     "show": [
+      "vacuum_breaker_root"
+     ],
+     "hide": []
+    }
+   },
+   "section_set": {
+    "pairs": {
+     "cover_shell": "cover_shell_section",
+     "vb_body": "vb_body_section"
+    },
+    "also_hide": [
+     "cover_foam",
+     "cover_gasket",
+     "vb_cap",
+     "vb_hose_thread"
+    ]
+   },
+   "note": "Round 90 (owed from round 89: the kit on the BACK bib too). The same kit as the front bib's, always placed, its two add ons (freeze_cover, vacuum_breaker) switching both bibs. The back socket faces into the house, so yaw 180. The back bib stands over the lawn at -0.897 (the front's is a mulch bed at -0.850), so the backflow story's bucket (a scale keyed state, so a move holds) comes down 4.7 cm onto the grass and 6 cm north, clear of the back stoop's north face. walk.js asks each bib's own kit whether its cover is on.",
+   "move": {
+    "vb_story_bucket": [
+     0.06,
+     0.0,
+     0.3558
+    ]
+   },
+   "config": "foundation=slab",
+   "slab_of": "hosebib_protection.glb"
   },
   {
    "socket": "sock_ahu_attic",
@@ -3039,7 +3890,7 @@
     0,
     0
    ],
-   "config": "sewer=septic_spray_fiberglass_train",
+   "config": "sewer=septic_spray_fiberglass_train&foundation=crawl",
    "alternate": true,
    "hide": [
     "grass",
@@ -3074,6 +3925,49 @@
    "socket": "sock_ak_train_back",
    "file": "site",
    "pack": "septic_aquaklear",
+   "model": "septic_aquaklear_train_slab.glb",
+   "yaw": 90,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "sewer=septic_spray_fiberglass_train&foundation=slab",
+   "alternate": true,
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "sewer_line",
+    "air_pump",
+    "pump_pad",
+    "pump_cover",
+    "pump_filter",
+    "pump_filter_cover",
+    "pump_filter_dirty",
+    "pump_internals",
+    "pump_hose",
+    "air_line_ground",
+    "alarm_lit",
+    "inlet",
+    "cleanout",
+    "cleanout_plug",
+    "cleanout_backflow_cap",
+    "scum_layer",
+    "sludge_blanket",
+    "water_gray",
+    "water_gray_section",
+    "power_cord"
+   ],
+   "note": "Round 91, the fiberglass train (Jake 2026-09-25: \"make sure that the fiberglass layout also gets done\"): the AquaKlear at 15 in of cover (3 in deeper than the two tank layout's, so the Infiltrator pre-treatment tank ahead of it drains into it with the house sewer at a full quarter), its inlet end to the pre-treatment tank on sock_trash_tank_back, fed by pipe_dwv_effluent_fglass. Spray: its outlet runs on to the pump tank.",
+   "elevation_group": "fiberglass_train",
+   "slab_of": "septic_aquaklear_train.glb"
+  },
+  {
+   "socket": "sock_ak_train_back",
+   "file": "site",
+   "pack": "septic_aquaklear",
    "model": "septic_aquaklear_train.glb",
    "yaw": 90,
    "offset": [
@@ -3081,7 +3975,7 @@
     0,
     0
    ],
-   "config": "sewer=septic_overland_fiberglass_train",
+   "config": "sewer=septic_overland_fiberglass_train&foundation=crawl",
    "alternate": true,
    "hide": [
     "grass",
@@ -3115,6 +4009,51 @@
    "elevation_group": "fiberglass_train"
   },
   {
+   "socket": "sock_ak_train_back",
+   "file": "site",
+   "pack": "septic_aquaklear",
+   "model": "septic_aquaklear_train_slab.glb",
+   "yaw": 90,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "sewer=septic_overland_fiberglass_train&foundation=slab",
+   "alternate": true,
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "sewer_line",
+    "air_pump",
+    "pump_pad",
+    "pump_cover",
+    "pump_filter",
+    "pump_filter_cover",
+    "pump_filter_dirty",
+    "pump_internals",
+    "pump_hose",
+    "air_line_ground",
+    "alarm_lit",
+    "inlet",
+    "cleanout",
+    "cleanout_plug",
+    "cleanout_backflow_cap",
+    "scum_layer",
+    "sludge_blanket",
+    "water_gray",
+    "water_gray_section",
+    "float_switch",
+    "float_cable",
+    "power_cord"
+   ],
+   "note": "Round 91, the fiberglass train (Jake 2026-09-25: \"make sure that the fiberglass layout also gets done\"): the AquaKlear at 15 in of cover (3 in deeper than the two tank layout's, so the Infiltrator pre-treatment tank ahead of it drains into it with the house sewer at a full quarter), its inlet end to the pre-treatment tank on sock_trash_tank_back, fed by pipe_dwv_effluent_fglass. Overland: its outlet turns west to the hillside, no panel, no float.",
+   "elevation_group": "fiberglass_train",
+   "slab_of": "septic_aquaklear_train.glb"
+  },
+  {
    "socket": "sock_pump_tank_train_back",
    "file": "site",
    "pack": "pump_tank",
@@ -3144,7 +4083,7 @@
     "float_tangled",
     "cord_chafed"
    ],
-   "config": "sewer=septic_spray_fiberglass_train",
+   "config": "sewer=septic_spray_fiberglass_train&foundation=crawl",
    "alternate": true,
    "note": "Round 91, the fiberglass train, spray: the IM-540 pump tank at 18 in of cover behind the AquaKlear, fed by pipe_dwv_effluent_fglass_pt; plug in pump, UF from the GFCI at the house into its cord grip, the splices under its lid (round 69).",
    "offset": [
@@ -3158,6 +4097,48 @@
   {
    "socket": "sock_pump_tank_train_back",
    "file": "site",
+   "pack": "pump_tank",
+   "model": "pump_tank_train_slab.glb",
+   "yaw": 0,
+   "hide": [
+    "grass",
+    "soil",
+    "soil_front",
+    "backfill",
+    "spray_line",
+    "spray_head0",
+    "spray_head1",
+    "spray_head2",
+    "head_stem0",
+    "head_stem1",
+    "head_stem2",
+    "stream0",
+    "stream1",
+    "stream2",
+    "spray_pattern",
+    "spray_overlap",
+    "chlorinator",
+    "chlor_tablets",
+    "inlet_stub",
+    "intake_fouled",
+    "float_tangled",
+    "cord_chafed"
+   ],
+   "config": "sewer=septic_spray_fiberglass_train&foundation=slab",
+   "alternate": true,
+   "note": "Round 91, the fiberglass train, spray: the IM-540 pump tank at 18 in of cover behind the AquaKlear, fed by pipe_dwv_effluent_fglass_pt; plug in pump, UF from the GFCI at the house into its cord grip, the splices under its lid (round 69).",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "elevation_group": "fiberglass_train",
+   "sim_feed": "^pipe_dwv_effluent_fglass_pt$",
+   "slab_of": "pump_tank_train.glb"
+  },
+  {
+   "socket": "sock_pump_tank_train_back",
+   "file": "site",
    "pack": "spray_pump_filter",
    "model": "spray_pump_filter.glb",
    "yaw": 0,
@@ -3166,7 +4147,7 @@
     -0.05,
     -1.82904
    ],
-   "config": "sewer=septic_spray_fiberglass_train&filter=yes",
+   "config": "sewer=septic_spray_fiberglass_train&filter=yes&foundation=crawl",
    "alternate": true,
    "hide": [
     "pump",
@@ -3180,6 +4161,33 @@
     "up_arrows"
    ],
    "note": "Round 91: the spray pump filter over the fiberglass train's pump tank pump (the two tank one's offset less the socket offset, 3 in deeper)."
+  },
+  {
+   "socket": "sock_pump_tank_train_back",
+   "file": "site",
+   "pack": "spray_pump_filter",
+   "model": "spray_pump_filter.glb",
+   "yaw": 0,
+   "offset": [
+    0.0505,
+    -0.05,
+    -1.90524
+   ],
+   "config": "sewer=septic_spray_fiberglass_train&filter=yes&foundation=slab",
+   "alternate": true,
+   "hide": [
+    "pump",
+    "pump_intake_slots",
+    "discharge",
+    "lift_rope"
+   ],
+   "states": [
+    "screen_fouled",
+    "inflow_arrows",
+    "up_arrows"
+   ],
+   "note": "Round 91: the spray pump filter over the fiberglass train's pump tank pump (the two tank one's offset less the socket offset, 3 in deeper).",
+   "slab_of": "spray_pump_filter.glb"
   }
  ],
  "hide_patterns": [
@@ -3255,5 +4263,6 @@
  "move_note": "move: {node: [dx, dy, dz]} in model space (Blender axes, metres); the walk page and assemble_house.py shift that node",
  "stream_note": "stream meshes are NOT hidden by pattern any more: the walk page hides them at load and shows them while a run / on clip is playing, so a faucet actually runs water",
  "flame_note": "flames, igniter_glow and burner_flame are NOT hidden by pattern any more: their builders rest them at scale 0.001 and the fire_up clip brings them up, so a click actually lights the burner (Jake 2026-09-11)",
- "reveal_note": "reveal: {trigger: [parts a click on toggles it], hide: [model parts that go away while open], show: [model parts shown while open, even ones the placement hides], bore: [model parts whose world box is cut out of every house mesh it overlaps while open]}. walk.js reveal()."
+ "reveal_note": "reveal: {trigger: [parts a click on toggles it], hide: [model parts that go away while open], show: [model parts shown while open, even ones the placement hides], bore: [model parts whose world box is cut out of every house mesh it overlaps while open]}. walk.js reveal().",
+ "slab_note": "2026-09-25: entries tagged foundation=crawl or foundation=slab belong to one house only (tools/patch_placements_slab.py). The slab house carries its own tank variants (more cover, lids still at grade), its showers with the risers over the slab, its hybrid with the shorter duct and its two section attic ladder."
 }

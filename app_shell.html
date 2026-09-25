@@ -159,7 +159,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '91a';
+  var SHELL = '92a';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -250,7 +250,7 @@
     softener: 'Water softener', filter: 'Spray pump filter', thermostat: 'Thermostat', plumbing: 'Supply pipe',
     sump: 'Sump pump in the crawl', shutoff_extra: 'Second shutoff valve',
     commercial_lot: 'Commercial lot across the street (grease interceptor)',
-    gas: 'Gas', fault: 'Fault to find',
+    gas: 'Gas', fault: 'Fault to find', foundation: 'Foundation',
   };
   var VAL_LABEL = {
     attic_gas_tank: 'Gas tank in the attic', closet_gas_tank: 'Gas tank in a closet',
@@ -269,6 +269,7 @@
     cpvc: 'CPVC', pex: 'PEX', galvanized: 'Galvanized', natural: 'Natural gas', propane: 'Propane tank',
     none: 'None', belly: 'Belly in the sewer line',
     wall: 'In the laundry wall', attic: 'On the attic cold run',
+    crawl: 'Crawl space', slab: 'Slab on grade', copper: 'Copper (type L soft)',
   };
   function nice(v) { return VAL_LABEL[v] || String(v).replace(/_/g, ' '); }
 
@@ -276,6 +277,7 @@
   // there... only have like an HVAC section, as if they open HVAC"). Anything the walk page offers that is not listed
   // here lands in Other, so a layout added in a future round still shows up.
   var GROUPS = [
+    { name: 'The house', keys: ['foundation'] },     // 2026-09-25: crawl space or slab on grade, two houses
     { name: 'Heating and cooling', keys: ['hvac', 'thermostat'] },
     { name: 'Water heater', keys: ['water_heater'] },
     { name: 'Water and sewer', keys: ['sewer', 'water', 'softener', 'filter', 'shutoff_extra', 'sump', 'commercial_lot'] },
@@ -289,6 +291,8 @@
     { id: 'default', name: 'Standard house', blurb: 'City sewer and city water, gas furnace', set: {} },
     { id: 'country', name: 'Country house', blurb: 'Well and septic spray field, propane',
       set: { sewer: 'septic_spray', water: 'well', gas: 'propane' } },
+    { id: 'slab', name: 'Slab house', blurb: 'On a slab: drains under it, PEX in the floor, the heater in a closet',
+      set: { foundation: 'slab', plumbing: 'pex', water_heater: 'closet_gas_tank' } },
     { id: 'lift', name: 'City with a lift station', blurb: 'City sewer through a lift station', set: { sewer: 'city_lift' } },
     { id: 'duplex', name: 'Duplex lift station', blurb: 'Two grinder pumps on guide rails, SJE 122 panel', set: { sewer: 'city_lift_duplex' } },
     { id: 'electric', name: 'All electric', blurb: 'Heat pump and an electric water heater',
@@ -299,6 +303,18 @@
   function remember(v) { try { localStorage.setItem('house-layout', JSON.stringify(v)); } catch (e) { /* private window */ } }
 
   function valid(k, v) { var W = window.walk; return !!(W.CONFIG_CHOICES[k] && W.CONFIG_CHOICES[k].indexOf(v) >= 0); }
+  // 2026-09-25, the slab house: some values belong to one house only (walk.js fits); the lists show what the picked house offers, and a
+  // change of house takes anything that does not fit there back to that house's default
+  function fitsHouse(k, v) { var W = window.walk; return !W.fits || W.fits(k, v, picked.foundation || W.CONFIG.foundation); }
+  function refitHouse() {
+    var W = window.walk; if (!W.fits) return;
+    // a value this house does not offer goes to the first it does (the walk page lists each house's own default first: PEX, the closet tank, no)
+    Object.keys(picked).forEach(function (k) { if (!fitsHouse(k, picked[k]) && W.CONFIG_CHOICES[k]) { var ok = W.CONFIG_CHOICES[k].filter(function (v) { return fitsHouse(k, v); }); if (ok.length) picked[k] = ok[0]; } });
+    document.querySelectorAll('#choices select').forEach(function (sel) {
+      Array.prototype.forEach.call(sel.options, function (o) { o.hidden = o.disabled = !fitsHouse(sel.dataset.key, o.value); });
+      sel.value = picked[sel.dataset.key];
+    });
+  }
 
   function buildChoices() {
     var W = window.walk;
@@ -339,7 +355,7 @@
           var o = document.createElement('option'); o.value = v; o.textContent = nice(v); sel.appendChild(o);
         });
         sel.value = picked[k];
-        sel.onchange = function () { picked[k] = sel.value; markPreset(matchPreset()); summarize(); };
+        sel.onchange = function () { picked[k] = sel.value; if (k === 'foundation') refitHouse(); markPreset(matchPreset()); summarize(); };
         lab.appendChild(sel);
         grid.appendChild(lab);
       });
@@ -357,6 +373,7 @@
       b.onclick = function () { applyPreset(p); };
       pr.appendChild(b);
     });
+    refitHouse();
     markPreset(matchPreset());
     summarize();
   }
@@ -365,7 +382,9 @@
   function summarize() {
     document.querySelectorAll('#choices details').forEach(function (d) {
       // a yes or no says what it is about: "no water softener", not a bare "No"
-      var t = d.dataset.keys.split(',').map(function (k) {
+      // 2026-09-25: a choice the picked house does not offer at all (the slab house has no sump, no second Flo) is left out of the line
+      var W_ = window.walk, only = function (k) { return W_.fits && W_.CONFIG_CHOICES[k] && W_.CONFIG_CHOICES[k].filter(function (v) { return fitsHouse(k, v); }).length < 2; };
+      var t = d.dataset.keys.split(',').filter(function (k) { return !only(k); }).map(function (k) {
         var v = picked[k], lab = (KEY_LABEL[k] || k.replace(/_/g, ' ')).toLowerCase();
         if (v === 'yes') return lab;
         if (v === 'no' || v === 'none') return 'no ' + lab;     // round 88: 'no second shutoff valve', not a bare None
@@ -391,6 +410,7 @@
   function applyPreset(p) {
     picked = presetSet(p);
     document.querySelectorAll('#choices select').forEach(function (sel) { sel.value = picked[sel.dataset.key]; });
+    refitHouse();
     markPreset(p.id);
     summarize();
   }
@@ -467,7 +487,17 @@
       if (SHOW) showLanding(); else hookLayoutTab();
     };
     if (!Object.keys(change).length) return go();
-    $('enternote').textContent = 'Setting up your layout...';
+    $('enternote').textContent = change.foundation ? 'Building the ' + (change.foundation === 'slab' ? 'slab' : 'crawl space') + ' house...' : 'Setting up your layout...';
+    if (change.foundation && W.switchFoundation) {
+      var f_ = change.foundation; delete change.foundation;
+      Promise.resolve(W.switchFoundation(f_)).then(function () {
+        Object.keys(change).forEach(function (k) { if (W.CONFIG[k] === change[k]) delete change[k]; });
+        Object.assign(W.CONFIG, change);
+        document.querySelectorAll('#layout select').forEach(function (sel) { sel.value = W.CONFIG[sel.title]; });
+        return Object.keys(change).length ? W.reconfigure() : null;
+      }).then(go, function (e) { $('enternote').textContent = 'Could not set that up: ' + e.message; go(); });
+      return;
+    }
     Object.assign(W.CONFIG, change);
     // keep the walk page's own Layers tab showing the same thing
     document.querySelectorAll('#layout select').forEach(function (sel) { if (change[sel.title] !== undefined) sel.value = change[sel.title]; });

@@ -1218,6 +1218,355 @@
    "why": "fan grille off the front of the cabinet"
   }
  ],
+ "hvac_minisplit_slab.glb": [
+  {
+   "part": "front_panel",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 300,
+   "why": "front panel up off its two hinge arms, the filters show"
+  },
+  {
+   "part": "filter_left",
+   "dir": [
+    1,
+    -0.5,
+    0
+   ],
+   "mm": 260,
+   "why": "left washable filter off its tab and down out of the guide"
+  },
+  {
+   "part": "filter_right",
+   "dir": [
+    1,
+    -0.5,
+    0
+   ],
+   "mm": 260,
+   "why": "right washable filter the same way"
+  },
+  {
+   "part": "control_cover",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 230,
+   "why": "control cover off the right end, one tab at the bottom"
+  },
+  {
+   "part": "board",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 195,
+   "why": "control board out of its slots, the indoor end of the interconnecting cable lands on its 1 2 3 G strip"
+  },
+  {
+   "part": "line_exit_cover",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 175,
+   "why": "line exit cover off the back right corner, the flare joints and the drain spigot show"
+  },
+  {
+   "part": "flare_nut_head_suction",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 155,
+   "why": "suction flare nut off the head's stub, two wrenches, back the nut not the stub"
+  },
+  {
+   "part": "flare_nut_head_liquid",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 135,
+   "why": "liquid flare nut off the head's stub"
+  },
+  {
+   "part": "louvres",
+   "dir": [
+    0.6,
+    -0.8,
+    0
+   ],
+   "mm": 140,
+   "why": "vertical louvre bank unclips off its tie bar, the outlet throat opens up"
+  },
+  {
+   "part": "vane",
+   "dir": [
+    0.5,
+    -0.9,
+    0
+   ],
+   "mm": 115,
+   "why": "horizontal vane off its two end pivots"
+  },
+  {
+   "part": "drain_pan",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 95,
+   "why": "drain pan out from under the coil, this is what you flush when the head drips"
+  },
+  {
+   "part": "blower_wheel",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 75,
+   "why": "cross flow wheel off the motor shaft, the part you clean when it smells"
+  },
+  {
+   "part": "intake_grille",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 60,
+   "why": "top intake grille lifts out of its recess"
+  },
+  {
+   "part": "chassis",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 40,
+   "why": "the body off the back plate, tabs along the bottom edge"
+  },
+  {
+   "part": "back_plate",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 18,
+   "why": "back plate off the wall, six keyhole slots over their screws"
+  },
+  {
+   "part": "disconnect",
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "mm": 320,
+   "why": "outdoor disconnect off the siding, two screws. Pulling this is step one, before anything below"
+  },
+  {
+   "part": "valve_cover",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 300,
+   "why": "valve cover off the service end, one screw"
+  },
+  {
+   "part": "elec_cover",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 300,
+   "why": "electrical cover off above it, one screw"
+  },
+  {
+   "part": "term_1",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "terminal 1, the black conductor from the indoor head under its own screw",
+   "of": "terminal_block"
+  },
+  {
+   "part": "term_2",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "terminal 2, the white conductor from the indoor head",
+   "of": "terminal_block"
+  },
+  {
+   "part": "term_3",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "terminal 3, the red conductor from the indoor head",
+   "of": "terminal_block"
+  },
+  {
+   "part": "term_ground",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "the ground terminal, the green conductor, last one off and first one back on",
+   "of": "terminal_block"
+  },
+  {
+   "part": "terminal_block",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 228,
+   "why": "the 1 2 3 G barrier strip off its rail"
+  },
+  {
+   "part": "term_l1",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "L1, the black whip conductor under its own screw",
+   "of": "power_block"
+  },
+  {
+   "part": "term_l2",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "L2, the red whip conductor under its own screw",
+   "of": "power_block"
+  },
+  {
+   "part": "term_pg",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 255,
+   "why": "the power ground terminal, the green whip conductor",
+   "of": "power_block"
+  },
+  {
+   "part": "power_block",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 228,
+   "why": "the L1 L2 G power strip off its rail"
+  },
+  {
+   "part": "whip",
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "mm": 200,
+   "why": "whip off the rear of the cabinet, locknut then the liquid tight connector"
+  },
+  {
+   "part": "flare_nut_suction",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 190,
+   "why": "suction flare nut off the service valve, recover the charge first"
+  },
+  {
+   "part": "flare_nut_liquid",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 190,
+   "why": "liquid flare nut off the service valve"
+  },
+  {
+   "part": "service_valve_suction",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 150,
+   "why": "suction service valve, stem cap off, the Schrader port beside it is where the gauge goes"
+  },
+  {
+   "part": "service_valve_liquid",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 150,
+   "why": "liquid service valve, the one you front seat to pump down"
+  },
+  {
+   "part": "lineset_cover",
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "mm": 165,
+   "why": "line set cover off the siding, the two lines, the drain and the cable ride in there together"
+  },
+  {
+   "part": "fan_grille",
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "mm": 140,
+   "why": "fan grille off the front of the cabinet"
+  }
+ ],
  "shower.glb": [
   {
    "part": "handle_cap",
@@ -1336,7 +1685,243 @@
    "why": "cartridge pulls straight out between the clip legs, ears out of their notches"
   }
  ],
+ "shower_slab.glb": [
+  {
+   "part": "handle_cap",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 385,
+   "why": "cap pops off the end of the handle hub",
+   "of": "handle"
+  },
+  {
+   "part": "handle_screw",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 375,
+   "why": "handle screw out of the tapped stem",
+   "of": "handle"
+  },
+  {
+   "part": "handle",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 335,
+   "why": "handle pulls straight off the stem, key clear of the stem notch"
+  },
+  {
+   "part": "limit_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 292,
+   "why": "temperature limit stop off the stem",
+   "of": "stop_tube"
+  },
+  {
+   "part": "key_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 274,
+   "why": "key stop off the stop tube",
+   "of": "stop_tube"
+  },
+  {
+   "part": "stop_tube",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 252,
+   "why": "stop tube off the cartridge hub"
+  },
+  {
+   "part": "escutcheon_screw_a",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon_screw_b",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 200,
+   "why": "escutcheon off the plasterguard, the rough valve shows"
+  },
+  {
+   "part": "retainer_clip",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 60,
+   "why": "retainer clip lifts up out of its two slots, nothing holds the cartridge now"
+  },
+  {
+   "part": "cartridge",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 140,
+   "why": "cartridge pulls straight out between the clip legs, ears out of their notches"
+  }
+ ],
  "shower_two.glb": [
+  {
+   "part": "handle_cap",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 385,
+   "why": "cap pops off the end of the handle hub",
+   "of": "handle"
+  },
+  {
+   "part": "handle_screw",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 375,
+   "why": "handle screw out of the tapped stem",
+   "of": "handle"
+  },
+  {
+   "part": "handle",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 335,
+   "why": "handle pulls straight off the stem, key clear of the stem notch"
+  },
+  {
+   "part": "limit_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 292,
+   "why": "temperature limit stop off the stem",
+   "of": "stop_tube"
+  },
+  {
+   "part": "key_stop",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 274,
+   "why": "key stop off the stop tube",
+   "of": "stop_tube"
+  },
+  {
+   "part": "stop_tube",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 252,
+   "why": "stop tube off the cartridge hub"
+  },
+  {
+   "part": "escutcheon_screw_a",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon_screw_b",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 228,
+   "why": "escutcheon screw out of the boss",
+   "of": "escutcheon"
+  },
+  {
+   "part": "escutcheon",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 200,
+   "why": "escutcheon off the plasterguard, the rough valve shows"
+  },
+  {
+   "part": "retainer_clip",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 60,
+   "why": "retainer clip lifts up out of its two slots, nothing holds the cartridge now"
+  },
+  {
+   "part": "cartridge",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 140,
+   "why": "cartridge pulls straight out between the clip legs, ears out of their notches"
+  }
+ ],
+ "shower_two_slab.glb": [
   {
    "part": "handle_cap",
    "dir": [

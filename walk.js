@@ -4,10 +4,10 @@
 (function () {
   const T = THREE;
   const FT = 0.3048;
-  const HOUSE_FIRST = ['house_site', 'house_floor1', 'house_attic', 'house_crawl'], HOUSE_REST = ['house_furniture', 'house_framing'];     // round 60: what you need to stand in the house, and what can arrive behind you
+  let HOUSE_FIRST = ['house_site', 'house_floor1', 'house_attic', 'house_crawl'], HOUSE_REST = ['house_furniture', 'house_framing'];     // round 60: what you need to stand in the house, and what can arrive behind you
   let bootFinished; const bootDone = new Promise(r => { bootFinished = r; });
   const HOUSE_FILES = ['house_site', 'house_floor1', 'house_attic', 'house_crawl', 'house_furniture', 'house_framing'];     // framing: attic joists, batts, rafters and headers (build_framing.py)
-  const PIPE_FILES = ['pipes_supply', 'pipes_dwv', 'pipes_gas', 'pipes_hvac', 'pipes_alternates'];     // the alternates file was never loaded at all, so its runs did not exist in any layout
+  let PIPE_FILES = ['pipes_supply', 'pipes_dwv', 'pipes_gas', 'pipes_hvac', 'pipes_alternates'];     // the alternates file was never loaded at all, so its runs did not exist in any layout
   const MODEL_DIRS = ['../models/', './little/', './'];
   const status = document.getElementById('status'), loadEl = document.getElementById('load'), labelEl = document.getElementById('label');
   const view = document.getElementById('view');
@@ -119,7 +119,10 @@
   async function loadHouse(files) {
     for (const f of (files || HOUSE_FILES)) {
       status.textContent = 'loading ' + f; const g = await load('./' + f + '.glb'); const root = g.scene; root.name = f; house.add(root); root.updateMatrixWorld(true); tuneMaterials(root);
+      // 2026-09-25, the slab house: it shares the crawl house's furniture, less the two garage pieces it carries at its own garage slab's height
+      if (f === 'house_furniture' && CONFIG.foundation === 'slab') root.traverse(o => { let p = o; while (p && p !== root) { if (/^furn_(tool_chest|shelving)_garage/.test(p.name)) { o.userData.slabSkip = true; o.visible = false; break; } p = p.parent; } });
       root.traverse(o => {
+        if (o.userData.slabSkip) return;
         houseByName[o.name] = o;
         if (o.name.startsWith('door_') && !(o.parent && o.parent.name.startsWith('door_'))) {     // the top node of a door (a mesh, or a group of one mesh per material)
           // the overhead door: four sections, the opener trolley and its arm, all driven together by garageDoor
@@ -159,11 +162,12 @@
   const CONFIG = { water_heater: 'attic_gas_tank', hvac: 'split_furnace', sewer: 'septic_spray', water: 'city_filter', softener: 'yes', filter: 'no', plumbing: 'cpvc', gas: 'natural', fault: 'none',
     soft_start: 'no', surge_condenser: 'no', surge_panel: 'no', reverse_osmosis: 'no', thermostat: 'programmable', expansion_tank: 'no',
     sump: 'no', shutoff_extra: 'none',
+    foundation: 'crawl',     // 2026-09-25: which house (training_house/SLAB_HOUSE_PLAN.md), crawl space or slab on grade; the slab house is its own set of files
     // round 89 integration (Jake 2026-09-23 build list): the new add on models, all off, and the commercial lot across the street
     mixing_valve: 'no', surge_wh: 'no', iaq_monitor: 'no', media_cabinet: 'no', purifier: 'no', erv: 'no', sludgehammer: 'no', freeze_cover: 'no', vacuum_breaker: 'no', commercial_lot: 'no',
     bidet: 'no', co_detector: 'no', uv_light: 'no', dehumidifier: 'no', fresh_air: 'no', hammer_arrestors: 'no', scale_inhibitor: 'no' };     // round 89 (Jake 2026-09-23): parts the models already carry, now add ons, all off     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
   // The septic plant, the tank, the sewer and the water service are all BURIED, so the ground gets its own switch.
-  const GROUND = ['floor_terrain', 'floor_lot', 'floor_street', 'floor_patch_lawn', 'trim_riser_collar', 'site_mow_stripes', 'site_beds', 'site_shrubs', 'floor_driveway', 'floor_walkway', 'floor_crawl', 'soil', 'grass', 'backfill'];
+  const GROUND = ['floor_terrain', 'floor_lot', 'floor_street', 'floor_patch_lawn', 'trim_riser_collar', 'site_mow_stripes', 'site_beds', 'site_shrubs', 'floor_driveway', 'floor_walkway', 'floor_crawl', 'soil', 'grass', 'backfill', 'fix_slab_house', 'fix_slab_garage', 'fix_leaveout_tub'];     // 2026-09-25: the slab too, so the drains and lines under it show
   let groundOn = true;
   function isGround(o) { return GROUND.some(p => nodeName(o).startsWith(p)); }
   const CONFIG_CHOICES = {
@@ -176,7 +180,8 @@
     softener: ['yes', 'no'],     // round 42: with a softener the Flo is at the softener in the garage, without one it is under the house (Jake)
     filter: ['no', 'yes'],       // round 42: the spray pump filter is an add on, not on by default (Jake)
     thermostat: ['programmable', 'smart_ecobee', 'smart_nest'],     // round 45: which stat is on the hall wall (Jake)
-    plumbing: ['cpvc', 'pex', 'galvanized'],     // round 25: the supply exists three ways (Jake: run everything in PEX, galvanized)
+    foundation: ['crawl', 'slab'],     // 2026-09-25 (Jake: "we definitely need a slab house too"): a change loads the other house (switchFoundation)
+    plumbing: ['cpvc', 'pex', 'galvanized', 'copper'],     // 2026-09-25: copper is the slab house's soft copper in the floor. round 25: the supply exists three ways (Jake: run everything in PEX, galvanized)
     gas: ['natural', 'propane'],                 // round 29: the utility meter set, or a 250 gallon tank in the side yard with its regulators (Jake)
     sump: ['no', 'yes'],                         // round 88: the indoor pump basin under the hall bath (Jake: place the sump pump)
     shutoff_extra: ['none', 'wall', 'attic'],    // round 88: a second Flo shutoff, in the laundry wall or on the attic cold run
@@ -187,6 +192,26 @@
   // a tag may join several clauses with & (a heater layout's PEX cold riser: water_heater=attic_gas_tank&plumbing=pex): all must hold
   function inConfig(c) { if (!c) return true; return c.split(';').some(alt => alt.split('&').every(cl => { const i = cl.indexOf('='); return CONFIG[cl.slice(0, i)] !== undefined && cl.slice(i + 1).split('|').includes(CONFIG[cl.slice(0, i)]); })); }     // round 89: ; separates whole alternatives (the city main: a city sewer, or the commercial lot that taps it)
   function wants(pl) { if (!pl.model) return false; return inConfig(pl.config); }
+  // 2026-09-25, the slab house. Some choices belong to one house only: the slab house has no attic heater (Jake: nothing in the attic
+  // unless it is HVAC), no sump, no crawl trunk for the laundry wall Flo, no attic run for the attic Flo, and its supply is PEX or soft
+  // copper in the floor (Jake: "it's poured into the floor"); CPVC and galvanized are the crawl house's. fits() says whether a value is
+  // offered in a house; foundationSet() is the change that takes the layout to the other house, anything that does not fit there falling
+  // back to that house's default.
+  const FOUNDATION_ONLY = { plumbing: { cpvc: 'crawl', galvanized: 'crawl', copper: 'slab' }, water_heater: { attic_gas_tank: 'crawl', attic_electric_tank: 'crawl' },
+    sump: { yes: 'crawl' }, shutoff_extra: { wall: 'crawl', attic: 'crawl' }, mixing_valve: { yes: 'crawl' }, surge_wh: { yes: 'crawl' } };
+  const FOUNDATION_DEFAULT = { slab: { plumbing: 'pex', water_heater: 'closet_gas_tank', sump: 'no', shutoff_extra: 'none', mixing_valve: 'no', surge_wh: 'no' },
+    crawl: { plumbing: 'cpvc', water_heater: 'attic_gas_tank' } };
+  function fits(k, v, f) { const t = FOUNDATION_ONLY[k] && FOUNDATION_ONLY[k][v]; return !t || t === (f || CONFIG.foundation); }
+  function foundationSet(f) { const out = {}; for (const k in CONFIG) if (!fits(k, CONFIG[k], f)) out[k] = (FOUNDATION_DEFAULT[f] || {})[k]; out.foundation = f; return out; }
+  // The files each house loads. Both share the attic, the furniture (less two garage pieces) and every model; the slab house's own
+  // files carry the prefix slab_ (the page's file map matches by name only, so they cannot live in a folder of their own).
+  function setFiles() {
+    const S = CONFIG.foundation === 'slab';
+    HOUSE_FIRST = S ? ['slab_house_site', 'slab_house_floor1', 'house_attic', 'slab_house_slab'] : ['house_site', 'house_floor1', 'house_attic', 'house_crawl'];
+    HOUSE_REST = S ? ['house_furniture', 'slab_house_garagefurn', 'slab_house_framing'] : ['house_furniture', 'house_framing'];
+    PIPE_FILES = ['pipes_supply', 'pipes_dwv', 'pipes_gas', 'pipes_hvac', 'pipes_alternates'].map(f => (S ? 'slab_' : '') + f);
+    GRADE_Y = S ? -0.15 : -0.90;
+  }
   // the house carries layout tags too now (the lawn patch over the yard holes this layout does not use)
   // Flow columns carry their run's layout too, but they are off until something runs: the layout pass leaves them to
   // showFlows(), which lights only the ones that are running AND in this layout.
@@ -236,7 +261,7 @@
   async function place(pl) {
     const sock = sockets[pl.socket]; if (!sock) { console.warn('no socket', pl.socket); return; }
     let g; try { g = await loadModel(pl.model.replace(/^little\//, '')); } catch (e) { console.warn(e.message); return; }
-    const inst = g.scene.clone(true); stampParts(g, inst); inst.userData.elevGroup = pl.elevation_group || null; tuneMaterials(inst); inst.userData.model = pl.model; inst.userData.socket = pl.socket;     // 2026-09-22: the socket tells the hall bath toilet from the master's for the show link
+    const inst = g.scene.clone(true); stampParts(g, inst); inst.userData.elevGroup = pl.elevation_group || null; tuneMaterials(inst); inst.userData.model = pl.slab_of || pl.model; inst.userData.socket = pl.socket;     // 2026-09-22: the socket tells the hall bath toilet from the master's for the show link
     if (g.animations && g.animations.length) { const mixer = new T.AnimationMixer(inst); mixers.push(mixer); inst.userData.anim = { mixer, clips: g.animations.map(c => c.clone()), state: {} }; }
     // the shower's two streams belong to the valve AND the diverter (Jake: the diverter sends the water to the spout or the head),
     // so the page owns them: their scale tracks come out of the clips and showerStreams() below shows the one the diverter picks
@@ -624,13 +649,13 @@
   function pumpsOnByDefault() { let has = false; equip.children.forEach(u => { const A = u.userData.anim; if (A && A.clips.some(c => c.name === 'aerate')) has = true; }); if (has && !pumpOn) pumpSwitch(); }
   // ---------------------------------------------------------------- pipes
   async function loadPipes() {
-    try { pipesMeta = await (await fetch('./pipes.json' + CB)).json(); Object.assign(labels, pipesMeta.labels || {}); } catch (e) { }
+    try { pipesMeta = await (await fetch('./pipes.json' + CB)).json(); Object.assign(labels, pipesMeta.labels || {}); if (CONFIG.foundation === 'slab') Object.assign(labels, pipesMeta.slab_labels || {}); } catch (e) { }     // 2026-09-25: the slab house's own words for the runs it builds its own way
     // round 40 (Jake: "click wires and it says where they are going and why"): wires.json, house runs by name (they override the pipe
     // labels) and model parts by pack and part regex
-    try { DRAINS = ((await (await fetch('./drains.json' + CB)).json()).runs) || {}; } catch (e) { DRAINS = {}; }     // round 43: the ball's routes
+    try { DRAINS = ((await (await fetch('./' + (CONFIG.foundation === 'slab' ? 'slab_' : '') + 'drains.json' + CB)).json()).runs) || {}; } catch (e) { DRAINS = {}; }     // round 43: the ball's routes
     try { const W = await (await fetch('./wires.json' + CB)).json(); WIRES = { runs: W.runs || {}, parts: (W.parts || []).map(e => ({ pack: new RegExp(e.pack), part: new RegExp(e.part), text: e.text })) }; Object.assign(labels, WIRES.runs); } catch (e) { }
     for (const f of PIPE_FILES) {
-      status.textContent = 'loading ' + f; const g = await load('./' + f + '.glb'); g.scene.name = f; pipes.add(g.scene); layers[f] = g.scene; tuneMaterials(g.scene);
+      status.textContent = 'loading ' + f; const g = await load('./' + f + '.glb'); const lf = f.replace(/^slab_/, ''); g.scene.name = lf; pipes.add(g.scene); layers[lf] = g.scene; tuneMaterials(g.scene);
       stampParts(g, g.scene);
       g.scene.traverse(o => { if (o.isMesh && /_stream$/.test(nodeName(o))) { o.visible = false; o.userData.isStream = true; } });     // hose bib water starts off
       g.scene.traverse(o => { if (o.isMesh && /_lint$/.test(nodeName(o))) { o.visible = false; o.userData.placeHidden = true; } });     // the dryer duct's packed lint is a fault variant: Blender's hide never reached the page, so a cut duct showed it
@@ -646,7 +671,7 @@
         try { path = JSON.parse(raw).map(q => new T.Vector3(q[0], q[2], -q[1])); } catch (e) { }     // blender (x, y, z) is gltf (x, z, -y)
         flows.push({ obj: o, kind: m[1], run: m[2], path: path });
       });
-      g.scene.traverse(o => { if (o.isMesh) { o.userData.label = labels[base(o.name)] || (o.parent && labels[base(o.parent.name)]) || base(o.name); o.userData.layer = f; } });
+      g.scene.traverse(o => { if (o.isMesh) { o.userData.label = labels[base(o.name)] || (o.parent && labels[base(o.parent.name)]) || base(o.name); o.userData.layer = lf; } });
       // carry the layout tag down from the glTF extras onto every mesh of the run, so filtering is one pass
       g.scene.traverse(o => { let p = o, c; while (p && c === undefined) { c = p.userData && p.userData.config; p = p.parent; } if (c !== undefined) o.userData.config = c; });
     }
@@ -1398,7 +1423,7 @@
   }
   // cleanout plugs: the pipe layer gives each plug its own node with the direction it unscrews along
   const plugs = new Map();
-  const GRADE_Y = -0.90;     // the lawn, in the viewer's own axes (round 36: the house stands 90 cm over grade)
+  let GRADE_Y = -0.90;     // (-0.15 in the slab house: setFiles) the lawn, in the viewer's own axes (round 36: the house stands 90 cm over grade)
   function plugOff(o) {
     let p = o; while (p && !(p.userData && p.userData.plug_dir)) p = p.parent;
     if (!p) return null;
@@ -4108,7 +4133,7 @@
     const corridor = new T.Box3().setFromPoints([pos.clone(), c.clone()]).expandByVector(new T.Vector3(wide, size.y * 0.6, wide));
     corridor.max.y = Math.max(corridor.max.y, 30);
     house.traverse(o => { if (!o.isMesh || !o.visible) return; const bb = new T.Box3().setFromObject(o); if (!bb.intersectsBox(corridor)) return; elev.corr.set(o, o.visible); o.visible = false; });
-    let stem = null; house.traverse(o => { if (o.isMesh && nodeName(o) === 'wall_crawl_stem') stem = (stem || new T.Box3()).expandByObject(o); });
+    let stem = null; house.traverse(o => { if (o.isMesh && (nodeName(o) === 'wall_crawl_stem' || nodeName(o) === 'fix_footing_slab')) stem = (stem || new T.Box3()).expandByObject(o); });
     const inHouse = (bb, m_) => { const m = bb.getCenter(new T.Vector3()); return m.x > stem.min.x - m_ && m.x < stem.max.x + m_ && m.z > stem.min.z - m_ && m.z < stem.max.z + m_; };
     if (stem) for (const grp of [pipes, ...equip.children.filter(u => !elev.roots.includes(u))]) grp.traverse(o => {
       if (!o.isMesh || !o.visible) return; const bb = new T.Box3().setFromObject(o);
@@ -4257,7 +4282,7 @@
       const sel = document.createElement('select'); sel.title = k;
       for (const v of vals) { const o = document.createElement('option'); o.value = v; o.textContent = v.replace(/_/g, ' '); sel.appendChild(o); }
       sel.value = CONFIG[k];
-      sel.onchange = async () => { CONFIG[k] = sel.value; await reconfigure(); };
+      sel.onchange = async () => { if (k === 'foundation') { await switchFoundation(sel.value); for (const s_ of host.querySelectorAll('select')) s_.value = CONFIG[s_.title]; return; } CONFIG[k] = sel.value; await reconfigure(); };     // 2026-09-25: a new house is a new set of files
       host.appendChild(sel);
     }
   })();
@@ -4437,7 +4462,7 @@
     // under the floor) and the placed models arrive behind you, in the same order as before, and 'ready:' still means all of it.
     // The layout tags are applied as soon as the site is in, or every layout's lawn and street patch would show at once.
     try {
-      await loadHouse(HOUSE_FIRST); poseGarageDoor(); applyPipeConfig(); goTo('spawn_door'); step();
+      setFiles(); await loadHouse(HOUSE_FIRST); poseGarageDoor(); applyPipeConfig(); goTo('spawn_door'); step();
       window.__walkCanEnter = true; status.textContent = 'the house is up: furniture, pipes and equipment are still arriving';
       await loadHouse(HOUSE_REST); collectFixtures(); updateLights();
       await loadPipes(); applyPipeConfig(); await loadPlacements(); chooseDoorSides(); status.textContent = 'ready: ' + Object.keys(sockets).length + ' sockets, ' + equip.children.length + ' models placed'; loadEl.style.display = 'none'; }
@@ -4457,7 +4482,33 @@
     }
     return renderer.domElement.toDataURL("image/png");
   }
-  window.walk = { plantSims, waters, stepFlow, syncFixtureFlows, syncPlant, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, clampTest, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, viewPart, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
+  // 2026-09-25, the slab house: change houses without leaving the page. Nothing loaded is ever unloaded anywhere else, so this takes down
+  // everything the house, the pipes and the equipment put in the page's tables, then runs the start up again with the other house's files.
+  // The frame loop and the controls keep running. selfTestFoundation() proves a crawl, slab, crawl round trip ends where it began.
+  async function switchFoundation(f) {
+    await bootDone;
+    if (f === CONFIG.foundation) return 'already the ' + f + ' house';
+    if (ball) { try { endBall(); } catch (e) { } }
+    Object.assign(CONFIG, foundationSet(f)); setFiles();
+    for (const grp of [house, pipes, equip]) for (const c of [...grp.children]) { grp.remove(c); c.traverse(o => { if (o.geometry) o.geometry.dispose(); }); }
+    for (const A of [colliders, floors, overhead, doors, doorAnim, lids, flows, mixers, placedFloors, placedColliders, fixtures, garageDoor.nodes, plantSims]) A.length = 0;
+    for (const O of [sockets, waypoints, houseByName, layers, roomBoxes]) for (const k of Object.keys(O)) delete O[k];
+    PEND = []; plugs.clear(); bibsOn.clear(); pumpOn = false; sprayOn = false; garageDoor.t = 0; garageDoor.target = 0;
+    status.textContent = 'building the ' + (f === 'slab' ? 'slab' : 'crawl space') + ' house'; loadEl.style.display = '';
+    await loadHouse(HOUSE_FIRST); poseGarageDoor(); applyPipeConfig(); goTo('spawn_door');
+    await loadHouse(HOUSE_REST); collectFixtures(); updateLights();
+    await loadPipes(); applyPipeConfig();
+    queuePlacements(placements.placements.filter(wants)); await placeNearest(6); pumpsOnByDefault(); chooseDoorSides();
+    status.textContent = 'ready: ' + Object.keys(sockets).length + ' sockets, ' + equip.children.length + ' models placed'; loadEl.style.display = 'none';
+    return 'now the ' + f + ' house';
+  }
+  async function selfTestFoundation() {
+    const count = () => ({ colliders: colliders.length, floors: floors.length, sockets: Object.keys(sockets).length, doors: doors.length, lids: lids.length, layers: Object.keys(layers).length, fixtures: fixtures.length, placed: equip.children.length + PEND.length });
+    await bootDone; const f0 = CONFIG.foundation, a = count(); const other = f0 === 'slab' ? 'crawl' : 'slab';
+    await switchFoundation(other); const b = count(); await switchFoundation(f0); const c = count();
+    return { start: f0, first: a, other: b, back: c, same: JSON.stringify(a) === JSON.stringify(c) };
+  }
+  window.walk = { switchFoundation, selfTestFoundation, fits, foundationSet, plantSims, waters, stepFlow, syncFixtureFlows, syncPlant, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, clampTest, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, viewPart, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
     // round 90 verification: would a step from Blender (x, y) at the current eye height along (dx, dy) be stopped, and how many
     // colliders the walker has (the house's col_ walls and furniture must survive a reconfigure)
     blockedAt: (bx, by, dx, dy) => blocked(new T.Vector3(bx, pos.y, -by), new T.Vector3(dx, 0, -dy).normalize()), colliderCount: () => colliders.length,
