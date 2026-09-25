@@ -1,7 +1,7 @@
 {
- "published": "2026-09-23T20:19:08",
- "house": "r89a",
- "note": "round 89: new add ons (mixing valve CPVC and PEX, WH surge, air quality monitor, media cabinet, purifier, ERV, hose bib freeze cover and vacuum breaker, SludgeHammer), trash tank, commercial grease lot, teaching clips, link landing fixes",
+ "published": "2026-09-25T01:34:56",
+ "house": "r89b",
+ "note": "round 89b: every yard cleanout tee bored through, the ball clears them in all layouts",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -144,8 +144,8 @@
    "bytes": 227820
   },
   "house_furniture.glb": {
-   "v": "6520f0b3c5",
-   "bytes": 8863196
+   "v": "41cc76259f",
+   "bytes": 8858224
   },
   "house_links.json": {
    "v": "ef61fd0c24",
@@ -200,8 +200,8 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "b6aba2c044",
-   "bytes": 19816
+   "v": "5d232049df",
+   "bytes": 19610
   },
   "induct_purifier.glb": {
    "v": "3eafbe7e55",
@@ -260,12 +260,12 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "3a05a04dac",
-   "bytes": 3238836
+   "v": "b311aee00d",
+   "bytes": 3199752
   },
   "pipes_gas.glb": {
-   "v": "f223d3afbe",
-   "bytes": 815548
+   "v": "b0fbf46d46",
+   "bytes": 816320
   },
   "pipes_hvac.glb": {
    "v": "5f9c44670a",
