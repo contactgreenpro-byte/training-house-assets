@@ -159,7 +159,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '89a';
+  var SHELL = '91a';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -255,12 +255,12 @@
   var VAL_LABEL = {
     attic_gas_tank: 'Gas tank in the attic', closet_gas_tank: 'Gas tank in a closet',
     attic_electric_tank: 'Electric tank in the attic', closet_electric_tank: 'Electric tank in a closet',
-    garage_tankless: 'Gas tankless in the garage', garage_hybrid: 'Hybrid heat pump tank in the garage',
+    garage_tankless: 'Gas tankless in the garage', garage_tankless_noncondensing: 'Gas tankless, non-condensing, in the garage', garage_hybrid: 'Hybrid heat pump tank in the garage',
     garage_electric_tankless: 'Electric tankless in the garage',
     split_furnace: 'Gas furnace and AC (80%)', split_furnace_cond96: 'Condensing furnace and AC (96%)',
     heatpump_attic: 'Heat pump, air handler in the attic', gas_pack: 'Gas pack outside',
     septic_spray: 'Septic, spray field', septic_spray_two_tank: 'Septic, spray field, two tanks',
-    septic_spray_trash: 'Septic, spray field, trash tank in front of the plant',
+    septic_spray_trash: 'Septic, spray field, trash tank in front of the plant', septic_spray_fiberglass_train: 'Septic, fiberglass: pre-treatment tank, AquaKlear, spray field', septic_overland_fiberglass_train: 'Septic, fiberglass: pre-treatment tank, AquaKlear, overland discharge',
     septic_gravity: 'Septic, gravity field', septic_overland: 'Septic, overland discharge',
     septic_overland_lee: 'Septic, Lee overland', septic_overland_aquaklear: 'Septic, AquaKlear overland',
     city_lift: 'City sewer with a lift station', city_lift_duplex: 'City sewer, duplex lift station on rails', city_gravity: 'City sewer, gravity',

@@ -167,9 +167,9 @@
   let groundOn = true;
   function isGround(o) { return GROUND.some(p => nodeName(o).startsWith(p)); }
   const CONFIG_CHOICES = {
-    water_heater: ['attic_gas_tank', 'closet_gas_tank', 'attic_electric_tank', 'closet_electric_tank', 'garage_tankless', 'garage_hybrid', 'garage_electric_tankless'],     // round 46: the electric tank in both tank spots (Jake)
+    water_heater: ['attic_gas_tank', 'closet_gas_tank', 'attic_electric_tank', 'closet_electric_tank', 'garage_tankless', 'garage_hybrid', 'garage_electric_tankless', 'garage_tankless_noncondensing'],     // round 46: the electric tank in both tank spots (Jake)
     hvac: ['split_furnace', 'split_furnace_cond96', 'heatpump_attic', 'gas_pack'],
-    sewer: ['septic_spray', 'septic_spray_two_tank', 'septic_gravity', 'septic_overland', 'septic_overland_lee', 'septic_overland_aquaklear', 'city_lift', 'city_lift_duplex', 'city_gravity', 'septic_spray_trash'],     // round 78: the duplex grinder station (Jake)
+    sewer: ['septic_spray', 'septic_spray_two_tank', 'septic_gravity', 'septic_overland', 'septic_overland_lee', 'septic_overland_aquaklear', 'city_lift', 'city_lift_duplex', 'city_gravity', 'septic_spray_trash', 'septic_spray_fiberglass_train', 'septic_overland_fiberglass_train'],     // round 78: the duplex grinder station (Jake)
         // 2026-09-23: septic_spray_trash, the IM-540 trash tank in front of the Lee plant (Jake: "use the 540 Infiltrator, just put that in front")
         // round 29: gravity to the street (Jake)
     water: ['city_filter', 'well'],     // round 41: a well with a pressure tank in the garage (Jake)
@@ -3684,7 +3684,7 @@
   // Round 27: the yard system runs as a cycle. Water goes down the sewer into the tank, the tank fills (high_water), the float brings
   // the pump on (pump_run), the level drops (pump_down), and it repeats while the water runs. Each plant plays the clips it has.
   let sysOn = false, sysTimers = [];
-  const CYCLES = { 'pump_tank.glb': ['high_water', 'pump_run', 'pump_down'], 'septic_lee.glb': ['float_test', 'pump_run'], 'septic_lee_trash.glb': ['float_test', 'pump_run'], 'septic_lee_overland.glb': ['float_test'],
+  const CYCLES = { 'pump_tank.glb': ['high_water', 'pump_run', 'pump_down'], 'pump_tank_train.glb': ['high_water', 'pump_run', 'pump_down'], 'septic_lee.glb': ['float_test', 'pump_run'], 'septic_lee_trash.glb': ['float_test', 'pump_run'], 'septic_lee_overland.glb': ['float_test'],
                     'lift_station_r12.glb': ['fill_from_house', 'pump_down'] };     // (round 68: every plant that carries a plant_sim is skipped by plantCycle: its floats run it, not this table)
   function playNamed(inst, name, on) {
     const A = inst.userData.anim; if (!A) return 0; const c = A.clips.find(x => x.name === name); if (!c) return 0;

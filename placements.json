@@ -642,6 +642,28 @@
    }
   },
   {
+   "socket": "sock_wh_garage",
+   "file": "floor1",
+   "pack": "gas_tankless_water_heater",
+   "variant": "noncondensing",
+   "model": "gas_tankless_water_heater_noncondensing.glb",
+   "yaw": 180,
+   "hide": [
+    "wall_bracket",
+    "floor_drain_funnel",
+    "qa_wall",
+    "qa_floor"
+   ],
+   "config": "water_heater=garage_tankless_noncondensing",
+   "alternate": true,
+   "note": "Round 91 (Jake 2026-09-25: \"We also need non-condensing tankless, all that\"): the same builder's non-condensing variant on the same socket, the same offset. One primary exchanger, no condensate parts; its one 3 in Category III stainless vent is the house's (build_pipes.py vent_wh_tankless_nc: up off the unit's own stainless, out through the garage's north wall to a stainless hood, sloping down to it). Cold, hot, gas, relief line and recirculation return are the condensing layout's.",
+   "offset": [
+    0,
+    -0.3,
+    0
+   ]
+  },
+  {
    "socket": "sock_ahu_closet_hall",
    "file": "floor1",
    "pack": "hvac_furnace",
@@ -1136,7 +1158,7 @@
     "grass",
     "spray_pattern"
    ],
-   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash",
+   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train",
    "arc": 360,
    "radius_ft": 22
   },
@@ -1150,7 +1172,7 @@
     "grass",
     "spray_pattern"
    ],
-   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash",
+   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train",
    "arc": 360,
    "radius_ft": 22
   },
@@ -1164,7 +1186,7 @@
     "grass",
     "spray_pattern"
    ],
-   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash",
+   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train",
    "arc": 180,
    "note": "At the back property line, half circle facing the house.",
    "radius_ft": 22
@@ -1562,7 +1584,7 @@
     0,
     0
    ],
-   "config": "sewer=septic_spray|septic_spray_two_tank|septic_overland_lee|septic_overland_aquaklear|septic_spray_trash",
+   "config": "sewer=septic_spray|septic_spray_two_tank|septic_overland_lee|septic_overland_aquaklear|septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train",
    "note": "The overland air pump (round 17, Jake: no panel with overland discharge, the alarm works off the air pump itself, it plugs into an outlet on the outside of the wall, and it needs a concrete base): the Hiblow with its own alarm on a poured pad, an in-use GFCI receptacle on the siding with the cord plugged in. All three overland plants take their air from its stub. Round 36 (Jake): the Lee and the AquaKlear plants get the blower on its outlet, no panel."
   },
   {
@@ -2270,9 +2292,10 @@
     "uf_green",
     "uf_white"
    ],
-   "config": "sewer=septic_spray_trash",
+   "config": "sewer=septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train",
    "alternate": true,
-   "note": "2026-09-23 (Jake: \"I like the trash tank idea. Let's do that. You can use the 540 Infiltrator. Just put that in front\"): the trash tank, a primary settling tank in FRONT of the Lee plant, so the house sewer runs house, trash tank, plant. The IM-540 built with its outlet end (build_pump_tank.py MODE trash, 11 in of cover): the house sewer through the inlet saddle's gasket into the inlet tee, the effluent out of the outlet tee (3 in lower, dipping 40 percent of the liquid) through the outlet gasket to the Lee. It has NO pump, float or wiring, so those are hidden here with the model's own spray field, chlorinator and the two stubs it carries for being viewed alone."
+   "note": "2026-09-23 (Jake: \"I like the trash tank idea. Let's do that. You can use the 540 Infiltrator. Just put that in front\"): the trash tank, a primary settling tank in FRONT of the Lee plant, so the house sewer runs house, trash tank, plant. The IM-540 built with its outlet end (build_pump_tank.py MODE trash, 11 in of cover): the house sewer through the inlet saddle's gasket into the inlet tee, the effluent out of the outlet tee (3 in lower, dipping 40 percent of the liquid) through the outlet gasket to the Lee. It has NO pump, float or wiring, so those are hidden here with the model's own spray field, chlorinator and the two stubs it carries for being viewed alone.",
+   "elevation_group": "fiberglass_train"
   },
   {
    "socket": "sock_atu_trash_back",
@@ -2898,7 +2921,7 @@
     -0.05,
     0.05
    ],
-   "config": "sewer=septic_spray_trash&sludgehammer=yes",
+   "config": "sewer=septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train&sludgehammer=yes",
    "hide": [
     "airline_seal_18in"
    ],
@@ -3004,6 +3027,159 @@
    ],
    "config": "commercial_lot=yes",
    "note": "Round 89: the storefront the interceptor serves (kitchen, three compartment sink, floor sinks, restroom), on its own slab 6 in up; walk.js stands you on its floor_ meshes and collides its *_body walls."
+  },
+  {
+   "socket": "sock_ak_train_back",
+   "file": "site",
+   "pack": "septic_aquaklear",
+   "model": "septic_aquaklear_train.glb",
+   "yaw": 90,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "sewer=septic_spray_fiberglass_train",
+   "alternate": true,
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "sewer_line",
+    "air_pump",
+    "pump_pad",
+    "pump_cover",
+    "pump_filter",
+    "pump_filter_cover",
+    "pump_filter_dirty",
+    "pump_internals",
+    "pump_hose",
+    "air_line_ground",
+    "alarm_lit",
+    "inlet",
+    "cleanout",
+    "cleanout_plug",
+    "cleanout_backflow_cap",
+    "scum_layer",
+    "sludge_blanket",
+    "water_gray",
+    "water_gray_section",
+    "power_cord"
+   ],
+   "note": "Round 91, the fiberglass train (Jake 2026-09-25: \"make sure that the fiberglass layout also gets done\"): the AquaKlear at 15 in of cover (3 in deeper than the two tank layout's, so the Infiltrator pre-treatment tank ahead of it drains into it with the house sewer at a full quarter), its inlet end to the pre-treatment tank on sock_trash_tank_back, fed by pipe_dwv_effluent_fglass. Spray: its outlet runs on to the pump tank.",
+   "elevation_group": "fiberglass_train"
+  },
+  {
+   "socket": "sock_ak_train_back",
+   "file": "site",
+   "pack": "septic_aquaklear",
+   "model": "septic_aquaklear_train.glb",
+   "yaw": 90,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "config": "sewer=septic_overland_fiberglass_train",
+   "alternate": true,
+   "hide": [
+    "grass",
+    "grass_section",
+    "soil",
+    "soil_section",
+    "sewer_line",
+    "air_pump",
+    "pump_pad",
+    "pump_cover",
+    "pump_filter",
+    "pump_filter_cover",
+    "pump_filter_dirty",
+    "pump_internals",
+    "pump_hose",
+    "air_line_ground",
+    "alarm_lit",
+    "inlet",
+    "cleanout",
+    "cleanout_plug",
+    "cleanout_backflow_cap",
+    "scum_layer",
+    "sludge_blanket",
+    "water_gray",
+    "water_gray_section",
+    "float_switch",
+    "float_cable",
+    "power_cord"
+   ],
+   "note": "Round 91, the fiberglass train (Jake 2026-09-25: \"make sure that the fiberglass layout also gets done\"): the AquaKlear at 15 in of cover (3 in deeper than the two tank layout's, so the Infiltrator pre-treatment tank ahead of it drains into it with the house sewer at a full quarter), its inlet end to the pre-treatment tank on sock_trash_tank_back, fed by pipe_dwv_effluent_fglass. Overland: its outlet turns west to the hillside, no panel, no float.",
+   "elevation_group": "fiberglass_train"
+  },
+  {
+   "socket": "sock_pump_tank_train_back",
+   "file": "site",
+   "pack": "pump_tank",
+   "model": "pump_tank_train.glb",
+   "yaw": 0,
+   "hide": [
+    "grass",
+    "soil",
+    "soil_front",
+    "backfill",
+    "spray_line",
+    "spray_head0",
+    "spray_head1",
+    "spray_head2",
+    "head_stem0",
+    "head_stem1",
+    "head_stem2",
+    "stream0",
+    "stream1",
+    "stream2",
+    "spray_pattern",
+    "spray_overlap",
+    "chlorinator",
+    "chlor_tablets",
+    "inlet_stub",
+    "intake_fouled",
+    "float_tangled",
+    "cord_chafed"
+   ],
+   "config": "sewer=septic_spray_fiberglass_train",
+   "alternate": true,
+   "note": "Round 91, the fiberglass train, spray: the IM-540 pump tank at 18 in of cover behind the AquaKlear, fed by pipe_dwv_effluent_fglass_pt; plug in pump, UF from the GFCI at the house into its cord grip, the splices under its lid (round 69).",
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "elevation_group": "fiberglass_train",
+   "sim_feed": "^pipe_dwv_effluent_fglass_pt$"
+  },
+  {
+   "socket": "sock_pump_tank_train_back",
+   "file": "site",
+   "pack": "spray_pump_filter",
+   "model": "spray_pump_filter.glb",
+   "yaw": 0,
+   "offset": [
+    0.0505,
+    -0.05,
+    -1.82904
+   ],
+   "config": "sewer=septic_spray_fiberglass_train&filter=yes",
+   "alternate": true,
+   "hide": [
+    "pump",
+    "pump_intake_slots",
+    "discharge",
+    "lift_rope"
+   ],
+   "states": [
+    "screen_fouled",
+    "inflow_arrows",
+    "up_arrows"
+   ],
+   "note": "Round 91: the spray pump filter over the fiberglass train's pump tank pump (the two tank one's offset less the socket offset, 3 in deeper)."
   }
  ],
  "hide_patterns": [

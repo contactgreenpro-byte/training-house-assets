@@ -408,7 +408,7 @@
 ]
 ],
 "r": 0.0167,
-"config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash"
+"config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train"
 },
 "pipe_septic_spray_line_3": {
 "pts": [
@@ -429,7 +429,7 @@
 ]
 ],
 "r": 0.0167,
-"config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash"
+"config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train"
 },
 "pipe_dwv_sewer_gravity": {
 "pts": [
@@ -661,7 +661,7 @@
 ]
 ],
 "r": 0.057,
-"config": "sewer=septic_spray_trash"
+"config": "sewer=septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train"
 },
 "pipe_dwv_effluent_trash": {
 "pts": [
@@ -739,6 +739,74 @@
 ],
 "r": 0.0167,
 "config": "sewer=septic_spray_trash"
+},
+"pipe_dwv_effluent_fglass": {
+"pts": [
+[
+-10.668,
+9.4272,
+-1.3769
+],
+[
+-10.668,
+9.8438,
+-1.3769
+],
+[
+-10.668,
+10.3203,
+-1.3947
+],
+[
+-10.668,
+10.5537,
+-1.3971
+]
+],
+"r": 0.057,
+"config": "sewer=septic_spray_fiberglass_train|septic_overland_fiberglass_train"
+},
+"pipe_dwv_effluent_fglass_pt": {
+"pts": [
+[
+-10.668,
+12.9045,
+-1.4271
+],
+[
+-10.668,
+13.5318,
+-1.4531
+],
+[
+-10.668,
+14.0407,
+-1.4531
+]
+],
+"r": 0.057,
+"config": "sewer=septic_spray_fiberglass_train"
+},
+"pipe_septic_spray_line_fglass": {
+"pts": [
+[
+-10.618,
+16.0025,
+-1.15
+],
+[
+-10.618,
+25.44,
+-1.15
+],
+[
+-8.81,
+25.44,
+-1.15
+]
+],
+"r": 0.0167,
+"config": "sewer=septic_spray_fiberglass_train"
 },
 "pipe_dwv_sewer_overland_aquaklear": {
 "pts": [
@@ -818,6 +886,27 @@
 ],
 "r": 0.0571,
 "config": "sewer=septic_overland_aquaklear"
+},
+"pipe_septic_overland_discharge_fglass": {
+"pts": [
+[
+-10.668,
+12.9045,
+-1.4271
+],
+[
+-10.668,
+13.3045,
+-1.4354
+],
+[
+-19.18,
+13.3045,
+-1.6125
+]
+],
+"r": 0.0571,
+"config": "sewer=septic_overland_fiberglass_train"
 },
 "pipe_dwv_sewer_lift": {
 "pts": [

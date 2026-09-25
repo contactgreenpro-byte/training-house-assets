@@ -217,6 +217,13 @@
      "set": {
       "water_heater": "garage_tankless"
      }
+    },
+    {
+     "model": "gas_tankless_water_heater_noncondensing.glb",
+     "socket": "sock_wh_garage",
+     "set": {
+      "water_heater": "garage_tankless_noncondensing"
+     }
     }
    ]
   },
@@ -404,6 +411,13 @@
      "set": {
       "sewer": "septic_spray_two_tank"
      }
+    },
+    {
+     "model": "pump_tank_train.glb",
+     "socket": "sock_pump_tank_train_back",
+     "set": {
+      "sewer": "septic_spray_fiberglass_train"
+     }
     }
    ]
   },
@@ -430,6 +444,20 @@
      "socket": "sock_atu_back",
      "set": {
       "sewer": "septic_overland_aquaklear"
+     }
+    },
+    {
+     "model": "septic_aquaklear_train.glb",
+     "socket": "sock_ak_train_back",
+     "set": {
+      "sewer": "septic_spray_fiberglass_train"
+     }
+    },
+    {
+     "model": "septic_aquaklear_train.glb",
+     "socket": "sock_ak_train_back",
+     "set": {
+      "sewer": "septic_overland_fiberglass_train"
      }
     }
    ]

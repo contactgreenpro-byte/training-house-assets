@@ -1,7 +1,7 @@
 {
- "published": "2026-09-25T05:15:13",
- "house": "r90a",
- "note": "round 90: trash tank sewer at a full quarter inch, sump vent and panel feed, attic Flo riser cut, laundry wall Flo opening, back hose bib kit, attic electric whip, ERV interlock, spray filter on its pump, grease wording, colliders kept on layout change; water heater sediment and anode polish with working shape clips; menu sheet pictures",
+ "published": "2026-09-25T07:45:55",
+ "house": "r91a",
+ "note": "round 91: non-condensing gas tankless in the garage (Category III stainless vent), fiberglass septic train (Infiltrator pre-treatment ahead of the AquaKlear, overland and spray, SludgeHammer option); menu sheet pictures for every HVAC column from the exact Rheem models",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -16,8 +16,8 @@
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "cf62c06ca5",
-   "bytes": 49484
+   "v": "a4cebf34d9",
+   "bytes": 49766
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -56,8 +56,8 @@
    "bytes": 311332
   },
   "drains.json": {
-   "v": "db8c2b616c",
-   "bytes": 9424
+   "v": "08eb64d066",
+   "bytes": 10499
   },
   "dryer.glb": {
    "v": "0c266ce22a",
@@ -111,6 +111,10 @@
    "v": "ae7dad6a66",
    "bytes": 1150840
   },
+  "gas_tankless_water_heater_noncondensing.glb": {
+   "v": "a12df383ea",
+   "bytes": 1039040
+  },
   "gloves.glb": {
    "v": "6481c815f6",
    "bytes": 44800
@@ -144,16 +148,16 @@
    "bytes": 251668
   },
   "house_furniture.glb": {
-   "v": "fadd813b73",
-   "bytes": 8858384
+   "v": "6e9c4cd5fa",
+   "bytes": 8858296
   },
   "house_links.json": {
-   "v": "ef61fd0c24",
-   "bytes": 43257
+   "v": "a199beaecd",
+   "bytes": 46157
   },
   "house_site.glb": {
-   "v": "cceb25685c",
-   "bytes": 7634712
+   "v": "a9936c24e5",
+   "bytes": 7880340
   },
   "house_slab.glb": {
    "v": "e170461dbb",
@@ -200,7 +204,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "2b1e82c5c0",
+   "v": "854b61dc25",
    "bytes": 19610
   },
   "induct_purifier.glb": {
@@ -260,24 +264,24 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "18d93f73f2",
-   "bytes": 3284048
+   "v": "ec029685a2",
+   "bytes": 3426188
   },
   "pipes_gas.glb": {
-   "v": "e5c4b0c2ed",
-   "bytes": 816016
+   "v": "73d0d073de",
+   "bytes": 837804
   },
   "pipes_hvac.glb": {
    "v": "bf857c6052",
    "bytes": 2269132
   },
   "pipes_supply.glb": {
-   "v": "f237e3050c",
-   "bytes": 2898352
+   "v": "6372add712",
+   "bytes": 2899280
   },
   "placements.json": {
-   "v": "73be4a900d",
-   "bytes": 99762
+   "v": "e32896cd50",
+   "bytes": 105337
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -290,6 +294,10 @@
   "pump_tank.glb": {
    "v": "4877fdc579",
    "bytes": 748624
+  },
+  "pump_tank_train.glb": {
+   "v": "c0376a7161",
+   "bytes": 748216
   },
   "pump_tank_trash.glb": {
    "v": "6132c3576a",
@@ -310,6 +318,10 @@
   "septic_aquaklear.glb": {
    "v": "8614137c87",
    "bytes": 1252020
+  },
+  "septic_aquaklear_train.glb": {
+   "v": "378d84c01c",
+   "bytes": 1311320
   },
   "septic_aquasafe.glb": {
    "v": "865724c699",
@@ -408,8 +420,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "8b8946d5dc",
-   "bytes": 419383
+   "v": "0b92801a90",
+   "bytes": 419549
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -477,13 +489,141 @@
    "v": "cc270e3288",
    "bytes": 27300
   },
+  "menu-art/hvac-electric-2ton-t1-yocona.jpg": {
+   "v": "a055de7821",
+   "bytes": 22405
+  },
+  "menu-art/hvac-electric-2ton-t2-sardis.jpg": {
+   "v": "d51bad8e7f",
+   "bytes": 22364
+  },
+  "menu-art/hvac-electric-2ton-t3-grove.jpg": {
+   "v": "8cef14fd31",
+   "bytes": 26392
+  },
+  "menu-art/hvac-electric-2ton-t4-happy-home.jpg": {
+   "v": "1d9c8804ab",
+   "bytes": 31250
+  },
+  "menu-art/hvac-electric-3ton-t1-yocona.jpg": {
+   "v": "489f524752",
+   "bytes": 22353
+  },
+  "menu-art/hvac-electric-3ton-t2-sardis.jpg": {
+   "v": "1460c1cf0d",
+   "bytes": 24624
+  },
+  "menu-art/hvac-electric-3ton-t3-grove.jpg": {
+   "v": "beef072623",
+   "bytes": 26385
+  },
+  "menu-art/hvac-electric-3ton-t4-happy-home.jpg": {
+   "v": "5297eb07ef",
+   "bytes": 31806
+  },
+  "menu-art/hvac-electric-4ton-t1-yocona.jpg": {
+   "v": "85d1f4bff1",
+   "bytes": 25303
+  },
+  "menu-art/hvac-electric-4ton-t2-sardis.jpg": {
+   "v": "bb5f2f43b4",
+   "bytes": 25305
+  },
+  "menu-art/hvac-electric-4ton-t3-grove.jpg": {
+   "v": "c571bb2f1e",
+   "bytes": 28793
+  },
+  "menu-art/hvac-electric-4ton-t4-happy-home.jpg": {
+   "v": "8b942867fd",
+   "bytes": 35730
+  },
+  "menu-art/hvac-electric-5ton-t1-yocona.jpg": {
+   "v": "dd13dc3621",
+   "bytes": 27240
+  },
+  "menu-art/hvac-electric-5ton-t2-sardis.jpg": {
+   "v": "9710624527",
+   "bytes": 27232
+  },
+  "menu-art/hvac-electric-5ton-t3-grove.jpg": {
+   "v": "7ebf8fbfd1",
+   "bytes": 28405
+  },
+  "menu-art/hvac-electric-5ton-t4-happy-home.jpg": {
+   "v": "8ea115d351",
+   "bytes": 35411
+  },
+  "menu-art/hvac-gas-2ton-t1-yocona.jpg": {
+   "v": "34a904f7c4",
+   "bytes": 19284
+  },
+  "menu-art/hvac-gas-2ton-t2-sardis.jpg": {
+   "v": "b9c8d78453",
+   "bytes": 20407
+  },
+  "menu-art/hvac-gas-2ton-t3-grove.jpg": {
+   "v": "8425589317",
+   "bytes": 23085
+  },
+  "menu-art/hvac-gas-2ton-t4-happy-home.jpg": {
+   "v": "b251f7aac2",
+   "bytes": 27649
+  },
+  "menu-art/hvac-gas-3ton-t1-yocona.jpg": {
+   "v": "47bc2627f9",
+   "bytes": 20312
+  },
+  "menu-art/hvac-gas-3ton-t2-sardis.jpg": {
+   "v": "84436d65ba",
+   "bytes": 22612
+  },
+  "menu-art/hvac-gas-3ton-t3-grove.jpg": {
+   "v": "3cba6df895",
+   "bytes": 23081
+  },
+  "menu-art/hvac-gas-3ton-t4-happy-home.jpg": {
+   "v": "ca6ad5a7e1",
+   "bytes": 30222
+  },
+  "menu-art/hvac-gas-4ton-t1-yocona.jpg": {
+   "v": "51f7d3b20a",
+   "bytes": 20859
+  },
+  "menu-art/hvac-gas-4ton-t2-sardis.jpg": {
+   "v": "a98f3ed502",
+   "bytes": 21198
+  },
+  "menu-art/hvac-gas-4ton-t3-grove.jpg": {
+   "v": "2575147a11",
+   "bytes": 23633
+  },
+  "menu-art/hvac-gas-4ton-t4-happy-home.jpg": {
+   "v": "68c4cdabce",
+   "bytes": 32685
+  },
+  "menu-art/hvac-gas-5ton-t1-yocona.jpg": {
+   "v": "01c142c54c",
+   "bytes": 23131
+  },
+  "menu-art/hvac-gas-5ton-t2-sardis.jpg": {
+   "v": "849f1cc26a",
+   "bytes": 23288
+  },
+  "menu-art/hvac-gas-5ton-t3-grove.jpg": {
+   "v": "00b6ebc3dd",
+   "bytes": 24236
+  },
+  "menu-art/hvac-gas-5ton-t4-happy-home.jpg": {
+   "v": "9c6c23ced0",
+   "bytes": 30556
+  },
   "menu-art/hvac-rd16ay.jpg": {
-   "v": "2188b4b200",
-   "bytes": 34767
+   "v": "367f426b75",
+   "bytes": 35149
   },
   "menu-art/hvac-rd18ay.jpg": {
-   "v": "daedd308ae",
-   "bytes": 29273
+   "v": "68e4a3a378",
+   "bytes": 29937
   },
   "menu-art/hybrid-heat-pump.jpg": {
    "v": "76cb8260d5",
