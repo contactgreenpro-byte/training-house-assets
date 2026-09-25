@@ -675,7 +675,7 @@
    ]
   },
   "grease_interceptor": {
-   "what": "A 1,000 gallon grease interceptor behind a restaurant.",
+   "what": "A 1,000 gallon two compartment precast concrete grease interceptor behind a restaurant, the kind Happy Pipes gets from Lee's Precast. The kitchen's sinks, floor sinks and dish machine all drain through it.",
    "how": "Kitchen water slows down in the first compartment: grease floats to the top, solids sink. The clear middle crosses the baffle and leaves through the outlet tee to the city sewer. It gets pumped out on a schedule.",
    "checks": [
     "Trap type and where it sits",

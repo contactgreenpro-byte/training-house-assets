@@ -1,7 +1,7 @@
 {
- "published": "2026-09-25T01:34:56",
- "house": "r89b",
- "note": "round 89b: every yard cleanout tee bored through, the ball clears them in all layouts",
+ "published": "2026-09-25T05:15:13",
+ "house": "r90a",
+ "note": "round 90: trash tank sewer at a full quarter inch, sump vent and panel feed, attic Flo riser cut, laundry wall Flo opening, back hose bib kit, attic electric whip, ERV interlock, spray filter on its pump, grease wording, colliders kept on layout change; water heater sediment and anode polish with working shape clips; menu sheet pictures",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -40,8 +40,8 @@
    "bytes": 609804
   },
   "checklists.json": {
-   "v": "f1eb13228d",
-   "bytes": 31837
+   "v": "6b07ac9996",
+   "bytes": 31988
   },
   "clamp_meter.glb": {
    "v": "5262a30852",
@@ -56,7 +56,7 @@
    "bytes": 311332
   },
   "drains.json": {
-   "v": "542886c1c3",
+   "v": "db8c2b616c",
    "bytes": 9424
   },
   "dryer.glb": {
@@ -72,8 +72,8 @@
    "bytes": 657852
   },
   "electric_tank_water_heater.glb": {
-   "v": "d6a2df9d13",
-   "bytes": 2170468
+   "v": "b8f55fdbff",
+   "bytes": 2559796
   },
   "electric_tankless_water_heater.glb": {
    "v": "6eab360dd5",
@@ -104,8 +104,8 @@
    "bytes": 1458864
   },
   "gas_tank_water_heater.glb": {
-   "v": "a87efa994b",
-   "bytes": 2534744
+   "v": "b83398ef67",
+   "bytes": 2876904
   },
   "gas_tankless_water_heater_condensing.glb": {
    "v": "ae7dad6a66",
@@ -136,16 +136,16 @@
    "bytes": 29444
   },
   "house_floor1.glb": {
-   "v": "ce49a87ba2",
-   "bytes": 1119516
+   "v": "3d4921da32",
+   "bytes": 1123488
   },
   "house_framing.glb": {
-   "v": "824c92a953",
-   "bytes": 227820
+   "v": "61768c8f48",
+   "bytes": 251668
   },
   "house_furniture.glb": {
-   "v": "41cc76259f",
-   "bytes": 8858224
+   "v": "fadd813b73",
+   "bytes": 8858384
   },
   "house_links.json": {
    "v": "ef61fd0c24",
@@ -176,12 +176,12 @@
    "bytes": 4907632
   },
   "hvac_furnace_cond96.glb": {
-   "v": "9bac2e34ab",
-   "bytes": 2738488
+   "v": "ce053ac986",
+   "bytes": 2775028
   },
   "hvac_furnace_std80.glb": {
-   "v": "3b16aa0d16",
-   "bytes": 2722316
+   "v": "777601fa8a",
+   "bytes": 2758916
   },
   "hvac_minisplit.glb": {
    "v": "adf7affdb4",
@@ -200,7 +200,7 @@
    "bytes": 601340
   },
   "index.html": {
-   "v": "5d232049df",
+   "v": "2b1e82c5c0",
    "bytes": 19610
   },
   "induct_purifier.glb": {
@@ -208,8 +208,8 @@
    "bytes": 334432
   },
   "info.json": {
-   "v": "abeb8bb70d",
-   "bytes": 168778
+   "v": "3e3a077b26",
+   "bytes": 168825
   },
   "interactions.json": {
    "v": "31a801fe21",
@@ -260,24 +260,24 @@
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "b311aee00d",
-   "bytes": 3199752
+   "v": "18d93f73f2",
+   "bytes": 3284048
   },
   "pipes_gas.glb": {
-   "v": "b0fbf46d46",
-   "bytes": 816320
+   "v": "e5c4b0c2ed",
+   "bytes": 816016
   },
   "pipes_hvac.glb": {
-   "v": "5f9c44670a",
-   "bytes": 2223344
+   "v": "bf857c6052",
+   "bytes": 2269132
   },
   "pipes_supply.glb": {
-   "v": "761c3106b0",
-   "bytes": 2797568
+   "v": "f237e3050c",
+   "bytes": 2898352
   },
   "placements.json": {
-   "v": "5e60d5ddf0",
-   "bytes": 97133
+   "v": "73be4a900d",
+   "bytes": 99762
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -292,8 +292,8 @@
    "bytes": 748624
   },
   "pump_tank_trash.glb": {
-   "v": "f8d6bba519",
-   "bytes": 790552
+   "v": "6132c3576a",
+   "bytes": 789868
   },
   "pump_wiring.glb": {
    "v": "e689bab46c",
@@ -327,6 +327,10 @@
    "v": "5391aefb2b",
    "bytes": 883092
   },
+  "septic_lee_trash.glb": {
+   "v": "cd1caab3c4",
+   "bytes": 959064
+  },
   "septic_tank_risers.glb": {
    "v": "d6d8714865",
    "bytes": 600944
@@ -356,8 +360,8 @@
    "bytes": 1013228
   },
   "sump_pump.glb": {
-   "v": "b8662ac322",
-   "bytes": 296104
+   "v": "f4d6df606f",
+   "bytes": 296156
   },
   "sweet_air.glb": {
    "v": "36c079816e",
@@ -404,8 +408,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "5b572b8bb5",
-   "bytes": 418294
+   "v": "8b8946d5dc",
+   "bytes": 419383
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -442,6 +446,108 @@
   "wires.json": {
    "v": "0a12c4f9d5",
    "bytes": 16488
+  }
+ },
+ "menu_art": {
+  "menu-art/electric-tank-bare.jpg": {
+   "v": "b18964943d",
+   "bytes": 9152
+  },
+  "menu-art/electric-tank-expansion-scale.jpg": {
+   "v": "cf53cf173f",
+   "bytes": 9708
+  },
+  "menu-art/electric-tank-expansion.jpg": {
+   "v": "12d5777d62",
+   "bytes": 9774
+  },
+  "menu-art/gas-tank-bare.jpg": {
+   "v": "deb46e752d",
+   "bytes": 11700
+  },
+  "menu-art/gas-tank-expansion-scale.jpg": {
+   "v": "adf44be11a",
+   "bytes": 12215
+  },
+  "menu-art/gas-tank-expansion.jpg": {
+   "v": "30aed5fefb",
+   "bytes": 12595
+  },
+  "menu-art/hvac-ac-condenser.jpg": {
+   "v": "cc270e3288",
+   "bytes": 27300
+  },
+  "menu-art/hvac-rd16ay.jpg": {
+   "v": "2188b4b200",
+   "bytes": 34767
+  },
+  "menu-art/hvac-rd18ay.jpg": {
+   "v": "daedd308ae",
+   "bytes": 29273
+  },
+  "menu-art/hybrid-heat-pump.jpg": {
+   "v": "76cb8260d5",
+   "bytes": 11302
+  },
+  "menu-art/septic-concrete-delta-elevation.jpg": {
+   "v": "199348339b",
+   "bytes": 15096
+  },
+  "menu-art/septic-concrete-fiberglass-model-elevation.jpg": {
+   "v": "ddaf3369b5",
+   "bytes": 17822
+  },
+  "menu-art/septic-concrete-magnolia-elevation.jpg": {
+   "v": "7ca1f4dca4",
+   "bytes": 17382
+  },
+  "menu-art/septic-concrete-natchez-elevation.jpg": {
+   "v": "9fb83539d7",
+   "bytes": 15098
+  },
+  "menu-art/septic-fiberglass-delta-elevation.jpg": {
+   "v": "cd17e3a006",
+   "bytes": 17828
+  },
+  "menu-art/septic-fiberglass-magnolia-elevation.jpg": {
+   "v": "a2d9be5a1a",
+   "bytes": 16376
+  },
+  "menu-art/septic-fiberglass-natchez-elevation.jpg": {
+   "v": "c695187946",
+   "bytes": 14577
+  },
+  "menu-art/septic-spray-concrete-delta-elevation.jpg": {
+   "v": "dfcab7009d",
+   "bytes": 16655
+  },
+  "menu-art/septic-spray-concrete-magnolia-elevation.jpg": {
+   "v": "afdb3d5874",
+   "bytes": 19285
+  },
+  "menu-art/septic-spray-concrete-natchez-elevation.jpg": {
+   "v": "f198bfe733",
+   "bytes": 16655
+  },
+  "menu-art/septic-spray-fiberglass-delta-elevation.jpg": {
+   "v": "d94b842f93",
+   "bytes": 15703
+  },
+  "menu-art/septic-spray-fiberglass-magnolia-elevation.jpg": {
+   "v": "40fec25cac",
+   "bytes": 14469
+  },
+  "menu-art/septic-spray-fiberglass-natchez-elevation.jpg": {
+   "v": "4292970286",
+   "bytes": 13507
+  },
+  "menu-art/tankless-condensing.jpg": {
+   "v": "4ace2b3a60",
+   "bytes": 10847
+  },
+  "menu-art/tankless-non-condensing.jpg": {
+   "v": "2227b3d5b5",
+   "bytes": 11213
   }
  }
 }

@@ -656,7 +656,8 @@
     "drain_line",
     "float_switch",
     "uv_light",
-    "co_detector"
+    "co_detector",
+    "erv_pigtails"
    ],
    "config": "hvac=split_furnace",
    "note": "Default: 80 percent gas furnace, B vent. Round 18: stands on its own 24 in return platform (in the model) with a 20 x 25 filter grille in its front, wall to wall in the closet; the louvered closet door is the return. The cased coil is set back flush with the furnace's back and the vent rises in front of it; the lineset leaves the coil on the right and goes straight up to the ceiling, the gas comes down the left side. The model's own condensate line, float switch and UV lamp are hidden: the pipe layer runs the primary condensate from the pan's low port. Round 54 (Jake: typically we don't have an emergency overflow): there is no second line and the pan's high port keeps its own cap, drain_cap_aux.",
@@ -695,6 +696,12 @@
       "air_return_up_2",
       "air_return_up_3"
      ]
+    },
+    "erv": {
+     "show": [
+      "erv_pigtails"
+     ],
+     "hide": []
     }
    }
   },
@@ -713,7 +720,8 @@
     "drain_line",
     "float_switch",
     "uv_light",
-    "co_detector"
+    "co_detector",
+    "erv_pigtails"
    ],
    "config": "hvac=split_furnace_cond96",
    "alternate": true,
@@ -733,6 +741,12 @@
     "uv_light": {
      "show": [
       "uv_light"
+     ],
+     "hide": []
+    },
+    "erv": {
+     "show": [
+      "erv_pigtails"
      ],
      "hide": []
     }
@@ -1424,7 +1438,7 @@
    "model": "spray_pump_filter.glb",
    "yaw": 0,
    "offset": [
-    -1.19,
+    -1.2395,
     -0.05,
     -1.75284
    ],
@@ -2138,7 +2152,7 @@
     "lid_unsealed",
     "rag"
    ],
-   "note": "Round 88 (Jake, 2026-09-22: place the sump pump). The indoor pump basin under the hall bath, built in this socket's frame (sump_pump/HANDOFF.md): 24 x 30 basin in the crawl dirt a metre west of the toilet drop, grinder pump, floats, 2 in discharge into a wye that sleeves over the building drain, simplex panel on the girder. Add on, off by default. Still owed by the house side: tie its vent into the hall bath vent, run its capped 3 in inlet from a fixture group, run the panel feed to the garage panel."
+   "note": "Round 88 (Jake, 2026-09-22: place the sump pump). The indoor pump basin under the hall bath, built in this socket's frame (sump_pump/HANDOFF.md): 24 x 30 basin in the crawl dirt a metre west of the toilet drop, grinder pump, floats, 2 in discharge into a wye that sleeves over the building drain, simplex panel on the girder. Add on, off by default. Round 90: its vent stops in a coupling 14 cm over the lid and the house vent (vent_dwv_sump) takes it into the bath stack in the attic; its panel feed runs to the load centre (cable_sump_feed). The capped 3 in inlet waits on Jake's ruling (which fixtures, if any, drain to it)."
   },
   {
    "socket": "sock_wh_attic",
@@ -2151,7 +2165,7 @@
     0,
     0
    ],
-   "config": "shutoff_extra=attic",
+   "config": "shutoff_extra=attic&water_heater=attic_gas_tank|attic_electric_tank",
    "hide": [
     "ctx_attic"
    ],
@@ -2159,7 +2173,7 @@
     "flo_led_alert",
     "flow_packets"
    ],
-   "note": "Round 88 (Jake: place the other Flo valves). The Flo on the attic cold run, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, attic variant): CPVC x PEX transitions at y 7.80 and 8.80 on the cold riser at x -3.025 z 3.31, the brick in a receptacle on the joist. Add on, off by default. Owed by the pipe layer: cut the house cold riser between those two points, run the Romex on from 30 cm under the deck."
+   "note": "Round 88 (Jake: place the other Flo valves). The Flo on the attic cold run, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, attic variant): CPVC x PEX transitions at y 7.80 and 8.80 on the cold riser at x -3.025 z 3.31, the brick in a receptacle on the joist. Add on, off by default. Round 90: the house cold riser is cut between the two transitions (build_pipes.py flo_cut), and the add on shows only with an attic tank (there is no attic cold run otherwise). Still owed: its receptacle's feed."
   },
   {
    "socket": "sock_laundry_box_laundry",
@@ -2191,17 +2205,10 @@
     "hide": [
      "access_door"
     ],
-    "bore": [
-     "access_frame",
-     "flo_body",
-     "flo_unions",
-     "riser",
-     "receptacle",
-     "plug"
-    ],
-    "note": "Round 88: click the access door and it comes off; the drywall is bored out around the box while it is open."
+    "bore": [],
+    "note": "Round 88: click the access door and it comes off. Round 90: the laundry wall carries the opening itself (build_house.py FLO_WALL_CUT), so nothing is bored any more; the stud bay shows through the opening."
    },
-   "note": "Round 88 (Jake: place the other Flo valves). The Flo in the laundry wall, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, wall variant): a 14 x 22 in access box in the x 0 wall at y 5.334, the riser up through the bottom plate, its NM cable ending in the crawl. Add on, off by default. Owed by the house: the opening cut in the laundry drywall (the reveal bores it while the door is open), the trunk cut at y 5.284 to 5.439."
+   "note": "Round 88 (Jake: place the other Flo valves). The Flo in the laundry wall, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, wall variant): a 14 x 22 in access box in the x 0 wall at y 5.334, the riser up through the bottom plate, its NM cable ending in the crawl. Add on, off by default. Round 90: the opening is cut in the laundry wall (build_house.py FLO_WALL_CUT, a patch fills it in every other layout) and the house trunk stops 7 mm into the model's own trunk at each end (build_pipes.py flo_cut). Still owed: its receptacle's feed."
   },
   {
    "socket": "sock_trash_tank_back",
@@ -2271,7 +2278,7 @@
    "socket": "sock_atu_trash_back",
    "file": "site",
    "pack": "septic_lee",
-   "model": "septic_lee.glb",
+   "model": "septic_lee_trash.glb",
    "yaw": 0,
    "hide": [
     "grass",
@@ -2305,7 +2312,7 @@
     "inlet_stub"
    ],
    "config": "sewer=septic_spray_trash",
-   "note": "2026-09-23, the trash tank layout: the same Lee Precast 520 plant, turned on sock_atu_trash_back (-90) so its inlet faces the trash tank in front of it on the train at x -35 ft. It is fed by the trash tank's effluent line, not the house sewer (sim_feed tells the page's plant sim which run fills it). Everything else as the default yard: blower at the house, plug in pump, three heads.",
+   "note": "2026-09-23, the trash tank layout: the same Lee Precast 520 plant, turned on sock_atu_trash_back (-90) so its inlet faces the trash tank in front of it on the train at x -35 ft. It is fed by the trash tank's effluent line, not the house sewer (sim_feed tells the page's plant sim which run fills it). Everything else as the default yard: blower at the house, plug in pump, three heads. Round 90 (Jake 2026-09-25: the trash tank's sewer at a full quarter inch per foot): septic_lee_trash.glb, the same plant built at 13 in of cover, so the train sits an inch deeper with the effluent's fall unchanged; the lids are at grade.",
    "alternate": true,
    "sim_feed": "^pipe_dwv_effluent_trash$"
   },
@@ -2318,7 +2325,7 @@
    "offset": [
     -1.17475,
     -0.18,
-    -1.94945
+    -1.97485
    ],
    "config": "sewer=septic_spray_trash&filter=yes",
    "hide": [
@@ -2583,6 +2590,72 @@
     ]
    },
    "note": "Round 89 (Jake: freeze cover on the hose bibs, and the hose bib vacuum breaker). ALWAYS placed, so the spigot link lands on this unit whatever its add ons are; the two add ons are its blocks (freeze_cover, vacuum_breaker). Built in this socket's frame as it stands now (z -0.03): yaw 0, offset 0 (not the Sweet Air's z 0.45). walk.js will not run the front bib through the cover: cover_off first."
+  },
+  {
+   "socket": "sock_hosebib_back",
+   "file": "site",
+   "pack": "hosebib_protection",
+   "model": "hosebib_protection.glb",
+   "yaw": 180,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "hide": [
+    "freeze_cover_root",
+    "vacuum_breaker_root",
+    "ctx_house",
+    "ctx_bib",
+    "ctx_block",
+    "ctx_wall",
+    "ctx_bed"
+   ],
+   "states": [
+    "cover_gasket_gap",
+    "cover_cutaway",
+    "warm_band",
+    "cold_packets",
+    "vb_story_hose",
+    "vb_story_bucket",
+    "vb_air_packets",
+    "vb_hose_packets",
+    "vb_vent_drip"
+   ],
+   "addon": {
+    "freeze_cover": {
+     "show": [
+      "freeze_cover_root"
+     ],
+     "hide": []
+    },
+    "vacuum_breaker": {
+     "show": [
+      "vacuum_breaker_root"
+     ],
+     "hide": []
+    }
+   },
+   "section_set": {
+    "pairs": {
+     "cover_shell": "cover_shell_section",
+     "vb_body": "vb_body_section"
+    },
+    "also_hide": [
+     "cover_foam",
+     "cover_gasket",
+     "vb_cap",
+     "vb_hose_thread"
+    ]
+   },
+   "note": "Round 90 (owed from round 89: the kit on the BACK bib too). The same kit as the front bib's, always placed, its two add ons (freeze_cover, vacuum_breaker) switching both bibs. The back socket faces into the house, so yaw 180. The back bib stands over the lawn at -0.897 (the front's is a mulch bed at -0.850), so the backflow story's bucket (a scale keyed state, so a move holds) comes down 4.7 cm onto the grass and 6 cm north, clear of the back stoop's north face. walk.js asks each bib's own kit whether its cover is on.",
+   "move": {
+    "vb_story_bucket": [
+     0.06,
+     0.0,
+     -0.047
+    ]
+   }
   },
   {
    "socket": "sock_ahu_attic",
@@ -2916,7 +2989,7 @@
     "soil_section",
     "backfill_section"
    ],
-   "note": "Round 89 (Jake: grease trap, its own commercial lot across the street). Generic 1,000 gallon two compartment precast interceptor out back in the asphalt, traffic rated lids, cleanouts, a sampling port, the 6 in building sewer across the street into a saddle tap on the city main's south side (bored in build_pipes, plug_city_main_commercial_tap fills the hole when the lot is off). Its soil and backfill are its own: shown, and their cut halves taken out of hide_common with unhide (walk.js), so the cutaway can swap them in. The section only ever shows a fault's cut half while that fault is on (walk.js clipReveal)."
+   "note": "Round 89 (Jake: grease trap, its own commercial lot across the street). A 1,000 gallon two compartment precast concrete interceptor, the kind Happy Pipes gets from Lee's Precast (Jake 2026-09-25: no brand; the dish machine runs through it like every kitchen fixture) out back in the asphalt, traffic rated lids, cleanouts, a sampling port, the 6 in building sewer across the street into a saddle tap on the city main's south side (bored in build_pipes, plug_city_main_commercial_tap fills the hole when the lot is off). Its soil and backfill are its own: shown, and their cut halves taken out of hide_common with unhide (walk.js), so the cutaway can swap them in. The section only ever shows a fault's cut half while that fault is on (walk.js clipReveal)."
   },
   {
    "socket": "sock_commercial_lot",

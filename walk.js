@@ -280,7 +280,7 @@
     // somewhere you stand, so nothing on it stops you. You step over the curb the way the step up works everywhere else. A tub still
     // blocks, because you do not walk through a tub.
     const walkIn = /shower/.test(pl.model || '');
-    inst.traverse(o => { if (o.isMesh && o.visible && !walkIn && (o.userData.label === 'cabinet' || o.userData.label === 'tub' || o.userData.label === 'range_body' || o.userData.label.endsWith('_body'))) colliders.push(o); });
+    inst.traverse(o => { if (o.isMesh && o.visible && !walkIn && (o.userData.label === 'cabinet' || o.userData.label === 'tub' || o.userData.label === 'range_body' || o.userData.label.endsWith('_body'))) { colliders.push(o); placedColliders.push(o); } });
     // round 89: a placed model can bring its own ground (the storefront's slab 6 in up, the lot's asphalt and walks): its floor_ meshes
     // are stood on and its roof_ meshes are overhead, the same as the house's. They go again when the layout changes (reconfigure).
     inst.traverse(o => { if (!o.isMesh || !o.visible) return; const nn = nodeName(o);
@@ -288,10 +288,14 @@
       if (/^roof_/.test(nn)) { overhead.push(o); placedFloors.push(o); } });
   }
   const placedFloors = [];
+  // round 90: the placed units' colliders are their own list. reconfigure() used to empty ALL colliders, and the house's col_ walls and
+  // furn_ furniture (pushed once, at load) went with them: after any layout or add on change you walked through walls and furniture.
+  const placedColliders = [];
   async function reconfigure() {
     await bootDone;     // round 60: you can be let in before the pipes and placements.json have arrived, and this needs both
     for (const c of [...equip.children]) equip.remove(c);
-    colliders.length = 0; mixers.length = 0;
+    for (const o of placedColliders) { const i = colliders.indexOf(o); if (i >= 0) colliders.splice(i, 1); }
+    placedColliders.length = 0; mixers.length = 0;
     for (const o of placedFloors) { let i = floors.indexOf(o); if (i >= 0) floors.splice(i, 1); i = overhead.indexOf(o); if (i >= 0) overhead.splice(i, 1); }
     placedFloors.length = 0;
     // the new yard's models come in at rest, so the switches start OFF. They used to keep the last yard's state: air
@@ -1382,9 +1386,11 @@
     if (!waterOn) return nm.replace('fix_hosebib_', 'Hose bib ') + ': no water, the shutoff in the box by the house is off';
     // round 89: the front bib's freeze cover is on when that add on is in, and nobody runs a bib through its cover (the stream came
     // out through the bottom of the dome): take it off first (the kit's cover_off), then the bib runs
-    if (nm === 'fix_hosebib_front' && CONFIG.freeze_cover === 'yes' && !bibsOn.get(nm)) {
-      const kit = equip.children.find(u => /hosebib_protection/.test(u.userData.model || '')); const A = kit && kit.userData.anim;
-      if (!(A && A.state.cover_off && A.state.cover_off.open)) return 'Hose bib front: the freeze cover is on it. Take the cover off first, then run the bib';
+    // round 90: the back bib carries the kit too, so each bib asks its OWN kit (the one on its socket)
+    if (CONFIG.freeze_cover === 'yes' && !bibsOn.get(nm)) {
+      const sock = nm.replace('fix_hosebib_', 'sock_hosebib_');
+      const kit = equip.children.find(u => /hosebib_protection/.test(u.userData.model || '') && u.userData.socket === sock); const A = kit && kit.userData.anim;
+      if (kit && !(A && A.state.cover_off && A.state.cover_off.open)) return nm.replace('fix_hosebib_', 'Hose bib ') + ': the freeze cover is on it. Take the cover off first, then run the bib';
     }
     const on = !bibsOn.get(nm); bibsOn.set(nm, on);
     pipes.traverse(x => { if (x.isMesh && nodeName(x) === nm + '_stream') x.visible = on; });
@@ -3678,7 +3684,7 @@
   // Round 27: the yard system runs as a cycle. Water goes down the sewer into the tank, the tank fills (high_water), the float brings
   // the pump on (pump_run), the level drops (pump_down), and it repeats while the water runs. Each plant plays the clips it has.
   let sysOn = false, sysTimers = [];
-  const CYCLES = { 'pump_tank.glb': ['high_water', 'pump_run', 'pump_down'], 'septic_lee.glb': ['float_test', 'pump_run'], 'septic_lee_overland.glb': ['float_test'],
+  const CYCLES = { 'pump_tank.glb': ['high_water', 'pump_run', 'pump_down'], 'septic_lee.glb': ['float_test', 'pump_run'], 'septic_lee_trash.glb': ['float_test', 'pump_run'], 'septic_lee_overland.glb': ['float_test'],
                     'lift_station_r12.glb': ['fill_from_house', 'pump_down'] };     // (round 68: every plant that carries a plant_sim is skipped by plantCycle: its floats run it, not this table)
   function playNamed(inst, name, on) {
     const A = inst.userData.anim; if (!A) return 0; const c = A.clips.find(x => x.name === name); if (!c) return 0;
@@ -4452,6 +4458,9 @@
     return renderer.domElement.toDataURL("image/png");
   }
   window.walk = { plantSims, waters, stepFlow, syncFixtureFlows, syncPlant, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, clampTest, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, viewPart, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
+    // round 90 verification: would a step from Blender (x, y) at the current eye height along (dx, dy) be stopped, and how many
+    // colliders the walker has (the house's col_ walls and furniture must survive a reconfigure)
+    blockedAt: (bx, by, dx, dy) => blocked(new T.Vector3(bx, pos.y, -by), new T.Vector3(dx, 0, -dy).normalize()), colliderCount: () => colliders.length,
     // verification: put a lead on a named part, the same call a click on it makes
     meterTest: (nm, hitAt) => { const o = scene.getObjectByName(nm); if (!o) return 'no part called ' + nm;
       const at = hitAt ? new T.Vector3(hitAt[0], hitAt[1], hitAt[2]) : new T.Box3().setFromObject(o).getCenter(new T.Vector3());
