@@ -341,7 +341,8 @@
     "pipe_supply_cold_wh_closet": "3/4 in cold up the coat closet's north wall and down onto the closet water heater (closet layout)",
     "pipe_supply_hot_wh_closet": "3/4 in hot off the closet water heater, down the coat closet wall to the crawl hot trunk (closet layout)",
     "pipe_gas_drop_wh_closet": "1/2 in gas off the attic main down through the coat closet ceiling to the heater (closet layout)",
-    "vent_gas_wh_flue_closet": "3 in B vent from the closet heater's draft hood straight up through the gable (closet layout)"
+    "vent_gas_wh_flue_closet": "3 in B vent from the closet heater's draft hood straight up through the gable (closet layout)",
+    "pipe_dwv_pan_drain_wh_closet": "3/4 in PVC water heater pan drain: down into the crawl and out the front wall, turned down over the bed (closet layout)"
   },
   "slab_labels": {
     "pipe_supply_house_line": "1 in PVC from the filter at the road to the valve box by the house",
@@ -375,6 +376,8 @@
     "pipe_dwv_sewer_overland_sleeve": "Sleeve where the sewer passes through the thickened edge",
     "pipe_dwv_sewer_overland_aquaklear_sleeve": "Sleeve where the sewer passes through the thickened edge",
     "pipe_dwv_sewer_pumptank_sleeve": "Sleeve where the sewer passes through the thickened edge",
-    "pipe_dwv_sewer_trash_sleeve": "Sleeve where the sewer passes through the thickened edge"
+    "pipe_dwv_sewer_trash_sleeve": "Sleeve where the sewer passes through the thickened edge",
+    "pipe_dwv_pan_drain_wh_closet": "3/4 in PVC water heater pan drain: through the wall into the garage, along its base and out the front, turned down over the bed (closet layout)",
+    "pipe_dwv_pan_drain_wh_closet_sleeve": "Sleeve where the pan drain passes the garage's front curb"
   }
 }

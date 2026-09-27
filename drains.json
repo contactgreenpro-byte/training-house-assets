@@ -373,6 +373,37 @@
 "r": 0.03,
 "config": null
 },
+"pipe_dwv_pan_drain_wh_closet": {
+"pts": [
+[
+2.182,
+3.2461,
+0.025
+],
+[
+2.24,
+3.2461,
+0.025
+],
+[
+2.24,
+3.2461,
+-0.3
+],
+[
+2.24,
+-0.13,
+-0.3351
+],
+[
+2.24,
+-0.13,
+-0.3851
+]
+],
+"r": 0.0134,
+"config": "water_heater=closet_gas_tank|closet_electric_tank"
+},
 "pipe_septic_spray_line": {
 "pts": [
 [

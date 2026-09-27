@@ -1,7 +1,7 @@
 {
- "published": "2026-09-25T12:32:52",
- "house": "r92a",
- "note": "r92a: the slab house (slab on grade, drains under the slab, sewer through the thickened edge, water in the floor in PEX or soft copper from a coat closet manifold, closet heater with its own floor drain, furnace condensate to a floor drain, deeper yard tanks, gravity beds under 3 ft); crawl house unchanged",
+ "published": "2026-09-27T03:19:34",
+ "house": "r93a",
+ "note": "r93a: closet heater pan drains to the exterior in both houses (no floor drain for the pan)",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -56,8 +56,8 @@
    "bytes": 311332
   },
   "drains.json": {
-   "v": "08eb64d066",
-   "bytes": 10499
+   "v": "8490b7a7a9",
+   "bytes": 10780
   },
   "dryer.glb": {
    "v": "0c266ce22a",
@@ -144,16 +144,16 @@
    "bytes": 29444
   },
   "house_floor1.glb": {
-   "v": "3d4921da32",
-   "bytes": 1123488
+   "v": "e059a39ae5",
+   "bytes": 1125624
   },
   "house_framing.glb": {
    "v": "61768c8f48",
    "bytes": 251668
   },
   "house_furniture.glb": {
-   "v": "b2d28bc2a3",
-   "bytes": 8858300
+   "v": "77707667a8",
+   "bytes": 8858312
   },
   "house_links.json": {
    "v": "a199beaecd",
@@ -216,8 +216,8 @@
    "bytes": 601684
   },
   "index.html": {
-   "v": "2b0fb34f76",
-   "bytes": 19816
+   "v": "7d45851952",
+   "bytes": 19610
   },
   "induct_purifier.glb": {
    "v": "3eafbe7e55",
@@ -276,20 +276,20 @@
    "bytes": 69099
   },
   "pipes.json": {
-   "v": "98a7c2f025",
-   "bytes": 23330
+   "v": "83527341a2",
+   "bytes": 23779
   },
   "pipes_alternates.glb": {
    "v": "1753c77613",
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "ec029685a2",
-   "bytes": 3426188
+   "v": "65fd5a836c",
+   "bytes": 3461348
   },
   "pipes_gas.glb": {
-   "v": "6f5fbdc1c6",
-   "bytes": 845032
+   "v": "4cdb1e6800",
+   "bytes": 844612
   },
   "pipes_hvac.glb": {
    "v": "bf857c6052",
@@ -420,16 +420,16 @@
    "bytes": 27304
   },
   "slab_drains.json": {
-   "v": "69ac8c9a19",
-   "bytes": 10580
+   "v": "c573f43c6f",
+   "bytes": 10417
   },
   "slab_house_floor1.glb": {
-   "v": "4b50c96fef",
-   "bytes": 1145792
+   "v": "8531bab858",
+   "bytes": 1140332
   },
   "slab_house_framing.glb": {
-   "v": "15218c1beb",
-   "bytes": 99336
+   "v": "ad38fc2046",
+   "bytes": 98948
   },
   "slab_house_garagefurn.glb": {
    "v": "22987b15c6",
@@ -440,24 +440,24 @@
    "bytes": 7817552
   },
   "slab_house_slab.glb": {
-   "v": "8a32b0483b",
-   "bytes": 80592
+   "v": "e96c6de041",
+   "bytes": 79264
   },
   "slab_pipes_alternates.glb": {
    "v": "3f2346700a",
    "bytes": 43256
   },
   "slab_pipes_dwv.glb": {
-   "v": "17bc8ab07a",
-   "bytes": 3478296
+   "v": "6992877087",
+   "bytes": 3364168
   },
   "slab_pipes_gas.glb": {
-   "v": "e855c2a9a5",
-   "bytes": 797500
+   "v": "c2d1a8d72a",
+   "bytes": 792812
   },
   "slab_pipes_hvac.glb": {
-   "v": "64a130211b",
-   "bytes": 2152656
+   "v": "33357bb4e5",
+   "bytes": 2152636
   },
   "slab_pipes_supply.glb": {
    "v": "2fc6df2c67",
