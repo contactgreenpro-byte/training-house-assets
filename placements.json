@@ -841,27 +841,17 @@
    "socket": "sock_ahu_closet_hall",
    "file": "floor1",
    "pack": "hvac_furnace",
-   "variant": "std80",
-   "model": "hvac_furnace_std80.glb",
+   "variant": "r801t",
+   "model": "hvac_furnace_rheem_r801t_house.glb",
+   "stands_for": "hvac_furnace_std80.glb",
+   "title": "Rheem R801T0754A17 gas furnace (80%), RCFY3617 cased coil",
    "yaw": 180,
-   "hide": [
-    "closet",
-    "hall_wall",
-    "qa_wall",
-    "qa_floor",
-    "drain_line",
-    "float_switch",
-    "uv_light",
-    "co_detector",
-    "erv_pigtails"
+   "offset": [
+    0.0,
+    0.214,
+    0.6096
    ],
    "config": "hvac=split_furnace",
-   "note": "Default: 80 percent gas furnace, B vent. Round 18: stands on its own 24 in return platform (in the model) with a 20 x 25 filter grille in its front, wall to wall in the closet; the louvered closet door is the return. The cased coil is set back flush with the furnace's back and the vent rises in front of it; the lineset leaves the coil on the right and goes straight up to the ceiling, the gas comes down the left side. The model's own condensate line, float switch and UV lamp are hidden: the pipe layer runs the primary condensate from the pan's low port. Round 54 (Jake: typically we don't have an emergency overflow): there is no second line and the pan's high port keeps its own cap, drain_cap_aux.",
-   "offset": [
-    0,
-    0,
-    0
-   ],
    "addon": {
     "co_detector": {
      "show": [
@@ -899,34 +889,56 @@
      ],
      "hide": []
     }
-   }
+   },
+   "note": "Round 94 (Jake: \"they all need to be as exact as possible\"): the exact Rheem unit (hvac_furnace_rheem, the menu sheet's gas t1 furnace) on its 24 in return platform with the grille filter in its front (Jake round 18; the product's RXGF side rack is off), the RCFY coil on top and a sheet metal plenum to the ceiling, built by training_house/scripts/build_hvac_house_unit.py. Its own gas riser, lineset and B vent rise to 60 in and the house carries on from there; the whip runs to a service switch on the closet's south wall; the thermostat cable and the condenser's rise to the ceiling. It stands for the old std80 stand in (stands_for), so every link to the furnace lands on it.",
+   "hide": [
+    "co_detector",
+    "erv_pigtails",
+    "pad",
+    "uv_light"
+   ],
+   "states": [
+    "txv_bulb_insulation"
+   ]
+  },
+  {
+   "socket": "sock_cond_side",
+   "file": "site",
+   "pack": "hvac_condenser",
+   "variant": "ra14ay36",
+   "model": "hvac_condenser_rheem_ra14ay36_house.glb",
+   "stands_for": "hvac_condenser_ac.glb",
+   "title": "Rheem RA14AY36 air conditioner, 3 ton",
+   "yaw": 90,
+   "offset": [
+    1.2378,
+    0.004,
+    0.002
+   ],
+   "config": "hvac=split_furnace|electric_attic",
+   "note": "Round 94: the exact Rheem RA14AY36 (top discharge, on the 40 x 40 in pad, its service corner to the house wall's north end where the old unit had it). The wall disconnect is the old install's, where it was; a liquidtight whip runs from it to the unit's own high voltage entry. The house pad is the pad.",
+   "hide": [
+    "pad"
+   ],
+   "show": [
+    "heat_stream"
+   ]
   },
   {
    "socket": "sock_ahu_closet_hall",
    "file": "floor1",
    "pack": "hvac_furnace",
-   "variant": "cond96",
-   "model": "hvac_furnace_cond96.glb",
+   "variant": "r921t",
+   "model": "hvac_furnace_rheem_r921t_house.glb",
+   "stands_for": "hvac_furnace_cond96.glb",
+   "title": "Rheem R921T0403A17 gas furnace (92%), RCFY3617 cased coil",
    "yaw": 180,
-   "hide": [
-    "closet",
-    "hall_wall",
-    "qa_wall",
-    "qa_floor",
-    "drain_line",
-    "float_switch",
-    "uv_light",
-    "co_detector",
-    "erv_pigtails"
-   ],
-   "config": "hvac=split_furnace_cond96",
-   "alternate": true,
    "offset": [
-    0,
-    0,
-    0
+    0.0,
+    0.214,
+    0.6096
    ],
-   "note": "Condensing, 2 in PVC exhaust and intake through the roof. Round 18: stands on its own 24 in return platform (in the model) with a 20 x 25 filter grille in its front, wall to wall in the closet; the louvered closet door is the return. The cased coil is set back flush with the furnace's back and the vent rises in front of it; the lineset leaves the coil on the right and goes straight up to the ceiling, the gas comes down the left side. The model's own condensate line, float switch and UV lamp are hidden: the pipe layer runs the primary condensate from the pan's low port. Round 54 (Jake: typically we don't have an emergency overflow): there is no second line and the pan's high port keeps its own cap, drain_cap_aux.",
+   "config": "hvac=split_furnace_92",
    "addon": {
     "co_detector": {
      "show": [
@@ -940,36 +952,365 @@
      ],
      "hide": []
     },
+    "media_cabinet": {
+     "show": [],
+     "hide": [
+      "filter",
+      "filter_door",
+      "filter_base",
+      "filter_dirty",
+      "filter_out",
+      "air_return_0",
+      "air_return_1",
+      "air_return_2",
+      "air_return_3",
+      "air_return_up_0",
+      "air_return_up_1",
+      "air_return_up_2",
+      "air_return_up_3"
+     ]
+    },
     "erv": {
      "show": [
       "erv_pigtails"
      ],
      "hide": []
     }
-   }
+   },
+   "note": "Round 94 (Jake: \"they all need to be as exact as possible\"): the exact Rheem unit (hvac_furnace_rheem, the menu sheet's gas t2 furnace) on its 24 in return platform with the grille filter in its front (Jake round 18; the product's RXGF side rack is off), the RCFY coil on top and a sheet metal plenum to the ceiling, built by training_house/scripts/build_hvac_house_unit.py. Its own gas riser, lineset and PVC vent pair and trap rise to 60 in and the house carries on from there; the whip runs to a service switch on the closet's south wall; the thermostat cable and the condenser's rise to the ceiling. It stands for the old cond96 stand in (stands_for), so every link to the furnace lands on it.",
+   "hide": [
+    "co_detector",
+    "erv_pigtails",
+    "pad",
+    "uv_light"
+   ],
+   "states": [
+    "txv_bulb_insulation"
+   ]
   },
   {
    "socket": "sock_cond_side",
    "file": "site",
    "pack": "hvac_condenser",
-   "variant": "ac",
-   "model": "hvac_condenser_ac.glb",
-   "yaw": 180,
-   "hide": [
-    "pad",
-    "feed_conduit",
-    "lineset_wall_plate",
-    "lineset",
-    "lineset_insulation",
-    "lineset_insulation_rotted",
-    "thermostat_wire"
-   ],
-   "config": "hvac=split_furnace|split_furnace_cond96",
-   "note": "On fix_pad_condenser; the house pad is the pad. The model's own lineset and wall plate are hidden, pipes_hvac runs the lineset from the service valves through the wall sleeve. Round 54: feed_conduit (the conduit riser, its strap and the Type LB) is hidden too, because the feeder to the panel is Romex now. Round 18: the condensing furnace layout has the same AC condenser (it had none).",
+   "variant": "ra15ay36",
+   "model": "hvac_condenser_rheem_ra15ay36_house.glb",
+   "stands_for": "hvac_condenser_ac.glb",
+   "title": "Rheem RA15AY36 air conditioner, 3 ton",
+   "yaw": 90,
    "offset": [
-    0,
-    -0.614,
-    0
+    1.2378,
+    0.004,
+    0.002
+   ],
+   "config": "hvac=split_furnace_92|electric_attic_ra15",
+   "note": "Round 94: the exact Rheem RA15AY36 (top discharge, on the 40 x 40 in pad, its service corner to the house wall's north end where the old unit had it). The wall disconnect is the old install's, where it was; a liquidtight whip runs from it to the unit's own high voltage entry. The house pad is the pad.",
+   "hide": [
+    "pad"
+   ],
+   "show": [
+    "heat_stream"
+   ]
+  },
+  {
+   "socket": "sock_ahu_closet_hall",
+   "file": "floor1",
+   "pack": "hvac_furnace",
+   "variant": "r951v",
+   "model": "hvac_furnace_rheem_r951v_house.glb",
+   "stands_for": "hvac_furnace_cond96.glb",
+   "title": "Rheem R951V0403A17 gas furnace (95%), RCFY3617 cased coil",
+   "yaw": 180,
+   "offset": [
+    0.0,
+    0.214,
+    0.6096
+   ],
+   "config": "hvac=split_furnace_cond96",
+   "addon": {
+    "co_detector": {
+     "show": [
+      "co_detector"
+     ],
+     "hide": []
+    },
+    "uv_light": {
+     "show": [
+      "uv_light"
+     ],
+     "hide": []
+    },
+    "media_cabinet": {
+     "show": [],
+     "hide": [
+      "filter",
+      "filter_door",
+      "filter_base",
+      "filter_dirty",
+      "filter_out",
+      "air_return_0",
+      "air_return_1",
+      "air_return_2",
+      "air_return_3",
+      "air_return_up_0",
+      "air_return_up_1",
+      "air_return_up_2",
+      "air_return_up_3"
+     ]
+    },
+    "erv": {
+     "show": [
+      "erv_pigtails"
+     ],
+     "hide": []
+    }
+   },
+   "note": "Round 94 (Jake: \"they all need to be as exact as possible\"): the exact Rheem unit (hvac_furnace_rheem, the menu sheet's gas t3 furnace) on its 24 in return platform with the grille filter in its front (Jake round 18; the product's RXGF side rack is off), the RCFY coil on top and a sheet metal plenum to the ceiling, built by training_house/scripts/build_hvac_house_unit.py. Its own gas riser, lineset and PVC vent pair and trap rise to 60 in and the house carries on from there; the whip runs to a service switch on the closet's south wall; the thermostat cable and the condenser's rise to the ceiling. It stands for the old cond96 stand in (stands_for), so every link to the furnace lands on it.",
+   "hide": [
+    "co_detector",
+    "erv_pigtails",
+    "pad",
+    "uv_light"
+   ],
+   "states": [
+    "txv_bulb_insulation"
+   ]
+  },
+  {
+   "socket": "sock_cond_side",
+   "file": "site",
+   "pack": "hvac_condenser",
+   "variant": "rd16ay36",
+   "model": "hvac_condenser_side_discharge_rd16ay36_house.glb",
+   "stands_for": "hvac_condenser_heatpump.glb",
+   "title": "Rheem RD16AY36 side discharge inverter heat pump, 3 ton",
+   "yaw": 180,
+   "offset": [
+    -0.194,
+    -0.55606,
+    0.002
+   ],
+   "config": "hvac=split_furnace_cond96|heatpump_attic",
+   "note": "Round 94: the exact Rheem RD16AY36 (side discharge: grille east, away from the house, its coil 12 in off the siding, the service end north). The wall disconnect is the old install's, where it was; a liquidtight whip runs from it to the unit's own high voltage entry. The house pad is the pad.",
+   "hide": [
+    "pad"
+   ],
+   "show": [
+    "discharge_air"
+   ]
+  },
+  {
+   "socket": "sock_ahu_closet_hall",
+   "file": "floor1",
+   "pack": "hvac_furnace",
+   "variant": "r98mv",
+   "model": "hvac_furnace_rheem_r98mv_house.glb",
+   "stands_for": "hvac_furnace_cond96.glb",
+   "title": "Rheem R98MV0603A17 modulating gas furnace (98%), RCFY3617 cased coil",
+   "yaw": 180,
+   "offset": [
+    0.0,
+    0.214,
+    0.6096
+   ],
+   "config": "hvac=split_furnace_98",
+   "addon": {
+    "co_detector": {
+     "show": [
+      "co_detector"
+     ],
+     "hide": []
+    },
+    "uv_light": {
+     "show": [
+      "uv_light"
+     ],
+     "hide": []
+    },
+    "media_cabinet": {
+     "show": [],
+     "hide": [
+      "filter",
+      "filter_door",
+      "filter_base",
+      "filter_dirty",
+      "filter_out",
+      "air_return_0",
+      "air_return_1",
+      "air_return_2",
+      "air_return_3",
+      "air_return_up_0",
+      "air_return_up_1",
+      "air_return_up_2",
+      "air_return_up_3"
+     ]
+    },
+    "erv": {
+     "show": [
+      "erv_pigtails"
+     ],
+     "hide": []
+    }
+   },
+   "note": "Round 94 (Jake: \"they all need to be as exact as possible\"): the exact Rheem unit (hvac_furnace_rheem, the menu sheet's gas t4 furnace) on its 24 in return platform with the grille filter in its front (Jake round 18; the product's RXGF side rack is off), the RCFY coil on top and a sheet metal plenum to the ceiling, built by training_house/scripts/build_hvac_house_unit.py. Its own gas riser, lineset and PVC vent pair and trap rise to 60 in and the house carries on from there; the whip runs to a service switch on the closet's south wall; the thermostat cable and the condenser's rise to the ceiling. It stands for the old cond96 stand in (stands_for), so every link to the furnace lands on it.",
+   "hide": [
+    "co_detector",
+    "erv_pigtails",
+    "pad",
+    "uv_light"
+   ],
+   "states": [
+    "txv_bulb_insulation"
+   ]
+  },
+  {
+   "socket": "sock_cond_side",
+   "file": "site",
+   "pack": "hvac_condenser",
+   "variant": "rd18ay36",
+   "model": "hvac_condenser_side_discharge_rd18ay36_house.glb",
+   "stands_for": "hvac_condenser_heatpump.glb",
+   "title": "Rheem RD18AY36 side discharge inverter heat pump, 3 ton",
+   "yaw": 180,
+   "offset": [
+    -0.2181,
+    -0.59416,
+    0.002
+   ],
+   "config": "hvac=split_furnace_98|heatpump_attic_rd18",
+   "note": "Round 94: the exact Rheem RD18AY36 (side discharge: grille east, away from the house, its coil 12 in off the siding, the service end north). The wall disconnect is the old install's, where it was; a liquidtight whip runs from it to the unit's own high voltage entry. The house pad is the pad.",
+   "hide": [
+    "pad"
+   ],
+   "show": [
+    "discharge_air"
+   ]
+  },
+  {
+   "socket": "sock_ahu_attic",
+   "file": "attic",
+   "pack": "hvac_air_handler",
+   "variant": "rh2ty36",
+   "model": "hvac_air_handler_rheem_rh2ty36_house.glb",
+   "stands_for": "hvac_air_handler_horizontal.glb",
+   "title": "Rheem RH2TY3617 air handler, RXBH 7.2 kW heat kit",
+   "yaw": -90,
+   "offset": [
+    0.04451,
+    0.24354,
+    0.32425
+   ],
+   "config": "hvac=electric_attic|electric_attic_ra15|heatpump_attic_rp14|heatpump_attic_rp15",
+   "addon": {
+    "uv_light": {
+     "show": [
+      "uv_light"
+     ],
+     "hide": []
+    },
+    "dehumidifier": {
+     "show": [
+      "dehumidifier"
+     ],
+     "hide": []
+    },
+    "fresh_air": {
+     "show": [
+      "fresh_air_duct"
+     ],
+     "hide": []
+    }
+   },
+   "note": "Round 94: the exact Rheem RH2TY air handler laid horizontal over the hall closet where the old one lay: left side down (horizontal left, the drip pan moved to that side, the field conversion), supply north onto the house plenum, doors west onto the service platform, the RXHF filter base on its return end. The overflow pan, rails, UV lamp and dehumidifier are the old install's, in the same places. The shipped low voltage pigtails are off: the house cable lands inside the knockout (round 20).",
+   "hide": [
+    "dehumidifier",
+    "fresh_air_duct",
+    "pad",
+    "uv_light"
+   ],
+   "states": [
+    "coil_frozen"
+   ],
+   "show": [
+    "heat_glow_1",
+    "heat_glow_2",
+    "supply_air",
+    "supply_air_heat"
+   ]
+  },
+  {
+   "socket": "sock_ahu_attic",
+   "file": "attic",
+   "pack": "hvac_air_handler",
+   "variant": "rh2vy36",
+   "model": "hvac_air_handler_rheem_rh2vy36_house.glb",
+   "stands_for": "hvac_air_handler_horizontal.glb",
+   "title": "Rheem RH2VY3617 variable speed air handler, RXBH 9.6 kW heat kit",
+   "yaw": -90,
+   "offset": [
+    0.04451,
+    0.24354,
+    0.32425
+   ],
+   "config": "hvac=heatpump_attic|heatpump_attic_rd18",
+   "addon": {
+    "uv_light": {
+     "show": [
+      "uv_light"
+     ],
+     "hide": []
+    },
+    "dehumidifier": {
+     "show": [
+      "dehumidifier"
+     ],
+     "hide": []
+    },
+    "fresh_air": {
+     "show": [
+      "fresh_air_duct"
+     ],
+     "hide": []
+    }
+   },
+   "note": "Round 94: the exact Rheem RH2VY (ECM, EcoNet board) air handler laid horizontal over the hall closet where the old one lay: left side down (horizontal left, the drip pan moved to that side, the field conversion), supply north onto the house plenum, doors west onto the service platform, the RXHF filter base on its return end. The overflow pan, rails, UV lamp and dehumidifier are the old install's, in the same places. The shipped low voltage pigtails are off: the house cable lands inside the knockout (round 20).",
+   "hide": [
+    "dehumidifier",
+    "fresh_air_duct",
+    "pad",
+    "uv_light"
+   ],
+   "states": [
+    "coil_frozen"
+   ],
+   "show": [
+    "heat_glow_1",
+    "heat_glow_2",
+    "supply_air",
+    "supply_air_heat"
+   ]
+  },
+  {
+   "socket": "sock_cond_side",
+   "file": "site",
+   "pack": "hvac_condenser",
+   "variant": "rp14ay36",
+   "model": "hvac_condenser_rheem_rp14ay36_house.glb",
+   "stands_for": "hvac_condenser_heatpump.glb",
+   "title": "Rheem RP14AY36 heat pump, 3 ton",
+   "yaw": 90,
+   "offset": [
+    1.2378,
+    0.004,
+    0.002
+   ],
+   "config": "hvac=heatpump_attic_rp14",
+   "note": "Round 94: the exact Rheem RP14AY36 (top discharge, on the 40 x 40 in pad, its service corner to the house wall's north end where the old unit had it). The wall disconnect is the old install's, where it was; a liquidtight whip runs from it to the unit's own high voltage entry. The house pad is the pad.",
+   "hide": [
+    "pad"
+   ],
+   "states": [
+    "coil_frost",
+    "defrost_steam"
    ],
    "show": [
     "heat_stream"
@@ -979,26 +1320,25 @@
    "socket": "sock_cond_side",
    "file": "site",
    "pack": "hvac_condenser",
-   "variant": "heatpump",
-   "model": "hvac_condenser_heatpump.glb",
-   "yaw": 180,
-   "hide": [
-    "pad",
-    "feed_conduit",
-    "lineset_wall_plate",
-    "lineset",
-    "lineset_insulation",
-    "lineset_insulation_rotted",
-    "thermostat_wire"
-   ],
-   "config": "hvac=heatpump_attic",
-   "alternate": true,
+   "variant": "rp15ay36",
+   "model": "hvac_condenser_rheem_rp15ay36_house.glb",
+   "stands_for": "hvac_condenser_heatpump.glb",
+   "title": "Rheem RP15AY36 heat pump, 3 ton",
+   "yaw": 90,
    "offset": [
-    0,
-    -0.614,
-    0
+    1.2378,
+    0.004,
+    0.002
    ],
-   "note": "On fix_pad_condenser; the house pad is the pad. The model's own lineset and wall plate are hidden, pipes_hvac runs the lineset from the service valves through the wall sleeve. Round 54: feed_conduit (the conduit riser, its strap and the Type LB) is hidden too, because the feeder to the panel is Romex now.",
+   "config": "hvac=heatpump_attic_rp15",
+   "note": "Round 94: the exact Rheem RP15AY36 (top discharge, on the 40 x 40 in pad, its service corner to the house wall's north end where the old unit had it). The wall disconnect is the old install's, where it was; a liquidtight whip runs from it to the unit's own high voltage entry. The house pad is the pad.",
+   "hide": [
+    "pad"
+   ],
+   "states": [
+    "coil_frost",
+    "defrost_steam"
+   ],
    "show": [
     "heat_stream"
    ]
@@ -1007,14 +1347,14 @@
    "socket": "sock_cond_side",
    "file": "site",
    "pack": "easystart",
-   "model": "easystart.glb",
+   "model": "easystart_rheem.glb",
    "yaw": 180,
    "offset": [
     0,
     -0.614,
     0
    ],
-   "config": "hvac=split_furnace|split_furnace_cond96|heatpump_attic&soft_start=yes",
+   "config": "hvac=split_furnace|split_furnace_92|electric_attic|electric_attic_ra15|heatpump_attic_rp14&soft_start=yes",
    "hide": [
     "ctx_wall",
     "ctx_cabinet"
@@ -1022,7 +1362,32 @@
    "states": [
     "start_packets"
    ],
-   "note": "Micro-Air EasyStart soft starter (easystart_soft_starter, 2026-09-14) on the house wall under the condenser's disconnect, its grey cable to a cord grip in the service pocket's back wall, brown and orange on the run capacitor, black and white on the contactor. Built in the condenser's coordinates: same socket, yaw and offset as the condenser placements. Its own wall and cabinet stand-ins are hidden. Clips: lid_open (the clear lid swings on its hinge), soft_start (+_loop: packets run the cable). Round 45 (Jake): off by default, it is an add on you turn on."
+   "note": "Round 94: the EasyStart on the wall under the disconnect as before; its cable runs down the siding, out at 22 cm over the pad (over the lineset, under the whip) into a cord grip in the Rheem unit's service pocket ceiling, and its four leads to the run capacitor and the contactor.",
+   "_drop": true,
+   "stands_for": "easystart.glb"
+  },
+  {
+   "socket": "sock_cond_side",
+   "file": "site",
+   "pack": "easystart",
+   "model": "easystart_rheem_35.glb",
+   "yaw": 180,
+   "offset": [
+    0,
+    -0.614,
+    0
+   ],
+   "config": "hvac=heatpump_attic_rp15&soft_start=yes",
+   "hide": [
+    "ctx_wall",
+    "ctx_cabinet"
+   ],
+   "states": [
+    "start_packets"
+   ],
+   "note": "Round 94: the EasyStart on the wall under the disconnect as before; its cable runs down the siding, out at 22 cm over the pad (over the lineset, under the whip) into a cord grip in the Rheem unit's service pocket ceiling, and its four leads to the run capacitor and the contactor.",
+   "_drop": true,
+   "stands_for": "easystart.glb"
   },
   {
    "socket": "sock_cond_side",
@@ -1035,7 +1400,7 @@
     -0.614,
     0
    ],
-   "config": "hvac=split_furnace|split_furnace_cond96|heatpump_attic&surge_condenser=yes",
+   "config": "hvac=split_furnace|split_furnace_92|split_furnace_cond96|split_furnace_98|electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&surge_condenser=yes",
    "hide": [
     "ctx_wall",
     "ctx_disconnect"
@@ -1142,71 +1507,6 @@
     "backflow_packet"
    ],
    "note": "E/One Uni-Lateral (uni_lateral_valve, 2026-09-14) on the lift station's 1-1/4 in force main at y 4.5, z -0.9283, in its valve box to grade with the red E/One lid. Built in sock_lift_back's frame, so yaw 0, offset 0. Its own lateral stub, soil cut and grass are hidden. Clips: lid_off (Remove), valve_close (the curb key nut and the ball), pump_run (+_loop: the flapper swings open, packets to the street), backflow (+_loop: a packet from the street stops at the shut flapper)."
-  },
-  {
-   "socket": "sock_ahu_attic",
-   "file": "attic",
-   "pack": "hvac_air_handler",
-   "variant": "horizontal",
-   "model": "hvac_air_handler_horizontal.glb",
-   "yaw": 180,
-   "hide": [
-    "fresh_air_duct",
-    "supply_plenum",
-    "return_plenum",
-    "drain_line",
-    "aux_pan_drain",
-    "float_switch",
-    "lineset",
-    "lineset_insulation",
-    "disconnect",
-    "feed_conduit",
-    "surge_protector",
-    "whip",
-    "thermostat_wire",
-    "receptacle",
-    "uv_light",
-    "coil_frozen",
-    "scroll_inlet",
-    "qa_wall",
-    "qa_floor",
-    "dehumidifier"
-   ],
-   "config": "hvac=heatpump_attic",
-   "alternate": true,
-   "note": "Horizontal air handler for the heat pump alternate (round 18 follow up). Over the hall closet and the nook, west of the supply trunk and parallel to it, supply end north, doors west onto its own service platform (build_house.py fix_platform_ahu_attic). The pipe layer builds what ties it into the house, so the model's own versions are hidden: the supply plenum and its short connector into the trunk, the return box on the filter rack with a drop to a 24 x 20 return grille in the hall closet ceiling, the trapped primary condensate down the closet wall to the crawl and out the west stem wall, the float switch on the overflow pan, the lineset and thermostat cable over the trunk and the unit to its stubs, and the disconnect on a 2x4 strut with its whip. The model's pan and rails were centred on the unit's return end, so the placement moves them under the unit (82 and 73 cm toward the supply end). The whole home dehumidifier and its fresh air duct are not part of this house. The frozen coil state is hidden with the faults. Round 41 (Jake: \"I thought we had the dehumidifier already\"): the ducted dehumidifier the model carries shows now.",
-   "move": {
-    "aux_pan": [
-     -0.82,
-     0,
-     0
-    ],
-    "rails": [
-     -0.73,
-     0,
-     0
-    ]
-   },
-   "addon": {
-    "uv_light": {
-     "show": [
-      "uv_light"
-     ],
-     "hide": []
-    },
-    "dehumidifier": {
-     "show": [
-      "dehumidifier"
-     ],
-     "hide": []
-    },
-    "fresh_air": {
-     "show": [
-      "fresh_air_duct"
-     ],
-     "hide": []
-    }
-   }
   },
   {
    "socket": "sock_pkg_side",
@@ -2367,7 +2667,7 @@
     "ctx_floor",
     "ctx_switch"
    ],
-   "config": "hvac=split_furnace_cond96&foundation=crawl",
+   "config": "hvac=split_furnace_92|split_furnace_cond96|split_furnace_98&foundation=crawl",
    "alternate": true,
    "note": "Round 41 (Jake: do the condensate pump): beside the condensing furnace in the hall closet, built in the furnace's frame; discharge tube up the closet wall and on through the attic to the eave.",
    "states": [
@@ -3386,6 +3686,7 @@
     ]
    },
    "note": "Round 89 (Jake: freeze cover on the hose bibs, and the hose bib vacuum breaker). ALWAYS placed, so the spigot link lands on this unit whatever its add ons are; the two add ons are its blocks (freeze_cover, vacuum_breaker). Built in this socket's frame as it stands now (z -0.03): yaw 0, offset 0 (not the Sweet Air's z 0.45). walk.js will not run the front bib through the cover: cover_off first.",
+   "config": "foundation=slab",
    "move": {
     "vb_story_bucket": [
      0,
@@ -3393,7 +3694,6 @@
      0.4028
     ]
    },
-   "config": "foundation=slab",
    "slab_of": "hosebib_protection.glb"
   },
   {
@@ -3542,7 +3842,7 @@
     0,
     0
    ],
-   "config": "erv=yes&hvac=split_furnace|split_furnace_cond96",
+   "config": "erv=yes&hvac=split_furnace|split_furnace_92|split_furnace_cond96|split_furnace_98",
    "hide": [
     "ctx_joists",
     "ctx_insulation",
@@ -3638,7 +3938,7 @@
     0,
     0
    ],
-   "config": "erv=yes&hvac=heatpump_attic",
+   "config": "erv=yes&hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15",
    "hide": [
     "ctx_joists",
     "ctx_insulation",

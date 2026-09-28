@@ -84,7 +84,62 @@
     {
      "model": "easystart.glb",
      "socket": "sock_cond_side",
-     "set": "hvac=split_furnace|split_furnace_cond96|heatpump_attic&soft_start=yes"
+     "set": {
+      "hvac": "split_furnace",
+      "soft_start": "yes"
+     },
+     "glb": "easystart_rheem.glb",
+     "title": null
+    },
+    {
+     "model": "easystart.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "split_furnace_92",
+      "soft_start": "yes"
+     },
+     "glb": "easystart_rheem.glb",
+     "title": null
+    },
+    {
+     "model": "easystart.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "electric_attic",
+      "soft_start": "yes"
+     },
+     "glb": "easystart_rheem.glb",
+     "title": null
+    },
+    {
+     "model": "easystart.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "electric_attic_ra15",
+      "soft_start": "yes"
+     },
+     "glb": "easystart_rheem.glb",
+     "title": null
+    },
+    {
+     "model": "easystart.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "heatpump_attic_rp14",
+      "soft_start": "yes"
+     },
+     "glb": "easystart_rheem.glb",
+     "title": null
+    },
+    {
+     "model": "easystart.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "heatpump_attic_rp15",
+      "soft_start": "yes"
+     },
+     "glb": "easystart_rheem_35.glb",
+     "title": null
     }
    ]
   },
@@ -228,7 +283,7 @@
    ]
   },
   "hvac_air_handler": {
-   "name": "Indoor Air Handler and Coil",
+   "name": "Indoor Air Handler and Coil (Rheem RH2TY, RH2VY)",
    "in_house": true,
    "start_view": "unit",
    "placements": [
@@ -236,32 +291,157 @@
      "model": "hvac_air_handler_horizontal.glb",
      "socket": "sock_ahu_attic",
      "set": {
+      "hvac": "electric_attic"
+     },
+     "glb": "hvac_air_handler_rheem_rh2ty36_house.glb",
+     "title": "Rheem RH2TY3617 air handler, RXBH 7.2 kW heat kit"
+    },
+    {
+     "model": "hvac_air_handler_horizontal.glb",
+     "socket": "sock_ahu_attic",
+     "set": {
+      "hvac": "electric_attic_ra15"
+     },
+     "glb": "hvac_air_handler_rheem_rh2ty36_house.glb",
+     "title": "Rheem RH2TY3617 air handler, RXBH 7.2 kW heat kit"
+    },
+    {
+     "model": "hvac_air_handler_horizontal.glb",
+     "socket": "sock_ahu_attic",
+     "set": {
+      "hvac": "heatpump_attic_rp14"
+     },
+     "glb": "hvac_air_handler_rheem_rh2ty36_house.glb",
+     "title": "Rheem RH2TY3617 air handler, RXBH 7.2 kW heat kit"
+    },
+    {
+     "model": "hvac_air_handler_horizontal.glb",
+     "socket": "sock_ahu_attic",
+     "set": {
+      "hvac": "heatpump_attic_rp15"
+     },
+     "glb": "hvac_air_handler_rheem_rh2ty36_house.glb",
+     "title": "Rheem RH2TY3617 air handler, RXBH 7.2 kW heat kit"
+    },
+    {
+     "model": "hvac_air_handler_horizontal.glb",
+     "socket": "sock_ahu_attic",
+     "set": {
       "hvac": "heatpump_attic"
-     }
+     },
+     "glb": "hvac_air_handler_rheem_rh2vy36_house.glb",
+     "title": "Rheem RH2VY3617 variable speed air handler, RXBH 9.6 kW heat kit"
+    },
+    {
+     "model": "hvac_air_handler_horizontal.glb",
+     "socket": "sock_ahu_attic",
+     "set": {
+      "hvac": "heatpump_attic_rd18"
+     },
+     "glb": "hvac_air_handler_rheem_rh2vy36_house.glb",
+     "title": "Rheem RH2VY3617 variable speed air handler, RXBH 9.6 kW heat kit"
     }
    ]
   },
   "hvac_condenser": {
-   "name": "Outdoor Unit: Condenser or Heat Pump",
+   "name": "Outdoor Unit (Rheem RA14AY, RA15AY, RP14AY, RP15AY, RD16AY, RD18AY)",
    "in_house": true,
    "start_view": "unit",
    "placements": [
     {
      "model": "hvac_condenser_ac.glb",
      "socket": "sock_cond_side",
-     "set": "hvac=split_furnace|split_furnace_cond96"
+     "set": {
+      "hvac": "split_furnace"
+     },
+     "glb": "hvac_condenser_rheem_ra14ay36_house.glb",
+     "title": "Rheem RA14AY36 air conditioner, 3 ton"
+    },
+    {
+     "model": "hvac_condenser_ac.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "electric_attic"
+     },
+     "glb": "hvac_condenser_rheem_ra14ay36_house.glb",
+     "title": "Rheem RA14AY36 air conditioner, 3 ton"
+    },
+    {
+     "model": "hvac_condenser_ac.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "split_furnace_92"
+     },
+     "glb": "hvac_condenser_rheem_ra15ay36_house.glb",
+     "title": "Rheem RA15AY36 air conditioner, 3 ton"
+    },
+    {
+     "model": "hvac_condenser_ac.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "electric_attic_ra15"
+     },
+     "glb": "hvac_condenser_rheem_ra15ay36_house.glb",
+     "title": "Rheem RA15AY36 air conditioner, 3 ton"
+    },
+    {
+     "model": "hvac_condenser_heatpump.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "split_furnace_cond96"
+     },
+     "glb": "hvac_condenser_side_discharge_rd16ay36_house.glb",
+     "title": "Rheem RD16AY36 side discharge inverter heat pump, 3 ton"
     },
     {
      "model": "hvac_condenser_heatpump.glb",
      "socket": "sock_cond_side",
      "set": {
       "hvac": "heatpump_attic"
-     }
+     },
+     "glb": "hvac_condenser_side_discharge_rd16ay36_house.glb",
+     "title": "Rheem RD16AY36 side discharge inverter heat pump, 3 ton"
+    },
+    {
+     "model": "hvac_condenser_heatpump.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "split_furnace_98"
+     },
+     "glb": "hvac_condenser_side_discharge_rd18ay36_house.glb",
+     "title": "Rheem RD18AY36 side discharge inverter heat pump, 3 ton"
+    },
+    {
+     "model": "hvac_condenser_heatpump.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "heatpump_attic_rd18"
+     },
+     "glb": "hvac_condenser_side_discharge_rd18ay36_house.glb",
+     "title": "Rheem RD18AY36 side discharge inverter heat pump, 3 ton"
+    },
+    {
+     "model": "hvac_condenser_heatpump.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "heatpump_attic_rp14"
+     },
+     "glb": "hvac_condenser_rheem_rp14ay36_house.glb",
+     "title": "Rheem RP14AY36 heat pump, 3 ton"
+    },
+    {
+     "model": "hvac_condenser_heatpump.glb",
+     "socket": "sock_cond_side",
+     "set": {
+      "hvac": "heatpump_attic_rp15"
+     },
+     "glb": "hvac_condenser_rheem_rp15ay36_house.glb",
+     "title": "Rheem RP15AY36 heat pump, 3 ton"
     }
    ]
   },
   "hvac_furnace": {
-   "name": "Gas Furnace",
+   "name": "Gas Furnace (Rheem R801T, R921T, R951V, R98MV)",
    "in_house": true,
    "start_view": "unit",
    "placements": [
@@ -270,14 +450,36 @@
      "socket": "sock_ahu_closet_hall",
      "set": {
       "hvac": "split_furnace"
-     }
+     },
+     "glb": "hvac_furnace_rheem_r801t_house.glb",
+     "title": "Rheem R801T0754A17 gas furnace (80%), RCFY3617 cased coil"
+    },
+    {
+     "model": "hvac_furnace_cond96.glb",
+     "socket": "sock_ahu_closet_hall",
+     "set": {
+      "hvac": "split_furnace_92"
+     },
+     "glb": "hvac_furnace_rheem_r921t_house.glb",
+     "title": "Rheem R921T0403A17 gas furnace (92%), RCFY3617 cased coil"
     },
     {
      "model": "hvac_furnace_cond96.glb",
      "socket": "sock_ahu_closet_hall",
      "set": {
       "hvac": "split_furnace_cond96"
-     }
+     },
+     "glb": "hvac_furnace_rheem_r951v_house.glb",
+     "title": "Rheem R951V0403A17 gas furnace (95%), RCFY3617 cased coil"
+    },
+    {
+     "model": "hvac_furnace_cond96.glb",
+     "socket": "sock_ahu_closet_hall",
+     "set": {
+      "hvac": "split_furnace_98"
+     },
+     "glb": "hvac_furnace_rheem_r98mv_house.glb",
+     "title": "Rheem R98MV0603A17 modulating gas furnace (98%), RCFY3617 cased coil"
     }
    ]
   },
@@ -315,7 +517,7 @@
     {
      "model": "hvac_surge.glb",
      "socket": "sock_cond_side",
-     "set": "hvac=split_furnace|split_furnace_cond96|heatpump_attic&surge_condenser=yes"
+     "set": "hvac=split_furnace|split_furnace_92|split_furnace_cond96|split_furnace_98|electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&surge_condenser=yes"
     }
    ]
   },
@@ -2226,5 +2428,6 @@
     "card": true
    }
   ]
- }
+ },
+ "note_round94": "Round 94: the HVAC units are the exact Rheem models (training_house/scripts/hvac_units.py). Each placement 'stands_for' the old stand in's model name, so a link names the OLD model (hvac_furnace_std80.glb, hvac_furnace_cond96.glb, hvac_condenser_ac.glb, hvac_condenser_heatpump.glb, hvac_air_handler_horizontal.glb, easystart.glb) with the layout set; 'glb' is the file really placed."
 }

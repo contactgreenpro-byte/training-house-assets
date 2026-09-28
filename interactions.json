@@ -745,6 +745,12 @@
    },
    "scroll_inlet": {
     "look": "cut"
+   },
+   "heater_kit": {
+    "work": "heat_run"
+   },
+   "heater_elements": {
+    "work": "heat_run"
    }
   },
   "hvac_condenser_ac.glb": {
@@ -811,6 +817,9 @@
    },
    "compressor": {
     "work": "fan_run"
+   },
+   "whip": {
+    "look": "cut"
    }
   },
   "hvac_condenser_heatpump.glb": {
@@ -877,6 +886,9 @@
    },
    "compressor": {
     "work": "fan_run"
+   },
+   "whip": {
+    "look": "cut"
    }
   },
   "hvac_furnace_cond96.glb": {
@@ -984,6 +996,12 @@
    },
    "gas_pipe": {
     "look": "cut"
+   },
+   "whip": {
+    "look": "cut"
+   },
+   "service_switch_box": {
+    "look": "aside"
    }
   },
   "hvac_furnace_std80.glb": {
@@ -1085,6 +1103,12 @@
    },
    "gas_pipe": {
     "look": "cut"
+   },
+   "whip": {
+    "look": "cut"
+   },
+   "service_switch_box": {
+    "look": "aside"
    }
   },
   "hvac_minisplit.glb": {

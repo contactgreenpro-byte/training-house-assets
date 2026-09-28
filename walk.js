@@ -172,7 +172,7 @@
   function isGround(o) { return GROUND.some(p => nodeName(o).startsWith(p)); }
   const CONFIG_CHOICES = {
     water_heater: ['attic_gas_tank', 'closet_gas_tank', 'attic_electric_tank', 'closet_electric_tank', 'garage_tankless', 'garage_hybrid', 'garage_electric_tankless', 'garage_tankless_noncondensing'],     // round 46: the electric tank in both tank spots (Jake)
-    hvac: ['split_furnace', 'split_furnace_cond96', 'heatpump_attic', 'gas_pack'],
+    hvac: ['split_furnace', 'split_furnace_92', 'split_furnace_cond96', 'split_furnace_98', 'electric_attic', 'electric_attic_ra15', 'heatpump_attic', 'heatpump_attic_rd18', 'heatpump_attic_rp14', 'heatpump_attic_rp15', 'gas_pack'],
     sewer: ['septic_spray', 'septic_spray_two_tank', 'septic_gravity', 'septic_overland', 'septic_overland_lee', 'septic_overland_aquaklear', 'city_lift', 'city_lift_duplex', 'city_gravity', 'septic_spray_trash', 'septic_spray_fiberglass_train', 'septic_overland_fiberglass_train'],     // round 78: the duplex grinder station (Jake)
         // 2026-09-23: septic_spray_trash, the IM-540 trash tank in front of the Lee plant (Jake: "use the 540 Infiltrator, just put that in front")
         // round 29: gravity to the street (Jake)
@@ -261,7 +261,7 @@
   async function place(pl) {
     const sock = sockets[pl.socket]; if (!sock) { console.warn('no socket', pl.socket); return; }
     let g; try { g = await loadModel(pl.model.replace(/^little\//, '')); } catch (e) { console.warn(e.message); return; }
-    const inst = g.scene.clone(true); stampParts(g, inst); inst.userData.elevGroup = pl.elevation_group || null; tuneMaterials(inst); inst.userData.model = pl.slab_of || pl.model; inst.userData.socket = pl.socket;     // 2026-09-22: the socket tells the hall bath toilet from the master's for the show link
+    const inst = g.scene.clone(true); stampParts(g, inst); inst.userData.elevGroup = pl.elevation_group || null; tuneMaterials(inst); inst.userData.model = pl.slab_of || pl.stands_for || pl.model;     /* round 94: a Rheem unit stands for the old stand in's model name (links, clicks, add ons) */ inst.userData.socket = pl.socket;     // 2026-09-22: the socket tells the hall bath toilet from the master's for the show link
     if (g.animations && g.animations.length) { const mixer = new T.AnimationMixer(inst); mixers.push(mixer); inst.userData.anim = { mixer, clips: g.animations.map(c => c.clone()), state: {} }; }
     // the shower's two streams belong to the valve AND the diverter (Jake: the diverter sends the water to the spout or the head),
     // so the page owns them: their scale tracks come out of the clips and showerStreams() below shows the one the diverter picks
@@ -497,7 +497,7 @@
     noteUnit(o);
     const pack = o.userData.pack || (inst && inst.userData.model) || ''; const ext = (window.HOUSE_INFO && window.HOUSE_INFO.packs && window.HOUSE_INFO.packs[pack]) || {};
     const P = Object.assign({}, INFO.packs[pack] || {}, ext);
-    const title = P.name || (inst ? pretty(inst.userData.model) : plainId(nm));
+    const title = (inst && inst.userData.pl && inst.userData.pl.title) || P.name || (inst ? pretty(inst.userData.model) : plainId(nm));     // round 94: the exact model the placement names
     const notes = [].concat((P.hotspots && P.hotspots[nm]) || [], (ext.hotspots && ext.hotspots[nm]) || []); const wt = wireText(o); if (wt) notes.unshift(wt);     // round 40: where the wire goes and why
     const acts = [];     // [label, fn, group]
     const mine = new Set(); for (let q = o; q && q !== inst; q = q.parent) mine.add(q.name);     // the clicked part and its node chain
@@ -4357,7 +4357,7 @@
   let canMarks = [], canUntil = 0;
   function unitNameOf(u) {
     const pk = u.userData.pack || u.userData.model || ''; const P = (INFO.packs && INFO.packs[pk]) || {};
-    let n = P.name || pretty(u.userData.model || u.name);
+    let n = (u.userData.pl && u.userData.pl.title) || P.name || pretty(u.userData.model || u.name);
     // file names are not what a tech calls the thing
     n = n.replace(/^hvac /, '').replace(/\bstd80\b/, '(80%)').replace(/\bcond96\b/, '(96%)').replace(/^thermostat .*/, 'thermostat').replace(/ r\d+$/, '').replace(/\bac$/, 'AC');
     return n.charAt(0).toUpperCase() + n.slice(1);

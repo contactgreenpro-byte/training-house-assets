@@ -1,7 +1,7 @@
 {
- "published": "2026-09-27T03:19:34",
- "house": "r93a",
- "note": "r93a: closet heater pan drains to the exterior in both houses (no floor drain for the pan)",
+ "published": "2026-09-28T07:37:24",
+ "house": "r94a",
+ "note": "r94a: the exact Rheem HVAC units in both houses (stands_for the old stand ins), plus finding-art/: 181 finding pictures (the unit with the bad part lit up and an arrow to it, assets.json key finding_art)",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -16,8 +16,8 @@
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "dd670e5866",
-   "bytes": 52439
+   "v": "f07115c503",
+   "bytes": 52286
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -56,8 +56,8 @@
    "bytes": 311332
   },
   "drains.json": {
-   "v": "8490b7a7a9",
-   "bytes": 10780
+   "v": "2bf4cf0db5",
+   "bytes": 10750
   },
   "dryer.glb": {
    "v": "0c266ce22a",
@@ -66,6 +66,14 @@
   "easystart.glb": {
    "v": "73b0ea9995",
    "bytes": 353280
+  },
+  "easystart_rheem.glb": {
+   "v": "413a758848",
+   "bytes": 355620
+  },
+  "easystart_rheem_35.glb": {
+   "v": "024021c27c",
+   "bytes": 355692
   },
   "electric_panel.glb": {
    "v": "8bdc79fa7e",
@@ -136,8 +144,8 @@
    "bytes": 351588
   },
   "house_attic.glb": {
-   "v": "18bd27794c",
-   "bytes": 109356
+   "v": "fb6773c852",
+   "bytes": 109452
   },
   "house_crawl.glb": {
    "v": "9ac35082e1",
@@ -148,20 +156,20 @@
    "bytes": 1125624
   },
   "house_framing.glb": {
-   "v": "61768c8f48",
-   "bytes": 251668
+   "v": "3dbb97d25c",
+   "bytes": 254288
   },
   "house_furniture.glb": {
-   "v": "77707667a8",
-   "bytes": 8858312
+   "v": "144b7ff86d",
+   "bytes": 8868100
   },
   "house_links.json": {
-   "v": "a199beaecd",
-   "bytes": 46157
+   "v": "4e4e541d2b",
+   "bytes": 52782
   },
   "house_site.glb": {
-   "v": "a9936c24e5",
-   "bytes": 7880340
+   "v": "4c62ddda6c",
+   "bytes": 7882100
   },
   "house_slab.glb": {
    "v": "e170461dbb",
@@ -170,6 +178,14 @@
   "hvac_air_handler_horizontal.glb": {
    "v": "adefdd8767",
    "bytes": 3176796
+  },
+  "hvac_air_handler_rheem_rh2ty36_house.glb": {
+   "v": "64d643e2d4",
+   "bytes": 3522892
+  },
+  "hvac_air_handler_rheem_rh2vy36_house.glb": {
+   "v": "0ba71655c3",
+   "bytes": 3585260
   },
   "hvac_air_handler_upflow.glb": {
    "v": "10e8e1edba",
@@ -183,9 +199,49 @@
    "v": "0000294629",
    "bytes": 4907632
   },
+  "hvac_condenser_rheem_ra14ay36_house.glb": {
+   "v": "17e164f939",
+   "bytes": 1938520
+  },
+  "hvac_condenser_rheem_ra15ay36_house.glb": {
+   "v": "212d3120ec",
+   "bytes": 2009104
+  },
+  "hvac_condenser_rheem_rp14ay36_house.glb": {
+   "v": "067ca81da5",
+   "bytes": 2731096
+  },
+  "hvac_condenser_rheem_rp15ay36_house.glb": {
+   "v": "4d8ca6fec3",
+   "bytes": 2801024
+  },
+  "hvac_condenser_side_discharge_rd16ay36_house.glb": {
+   "v": "d255dbc602",
+   "bytes": 1451604
+  },
+  "hvac_condenser_side_discharge_rd18ay36_house.glb": {
+   "v": "ccc1b71c70",
+   "bytes": 1517548
+  },
   "hvac_furnace_cond96.glb": {
    "v": "ce053ac986",
    "bytes": 2775028
+  },
+  "hvac_furnace_rheem_r801t_house.glb": {
+   "v": "75739c672e",
+   "bytes": 2431076
+  },
+  "hvac_furnace_rheem_r921t_house.glb": {
+   "v": "622b26310d",
+   "bytes": 2571528
+  },
+  "hvac_furnace_rheem_r951v_house.glb": {
+   "v": "00f6ebb6d0",
+   "bytes": 2391508
+  },
+  "hvac_furnace_rheem_r98mv_house.glb": {
+   "v": "f1ec3a0936",
+   "bytes": 2723752
   },
   "hvac_furnace_std80.glb": {
    "v": "777601fa8a",
@@ -216,7 +272,7 @@
    "bytes": 601684
   },
   "index.html": {
-   "v": "7d45851952",
+   "v": "1bda9ac616",
    "bytes": 19610
   },
   "induct_purifier.glb": {
@@ -228,8 +284,8 @@
    "bytes": 168825
   },
   "interactions.json": {
-   "v": "31a801fe21",
-   "bytes": 86312
+   "v": "03030c6353",
+   "bytes": 86691
   },
   "kitchen_sink.glb": {
    "v": "89e64c0103",
@@ -276,32 +332,32 @@
    "bytes": 69099
   },
   "pipes.json": {
-   "v": "83527341a2",
-   "bytes": 23779
+   "v": "fe4280240a",
+   "bytes": 28910
   },
   "pipes_alternates.glb": {
    "v": "1753c77613",
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "65fd5a836c",
-   "bytes": 3461348
+   "v": "0ada70f3f3",
+   "bytes": 3451628
   },
   "pipes_gas.glb": {
-   "v": "4cdb1e6800",
-   "bytes": 844612
+   "v": "e5241ed9a4",
+   "bytes": 867384
   },
   "pipes_hvac.glb": {
-   "v": "bf857c6052",
-   "bytes": 2269132
+   "v": "d237c50995",
+   "bytes": 2768464
   },
   "pipes_supply.glb": {
-   "v": "6372add712",
-   "bytes": 2899280
+   "v": "c5ad24adfb",
+   "bytes": 2899352
   },
   "placements.json": {
-   "v": "6db579cf20",
-   "bytes": 140062
+   "v": "4cc587f0be",
+   "bytes": 149174
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -368,12 +424,12 @@
    "bytes": 1349064
   },
   "septic_field_dbox.glb": {
-   "v": "aa540758f1",
-   "bytes": 297260
+   "v": "fc447ce787",
+   "bytes": 301224
   },
   "septic_field_dbox_slab.glb": {
-   "v": "2d43288643",
-   "bytes": 297204
+   "v": "fc75678a9f",
+   "bytes": 301168
   },
   "septic_lee.glb": {
    "v": "e120997e9a",
@@ -420,24 +476,24 @@
    "bytes": 27304
   },
   "slab_drains.json": {
-   "v": "c573f43c6f",
-   "bytes": 10417
+   "v": "01dc13c8cb",
+   "bytes": 10387
   },
   "slab_house_floor1.glb": {
-   "v": "8531bab858",
-   "bytes": 1140332
+   "v": "a698749cc4",
+   "bytes": 1140320
   },
   "slab_house_framing.glb": {
-   "v": "ad38fc2046",
-   "bytes": 98948
+   "v": "d29b88683d",
+   "bytes": 101932
   },
   "slab_house_garagefurn.glb": {
    "v": "22987b15c6",
    "bytes": 382648
   },
   "slab_house_site.glb": {
-   "v": "59225c58a4",
-   "bytes": 7817552
+   "v": "aab9d6ab86",
+   "bytes": 7819324
   },
   "slab_house_slab.glb": {
    "v": "e96c6de041",
@@ -448,16 +504,16 @@
    "bytes": 43256
   },
   "slab_pipes_dwv.glb": {
-   "v": "6992877087",
-   "bytes": 3364168
+   "v": "88c1566d25",
+   "bytes": 3356188
   },
   "slab_pipes_gas.glb": {
-   "v": "c2d1a8d72a",
-   "bytes": 792812
+   "v": "c1ec9b3ccc",
+   "bytes": 830452
   },
   "slab_pipes_hvac.glb": {
-   "v": "33357bb4e5",
-   "bytes": 2152636
+   "v": "211cb81b3a",
+   "bytes": 2645360
   },
   "slab_pipes_supply.glb": {
    "v": "2fc6df2c67",
@@ -528,8 +584,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "d1d35f7b8d",
-   "bytes": 425863
+   "v": "ed47d2f482",
+   "bytes": 426280
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -796,6 +852,732 @@
   "menu-art/tankless-non-condensing.jpg": {
    "v": "2227b3d5b5",
    "bytes": 11213
+  }
+ },
+ "finding_art": {
+  "finding-art/air_quality_monitor__monitor_body.jpg": {
+   "v": "02d2d7354e",
+   "bytes": 46787
+  },
+  "finding-art/atu_blower_outlet__blower.jpg": {
+   "v": "e43474d126",
+   "bytes": 41215
+  },
+  "finding-art/atu_blower_outlet__blower_air_filter.jpg": {
+   "v": "5498b9c2f6",
+   "bytes": 39911
+  },
+  "finding-art/atu_blower_outlet__receptacle.jpg": {
+   "v": "5f10de986e",
+   "bytes": 39040
+  },
+  "finding-art/bath_vanity__cabinet.jpg": {
+   "v": "6176b943e0",
+   "bytes": 48137
+  },
+  "finding-art/bath_vanity__faucet.jpg": {
+   "v": "f0aecef308",
+   "bytes": 34465
+  },
+  "finding-art/bath_vanity__p_trap.jpg": {
+   "v": "1bd13ec534",
+   "bytes": 33126
+  },
+  "finding-art/bath_vanity__popup_linkage.jpg": {
+   "v": "d3d3bcd461",
+   "bytes": 42368
+  },
+  "finding-art/bath_vanity__stop_cold.jpg": {
+   "v": "8448a52231",
+   "bytes": 38524
+  },
+  "finding-art/bath_vanity__supply_cold.jpg": {
+   "v": "8052fc9550",
+   "bytes": 37517
+  },
+  "finding-art/dryer__dryer_exhaust_collar.jpg": {
+   "v": "4171d29dae",
+   "bytes": 43469
+  },
+  "finding-art/electric_tank_water_heater__anode_rod.jpg": {
+   "v": "153348e964",
+   "bytes": 38744
+  },
+  "finding-art/electric_tank_water_heater__drain_pan.jpg": {
+   "v": "2ae97c1216",
+   "bytes": 37850
+  },
+  "finding-art/electric_tank_water_heater__drain_valve.jpg": {
+   "v": "3662b39497",
+   "bytes": 37451
+  },
+  "finding-art/electric_tank_water_heater__exp_tank_shell_front.jpg": {
+   "v": "aba8927d34",
+   "bytes": 42754
+  },
+  "finding-art/electric_tank_water_heater__hot_water_outlet.jpg": {
+   "v": "415974794e",
+   "bytes": 39796
+  },
+  "finding-art/electric_tank_water_heater__scale_inhibitor.jpg": {
+   "v": "378b34c656",
+   "bytes": 40468
+  },
+  "finding-art/electric_tank_water_heater__tp_relief_valve.jpg": {
+   "v": "6ecdca1069",
+   "bytes": 37424
+  },
+  "finding-art/electric_tank_water_heater__upper_heating_element.jpg": {
+   "v": "28b1ceedd8",
+   "bytes": 39668
+  },
+  "finding-art/electric_tank_water_heater__upper_thermostat.jpg": {
+   "v": "980795a01d",
+   "bytes": 37676
+  },
+  "finding-art/electric_tankless_water_heater__display_ok.jpg": {
+   "v": "d3b38a72d4",
+   "bytes": 38566
+  },
+  "finding-art/electric_tankless_water_heater__inlet_filter_screen.jpg": {
+   "v": "3edd9d847b",
+   "bytes": 43494
+  },
+  "finding-art/electric_tankless_water_heater__scale_inhibitor.jpg": {
+   "v": "00401443e3",
+   "bytes": 42090
+  },
+  "finding-art/erv__cabinet.jpg": {
+   "v": "6d8fca8d82",
+   "bytes": 59968
+  },
+  "finding-art/flo_shutoff__flo_body_section.jpg": {
+   "v": "0b5019d85f",
+   "bytes": 38713
+  },
+  "finding-art/flo_shutoff__flo_handle.jpg": {
+   "v": "d546a83aab",
+   "bytes": 37127
+  },
+  "finding-art/flo_shutoff__flo_unions.jpg": {
+   "v": "c544022e1c",
+   "bytes": 34845
+  },
+  "finding-art/gas_tank_water_heater__anode_rod.jpg": {
+   "v": "d71eccf56e",
+   "bytes": 40913
+  },
+  "finding-art/gas_tank_water_heater__burner.jpg": {
+   "v": "e7e227773a",
+   "bytes": 36029
+  },
+  "finding-art/gas_tank_water_heater__draft_hood.jpg": {
+   "v": "f98176ef5c",
+   "bytes": 42777
+  },
+  "finding-art/gas_tank_water_heater__drain_pan.jpg": {
+   "v": "c66311c4c6",
+   "bytes": 41814
+  },
+  "finding-art/gas_tank_water_heater__drain_valve.jpg": {
+   "v": "5f759e35ea",
+   "bytes": 43500
+  },
+  "finding-art/gas_tank_water_heater__exp_tank_shell_front.jpg": {
+   "v": "1296c695bc",
+   "bytes": 48529
+  },
+  "finding-art/gas_tank_water_heater__gas_control_valve.jpg": {
+   "v": "423feb8ed9",
+   "bytes": 45589
+  },
+  "finding-art/gas_tank_water_heater__gas_drip_tee.jpg": {
+   "v": "9291017d13",
+   "bytes": 43166
+  },
+  "finding-art/gas_tank_water_heater__gas_flex_connector.jpg": {
+   "v": "8d5419242f",
+   "bytes": 43788
+  },
+  "finding-art/gas_tank_water_heater__hot_water_outlet.jpg": {
+   "v": "c497ccd2b0",
+   "bytes": 42622
+  },
+  "finding-art/gas_tank_water_heater__scale_inhibitor.jpg": {
+   "v": "6ed22e75cb",
+   "bytes": 46059
+  },
+  "finding-art/gas_tank_water_heater__tp_relief_valve.jpg": {
+   "v": "7a9cba77aa",
+   "bytes": 42724
+  },
+  "finding-art/gas_tankless_water_heater_condensing__cold_isolation_valve.jpg": {
+   "v": "1e4da43a6d",
+   "bytes": 40516
+  },
+  "finding-art/gas_tankless_water_heater_condensing__condensate_line.jpg": {
+   "v": "c3a13c9e3b",
+   "bytes": 42256
+  },
+  "finding-art/gas_tankless_water_heater_condensing__display_ok.jpg": {
+   "v": "9a623529b9",
+   "bytes": 37185
+  },
+  "finding-art/gas_tankless_water_heater_condensing__exhaust_vent.jpg": {
+   "v": "20915d4cec",
+   "bytes": 39881
+  },
+  "finding-art/gas_tankless_water_heater_condensing__gas_drip_leg.jpg": {
+   "v": "38cb12f736",
+   "bytes": 41120
+  },
+  "finding-art/gas_tankless_water_heater_condensing__inlet_filter_screen.jpg": {
+   "v": "ccb9bba6c8",
+   "bytes": 40723
+  },
+  "finding-art/gas_tankless_water_heater_noncondensing__cold_isolation_valve.jpg": {
+   "v": "05e4e492ae",
+   "bytes": 38814
+  },
+  "finding-art/gas_tankless_water_heater_noncondensing__display_ok.jpg": {
+   "v": "5a2dda2aac",
+   "bytes": 35555
+  },
+  "finding-art/gas_tankless_water_heater_noncondensing__exhaust_vent.jpg": {
+   "v": "91a100c5ba",
+   "bytes": 38885
+  },
+  "finding-art/gas_tankless_water_heater_noncondensing__gas_drip_leg.jpg": {
+   "v": "249fa2dbe8",
+   "bytes": 39447
+  },
+  "finding-art/gas_tankless_water_heater_noncondensing__inlet_filter_screen.jpg": {
+   "v": "a323effea1",
+   "bytes": 39331
+  },
+  "finding-art/grease_interceptor__co_upstream.jpg": {
+   "v": "7a86f26b48",
+   "bytes": 33386
+  },
+  "finding-art/grease_interceptor__lid_inlet.jpg": {
+   "v": "fa17881c9a",
+   "bytes": 30043
+  },
+  "finding-art/grease_interceptor__lid_middle.jpg": {
+   "v": "6670414e13",
+   "bytes": 33341
+  },
+  "finding-art/hosebib_protection__vb_body.jpg": {
+   "v": "bd4da13c1e",
+   "bytes": 44920
+  },
+  "finding-art/hvac_air_handler_horizontal__aux_pan.jpg": {
+   "v": "5e8557f5de",
+   "bytes": 42704
+  },
+  "finding-art/hvac_air_handler_horizontal__blower_motor.jpg": {
+   "v": "2eeb6e8840",
+   "bytes": 38461
+  },
+  "finding-art/hvac_air_handler_horizontal__dehumidifier.jpg": {
+   "v": "b08ea1ffe4",
+   "bytes": 60806
+  },
+  "finding-art/hvac_air_handler_horizontal__drain_pan.jpg": {
+   "v": "be2fdf35ac",
+   "bytes": 37508
+  },
+  "finding-art/hvac_air_handler_horizontal__evap_coil.jpg": {
+   "v": "bf01097c2e",
+   "bytes": 43904
+  },
+  "finding-art/hvac_air_handler_horizontal__filter.jpg": {
+   "v": "ae00f67991",
+   "bytes": 39199
+  },
+  "finding-art/hvac_air_handler_horizontal__txv_bulb.jpg": {
+   "v": "8d0d8f7839",
+   "bytes": 39090
+  },
+  "finding-art/hvac_air_handler_horizontal__uv_light.jpg": {
+   "v": "8bf992a86a",
+   "bytes": 40298
+  },
+  "finding-art/hvac_condenser_ac__capacitor.jpg": {
+   "v": "bbdea88e62",
+   "bytes": 50139
+  },
+  "finding-art/hvac_condenser_ac__condenser_coil.jpg": {
+   "v": "20b0291d4b",
+   "bytes": 45798
+  },
+  "finding-art/hvac_condenser_ac__contactor.jpg": {
+   "v": "d29c6847bc",
+   "bytes": 51010
+  },
+  "finding-art/hvac_condenser_ac__disconnect.jpg": {
+   "v": "da399bc671",
+   "bytes": 51474
+  },
+  "finding-art/hvac_condenser_ac__fan_motor.jpg": {
+   "v": "f765f82265",
+   "bytes": 49285
+  },
+  "finding-art/hvac_condenser_ac__service_valves.jpg": {
+   "v": "19f44e987b",
+   "bytes": 53660
+  },
+  "finding-art/hvac_condenser_heatpump__reversing_valve.jpg": {
+   "v": "112c3c44bd",
+   "bytes": 52994
+  },
+  "finding-art/hvac_furnace_std80__burner_assembly.jpg": {
+   "v": "d3df2b2229",
+   "bytes": 34211
+  },
+  "finding-art/hvac_furnace_std80__co_detector.jpg": {
+   "v": "1163bbdb33",
+   "bytes": 37290
+  },
+  "finding-art/hvac_furnace_std80__evap_coil.jpg": {
+   "v": "4e9f96d55b",
+   "bytes": 38061
+  },
+  "finding-art/hvac_furnace_std80__filter.jpg": {
+   "v": "e5e94e2288",
+   "bytes": 34813
+  },
+  "finding-art/hvac_furnace_std80__flue.jpg": {
+   "v": "73a659f4a1",
+   "bytes": 33702
+  },
+  "finding-art/hvac_furnace_std80__gas_valve.jpg": {
+   "v": "96d756547b",
+   "bytes": 34777
+  },
+  "finding-art/hvac_furnace_std80__heat_exchanger.jpg": {
+   "v": "a1cdf94df6",
+   "bytes": 39533
+  },
+  "finding-art/hvac_furnace_std80__inducer.jpg": {
+   "v": "bfe9dcc3d6",
+   "bytes": 37382
+  },
+  "finding-art/hvac_furnace_std80__uv_light.jpg": {
+   "v": "9a9f26ae6d",
+   "bytes": 33123
+  },
+  "finding-art/hvac_minisplit__blower_wheel.jpg": {
+   "v": "52e375f17c",
+   "bytes": 46242
+  },
+  "finding-art/hvac_minisplit__drain_pan.jpg": {
+   "v": "44a2e5ea35",
+   "bytes": 39921
+  },
+  "finding-art/hvac_minisplit__filter_left.jpg": {
+   "v": "9eb9ad73cc",
+   "bytes": 46486
+  },
+  "finding-art/hvac_package_gaspack__condensate_stub.jpg": {
+   "v": "e5b1006864",
+   "bytes": 48926
+  },
+  "finding-art/hvac_package_gaspack__disconnect.jpg": {
+   "v": "f9e54c625e",
+   "bytes": 45015
+  },
+  "finding-art/hvac_package_gaspack__duct_connection.jpg": {
+   "v": "40647ff4b3",
+   "bytes": 52290
+  },
+  "finding-art/hvac_package_gaspack__evap_coil.jpg": {
+   "v": "f57c52e2e5",
+   "bytes": 51953
+  },
+  "finding-art/hvac_package_gaspack__filter.jpg": {
+   "v": "97f06e92ac",
+   "bytes": 41591
+  },
+  "finding-art/hvac_package_gaspack__heat_exchanger.jpg": {
+   "v": "9187dd59f5",
+   "bytes": 46713
+  },
+  "finding-art/hybrid_water_heater__air_filter.jpg": {
+   "v": "509a8e8ff5",
+   "bytes": 33386
+  },
+  "finding-art/hybrid_water_heater__condensate_drain.jpg": {
+   "v": "d6935b9951",
+   "bytes": 38092
+  },
+  "finding-art/hybrid_water_heater__drain_valve.jpg": {
+   "v": "4943fff670",
+   "bytes": 35049
+  },
+  "finding-art/hybrid_water_heater__expansion_tank.jpg": {
+   "v": "8543a9d33b",
+   "bytes": 38712
+  },
+  "finding-art/hybrid_water_heater__tp_relief_valve.jpg": {
+   "v": "e024619843",
+   "bytes": 36608
+  },
+  "finding-art/induct_purifier__halo_housing.jpg": {
+   "v": "e7f418e315",
+   "bytes": 26929
+  },
+  "finding-art/kitchen_sink__air_gap.jpg": {
+   "v": "0204e14232",
+   "bytes": 45017
+  },
+  "finding-art/kitchen_sink__cabinet.jpg": {
+   "v": "1f14f95833",
+   "bytes": 46861
+  },
+  "finding-art/kitchen_sink__dishwasher.jpg": {
+   "v": "bc516a61c7",
+   "bytes": 44499
+  },
+  "finding-art/kitchen_sink__disposal_body.jpg": {
+   "v": "495dc8da0c",
+   "bytes": 46516
+  },
+  "finding-art/kitchen_sink__disposal_cord.jpg": {
+   "v": "2534c962e6",
+   "bytes": 43066
+  },
+  "finding-art/kitchen_sink__disposal_mount.jpg": {
+   "v": "6a6d100795",
+   "bytes": 45788
+  },
+  "finding-art/kitchen_sink__dw_hose.jpg": {
+   "v": "db026995d9",
+   "bytes": 55227
+  },
+  "finding-art/kitchen_sink__dw_supply.jpg": {
+   "v": "ebd9d53786",
+   "bytes": 50654
+  },
+  "finding-art/kitchen_sink__faucet_pulldown.jpg": {
+   "v": "535422d74c",
+   "bytes": 39985
+  },
+  "finding-art/kitchen_sink__p_trap.jpg": {
+   "v": "7491c8a7ef",
+   "bytes": 38418
+  },
+  "finding-art/kitchen_sink__splash_guard.jpg": {
+   "v": "3397391199",
+   "bytes": 44301
+  },
+  "finding-art/kitchen_sink__strainer_right.jpg": {
+   "v": "bbadbaa885",
+   "bytes": 44870
+  },
+  "finding-art/lift_station_duplex__base_elbow_1.jpg": {
+   "v": "06f13655ad",
+   "bytes": 47737
+  },
+  "finding-art/lift_station_duplex__check_valve_1.jpg": {
+   "v": "1051e657b0",
+   "bytes": 43665
+  },
+  "finding-art/lift_station_duplex__float_alarm.jpg": {
+   "v": "b305e479df",
+   "bytes": 42056
+  },
+  "finding-art/lift_station_duplex__float_lead.jpg": {
+   "v": "906857a6b0",
+   "bytes": 42257
+  },
+  "finding-art/lift_station_duplex__lid.jpg": {
+   "v": "ba6a2b7b55",
+   "bytes": 41361
+  },
+  "finding-art/lift_station_duplex__pump_1.jpg": {
+   "v": "dd92557b16",
+   "bytes": 43830
+  },
+  "finding-art/lift_station_duplex__vent.jpg": {
+   "v": "0f120bd499",
+   "bytes": 37812
+  },
+  "finding-art/lift_station_duplex_panel__control_panel.jpg": {
+   "v": "76e467ab4a",
+   "bytes": 46975
+  },
+  "finding-art/lift_station_r12__check_valve.jpg": {
+   "v": "11489b9200",
+   "bytes": 39052
+  },
+  "finding-art/lift_station_r12__control_panel.jpg": {
+   "v": "05baeee4b3",
+   "bytes": 49039
+  },
+  "finding-art/lift_station_r12__float_alarm.jpg": {
+   "v": "b02d4e6df9",
+   "bytes": 34266
+  },
+  "finding-art/lift_station_r12__lid.jpg": {
+   "v": "008b282d54",
+   "bytes": 36621
+  },
+  "finding-art/lift_station_r12__pump.jpg": {
+   "v": "38b47871dd",
+   "bytes": 35941
+  },
+  "finding-art/lift_station_r12__vent.jpg": {
+   "v": "9b9fba5838",
+   "bytes": 34481
+  },
+  "finding-art/media_air_cleaner__media_door.jpg": {
+   "v": "e97ceaa1cb",
+   "bytes": 41850
+  },
+  "finding-art/pressure_tank__gauge.jpg": {
+   "v": "4e294b92e8",
+   "bytes": 51141
+  },
+  "finding-art/pressure_tank__pressure_switch.jpg": {
+   "v": "236b9ebbf4",
+   "bytes": 48352
+  },
+  "finding-art/pressure_tank__tank.jpg": {
+   "v": "a7ffdd2930",
+   "bytes": 52138
+  },
+  "finding-art/pump_tank__float_onoff.jpg": {
+   "v": "78aca5a853",
+   "bytes": 39876
+  },
+  "finding-art/pump_tank__lid.jpg": {
+   "v": "e3f7353d8d",
+   "bytes": 36180
+  },
+  "finding-art/pump_tank__pump.jpg": {
+   "v": "a03e8c596c",
+   "bytes": 35563
+  },
+  "finding-art/pump_tank_trash__inlet.jpg": {
+   "v": "bf00652419",
+   "bytes": 42746
+  },
+  "finding-art/pump_tank_trash__lid.jpg": {
+   "v": "5c70f3ff60",
+   "bytes": 40138
+  },
+  "finding-art/pump_tank_trash__outlet.jpg": {
+   "v": "dba4e296e1",
+   "bytes": 45693
+  },
+  "finding-art/pump_tank_trash__tank.jpg": {
+   "v": "1941d3c893",
+   "bytes": 43508
+  },
+  "finding-art/refrigerator__ice_line.jpg": {
+   "v": "692af95658",
+   "bytes": 35468
+  },
+  "finding-art/refrigerator__ice_stop.jpg": {
+   "v": "995eb57467",
+   "bytes": 37336
+  },
+  "finding-art/septic_lee__aeration_pipe.jpg": {
+   "v": "33215d3b01",
+   "bytes": 40737
+  },
+  "finding-art/septic_lee__chlor_tablets.jpg": {
+   "v": "be47db1193",
+   "bytes": 39736
+  },
+  "finding-art/septic_lee__lid_pump.jpg": {
+   "v": "36fbdb6162",
+   "bytes": 37342
+  },
+  "finding-art/septic_lee__pump.jpg": {
+   "v": "52a9eb24bd",
+   "bytes": 39620
+  },
+  "finding-art/septic_lee_overland__aeration_pipe.jpg": {
+   "v": "a883574f4e",
+   "bytes": 39319
+  },
+  "finding-art/septic_lee_overland__chlor_tablets.jpg": {
+   "v": "4a8d680eb7",
+   "bytes": 38743
+  },
+  "finding-art/septic_lee_overland__lid_pump.jpg": {
+   "v": "aeef4d6b8b",
+   "bytes": 35469
+  },
+  "finding-art/septic_tank_risers__inlet_tee.jpg": {
+   "v": "28ce273377",
+   "bytes": 36434
+  },
+  "finding-art/septic_tank_risers__lid_inlet.jpg": {
+   "v": "a409eab89c",
+   "bytes": 34382
+  },
+  "finding-art/septic_tank_risers__outlet_tee.jpg": {
+   "v": "d195b64825",
+   "bytes": 37969
+  },
+  "finding-art/septic_tank_risers__scum_normal_section.jpg": {
+   "v": "44ff518032",
+   "bytes": 43953
+  },
+  "finding-art/shower__cartridge.jpg": {
+   "v": "cd0d083924",
+   "bytes": 49296
+  },
+  "finding-art/shower__caulk.jpg": {
+   "v": "53dd3bd0b7",
+   "bytes": 46648
+  },
+  "finding-art/shower__diverter_knob.jpg": {
+   "v": "704ae1d243",
+   "bytes": 41942
+  },
+  "finding-art/shower__drain_tee.jpg": {
+   "v": "60c89a549e",
+   "bytes": 41210
+  },
+  "finding-art/shower__shower_head.jpg": {
+   "v": "fa4414ce1d",
+   "bytes": 45768
+  },
+  "finding-art/shower_two__caulk.jpg": {
+   "v": "245730a0fb",
+   "bytes": 38668
+  },
+  "finding-art/shower_two__diverter_knob.jpg": {
+   "v": "52d43d911f",
+   "bytes": 36580
+  },
+  "finding-art/shower_two__drain_tee.jpg": {
+   "v": "921679017d",
+   "bytes": 35499
+  },
+  "finding-art/shower_two__overflow_plate.jpg": {
+   "v": "05720b786f",
+   "bytes": 41087
+  },
+  "finding-art/shower_two__shower_head.jpg": {
+   "v": "97b4bbfc34",
+   "bytes": 40576
+  },
+  "finding-art/shower_two__spout.jpg": {
+   "v": "9f77657f28",
+   "bytes": 37425
+  },
+  "finding-art/shower_two__stem_cold.jpg": {
+   "v": "9cce66c548",
+   "bytes": 41467
+  },
+  "finding-art/shower_two__stem_hot.jpg": {
+   "v": "176e4d03e1",
+   "bytes": 40963
+  },
+  "finding-art/shower_two__tub.jpg": {
+   "v": "764e14d64d",
+   "bytes": 39928
+  },
+  "finding-art/shower_two__waste_overflow.jpg": {
+   "v": "a58b860bf5",
+   "bytes": 43621
+  },
+  "finding-art/sludgehammer__column.jpg": {
+   "v": "aa1c07ecd1",
+   "bytes": 41051
+  },
+  "finding-art/spray_head_r22__spray_head.jpg": {
+   "v": "56681df8dc",
+   "bytes": 36208
+  },
+  "finding-art/sump_pump__basin.jpg": {
+   "v": "006f17951b",
+   "bytes": 35660
+  },
+  "finding-art/sump_pump__check_valve.jpg": {
+   "v": "1179e295c9",
+   "bytes": 34719
+  },
+  "finding-art/sump_pump__discharge.jpg": {
+   "v": "7fe9baeb0d",
+   "bytes": 40387
+  },
+  "finding-art/sump_pump__float_pump.jpg": {
+   "v": "549c618517",
+   "bytes": 33666
+  },
+  "finding-art/sump_pump__panel.jpg": {
+   "v": "2880df0d33",
+   "bytes": 34739
+  },
+  "finding-art/sump_pump__pump.jpg": {
+   "v": "57f64153bb",
+   "bytes": 30808
+  },
+  "finding-art/thermostatic_mixing_valve__tmv_body.jpg": {
+   "v": "0199faf1e1",
+   "bytes": 37917
+  },
+  "finding-art/toilet__angle_stop.jpg": {
+   "v": "dd486d1b43",
+   "bytes": 43838
+  },
+  "finding-art/toilet__bidet_seat.jpg": {
+   "v": "61f98fdc3d",
+   "bytes": 48095
+  },
+  "finding-art/toilet__fill_valve.jpg": {
+   "v": "4500a2e04c",
+   "bytes": 40742
+  },
+  "finding-art/toilet__flapper.jpg": {
+   "v": "fb5e490ea4",
+   "bytes": 38471
+  },
+  "finding-art/toilet__flush_valve.jpg": {
+   "v": "b6208b2b67",
+   "bytes": 42967
+  },
+  "finding-art/toilet__tank_bolts.jpg": {
+   "v": "17ce726462",
+   "bytes": 41530
+  },
+  "finding-art/toilet__trip_lever.jpg": {
+   "v": "579d6a436d",
+   "bytes": 36782
+  },
+  "finding-art/toilet__wax_ring.jpg": {
+   "v": "59b1ebe8e8",
+   "bytes": 40053
+  },
+  "finding-art/washer_box__hammer_arrestor_cold.jpg": {
+   "v": "da563d583e",
+   "bytes": 51494
+  },
+  "finding-art/water_softener__drain_line.jpg": {
+   "v": "fe374dd4c4",
+   "bytes": 46353
+  },
+  "finding-art/water_softener__salt_bed.jpg": {
+   "v": "dfea9d7287",
+   "bytes": 39931
+  },
+  "finding-art/water_softener__valve_head.jpg": {
+   "v": "4fae2185f4",
+   "bytes": 44890
+  },
+  "finding-art/well_pump__well_cap.jpg": {
+   "v": "692b85128b",
+   "bytes": 32301
+  },
+  "finding-art/wh_surge_protector__whs_spd_body.jpg": {
+   "v": "698ca3b013",
+   "bytes": 41115
   }
  }
 }

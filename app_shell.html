@@ -159,7 +159,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '92a';
+  var SHELL = '94a';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -257,8 +257,12 @@
     attic_electric_tank: 'Electric tank in the attic', closet_electric_tank: 'Electric tank in a closet',
     garage_tankless: 'Gas tankless in the garage', garage_tankless_noncondensing: 'Gas tankless, non-condensing, in the garage', garage_hybrid: 'Hybrid heat pump tank in the garage',
     garage_electric_tankless: 'Electric tankless in the garage',
-    split_furnace: 'Gas furnace and AC (80%)', split_furnace_cond96: 'Condensing furnace and AC (96%)',
-    heatpump_attic: 'Heat pump, air handler in the attic', gas_pack: 'Gas pack outside',
+    split_furnace: 'Rheem R801T furnace (80%), RA14AY air conditioner', split_furnace_92: 'Rheem R921T furnace (92%), RA15AY air conditioner',
+    split_furnace_cond96: 'Rheem R951V furnace (95%), RD16AY heat pump', split_furnace_98: 'Rheem R98MV modulating furnace (98%), RD18AY heat pump',
+    electric_attic: 'Rheem RH2TY air handler in the attic, RA14AY air conditioner', electric_attic_ra15: 'Rheem RH2TY air handler in the attic, RA15AY air conditioner',
+    heatpump_attic: 'Rheem RH2VY air handler in the attic, RD16AY heat pump', heatpump_attic_rd18: 'Rheem RH2VY air handler in the attic, RD18AY heat pump',
+    heatpump_attic_rp14: 'Rheem RH2TY air handler in the attic, RP14AY heat pump', heatpump_attic_rp15: 'Rheem RH2TY air handler in the attic, RP15AY heat pump',
+    gas_pack: 'Gas pack outside',
     septic_spray: 'Septic, spray field', septic_spray_two_tank: 'Septic, spray field, two tanks',
     septic_spray_trash: 'Septic, spray field, trash tank in front of the plant', septic_spray_fiberglass_train: 'Septic, fiberglass: pre-treatment tank, AquaKlear, spray field', septic_overland_fiberglass_train: 'Septic, fiberglass: pre-treatment tank, AquaKlear, overland discharge',
     septic_gravity: 'Septic, gravity field', septic_overland: 'Septic, overland discharge',
