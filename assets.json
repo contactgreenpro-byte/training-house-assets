@@ -1,7 +1,7 @@
 {
- "published": "2026-09-28T07:37:24",
+ "published": "2026-09-28T10:29:25",
  "house": "r94a",
- "note": "r94a: the exact Rheem HVAC units in both houses (stands_for the old stand ins), plus finding-art/: 181 finding pictures (the unit with the bad part lit up and an arrow to it, assets.json key finding_art)",
+ "note": "r94a: the exact Rheem units in both houses as hvac layouts matching the menu sheets (R801T, R921T, R951V, R98MV with RCFY; RH2TY, RH2VY; RA14AY, RA15AY, RP14AY, RP15AY, RD16AY, RD18AY); propane regulator and service line on real ground, septic field endcaps, garage strip discharge stubs at grade, tankless condensate straight out",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -160,8 +160,8 @@
    "bytes": 254288
   },
   "house_furniture.glb": {
-   "v": "144b7ff86d",
-   "bytes": 8868100
+   "v": "47eac1ee95",
+   "bytes": 8863240
   },
   "house_links.json": {
    "v": "4e4e541d2b",
@@ -344,12 +344,12 @@
    "bytes": 3451628
   },
   "pipes_gas.glb": {
-   "v": "e5241ed9a4",
-   "bytes": 867384
+   "v": "c6973548b8",
+   "bytes": 873524
   },
   "pipes_hvac.glb": {
-   "v": "d237c50995",
-   "bytes": 2768464
+   "v": "b51e56265a",
+   "bytes": 2751020
   },
   "pipes_supply.glb": {
    "v": "c5ad24adfb",
@@ -508,12 +508,12 @@
    "bytes": 3356188
   },
   "slab_pipes_gas.glb": {
-   "v": "c1ec9b3ccc",
-   "bytes": 830452
+   "v": "3a138dfa3c",
+   "bytes": 831000
   },
   "slab_pipes_hvac.glb": {
-   "v": "211cb81b3a",
-   "bytes": 2645360
+   "v": "5156ece2b9",
+   "bytes": 2644616
   },
   "slab_pipes_supply.glb": {
    "v": "2fc6df2c67",
