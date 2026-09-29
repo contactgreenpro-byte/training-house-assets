@@ -844,7 +844,7 @@
    "variant": "r801t",
    "model": "hvac_furnace_rheem_r801t_house.glb",
    "stands_for": "hvac_furnace_std80.glb",
-   "title": "Rheem R801T0754A17 gas furnace (80%), RCFY3617 cased coil",
+   "title": "Rheem R801T0503A14 gas furnace (80%, 50k), RCFY3621 A coil",
    "yaw": 180,
    "offset": [
     0.0,
@@ -931,7 +931,7 @@
    "variant": "r921t",
    "model": "hvac_furnace_rheem_r921t_house.glb",
    "stands_for": "hvac_furnace_cond96.glb",
-   "title": "Rheem R921T0403A17 gas furnace (92%), RCFY3617 cased coil",
+   "title": "Rheem R921T0403A17 gas furnace (92%, 42k), RCFY3621 A coil",
    "yaw": 180,
    "offset": [
     0.0,
@@ -1018,7 +1018,7 @@
    "variant": "r951v",
    "model": "hvac_furnace_rheem_r951v_house.glb",
    "stands_for": "hvac_furnace_cond96.glb",
-   "title": "Rheem R951V0403A17 gas furnace (95%), RCFY3617 cased coil",
+   "title": "Rheem R951V0403A17 gas furnace (95%, 42k), RCFY3621 A coil",
    "yaw": 180,
    "offset": [
     0.0,
@@ -1105,7 +1105,7 @@
    "variant": "r98mv",
    "model": "hvac_furnace_rheem_r98mv_house.glb",
    "stands_for": "hvac_furnace_cond96.glb",
-   "title": "Rheem R98MV0603A17 modulating gas furnace (98%), RCFY3617 cased coil",
+   "title": "Rheem R98MV0603A17 modulating gas furnace (98%, 60k), RCFY3621 A coil",
    "yaw": 180,
    "offset": [
     0.0,
@@ -1192,7 +1192,7 @@
    "variant": "rh2ty36",
    "model": "hvac_air_handler_rheem_rh2ty36_house.glb",
    "stands_for": "hvac_air_handler_horizontal.glb",
-   "title": "Rheem RH2TY3617 air handler, RXBH 7.2 kW heat kit",
+   "title": "Rheem RH2TY3617 air handler, RXBH-1724A10J 10 kW heat kit",
    "yaw": -90,
    "offset": [
     0.04451,
@@ -1244,7 +1244,7 @@
    "variant": "rh2vy36",
    "model": "hvac_air_handler_rheem_rh2vy36_house.glb",
    "stands_for": "hvac_air_handler_horizontal.glb",
-   "title": "Rheem RH2VY3617 variable speed air handler, RXBH 9.6 kW heat kit",
+   "title": "Rheem RH2VY3617 variable speed air handler, RXBH-1724A10J 10 kW heat kit",
    "yaw": -90,
    "offset": [
     0.04451,

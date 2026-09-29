@@ -1,7 +1,7 @@
 {
- "published": "2026-09-28T10:29:25",
- "house": "r94a",
- "note": "r94a: the exact Rheem units in both houses as hvac layouts matching the menu sheets (R801T, R921T, R951V, R98MV with RCFY; RH2TY, RH2VY; RA14AY, RA15AY, RP14AY, RP15AY, RD16AY, RD18AY); propane regulator and service line on real ground, septic field endcaps, garage strip discharge stubs at grade, tankless condensate straight out",
+ "published": "2026-09-29T10:44:24",
+ "house": "r95a",
+ "note": "r95a: A coil on every furnace, furnaces and heat kits sized by the North Mississippi load calc (R801T 50k 14 in, R921T/R951V 042, R98MV 060, RXBH 10 kW), 3 ton set up at 2-1/2, 90 plus exhaust jogs clear of the lineset, heat kit circuit; menu pictures with the A coil",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -16,7 +16,7 @@
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "f07115c503",
+   "v": "340a09c27a",
    "bytes": 52286
   },
   "asset-shim.js": {
@@ -52,8 +52,8 @@
    "bytes": 330424
   },
   "condensate_pump.glb": {
-   "v": "16040ed594",
-   "bytes": 311332
+   "v": "460fd3a4a8",
+   "bytes": 311892
   },
   "drains.json": {
    "v": "2bf4cf0db5",
@@ -76,8 +76,8 @@
    "bytes": 355692
   },
   "electric_panel.glb": {
-   "v": "8bdc79fa7e",
-   "bytes": 657852
+   "v": "a590da5a6a",
+   "bytes": 683672
   },
   "electric_tank_water_heater.glb": {
    "v": "b8f55fdbff",
@@ -156,16 +156,16 @@
    "bytes": 1125624
   },
   "house_framing.glb": {
-   "v": "3dbb97d25c",
-   "bytes": 254288
+   "v": "c9db27db6a",
+   "bytes": 253936
   },
   "house_furniture.glb": {
-   "v": "47eac1ee95",
-   "bytes": 8863240
+   "v": "19c4ac3143",
+   "bytes": 8863220
   },
   "house_links.json": {
-   "v": "4e4e541d2b",
-   "bytes": 52782
+   "v": "3880d32b68",
+   "bytes": 52834
   },
   "house_site.glb": {
    "v": "4c62ddda6c",
@@ -180,12 +180,12 @@
    "bytes": 3176796
   },
   "hvac_air_handler_rheem_rh2ty36_house.glb": {
-   "v": "64d643e2d4",
-   "bytes": 3522892
+   "v": "0b50eb8847",
+   "bytes": 3527216
   },
   "hvac_air_handler_rheem_rh2vy36_house.glb": {
-   "v": "0ba71655c3",
-   "bytes": 3585260
+   "v": "ac19230060",
+   "bytes": 3585212
   },
   "hvac_air_handler_upflow.glb": {
    "v": "10e8e1edba",
@@ -228,20 +228,20 @@
    "bytes": 2775028
   },
   "hvac_furnace_rheem_r801t_house.glb": {
-   "v": "75739c672e",
-   "bytes": 2431076
+   "v": "7f7ef5b7f6",
+   "bytes": 2453720
   },
   "hvac_furnace_rheem_r921t_house.glb": {
-   "v": "622b26310d",
-   "bytes": 2571528
+   "v": "cb79fdc85c",
+   "bytes": 2630896
   },
   "hvac_furnace_rheem_r951v_house.glb": {
-   "v": "00f6ebb6d0",
-   "bytes": 2391508
+   "v": "a63963c977",
+   "bytes": 2451772
   },
   "hvac_furnace_rheem_r98mv_house.glb": {
-   "v": "f1ec3a0936",
-   "bytes": 2723752
+   "v": "8b4a18f1d4",
+   "bytes": 2783160
   },
   "hvac_furnace_std80.glb": {
    "v": "777601fa8a",
@@ -272,12 +272,12 @@
    "bytes": 601684
   },
   "index.html": {
-   "v": "1bda9ac616",
+   "v": "82a464c9e2",
    "bytes": 19610
   },
   "induct_purifier.glb": {
-   "v": "3eafbe7e55",
-   "bytes": 334432
+   "v": "1a2cebb5af",
+   "bytes": 335628
   },
   "info.json": {
    "v": "3e3a077b26",
@@ -332,8 +332,8 @@
    "bytes": 69099
   },
   "pipes.json": {
-   "v": "fe4280240a",
-   "bytes": 28910
+   "v": "17814f36b6",
+   "bytes": 29659
   },
   "pipes_alternates.glb": {
    "v": "1753c77613",
@@ -344,20 +344,20 @@
    "bytes": 3451628
   },
   "pipes_gas.glb": {
-   "v": "c6973548b8",
-   "bytes": 873524
+   "v": "a1747dc4c5",
+   "bytes": 876244
   },
   "pipes_hvac.glb": {
-   "v": "b51e56265a",
-   "bytes": 2751020
+   "v": "8aa1276915",
+   "bytes": 2798120
   },
   "pipes_supply.glb": {
    "v": "c5ad24adfb",
    "bytes": 2899352
   },
   "placements.json": {
-   "v": "4cc587f0be",
-   "bytes": 149174
+   "v": "d33e44d5ee",
+   "bytes": 149194
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -484,8 +484,8 @@
    "bytes": 1140320
   },
   "slab_house_framing.glb": {
-   "v": "d29b88683d",
-   "bytes": 101932
+   "v": "9600f8f19f",
+   "bytes": 102248
   },
   "slab_house_garagefurn.glb": {
    "v": "22987b15c6",
@@ -508,12 +508,12 @@
    "bytes": 3356188
   },
   "slab_pipes_gas.glb": {
-   "v": "3a138dfa3c",
-   "bytes": 831000
+   "v": "0a81e7a3e9",
+   "bytes": 838100
   },
   "slab_pipes_hvac.glb": {
-   "v": "5156ece2b9",
-   "bytes": 2644616
+   "v": "d32e1229a6",
+   "bytes": 2781388
   },
   "slab_pipes_supply.glb": {
    "v": "2fc6df2c67",
@@ -584,8 +584,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "ed47d2f482",
-   "bytes": 426280
+   "v": "faf405f580",
+   "bytes": 426945
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -718,68 +718,68 @@
    "bytes": 35411
   },
   "menu-art/hvac-gas-2ton-t1-yocona.jpg": {
-   "v": "34a904f7c4",
-   "bytes": 19284
+   "v": "0a27453b46",
+   "bytes": 19293
   },
   "menu-art/hvac-gas-2ton-t2-sardis.jpg": {
-   "v": "b9c8d78453",
-   "bytes": 20407
+   "v": "02d7ca84d3",
+   "bytes": 16538
   },
   "menu-art/hvac-gas-2ton-t3-grove.jpg": {
-   "v": "8425589317",
-   "bytes": 23085
+   "v": "111fd55a05",
+   "bytes": 17795
   },
   "menu-art/hvac-gas-2ton-t4-happy-home.jpg": {
-   "v": "b251f7aac2",
-   "bytes": 27649
+   "v": "d23d2f41fc",
+   "bytes": 20892
   },
   "menu-art/hvac-gas-3ton-t1-yocona.jpg": {
-   "v": "47bc2627f9",
-   "bytes": 20312
+   "v": "5f6082110d",
+   "bytes": 15585
   },
   "menu-art/hvac-gas-3ton-t2-sardis.jpg": {
-   "v": "84436d65ba",
-   "bytes": 22612
+   "v": "75aa6d8ede",
+   "bytes": 18101
   },
   "menu-art/hvac-gas-3ton-t3-grove.jpg": {
-   "v": "3cba6df895",
-   "bytes": 23081
+   "v": "360a6fc648",
+   "bytes": 17806
   },
   "menu-art/hvac-gas-3ton-t4-happy-home.jpg": {
-   "v": "ca6ad5a7e1",
-   "bytes": 30222
+   "v": "1502df9205",
+   "bytes": 22959
   },
   "menu-art/hvac-gas-4ton-t1-yocona.jpg": {
-   "v": "51f7d3b20a",
-   "bytes": 20859
+   "v": "f83499c37e",
+   "bytes": 19201
   },
   "menu-art/hvac-gas-4ton-t2-sardis.jpg": {
-   "v": "a98f3ed502",
-   "bytes": 21198
+   "v": "a09a1f25fe",
+   "bytes": 19454
   },
   "menu-art/hvac-gas-4ton-t3-grove.jpg": {
-   "v": "2575147a11",
-   "bytes": 23633
+   "v": "459049dd84",
+   "bytes": 20873
   },
   "menu-art/hvac-gas-4ton-t4-happy-home.jpg": {
-   "v": "68c4cdabce",
-   "bytes": 32685
+   "v": "c3181f1945",
+   "bytes": 28640
   },
   "menu-art/hvac-gas-5ton-t1-yocona.jpg": {
-   "v": "01c142c54c",
-   "bytes": 23131
+   "v": "75b7704aeb",
+   "bytes": 22284
   },
   "menu-art/hvac-gas-5ton-t2-sardis.jpg": {
-   "v": "849f1cc26a",
-   "bytes": 23288
+   "v": "f70bf64eaf",
+   "bytes": 22310
   },
   "menu-art/hvac-gas-5ton-t3-grove.jpg": {
-   "v": "00b6ebc3dd",
-   "bytes": 24236
+   "v": "515701a72f",
+   "bytes": 22988
   },
   "menu-art/hvac-gas-5ton-t4-happy-home.jpg": {
-   "v": "9c6c23ced0",
-   "bytes": 30556
+   "v": "140b7e1e44",
+   "bytes": 28636
   },
   "menu-art/hvac-rd16ay.jpg": {
    "v": "367f426b75",

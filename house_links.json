@@ -294,7 +294,7 @@
       "hvac": "electric_attic"
      },
      "glb": "hvac_air_handler_rheem_rh2ty36_house.glb",
-     "title": "Rheem RH2TY3617 air handler, RXBH 7.2 kW heat kit"
+     "title": "Rheem RH2TY3617 air handler, RXBH-1724A10J 10 kW heat kit"
     },
     {
      "model": "hvac_air_handler_horizontal.glb",
@@ -303,7 +303,7 @@
       "hvac": "electric_attic_ra15"
      },
      "glb": "hvac_air_handler_rheem_rh2ty36_house.glb",
-     "title": "Rheem RH2TY3617 air handler, RXBH 7.2 kW heat kit"
+     "title": "Rheem RH2TY3617 air handler, RXBH-1724A10J 10 kW heat kit"
     },
     {
      "model": "hvac_air_handler_horizontal.glb",
@@ -312,7 +312,7 @@
       "hvac": "heatpump_attic_rp14"
      },
      "glb": "hvac_air_handler_rheem_rh2ty36_house.glb",
-     "title": "Rheem RH2TY3617 air handler, RXBH 7.2 kW heat kit"
+     "title": "Rheem RH2TY3617 air handler, RXBH-1724A10J 10 kW heat kit"
     },
     {
      "model": "hvac_air_handler_horizontal.glb",
@@ -321,7 +321,7 @@
       "hvac": "heatpump_attic_rp15"
      },
      "glb": "hvac_air_handler_rheem_rh2ty36_house.glb",
-     "title": "Rheem RH2TY3617 air handler, RXBH 7.2 kW heat kit"
+     "title": "Rheem RH2TY3617 air handler, RXBH-1724A10J 10 kW heat kit"
     },
     {
      "model": "hvac_air_handler_horizontal.glb",
@@ -330,7 +330,7 @@
       "hvac": "heatpump_attic"
      },
      "glb": "hvac_air_handler_rheem_rh2vy36_house.glb",
-     "title": "Rheem RH2VY3617 variable speed air handler, RXBH 9.6 kW heat kit"
+     "title": "Rheem RH2VY3617 variable speed air handler, RXBH-1724A10J 10 kW heat kit"
     },
     {
      "model": "hvac_air_handler_horizontal.glb",
@@ -339,7 +339,7 @@
       "hvac": "heatpump_attic_rd18"
      },
      "glb": "hvac_air_handler_rheem_rh2vy36_house.glb",
-     "title": "Rheem RH2VY3617 variable speed air handler, RXBH 9.6 kW heat kit"
+     "title": "Rheem RH2VY3617 variable speed air handler, RXBH-1724A10J 10 kW heat kit"
     }
    ]
   },
@@ -452,7 +452,7 @@
       "hvac": "split_furnace"
      },
      "glb": "hvac_furnace_rheem_r801t_house.glb",
-     "title": "Rheem R801T0754A17 gas furnace (80%), RCFY3617 cased coil"
+     "title": "Rheem R801T0503A14 gas furnace (80%, 50k), RCFY3621 A coil"
     },
     {
      "model": "hvac_furnace_cond96.glb",
@@ -461,7 +461,7 @@
       "hvac": "split_furnace_92"
      },
      "glb": "hvac_furnace_rheem_r921t_house.glb",
-     "title": "Rheem R921T0403A17 gas furnace (92%), RCFY3617 cased coil"
+     "title": "Rheem R921T0403A17 gas furnace (92%, 42k), RCFY3621 A coil"
     },
     {
      "model": "hvac_furnace_cond96.glb",
@@ -470,7 +470,7 @@
       "hvac": "split_furnace_cond96"
      },
      "glb": "hvac_furnace_rheem_r951v_house.glb",
-     "title": "Rheem R951V0403A17 gas furnace (95%), RCFY3617 cased coil"
+     "title": "Rheem R951V0403A17 gas furnace (95%, 42k), RCFY3621 A coil"
     },
     {
      "model": "hvac_furnace_cond96.glb",
@@ -479,7 +479,7 @@
       "hvac": "split_furnace_98"
      },
      "glb": "hvac_furnace_rheem_r98mv_house.glb",
-     "title": "Rheem R98MV0603A17 modulating gas furnace (98%), RCFY3617 cased coil"
+     "title": "Rheem R98MV0603A17 modulating gas furnace (98%, 60k), RCFY3621 A coil"
     }
    ]
   },

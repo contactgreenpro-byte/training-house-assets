@@ -1110,14 +1110,15 @@
   // its clip (breaker_<key>) and the page keeps the circuit's state here. A unit on a dead circuit will not run from any tool or
   // button, and whatever was running on it stops when the breaker goes off. The gas furnace's blower sits on the HVAC breaker with
   // the rest of the system for this exercise (a real one has its own 15 A).
-  const breakers = { hvac: true, wh: true, septic: true };
+  const breakers = { hvac: true, wh: true, septic: true, ahu: true };     // round 95: the attic air handler's own 60 A two pole (the 10 kW heat kit)
   const BREAKER_LABEL = { hvac: 'HVAC', wh: 'WATER HTR', septic: 'SEPTIC', kitchen_a: 'KITCHEN A', kitchen_b: 'KITCHEN B', laundry: 'LAUNDRY',
     garage: 'GARAGE', dishwasher: 'DISHWASHER', exterior: 'EXTERIOR', disposal: 'DISPOSAL', living: 'LIVING', fridge: 'FRIDGE', dining: 'DINING',
     bed2: 'BEDROOM 2', bed3: 'BEDROOM 3', master: 'MASTER', lights_1: 'LIGHTS 1', lights_2: 'LIGHTS 2', washer: 'WASHER', smoke: 'SMOKE',
-    bath: 'BATHS', gdo: 'GARAGE DOOR', softener: 'SOFTENER', spd: 'SURGE' };
+    bath: 'BATHS', gdo: 'GARAGE DOOR', softener: 'SOFTENER', spd: 'SURGE', ahu: 'AIR HANDLER' };
   function breakerOf(model) {
     const m = model || '';
-    if (/condenser|air_handler|furnace|package/.test(m)) return 'hvac';
+    if (/air_handler/.test(m)) return 'ahu';     // round 95
+    if (/condenser|furnace|package/.test(m)) return 'hvac';
     if (/pump_tank|septic_|atu_blower|spray_pump_filter|lift_station/.test(m)) return 'septic';
     if (/electric_tank|electric_tankless|hybrid/.test(m)) return 'wh';
     return null;
@@ -1135,7 +1136,7 @@
       equip.children.forEach(u => { if (breakerOf(u.userData.model) !== key) return; const A = u.userData.anim; if (!A) return;
         for (const [n, st] of Object.entries(A.state)) if (st.open && CLIP_WORK.test(n) && !/^breaker_/.test(n)) playNamed(u, n, false); });
       if (key === 'septic') { if (pumpOn) pumpSwitch(); if (sprayOn) spraySwitch(); }
-      if (key === 'hvac') { running.delete('fan'); showFlows(); }
+      if (key === 'hvac' || key === 'ahu') { running.delete('fan'); showFlows(); }
     } else if (key === 'septic') pumpsOnByDefault();
     return 'breaker ' + BREAKER_LABEL[key] + (on ? ' ON: the circuit is live' : ' OFF: everything on it is dead until it is back on');
   }
@@ -1992,7 +1993,8 @@
   // Round 48: the panel's own circuit table, the same one the builder lays out. Space order sets which leg a breaker's stab lands on, so a
   // probe on a lug screw reads the leg that space really is.
   const CIRCUITS_BY_SLUG = {
-    hvac: { legs: ['A', 'B'], amps: 14.2, label: 'the condenser and air handler, 40 A two pole' },
+    hvac: { legs: ['A', 'B'], amps: 14.2, label: 'the outdoor unit (the air conditioner or heat pump), 40 A two pole' },
+    ahu: { legs: ['A', 'B'], amps: 2.4, label: 'the attic air handler, 60 A two pole: its blower, and the 10 kW heat kit (40 A at 240 V) when the heat is on' },     // round 95
     wh: { legs: ['A', 'B'], amps: 18.8, label: 'the water heater, 30 A two pole' },
     kitchen_a: { legs: ['A'], amps: 9.4, label: 'kitchen small appliance' },
     laundry: { legs: ['A'], amps: 7.8, label: 'the laundry' },
@@ -2051,8 +2053,9 @@
     [/^cap_lead_fan$/, { amps: 0.6, breaker: 'hvac', label: "the condenser fan's start winding, through the 5 microfarad side (worked from the capacitor's size, not Rheem's figure)" }],
     [/^cap_lead_c_line$/, { amps: 5.6, breaker: 'hvac', label: "the condenser capacitor's common: both start windings together (worked, not Rheem's figure)" }],
     [/^cap_lead_c_fan$/, { amps: 0.6, breaker: 'hvac', label: "the condenser fan's side of the capacitor common (worked, not Rheem's figure)" }],
+    [/conduit_hvac_ahu|disconnect_hvac_ahu|breaker_ahu/, { amps: 2.4, breaker: 'ahu', label: 'the attic air handler (blower; the 10 kW heat kit adds 40 A at 240 V when the heat is on), 60 A two pole' }],     // round 95
     [/whip|disconnect|contactor|^t1$|^t2$|term_l1|term_l2|breaker_hvac/, { amps: 14.9, breaker: 'hvac', label: 'the condenser (compressor 14.1 rated load plus the 0.8 amp fan, Rheem RA14 030)' }],
-    [/cable_hvac_ahu|air_handler/, { amps: 6.4, breaker: 'hvac', label: 'the air handler' }],
+    [/cable_hvac_ahu|air_handler/, { amps: 2.4, breaker: 'ahu', label: 'the air handler blower (the 10 kW heat kit adds 40 A at 240 V when the heat is on)' }],
     [/lv_|tstat|term_(r|c|w1|w2|y1|y2|g|o)/, { amps: 0.4, breaker: null, label: 'the 24 V control circuit' }],
     [/service_entrance_cable|se_conductor|hot_bus_bars/, { amps: 47.5, breaker: null, label: 'the service, everything the house is drawing' }],
   ];
