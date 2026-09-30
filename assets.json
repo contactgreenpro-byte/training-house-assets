@@ -1,7 +1,7 @@
 {
- "published": "2026-09-29T20:40:19",
- "house": "r96a",
- "note": "r96a: groundwater sump with perimeter drain tile (crawl), garage gas tank on an 18 in stand (slab), Flo receptacle feeds, Rheem UV lamp and AprilAire dehumidifier on the attic air handler, AquaKlear chlorinator tee bored, slabcheck.py, R9x vent socket fix",
+ "published": "2026-09-30T09:04:08",
+ "house": "r97a",
+ "note": "r97a: attic repipe for the slab house (PEX home runs from the manifold over the ceiling, drop ear elbows, old under slab lines capped), kitchen sink real rough in, Uni-Lateral valve box hole, INTERACTIONS gaps filled, Rheem furnaces with internal fixes",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -16,8 +16,8 @@
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "8ec2dbe7b5",
-   "bytes": 52340
+   "v": "00b1d194aa",
+   "bytes": 52386
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -56,8 +56,8 @@
    "bytes": 311892
   },
   "drains.json": {
-   "v": "2bf4cf0db5",
-   "bytes": 10750
+   "v": "7b5df25981",
+   "bytes": 10749
   },
   "dryer.glb": {
    "v": "0c266ce22a",
@@ -160,16 +160,16 @@
    "bytes": 255244
   },
   "house_furniture.glb": {
-   "v": "42d4351eaa",
-   "bytes": 8868156
+   "v": "f46a445d6d",
+   "bytes": 8863208
   },
   "house_links.json": {
    "v": "3880d32b68",
    "bytes": 52834
   },
   "house_site.glb": {
-   "v": "4c62ddda6c",
-   "bytes": 7882100
+   "v": "5e69b845f5",
+   "bytes": 7886800
   },
   "house_slab.glb": {
    "v": "e170461dbb",
@@ -228,20 +228,20 @@
    "bytes": 2775028
   },
   "hvac_furnace_rheem_r801t_house.glb": {
-   "v": "7f7ef5b7f6",
-   "bytes": 2453720
+   "v": "7ac409c6af",
+   "bytes": 2490520
   },
   "hvac_furnace_rheem_r921t_house.glb": {
-   "v": "4af1e972cc",
-   "bytes": 2652600
+   "v": "0c1782b46b",
+   "bytes": 2676680
   },
   "hvac_furnace_rheem_r951v_house.glb": {
-   "v": "e27b152eeb",
-   "bytes": 2473372
+   "v": "7b1cda6686",
+   "bytes": 2498440
   },
   "hvac_furnace_rheem_r98mv_house.glb": {
-   "v": "73196a1fbd",
-   "bytes": 2804840
+   "v": "2f6ce1e9eb",
+   "bytes": 2834536
   },
   "hvac_furnace_std80.glb": {
    "v": "777601fa8a",
@@ -272,7 +272,7 @@
    "bytes": 601684
   },
   "index.html": {
-   "v": "8270ecccad",
+   "v": "855124c748",
    "bytes": 19610
   },
   "induct_purifier.glb": {
@@ -284,8 +284,8 @@
    "bytes": 168825
   },
   "interactions.json": {
-   "v": "03030c6353",
-   "bytes": 86691
+   "v": "8ea4052ce8",
+   "bytes": 96097
   },
   "kitchen_sink.glb": {
    "v": "89e64c0103",
@@ -332,20 +332,20 @@
    "bytes": 69099
   },
   "pipes.json": {
-   "v": "1aa0e2c0c7",
-   "bytes": 31243
+   "v": "5f62a965e4",
+   "bytes": 46277
   },
   "pipes_alternates.glb": {
    "v": "1753c77613",
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "c7eef4578c",
-   "bytes": 3603116
+   "v": "f37f5c4fe5",
+   "bytes": 3557864
   },
   "pipes_gas.glb": {
-   "v": "37e384e70d",
-   "bytes": 882564
+   "v": "9ef8c38932",
+   "bytes": 882700
   },
   "pipes_hvac.glb": {
    "v": "f2ce3cf8cc",
@@ -476,24 +476,24 @@
    "bytes": 27304
   },
   "slab_drains.json": {
-   "v": "0b05dc4164",
-   "bytes": 10623
+   "v": "297ed09f6f",
+   "bytes": 10622
   },
   "slab_house_floor1.glb": {
    "v": "a698749cc4",
    "bytes": 1140320
   },
   "slab_house_framing.glb": {
-   "v": "d88c58870a",
-   "bytes": 103968
+   "v": "97b1202706",
+   "bytes": 117492
   },
   "slab_house_garagefurn.glb": {
    "v": "22987b15c6",
    "bytes": 382648
   },
   "slab_house_site.glb": {
-   "v": "aab9d6ab86",
-   "bytes": 7819324
+   "v": "64d6bb0074",
+   "bytes": 7824188
   },
   "slab_house_slab.glb": {
    "v": "e96c6de041",
@@ -504,20 +504,20 @@
    "bytes": 43256
   },
   "slab_pipes_dwv.glb": {
-   "v": "182ec9d31b",
-   "bytes": 3379324
+   "v": "cc701ec4a5",
+   "bytes": 3334068
   },
   "slab_pipes_gas.glb": {
-   "v": "9c30da6848",
-   "bytes": 875008
+   "v": "d270476d83",
+   "bytes": 880416
   },
   "slab_pipes_hvac.glb": {
    "v": "19d2d47c3a",
    "bytes": 2859784
   },
   "slab_pipes_supply.glb": {
-   "v": "c96e7748f8",
-   "bytes": 1471064
+   "v": "617cec7f56",
+   "bytes": 2653344
   },
   "sludgehammer.glb": {
    "v": "28b87ce6f8",
@@ -584,8 +584,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "d96da08156",
-   "bytes": 426989
+   "v": "7e42a9c292",
+   "bytes": 427146
   },
   "washer.glb": {
    "v": "7e04f19827",

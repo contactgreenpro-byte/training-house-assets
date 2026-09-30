@@ -1777,6 +1777,10 @@
    },
    "panel_door": {
     "look": "clip:panel_door_open"
+   },
+   "breaker_ahu_handle": {
+    "work": "breaker_ahu",
+    "look": "clip:breaker_ahu"
    }
   },
   "little/playset.glb": {},
@@ -4878,6 +4882,527 @@
     "look": "cut"
    },
    "sanitary_vent": {
+    "look": "cut"
+   }
+  },
+  "flo_shutoff_attic.glb": {
+   "flo_body": {
+    "look": "clip:housing_off"
+   },
+   "flo_led": {
+    "look": "clip:housing_off",
+    "work": "leak_alert"
+   },
+   "flo_led_alert": {
+    "look": "clip:housing_off",
+    "work": "leak_alert"
+   },
+   "flo_print": {
+    "look": "clip:housing_off"
+   },
+   "flo_handle": {
+    "work": "valve_close",
+    "look": "clip:valve_close"
+   },
+   "flow_packets": {
+    "work": "water_flow"
+   }
+  },
+  "flo_shutoff_wall.glb": {
+   "flo_body": {
+    "look": "clip:housing_off"
+   },
+   "flo_led": {
+    "look": "clip:housing_off",
+    "work": "leak_alert"
+   },
+   "flo_led_alert": {
+    "look": "clip:housing_off",
+    "work": "leak_alert"
+   },
+   "flo_print": {
+    "look": "clip:housing_off"
+   },
+   "flo_handle": {
+    "work": "valve_close",
+    "look": "clip:valve_close"
+   },
+   "flow_packets": {
+    "work": "water_flow"
+   },
+   "access_door": {
+    "look": "reveal"
+   },
+   "riser": {
+    "look": "cut"
+   }
+  },
+  "gas_tankless_water_heater_noncondensing.glb": {
+   "burner_flame": {
+    "work": "fire_up"
+   },
+   "gas_in_line": {
+    "work": "fire_up",
+    "look": "cut"
+   },
+   "cold_water_in": {
+    "work": "fire_up"
+   },
+   "hot_water_out": {
+    "work": "fire_up"
+   },
+   "hx_water": {
+    "work": "fire_up"
+   },
+   "front_cover": {
+    "look": "clip:cover_off"
+   },
+   "recirc_packets": {
+    "work": "recirc_run"
+   },
+   "recirc_pump": {
+    "work": "recirc_run"
+   },
+   "bottom_plate": {
+    "look": "aside"
+   },
+   "drain_pan": {
+    "look": "cut"
+   },
+   "gas_stub": {
+    "look": "cut"
+   },
+   "gas_supply_line": {
+    "look": "cut"
+   },
+   "back_panel": {
+    "look": "aside"
+   },
+   "prv_discharge": {
+    "look": "cut"
+   },
+   "air_inlet_filter": {
+    "look": "cut"
+   },
+   "exhaust_vent": {
+    "look": "cut"
+   },
+   "flue_riser": {
+    "look": "cut"
+   },
+   "cold_stub": {
+    "look": "cut"
+   },
+   "cold_supply_line": {
+    "look": "cut"
+   },
+   "hot_stub": {
+    "look": "cut"
+   },
+   "hot_supply_line": {
+    "look": "cut"
+   },
+   "inlet_filter_screen": {
+    "look": "cut"
+   },
+   "inlet_screen_fouled": {
+    "look": "cut"
+   },
+   "recirc_return_line": {
+    "look": "cut"
+   },
+   "recirc_return_stub": {
+    "look": "cut"
+   }
+  },
+  "pump_tank_train.glb": {
+   "float_onoff": {
+    "look": "clip:high_water",
+    "work": "pump_down"
+   },
+   "water": {
+    "work": "pump_down"
+   },
+   "water_section": {
+    "work": "pump_down"
+   },
+   "head_stem0": {
+    "work": "pump_run",
+    "look": "clip:heads_up"
+   },
+   "head_stem1": {
+    "work": "pump_run",
+    "look": "clip:heads_up"
+   },
+   "head_stem2": {
+    "work": "pump_run",
+    "look": "clip:heads_up"
+   },
+   "stream0": {
+    "work": "pump_run"
+   },
+   "stream1": {
+    "work": "pump_run"
+   },
+   "stream2": {
+    "work": "pump_run"
+   },
+   "splice_float_to_pump_sleeve": {
+    "work": "sleeves_back",
+    "look": "clip:sleeves_back"
+   },
+   "splice_ground_sleeve": {
+    "work": "sleeves_back"
+   },
+   "splice_hot_to_float_sleeve": {
+    "work": "sleeves_back",
+    "look": "clip:sleeves_back"
+   },
+   "splice_neutral_sleeve": {
+    "work": "sleeves_back"
+   },
+   "pump": {
+    "look": "clip:pump_pull"
+   },
+   "lid": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolts": {
+    "look": "clip:lid_off"
+   },
+   "spray_line": {
+    "look": "cut"
+   },
+   "discharge": {
+    "look": "cut"
+   },
+   "union": {
+    "look": "cut"
+   },
+   "inlet": {
+    "look": "cut"
+   },
+   "inlet_gasket": {
+    "look": "cut"
+   },
+   "inlet_stub": {
+    "look": "cut"
+   },
+   "lid_buried": {
+    "look": "aside"
+   },
+   "riser": {
+    "look": "cut"
+   },
+   "riser_adapter": {
+    "look": "cut"
+   },
+   "tank": {
+    "look": "section"
+   }
+  },
+  "septic_aquaklear_train.glb": {
+   "lid_aeration": {
+    "look": "clip:lid_aeration_off"
+   },
+   "lid_clarifier": {
+    "look": "clip:lid_clarifier_off"
+   },
+   "alarm_lit": {
+    "look": "clip:high_water"
+   },
+   "float_switch": {
+    "look": "clip:high_water"
+   },
+   "water": {
+    "work": "aerate"
+   },
+   "water_clarifier": {},
+   "water_clarifier_section": {},
+   "water_section": {
+    "work": "aerate"
+   },
+   "pump_filter_cover": {
+    "look": "clip:filter_cover_off"
+   },
+   "airlift_spurt": {
+    "work": "aerate"
+   },
+   "bubbles": {
+    "work": "aerate"
+   },
+   "mix_arrows": {
+    "work": "aerate"
+   },
+   "water_gray": {
+    "work": "aerate"
+   },
+   "water_gray_section": {
+    "work": "aerate"
+   },
+   "chlor_feed_tube": {
+    "look": "clip:chlorinator_pull"
+   },
+   "chlor_tablets": {
+    "look": "clip:chlorinator_pull"
+   },
+   "chlorinator_cap": {
+    "look": "clip:chlorinator_pull"
+   },
+   "cleanout_plug": {
+    "look": "clip:cleanout_plug_off"
+   },
+   "riser_aeration": {
+    "look": "cut"
+   },
+   "riser_clarifier": {
+    "look": "cut"
+   },
+   "air_line_ground": {
+    "look": "cut"
+   },
+   "pump_cover": {
+    "look": "aside"
+   },
+   "pump_hose": {
+    "look": "cut"
+   },
+   "air_line": {
+    "look": "cut"
+   },
+   "diffuser": {
+    "look": "section"
+   },
+   "inlet": {
+    "look": "cut"
+   },
+   "outlet": {
+    "look": "cut"
+   },
+   "cleanout_backflow_cap": {
+    "look": "aside"
+   },
+   "sewer_line": {
+    "look": "cut"
+   },
+   "grass": {
+    "look": "section"
+   },
+   "soil": {
+    "look": "section"
+   },
+   "baffle": {
+    "look": "section"
+   },
+   "inlet_boss": {
+    "look": "cut"
+   },
+   "outlet_boss": {
+    "look": "cut"
+   },
+   "tank": {
+    "look": "section"
+   }
+  },
+  "septic_lee_trash.glb": {
+   "mix_arrows": {
+    "work": "aerate"
+   },
+   "bubbles": {
+    "work": "aerate"
+   },
+   "blower_air_filter_cover": {
+    "look": "clip:blower_air_filter_off"
+   },
+   "head_stem0": {
+    "work": "pump_run"
+   },
+   "head_stem1": {
+    "work": "pump_run"
+   },
+   "head_stem2": {
+    "work": "pump_run"
+   },
+   "stream0": {
+    "work": "pump_run"
+   },
+   "stream1": {
+    "work": "pump_run"
+   },
+   "stream2": {
+    "work": "pump_run"
+   },
+   "float_onoff": {
+    "work": "pump_run",
+    "look": "clip:pump_run"
+   },
+   "water_pump": {
+    "work": "pump_run"
+   },
+   "water_pump_section": {
+    "work": "pump_run"
+   },
+   "pump": {
+    "look": "clip:pump_pull"
+   },
+   "splice_float_to_pump_sleeve": {
+    "work": "sleeves_back",
+    "look": "clip:sleeves_back"
+   },
+   "splice_ground_sleeve": {
+    "work": "sleeves_back"
+   },
+   "splice_hot_to_float_sleeve": {
+    "work": "sleeves_back",
+    "look": "clip:sleeves_back"
+   },
+   "splice_neutral_sleeve": {
+    "work": "sleeves_back"
+   },
+   "bolts_aer": {
+    "look": "clip:lids_off"
+   },
+   "bolts_inlet": {
+    "look": "clip:lids_off"
+   },
+   "bolts_pump": {
+    "look": "clip:lids_off"
+   },
+   "lid_aer": {
+    "look": "clip:lids_off"
+   },
+   "lid_inlet": {
+    "look": "clip:lids_off"
+   },
+   "lid_pump": {
+    "look": "clip:lids_off"
+   },
+   "chlor_tablets": {
+    "look": "clip:chlorinator_pull"
+   },
+   "cleanout_cap": {
+    "look": "clip:cleanout_cap_off"
+   },
+   "aeration_pipe": {
+    "look": "cut"
+   },
+   "air_line": {
+    "look": "cut"
+   },
+   "spray_line": {
+    "look": "cut"
+   },
+   "discharge": {
+    "look": "cut"
+   },
+   "union": {
+    "look": "cut"
+   },
+   "inlet": {
+    "look": "cut"
+   },
+   "inlet_boot": {
+    "look": "cut"
+   },
+   "inlet_stub": {
+    "look": "cut"
+   },
+   "lid_buried": {
+    "look": "aside"
+   },
+   "riser_aer": {
+    "look": "cut"
+   },
+   "riser_inlet": {
+    "look": "cut"
+   },
+   "riser_pump": {
+    "look": "cut"
+   },
+   "tank": {
+    "look": "section"
+   },
+   "transfer": {
+    "look": "cut"
+   }
+  },
+  "sump_pump.glb": {
+   "alarm_light_on": {
+    "work": "alarm_test"
+   },
+   "basin_water": {
+    "work": "float_stuck"
+   },
+   "basin_water_high": {
+    "work": "float_stuck"
+   },
+   "float_pump": {
+    "work": "float_stuck",
+    "look": "clip:float_stuck"
+   },
+   "float_pump_stuck": {
+    "work": "float_stuck",
+    "look": "clip:float_stuck"
+   },
+   "ball_valve": {
+    "work": "run"
+   },
+   "basin": {
+    "work": "run"
+   },
+   "check_valve": {
+    "work": "run"
+   },
+   "flow_packets": {
+    "work": "run"
+   },
+   "lid": {
+    "work": "run",
+    "look": "clip:lid_off"
+   },
+   "panel": {
+    "work": "run"
+   },
+   "pump": {
+    "work": "run"
+   },
+   "check_backflow": {
+    "work": "check_failed"
+   },
+   "ext_cord": {
+    "work": "ext_cord"
+   },
+   "panel_feed": {
+    "work": "ext_cord"
+   },
+   "float_alarm": {
+    "work": "pump_out",
+    "look": "clip:pump_out"
+   },
+   "lift_chain": {
+    "work": "pump_out"
+   },
+   "pump_plate": {
+    "work": "pump_out",
+    "look": "aside"
+   },
+   "lid_unsealed": {
+    "work": "lid_unsealed",
+    "look": "aside"
+   },
+   "rag": {
+    "work": "rags"
+   },
+   "ctx_drain": {
+    "look": "cut"
+   },
+   "discharge": {
+    "look": "cut"
+   },
+   "inlet": {
+    "look": "cut"
+   },
+   "vent": {
     "look": "cut"
    }
   }
