@@ -1167,6 +1167,32 @@
 ],
 "r": 0.0134,
 "config": "water_heater=garage_hybrid"
+},
+"pipe_dwv_pan_drain_wh_garage_tank": {
+"pts": [
+[
+7.6682,
+6.2207,
+0.352
+],
+[
+7.7352,
+6.2207,
+0.352
+],
+[
+7.7352,
+7.3,
+0.3296
+],
+[
+7.7352,
+7.3,
+-0.09
+]
+],
+"r": 0.0134,
+"config": "water_heater=garage_gas_tank"
 }
 }
 }

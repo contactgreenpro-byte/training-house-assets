@@ -171,7 +171,7 @@
   let groundOn = true;
   function isGround(o) { return GROUND.some(p => nodeName(o).startsWith(p)); }
   const CONFIG_CHOICES = {
-    water_heater: ['attic_gas_tank', 'closet_gas_tank', 'attic_electric_tank', 'closet_electric_tank', 'garage_tankless', 'garage_hybrid', 'garage_electric_tankless', 'garage_tankless_noncondensing'],     // round 46: the electric tank in both tank spots (Jake)
+    water_heater: ['attic_gas_tank', 'closet_gas_tank', 'attic_electric_tank', 'closet_electric_tank', 'garage_tankless', 'garage_hybrid', 'garage_electric_tankless', 'garage_tankless_noncondensing', 'garage_gas_tank'],     // round 46: the electric tank in both tank spots (Jake)
     hvac: ['split_furnace', 'split_furnace_92', 'split_furnace_cond96', 'split_furnace_98', 'electric_attic', 'electric_attic_ra15', 'heatpump_attic', 'heatpump_attic_rd18', 'heatpump_attic_rp14', 'heatpump_attic_rp15', 'gas_pack'],
     sewer: ['septic_spray', 'septic_spray_two_tank', 'septic_gravity', 'septic_overland', 'septic_overland_lee', 'septic_overland_aquaklear', 'city_lift', 'city_lift_duplex', 'city_gravity', 'septic_spray_trash', 'septic_spray_fiberglass_train', 'septic_overland_fiberglass_train'],     // round 78: the duplex grinder station (Jake)
         // 2026-09-23: septic_spray_trash, the IM-540 trash tank in front of the Lee plant (Jake: "use the 540 Infiltrator, just put that in front")
@@ -197,7 +197,7 @@
   // copper in the floor (Jake: "it's poured into the floor"); CPVC and galvanized are the crawl house's. fits() says whether a value is
   // offered in a house; foundationSet() is the change that takes the layout to the other house, anything that does not fit there falling
   // back to that house's default.
-  const FOUNDATION_ONLY = { plumbing: { cpvc: 'crawl', galvanized: 'crawl', copper: 'slab' }, water_heater: { attic_gas_tank: 'crawl', attic_electric_tank: 'crawl' },
+  const FOUNDATION_ONLY = { plumbing: { cpvc: 'crawl', galvanized: 'crawl', copper: 'slab' }, water_heater: { attic_gas_tank: 'crawl', attic_electric_tank: 'crawl', garage_gas_tank: 'slab' },
     sump: { yes: 'crawl' }, shutoff_extra: { wall: 'crawl', attic: 'crawl' }, mixing_valve: { yes: 'crawl' }, surge_wh: { yes: 'crawl' } };
   const FOUNDATION_DEFAULT = { slab: { plumbing: 'pex', water_heater: 'closet_gas_tank', sump: 'no', shutoff_extra: 'none', mixing_valve: 'no', surge_wh: 'no' },
     crawl: { plumbing: 'cpvc', water_heater: 'attic_gas_tank' } };

@@ -1,7 +1,7 @@
 {
- "published": "2026-09-29T10:44:24",
- "house": "r95a",
- "note": "r95a: A coil on every furnace, furnaces and heat kits sized by the North Mississippi load calc (R801T 50k 14 in, R921T/R951V 042, R98MV 060, RXBH 10 kW), 3 ton set up at 2-1/2, 90 plus exhaust jogs clear of the lineset, heat kit circuit; menu pictures with the A coil",
+ "published": "2026-09-29T20:40:19",
+ "house": "r96a",
+ "note": "r96a: groundwater sump with perimeter drain tile (crawl), garage gas tank on an 18 in stand (slab), Flo receptacle feeds, Rheem UV lamp and AprilAire dehumidifier on the attic air handler, AquaKlear chlorinator tee bored, slabcheck.py, R9x vent socket fix",
  "files": {
   "_r70_ends.json": {
    "v": "ff2cf5794f",
@@ -16,8 +16,8 @@
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "340a09c27a",
-   "bytes": 52286
+   "v": "8ec2dbe7b5",
+   "bytes": 52340
   },
   "asset-shim.js": {
    "v": "4f08306d61",
@@ -156,12 +156,12 @@
    "bytes": 1125624
   },
   "house_framing.glb": {
-   "v": "c9db27db6a",
-   "bytes": 253936
+   "v": "ac854758e8",
+   "bytes": 255244
   },
   "house_furniture.glb": {
-   "v": "19c4ac3143",
-   "bytes": 8863220
+   "v": "42d4351eaa",
+   "bytes": 8868156
   },
   "house_links.json": {
    "v": "3880d32b68",
@@ -180,12 +180,12 @@
    "bytes": 3176796
   },
   "hvac_air_handler_rheem_rh2ty36_house.glb": {
-   "v": "0b50eb8847",
-   "bytes": 3527216
+   "v": "091e0334a3",
+   "bytes": 2270300
   },
   "hvac_air_handler_rheem_rh2vy36_house.glb": {
-   "v": "ac19230060",
-   "bytes": 3585212
+   "v": "4617c4e934",
+   "bytes": 2328312
   },
   "hvac_air_handler_upflow.glb": {
    "v": "10e8e1edba",
@@ -232,16 +232,16 @@
    "bytes": 2453720
   },
   "hvac_furnace_rheem_r921t_house.glb": {
-   "v": "cb79fdc85c",
-   "bytes": 2630896
+   "v": "4af1e972cc",
+   "bytes": 2652600
   },
   "hvac_furnace_rheem_r951v_house.glb": {
-   "v": "a63963c977",
-   "bytes": 2451772
+   "v": "e27b152eeb",
+   "bytes": 2473372
   },
   "hvac_furnace_rheem_r98mv_house.glb": {
-   "v": "8b4a18f1d4",
-   "bytes": 2783160
+   "v": "73196a1fbd",
+   "bytes": 2804840
   },
   "hvac_furnace_std80.glb": {
    "v": "777601fa8a",
@@ -272,7 +272,7 @@
    "bytes": 601684
   },
   "index.html": {
-   "v": "82a464c9e2",
+   "v": "8270ecccad",
    "bytes": 19610
   },
   "induct_purifier.glb": {
@@ -332,32 +332,32 @@
    "bytes": 69099
   },
   "pipes.json": {
-   "v": "17814f36b6",
-   "bytes": 29659
+   "v": "1aa0e2c0c7",
+   "bytes": 31243
   },
   "pipes_alternates.glb": {
    "v": "1753c77613",
    "bytes": 43512
   },
   "pipes_dwv.glb": {
-   "v": "0ada70f3f3",
-   "bytes": 3451628
+   "v": "c7eef4578c",
+   "bytes": 3603116
   },
   "pipes_gas.glb": {
-   "v": "a1747dc4c5",
-   "bytes": 876244
+   "v": "37e384e70d",
+   "bytes": 882564
   },
   "pipes_hvac.glb": {
-   "v": "8aa1276915",
-   "bytes": 2798120
+   "v": "f2ce3cf8cc",
+   "bytes": 2913808
   },
   "pipes_supply.glb": {
-   "v": "c5ad24adfb",
-   "bytes": 2899352
+   "v": "dd205670b1",
+   "bytes": 2899640
   },
   "placements.json": {
-   "v": "d33e44d5ee",
-   "bytes": 149194
+   "v": "6d8357c5eb",
+   "bytes": 151895
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -404,20 +404,20 @@
    "bytes": 40340
   },
   "septic_aquaklear.glb": {
-   "v": "8614137c87",
-   "bytes": 1252020
+   "v": "77760fd1bb",
+   "bytes": 1285304
   },
   "septic_aquaklear_slab.glb": {
-   "v": "ed8c42ef14",
-   "bytes": 1310420
+   "v": "b3aacecae4",
+   "bytes": 1343808
   },
   "septic_aquaklear_train.glb": {
-   "v": "378d84c01c",
-   "bytes": 1311320
+   "v": "0e9d479190",
+   "bytes": 1344488
   },
   "septic_aquaklear_train_slab.glb": {
-   "v": "765e7ff6fe",
-   "bytes": 1437452
+   "v": "47a4921b36",
+   "bytes": 1470748
   },
   "septic_aquasafe.glb": {
    "v": "865724c699",
@@ -476,16 +476,16 @@
    "bytes": 27304
   },
   "slab_drains.json": {
-   "v": "01dc13c8cb",
-   "bytes": 10387
+   "v": "0b05dc4164",
+   "bytes": 10623
   },
   "slab_house_floor1.glb": {
    "v": "a698749cc4",
    "bytes": 1140320
   },
   "slab_house_framing.glb": {
-   "v": "9600f8f19f",
-   "bytes": 102248
+   "v": "d88c58870a",
+   "bytes": 103968
   },
   "slab_house_garagefurn.glb": {
    "v": "22987b15c6",
@@ -504,20 +504,20 @@
    "bytes": 43256
   },
   "slab_pipes_dwv.glb": {
-   "v": "88c1566d25",
-   "bytes": 3356188
+   "v": "182ec9d31b",
+   "bytes": 3379324
   },
   "slab_pipes_gas.glb": {
-   "v": "0a81e7a3e9",
-   "bytes": 838100
+   "v": "9c30da6848",
+   "bytes": 875008
   },
   "slab_pipes_hvac.glb": {
-   "v": "d32e1229a6",
-   "bytes": 2781388
+   "v": "19d2d47c3a",
+   "bytes": 2859784
   },
   "slab_pipes_supply.glb": {
-   "v": "2fc6df2c67",
-   "bytes": 1470936
+   "v": "c96e7748f8",
+   "bytes": 1471064
   },
   "sludgehammer.glb": {
    "v": "28b87ce6f8",
@@ -536,8 +536,8 @@
    "bytes": 1013228
   },
   "sump_pump.glb": {
-   "v": "f4d6df606f",
-   "bytes": 296156
+   "v": "8bb3524422",
+   "bytes": 296572
   },
   "sweet_air.glb": {
    "v": "36c079816e",
@@ -584,8 +584,8 @@
    "bytes": 1619760
   },
   "walk.js": {
-   "v": "faf405f580",
-   "bytes": 426945
+   "v": "d96da08156",
+   "bytes": 426989
   },
   "washer.glb": {
    "v": "7e04f19827",

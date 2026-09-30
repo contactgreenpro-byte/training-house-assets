@@ -700,6 +700,70 @@
   {
    "socket": "sock_wh_garage",
    "file": "floor1",
+   "pack": "gas_tank_water_heater",
+   "model": "gas_tank_water_heater.glb",
+   "yaw": 180,
+   "hide": [
+    "exp_tank_air_valve",
+    "exp_tank_label",
+    "exp_tank_piping",
+    "exp_tank_shell_front",
+    "exp_tank_shell_rear",
+    "exp_tank_strap",
+    "thermal_expansion_tank",
+    "scale_inhibitor"
+   ],
+   "config": "water_heater=garage_gas_tank&foundation=slab",
+   "alternate": true,
+   "note": "Round 96 (Jake 2026-09-29: \"it can be on a stand in the slab house\"): the 50 gal atmospheric gas tank in the slab house's garage on an 18 in steel stand (IRC G2408.2 / M1307.3: an ignition source 18 in over a garage floor), where the hybrid stands (sock_wh_garage, pulled 0.36 off the north wall). Its cold and hot lines top out where the hybrid's house lines start, so the house lines are the hybrid's; the gas drops from the attic main onto the drip tee (the riser above it hidden as in the closet); the 3 in B vent goes straight up through the garage ceiling and the roof; the pan drains out through the north wall to 6 cm over grade; the T and P discharge ends over the pan; a steel bollard stands in front of it (IRC G2408.3: protected from vehicle impact). Slab house only.",
+   "addon": {
+    "expansion_tank": {
+     "show": [
+      "thermal_expansion_tank",
+      "exp_tank_shell_front",
+      "exp_tank_shell_rear",
+      "exp_tank_piping",
+      "exp_tank_strap",
+      "exp_tank_air_valve",
+      "exp_tank_label"
+     ],
+     "hide": []
+    },
+    "scale_inhibitor": {
+     "show": [
+      "scale_inhibitor"
+     ],
+     "hide": []
+    }
+   },
+   "states": [
+    "anode_rod_pitted",
+    "anode_rod_bare",
+    "exp_tank_waterlogged"
+   ],
+   "section_set": {
+    "pairs": {
+     "outer_jacket": "outer_jacket_section",
+     "insulation": "insulation_section",
+     "inner_tank": "inner_tank_section",
+     "water_volume": "water_volume_section",
+     "exp_tank_shell_front": "exp_tank_section",
+     "combustion_chamber": "combustion_chamber_section",
+     "air_intake": "air_intake_section"
+    },
+    "also_hide": [
+     "data_plate"
+    ]
+   },
+   "offset": [
+    0,
+    -0.36,
+    0.457
+   ]
+  },
+  {
+   "socket": "sock_wh_garage",
+   "file": "floor1",
    "pack": "gas_tankless_water_heater",
    "variant": "condensing",
    "model": "gas_tankless_water_heater_condensing.glb",
@@ -3015,7 +3079,7 @@
     "lid_unsealed",
     "rag"
    ],
-   "note": "Round 88 (Jake, 2026-09-22: place the sump pump). The indoor pump basin under the hall bath, built in this socket's frame (sump_pump/HANDOFF.md): 24 x 30 basin in the crawl dirt a metre west of the toilet drop, grinder pump, floats, 2 in discharge into a wye that sleeves over the building drain, simplex panel on the girder. Add on, off by default. Round 90: its vent stops in a coupling 14 cm over the lid and the house vent (vent_dwv_sump) takes it into the bath stack in the attic; its panel feed runs to the load centre (cable_sump_feed). The capped 3 in inlet waits on Jake's ruling (which fixtures, if any, drain to it)."
+   "note": "Round 88 (Jake, 2026-09-22: place the sump pump). The indoor pump basin under the hall bath, built in this socket's frame (sump_pump/HANDOFF.md): 24 x 30 basin in the crawl dirt a metre west of the toilet drop, grinder pump, floats, 2 in discharge into a wye that sleeves over the building drain, simplex panel on the girder. Add on, off by default. Round 90: its vent stops in a coupling 14 cm over the lid and the house vent (vent_dwv_sump) takes it into the bath stack in the attic; its panel feed runs to the load centre (cable_sump_feed). Round 96 (Jake 2026-09-29: a groundwater sump): its 3 in inlet is fed by perimeter drain tile round the inside of the crawl's footing (3 in perforated PVC in gravel, falling 1/16 in per foot to a wye north of the basin and a solid lateral into the inlet: pipe_sump_tile_*), not by a fixture."
   },
   {
    "socket": "sock_wh_attic",
@@ -3030,13 +3094,14 @@
    ],
    "config": "shutoff_extra=attic&water_heater=attic_gas_tank|attic_electric_tank",
    "hide": [
-    "ctx_attic"
+    "ctx_attic",
+    "nm_cable"
    ],
    "states": [
     "flo_led_alert",
     "flow_packets"
    ],
-   "note": "Round 88 (Jake: place the other Flo valves). The Flo on the attic cold run, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, attic variant): CPVC x PEX transitions at y 7.80 and 8.80 on the cold riser at x -3.025 z 3.31, the brick in a receptacle on the joist. Add on, off by default. Round 90: the house cold riser is cut between the two transitions (build_pipes.py flo_cut), and the add on shows only with an attic tank (there is no attic cold run otherwise). Still owed: its receptacle's feed."
+   "note": "Round 88 (Jake: place the other Flo valves). The Flo on the attic cold run, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, attic variant): CPVC x PEX transitions at y 7.80 and 8.80 on the cold riser at x -3.025 z 3.31, the brick in a receptacle on the joist. Add on, off by default. Round 90: the house cold riser is cut between the two transitions (build_pipes.py flo_cut), and the add on shows only with an attic tank (there is no attic cold run otherwise). Round 96: its receptacle's feed is the house's cable_flo_attic_feed (12/2 NM-B to the GARAGE DOOR + ATTIC circuit); the model's own tail through the deck is hidden."
   },
   {
    "socket": "sock_laundry_box_laundry",
@@ -3071,7 +3136,7 @@
     "bore": [],
     "note": "Round 88: click the access door and it comes off. Round 90: the laundry wall carries the opening itself (build_house.py FLO_WALL_CUT), so nothing is bored any more; the stud bay shows through the opening."
    },
-   "note": "Round 88 (Jake: place the other Flo valves). The Flo in the laundry wall, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, wall variant): a 14 x 22 in access box in the x 0 wall at y 5.334, the riser up through the bottom plate, its NM cable ending in the crawl. Add on, off by default. Round 90: the opening is cut in the laundry wall (build_house.py FLO_WALL_CUT, a patch fills it in every other layout) and the house trunk stops 7 mm into the model's own trunk at each end (build_pipes.py flo_cut). Still owed: its receptacle's feed."
+   "note": "Round 88 (Jake: place the other Flo valves). The Flo in the laundry wall, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, wall variant): a 14 x 22 in access box in the x 0 wall at y 5.334, the riser up through the bottom plate, its NM cable ending in the crawl. Add on, off by default. Round 90: the opening is cut in the laundry wall (build_house.py FLO_WALL_CUT, a patch fills it in every other layout) and the house trunk stops 7 mm into the model's own trunk at each end (build_pipes.py flo_cut). Round 96: its receptacle's cable carries on as the house's cable_flo_wall_feed (12/2 NM-B to the SOFTENER + SUMP circuit)."
   },
   {
    "socket": "sock_wh_closet_coat",
@@ -3090,7 +3155,8 @@
     "ctx_drywall_laundry",
     "ctx_floor",
     "ctx_framing",
-    "ctx_trunk"
+    "ctx_trunk",
+    "nm_cable"
    ],
    "states": [
     "flo_led_alert",
