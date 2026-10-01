@@ -90,7 +90,17 @@
   // cache buster on every model: the page is reloaded right after a rebuild, and a browser holding a stale GLB shows old
   // geometry and old clips, which reads as a bug that was already fixed
   const CB = '?v=' + Date.now();
-  function load(url) { return new Promise((res, rej) => loader.load(url + CB, g => res(g), undefined, e => rej(e))); }
+  function loadRaw(url) { return new Promise((res, rej) => loader.load(url + CB, g => res(g), undefined, e => rej(e))); }
+  // round 98 (speed lever 4, SPEED_2026-10-01.md section 4.4): the files a start up is about to ask for one by one are fetched ahead,
+  // in parallel, so the network is never idle while the loader parses the file before. load() hands back the fetch already in
+  // flight when there is one; nothing about how a file is loaded, or what happens to it after, changes.
+  const FETCH_PIPE_WITH_HOUSE = false;     // the first pipe file alongside the house's own four files (measured: see 4.4)
+  const HOLD_STEP_DURING_BOOT = true;     // stepPlacements() waits while the boot's placeNearest(6) runs, so ready means the six nearest
+  const prefetched = {};
+  function prefetch(urls) { for (const u of urls) if (!prefetched[u]) { prefetched[u] = loadRaw(u); prefetched[u].catch(() => { }); } }
+  function load(url) { if (prefetched[url]) { const p = prefetched[url]; delete prefetched[url]; return p; } return loadRaw(url); }
+  // a manifest fetch started now and awaited later, so several can be in flight at once; a failure is for the await's own catch
+  function jsonLater(url) { const p = fetch(url + CB).then(r => r.json()); p.catch(() => { }); return p; }
   function loadModel(file) {
     if (!cache[file]) cache[file] = (async () => { for (const d of MODEL_DIRS) { try { return await load(d + file); } catch (e) { } } throw new Error('missing ' + file); })();
     return cache[file];
@@ -118,6 +128,8 @@
   // ---------------------------------------------------------------- house
   async function loadHouse(files) {
     for (const f of (files || HOUSE_FILES)) {
+      // round 98 progress hook: the app's loading screen reads window.__walkProgress (stage, file, counts; the shim adds the bytes). Nothing else changes.
+      window.__walkProgress = { stage: files === HOUSE_FIRST ? 'house' : 'rest', file: f, filesDone: house.children.length, filesTotal: HOUSE_FIRST.length + HOUSE_REST.length + PIPE_FILES.length, bytesDone: 0, bytesTotal: 0 };
       status.textContent = 'loading ' + f; const g = await load('./' + f + '.glb'); const root = g.scene; root.name = f; house.add(root); root.updateMatrixWorld(true); tuneMaterials(root);
       // 2026-09-25, the slab house: it shares the crawl house's furniture, less the two garage pieces it carries at its own garage slab's height
       if (f === 'house_furniture' && CONFIG.foundation === 'slab') root.traverse(o => { let p = o; while (p && p !== root) { if (/^furn_(tool_chest|shelving)_garage/.test(p.name)) { o.userData.slabSkip = true; o.visible = false; break; } p = p.parent; } });
@@ -155,6 +167,8 @@
         }
       });
     }
+    // round 98 progress hook: the count after the last file of this call
+    if (window.__walkProgress) window.__walkProgress.filesDone = house.children.length;
   }
   // ---------------------------------------------------------------- placements
   // The equipment layout. Ten alternates ship with the house and none of them could be reached here: this was one
@@ -230,7 +244,7 @@
   }
   // Round 44: placements load on approach. PEND holds what this layout wants and has not loaded; stepPlacements takes the nearest one that is
   // close or in view, one at a time. loadAll() forces the rest (the self test and the layout audits want everything).
-  let PEND = [], loadingOne = false, pendT = 0;
+  let PEND = [], loadingOne = false, pendT = 0, holdStep = false;     // round 98 (speed lever 4): holdStep, see HOLD_STEP_DURING_BOOT
   const _pv = new T.Vector3();
   function queuePlacements(todo) {
     PEND = [];
@@ -244,7 +258,7 @@
     for (let i = 0; i < n && PEND.length; i++) { const e = PEND.shift(); await place(e.pl); }
   }
   function stepPlacements(dt) {
-    if (loadingOne || !PEND.length) return;
+    if (loadingOne || holdStep || !PEND.length) return;
     pendT -= dt; if (pendT > 0) return; pendT = 0.15;
     let pick = -1;
     for (let i = 0; i < PEND.length; i++) {
@@ -260,6 +274,8 @@
   async function loadAll() { while (PEND.length) await placeNearest(4); return equip.children.length + ' models placed'; }
   async function place(pl) {
     const sock = sockets[pl.socket]; if (!sock) { console.warn('no socket', pl.socket); return; }
+    // round 98 progress hook: the unit about to arrive (stage equipment), and below, the count once it stands
+    window.__walkProgress = { stage: 'equipment', file: pl.model.replace(/^little\//, ''), filesDone: equip.children.length, filesTotal: equip.children.length + PEND.length + 1, bytesDone: 0, bytesTotal: 0 };
     let g; try { g = await loadModel(pl.model.replace(/^little\//, '')); } catch (e) { console.warn(e.message); return; }
     const inst = g.scene.clone(true); stampParts(g, inst); inst.userData.elevGroup = pl.elevation_group || null; tuneMaterials(inst); inst.userData.model = pl.slab_of || pl.stands_for || pl.model;     /* round 94: a Rheem unit stands for the old stand in's model name (links, clicks, add ons) */ inst.userData.socket = pl.socket;     // 2026-09-22: the socket tells the hall bath toilet from the master's for the show link
     if (g.animations && g.animations.length) { const mixer = new T.AnimationMixer(inst); mixers.push(mixer); inst.userData.anim = { mixer, clips: g.animations.map(c => c.clone()), state: {} }; }
@@ -298,6 +314,8 @@
     inst.matrixAutoUpdate = false; inst.matrix.copy(m); inst.matrixWorld.copy(m); inst.updateMatrixWorld(true);
     inst.userData.pl = pl;     // round 46: the unit keeps its own placement, so its add ons can be offered where it stands
     equip.add(inst);
+    // round 98 progress hook
+    window.__walkProgress = { stage: 'equipment', file: pl.model.replace(/^little\//, ''), filesDone: equip.children.length, filesTotal: equip.children.length + PEND.length, bytesDone: 0, bytesTotal: 0 };
     modelWater(inst);     // round 61: the water that runs through the model's own pipes
     setupPlantSim(inst);     // round 67: a plant whose pump chamber, float and pump are driven by the water that arrives
     for (const r of (pl.replaces || [])) if (houseByName[r]) { houseByName[r].visible = false; houseByName[r].userData.hiddenByPlacement = true; }
@@ -634,26 +652,30 @@
     return false;
   }
   async function loadPlacements() {
-    placements = await (await fetch('./placements.json' + CB)).json();
-    try { EXPLODE = await (await fetch('./explode.json' + CB)).json(); } catch (e) { EXPLODE = {}; }
-    try { GRAB = await (await fetch('./grab.json' + CB)).json(); } catch (e) { GRAB = {}; }     // round 52: what the pliers can take hold of, and what has to be dead first
-    try { INTER = await (await fetch('./interactions.json' + CB)).json(); } catch (e) { console.warn('no interactions.json: only pipes cut'); INTER = { models: {} }; }
-    try { INFO = await (await fetch('./info.json' + CB)).json(); } catch (e) { INFO = { packs: {} }; }
-    try { CHECKS = (await (await fetch('./checklists.json' + CB)).json()).packs || {}; } catch (e) { CHECKS = {}; }
-    try { const pj = await (await fetch('./parts.json' + CB)).json(); PARTS = pj.parts || {}; PART_PREFIX = Object.entries(pj._prefix || {}); } catch (e) { PARTS = {}; PART_PREFIX = []; }     // round 87: the card a tapped part shows     // round 39: what it is, how it works, what we check     // cache busted like the models: a stale placements file hid a new key for a whole test (round 19)
+    // round 98 (speed lever 4): seven round trips become one; each await keeps its own fallback below
+    const J_pl = jsonLater('./placements.json'), J_ex = jsonLater('./explode.json'), J_gr = jsonLater('./grab.json'), J_in = jsonLater('./interactions.json'), J_if = jsonLater('./info.json'), J_ch = jsonLater('./checklists.json'), J_pa = jsonLater('./parts.json');
+    placements = await J_pl;
+    try { EXPLODE = await J_ex; } catch (e) { EXPLODE = {}; }
+    try { GRAB = await J_gr; } catch (e) { GRAB = {}; }     // round 52: what the pliers can take hold of, and what has to be dead first
+    try { INTER = await J_in; } catch (e) { console.warn('no interactions.json: only pipes cut'); INTER = { models: {} }; }
+    try { INFO = await J_if; } catch (e) { INFO = { packs: {} }; }
+    try { CHECKS = (await J_ch).packs || {}; } catch (e) { CHECKS = {}; }
+    try { const pj = await J_pa; PARTS = pj.parts || {}; PART_PREFIX = Object.entries(pj._prefix || {}); } catch (e) { PARTS = {}; PART_PREFIX = []; }     // round 87: the card a tapped part shows     // round 39: what it is, how it works, what we check     // cache busted like the models: a stale placements file hid a new key for a whole test (round 19)
     queuePlacements(placements.placements.filter(wants));
-    status.textContent = 'placing what is in reach'; await placeNearest(6);
+    status.textContent = 'placing what is in reach'; holdStep = HOLD_STEP_DURING_BOOT; try { await placeNearest(6); } finally { holdStep = false; }
     pumpsOnByDefault();
   }
   // Round 22 (Jake: 'the air pumps on the septics should start in the on position'): a plant with an aerate clip runs it from the start
   function pumpsOnByDefault() { let has = false; equip.children.forEach(u => { const A = u.userData.anim; if (A && A.clips.some(c => c.name === 'aerate')) has = true; }); if (has && !pumpOn) pumpSwitch(); }
   // ---------------------------------------------------------------- pipes
   async function loadPipes() {
-    try { pipesMeta = await (await fetch('./pipes.json' + CB)).json(); Object.assign(labels, pipesMeta.labels || {}); if (CONFIG.foundation === 'slab') Object.assign(labels, pipesMeta.slab_labels || {}); } catch (e) { }     // 2026-09-25: the slab house's own words for the runs it builds its own way
+    prefetch(PIPE_FILES.map(f => './' + f + '.glb'));     // round 98 (speed lever 4): the pipe files download while the manifests round trip
+    const J_pipes = jsonLater('./pipes.json'), J_drains = jsonLater('./' + (CONFIG.foundation === 'slab' ? 'slab_' : '') + 'drains.json'), J_wires = jsonLater('./wires.json');
+    try { pipesMeta = await J_pipes; Object.assign(labels, pipesMeta.labels || {}); if (CONFIG.foundation === 'slab') Object.assign(labels, pipesMeta.slab_labels || {}); } catch (e) { }     // 2026-09-25: the slab house's own words for the runs it builds its own way
     // round 40 (Jake: "click wires and it says where they are going and why"): wires.json, house runs by name (they override the pipe
     // labels) and model parts by pack and part regex
-    try { DRAINS = ((await (await fetch('./' + (CONFIG.foundation === 'slab' ? 'slab_' : '') + 'drains.json' + CB)).json()).runs) || {}; } catch (e) { DRAINS = {}; }     // round 43: the ball's routes
-    try { const W = await (await fetch('./wires.json' + CB)).json(); WIRES = { runs: W.runs || {}, parts: (W.parts || []).map(e => ({ pack: new RegExp(e.pack), part: new RegExp(e.part), text: e.text })) }; Object.assign(labels, WIRES.runs); } catch (e) { }
+    try { DRAINS = ((await J_drains).runs) || {}; } catch (e) { DRAINS = {}; }     // round 43: the ball's routes
+    try { const W = await J_wires; WIRES = { runs: W.runs || {}, parts: (W.parts || []).map(e => ({ pack: new RegExp(e.pack), part: new RegExp(e.part), text: e.text })) }; Object.assign(labels, WIRES.runs); } catch (e) { }
     for (const f of PIPE_FILES) {
       status.textContent = 'loading ' + f; const g = await load('./' + f + '.glb'); const lf = f.replace(/^slab_/, ''); g.scene.name = lf; pipes.add(g.scene); layers[lf] = g.scene; tuneMaterials(g.scene);
       stampParts(g, g.scene);
@@ -4465,8 +4487,10 @@
     // under the floor) and the placed models arrive behind you, in the same order as before, and 'ready:' still means all of it.
     // The layout tags are applied as soon as the site is in, or every layout's lawn and street patch would show at once.
     try {
-      setFiles(); await loadHouse(HOUSE_FIRST); poseGarageDoor(); applyPipeConfig(); goTo('spawn_door'); step();
+      setFiles(); prefetch(HOUSE_FIRST.map(f => './' + f + '.glb')); if (FETCH_PIPE_WITH_HOUSE) prefetch(['./' + PIPE_FILES[0] + '.glb']);     // round 98 (speed lever 4)
+      await loadHouse(HOUSE_FIRST); poseGarageDoor(); applyPipeConfig(); goTo('spawn_door'); step();
       window.__walkCanEnter = true; status.textContent = 'the house is up: furniture, pipes and equipment are still arriving';
+      prefetch(HOUSE_REST.map(f => './' + f + '.glb'));     // round 98 (speed lever 4): the furniture and the framing side by side, behind the door
       await loadHouse(HOUSE_REST); collectFixtures(); updateLights();
       await loadPipes(); applyPipeConfig(); await loadPlacements(); chooseDoorSides(); status.textContent = 'ready: ' + Object.keys(sockets).length + ' sockets, ' + equip.children.length + ' models placed'; loadEl.style.display = 'none'; }
     catch (e) { status.textContent = 'error: ' + e.message; console.error(e); }

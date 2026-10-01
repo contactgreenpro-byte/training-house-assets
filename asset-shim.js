@@ -31,7 +31,13 @@
   }
   window.__resolveAsset = resolve;
   window.__missingAssets = [];
-  window.__loads = { started: 0, done: 0, failed: 0 };
+  // Round 98: every load is also kept by name, in start order, with the bytes the loader has seen so far (files[i] = {name,
+  // loaded, total, done, failed}). The loading screen draws the house from these: the file name says which stage (lot, walls,
+  // roof, pipes, equipment) and loaded against total says how far along that stage is. total is 0 when the server does not
+  // say (a gzipped response); the screen then takes the size from assets.json. walk.js's own progress hook (round 98,
+  // window.__walkProgress) carries the stage and the counts; the bytes are copied into it from here, because this is the
+  // only place in the app that sees the loader's onProgress for every file.
+  window.__loads = { started: 0, done: 0, failed: 0, files: [] };
 
   // the JSON manifests
   const realFetch = window.fetch.bind(window);
@@ -66,10 +72,18 @@
       // counted, so the loading screen can say how far along the house is instead of spinning
       const n = window.__loads;
       n.started++;
+      const rec = { name: nameOf(url), loaded: 0, total: 0, done: false, failed: false };
+      n.files.push(rec);
+      // round 98: the bytes, into this record and into walk.js's progress object when it names the same file
+      const bytes = function (ev) {
+        if (ev && typeof ev.loaded === 'number') { rec.loaded = ev.loaded; if (ev.lengthComputable && ev.total > rec.total) rec.total = ev.total; }
+        const P = window.__walkProgress;
+        if (P && P.file && rec.name.indexOf(P.file) === 0) { P.bytesDone = rec.loaded; if (rec.total) P.bytesTotal = rec.total; }
+      };
       return realLoad.call(this, r.url,
-        function (g) { n.done++; if (onLoad) onLoad(g); },
-        onProgress,
-        function (e) { n.failed++; if (onError) onError(e); });
+        function (g) { rec.done = true; n.done++; if (onLoad) onLoad(g); },
+        function (ev) { bytes(ev); if (onProgress) onProgress(ev); },
+        function (e) { rec.failed = true; n.failed++; if (onError) onError(e); });
     };
     L.prototype.__shimmed = true;
     return true;

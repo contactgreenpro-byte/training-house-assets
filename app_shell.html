@@ -33,14 +33,65 @@
   #setup .wrap { max-width: 720px; margin: 0 auto; padding: 28px 16px 40px; }
   #setup h1 { margin: 0; font-size: 22px; letter-spacing: .02em; color: #f8fafc; }
   #setup .sub { margin: 4px 0 0; color: #94a3b8; font-size: 13px; }
-  #setup .build { margin-top: 18px; background: #111827; border: 1px solid #1f2937; border-radius: 10px; padding: 12px 14px; }
-  #setup .build span { color: #cbd5e1; font-size: 13px; }
+  #setup .build { margin-top: 18px; background: #111827; border: 1px solid #1f2937; border-radius: 10px; padding: 12px 14px;
+                  display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  #setup .build span { color: #cbd5e1; font-size: 13px; flex: 1 1 150px; }
   #setup .build.ready span { color: #f5b62d; font-weight: 600; }
-  #setup .bar { position: relative; height: 6px; border-radius: 3px; background: #1f2937; overflow: hidden; margin-top: 8px; }
-  #setup .bar i { position: absolute; top: 0; bottom: 0; width: 30%; background: #f5b62d; border-radius: 3px;
-                  animation: slide 1.3s ease-in-out infinite; }
-  #setup .build.ready .bar i { width: 100%; animation: none; left: 0; }
-  @keyframes slide { 0% { left: -30%; } 100% { left: 100%; } }
+  /* Round 98: the house that builds itself, in place of the 6 px bar that slid on a timer. Line art in the app's own
+     colours; every stroke draws itself as the real file it stands for arrives (see HB below). The small copy beside
+     the enter note is a clone of the same drawing, so both follow the same variables, set on #setup. */
+  #setup .hb { flex: 1 1 320px; width: 100%; max-height: 104px; display: block; stroke: #e2e8f0; }
+  @media (min-height: 600px) { #setup .hb { max-height: 130px; } }
+  @media (max-width: 560px) { #setup .build span { min-width: 0; } #setup .hb { max-height: 80px; } }
+  #setup .hb * { vector-effect: non-scaling-stroke; }
+  /* the stroke colour is set on the stage groups and inherited; a shape only says it has no fill */
+  #setup .hb path, #setup .hb rect, #setup .hb circle { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  #setup .hb .ghost { stroke: #334155; stroke-dasharray: 3 4; }
+  /* a stroke draws itself along its length: pathLength is 1 on every stroke, so one dash covers the whole of it and the
+     offset is how much is still undrawn. The elements of a stage draw in turn: element i of n */
+  #setup .hb .s { stroke-dasharray: 1px 1px; stroke-dashoffset: clamp(0px, calc(1px - (var(--p) * var(--n, 1) - var(--i, 0)) * 1px), 1px); transition: stroke-dashoffset .25s linear; }
+  #setup .hb .lot { --p: var(--lot, 0); stroke: #a3b0c2; }
+  #setup .hb .fnd { --p: var(--fnd, 0); stroke: #a3b0c2; }
+  #setup .hb .wal { --p: var(--wal, 0); }
+  #setup .hb .rof { --p: var(--rof, 0); }
+  #setup .hb .frm { --p: var(--frm, 0); stroke: #64748b; }
+  #setup .hb .fur { --p: var(--fur, 0); stroke: #a3b0c2; }
+  #setup .hb .sup { --p: var(--sup, 0); }
+  #setup .hb .dwv { --p: var(--dwv, 0); stroke: #f8fafc; }
+  #setup .hb .gas { --p: var(--gas, 0); stroke: #facc15; }
+  #setup .hb .hvc { --p: var(--hvc, 0); stroke: #94a3b8; stroke-width: 2.4; }
+  #setup .hb .cold { stroke: #60a5fa; } #setup .hb .hot { stroke: #f87171; }
+  /* the two foundations, the two heater spots, the two furnace spots, the two sewers, the two gas services, the two water
+     services: the picks on this screen show one of each pair, live */
+  #setup .hb .house { transform: translateY(calc(var(--dy, 0) * 1px)); transition: transform .4s ease; }
+  #setup .hb .onslab { opacity: var(--slab, 0); } #setup .hb .oncrawl { opacity: calc(1 - var(--slab, 0)); }
+  #setup .hb .whattic { opacity: var(--wha, 0); } #setup .hb .whcloset { opacity: calc(1 - var(--wha, 0)); }
+  #setup .hb .hvattic { opacity: var(--hva, 0); } #setup .hb .hvcloset { opacity: calc((1 - var(--hva, 0)) * (1 - var(--pack, 0))); }
+  #setup .hb .onseptic { opacity: var(--septic, 0); } #setup .hb .oncity { opacity: calc(1 - var(--septic, 0)); }
+  #setup .hb .onpropane { opacity: var(--propane, 0); } #setup .hb .onnatural { opacity: calc(1 - var(--propane, 0)); }
+  #setup .hb .onwell { opacity: var(--well, 0); } #setup .hb .onmeter { opacity: calc(1 - var(--well, 0)); }
+  #setup .hb .onpack { opacity: var(--pack, 0); } #setup .hb .nopack { opacity: calc(1 - var(--pack, 0)); }
+  /* the equipment drops into place, one unit per model the house has placed */
+  #setup .hb .eq { transition: transform .45s cubic-bezier(.2, 1.4, .4, 1), opacity .2s linear; transform: translateY(calc(-26px * (1 - var(--e)))); opacity: var(--e); }
+  #setup .hb .eq1 { --e: var(--eq1, 0); } #setup .hb .eq2 { --e: var(--eq2, 0); } #setup .hb .eq3 { --e: var(--eq3, 0); } #setup .hb .eq4 { --e: var(--eq4, 0); }
+  #setup .hb .eq.whattic { opacity: calc(var(--e) * var(--wha, 0)); } #setup .hb .eq.whcloset { opacity: calc(var(--e) * (1 - var(--wha, 0))); }
+  #setup .hb .eq.hvattic { opacity: calc(var(--e) * var(--hva, 0)); } #setup .hb .eq.hvcloset { opacity: calc(var(--e) * (1 - var(--hva, 0)) * (1 - var(--pack, 0))); }
+  #setup .hb .eq.onseptic { opacity: calc(var(--e) * var(--septic, 0)); } #setup .hb .eq.oncity { opacity: calc(var(--e) * (1 - var(--septic, 0))); }
+  #setup .hb .eq.onpack { opacity: calc(var(--e) * var(--pack, 0)); } #setup .hb .eq.nopack { opacity: calc(var(--e) * (1 - var(--pack, 0))); }
+  #setup .hb .eq.onpropane { opacity: calc(var(--e) * var(--propane, 0)); }
+  /* the lights come on and the door opens: House is ready. The door leaf is there once the walls have reached it */
+  #setup .hb .win { fill: #f5b62d; fill-opacity: calc(var(--lit, 0) * .9); transition: fill-opacity .6s ease .15s; }
+  #setup .hb .glow { fill: #f5b62d; stroke: none; fill-opacity: calc(var(--lit, 0) * .16); transition: fill-opacity .8s ease .25s; }
+  #setup .hb .door { fill: #f5b62d; stroke: #f5b62d; opacity: clamp(0, calc((var(--wal, 0) - .875) * 8), 1); transform-origin: 271px 62px;
+                     transform: skewY(calc(var(--lit, 0) * -24deg)) scaleX(calc(1 - var(--lit, 0) * .58)); transition: transform .7s cubic-bezier(.3, 1.3, .5, 1) .1s, opacity .2s linear; }
+  #setup .hb .porch { fill: #f5b62d; stroke: none; fill-opacity: var(--lit, 0); transition: fill-opacity .3s ease; }
+  /* the small copy on the House layout screen, beside "Building the slab house...": thinner lines, the fine detail left out */
+  #setup .hb.mini { display: none; flex: 0 0 auto; width: 200px; max-height: 40px; }
+  #setup .hb.mini.on { display: block; }
+  #setup .hb.mini path, #setup .hb.mini rect, #setup .hb.mini circle { stroke-width: 1.1; }
+  #setup .hb.mini .frm, #setup .hb.mini .fur, #setup .hb.mini .glow { display: none; }
+  /* someone who asked for less motion gets the same house in steps, nothing slides */
+  @media (prefers-reduced-motion: reduce) { #setup .hb * { transition: none !important; } }
   #setup h2 { margin: 22px 0 8px; font-size: 13px; color: #94a3b8; text-transform: uppercase; letter-spacing: .08em; }
   #setup .presets { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
   #setup .presets button { background: #111827; color: #e5e7eb; border: 1px solid #334155; border-radius: 8px;
@@ -105,13 +156,124 @@
     <p class="sub">Pick the house you want to work in while it is being built.</p>
     <div class="build" id="build">
       <span id="bstatus">Building the house...</span>
-      <div class="bar"><i></i></div>
+      <svg class="hb" id="hb" viewBox="0 0 560 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <!-- the empty lot, drawn with the page before a single byte of the house has arrived -->
+        <path class="ghost" d="M0 82 H30 V76 H560"/>
+        <!-- the lot: street, kerb, grade, grass, the mailbox, a tree (the site file) -->
+        <g class="lot" style="--n:8">
+          <path class="s" style="--i:0" pathLength="1" d="M0 82 H30"/>
+          <path class="s" style="--i:1" pathLength="1" d="M30 82 V76 H36"/>
+          <path class="s" style="--i:2" pathLength="1" d="M36 76 H560"/>
+          <path class="s" style="--i:3" pathLength="1" d="M56 76 v-3 M64 76 v-2 M90 76 v-3 M110 76 v-2 M130 76 v-3 M140 76 v-2"/>
+          <path class="s" style="--i:4" pathLength="1" d="M462 76 v-2 M470 76 v-3 M480 76 v-2 M540 76 v-3 M556 76 v-2"/>
+          <path class="s" style="--i:5" pathLength="1" d="M44 76 V62 M40 62 H50 V57 H40 Z"/>
+          <path class="s" style="--i:6" pathLength="1" d="M548 76 V56"/>
+          <circle class="s" style="--i:7" pathLength="1" cx="548" cy="45" r="11"/>
+        </g>
+        <!-- the foundation: a crawl space (stem walls, piers, footings) or a slab on grade (monolithic, turned down edges) -->
+        <g class="fnd oncrawl" style="--n:6">
+          <path class="s" style="--i:0" pathLength="1" d="M146 58 V84 H152 V58"/>
+          <path class="s" style="--i:1" pathLength="1" d="M428 58 V84 H434 V58"/>
+          <path class="s" style="--i:2" pathLength="1" d="M216 62 V82 H222 V62"/>
+          <path class="s" style="--i:3" pathLength="1" d="M286 62 V82 H292 V62"/>
+          <path class="s" style="--i:4" pathLength="1" d="M356 62 V82 H362 V62"/>
+          <path class="s" style="--i:5" pathLength="1" d="M140 84 H158 M422 84 H440 M210 82 H228 M280 82 H298 M350 82 H368"/>
+        </g>
+        <g class="fnd onslab" style="--n:2">
+          <path class="s" style="--i:0" pathLength="1" d="M142 68 H438 V74 H434 V86 H422 V74 H158 V86 H146 V74 H142 Z"/>
+          <path class="s" style="--i:1" pathLength="1" d="M164 74 H416"/>
+        </g>
+        <!-- the yard: the water meter or the well head, their risers (fixed to grade; the house moves with its foundation) -->
+        <g class="fnd" style="--n:1">
+          <path class="s onmeter" style="--i:0" pathLength="1" d="M64 76 V71 H76 V76 M70 76 V98"/>
+          <path class="s onwell" style="--i:0" pathLength="1" d="M66 76 V67 H74 V76 M70 76 V98"/>
+        </g>
+        <!-- everything that stands on the foundation moves with it (a slab sits lower than a crawl space floor) -->
+        <g class="house">
+          <!-- floor and walls going up (floor1): floor, the two outside walls, the ceiling, the partition, two windows, the door frame -->
+          <g class="wal" style="--n:8">
+            <path class="s" style="--i:0" pathLength="1" d="M146 62 H434"/>
+            <path class="s" style="--i:1" pathLength="1" d="M150 62 V30"/>
+            <path class="s" style="--i:2" pathLength="1" d="M430 62 V30"/>
+            <path class="s" style="--i:3" pathLength="1" d="M146 30 H434"/>
+            <path class="s" style="--i:4" pathLength="1" d="M330 62 V30"/>
+            <rect class="glow" x="172" y="34" width="36" height="20" rx="4"/>
+            <rect class="s win" style="--i:5" pathLength="1" x="176" y="38" width="28" height="12"/>
+            <rect class="glow" x="368" y="34" width="36" height="20" rx="4"/>
+            <rect class="s win" style="--i:6" pathLength="1" x="372" y="38" width="28" height="12"/>
+            <path class="s" style="--i:7" pathLength="1" d="M270 62 V40 H286 V62"/>
+          </g>
+          <!-- rafters and roof (attic): the two slopes and the eaves -->
+          <g class="rof" style="--n:3">
+            <path class="s" style="--i:0" pathLength="1" d="M136 32 L290 4"/>
+            <path class="s" style="--i:1" pathLength="1" d="M290 4 L444 32"/>
+            <path class="s" style="--i:2" pathLength="1" d="M136 32 H146 M434 32 H444"/>
+          </g>
+          <!-- the framing file: the rafters under the roof deck, the ceiling joists, the floor joists over a crawl space -->
+          <g class="frm" style="--n:4">
+            <path class="s" style="--i:0" pathLength="1" d="M154 31 L290 7.5"/>
+            <path class="s" style="--i:1" pathLength="1" d="M290 7.5 L426 31"/>
+            <path class="s" style="--i:2" pathLength="1" d="M150 33 H430"/>
+            <path class="s oncrawl" style="--i:3" pathLength="1" d="M152 65 H428"/>
+          </g>
+          <!-- the furniture file: a sofa, a bed, the kitchen counter with its sink and faucet -->
+          <g class="fur" style="--n:4">
+            <path class="s" style="--i:0" pathLength="1" d="M160 62 V50 H192 V62 M160 55 H192"/>
+            <path class="s" style="--i:1" pathLength="1" d="M394 62 V53 H426 V62 M394 57 H426"/>
+            <path class="s" style="--i:2" pathLength="1" d="M296 52 H318 V62"/>
+            <path class="s" style="--i:3" pathLength="1" d="M306 52 V47 H311"/>
+          </g>
+          <!-- the water: cold in blue from the service, hot in red from the heater, both to the sink -->
+          <g class="sup" style="--n:3">
+            <path class="s cold" style="--i:0" pathLength="1" d="M70 90 H156 V72 H362 V62"/>
+            <path class="s cold" style="--i:1" pathLength="1" d="M304 72 V52"/>
+            <path class="s hot whcloset" style="--i:2" pathLength="1" d="M362 44 V38 H310 V52"/>
+            <path class="s cold whattic" style="--i:2" pathLength="1" d="M353 72 V30"/>
+            <path class="s hot whattic" style="--i:2" pathLength="1" d="M359 30 V38 H310 V52"/>
+          </g>
+          <!-- the drain in white: the sink's trap arm down and out to the septic tank, or out to the street; the vent through the roof -->
+          <g class="dwv" style="--n:2">
+            <path class="s onseptic" style="--i:0" pathLength="1" d="M308 52 V74 H430 L476 88"/>
+            <path class="s oncity" style="--i:0" pathLength="1" d="M308 52 V74 H150 L30 92"/>
+            <path class="s" style="--i:1" pathLength="1" d="M312 52 V3 M309 3 H315"/>
+          </g>
+          <!-- the gas in yellow: from the street main or the propane tank, up to the meter or regulator at the wall, to the furnace and the heater -->
+          <g class="gas" style="--n:3">
+            <path class="s onnatural" style="--i:0" pathLength="1" d="M20 94 H100"/>
+            <path class="s" style="--i:0" pathLength="1" d="M100 94 H150 V52 M143 49 H150 V55 H143 Z"/>
+            <path class="s hvcloset nopack" style="--i:1" pathLength="1" d="M150 52 H158 V70 H343 V62"/>
+            <path class="s whcloset" style="--i:2" pathLength="1" d="M366 70 V62"/>
+            <path class="s whattic" style="--i:2" pathLength="1" d="M366 70 V30"/>
+          </g>
+          <!-- the duct: from the furnace, or from the attic air handler, along under the ceiling -->
+          <g class="hvc" style="--n:2">
+            <path class="s hvcloset nopack" style="--i:0" pathLength="1" d="M343 42 V35"/>
+            <path class="s hvcloset" style="--i:1" pathLength="1" d="M170 35 H420"/>
+            <path class="s hvattic" style="--i:0" pathLength="1" d="M270 23 H340"/>
+            <path class="s hvattic" style="--i:1" pathLength="1" d="M300 23 V30 M338 23 V30 M250 23 H270"/>
+          </g>
+          <!-- the equipment, one unit per model placed: the water heater, the furnace or the attic air handler -->
+          <g class="eq eq1 whcloset"><rect x="356" y="44" width="12" height="18" rx="3"/><path d="M362 44 V36"/></g>
+          <g class="eq eq1 whattic"><rect x="350" y="17" width="12" height="13" rx="3"/></g>
+          <g class="eq eq2 hvcloset"><rect x="336" y="42" width="14" height="20"/><path d="M339 50 H347 M339 54 H347"/></g>
+          <g class="eq eq2 hvattic"><rect x="250" y="16" width="20" height="14"/><path d="M255 19 V27 M260 19 V27 M265 19 V27"/></g>
+          <!-- the door and its light: amber, open when the house is ready -->
+          <rect class="door" x="271" y="41" width="14" height="21"/>
+          <circle class="porch" cx="291" cy="37" r="1.7"/>
+        </g>
+        <!-- yard equipment on grade: the condenser or the gas pack, the propane tank, the septic tank or the cleanout at the street -->
+        <g class="eq eq3 nopack"><rect x="440" y="64" width="18" height="12" rx="1"/><circle cx="449" cy="70" r="3.6"/><path d="M438 76 H460"/></g>
+        <g class="eq eq3 onpack"><rect x="440" y="56" width="26" height="20" rx="1"/><circle cx="453" cy="63" r="4.2"/><path d="M442 72 H464"/></g>
+        <g class="eq eq4 onseptic"><rect x="470" y="80" width="54" height="16" rx="4"/><rect x="492" y="74" width="10" height="6"/><path d="M524 88 H540 M532 88 V94 M538 88 V94"/></g>
+        <g class="eq eq4 oncity"><path d="M40 92 V76 M36 76 H44"/></g>
+        <g class="eq eq2 onpropane"><rect x="78" y="62" width="46" height="14" rx="7"/><path d="M100 76 V98 M86 76 V80 M116 76 V80 M101 62 V58"/></g>
+      </svg>
     </div>
     <h2>Start from</h2>
     <div class="presets" id="presets"></div>
     <h2>Change the details</h2>
     <div id="choices"><span class="note">The details appear as soon as the house page is up.</span></div>
-    <div class="go">
+    <div class="go" id="go">
       <button id="enter" disabled>Enter the house</button>
       <span class="note" id="enternote"></span>
     </div>
@@ -125,7 +287,7 @@
 <!-- the version tag makes a browser that cached an older shim fetch this one: a new page next to an old shim is what
      broke the first setup screen ("Cannot read properties of undefined (reading 'started')"). Bump it whenever the
      shim changes. -->
-<script src="asset-shim.js?v=59d"></script>
+<script src="asset-shim.js?v=98a"></script>
 <script>
 // Round 59. The app runs Jake's walk page itself: the index.html and walk.js he uploads next to the models, unchanged.
 // Every rule built into it over the rounds (door swing sides, riser lids, clips, the fixture lights, the work views) comes
@@ -159,7 +321,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '97a';
+  var SHELL = '98a';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -214,6 +376,7 @@
   function start(map, show) {
     if (window.__ASSETS) return;
     window.__ASSETS = map;
+    HB.sizes(map);
     // Show mode: the parent named one thing to land on. The setup screen is never seen, the job's layout is built, and
     // nothing about it is remembered (Jake, 2026-09-22: the job's layout is not the person's training pick, and a
     // homeowner's guess is not a fact). An open with no start behaves as it always has.
@@ -241,6 +404,92 @@
   });
   if (window.parent !== window) window.parent.postMessage({ type: 'house-ready' }, location.origin);
   else say('Open this from the app, which hands it the uploaded files.', true);
+
+  // ------------------------------------------------------------------ the house that builds itself (round 98)
+  // The 6 px bar slid on a timer and said nothing. This draws the house the way the real one arrives: the lot and grade
+  // as the site file comes in, then the foundation (piers and a stem wall, or a slab on grade, after the Foundation pick,
+  // live), the floor and walls (floor1), the roof (attic), the framing and the furniture, the water in blue and red, the
+  // drain in white and the gas in yellow (the pipe files), then the equipment dropping in, one unit per model the house
+  // places. The lights come on and the door opens at the moment Enter unlocks (isReady, unchanged); the pipes and the
+  // equipment keep drawing after it, as the real house keeps loading behind you. Driven by real progress only, never a
+  // timer: the shim's per file bytes (window.__loads.files, in start order) and walk.js's progress hook
+  // (window.__walkProgress, round 98); an older walk.js without the hook gives the same picture from the file names.
+  // The site file is the lot AND the ground the foundation sits in, so its first 55 percent draws the lot and the rest
+  // the foundation; the tiny crawl or slab file (last of the four) finishes it. Every state is a CSS variable on #setup,
+  // so the small copy beside the enter note on the House layout screen follows the same state.
+  var HB = (function () {
+    var S = setupEl.style, SIZES = null, from = 0, eqN = 0, eqT = 0, P0 = null, mini = null, still = false, hold = false;
+    try { still = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    var STAGES = ['lot', 'fnd', 'wal', 'rof', 'frm', 'fur', 'sup', 'dwv', 'gas', 'hvc'];
+    function stageOf(n) {
+      if (/house_site/.test(n)) return 'site'; if (/house_floor1/.test(n)) return 'wal'; if (/house_attic/.test(n)) return 'rof';
+      if (/house_(crawl|slab)\.glb$/.test(n)) return 'fnd'; if (/furniture|garagefurn/.test(n)) return 'fur'; if (/framing/.test(n)) return 'frm';
+      if (/pipes_supply/.test(n)) return 'sup'; if (/pipes_dwv/.test(n)) return 'dwv'; if (/pipes_gas/.test(n)) return 'gas'; if (/pipes_hvac/.test(n)) return 'hvc';
+      if (/pipes_alternates|gloves|needle_nose|clamp_meter|multimeter/.test(n)) return null;
+      return 'eq';     // a placed model
+    }
+    // how far along one file is: done, or its bytes against what the server (or assets.json, for a gzipped reply) says it weighs
+    function frac(r) { if (r.done) return 1; var t = r.total || (SIZES && SIZES[r.name]) || 0; return t ? Math.min(1, r.loaded / t) : 0; }
+    function update() {
+      var L = window.__loads, P = window.__walkProgress, v = {}, cnt = {}, eq = 0, shell = 0, i, r, s, f;
+      if (!L || !L.files) return;
+      // a whole rebuild on the way back in: walk.js finishes the old start up first, so the old house (still standing in the
+      // scene) stays drawn until the new house's first file starts, then the drawing starts over
+      if (hold) { if (L.files.length > from) hold = false; else return; }
+      for (i = from; i < L.files.length; i++) {
+        r = L.files[i]; s = stageOf(r.name); if (!s) continue;
+        if (s === 'eq') { if (r.done) eq++; continue; }
+        f = frac(r);
+        if (s === 'site') { v.lot = Math.min(1, f / .55); v.fnd0 = Math.max(0, (f - .55) / .45); }
+        else { v[s] = (v[s] || 0) + f; cnt[s] = (cnt[s] || 0) + 1; }
+        if (r.done && /^(site|wal|rof|fnd)$/.test(s)) shell++;
+      }
+      for (s in cnt) v[s] = v[s] / cnt[s];
+      v.fnd = .9 * (v.fnd0 || 0) + .1 * (v.fnd || 0);
+      for (s in v) v[s] = Math.min(1, Math.round(v[s] * 1000) / 1000);     // (1 - .55) / .45 is 0.9999999999999999: rounded, so a finished stage reads as finished
+      // the hook counts units placed (a model used twice is one download but two units); the status line's ready: means the
+      // start up placed everything in reach
+      if (P && P !== P0 && P.stage === 'equipment') eq = Math.max(eq, P.filesDone || 0);
+      var st = document.getElementById('status'); if (st && /^ready/.test(st.textContent)) eq = 4;
+      // no unit before this build's four shell files: on the way back in the old house's status line still says ready
+      if (shell < 4) eq = 0;
+      if (eq > eqN && (!eqT || Date.now() - eqT > 250)) { eqN++; eqT = Date.now(); }
+      for (i = 0; i < STAGES.length; i++) { f = v[STAGES[i]] || 0; if (still && f < 1) f = Math.floor(f * 4) / 4; S.setProperty('--' + STAGES[i], f.toFixed(3)); }
+      for (i = 1; i <= 4; i++) S.setProperty('--eq' + i, eqN >= i ? 1 : 0);
+      S.setProperty('--lit', (shell >= 4 && isReady()) ? 1 : 0);
+    }
+    // the picks on this screen, before the house page is even up (the remembered layout, or the app's default house)
+    function picks() {
+      var p = (picked && Object.keys(picked).length) ? picked : Object.assign({ foundation: 'crawl', water_heater: 'attic_gas_tank', hvac: 'split_furnace', water: 'city_filter', gas: 'natural' }, APP_DEFAULTS, (remembered() && remembered().set) || {}, window.__WALK_START || {});
+      var slab = p.foundation === 'slab';
+      S.setProperty('--slab', slab ? 1 : 0); S.setProperty('--dy', slab ? 6 : 0);
+      S.setProperty('--wha', /^attic_/.test(p.water_heater || '') ? 1 : 0);
+      S.setProperty('--hva', /attic/.test(p.hvac || '') ? 1 : 0); S.setProperty('--pack', p.hvac === 'gas_pack' ? 1 : 0);
+      S.setProperty('--septic', /^septic/.test(p.sewer || '') ? 1 : 0);
+      S.setProperty('--propane', p.gas === 'propane' ? 1 : 0); S.setProperty('--well', p.water === 'well' ? 1 : 0);
+    }
+    // the byte table, once: assets.json beside the first model in the file map (the site, or viewer/upload in a local test;
+    // the Base44 upload fallback has none and the request fails quietly). Pages gzips, so the loader's own total is unknown there.
+    function sizes(map) {
+      var k, u, base = null;
+      for (k in map) { u = String(map[k] || ''); if (/\.glb$/i.test(k) && /^https?:\/\//i.test(u)) { base = u.slice(0, u.lastIndexOf('/') + 1); break; } }
+      if (!base) return;
+      (window.__realFetch || fetch)(base + 'assets.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+        if (!d || !d.files) return; SIZES = {}; Object.keys(d.files).forEach(function (n) { SIZES[n] = d.files[n].bytes || 0; });
+      }).catch(function () {});
+    }
+    // the way back in: a foundation change rebuilds the whole house (the drawing starts over), a layout change only re-places
+    // the equipment (the house stays up and the units drop in again)
+    function rebuild(whole) {
+      var L = window.__loads; if (whole && L && L.files) { from = L.files.length; hold = true; } eqN = 0; P0 = window.__walkProgress;
+      if (!mini) { mini = $('hb').cloneNode(true); mini.id = 'hbmini'; mini.classList.add('mini'); $('go').appendChild(mini); }
+      mini.classList.add('on');
+    }
+    function showMini(on) { if (mini && !on) mini.classList.remove('on'); }
+    picks();
+    setInterval(update, 100);
+    return { picks: picks, sizes: sizes, rebuild: rebuild, mini: showMini };
+  })();
 
   // ------------------------------------------------------------------ the setup screen
   var canSet = false, picked = {}, currentPreset = null, BASE = null, SHOW = null;
@@ -396,6 +645,7 @@
       }).join(', ');
       d.querySelector('summary em').textContent = t;
     });
+    HB.picks();
   }
   function presetSet(p) {
     var W = window.walk, set = {};
@@ -481,6 +731,7 @@
     if (!SHOW) remember({ preset: currentPreset, set: picked });
     if (!inHouse && !SHOW) lockLandscape();
     var go = function () {
+      HB.mini(false);
       if (!SHOW) setupEl.style.display = 'none';     // show mode keeps its loading line up until it has landed
       if (inHouse) return;
       inHouse = true;
@@ -492,6 +743,7 @@
     };
     if (!Object.keys(change).length) return go();
     $('enternote').textContent = change.foundation ? 'Building the ' + (change.foundation === 'slab' ? 'slab' : 'crawl space') + ' house...' : 'Setting up your layout...';
+    HB.rebuild(!!change.foundation);
     if (change.foundation && W.switchFoundation) {
       var f_ = change.foundation; delete change.foundation;
       Promise.resolve(W.switchFoundation(f_)).then(function () {

@@ -75,7 +75,10 @@
     "strainer_left",
     "tailpiece_left",
     "wall",
-    "wall_switch"
+    "wall_switch",
+    "faucet_tubes",
+    "diverter",
+    "air_gap_out"
    ],
    "keep_context": [
     "cabinet",
@@ -217,7 +220,8 @@
      "bowl_water": "water_half",
      "tank_water": "tank_water_half",
      "trap_flow": "trap_flow_half",
-     "rim_flow": "rim_flow_half"
+     "rim_flow": "rim_flow_half",
+     "flange": "flange_section"
     },
     "also_hide": [
      "seat_lid",
@@ -270,7 +274,8 @@
      "bowl_water": "water_half",
      "tank_water": "tank_water_half",
      "trap_flow": "trap_flow_half",
-     "rim_flow": "rim_flow_half"
+     "rim_flow": "rim_flow_half",
+     "flange": "flange_section"
     },
     "also_hide": [
      "seat_lid",
@@ -349,8 +354,8 @@
     "bore": [
      "framing",
      "valve_body",
-     "supply_hot",
-     "supply_cold",
+     "riser_hot",
+     "riser_cold",
      "shower_riser",
      "spout_drop",
      "plaster_ground"
@@ -418,8 +423,8 @@
     "bore": [
      "framing",
      "valve_body",
-     "supply_hot",
-     "supply_cold",
+     "riser_hot",
+     "riser_cold",
      "shower_riser",
      "spout_drop",
      "plaster_ground"
@@ -489,8 +494,8 @@
     "bore": [
      "framing",
      "valve_body",
-     "supply_hot",
-     "supply_cold",
+     "riser_hot",
+     "riser_cold",
      "shower_riser",
      "spout_drop",
      "plaster_ground"
@@ -559,8 +564,8 @@
     "bore": [
      "framing",
      "valve_body",
-     "supply_hot",
-     "supply_cold",
+     "riser_hot",
+     "riser_cold",
      "shower_riser",
      "spout_drop",
      "plaster_ground"

@@ -1,247 +1,315 @@
 {
- "note": "Round 39 (Jake): a light first pass of training language. Keyed by pack (the model's pack name) or by model file; walk.js shows it in the ? bubble that appears over a unit once you start working with it: what it is, how it works, what we check. Copied to the viewer with placements.json. Keep it plain and short; Jake will detail these.",
+ "note": "Round 98 (2026-10-01): each pack rewritten to agree with the Comms deck (equipmentCards.js + checkBook.js, the checklist truth): what it is in the deck's plain words, how it works, and the deck card's check list in the deck's order. Keyed by pack (the model's pack name) or by model file; walk.js shows it in the ? bubble over a unit: what it is, how it works, what we check. Copied to the viewer with placements.json. A pack with no deck card says so. Round 39 wrote the first pass.",
  "packs": {
   "gas_tank_water_heater": {
-   "what": "A gas fired storage water heater. A tank of water kept hot by a burner under it, vented up a flue.",
-   "how": "Cold water comes in the dip tube to the bottom. The thermostat opens the gas valve, the burner heats the tank, the flue carries the exhaust out the roof. Hot water leaves the top.",
+   "what": "A gas fired storage water heater. It heats and stores the hot water for the whole house: a tank kept hot by a burner under it, vented up a flue.",
+   "how": "Cold water comes in the dip tube to the bottom. The gas control valve senses the tank cooling and opens the gas, the burner heats the tank, the draft hood and flue carry the exhaust out the roof. Hot water leaves the top. The anode rod inside corrodes instead of the tank.",
    "checks": [
-    "T&P relief valve: present, piped to within 6 in of the floor, no cap, no corrosion",
-    "Venting: draft hood, proper rise, no rust or soot at the draft hood",
-    "Gas: drip leg, shutoff, no leaks at the union",
-    "Expansion tank where the system is closed",
-    "Sediment: flush the drain, listen for rumble",
-    "Anode rod and tank age",
-    "Combustion air and clearances",
-    "Condition of the flame: blue, steady, no rollout"
+    "Age off the data plate (8 years or older is a finding)",
+    "Temperature setting: read the dial, 120 at the tap is the target",
+    "Is the unit sized right for the home: gallons on the plate against who lives here",
+    "Anode rod: service record, or what it looked like if it was pulled",
+    "Thermal expansion tank: present, holds air on a tap, mounted",
+    "Water connections and dielectrics: dry, no crust at the unions",
+    "Drain valve and base: weeping, rust streaks, water in the pan, leak from the shell",
+    "T and P relief valve and discharge line: valve good, line full size to the floor, a receptor or outside, end visible",
+    "Gas flex and sediment trap: shutoff within reach, trap below it, modern coated flex",
+    "Vent and draft: draft proves, joints tight, no rust flakes in the hood (only if it is running)",
+    "CO detector nearby, working",
+    "Burner and combustion air: screen clear, no soot, combustion air opening",
+    "Drain pan and pan line to daylight, leak sensor on an attic unit",
+    "Thermostatic mixing valve on the hot outlet, holding temper at the tap",
+    "Scale inhibitor on the water line, in date",
+    "Label the hot water shutoff (red tag)",
+    "Label the cold water shutoff (blue tag)",
+    "Label the gas shutoff (yellow tag), show the quarter turn"
    ]
   },
   "electric_tank_water_heater": {
-   "what": "An electric storage water heater. Two elements in a tank, upper and lower, each on its own thermostat.",
-   "how": "The upper element heats the top first, then hands off to the lower element. 240 volt feed through a disconnect. No vent, no flame.",
+   "what": "An electric storage water heater. It heats and stores the hot water for the whole house with two elements in the tank, upper and lower, each on its own thermostat.",
+   "how": "The upper element heats the top first, then its thermostat hands off to the lower element. 240 volt feed through its own breaker. No vent, no flame. The anode rod inside corrodes instead of the tank.",
    "checks": [
-    "T&P relief valve and its discharge line",
-    "Element condition and amp draw",
-    "Thermostats and the high limit (reset button)",
-    "Wiring, disconnect, ground",
-    "Sediment at the lower element",
-    "Anode rod and tank age",
-    "Leaks at the fittings and the pan drain"
+    "Age off the data plate (8 years or older is a finding)",
+    "Temperature setting: read the thermostat dial, 120 at the tap is the target",
+    "Is the unit sized right for the home: gallons on the plate against who lives here",
+    "Anode rod: service record, or what it looked like if it was pulled",
+    "Thermal expansion tank: present, holds air on a tap, mounted",
+    "Heating elements: both meter in range from the terminals, no scorched lugs, no water in the compartment",
+    "Thermostats: each calls and cuts out at the setpoint, the high limit reset is not tripping",
+    "Water connections and dielectrics: dry, no crust at the unions",
+    "Drain valve and base: weeping, rust streaks, water in the pan, leak from the shell",
+    "T and P relief valve and discharge line: valve good, line full size to the floor, a receptor or outside, end visible",
+    "Drain pan and pan line to daylight, leak sensor on an attic unit",
+    "Thermostatic mixing valve on the hot outlet, holding temper at the tap",
+    "Scale inhibitor on the water line, in date",
+    "Label the hot water shutoff (red tag)",
+    "Label the cold water shutoff (blue tag)",
+    "Surge protection on the water heater circuit"
    ]
   },
   "gas_tankless_water_heater": {
-   "what": "A condensing gas tankless. Heats water only when a tap opens, no tank.",
-   "how": "Flow sensor sees the tap, the fan starts, gas lights in the sealed burner, water runs through the heat exchanger. Condensate drains out the bottom. PVC intake and exhaust through the wall.",
+   "what": "A gas tankless water heater. It heats water only when a tap opens, no tank. The condensing kind drains acidic condensate and vents in PVC; the non condensing kind vents hot exhaust in stainless. The deck has one card for both.",
+   "how": "The flow sensor sees the tap, the fan starts, gas lights in the sealed burner, water runs through the heat exchanger and out hot. On our water the exchanger scales up in about a year without a flush through the isolation valves.",
    "checks": [
-    "Descale the heat exchanger (isolation valves and a pump)",
-    "Inlet water filter screen",
-    "Condensate line and neutralizer where required",
-    "Gas line size and pressure",
-    "Intake and exhaust terminations clear",
-    "Error codes on the display",
-    "Venting slope and condensate traps"
+    "The unit: model and age off the plate, and whether it has ever been descaled",
+    "Isolation and service valves: both present with ports, not seized",
+    "Inlet water filter screen: pulled, clean, refitted",
+    "Fault code on the display: read it and write it down before touching anything",
+    "Condensate line (condensing units): draining freely to a legal point, neutralized, never into a metal pan",
+    "Venting and clearances: approved vent, sealed joints, clear of windows, soffits and the dryer vent",
+    "Gas line size and shutoff: sized for the BTU on the plate, sediment trap fitted, no leaks",
+    "Drain pan under the unit with a line to daylight",
+    "Scale inhibitor on the water line, in date",
+    "Surge protection at the equipment"
    ]
   },
   "electric_tankless_water_heater": {
-   "what": "An electric tankless. Heating elements in chambers, no tank, big electrical load.",
-   "how": "Flow sensor sees the tap, the board staggers the elements on to hit the set point. Needs several 240 volt circuits.",
+   "what": "An electric tankless water heater. Heating elements in chambers, no tank, a big electrical load: it lives and dies on the electrical feed and the scale.",
+   "how": "The flow sensor sees the tap and the board staggers the elements on to hit the set point. It needs several 240 volt circuits. Scale coats the elements on our water, so the isolation valves and a yearly flush matter as much as on a gas unit.",
    "checks": [
-    "Breaker sizes and wire gauge match the unit",
-    "Inlet screen",
-    "Scale on the elements (flush)",
-    "Flow rate versus the unit's rating",
-    "Error codes"
+    "The unit: model and age off the plate, and whether it has ever been descaled",
+    "Isolation and service valves: both present with ports, not seized",
+    "Inlet water filter screen: pulled, clean, refitted",
+    "Fault code on the display: read it and write it down before touching anything",
+    "Scale inhibitor on the water line, in date",
+    "Surge protection at the equipment"
    ]
   },
   "hybrid_water_heater": {
-   "what": "A heat pump water heater. A small heat pump on top of a tank pulls heat from the room air into the water.",
-   "how": "The fan pulls room air over the evaporator, the compressor moves that heat into the tank. Elements back it up. Condensate drains from the top unit.",
+   "what": "A heat pump water heater: a water heater and an air conditioner in one cabinet. A small heat pump on top of the tank pulls heat from the room air into the water, so it has a filter and it makes condensate.",
+   "how": "The fan pulls room air over the evaporator and the compressor moves that heat into the tank. The elements back it up when the heat pump cannot keep up. Condensate drains from the top unit all summer.",
    "checks": [
-    "Air filter",
-    "Condensate drain clear",
-    "Room volume and clearances for the air it needs",
-    "Mode setting (heat pump, hybrid, electric)",
-    "T&P and expansion tank",
-    "Anode rod"
+    "Age off the data plate (8 years or older is a finding)",
+    "Temperature setting: read the display, 120 at the tap is the target",
+    "Thermal expansion tank: present, holds air on a tap, mounted",
+    "Drain valve and base: weeping, rust streaks, water in the pan, leak from the shell",
+    "Heat pump air filter: clean and seated, or it falls back to the elements",
+    "Condensate line: draining, pan dry, no mineral trail",
+    "Water connections and dielectrics: dry, no crust at the unions",
+    "T and P relief valve and discharge line: valve good, line full size, end visible",
+    "Thermostatic mixing valve on the hot outlet, holding temper at the tap",
+    "Scale inhibitor on the water line, in date"
    ]
   },
   "hvac_furnace": {
-   "what": "A gas furnace. The blower pushes house air over a heat exchanger warmed by the burners.",
-   "how": "The thermostat calls, the inducer proves draft, the spark lights the burners, the blower runs after the exchanger warms. Exhaust goes out the flue (or PVC on a condensing unit).",
+   "what": "A gas furnace. The blower pushes house air over a heat exchanger warmed by the burners. That metal wall is the only thing between the fire and the air the family breathes.",
+   "how": "The thermostat calls, the inducer proves draft through the pressure switch, the igniter lights the burners, the flame sensor proves flame, and the blower runs once the exchanger warms. Exhaust goes out the flue, or out PVC on a condensing unit, which also makes condensate that has to drain.",
    "checks": [
-    "Filter",
-    "Heat exchanger (cracks, rust)",
-    "Flame sensor and spark electrode",
-    "Inducer and pressure switch",
-    "Blower wheel and capacitor",
-    "Gas pressure and combustion",
-    "Condensate on a condensing unit",
-    "Return air sealed"
+    "Gas shutoff and sediment trap: shutoff within reach, trap below it, no leak at the joints",
+    "Heat exchanger: light and mirror in every cell; a crack or a rust out stops the job and tags the unit",
+    "Flue and venting: every joint tight and rising, no corrosion, no water heater orphaned on an oversized vent",
+    "Inducer motor: a smooth whir on startup, no bearing noise",
+    "CO detector in the home, working",
+    "Condensate drain (A coil on top): trap primed, line pitched, no rust trail on the furnace",
+    "UV or coil light fitted and inside its service life",
+    "The filter is asked once, on the Every HVAC sheet: pull it, hold it up, note the size"
    ]
   },
   "hvac_air_handler": {
-   "what": "The indoor half of a split system. A blower and a coil in a cabinet, in the attic here.",
-   "how": "The blower pulls return air over the coil (cold in cooling, warm in heat pump mode) and pushes it down the ducts. Condensate drains from the pan.",
+   "what": "The indoor half of a split system: a blower and a coil in a cabinet, in the attic here. Filter, coil, blower, condensate, pan and float switch.",
+   "how": "The blower pulls return air over the coil, cold in cooling and warm in heat pump mode, and pushes it down the ducts. The coil pulls gallons of water out of the air every summer day; the drain pan and line carry it away, and the float switch in the emergency pan shuts the unit down before an overflow reaches the ceiling.",
    "checks": [
-    "Filter",
-    "Coil clean",
-    "Primary drain clear, float switch in the secondary pan",
-    "Blower and capacitor",
-    "Duct connections sealed",
-    "Refrigerant lines insulated"
+    "Blower compartment: wheel clean, no caked blades, no bearing grind",
+    "Evaporator coil: clean fins, no matted dust, no ice, no dirty sock smell",
+    "TXV sensing bulb strapped tight and insulated on the suction line",
+    "Condensate drain: line draining, trap right, pan dry",
+    "Emergency pan and float switch: pan present, line to daylight, float trips the unit",
+    "Dehumidification: the house not holding damp in July",
+    "UV or coil light fitted and inside its service life",
+    "Surge protection at the equipment",
+    "The filter is asked once, on the Every HVAC sheet"
    ]
   },
   "hvac_condenser": {
-   "what": "The outdoor unit of a split system, air conditioner or heat pump. Compressor, outdoor coil and fan.",
-   "how": "Refrigerant absorbs heat inside, the compressor pumps it out here, the fan blows outdoor air across the coil to dump that heat. A heat pump runs the same loop backwards in winter through its reversing valve, pulling heat from the outdoor air into the house.",
+   "what": "The outdoor unit of a split system, air conditioner or heat pump: compressor, outdoor coil and fan on a pad. The capacitor is the cheapest part out there and it takes the compressor with it.",
+   "how": "Refrigerant absorbs heat inside the house, the compressor pumps it out here, and the fan blows outdoor air across the coil to dump that heat. The contactor closes on the thermostat's 24 volts to start it; the capacitor gives the motors their push. A heat pump runs the same loop backwards in winter through its reversing valve and defrosts its coil now and then.",
    "checks": [
-    "Coil clean",
-    "Capacitor and contactor",
-    "Refrigerant pressures and superheat",
-    "Disconnect and whip",
-    "Level pad, clearances",
-    "Fan motor and blades"
+    "Refrigerant and age off the data plate: R-22 points at replacement; gauges only if the split says charge is the question",
+    "Condenser coil: light through the fins, no cottonwood, grass or bent fins",
+    "Refrigerant lines and insulation: suction line insulated the whole way, wall penetration sealed",
+    "Pad and clearance: level, not sunk, nothing growing within 18 inches",
+    "Condenser fan motor and blade: spins free, no wobble, amps under the label",
+    "Service valves, caps and Schrader cores: caps on, cores tight, no oil at the stems",
+    "Reversing valve and defrost, heat pump only: shifts clean both ways",
+    "Capacitor and electrical: meter the can against its rating, no bulge, discharge it first",
+    "Disconnect box: no heat marks, lugs tight, whip sound",
+    "Contactor and wiring: contacts clean, pulls in solid, no chatter, no heat at the terminals",
+    "Compressor soft start fitted"
    ]
   },
   "hvac_package": {
-   "what": "A gas pack: furnace and air conditioner in one outdoor cabinet, ducted through the wall.",
-   "how": "Everything the split system does, in one box outside. Supply and return ducts run through the wall.",
+   "what": "A gas pack: furnace and air conditioner in one outdoor cabinet, ducted through the wall. One cabinet hides the indoor half completely, so most homeowners do not know they have a filter at all.",
+   "how": "Everything the split system does, in one box outside. The return and supply ducts pass through the wall to the cabinet; the burners, heat exchanger, coils, blower and condensate all live inside it.",
    "checks": [
-    "Filter",
-    "Heat exchanger and burners",
-    "Coil and refrigerant",
-    "Duct connections through the wall",
-    "Condensate",
-    "Pad and clearances"
+    "Coils, indoor and outdoor: both faces clean",
+    "Blower compartment: wheel clean, no belt or bearing noise",
+    "Refrigerant and age off the plate, and whether the tonnage still fits the house",
+    "Gas section and heat exchanger: no crack, no soot, flue sound at the cabinet",
+    "Duct connection at the curb or pad: sealed, no rotted flex, no gap",
+    "Condensate: draining downhill to a legal point, not pooling on the pad",
+    "Disconnect and electrical: no heat marks, lugs tight",
+    "Compressor soft start fitted"
    ]
   },
   "hvac_minisplit": {
-   "what": "A ductless mini split. A wall head inside, an inverter unit outside, a line set between.",
-   "how": "The outdoor inverter varies the compressor speed. The line set carries refrigerant to the head, which blows over its own coil. Condensate drains from the head.",
+   "what": "A ductless mini split: a wall head inside, an inverter unit outside, a line set between. Screens and the blower wheel are the checks; once a homeowner sees the mold on the wheel they never forget it.",
+   "how": "The outdoor inverter varies the compressor speed. The line set carries refrigerant to the head, which blows room air over its own coil. Condensate leaves the head by gravity through the wall, so the drain line's pitch is everything.",
    "checks": [
-    "Head filters",
-    "Condensate drain from the head",
-    "Line set insulation and the wall sleeve",
-    "Outdoor unit pad and clearances",
-    "Disconnect",
-    "Blower wheel in the head"
+    "Filter screens: pulled, washed and refitted; hold them up to the light",
+    "Blower wheel and coil: no black speckling, no matted coil",
+    "Condensate drain: draining, no stain or bubbled paint under the head, line pitched"
    ]
   },
   "kitchen_sink": {
-   "what": "The kitchen sink: faucet, strainers, disposal, trap and the dishwasher connection.",
-   "how": "Supply stops feed the faucet. Waste falls through the strainer or the disposal into the trap, then the drain. The dishwasher drains through the disposal.",
+   "what": "The kitchen sink and cabinet: stops, faucet, strainers, trap, the dishwasher connection and the cabinet floor, which is a written history of every leak nobody called about.",
+   "how": "Supply stops under the sink feed the faucet. Waste falls through the strainer or the disposal into the trap, then the drain. The dishwasher drains through a high loop or an air gap into the disposal or the tailpiece.",
    "checks": [
-    "Leaks at the stops, the supply lines, the trap",
-    "Disposal: splash guard, mount, cord, does it turn",
-    "Dishwasher drain high loop or air gap",
-    "Faucet cartridge and aerator",
-    "Cabinet floor for water damage"
+    "Supply lines and angle stops: both stops turn by hand, lines dry and braided",
+    "Faucet, sprayer and aerator: no drip at the base, firm in the deck, sprayer holds, aerator clear",
+    "P trap and drain: dry hand on every slip joint, no corroded metal trap",
+    "Strainer nut where it joins the sink: no seep under the basket",
+    "Dishwasher air gap or high loop: present and flowing",
+    "Under sink filter or RO: cartridges in date, no weep at the head",
+    "Cabinet base: dry, no swelling or dark rings"
    ]
   },
   "disposal": {
-   "what": "The garbage disposal. A grinder under the sink on its own circuit.",
-   "how": "The switch runs the motor, the turntable throws food against the grind ring, water carries it out the discharge into the trap.",
+   "what": "The garbage disposal. A grinder under the kitchen sink on its own circuit. A hum with no spin is a jam; a leak from the body is the end of that unit.",
+   "how": "The switch runs the motor, the turntable throws the food against the grind ring, and water carries it out the discharge into the trap. The dishwasher drains into it through the inlet on its side.",
    "checks": [
-    "Reset button and the hex wrench",
-    "Splash guard and mount gasket for leaks",
-    "Cord and switch",
-    "Dishwasher inlet knockout"
+    "The disposal unit: runs clear, no hum, no jam, no leak from the body, no reset needed",
+    "Splash guard and grind chamber: guard intact, no rust flaking off the ring",
+    "Mounting ring and sink flange: tight on the mount, no weep at the flange",
+    "P trap and slip joints: dry, no cracked slip washer",
+    "Drain and dishwasher line: high loop present, drains at full rate past the disposal",
+    "Switch and cord: no scorched cord ends, switch plate cool"
    ]
   },
   "toilet": {
-   "what": "A gravity toilet: tank and bowl.",
-   "how": "The flapper lifts, the tank dumps into the bowl, the siphon pulls the bowl down, the fill valve refills the tank and the bowl.",
+   "what": "A gravity toilet: tank and bowl. Seven checks and one standing offer; the running toilet is the most common found work in the trade.",
+   "how": "The trip lever lifts the flapper, the tank dumps into the bowl, the siphon pulls the bowl down, and the fill valve refills the tank and the bowl. A flapper that stops sealing leaks silently all day; what you hear is the tank refilling at night.",
    "checks": [
-    "Flapper seal (dye test)",
-    "Fill valve and float level",
-    "Supply stop and line",
-    "Wax ring: rocking, water at the base",
-    "Bolts and the flange"
+    "Flush handle: flushes on the first try, no wallow, chain not slack or broken",
+    "Inside the tank: flapper and seat clean, water level a half inch under the overflow tube",
+    "Flush valve: holds water, tank stays full with nothing running (dye test)",
+    "Fill valve: fills and shuts off clean, no hiss, no old ballcock",
+    "Supply line and angle stop: stop turns by hand, line dry, no crust",
+    "Tank to bowl bolts: tight, no seep",
+    "Base and wax seal: no rock, no stain at the base, floor solid, flange sound",
+    "Bidet seat: fitted and working, or offered"
    ]
   },
   "bath_vanity": {
-   "what": "The bathroom lavatory: faucet, pop up drain, trap.",
-   "how": "Stops feed the faucet, the pop up lifts by its linkage, waste goes down the tailpiece to the trap.",
+   "what": "The bathroom sink: stops, supplies, faucet, trap, pop up and the cabinet floor. Sixty seconds a sink and it finds work in most homes.",
+   "how": "Stops feed the faucet, the pop up lifts by its linkage, and waste goes down the tailpiece to the trap and into the wall. A trap that runs straight down with no vent is an S trap and it siphons dry.",
    "checks": [
-    "Leaks at stops and lines",
-    "Pop up linkage and seal",
-    "Trap and slip joints",
-    "Faucet cartridge"
+    "Angle stops, hot and cold: both turn and hold, no crust or seep",
+    "Supply lines: dry, no kinks, no corrosion, no cheap plastic nuts",
+    "Faucet and aerator: no drip at the base, full flow, aerator clear",
+    "P trap: dry joints, correct fall, no S trap",
+    "Pop up and drain: stopper seals and lifts, drains at full rate",
+    "Cabinet base: dry, no staining or swelling"
    ]
   },
   "shower": {
-   "what": "The tub and shower: valve, spout, head, drain and overflow.",
-   "how": "One valve mixes hot and cold, the diverter sends it up to the head. Waste goes down the drain shoe and the overflow to the trap.",
+   "what": "A single handle shower: cartridge, diverter, head, caulk, drain. The scaled head is a water quality conversation wearing a plumbing hat.",
+   "how": "One cartridge in the valve mixes hot and cold; the diverter sends the water up to the head instead of out the spout. Waste goes down the drain to the trap under the floor.",
    "checks": [
-    "Valve cartridge and the trim",
-    "Diverter",
-    "Drain shoe and overflow seals",
-    "Caulk at the tub",
-    "Head flow and scale"
+    "Valve trim and cartridge: no drip after shutoff, temperature holds when a toilet flushes",
+    "Spout and diverter: diverter holds, no water splitting back out the spout",
+    "Showerhead: clear jets, full spray, no leak at the arm",
+    "Caulk and grout at wall and floor: continuous, no split, no missing grout",
+    "Drain and stopper: drains at full rate, no standing water"
    ]
   },
   "water_filter": {
-   "what": "A whole house water filter on the service line.",
-   "how": "All the house water passes through the housing and its cartridge before the main.",
+   "what": "A whole house water filter on the service line. Treatment where the water enters, so everything in the house gets filtered water instead of just one tap.",
+   "how": "All the house water passes through the tank's carbon media before the main. The valve head runs a backwash now and then to lift the media and send what it caught down the drain; the bypass valve takes it out of the line for service.",
    "checks": [
-    "Cartridge change",
-    "Bypass valve",
-    "Housing O ring",
-    "Pressure drop across it"
+    "Water quality (Every Plumbing): run the test kit, the numbers go on the sheet",
+    "Whole home filtration (Main shutoff card): fitted and in date, or not present",
+    "Bypass valve in service, not bypass",
+    "Backwash runs and the media is not spent"
    ]
   },
   "septic_lee": {
-   "what": "An aerobic treatment unit (Lee precast) with spray heads.",
-   "how": "Sewage settles, the aerator blower bubbles air through it, the clarifier settles it again, chlorine treats it, the pump sprays the treated water on the lawn.",
+   "what": "An aerobic treatment unit (Lee precast) with spray heads. Aeration is the whole point of the plant: no bubbles means nothing has been treated in a while, whatever the panel light says.",
+   "how": "Sewage settles, the air pump at the house pushes air down the air line to the diffuser and bubbles it through the aeration chamber, the clarifier settles it again, the chlorinator tablets disinfect it, and the spray pump throws the treated water over the lawn through the heads. This plant has no panel: the air pump plugs into a GFCI receptacle and the pump and float splice in the riser.",
    "checks": [
-    "Aerator running, air line intact",
-    "Chlorine tablets",
-    "Pump and float in the pump chamber",
-    "Spray heads turning, clear",
-    "Lids secure",
-    "Sludge and scum levels",
-    "Plug in wiring: the air pump at its receptacle, the pump and float splices under the lid (no panel on this plant)"
+    "Tank lids: found, intact, sitting square, at grade",
+    "Lid security: bolted or screwed down, nothing a child could lift",
+    "Air compressor or aerator: running, warm, moving air",
+    "Aeration and dissolved oxygen: bubbling in the chamber, DO 2 or better",
+    "Compressor air filter: pulled, clean, refitted",
+    "Air diffusers: bubbling evenly, not just burping",
+    "Control panel: none on this plant, the pump is on a receptacle; alarm where fitted",
+    "Surge protection on the controls",
+    "Timer and dose settings: timed dosing only, rare",
+    "Chlorinator and tablets: charged with septic tablets, never pool tablets",
+    "Spray heads: all fire, rise and turn, aimed on the lawn, no standing water at the base",
+    "Pump vault and filter: screen clean, pump cycling right"
    ]
   },
   "septic_atu": {
-   "what": "An aerobic treatment unit: an aerator, a clarifier and a pump.",
-   "how": "Air from the blower keeps the bacteria working, the clarifier settles the solids, the pump sends treated water out.",
+   "what": "An aerobic treatment unit with overland discharge (the AquaSafe here): an aerator, a clarifier and a chlorinator, no pump and no heads. Treated water leaves by gravity, so the aeration and the chlorinator are the system.",
+   "how": "Air from the blower keeps the bacteria working in the aeration chamber, the clarifier settles the solids, the chlorinator disinfects the clear water, and it leaves by gravity to the discharge point. The panel at the house powers the blower and sounds the alarm if the air stops.",
    "checks": [
-    "Aerator and air line",
-    "Chlorine",
-    "Pump and floats",
-    "Lids",
-    "Sludge level",
-    "Panel and alarm where fitted"
+    "Tank lids: found, intact, sitting square, at grade",
+    "Lid security: bolted or screwed down",
+    "Aeration and dissolved oxygen: bubbling in the chamber, DO 2 or better",
+    "Air compressor or aerator: running, warm, moving air",
+    "Compressor air filter: pulled, clean, refitted",
+    "Air diffusers: bubbling evenly",
+    "Control panel: no fault light, breaker on, alarm sounds on test, dry inside",
+    "Surge protection on the controls",
+    "Timer and dose settings: timed dosing only, rare",
+    "Chlorinator and tablets: charged with septic tablets, never pool tablets"
    ]
   },
   "septic_tank": {
-   "what": "A conventional septic tank feeding a drain field.",
-   "how": "Solids settle in the tank, the baffles hold the scum, the clear water flows out to the field by gravity.",
+   "what": "A conventional septic tank feeding a drain field. Measure the sludge, do not eyeball it: the numbers are what make the pump out recommendation honest.",
+   "how": "Solids settle in the tank and scum floats; the inlet tee drops the sewage under the scum, the outlet tee holds the scum back, and only the clear water in the middle leaves by gravity through the effluent filter to the field.",
    "checks": [
-    "Sludge and scum level (pump when it is a third full)",
-    "Inlet and outlet baffles",
-    "Effluent filter",
-    "Lids and risers",
-    "Field: wet spots, odour"
+    "Tank lids: found, intact, sitting square, at grade",
+    "Lid security: bolted or screwed down, nothing a child could lift",
+    "Scum and sludge levels: measured, both within normal",
+    "Inlet baffle or tee: in place, no roots, not channeling",
+    "Outlet baffle or tee: in place, not corroded off at the waterline",
+    "Water level: sitting at the outlet invert, not high, not low",
+    "Tank walls and seams: no crack, no groundwater coming in",
+    "Effluent filter: present and recently cleaned"
    ]
   },
   "septic_field": {
-   "what": "The drain field and its distribution box.",
-   "how": "The D box splits the tank's outflow evenly into the field lines, where it soaks into the soil.",
+   "what": "The drain field and its distribution box. The most expensive part of the system, and the one thing every protection item on the tank card is protecting.",
+   "how": "The D box splits the tank's outflow evenly into the field lines through its speed levelers, and the water soaks out of the gravel trenches into the soil. A box out of level sends everything down one trench and drowns it while the others stay dry.",
    "checks": [
-    "D box level, outlets equal",
-    "Field surface dry",
-    "No roots or driving over it"
+    "Ground surface: walked, no ponding, no soft spots",
+    "Odor: none over the field, even after rain",
+    "Vegetation: no lush green stripe over the lines",
+    "Traffic and cover: nothing parked or stored on it, no trees growing into it",
+    "D box: found and opened, lid off",
+    "D box sitting level, checked with a level",
+    "Outlets and speed levelers at the same height",
+    "No solids or standing effluent in the box",
+    "Box condition: no spalling, no roots, inlet sound"
    ]
   },
   "pump_tank": {
-   "what": "A pump tank: the second tank of a two tank spray system.",
-   "how": "Treated water collects here, a float starts the pump, it sprays the lawn through the heads.",
+   "what": "A pump tank: the second tank of a two tank spray system. Treated water collects here and the pump sends it out to the heads, on floats or on a timer.",
+   "how": "Water from the plant collects in the tank. The float lifts and starts the pump through the plug in splices in the riser, the check valve holds the line when it stops, and the spray line carries the water to the heads. Most pump tanks are float controlled; a timer dosed one doses the field in measured drinks from the panel.",
    "checks": [
-    "Pump runs on the float",
-    "Cord and plug (the plug in wiring in the riser)",
-    "Filter screen on the pump",
-    "Riser lid"
+    "Tank lids: found, intact, at grade",
+    "Lid security: bolted or screwed down",
+    "The pump: runs on a manual call, moves the level, amps in range",
+    "Floats and cords: free, set right, tested one at a time, cords sound at the entry",
+    "Liquid level against the floats: not above the alarm float, not drawn dry",
+    "Check valve and discharge: holds, no backflow, no leak at a joint",
+    "Control panel and breaker: dry, no fault light, breaker right",
+    "High level alarm: tested, audible and visible",
+    "Dose volume and cycle: what a dose measures here, against the design when you have it",
+    "How the pump is controlled: floats, or timer dosed from the panel",
+    "Pump vault and filter: screen clean, pump cycling right"
    ]
   },
   "pump_wiring": {
@@ -256,60 +324,80 @@
    ]
   },
   "lift_station": {
-   "what": "A lift station: a pump that pushes sewage up to the city sewer when gravity cannot.",
-   "how": "Sewage collects in the basin, the float starts the pump, it pushes up the force main through the check valve to the sewer.",
+   "what": "A lift station: a pump in a basin that pushes sewage up to the city sewer when gravity cannot. Test the alarm; an alarm nobody has ever heard is the same as no alarm at all.",
+   "how": "Sewage collects in the basin, the floats start and stop the pump, and it pushes up the force main through the check valve to the sewer. The panel on the wall runs it in Hand, Off or Auto and sounds the alarm when the water reaches the alarm float.",
    "checks": [
-    "Pump and floats",
-    "Check valve",
-    "Alarm and panel",
-    "Lid seal and vent"
+    "The pump: runs on a manual call, moves the level, amps against the plate",
+    "Floats and cords: free, the sequence on, off, alarm proven, cords sound at the entry",
+    "Guide rails and lift chain: the pump can be pulled clean",
+    "Check valve and discharge: holds, basin does not refill from the line, no leak at a joint",
+    "Control panel and breaker: dry, sealed, no fault light, breaker right",
+    "High level alarm: tested for real",
+    "Basin, inlet and lid: no grease and rag mat, inlet clear, lid secured",
+    "Basin vent: to a real vent, never a drain, not buried"
    ]
   },
   "sump_pump": {
-   "what": "A sump pump in a basin.",
-   "how": "Water collects, the float starts the pump, it pumps out the discharge.",
+   "what": "A sump pump in a basin under the hall bath, fed by the drain tile round the footing. Most of them discharge at the foundation, which means the same water walks straight back in.",
+   "how": "Groundwater collects through the tile into the basin, the float lifts and starts the pump, the pump pushes it out the discharge through the check valve, and the panel on the girder feeds it and sounds the alarm when the water passes the alarm float.",
    "checks": [
-    "Float free",
-    "Check valve",
-    "Discharge clear",
-    "Test by filling the pit"
+    "The pump: runs on a manual call, draws the basin down, does not run forever",
+    "Float and switch: travels free, not hung on a cord or the wall",
+    "Check valve: holds, the basin does not refill every cycle",
+    "Discharge line, and where it ends: well away from the foundation, not frozen or crushed",
+    "Basin, lid and inflow: no silt, a lid on it, not bone dry for years",
+    "Circuit and receptacle: its own circuit, no extension cord",
+    "Battery or water backup for a power cut"
    ]
   },
   "smart_shutoff_valve": {
-   "what": "An automatic (Flo) shutoff valve on the main, the same device as the Flo shutoff card.",
-   "how": "It watches flow and pressure and closes the valve on a leak or by the app.",
+   "what": "An automatic (Flo) shutoff valve on the main: a motorized ball valve that senses a leak and shuts the water off by itself. A burst line runs until somebody comes home; this is the item that pays for itself the one time it works.",
+   "how": "It watches flow, pressure and temperature on the main and closes the valve on a leak, or from the app. The handle shows open or closed and turns by hand with the power out; the unions let it come out of the line without cutting pipe.",
    "checks": [
-    "Wi Fi and power",
-    "Valve closes on a test",
-    "Leaks at the unions"
+    "Main shutoff: found, turns by hand, holds, a quarter turn ball valve not an old gate valve",
+    "Automatic leak shutoff valve: fitted and armed; this is it",
+    "Valve condition: no weeping at the stem after a turn",
+    "Does it actually stop the water: everything downstream goes quiet",
+    "Supply line off the valve sound at the unions",
+    "Label the main water shutoff so anybody can find it",
+    "Power and Wi Fi, the status light blue"
    ]
   },
   "flo_shutoff": {
-   "what": "An automatic (Flo) shutoff valve on the main.",
-   "how": "It watches flow and pressure and closes the valve on a leak or by the app.",
+   "what": "An automatic (Flo) shutoff valve on the main: a motorized ball valve that senses a leak and shuts the water off by itself. A burst line runs until somebody comes home; this is the item that pays for itself the one time it works.",
+   "how": "It watches flow, pressure and temperature on the main and closes the valve on a leak, or from the app. The handle shows open or closed and turns by hand with the power out; the unions let it come out of the line without cutting pipe.",
    "checks": [
-    "Wi Fi and power",
-    "Valve closes on a test",
-    "Leaks at the unions"
+    "Main shutoff: found, turns by hand, holds, a quarter turn ball valve not an old gate valve",
+    "Automatic leak shutoff valve: fitted and armed; this is it",
+    "Valve condition: no weeping at the stem after a turn",
+    "Does it actually stop the water: everything downstream goes quiet",
+    "Supply line off the valve sound at the unions",
+    "Label the main water shutoff so anybody can find it",
+    "Power and Wi Fi, the status light blue"
    ]
   },
   "flo_shutoff_attic": {
-   "what": "An automatic (Flo) shutoff valve on the attic cold run.",
-   "how": "It watches flow and pressure and closes on a leak. The brick plugs into the attic receptacle.",
+   "what": "An automatic (Flo) shutoff valve on the attic cold run, feeding the water heater. The same valve as the one on the main, where the attic heater's leak would start.",
+   "how": "It watches flow and pressure and closes on a leak. The brick plugs into the attic receptacle; the valve sits in the PEX run on its block.",
    "checks": [
-    "Power and Wi Fi",
-    "Test close",
-    "PEX transitions for leaks",
-    "Strapped on its block"
+    "Valve type: a motorized quarter turn ball valve",
+    "Valve condition: no weeping at the unions or the PEX transitions",
+    "Does it actually stop the water: test close from the app or by hand",
+    "Reach and clearance: strapped on its block, reachable from the walkway",
+    "Supply line off the valve sound",
+    "Automatic leak shutoff: fitted and armed, power and Wi Fi"
    ]
   },
   "flo_shutoff_wall": {
-   "what": "An automatic (Flo) shutoff valve at the wall.",
-   "how": "It watches flow and pressure and closes on a leak.",
+   "what": "An automatic (Flo) shutoff valve at the wall, on the house side of the main. The same valve as the one on the main, mounted where the service comes in.",
+   "how": "It watches flow and pressure and closes on a leak, or from the app. The handle turns by hand with the power out.",
    "checks": [
-    "Power and Wi Fi",
-    "Test close",
-    "Leaks at the unions"
+    "Valve type: a motorized quarter turn ball valve",
+    "Valve condition: no weeping at the unions",
+    "Does it actually stop the water: test close",
+    "Reach and clearance: room to get at it",
+    "Supply line off the valve sound",
+    "Automatic leak shutoff: fitted and armed, power and Wi Fi"
    ]
   },
   "electric_panel": {
@@ -324,253 +412,252 @@
    ]
   },
   "whole_house_spd": {
-   "what": "A whole house surge protector in the panel.",
-   "how": "It clamps surges on the bus to ground before they reach the circuits.",
+   "what": "A whole house surge protector in the panel. Protection at the equipment so a power blink does not take out a control board; out here the power flickers and the equipment does not get to shrug it off.",
+   "how": "It sits across the bus on its own two pole breaker and clamps a surge to ground before it reaches the circuits. The green light says it still can; dark, it has done its job and is spent.",
    "checks": [
-    "Status light green",
-    "Short leads",
-    "Its own breaker"
+    "Surge protection: present at the panel",
+    "They have one and it is not working right: status light dark",
+    "Short straight leads and its own breaker"
    ]
   },
   "outlet_surge": {
-   "what": "A surge receptacle at the air pump.",
-   "how": "It clamps surges on that circuit.",
+   "what": "A surge receptacle at the treatment plant's air pump. Surge protection on the controls: one blink can take out the panel and stop the plant until somebody notices the smell.",
+   "how": "It clamps a surge on that circuit before it reaches the pump and the panel. The indicator light says it is still protecting.",
    "checks": [
-    "Indicator light",
+    "Surge protection on the controls: present",
+    "They have one and it is not working right: indicator light out",
     "GFCI where required"
    ]
   },
   "hvac_surge": {
-   "what": "A surge protector at the condenser disconnect.",
-   "how": "It clamps surges before the condenser's contactor and board.",
+   "what": "A surge protector at the condenser disconnect. Protection at the equipment so a power blink does not take out the control board, and a board is never the cheap day.",
+   "how": "It clamps a surge before the condenser's contactor and board. The indicator light says it is still protecting.",
    "checks": [
-    "Indicator light",
+    "Surge protection: present at the disconnect",
+    "They have one and it is not working right: indicator light out",
     "Connections tight"
    ]
   },
   "easystart": {
-   "what": "A soft starter on the condenser.",
-   "how": "It ramps the compressor up instead of slamming it on, cutting the start current.",
+   "what": "A soft starter on the condenser. It lets the compressor ramp up instead of slamming on, so the lights do not dim and a generator can carry it.",
+   "how": "It ramps the compressor up over a fraction of a second instead of letting it grab everything at once, cutting the start current by about two thirds. Wired in at the contactor and the run capacitor per its diagram.",
    "checks": [
-    "Wiring per the diagram",
-    "Start current on a meter"
+    "Compressor soft start: fitted",
+    "They have one and it is not working right: start current on a clamp, wiring per the diagram"
    ]
   },
   "sweet_air": {
-   "what": "A hose bib.",
-   "how": "A valve on the wall with a hose thread. Frost free ones have the seat inside the wall.",
+   "what": "A Sweet Air charcoal vent filter on the hall bath's vent stack where it comes through the roof. No deck card for this.",
+   "how": "Sewer gas rises up the stack into the canister, passes through the activated carbon and leaves the slots clean. Twist the cap to OPEN and lift it off to change the carbon.",
    "checks": [
-    "Drips at the stem",
-    "Vacuum breaker",
-    "Frost free slope"
+    "Carbon fresh, not spent",
+    "Cap on, slots clear"
    ]
   },
   "water_softener": {
-   "what": "A water softener in the garage: hard water in, soft water out. Resin beads trade their sodium for the calcium and magnesium that scale up heaters and fixtures.",
-   "how": "Water passes down through the resin bed and up the riser tube. When the meter says the bed is spent the valve backwashes, draws brine from the salt tank through the resin to recharge it, rinses, and refills the brine tank. The bypass valve takes it out of the line for service.",
+   "what": "A water softener in the garage: hard water in, soft water out. Check bypass first, because half of them are sitting in bypass doing nothing at all.",
+   "how": "Water passes down through the resin bed and up the riser tube; the resin trades its sodium for the calcium and magnesium that scale up heaters and fixtures. When the meter says the bed is spent the valve head backwashes, draws brine from the salt tank through the resin to recharge it, rinses, and refills the brine tank, at night when nobody is drawing water.",
    "checks": [
-    "Bypass levers in SERVICE, not bypass",
-    "Salt level and no salt bridge (push a broom handle through the salt)",
-    "Brine float free, brine well clean",
-    "Regen time set at night, hardness set to the test",
-    "Drain line to the standpipe with an air gap, not kinked",
-    "Hardness test at a tap after regen",
-    "Resin age: over ten years and it is tired",
-    "Power to the head, time showing"
+    "Softener unit: not in bypass, hardness test soft at the tap, resin still softening",
+    "Brine tank and salt: salt level good, no salt bridge (push a broom handle through)",
+    "Sediment prefilter: fitted and in date, pull it and show them",
+    "Drain and air gap: drain line to a legal point with an air gap, not kinked"
    ]
   },
   "pressure_tank": {
-   "what": "The well's pressure tank: a diaphragm tank with air on top and water below, so the pump does not start every time a tap opens.",
-   "how": "The pump fills the tank until the pressure switch opens at cut out (60 psi); the air charge pushes water out as taps run; at cut in (40 psi) the switch starts the pump again.",
+   "what": "The well's pressure tank: a diaphragm tank with air on top and water below, so the pump is not always running. Pump and tank are one system; a waterlogged tank short cycles the pump until the pump is the problem.",
+   "how": "The pump fills the tank until the pressure switch opens at cut out (60 psi); the air charge pushes water out as taps run; at cut in (40 psi) the switch starts the pump again. The check valve holds the pressure when the pump stops.",
    "checks": [
-    "Air charge 2 psi under cut in with the tank empty",
-    "Switch settings and clean contacts",
-    "Gauge reads and holds",
-    "No short cycling (a waterlogged tank starts the pump every few seconds)",
-    "Check valve holds, no backflow",
-    "Drain and gauge fittings dry",
-    "Disconnect labelled, wire size right for the pump"
+    "Pressure tank charge: holds air, not waterlogged, 2 psi under cut in with the tank empty",
+    "Pressure switch, cut in and cut out: at the right points, contacts clean",
+    "Pressure reading at the tank: steady through a full draw, builds and holds",
+    "Treatment ahead of the house: fitted and in date"
    ]
   },
   "well_pump": {
-   "what": "A submersible pump down a 6 in cased well, pushing water up the drop pipe and out through the pitless adapter to the house.",
-   "how": "The pressure switch at the tank starts it. Water enters the intake screen, the stages push it up the drop pipe, the check valve above the pump holds the column when it stops. The pitless adapter passes the line through the casing below frost.",
+   "what": "A submersible pump down a 6 inch cased well, pushing water up the drop pipe and out through the pitless adapter to the house. The cap on top is the lid on their drinking water.",
+   "how": "The pressure switch at the tank starts it. Water enters the intake screen, the stages push it up the drop pipe, the check valve above the pump holds the column when it stops, and the pitless adapter passes the line out through the casing below frost.",
    "checks": [
-    "Cap sealed and vented, casing 12 in over grade",
-    "Amps against the nameplate",
-    "Drawdown and recovery",
-    "Check valve holds pressure overnight",
-    "Splice and cable condition at the pull",
-    "Grade slopes away from the casing",
-    "Sample for bacteria and hardness"
+    "Well cap and wiring: cap sealed and vermin proof, no wiring exposed at the cap",
+    "Casing 12 inches over grade, grade sloping away",
+    "The tank checks are on the pressure tank in the garage"
    ]
   },
   "condensate_pump": {
-   "what": "A small pump that lifts the condensing furnace's water to a drain when there is no gravity path from the closet.",
-   "how": "Condensate runs from the furnace trap into the reservoir; the float lifts and runs the pump up the 3/8 in tube to the drain. The safety switch opens the furnace's call for heat if the reservoir overfills.",
+   "what": "A small pump that lifts the condensing furnace's water to a drain when there is no gravity path from the closet. The A coil on top makes water all summer and it has to leave.",
+   "how": "Condensate runs from the furnace trap into the reservoir; the float lifts and runs the pump up the 3/8 inch tube to the drain. The safety switch opens the furnace's call for heat if the reservoir overfills.",
    "checks": [
+    "Condensate drain (A coil on top): trap primed, line pitched, no rust trail on the furnace",
     "Reservoir clean, float free",
     "Check valve and discharge tube not kinked, routed to a real drain",
     "Safety switch wired to the furnace and tested",
-    "Cord on its own receptacle",
-    "A test pour: it runs and stops",
-    "No water on the closet floor"
+    "A test pour: it runs and stops"
    ]
   },
   "lift_station_duplex": {
-   "what": "A duplex lift station: two grinder pumps on guide rails in one basin, pushing sewage up to the city sewer. Two pumps so the house still drains when one is down.",
-   "how": "Four floats on a tree run it. STOP and LEAD start the lead pump. If the water keeps rising, LAG brings the second pump on. ALARM lights the beacon. The panel swaps the lead pump every cycle so both wear evenly. Each pump lifts out on its chain, up its rail, with nothing to unbolt.",
+   "what": "A duplex grinder station: two grinder pumps on guide rails in one basin, pushing sewage up to the city sewer. Grinders die on rags and wipes; read the float stack from the top down and test the alarm.",
+   "how": "Four floats on a tree run it: STOP and LEAD start the lead pump, LAG brings the second pump on if the water keeps rising, ALARM lights the beacon. The panel swaps the lead pump every cycle so both wear evenly. Each pump lifts out on its chain, up its rail, with nothing to unbolt.",
    "checks": [
-    "Each pump in HAND: 15 amps running on the clamp, and the level drops",
-    "Lead pump alternates from one cycle to the next",
-    "Float order and action: stop, lead, lag, alarm",
-    "TEST button: beacon and horn. Fuses F1 and F2 good",
-    "Check valves hold, ball valves open, handles along the pipe",
-    "Pumps seated on their base elbows, chains and rails sound",
-    "Junction box dry, cord grips tight",
-    "Lid bolted, gasket good, vent clear"
+    "The pump: each one in HAND runs, moves the level, amps against the plate",
+    "Floats and cords: free, the sequence stop, lead, lag, alarm proven",
+    "Cutter and impeller: not dulled or wound with wipes, passes solids",
+    "Guide rails and lift chain: each pump pulls clean and seats on its base elbow",
+    "Check valve and discharge: both hold, ball valves open",
+    "Small bore discharge: not restricted, a cleanout or flush point on the run",
+    "Control panel and breaker: dry, no fault light, fuses good, lead alternates",
+    "High level alarm: TEST button, beacon and horn",
+    "Basin, inlet and lid: no grease and rag mat, lid bolted, gasket good",
+    "Basin vent: clear, to a real vent"
    ]
   },
   "thermostat": {
-   "what": "The thermostat. It reads the room and tells the furnace, the air conditioner and the fan when to run.",
+   "what": "The thermostat. It reads the room and tells the furnace, the air conditioner and the fan when to run. The one piece of the system the family touches every day.",
    "how": "Five low voltage wires: R is 24 volt power, W calls heat, Y calls cool, G runs the fan, C is common. When the room drifts past the set point it closes the call and the equipment starts.",
    "checks": [
-    "Level and tight on the wall, sub base wires on the right terminals",
-    "Set point versus what the room reads",
+    "The thermostat: what it is (smart, programmable, basic), display alive, batteries or C wire power, holds temperature",
     "Heat, cool and fan each start on a call",
-    "Batteries or C wire power",
-    "Schedule set, not on hold by accident",
-    "Placement: not over a lamp, a register or in the sun"
+    "Level and tight on the wall, sub base wires on the right terminals",
+    "Placement: not over a lamp, a register or in the sun",
+    "Smart thermostat upgrade: a schedule, phone control and visibility for us"
    ]
   },
   "thermostat_programmable": {
-   "what": "The thermostat. It reads the room and tells the furnace, the air conditioner and the fan when to run.",
+   "what": "The thermostat. It reads the room and tells the furnace, the air conditioner and the fan when to run. The one piece of the system the family touches every day.",
    "how": "Five low voltage wires: R is 24 volt power, W calls heat, Y calls cool, G runs the fan, C is common. When the room drifts past the set point it closes the call and the equipment starts.",
    "checks": [
-    "Level and tight on the wall, sub base wires on the right terminals",
-    "Set point versus what the room reads",
+    "The thermostat: what it is (smart, programmable, basic), display alive, batteries or C wire power, holds temperature",
     "Heat, cool and fan each start on a call",
-    "Batteries or C wire power",
-    "Schedule set, not on hold by accident",
-    "Placement: not over a lamp, a register or in the sun"
+    "Level and tight on the wall, sub base wires on the right terminals",
+    "Placement: not over a lamp, a register or in the sun",
+    "Smart thermostat upgrade: a schedule, phone control and visibility for us"
    ]
   },
   "thermostat_smart_ecobee": {
-   "what": "An ecobee smart thermostat. Reads the room, learns the schedule, and can be set from a phone.",
+   "what": "An ecobee smart thermostat. Reads the room, learns the schedule, can be set from a phone, and lets us see a system drifting before it is a no cool call in August.",
    "how": "Five low voltage wires: R is 24 volt power, W calls heat, Y calls cool, G runs the fan, C is common. When the room drifts past the set point it closes the call and the equipment starts.",
    "checks": [
-    "Level and tight on the wall, sub base wires on the right terminals",
-    "Set point versus what the room reads",
+    "The thermostat: what it is (smart, programmable, basic), display alive, batteries or C wire power, holds temperature",
     "Heat, cool and fan each start on a call",
-    "Batteries or C wire power",
-    "Schedule set, not on hold by accident",
-    "Placement: not over a lamp, a register or in the sun"
+    "Level and tight on the wall, sub base wires on the right terminals",
+    "Placement: not over a lamp, a register or in the sun",
+    "Smart thermostat upgrade: a schedule, phone control and visibility for us"
    ]
   },
   "thermostat_smart_nest": {
-   "what": "A Nest smart thermostat. Reads the room, learns the schedule, and can be set from a phone.",
+   "what": "A Nest smart thermostat. Reads the room, learns the schedule, can be set from a phone, and lets us see a system drifting before it is a no cool call in August.",
    "how": "Five low voltage wires: R is 24 volt power, W calls heat, Y calls cool, G runs the fan, C is common. When the room drifts past the set point it closes the call and the equipment starts.",
    "checks": [
-    "Level and tight on the wall, sub base wires on the right terminals",
-    "Set point versus what the room reads",
+    "The thermostat: what it is (smart, programmable, basic), display alive, batteries or C wire power, holds temperature",
     "Heat, cool and fan each start on a call",
-    "Batteries or C wire power",
-    "Schedule set, not on hold by accident",
-    "Placement: not over a lamp, a register or in the sun"
+    "Level and tight on the wall, sub base wires on the right terminals",
+    "Placement: not over a lamp, a register or in the sun",
+    "Smart thermostat upgrade: a schedule, phone control and visibility for us"
    ]
   },
   "shower_two": {
-   "what": "The tub and shower with two handles: a hot valve, a cold valve, a spout with a diverter, and the head.",
-   "how": "Each handle opens its own stem valve and the two streams mix in the spout. Lifting the diverter on the spout sends the water up to the head. Waste goes down the drain shoe and the overflow to the trap.",
+   "what": "The tub and shower with two handles: a hot stem, a cold stem, a spout with a diverter, and the head. No anti scald protection on an old two handle valve; the scald risk is the one they have never been told about.",
+   "how": "Each handle opens its own stem valve and the two streams mix in the spout. Lifting the diverter on the spout sends the water up to the head. Waste goes down the drain shoe and the overflow to the trap under the tub.",
    "checks": [
-    "Stems and seats: a drip at the spout means a worn washer or seat",
-    "Stem leaks behind the handles into the wall",
-    "Diverter holds: no water out the spout while showering",
-    "Drain shoe and overflow seals",
-    "Caulk at the tub and the trim",
-    "Head flow and scale"
+    "Hot stem: turns smooth, shuts off dry; a drip is the seat and washer",
+    "Cold stem: the same test, quoted with the hot while the wall is open",
+    "Anti scald protection: a mixing valve so a flush cannot send a scald to the shower",
+    "Tub spout diverter: stays up under load, no bleed to the spout",
+    "Showerhead: clear jets, full spray",
+    "Tub spout: no drip, no wobble, caulk line sound",
+    "Caulk and grout: continuous, no gaps at the tub or tile",
+    "Drain and stopper: drains at full rate",
+    "Bathtub card: access panel behind the tub wall",
+    "Bathtub card: overflow gasket, filled past the overflow and checked underneath",
+    "Bathtub card: stopper and trip lever hold water",
+    "Bathtub card: waste, shoe and trap under the tub, no weep",
+    "Bathtub card: tub surface and the floor at the apron"
    ]
   },
   "spray_pump_filter": {
-   "what": "The filter on the spray pump: a screen around the intake that keeps solids out of the spray heads.",
-   "how": "Water is drawn in through the screen; the heads downstream have small orifices and a clogged head means the filter let something through or is torn.",
+   "what": "The filter on the spray pump: a screen around the intake that keeps grit out of the pump and out of the spray heads. Skip it and you replace both.",
+   "how": "Water is drawn in through the screen; the heads downstream have small orifices, and a clogged head means the filter let something through or is torn.",
    "checks": [
-    "Screen intact, no tears",
-    "Hose it off at every service",
+    "Pump vault and filter: screen clean, no tears, pump cycling right",
+    "Hosed off at every service",
     "Pump seated back on its stand after cleaning"
    ]
   },
   "septic_aquaklear": {
-   "what": "An AquaKlear aerobic treatment unit: an aerator, a clarifier and a pump in a fiberglass tank.",
-   "how": "Air from the blower keeps the bacteria working in the aeration chamber, the clarifier settles the solids and the airlift returns them, and the pump sends the clear water out to the spray heads through the chlorinator.",
+   "what": "An AquaKlear aerobic treatment unit: an aerator, a clarifier and a pump in a fiberglass tank. The deck's ATU cards do not say concrete or fiberglass, so the spray or overland card applies.",
+   "how": "Air from the blower keeps the bacteria working in the aeration chamber, the clarifier settles the solids and the airlift returns them, and the pump sends the clear water out to the spray heads through the chlorinator (or by gravity on the overland layout).",
    "checks": [
-    "Aerator running, air line intact",
-    "Chlorine tablets in the chlorinator",
-    "Pump and floats",
-    "Sludge level and scum",
-    "Lids secure",
-    "Panel and alarm"
+    "Tank lids: found, intact, at grade",
+    "Lid security: bolted or screwed down",
+    "Air compressor or aerator: running, warm, moving air",
+    "Aeration and dissolved oxygen: bubbling, DO 2 or better",
+    "Compressor air filter: pulled, clean, refitted",
+    "Air diffusers: bubbling evenly",
+    "Control panel: no fault light, alarm sounds on test, dry inside",
+    "Surge protection on the controls",
+    "Chlorinator and tablets: charged with septic tablets",
+    "Spray heads and the pump vault filter on the spray layout"
    ]
   },
   "uni_lateral": {
-   "what": "A uni lateral check valve on the lift station force main: a check valve with a lever and weight.",
+   "what": "A uni lateral check valve on the lift station force main: a check valve with a lever and weight, in its own box in the lawn.",
    "how": "The flapper opens as the pump pushes water up and drops shut when it stops, so the force main does not drain back into the basin. The lever shows whether it is open or shut and lets you hold it open to drain the line.",
    "checks": [
-    "Flapper seats: the basin does not refill from the force main after the pump stops",
+    "Check valve and discharge: holds, the basin does not refill from the force main after the pump stops",
     "Lever moves freely",
     "No weeping at the body or the unions"
    ]
   },
   "atu_blower_panel": {
-   "what": "The air pump for the treatment plant with its control panel, at the house wall.",
+   "what": "The air pump for the treatment plant with its control panel, at the house wall (the AquaSafe overland plant).",
    "how": "The panel powers the pump and watches it: a pressure or current alarm sounds if the air stops. The pump runs all the time and pushes air down the air line to the plant.",
    "checks": [
-    "Pump running, warm not hot",
-    "Filter pad clean",
-    "Alarm test",
-    "Air line from the pump to the plant intact",
-    "Panel dry, cord grips tight"
+    "Air compressor or aerator: running, warm, moving air, no loud bearing",
+    "Compressor air filter: pulled, clean, refitted",
+    "Control panel: no fault light, breaker on, alarm sounds on test, no water inside",
+    "Surge protection on the controls",
+    "Air line from the pump to the plant intact"
    ]
   },
   "atu_blower_outlet": {
-   "what": "The air pump for the treatment plant, plugged into a receptacle at the house wall with no panel.",
-   "how": "The pump runs all the time on its own GFCI receptacle and pushes air down the air line to the plant. With no panel there is no alarm: a stopped pump shows up as a plant gone septic.",
+   "what": "The air pump for the treatment plant, plugged into a GFCI receptacle at the house wall with no panel.",
+   "how": "The pump runs all the time on its own receptacle and pushes air down the air line to the plant. With no panel there is no alarm: a stopped pump shows up as a plant gone septic weeks later.",
    "checks": [
-    "Pump running, warm not hot",
-    "Filter pad clean",
-    "GFCI receptacle holds, cover closes",
-    "Air line intact",
-    "Surge receptacle where fitted"
+    "Air compressor or aerator: running, warm, moving air, no loud bearing",
+    "Compressor air filter: pulled, clean, refitted",
+    "Control panel: none on this plant; the receptacle holds and its cover closes",
+    "Surge protection on the controls: a surge receptacle where fitted",
+    "Air line intact"
    ]
   },
   "spray_head_r22": {
-   "what": "A spray head on the treatment plant's spray line. It pops up under pressure and throws the treated water over the lawn.",
+   "what": "A spray head on the treatment plant's spray line. It pops up under pressure and throws the treated water over the lawn; every one has to fire and land where it was designed to land.",
    "how": "The pump pressurizes the line, the head rises against its spring and the nozzle turns as it sprays. When the pump stops the head drops back flush with the grass.",
    "checks": [
-    "Rises and turns when the pump runs",
-    "Spray pattern even, no clogged nozzle",
-    "Drops back down when the pump stops",
-    "Pattern stays on the lawn, off the house and the drive"
+    "Spray heads: all fire, rise and turn when the pump runs",
+    "Spray pattern even, no clogged nozzle, on the lawn and off the house, the drive and the neighbour",
+    "No head cut off or removed, no standing water at the base",
+    "Drops back flush when the pump stops"
    ]
   },
   "spray_head_180_r22": {
    "what": "A half circle spray head at the edge of the field. It throws a 180 degree pattern so the spray stays off the fence or the drive.",
    "how": "The pump pressurizes the line, the head rises against its spring and the nozzle turns as it sprays. When the pump stops the head drops back flush with the grass.",
    "checks": [
-    "Rises and turns when the pump runs",
-    "Spray pattern even, no clogged nozzle",
-    "Drops back down when the pump stops",
-    "Pattern stays on the lawn, off the house and the drive"
+    "Spray heads: all fire, rise and turn when the pump runs",
+    "Spray pattern even, no clogged nozzle, on the lawn and off the house, the drive and the neighbour",
+    "No head cut off or removed, no standing water at the base",
+    "Drops back flush when the pump stops"
    ]
   },
   "washer_box": {
-   "what": "The washer box: the recessed box in the laundry wall with the hot and cold hose bibs and the standpipe.",
-   "how": "The hoses run from the bibs to the washer. The washer pumps its water up into the standpipe, which drains down through a trap. The bibs are the shutoffs when the washer is not in use.",
+   "what": "The washer box: the recessed box in the laundry wall with the hot and cold valves and the standpipe. Rubber washer hoses are the number one homeowner flood in the country and the fix is under a hundred dollars.",
+   "how": "The hoses run from the valves to the washer. The washer pumps its water up into the standpipe, which drains down through a trap. The valves are the shutoffs when the washer is not in use; hammer arrestors on them take the bang when the washer snaps its water off.",
    "checks": [
-    "Hoses: rubber ones over five years get replaced with braided",
-    "Bibs turn and shut",
-    "Standpipe height and trap",
-    "No water on the floor of the box"
+    "Washer hoses: braided steel, no bulge at the couplings, rubber ones replaced",
+    "Shutoff valves: turn and hold, a single lever box they will actually use",
+    "Water hammer arrestors on both lines, no bang when the washer shuts off",
+    "Standpipe and trap: right height, trapped, no overflow on the spin cycle",
+    "Pan and drain under an upstairs laundry"
    ]
   },
   "attic_ladder": {
@@ -583,107 +670,114 @@
    ]
   },
   "trash_tank": {
-   "what": "A trash tank: a small septic tank in FRONT of the aerobic plant, the first tank the house sewer reaches.",
-   "how": "Solids settle to the floor, grease and paper float, and only the clear middle leaves through the outlet tee to the plant, so the plant treats liquid and not trash.",
+   "what": "A trash tank: a small septic tank in front of the aerobic plant, the first tank the house sewer reaches. Everything the plant should never have to chew on stops here.",
+   "how": "Solids settle to the floor, grease and paper float, and only the clear middle leaves through the outlet tee to the plant, so the plant treats liquid and not trash. Read the sludge like any tank; it protects the aeration chamber.",
    "checks": [
-    "Lid at grade and bolted",
-    "Inlet and outlet tees in place and open",
-    "Scum and sludge under a third of the tank (pump it when they are not)",
-    "Level at the bottom of the outlet pipe"
+    "Tank lids: found, intact, at grade",
+    "Lid security: bolted down",
+    "Scum and sludge levels: measured, both within normal",
+    "Inlet baffle or tee: in place, no roots",
+    "Outlet baffle or tee: in place, not corroded off",
+    "Water level: at the outlet invert",
+    "Tank walls and seams: no crack, no groundwater"
    ]
   },
   "wh_surge_protector": {
-   "what": "A surge protective device on the water heater's own circuit.",
-   "how": "It sits across the two hots and ground. When the voltage spikes it turns into a short for a split second and sends the surge to ground instead of through the heater's thermostats and elements. The green light says it still can.",
+   "what": "A surge protective device on the water heater's own circuit. Protection at the equipment so a power blink does not take out the thermostats and elements.",
+   "how": "It sits across the two hots and ground. When the voltage spikes it turns into a short for a split second and sends the surge to ground instead of through the heater's controls. The green light says it still can.",
    "checks": [
-    "Surge protection on the water heater circuit?",
-    "How it is wired"
+    "Surge protection on the water heater: present",
+    "They have one and it is not working right: status light dark, soot at the nipple, a cracked housing",
+    "How it is wired: across both hots and ground in the heater's junction box"
    ]
   },
   "thermostatic_mixing_valve": {
-   "what": "A thermostatic mixing valve on the water heater's hot outlet.",
-   "how": "Hot from the tank and cold from the supply meet in the valve. A wax element slides a shuttle between them so the water leaving is held at the set temperature, even with the tank turned up. It is the anti-scald protection for the whole house.",
+   "what": "A thermostatic mixing valve on the water heater's hot outlet. The tank can be kept hot so you never run out while the valve tempers the water down to around 120 before it reaches the taps, so nobody gets scalded.",
+   "how": "Hot from the tank and cold from the supply meet in the valve. A wax element slides a shuttle between the two seats so the water leaving is held at the set temperature, even with the tank turned up. Unions let it come out without cutting pipe.",
    "checks": [
-    "Mixing valve on the hot outlet?",
-    "Piping at the valve",
-    "Anti-scald protection"
+    "Thermostatic mixing valve on the hot outlet: present and holding temper at the tap",
+    "Temperature setting: 120 at the tap, the tank can run hotter",
+    "Anti scald protection: a toilet flush cannot send a scald to the shower",
+    "Piping at the valve: H the hot inlet, C the cold inlet, M the mixed outlet, the cold check in"
    ]
   },
   "thermostatic_mixing_valve_pex": {
-   "what": "A thermostatic mixing valve on the water heater's hot outlet, piped in PEX.",
-   "how": "Same valve: hot and cold meet, the wax element holds the mixed temperature. On PEX it is fed through an 18 in stainless connector off the tank, with crimp fittings and copper rings on every joint.",
+   "what": "A thermostatic mixing valve on the water heater's hot outlet, piped in PEX. The same anti scald protection, fed through an 18 inch stainless connector off the tank.",
+   "how": "Same valve: hot and cold meet, the wax element holds the mixed temperature. On PEX it is fed through the connector off the tank (no PEX in the first 18 inches off a water heater), with crimp fittings and copper rings on every joint.",
    "checks": [
-    "Mixing valve on the hot outlet?",
-    "Piping at the valve",
-    "Crimp joints",
-    "Anti-scald protection"
+    "Thermostatic mixing valve on the hot outlet: present and holding temper at the tap",
+    "Temperature setting: 120 at the tap, the tank can run hotter",
+    "Anti scald protection: a toilet flush cannot send a scald to the shower",
+    "Piping at the valve: H the hot inlet, C the cold inlet, M the mixed outlet, the cold check in",
+    "Crimp joints: the ring 3/16 inch back from the tube end, crimped square"
    ]
   },
   "air_quality_monitor": {
-   "what": "An indoor air quality monitor on the hall wall.",
-   "how": "It draws room air through its sensors and reads particles, CO2, chemicals (VOCs), temperature and humidity, and scores the air. It is how the homeowner sees what a filter, a purifier or fresh air is doing.",
+   "what": "An indoor air quality monitor on the hall wall. A sensor that shows what the indoor air is actually doing, so air quality is a number on their phone instead of an argument.",
+   "how": "It draws room air through its sensors and reads particles (PM2.5), CO2, chemicals (VOCs), temperature and humidity, and scores the air. It is how the homeowner sees what a filter, a purifier or fresh air is doing.",
    "checks": [
-    "Readings",
-    "Power",
-    "Placement",
-    "The offer"
+    "Air quality monitor: present and reporting",
+    "They have one and it is not working right: dark display, adapter unplugged, no Wi Fi",
+    "Placement: clear of the slots on both sides, away from the kitchen"
    ]
   },
   "media_air_cleaner": {
-   "what": "A media air cleaner cabinet under the furnace.",
-   "how": "All the return air passes through a deep pleated media filter before the blower. It catches far more than a 1 in filter and lasts a year or so; the old filter slot is blocked off.",
+   "what": "A media air cleaner cabinet under the furnace: a deep pleated filter, four to five inches instead of one. The single biggest air quality upgrade for the least money, changed once a year instead of monthly.",
+   "how": "All the return air passes through the deep pleated media before the blower. It catches far more than a 1 inch filter without choking the system; the old filter slot is blocked off.",
    "checks": [
-    "Media cabinet",
-    "What filters the air"
+    "Deep pleat media cabinet: present and in service",
+    "Current filter: the right type and size, no air bypassing the frame",
+    "They have one and it is not working right: media loaded grey and caked, past due"
    ]
   },
   "induct_purifier": {
-   "what": "An in duct air purifier on the supply plenum.",
-   "how": "A UV lamp in a catalytic cell makes oxidizers and ions that ride out with the supply air to treat odors, germs and particles. It runs off 24 volts from the furnace.",
+   "what": "An in duct air purifier on the supply plenum. Carbon or PCO purification goes after what a filter cannot: odors, gases and biological growth in the system itself.",
+   "how": "A UV lamp in a catalytic cell makes oxidizers and ions that ride out with the supply air to treat odors, germs and particles. It runs off 24 volts from the furnace; the lamp window glows when it is on.",
    "checks": [
-    "In duct purifier"
+    "Carbon or PCO purifier: present and in service",
+    "They have one and it is not working right: lamp dark, cell spent (about every 2 years)"
    ]
   },
   "hosebib_protection": {
-   "what": "A freeze cover and a vacuum breaker for the front hose bib.",
-   "how": "The foam cover holds the house's warmth around the bib in a freeze. The vacuum breaker on the hose thread keeps dirty hose water from being pulled back into the house when the pressure drops.",
+   "what": "The hose bib with its freeze cover and vacuum breaker. No vacuum breaker means a hose left in a bucket can pull that water back into what the family drinks.",
+   "how": "The foam cover holds the house's warmth around the bib in a freeze. The vacuum breaker on the hose thread opens its vent and breaks the siphon when the pressure drops, so dirty hose water cannot be pulled back into the house.",
    "checks": [
-    "Freeze cover",
-    "Hose off for winter",
-    "Vacuum breaker",
-    "Right breaker for the bib"
+    "The spigot itself: turns, shuts off dry, no drip at the packing, not loose in the wall",
+    "Vacuum breaker fitted on every hose bib",
+    "Static pressure reading: gauge on the bib, everything off, 50 to 70 is healthy",
+    "Freeze cover on for winter, hose off (not a deck check yet)"
    ]
   },
   "erv": {
-   "what": "An energy recovery ventilator in the attic.",
-   "how": "Stale air leaves from the kitchen and fresh air comes in through the roof. The two streams pass each other in the core and trade heat and moisture without mixing, so the house gets fresh air without losing its comfort.",
+   "what": "An energy recovery ventilator in the attic. A tight modern house holds onto its own air; this brings in a controlled amount of fresh air without losing the comfort.",
+   "how": "Stale air leaves from the kitchen and fresh air comes in through the roof. The two streams pass each other in the core and trade heat and moisture without mixing. The interlock brings the air handler blower on whenever it runs.",
    "checks": [
-    "Core and filters",
-    "Outside caps",
-    "Ducts",
-    "Controls"
+    "Fresh air ventilator: present and in service",
+    "They have one and it is not working right: core packed, filters loaded, caps blocked, control dark",
+    "Outside caps clear, intake below and away from the exhaust",
+    "Ducts and the wall control"
    ]
   },
   "sludgehammer": {
-   "what": "A SludgeHammer aerobic bacteria generator in the septic tank.",
-   "how": "An air pump by the tank bubbles air up through media in the tank, growing aerobic bacteria that eat sludge and scum and clean the effluent before it reaches the field.",
+   "what": "A SludgeHammer aerobic bacteria generator in the septic tank. It keeps feeding the system live culture: a field that keeps digesting is a field that does not get replaced.",
+   "how": "An air pump by the tank bubbles air up through the media in the column, growing aerobic bacteria that eat sludge and scum and clean the effluent before it reaches the field. The blend bag on its stick feeds the culture.",
    "checks": [
-    "Air pump and alarm",
-    "Bubble plume",
-    "Blend bag",
-    "Sludge and scum"
+    "Aerobic bacteria generator: present and running",
+    "They have one and it is not working right: no bubble plume, air pump off, alarm lit",
+    "Blend bag fresh",
+    "Sludge and scum still in range"
    ]
   },
   "grease_interceptor": {
-   "what": "A 1,000 gallon two compartment precast concrete grease interceptor behind a restaurant, the kind Happy Pipes gets from Lee's Precast. The kitchen's sinks, floor sinks and dish machine all drain through it.",
-   "how": "Kitchen water slows down in the first compartment: grease floats to the top, solids sink. The clear middle crosses the baffle and leaves through the outlet tee to the city sewer. It gets pumped out on a schedule.",
+   "what": "A 1,000 gallon two compartment precast concrete grease interceptor behind a restaurant. Measure the grease cap and the solids against the liquid depth; this is a measurement, not a glance, same as a septic tank.",
+   "how": "Kitchen water slows down in the first compartment: grease floats to the top, solids sink. The clear middle crosses the baffle and leaves through the outlet tee to the city sewer. It gets pumped out on a schedule and the log stays on site.",
    "checks": [
-    "Trap type and where it sits",
-    "Lid and access",
-    "Grease and solids depth",
-    "Baffles and tees",
-    "Inlet and outlet lines",
-    "Pump-out record on site"
+    "Trap type and where it sits: sized for the kitchen, in the ground, not an under sink trap doing an in ground job",
+    "Lid and access: gasketed, a traffic rated cover where anything drives",
+    "Grease and solids depth: measured with a stick against the liquid depth",
+    "Baffles and tees: in place, not broken or corroded off",
+    "Inlet and outlet lines: inlet not greased over, outlet not carrying grease toward the main",
+    "Pump out record on site"
    ]
   },
   "commercial_storefront": {
@@ -692,6 +786,16 @@
    "checks": [
     "What goes through the interceptor",
     "At the building exit"
+   ]
+  },
+  "dishwasher_line": {
+   "what": "The dishwasher connection: the supply line and its stop, the drain hose with its high loop or air gap, and the floor in front of the machine. We do not fix the machine; the lines are ours.",
+   "how": "The hot line runs from its own stop under the sink to the machine. The drain hose rises in a high loop above the connection, or through an air gap on the deck, before it drops into the disposal or the tailpiece, so sink water cannot siphon back into the dishes.",
+   "checks": [
+    "Supply line and shutoff: its own stop, turns by hand, no kink behind the machine",
+    "Drain hose, high loop or air gap: present, no backflow",
+    "Under the door and the floor in front: no leak at the door, no swollen flooring",
+    "Water quality at the machine: spotting and film on the glassware is the water, not the detergent"
    ]
   }
  }

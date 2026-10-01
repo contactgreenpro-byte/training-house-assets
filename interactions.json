@@ -751,6 +751,12 @@
    },
    "heater_elements": {
     "work": "heat_run"
+   },
+   "rheem_badge": {
+    "look": "clip:doors_off"
+   },
+   "warning_label": {
+    "look": "clip:doors_off"
    }
   },
   "hvac_condenser_ac.glb": {
@@ -820,6 +826,27 @@
    },
    "whip": {
     "look": "cut"
+   },
+   "data_plate": {
+    "look": "clip:panel_off"
+   },
+   "warning_label": {
+    "look": "clip:panel_off"
+   },
+   "corner_louver_back_right": {
+    "look": "clip:shell_off"
+   },
+   "corner_louver_front_left": {
+    "look": "clip:shell_off"
+   },
+   "corner_louver_front_right": {
+    "look": "clip:shell_off"
+   },
+   "rheem_badge": {
+    "look": "clip:shell_off"
+   },
+   "orifice_ring": {
+    "look": "clip:shell_off"
    }
   },
   "hvac_condenser_heatpump.glb": {
@@ -889,6 +916,51 @@
    },
    "whip": {
     "look": "cut"
+   },
+   "data_plate": {
+    "look": "clip:panel_off"
+   },
+   "warning_label": {
+    "look": "clip:panel_off"
+   },
+   "corner_louver_back_right": {
+    "look": "clip:shell_off"
+   },
+   "corner_louver_front_left": {
+    "look": "clip:shell_off"
+   },
+   "corner_louver_front_right": {
+    "look": "clip:shell_off"
+   },
+   "rheem_badge": {
+    "look": "clip:shell_off"
+   },
+   "orifice_ring": {
+    "look": "clip:shell_off"
+   },
+   "discharge_muffler": {
+    "look": "cut"
+   },
+   "handle_cover": {
+    "look": "clip:panel_off"
+   },
+   "nameplate_label": {
+    "look": "clip:panel_off"
+   },
+   "whip_entry": {
+    "look": "clip:panel_off"
+   },
+   "front_panel": {
+    "look": "aside"
+   },
+   "rear_panel": {
+    "look": "aside"
+   },
+   "top_panel": {
+    "look": "aside"
+   },
+   "valve_cover": {
+    "look": "aside"
    }
   },
   "hvac_furnace_cond96.glb": {
@@ -1002,6 +1074,9 @@
    },
    "service_switch_box": {
     "look": "aside"
+   },
+   "thermostat_line": {
+    "look": "cut"
    }
   },
   "hvac_furnace_std80.glb": {
@@ -1109,6 +1184,9 @@
    },
    "service_switch_box": {
     "look": "aside"
+   },
+   "thermostat_line": {
+    "look": "cut"
    }
   },
   "hvac_minisplit.glb": {
@@ -2071,6 +2149,12 @@
     "look": "control",
     "work": "aerate",
     "note": "round 29: the air pump body switches the air (Jake 2026-09-13); the generator never listed it, so a click on it said its name"
+   },
+   "diffuser": {
+    "look": "section"
+   },
+   "baffle": {
+    "look": "section"
    }
   },
   "septic_aquasafe.glb": {
@@ -2161,6 +2245,12 @@
   "septic_field_dbox.glb": {
    "effluent_line": {
     "look": "cut"
+   },
+   "trench1": {
+    "look": "section"
+   },
+   "trench2": {
+    "look": "section"
    }
   },
   "septic_lee.glb": {
@@ -2490,6 +2580,9 @@
    "cartridge": {
     "look": "pull",
     "note": "only in the opened bay, after the handle is off"
+   },
+   "overflow_plate": {
+    "look": "aside"
    }
   },
   "shower_two.glb": {
