@@ -321,7 +321,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '98a';
+  var SHELL = '99a';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -522,7 +522,7 @@
     cpvc: 'CPVC', pex: 'PEX', galvanized: 'Galvanized', natural: 'Natural gas', propane: 'Propane tank',
     none: 'None', belly: 'Belly in the sewer line',
     wall: 'In the laundry wall', attic: 'On the attic cold run',
-    crawl: 'Crawl space', slab: 'Slab on grade', copper: 'Copper (type L soft)', attic_repipe: 'PEX repipe through the attic',
+    crawl: 'Crawl space', slab: 'Slab on grade', copper: 'Copper (type L soft)', attic_repipe: 'PEX repipe through the attic', pex_branch: 'PEX trunk and branch under the slab',
   };
   function nice(v) { return VAL_LABEL[v] || String(v).replace(/_/g, ' '); }
 
@@ -768,8 +768,14 @@
   // the six nearest at start and the rest within 20 m or in view). So the person is first stood beside the unit's socket,
   // which makes walk.js fetch it, and once it is in the scene goToUnit() puts them on the proper spot in front of it.
   // Nothing here throws and nothing leaves a blank screen: whatever is not found, the house opens at the door as it does now.
+  // Round 99 (Jake 2026-10-02: no air gap on the deck here, the dishwasher drain's high loop under the counter is the whole thing).
+  // A link the Comms deck still draws to a part the house no longer has lands on the part that does that job instead; the finding
+  // card and tools/check_links.mjs read the same table (window.__PART_ALIAS). Model file name, then old part name to new.
+  var PART_ALIAS = { 'kitchen_sink.glb': { air_gap: 'dw_hose' } };
+  window.__PART_ALIAS = PART_ALIAS;
   function showLanding() {
     var W = window.walk, S = SHOW;
+    if (S && S.part && PART_ALIAS[S.model] && PART_ALIAS[S.model][S.part]) S.part = PART_ALIAS[S.model][S.part];
     var done = function () { setupEl.style.display = 'none'; };
     try {
       // the Keys tab is the one open by default and it is gone in this mode, so the Views tab takes its place

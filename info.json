@@ -174,9 +174,6 @@
     "dw_hose_low": [
      "No air gap and no high loop: dirty water can siphon back into the dishes. Loop it high under the counter."
     ],
-    "air_gap_crust": [
-     "Air gap crusted and backing up onto the deck. Clean or replace it."
-    ],
     "ro_system": [
      "Cartridges long overdue. Nobody remembers changing them. Replace and set a schedule."
     ],
@@ -254,7 +251,6 @@
     "disposal_cord": "Cord and plug",
     "receptacle": "Receptacle (half switched)",
     "wall_switch": "Disposal switch",
-    "air_gap": "Dishwasher air gap",
     "ro_system": "Reverse osmosis: 3 pre-filter housings, membrane, storage tank, drain saddle, RO faucet",
     "door_left": "Cabinet door",
     "door_right": "Cabinet door",
@@ -798,9 +794,6 @@
     "dw_hose_low": [
      "No air gap and no high loop: dirty water can siphon back into the dishes. Loop it high under the counter."
     ],
-    "air_gap_crust": [
-     "Air gap crusted and backing up onto the deck. Clean or replace it."
-    ],
     "ro_system": [
      "Cartridges long overdue. Nobody remembers changing them. Replace and set a schedule."
     ],
@@ -878,7 +871,6 @@
     "disposal_cord": "Cord and plug",
     "receptacle": "Receptacle (half switched)",
     "wall_switch": "Disposal switch",
-    "air_gap": "Dishwasher air gap",
     "ro_system": "Reverse osmosis: 3 pre-filter housings, membrane, storage tank, drain saddle, RO faucet",
     "door_left": "Cabinet door",
     "door_right": "Cabinet door",

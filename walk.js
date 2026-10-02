@@ -8,6 +8,11 @@
   let bootFinished; const bootDone = new Promise(r => { bootFinished = r; });
   const HOUSE_FILES = ['house_site', 'house_floor1', 'house_attic', 'house_crawl', 'house_furniture', 'house_framing'];     // framing: attic joists, batts, rafters and headers (build_framing.py)
   let PIPE_FILES = ['pipes_supply', 'pipes_dwv', 'pipes_gas', 'pipes_hvac', 'pipes_alternates'];     // the alternates file was never loaded at all, so its runs did not exist in any layout
+  // round 99 (speed lever 1, SPEED_2026-10-01.md 4.7): a layer may ship as PARTS, one file per layout tag plus a common one, listed in
+  // pipes_groups.json (tools/gltf_pack/split_layers.mjs writes it at publish time). A layout fetches a layer's common part and every part
+  // whose tag inConfig() accepts; the parts load under one Group per layer, so everything that walks `pipes` or toggles a layer is
+  // unchanged. No manifest, or a layer missing from it: that layer is fetched whole, as before. pipeParts holds the file stems loaded.
+  let PIPE_GROUPS = null, J_groups = null; const pipeParts = new Set();
   const MODEL_DIRS = ['../models/', './little/', './'];
   const status = document.getElementById('status'), loadEl = document.getElementById('load'), labelEl = document.getElementById('label');
   const view = document.getElementById('view');
@@ -195,7 +200,7 @@
     filter: ['no', 'yes'],       // round 42: the spray pump filter is an add on, not on by default (Jake)
     thermostat: ['programmable', 'smart_ecobee', 'smart_nest'],     // round 45: which stat is on the hall wall (Jake)
     foundation: ['crawl', 'slab'],     // 2026-09-25 (Jake: "we definitely need a slab house too"): a change loads the other house (switchFoundation)
-    plumbing: ['cpvc', 'pex', 'galvanized', 'copper', 'attic_repipe'],     // round 97: attic_repipe is the slab house with its failed floor lines abandoned and new PEX home runs over the ceiling. 2026-09-25: copper is the slab house's soft copper in the floor. round 25: the supply exists three ways (Jake: run everything in PEX, galvanized)
+    plumbing: ['cpvc', 'pex', 'galvanized', 'copper', 'attic_repipe', 'pex_branch'],     // round 99: pex_branch is the slab house's trunk and branch PEX under the slab, no manifold (Jake 2026-10-02). round 97: attic_repipe is the slab house with its failed floor lines abandoned and new PEX home runs over the ceiling. 2026-09-25: copper is the slab house's soft copper in the floor. round 25: the supply exists three ways (Jake: run everything in PEX, galvanized)
     gas: ['natural', 'propane'],                 // round 29: the utility meter set, or a 250 gallon tank in the side yard with its regulators (Jake)
     sump: ['no', 'yes'],                         // round 88: the indoor pump basin under the hall bath (Jake: place the sump pump)
     shutoff_extra: ['none', 'wall', 'attic'],    // round 88: a second Flo shutoff, in the laundry wall or on the attic cold run
@@ -211,7 +216,7 @@
   // copper in the floor (Jake: "it's poured into the floor"); CPVC and galvanized are the crawl house's. fits() says whether a value is
   // offered in a house; foundationSet() is the change that takes the layout to the other house, anything that does not fit there falling
   // back to that house's default.
-  const FOUNDATION_ONLY = { plumbing: { cpvc: 'crawl', galvanized: 'crawl', copper: 'slab', attic_repipe: 'slab' }, water_heater: { attic_gas_tank: 'crawl', attic_electric_tank: 'crawl', garage_gas_tank: 'slab' },
+  const FOUNDATION_ONLY = { plumbing: { cpvc: 'crawl', galvanized: 'crawl', copper: 'slab', attic_repipe: 'slab', pex_branch: 'slab' }, water_heater: { attic_gas_tank: 'crawl', attic_electric_tank: 'crawl', garage_gas_tank: 'slab' },
     sump: { yes: 'crawl' }, shutoff_extra: { wall: 'crawl', attic: 'crawl' }, mixing_valve: { yes: 'crawl' }, surge_wh: { yes: 'crawl' } };
   const FOUNDATION_DEFAULT = { slab: { plumbing: 'pex', water_heater: 'closet_gas_tank', sump: 'no', shutoff_extra: 'none', mixing_valve: 'no', surge_wh: 'no' },
     crawl: { plumbing: 'cpvc', water_heater: 'attic_gas_tank' } };
@@ -224,6 +229,7 @@
     HOUSE_FIRST = S ? ['slab_house_site', 'slab_house_floor1', 'house_attic', 'slab_house_slab'] : ['house_site', 'house_floor1', 'house_attic', 'house_crawl'];
     HOUSE_REST = S ? ['house_furniture', 'slab_house_garagefurn', 'slab_house_framing'] : ['house_furniture', 'house_framing'];
     PIPE_FILES = ['pipes_supply', 'pipes_dwv', 'pipes_gas', 'pipes_hvac', 'pipes_alternates'].map(f => (S ? 'slab_' : '') + f);
+    J_groups = jsonLater('./pipes_groups.json');     // round 99 (speed lever 1): asked for now, read in loadPipes(); the shim answers null where the site has none
     GRADE_Y = S ? -0.15 : -0.90;
   }
   // the house carries layout tags too now (the lawn patch over the yard holes this layout does not use)
@@ -272,6 +278,34 @@
     place(e.pl).then(() => { pumpsOnByDefault(); }).catch(() => { }).finally(() => { loadingOne = false; });
   }
   async function loadAll() { while (PEND.length) await placeNearest(4); return equip.children.length + ' models placed'; }
+  // Round 99 (agent page; heaters_tankless open item 3). The readouts on a tankless water heater's front cover (the gas units' display_ok
+  // and display_fault; the electric's display_ok, display_fault, display_heating, status_led and status_led_on) are the cover's
+  // SIBLINGS in the model, not its children, so when cover_off played (gas) or the cover was set aside or taken apart (electric) they
+  // stayed in the air in front of the unit. At placement each one is hung on its cover keeping where it is in the world (three.js
+  // attach). It goes on the cover's biggest piece (the shell): the cover has several materials, so it loads as a group of meshes, and
+  // the exploded view moves those meshes one by one while a clip and set aside move the group, so the shell carries it either way.
+  // The mixer finds a node by its name anywhere under the unit, so heat_on still lights display_heating and status_led_on (their scale
+  // keys are local, and the cover is not scaled). userData.rides stops the node chain a click climbs at the readout (playClipOnly,
+  // openPanel): a click on a readout is a click on the readout, its name and its card, never on the cover's cover_off.
+  const COVER_RIDERS = {
+    'gas_tankless_water_heater_condensing.glb': { front_cover: ['display_ok', 'display_fault'] },
+    'gas_tankless_water_heater_noncondensing.glb': { front_cover: ['display_ok', 'display_fault'] },
+    'electric_tankless_water_heater.glb': { front_cover: ['display_ok', 'display_fault', 'display_heating', 'status_led', 'status_led_on'] } };
+  function coverRiders(inst, model) {
+    const R = COVER_RIDERS[model]; if (!R) return;
+    inst.updateMatrixWorld(true);
+    for (const [cv, list] of Object.entries(R)) {
+      let shell = null, big = -1;
+      inst.traverse(o => { if (!o.isMesh || nodeName(o) !== cv) return; const g = o.geometry; if (!g.boundingSphere) g.computeBoundingSphere(); if (g.boundingSphere.radius > big) { big = g.boundingSphere.radius; shell = o; } });
+      if (!shell) continue;
+      for (const nm of list) {
+        // the readout's own node: the first object of that name going down the tree (a part with several materials is a group of meshes)
+        let r = null; inst.traverse(o => { if (!r && nodeName(o) === nm) r = o; });
+        if (!r || r.parent === shell) continue;
+        shell.attach(r); r.userData.rides = cv;
+      }
+    }
+  }
   async function place(pl) {
     const sock = sockets[pl.socket]; if (!sock) { console.warn('no socket', pl.socket); return; }
     // round 98 progress hook: the unit about to arrive (stage equipment), and below, the count once it stands
@@ -317,6 +351,7 @@
     // round 98 progress hook
     window.__walkProgress = { stage: 'equipment', file: pl.model.replace(/^little\//, ''), filesDone: equip.children.length, filesTotal: equip.children.length + PEND.length, bytesDone: 0, bytesTotal: 0 };
     modelWater(inst);     // round 61: the water that runs through the model's own pipes
+    coverRiders(inst, pl.model.replace(/^little\//, ''));     // round 99 (agent page): the tankless readouts go where their cover goes
     setupPlantSim(inst);     // round 67: a plant whose pump chamber, float and pump are driven by the water that arrives
     for (const r of (pl.replaces || [])) if (houseByName[r]) { houseByName[r].visible = false; houseByName[r].userData.hiddenByPlacement = true; }
     // Round 45 (Jake: "I need to be able to get into the shower so I can get up on it, that glass door is blocking me"): a shower is
@@ -336,6 +371,7 @@
   const placedColliders = [];
   async function reconfigure() {
     await bootDone;     // round 60: you can be let in before the pipes and placements.json have arrived, and this needs both
+    await loadPipeParts();     // round 99 (speed lever 1): the pipe parts this layout needs and does not have yet, before anything is taken down
     for (const c of [...equip.children]) equip.remove(c);
     for (const o of placedColliders) { const i = colliders.indexOf(o); if (i >= 0) colliders.splice(i, 1); }
     placedColliders.length = 0; mixers.length = 0;
@@ -375,7 +411,7 @@
     [/^pipe_hvac_lineset_liquid/, 'AC liquid line'], [/^pipe_hvac_lineset/, 'AC lineset'], [/^pipe_hvac_condensate/, 'Condensate drain'], [/^pipe_hvac/, 'HVAC line'], [/^pipe_septic_air/, 'Air line to the septic tank'],
     [/^pipe_septic|^pipe_spray/, 'Spray line'], [/^flex_hvac/, 'Flex duct'], [/^takeoff_[a-z]+/, 'Takeoff with its manual damper'], [/^duct_hvac_supply_trunk/, 'Main supply trunk'], [/^duct_hvac_plenum_riser/, 'Supply plenum'],
     [/^duct_dryer/, 'Dryer vent'], [/^duct_hvac|^duct/, 'Duct'], [/^register_hvac/, 'Supply register'], [/^boot_hvac/, 'Register boot'], [/^cable/, 'Cable'], [/^conduit/, 'Conduit'], [/^fit_[a-z]+/, 'Fitting'], [/^valve/, 'Valve'], [/^pipe/, 'Pipe']];
-  const PLACE_WORDS = { wh: 'water heater', hallbath: 'hall bath', masterbath: 'master bath', hb: 'hall bath', mb: 'master bath', ks: 'kitchen sink', wc: 'toilet', lav: 'sink', dw: 'dishwasher', cw: 'washer', uf: '', dwv: '', hvac: '', bed2: 'bedroom 2', bed3: 'bedroom 3', master: 'master bedroom', living: 'living room', std80: '', cond96: '', bib: 'hose bib', tstat: 'thermostat', ahu: 'air handler' };
+  const PLACE_WORDS = { wh: 'water heater', hallbath: 'hall bath', masterbath: 'master bath', hb: 'hall bath', mb: 'master bath', ks: 'kitchen sink', wc: 'toilet', lav: 'sink', dw: 'dishwasher', cw: 'washer', uf: '', dwv: '', hvac: '', bed2: 'bedroom 2', bed3: 'bedroom 3', master: 'master bedroom', living: 'living room', std80: '', cond96: '', bib: 'hose bib', tstat: 'thermostat', ahu: 'air handler', tb: '' };
   const capFirst = t => t ? t.charAt(0).toUpperCase() + t.slice(1) : t;
   // add ons that have no inspector pack of their own, so info.json has no words for them
   const EXTRA_PACKS = { sweet_air: { name: 'Sweet Air vent filter', labels: { chamber: 'Carbon canister. It sits on top of the vent pipe, outside, above the roof', cap: 'Twist cap. Turn it to OPEN and lift it off', vent_lid: 'Vented lid over the carbon',
@@ -518,7 +554,7 @@
     const title = (inst && inst.userData.pl && inst.userData.pl.title) || P.name || (inst ? pretty(inst.userData.model) : plainId(nm));     // round 94: the exact model the placement names
     const notes = [].concat((P.hotspots && P.hotspots[nm]) || [], (ext.hotspots && ext.hotspots[nm]) || []); const wt = wireText(o); if (wt) notes.unshift(wt);     // round 40: where the wire goes and why
     const acts = [];     // [label, fn, group]
-    const mine = new Set(); for (let q = o; q && q !== inst; q = q.parent) mine.add(q.name);     // the clicked part and its node chain
+    const mine = new Set(); for (let q = o; q && q !== inst; q = q.parent) { mine.add(q.name); if (q.userData.rides) break; }     // the clicked part and its node chain (round 99: up to a part hung on another, coverRiders)
     const state = (A, n) => !!(A && A.state[n] && A.state[n].open);
     if (inst) {
       const A = inst.userData.anim, S = inst.userData.sectionSet;
@@ -669,34 +705,65 @@
   function pumpsOnByDefault() { let has = false; equip.children.forEach(u => { const A = u.userData.anim; if (A && A.clips.some(c => c.name === 'aerate')) has = true; }); if (has && !pumpOn) pumpSwitch(); }
   // ---------------------------------------------------------------- pipes
   async function loadPipes() {
-    prefetch(PIPE_FILES.map(f => './' + f + '.glb'));     // round 98 (speed lever 4): the pipe files download while the manifests round trip
+    const want = await pipeFilesFor();     // round 99 (speed lever 1): each layer as its parts for this CONFIG, or whole
+    prefetch(want.flatMap(w => w.files).map(s => './' + s + '.glb'));     // round 98 (speed lever 4): the pipe files download while the manifests round trip
     const J_pipes = jsonLater('./pipes.json'), J_drains = jsonLater('./' + (CONFIG.foundation === 'slab' ? 'slab_' : '') + 'drains.json'), J_wires = jsonLater('./wires.json');
     try { pipesMeta = await J_pipes; Object.assign(labels, pipesMeta.labels || {}); if (CONFIG.foundation === 'slab') Object.assign(labels, pipesMeta.slab_labels || {}); } catch (e) { }     // 2026-09-25: the slab house's own words for the runs it builds its own way
     // round 40 (Jake: "click wires and it says where they are going and why"): wires.json, house runs by name (they override the pipe
     // labels) and model parts by pack and part regex
     try { DRAINS = ((await J_drains).runs) || {}; } catch (e) { DRAINS = {}; }     // round 43: the ball's routes
     try { const W = await J_wires; WIRES = { runs: W.runs || {}, parts: (W.parts || []).map(e => ({ pack: new RegExp(e.pack), part: new RegExp(e.part), text: e.text })) }; Object.assign(labels, WIRES.runs); } catch (e) { }
-    for (const f of PIPE_FILES) {
-      status.textContent = 'loading ' + f; const g = await load('./' + f + '.glb'); const lf = f.replace(/^slab_/, ''); g.scene.name = lf; pipes.add(g.scene); layers[lf] = g.scene; tuneMaterials(g.scene);
-      stampParts(g, g.scene);
-      g.scene.traverse(o => { if (o.isMesh && /_stream$/.test(nodeName(o))) { o.visible = false; o.userData.isStream = true; } });     // hose bib water starts off
-      g.scene.traverse(o => { if (o.isMesh && /_lint$/.test(nodeName(o))) { o.visible = false; o.userData.placeHidden = true; } });     // the dryer duct's packed lint is a fault variant: Blender's hide never reached the page, so a cut duct showed it
-      // The water inside the pipes. build_pipes.py puts a thinner column on the same path as the run, one for clean
-      // water and one for waste, and hangs the path on it as an extra. They start off; a fixture turns them on.
-      g.scene.traverse(o => {
-        if (!o.isMesh || !/^flow_/.test(nodeName(o))) return;
-        o.visible = false;
-        const m = nodeName(o).match(/^flow_(water|waste|air)_(.+)$/); if (!m) return;
-        let src = o, raw = null;
-        while (src && !raw) { if (src.userData && src.userData.flow_path) raw = src.userData.flow_path; src = src.parent; }
-        let path = [];
-        try { path = JSON.parse(raw).map(q => new T.Vector3(q[0], q[2], -q[1])); } catch (e) { }     // blender (x, y, z) is gltf (x, z, -y)
-        flows.push({ obj: o, kind: m[1], run: m[2], path: path });
-      });
-      g.scene.traverse(o => { if (o.isMesh) { o.userData.label = labels[base(o.name)] || (o.parent && labels[base(o.parent.name)]) || base(o.name); o.userData.layer = lf; } });
-      // carry the layout tag down from the glTF extras onto every mesh of the run, so filtering is one pass
-      g.scene.traverse(o => { let p = o, c; while (p && c === undefined) { c = p.userData && p.userData.config; p = p.parent; } if (c !== undefined) o.userData.config = c; });
+    for (const w of want) {
+      status.textContent = 'loading ' + w.lf + (w.files.length > 1 ? ' (' + w.files.length + ' parts)' : '');
+      for (const s of w.files) {
+        try { const g = await load('./' + s + '.glb'); addPipeFile(g, w.lf, s); }
+        catch (e) {     // a part the site does not have (a manifest left behind without its parts): the whole layer, as before, once
+          if (s === w.whole || pipeParts.has(w.whole)) throw e;
+          console.warn('pipe part ' + s + ': ' + e.message + '; loading ' + w.whole + ' whole'); const g = await load('./' + w.whole + '.glb'); addPipeFile(g, w.lf, w.whole); break;
+        }
+      }
     }
+  }
+  // round 99 (speed lever 1): one loaded pipe file (a whole layer, or one part of it) goes under its layer's Group with every rule that
+  // ran per layer file before: the streams off, the lint hidden, the flow bodies collected, the labels and the layout tag carried onto
+  // every mesh. layers[lf] is the Group now (the Layers tab toggles it as before); the file's scene is a child of it named for the file.
+  function layerGroup(lf) { if (!layers[lf]) { const grp = new T.Group(); grp.name = lf; pipes.add(grp); layers[lf] = grp; } return layers[lf]; }
+  function addPipeFile(g, lf, stem) {
+    g.scene.name = stem; layerGroup(lf).add(g.scene); tuneMaterials(g.scene); pipeParts.add(stem);
+    stampParts(g, g.scene);
+    g.scene.traverse(o => { if (o.isMesh && /_stream$/.test(nodeName(o))) { o.visible = false; o.userData.isStream = true; } });     // hose bib water starts off
+    g.scene.traverse(o => { if (o.isMesh && /_lint$/.test(nodeName(o))) { o.visible = false; o.userData.placeHidden = true; } });     // the dryer duct's packed lint is a fault variant: Blender's hide never reached the page, so a cut duct showed it
+    // The water inside the pipes. build_pipes.py puts a thinner column on the same path as the run, one for clean
+    // water and one for waste, and hangs the path on it as an extra. They start off; a fixture turns them on.
+    g.scene.traverse(o => {
+      if (!o.isMesh || !/^flow_/.test(nodeName(o))) return;
+      o.visible = false;
+      const m = nodeName(o).match(/^flow_(water|waste|air)_(.+)$/); if (!m) return;
+      let src = o, raw = null;
+      while (src && !raw) { if (src.userData && src.userData.flow_path) raw = src.userData.flow_path; src = src.parent; }
+      let path = [];
+      try { path = JSON.parse(raw).map(q => new T.Vector3(q[0], q[2], -q[1])); } catch (e) { }     // blender (x, y, z) is gltf (x, z, -y)
+      flows.push({ obj: o, kind: m[1], run: m[2], path: path });
+    });
+    g.scene.traverse(o => { if (o.isMesh) { o.userData.label = labels[base(o.name)] || (o.parent && labels[base(o.parent.name)]) || base(o.name); o.userData.layer = lf; } });
+    // carry the layout tag down from the glTF extras onto every mesh of the run, so filtering is one pass
+    g.scene.traverse(o => { let p = o, c; while (p && c === undefined) { c = p.userData && p.userData.config; p = p.parent; } if (c !== undefined) o.userData.config = c; });
+  }
+  // the files each layer is for this CONFIG: its common part and every part whose tag is in the layout, from pipes_groups.json; a layer the
+  // manifest does not list (or no manifest at all) is the one whole file it always was. Read once per start up, after setFiles() asked for it.
+  async function pipeFilesFor() {
+    let G = null; try { G = await J_groups; } catch (e) { G = null; }
+    PIPE_GROUPS = G && G.layers ? G : null;
+    return PIPE_FILES.map(f => { const L = PIPE_GROUPS && PIPE_GROUPS.layers[f]; const files = L && L.parts ? L.parts.filter(p => p.tag === null || p.tag === undefined || inConfig(p.tag)).map(p => p.file.replace(/\.glb$/, '')) : [f]; return { lf: f.replace(/^slab_/, ''), whole: f, files }; });
+  }
+  // a changed layout (reconfigure): the parts it needs and does not have yet, fetched together and added under their layers. Nothing loaded
+  // is ever unloaded, as before, so the Layers tab keeps showing everything in and applyPipeConfig() still gates each node by its tag.
+  async function loadPipeParts() {
+    const want = (await pipeFilesFor()).map(w => ({ lf: w.lf, files: w.files.filter(s => !pipeParts.has(s) && !pipeParts.has(w.whole)) })).filter(w => w.files.length);
+    if (!want.length) return 0;
+    prefetch(want.flatMap(w => w.files).map(s => './' + s + '.glb')); status.textContent = 'fetching the layout\'s pipes';
+    let n = 0; for (const w of want) for (const s of w.files) { try { const g = await load('./' + s + '.glb'); addPipeFile(g, w.lf, s); n++; } catch (e) { console.warn('pipe part ' + s + ': ' + e.message); } }
+    return n;
   }
   // ---------------------------------------------------------------- controls
   const keys = {}; let yaw = 0, pitch = 0, locked = false, fly = false; const EYE = 1.6; let eye = EYE;     // eye drops when you crouch (C) or when a roof or ceiling is in the way (attic eaves)
@@ -1189,7 +1256,7 @@
   }
   function playClipOnly(o, only) {
     const inst = o.userData.inst; if (!inst || !inst.userData.anim) return null;
-    const A = inst.userData.anim; const names = new Set(); for (let p = o; p && p !== inst; p = p.parent) names.add(p.name);
+    const A = inst.userData.anim; const names = new Set(); for (let p = o; p && p !== inst; p = p.parent) { names.add(p.name); if (p.userData.rides) break; }     // round 99: a readout on its cover is not the cover (coverRiders)
     const pickable = A.clips.filter(c => !/_loop$/.test(c.name) && (!only || (only.test(c.name) && !CLIP_FAULT.test(c.name))));
     // a part that more than one clip moves gets the clip that belongs to it: the float is tested by hand, it does not run the pump
     const PREFER = { float_onoff: 'float_test', cartridge: 'shower_on' };
@@ -1499,7 +1566,16 @@
     // round 27: water into the tank (Jake: turn water on at the inlet, watch it fill, flow over to the spray tank, the float bring the pump on)
     sewer: { kind: 'waste', label: 'water into the tank', match: /^(pipe_dwv_building_drain|pipe_dwv_sewer_|pipe_dwv_effluent_|pipe_dwv_force_main_|pipe_dwv_city_main)/ }
   };
-  const inSet = (set, run) => set.runs ? set.runs.indexOf(run) >= 0 : set.match.test(run);
+  // Round 99 (agent page). A fixture's runs are listed by their BASE names, and a layout names its own lines its own way: the crawl's
+  // twins carry __pex and __galvanized, the slab's __pex and __copper, the attic repipe calls its kitchen lines pipe_supply_repipe_kitchen_*
+  // and the trunk and branch layout pipe_supply_branch_tb_kitchen_*. The faucet set named pipe_supply_branch_kitchen_cold exactly, so the
+  // kitchen's water column lit in the cpvc crawl alone and in no slab layout at all. runBase() reads each of those as its base name, and
+  // inConfig still picks the one line of the layout that is up. The names, read off pipes_manifest.json and slab/slab_pipes_manifest.json
+  // (and the trunk and branch build's manifest) on 2026-10-02: pipe_supply_branch_kitchen_cold|hot (crawl, cpvc), the same with __pex
+  // and __galvanized (crawl) and with __pex and __copper (slab), pipe_supply_repipe_kitchen_cold|hot (slab, attic_repipe),
+  // pipe_supply_branch_tb_kitchen_cold|hot (slab, pex_branch). Every flow_ column of a drain or a sewer has one name in every layout.
+  const runBase = run => String(run).replace(/__[a-z0-9]+$/, '').replace(/^pipe_supply_(repipe|branch_tb)_/, 'pipe_supply_branch_');
+  const inSet = (set, run) => set.runs ? set.runs.indexOf(runBase(run)) >= 0 : set.match.test(run);
   // Round 64: a fixture's water FOLLOWS ITS HANDLE. It used to be a separate switch that every click flipped, so a second way of turning
   // the faucet (the panel, the handle, the auto start with the disposal) left the pipes running with the tap shut or dry with it open.
   // window: for a clip that tells one story (the flush), the seconds of it during which water is leaving the fixture.
@@ -1883,7 +1959,7 @@
     for (const k of live) { const set = FLOW_SETS[k]; if (set.kind === 'air') continue;
       let dist = 0, endPt = null; const lead = set.runs ? (k === 'faucet' || k === 'disposal' ? 1.9 : (FIX_KEYS.has(k) ? 1.4 : 0.4)) : 0;
       const list = flows.filter(f => f.kind === set.kind && inSet(set, f.run) && inConfig(f.obj.userData.config) && f.path.length > 1 && !(k !== 'lift_pump' && k !== 'sewer' && CONFIG.sewer.startsWith('city_lift') && f.run === 'pipe_dwv_city_main'));
-      if (set.runs) list.sort((p, q) => set.runs.indexOf(p.run) - set.runs.indexOf(q.run));
+      if (set.runs) list.sort((p, q) => set.runs.indexOf(runBase(p.run)) - set.runs.indexOf(runBase(q.run)));
       for (const f of list) {
         const supply = /^pipe_supply/.test(f.run); if (supply && !waterOn) continue;
         if (k === 'faucet' && !supply && running.has('disposal')) continue;
@@ -2088,7 +2164,7 @@
     fan: { ohms: 11.6, why: 'the condenser fan motor winding' },
     blower: { ohms: 4.8, why: 'the blower motor winding' },
   };
-  function pointFor(o) {
+  function pointFor(o, at) {
     const nm = partName(o) || base(o.name);
     const inst = o.userData.inst || (typeof unitOf === 'function' ? unitOf(o) : null);
     // the panel's own parts first: they carry which circuit and which leg in their names
@@ -2121,7 +2197,7 @@
       return { nm, p: { v: 0, node: 'w:' + (inst.userData.model || '') + ':' + nm }, why: 'a conductor in ' + pretty(inst.userData.model || 'this unit') };
     }
     // a motor and a compressor are windings, which is the thing you actually put an ohmmeter across out here
-    { const bx = benchFor(o); if (bx) return { nm, p: { v: 0, node: 'b:' + bx.key + ':' + (bx.term || nm) }, why: (bx.term ? bx.term + ' on ' : '') + bx.B.name }; }
+    { const bx = benchFor(o, at); if (bx) return { nm, p: { v: 0, node: 'b:' + bx.key + ':' + (bx.term || nm) }, why: (bx.term ? bx.term + ' on ' : '') + bx.B.name }; }
     if (inst && WINDING[nm]) return { nm, p: { v: 0, node: 'm:' + nm }, why: WINDING[nm].why };
     for (const [re_, p, why] of POINTS) if (re_.test(nm)) return { nm, p, why };
     const m = /^(lead|wire|conductor)s?_(red|black|white|blue|green|yellow|brown|orange)/.exec(nm);
@@ -2653,8 +2729,19 @@
       ohms: { '1-2': ['OL', 'the bottom of this tank is up to its setting, so the lower thermostat is open. Run some hot water and it closes and reads near zero'] } },
     { model: /^electric_tank_water_heater/, part: /^upper_thermostat$/, name: 'the upper thermostat body', ohms: ['OL', 'the body is plastic. Put the leads on its screws: 1 is the hot in, 2 goes to the upper element, 4 goes down to the lower thermostat'] },
     { model: /^electric_tank_water_heater/, part: /^lower_thermostat$/, name: 'the lower thermostat body', ohms: ['OL', 'the body is plastic. Put the leads on its two screws'] },
-    { model: /electric_tank_water_heater|hybrid_water_heater/, part: /^upper_thermostat$/, name: 'the upper thermostat', ohms: [0.2, 'closed to the upper element while the top of the tank is cold; when the top is hot it flips over and sends power to the lower one'] },
-    { model: /electric_tank_water_heater|hybrid_water_heater/, part: /^lower_thermostat$/, name: 'the lower thermostat', ohms: [0.2, 'closed while the bottom of the tank is below its setting, open once it is satisfied'] },
+    // Round 99 (agent page; heaters_hybrid open item). The hybrid is a Rheem ProTerra Gen V (PROPH50 T2 RH375-SO) and it has NO mechanical
+    // thermostats: the control board reads two tank thermistors, TTU high on the tank and TTL low, and the ECO is a manual reset high limit
+    // on the tank above the upper element (Rheem use and care manual AP23657, in hybrid_water_heater/ref: wiring diagram p42, ECO p21 and
+    // p41, factory setting 120 F p21, sensor checks p32, A200 p33). The model keeps the node names upper_thermostat and lower_thermostat.
+    // The two old rows here read them as closed thermostat contacts (0.2 ohm); they were written for the electric tank too, but its body
+    // rows above always matched first, so only the hybrid ever reached them. Rheem says to read a thermistor unplugged from the board
+    // against its ohm chart by temperature and does not print the chart, so the numbers are the standard 10 k NTC curve (10,000 at 77 F,
+    // 3,601 at 122 F, 4,368 at 113 F: about 3,750 at the 120 F setting) and say so (typ). The upper node is the thermistor on the left of
+    // its bracket (x -0.0135 to -0.0045 in the part's own frame) with the ECO disc behind the bracket's right half (x -0.006 to 0.018),
+    // so where the lead lands says which one it is on: `hit` is the band of x, in metres in the part's own frame, that is the ECO.
+    { model: /hybrid_water_heater/, part: /^upper_thermostat$/, hit: [-0.004, 1], name: 'the ECO', typ: true, ohms: [0.2, 'the manual reset high limit on the tank above the upper element. It is closed, so each of its two poles reads near zero, which is a good one. OL on a pole is a tripped ECO (A200 on the display): find out why the water got that hot before you press its red reset. Rheem prints no number for it'] },
+    { model: /hybrid_water_heater/, part: /^upper_thermostat$/, name: 'the upper thermistor (TTU)', typ: true, ohms: [3750, 'a 10 k thermistor on the tank wall: 10,000 ohms at 77 degrees and fewer the hotter it gets, so about 3,750 with this tank at its 120 degree setting. Read it unplugged from the board. OL is an open sensor (the display shows -40), near zero a shorted one. Rheem does not print its chart: this is the standard 10 k curve'] },
+    { model: /hybrid_water_heater/, part: /^lower_thermostat$/, name: 'the lower thermistor (TTL)', typ: true, ohms: [3750, 'the lower 10 k thermistor. A satisfied tank is near its setting at the bottom too, so about 3,750; right after a big draw the cold coming in cools it and it reads higher (10,000 at 77 degrees). Rheem does not print its chart: this is the standard 10 k curve'] },
     { model: /lift_station/, part: /^run_capacitor$/, name: 'the run capacitor', free: { '*': [['cap_lead_run_b'], ['cap_lead_run_r']] }, uf: [45.0, '45 microfarads, 370 volts: the Champion sewage pump manual and the can in the panel both say so'] },
     { model: /lift_station/, part: /^start_capacitor$/, name: 'the start capacitor', free: { '*': [['cap_lead_link'], ['cap_lead_start']] }, uf: [297, 'rated 270 to 324 microfarads, so anything in that window is good. It is only in the circuit for the second the start relay holds it in'] },
     { model: /lift_station/, name: 'the grinder pump motor', terms: [[/^motor_term_w$/, 'W'], [/^motor_term_b$/, 'B'], [/^motor_term_r$/, 'R']],
@@ -2669,12 +2756,18 @@
     { model: /hvac_furnace/, part: /^flame_sensor$/, name: 'the flame sensor', typ: true, ua: [3.2, 'with the burners lit. Rheem gives only the flame light on the board, not a number; 1 to 6 microamps DC is the usual window, and under 1 it drops out'] },
     { model: /hvac_air_handler/, part: /^transformer_24v$/, name: 'the control transformer', ohms: [38, 'primary side. A 40 VA 240 to 24 volt transformer (Rheem RH1T manual); the maker prints no resistance, so look for a winding that is not open rather than a number'], typ: true },
   ];
-  function benchFor(o) {
+  // at: where the lead landed (world), for a row that covers only part of its part (`hit`, round 99: the hybrid's ECO on the upper node)
+  function hitIn(o, at, band) {
+    if (!at) return false;
+    let n = o; while (n.parent && partName(n.parent) === partName(o)) n = n.parent;     // up to the part's own node (a group, for several materials)
+    const x = n.worldToLocal(at.clone()).x; return x >= band[0] && x <= band[1];
+  }
+  function benchFor(o, at) {
     const nm = partName(o) || base(o.name); const inst = o.userData.inst || (typeof unitOf === 'function' ? unitOf(o) : null); const model = (inst && inst.userData.model) || '';
     { const gs_ = inst && GRAB_STATE.get(inst); if (gs_ && gs_.off && gs_.off[nm]) return null; }     // a lead in your pliers is not on anything
     for (const B of BENCH) { if (!B.model.test(model)) continue;
       if (B.terms) { for (const [re, t] of B.terms) if (re.test(nm)) return { B, term: t, key: model + '|' + B.name, inst }; }
-      else if (B.part.test(nm)) return { B, term: null, key: model + '|' + B.name, inst }; }
+      else if (B.part.test(nm) && (!B.hit || hitIn(o, at, B.hit))) return { B, term: null, key: model + '|' + B.name, inst }; }
     return null;
   }
   function benchRead(x, y) {
@@ -2699,7 +2792,7 @@
   }
   function readOhms(a, b) {
     { const dz_ = duplexOhms(a, b); if (dz_) return dz_; }
-    { const x = benchFor(a.o), y = benchFor(b.o);
+    { const x = benchFor(a.o, a.at), y = benchFor(b.o, b.at);
       if (x && y && x.key === y.key) return benchRead(x, y);
       const shell = r_ => r_ && r_.B.part && /\^compressor\$/.test(String(r_.B.part));
       if (x && y && (shell(x) !== shell(y)) && x.key.split('|')[0] === y.key.split('|')[0] && (x.B.terms || y.B.terms)) return { text: 'OL', note: 'a compressor pin to the shell: open, which is right. Any reading here is a winding shorted to ground, and that compressor is done' };
@@ -2851,7 +2944,7 @@
     }
     if (fn === 'ua' && meter.kind === 'volts') {
       if (!meter.a) return { text: '0.0', note: 'microamps reads the flame sensor: put the leads on it with the burners lit' };
-      const x = benchFor(meter.a.o), y = meter.b ? benchFor(meter.b.o) : null;
+      const x = benchFor(meter.a.o, meter.a.at), y = meter.b ? benchFor(meter.b.o, meter.b.at) : null;
       if (x && x.B.ua && (!meter.b || (y && y.key === x.key))) {
         // round 76: there is only a flame current while there is a flame. Run the furnace, then read it
         const fi_ = meter.a.o.userData.inst || unitOf(meter.a.o), A_ = fi_ && fi_.userData.anim;
@@ -2876,7 +2969,7 @@
     const r = meterRead();
     meterShowText(r.text);
     el.style.display = 'none';
-    const lead_ = r_ => { const bx = r_.o ? benchFor(r_.o) : null; return bx ? (bx.term ? bx.term + ' of ' + bx.B.name : bx.B.name) : pretty(r_.nm); };
+    const lead_ = r_ => { const bx = r_.o ? benchFor(r_.o, r_.at) : null; return bx ? (bx.term ? bx.term + ' of ' + bx.B.name : bx.B.name) : pretty(r_.nm); };
     const where = (meter.a ? (meter.kind === 'amps' ? 'jaw round ' : 'red on ') + lead_(meter.a) : (meter.kind === 'amps' ? 'not on a conductor yet' : 'red not placed')) + (meter.kind === 'volts' ? ', ' + (meter.b ? 'black on ' + lead_(meter.b) : 'black not placed') : '');
     // Round 84 (Jake: "the text you're putting on is too much. We're seeing the amps. We know it's around the wire. I don't think we need
     // any other instructions on that page. It's redundant, and it's going to get in the way of being able to see anything"). With the
@@ -3187,7 +3280,7 @@
     // the dial and the buttons on the meter in your hand are not test points
     const dn = partName(o) || base(o.name);
     if (/^dial|^knob|^shell|^holster|^button|^jack/.test(dn) && meterObj && isDescendant(o, meterObj)) return meterDial(1);
-    const p = pointFor(o);
+    const p = pointFor(o, hit && hit.point ? hit.point : null);
     const rec = { nm: p.nm, p: p.p, why: p.why, o, at: hit && hit.point ? hit.point.clone() : null, hit: hit && hit.face ? hit : null };
     if (meter.kind === 'amps') meter.a = rec;
     else if (!meter.a || (meter.a && meter.b)) { meter.a = rec; meter.b = null; }
@@ -4520,7 +4613,7 @@
     for (const grp of [house, pipes, equip]) for (const c of [...grp.children]) { grp.remove(c); c.traverse(o => { if (o.geometry) o.geometry.dispose(); }); }
     for (const A of [colliders, floors, overhead, doors, doorAnim, lids, flows, mixers, placedFloors, placedColliders, fixtures, garageDoor.nodes, plantSims]) A.length = 0;
     for (const O of [sockets, waypoints, houseByName, layers, roomBoxes]) for (const k of Object.keys(O)) delete O[k];
-    PEND = []; plugs.clear(); bibsOn.clear(); pumpOn = false; sprayOn = false; garageDoor.t = 0; garageDoor.target = 0;
+    PEND = []; plugs.clear(); bibsOn.clear(); pumpOn = false; sprayOn = false; garageDoor.t = 0; garageDoor.target = 0; pipeParts.clear();     // round 99: the other house's parts have their own names
     status.textContent = 'building the ' + (f === 'slab' ? 'slab' : 'crawl space') + ' house'; loadEl.style.display = '';
     await loadHouse(HOUSE_FIRST); poseGarageDoor(); applyPipeConfig(); goTo('spawn_door');
     await loadHouse(HOUSE_REST); collectFixtures(); updateLights();
@@ -4535,7 +4628,7 @@
     await switchFoundation(other); const b = count(); await switchFoundation(f0); const c = count();
     return { start: f0, first: a, other: b, back: c, same: JSON.stringify(a) === JSON.stringify(c) };
   }
-  window.walk = { switchFoundation, selfTestFoundation, fits, foundationSet, plantSims, waters, stepFlow, syncFixtureFlows, syncPlant, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, clampTest, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, viewPart, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
+  window.walk = { switchFoundation, selfTestFoundation, pipeParts: () => [...pipeParts], pipeGroups: () => PIPE_GROUPS, fits, foundationSet, plantSims, waters, stepFlow, syncFixtureFlows, syncPlant, running, startBall, endBall, ballRoll, ball: () => ball, loadAll, selfTestAll, snap, explodeUnit, unexplode, blown: () => blown, takeMeter, meter: () => meter, meterDial, meterSetFn, meterPull, takePliers, pliersDown, grabClick, clampTest, grabState, grabFault, grabMarkShow, grabMarks: () => grabMarks, pliers: () => pliers, inHand: () => inHand, pending: () => PEND.length, takeApart, putBack, held: () => held, breakers, setBreaker, ladderClimb, selfTest, openPanel, viewPart, lookAction, playNamed, systemRun, unitRunClip, scene, camera, pos, fixtures, pool, updateLights, flows, toggleFlow, elevation, pick, partName, sockets, waypoints, equip, pipes, house, goTo, doors, toggleDoor, stepDoors, playClipFor, toggleCutaway, pipeCutaway, hasSection, plugOff, cutPipes, plugs, setView: (y, p) => { yaw = y; pitch = p || 0; }, setFly: f => { fly = f; document.getElementById('fly').classList.toggle('on', f); },
     // round 90 verification: would a step from Blender (x, y) at the current eye height along (dx, dy) be stopped, and how many
     // colliders the walker has (the house's col_ walls and furniture must survive a reconfigure)
     blockedAt: (bx, by, dx, dy) => blocked(new T.Vector3(bx, pos.y, -by), new T.Vector3(dx, 0, -dy).normalize()), colliderCount: () => colliders.length,

@@ -47,7 +47,6 @@
    "yaw": 180,
    "hide": [
     "aerator_scale",
-    "air_gap_in",
     "ball_valve",
     "cartridge",
     "counter_undermount",
@@ -77,8 +76,7 @@
     "wall",
     "wall_switch",
     "faucet_tubes",
-    "diverter",
-    "air_gap_out"
+    "diverter"
    ],
    "keep_context": [
     "cabinet",
@@ -98,7 +96,6 @@
     0
    ],
    "show": [
-    "air_gap",
     "bowl_film",
     "deck_plug_ro",
     "faucet_handle_pulldown",
