@@ -410,7 +410,7 @@
     [/^vent_dwv/, 'Plumbing vent'], [/^cleanout_dwv/, 'Cleanout'], [/^vent_gas/, 'Gas flue'], [/^vent_hvac/, 'Furnace vent pipe'], [/^pipe_gas/, 'Gas line'], [/^pipe_hvac_lineset_suction/, 'AC suction line'],
     [/^pipe_hvac_lineset_liquid/, 'AC liquid line'], [/^pipe_hvac_lineset/, 'AC lineset'], [/^pipe_hvac_condensate/, 'Condensate drain'], [/^pipe_hvac/, 'HVAC line'], [/^pipe_septic_air/, 'Air line to the septic tank'],
     [/^pipe_septic|^pipe_spray/, 'Spray line'], [/^flex_hvac/, 'Flex duct'], [/^takeoff_[a-z]+/, 'Takeoff with its manual damper'], [/^duct_hvac_supply_trunk/, 'Main supply trunk'], [/^duct_hvac_plenum_riser/, 'Supply plenum'],
-    [/^duct_dryer/, 'Dryer vent'], [/^duct_hvac|^duct/, 'Duct'], [/^register_hvac/, 'Supply register'], [/^boot_hvac/, 'Register boot'], [/^cable/, 'Cable'], [/^conduit/, 'Conduit'], [/^fit_[a-z]+/, 'Fitting'], [/^valve/, 'Valve'], [/^pipe/, 'Pipe']];
+    [/^duct_dryer/, 'Dryer vent'], [/^duct_hvac|^duct/, 'Duct'], [/^register_hvac/, 'Supply register'], [/^boot_hvac/, 'Register boot'], [/^cable/, 'Cable'], [/^conduit/, 'Conduit'], [/^fit_wye(?:_pipe)?/, 'Wye fitting'], [/^fit_tee(?:_pipe)?/, 'Tee fitting'], [/^fit_[a-z]+(?:_pipe)?/, 'Fitting'], [/^valve/, 'Valve'], [/^pipe/, 'Pipe']];
   const PLACE_WORDS = { wh: 'water heater', hallbath: 'hall bath', masterbath: 'master bath', hb: 'hall bath', mb: 'master bath', ks: 'kitchen sink', wc: 'toilet', lav: 'sink', dw: 'dishwasher', cw: 'washer', uf: '', dwv: '', hvac: '', bed2: 'bedroom 2', bed3: 'bedroom 3', master: 'master bedroom', living: 'living room', std80: '', cond96: '', bib: 'hose bib', tstat: 'thermostat', ahu: 'air handler', tb: '' };
   const capFirst = t => t ? t.charAt(0).toUpperCase() + t.slice(1) : t;
   // add ons that have no inspector pack of their own, so info.json has no words for them
@@ -442,13 +442,13 @@
   function friendly(v) {
     let t = String(v == null ? '' : v); if (!t) return t;
     for (const [re, to] of PHRASES) t = t.replace(re, to);
-    if (TOUCH) t = t.replace(/\bClick\b/g, 'Tap').replace(/\bclick\b/g, 'tap').replace(/\bdouble tap\b/g, 'double tap');
     let tail = '';
-    t = t.replace(/\s*\[[a-z0-9_]+\]\s*$/i, '');                                            // the clip's own name
+    t = t.replace(/\s*\[[^\[\]]+\](?=\s{2}|\s*$)/, '');                                   // the clip's own name, a label with spaces too (r99b)
     t = t.replace(/\s*\(Run runs it\)/, () => { tail = ' Tap Run and watch it go!'; return ''; });
     t = t.replace(/\s*\(cut open(?:, \d+ parts sectioned)?\)/, () => { tail = ' You are looking inside it now. Tap it again to close it back up.'; return ''; });
     t = t.replace(/:?\s*cut open \(\d+ parts sectioned\)/, () => { tail = ' You are looking inside it now. Tap it again to close it back up.'; return ''; });
-    t = t.replace(/[.\s]*\(click it again to work its parts; walking lets go\)/, '. Tap it again to work on it, or just walk away!').replace(/\(click again\)/, '(tap again)');
+    t = t.replace(/[.\s]*\(click it again to work its parts; walking lets go\)/, '. Click it again to work on it, or just walk away!').replace(/\(click again\)/, '(tap again)');
+    if (TOUCH) t = t.replace(/\bClick\b/g, 'Tap').replace(/\bclick\b/g, 'tap').replace(/\bdouble tap\b/g, 'double tap');     // r99b: after the phrases, which read "click"
     const m = /^([a-z][a-z0-9]*(?:_[a-z0-9]+)*): ([a-z][a-z0-9_]*)\b/.exec(t);
     if (m && ((INFO.packs && INFO.packs[m[1]]) || EXTRA_PACKS[m[1]] || /_/.test(m[1]))) t = plainPack(m[1]) + ': ' + plainPart(m[1], m[2]) + t.slice(m[0].length);
     else { const m1 = /^([a-z][a-z0-9]*(?:_[a-z0-9]+)+): /.exec(t); if (m1) t = plainPack(m1[1]) + ': ' + t.slice(m1[0].length); }
@@ -614,7 +614,7 @@
     // The close button sits in the title row now, so the panel can dock at the very top without a row of its own at the bottom.
     const xb = document.createElement('button'); xb.className = 'iclose'; xb.textContent = '×'; xb.title = 'close'; xb.onclick = () => { infoEl.style.display = 'none'; }; h.insertBefore(xb, h.firstChild);
     // Round 87: the part's own card, right under the title: its name, what it is, how it works. From parts.json; nothing when the part has none.
-    const card = partCard(nm); if (card) { const w = document.createElement('div'); w.className = 'iwhat'; const b = document.createElement('b'); b.textContent = plainId(nm); const p = document.createElement('span'); p.textContent = card; w.appendChild(b); w.appendChild(p); infoEl.appendChild(w); }
+    const card = partCard(nm); if (card) { const w = document.createElement('div'); w.className = 'iwhat'; const cm = /^([^.]{1,48})\.(?:\s+([\s\S]*))?$/.exec(card); const b = document.createElement('b'); b.textContent = cm ? cm[1] : plainId(nm); const p = document.createElement('span'); p.textContent = cm ? (cm[2] || '') : card; w.appendChild(b); w.appendChild(p); infoEl.appendChild(w); }
     // Round 60 (Jake: "someone that built the app, like myself, I know where to go and what to do, but it's not very conducive to
     // someone being like, what's capable with this app? Can I see an elevation of something? Can I flush the toilet?"). Every unit
     // wears THE SAME verbs in THE SAME order: Use, Open, Cut away, Take apart, Elevation, About, and More for what is only on
@@ -2976,7 +2976,7 @@
     // clamp ON a wire the reading is on the meter and nothing is written over the work. The one thing the meter cannot say is WHY it
     // reads nothing, so a 0.0 gets its reason, in one short line, and that is all.
     if (meter.kind === 'amps') { const line = clampLine(r); labelEl.textContent = line; labelEl.style.display = line ? 'block' : 'none'; meterKeys(); return; }
-    labelEl.textContent = FN_LABEL[meter.fn] + ': ' + r.text.trim() + '. ' + where + '. ' + r.note + (('ontouchstart' in window) ? '' : '  (click the dial to turn it, R to read it close, Esc to put it down)');
+    labelEl.textContent = FN_LABEL[meter.fn] + ': ' + r.text.trim() + '. ' + capFirst(where) + '. ' + capFirst(r.note) + (('ontouchstart' in window) ? '' : '  (click the dial to turn it, R to read it close, Esc to put it down)');
     labelEl.style.display = 'block'; meterKeys();
   }
   // Round 80 (Jake: "I should be able to take the meter, make sure it's in amps, and then click the wire and the meter goes out and clamps
@@ -3469,7 +3469,7 @@
       });
     }).flat();
     for (const rec of held_) {
-      const el = document.createElement('div'); el.className = 'xlab'; el.textContent = pretty(rec.part); document.body.appendChild(el); rec.el = el;
+      const el = document.createElement('div'); el.className = 'xlab'; const xl = plainPart(rec.m.userData.pack || inst.userData.pack || '', rec.part).split(/[:,]\s|\.\s/)[0]; el.textContent = xl.length > 40 ? capFirst(pretty(rec.part)) : xl; document.body.appendChild(el); rec.el = el;
     }
     blown = { inst, recs: held_, t: 0, dir: 1, names: list.map(l => l.part) };
     return pretty(inst.userData.model) + ': coming apart, ' + list.length + ' parts, outside in. Take it apart again or Esc puts it together';

@@ -1,15 +1,15 @@
 {
- "published": "2026-10-02T11:34:23",
- "house": "r99a",
- "note": "r99a: round 99, the open list closed: laundry san tee, bib branches, repipe sweeps, PEX bend supports, trunk and branch slab layout, the slab back, six heaters to their Rheem sheets and tied in, kitchen sink without the deck air gap, pictures, page fixes, pipes split per layout",
+ "published": "2026-10-05T08:36:04",
+ "house": "r99b",
+ "note": "r99b: the clean page (one panel style, icons on the verbs, the phone layout with nothing overlapping, the name tag as a small toast, Inter self hosted with its OFL licence), the kitchen About card high loop only, six small copy fixes",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "64444e27f2",
-   "bytes": 74474
+   "v": "740b595050",
+   "bytes": 86408
   },
   "asset-shim.js": {
    "v": "d5ae3a2ead",
@@ -32,8 +32,8 @@
    "bytes": 492480
   },
   "checklists.json": {
-   "v": "9a1a0c068b",
-   "bytes": 58431
+   "v": "2815896477",
+   "bytes": 58389
   },
   "clamp_meter.glb": {
    "v": "5262a30852",
@@ -260,8 +260,8 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "b49344ebd8",
-   "bytes": 19610
+   "v": "1e54f3dad1",
+   "bytes": 40940
   },
   "induct_purifier.glb": {
    "v": "1a2cebb5af",
@@ -270,6 +270,10 @@
   "info.json": {
    "v": "417c4b1c7c",
    "bytes": 168535
+  },
+  "inter-latin.woff2": {
+   "v": "f11d729bb0",
+   "bytes": 48256
   },
   "interactions.json": {
    "v": "a12c8f7022",
@@ -516,7 +520,7 @@
    "bytes": 29456
   },
   "pipes_groups.json": {
-   "v": "d6449e45c6",
+   "v": "a653d9845f",
    "bytes": 50098
   },
   "pipes_hvac__common.glb": {
@@ -1580,8 +1584,8 @@
    "bytes": 1108804
   },
   "walk.js": {
-   "v": "ae8d2cec77",
-   "bytes": 440949
+   "v": "4e122dc058",
+   "bytes": 441370
   },
   "washer.glb": {
    "v": "7e04f19827",

@@ -11,132 +11,281 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Training House Walk</title>
 <style>
-/* round 39: the ? bubble over a unit you have worked with, and the about card it opens */
-.bubble { position: fixed; transform: translate(-50%, -100%); width: 26px; height: 26px; border-radius: 50%; background: #f5b62d; color: #1a1a1a; font: bold 17px/26px system-ui, sans-serif; text-align: center; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,.45); z-index: 6; user-select: none; }
-.bubble:hover { background: #ffd166; }
-/* round 45: the name tag beside every part of an exploded view */
-/* round 46: the dot you steer at inside a pipe */
-/* round 47: the meter in your hand */
-#meter { position: absolute; right: 12px; bottom: 12px; width: 230px; background: rgba(20,22,25,.92); border: 1px solid #3a3f45; border-radius: 8px; padding: 10px 12px; display: none; font-size: 12px; }
-#meter .mtitle { color: #f2b134; font-weight: 700; margin-bottom: 6px; }
-#meter .mread { font: 700 26px/1.2 ui-monospace, Consolas, monospace; color: #c9f36b; background: #14180f; border: 1px solid #39421f; border-radius: 5px; padding: 6px 8px; text-align: right; margin-bottom: 6px; }
-#meter .mrow { margin: 3px 0; color: #cfd4da; }
-#meter .mrow b { color: #fff; margin-right: 4px; }
-#meter .mnote { color: #9aa0a6; margin-top: 4px; line-height: 1.35; }
-#meter button { background: #2b3036; color: #e8e6e0; border: 1px solid #4a5058; border-radius: 6px; padding: 3px 7px; margin: 6px 4px 0 0; cursor: pointer; font-size: 11px; }
-.aimdot { position: fixed; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; background: #2ad4ff; box-shadow: 0 0 6px rgba(42,212,255,.9); pointer-events: none; z-index: 5; }
-.xlab { position: fixed; transform: translate(-50%, -140%); background: rgba(20,22,25,.86); border: 1px solid #4a5058; border-radius: 5px; padding: 1px 6px; font: 11px/1.5 system-ui, sans-serif; color: #ffcf5a; pointer-events: none; white-space: nowrap; z-index: 5; }
-/* Round 87: the About card as a proper card. A bordered box, the unit's name on an amber rule, the three headings set small
-   and spaced, the checks as a clean list. The part card (.iwhat) is the same box in miniature, shown the moment a part is tapped. */
-#info .about { border: 1px solid #f2b134; border-radius: 10px; padding: 10px 12px 8px; background: rgba(28,31,35,.96); }
-#info .about h3 { margin: 0 0 8px; padding-bottom: 6px; font-size: 16px; border-bottom: 2px solid #f2b134; color: #fff; }
-#info .about p { margin: 8px 0; line-height: 1.4; }
-#info .about p b { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #ffcf5a; margin-bottom: 2px; }
-#info .about ul { margin: 4px 0 8px 18px; padding: 0; }
-#info .about li { margin: 3px 0; line-height: 1.35; }
-#info .about #about_close { margin-top: 6px; background: #2b3036; color: #e8e6e0; border: 1px solid #4a5058; border-radius: 6px; padding: 5px 10px; cursor: pointer; }
-#info .iwhat { margin: 6px 0 8px; padding: 8px 10px; border: 1px solid #f2b134; border-left-width: 4px; border-radius: 8px; background: rgba(242,177,52,.10); line-height: 1.4; color: #e8e6e0; }
-#info .iwhat b { display: block; color: #ffcf5a; margin-bottom: 2px; }
-  html, body { margin: 0; height: 100%; background: #1c1f22; color: #e8e6e0; font: 14px/1.4 ui-rounded, 'SF Pro Rounded', 'Nunito', 'Segoe UI', system-ui, sans-serif; overflow: hidden; }
-  #view { position: absolute; inset: 0; }
-  #hud { position: absolute; left: 12px; top: 12px; background: rgba(20,22,25,.82); border: 1px solid #3a3f45; border-radius: 8px; padding: 10px 12px; width: 250px; }
-  #hud h1 { font-size: 14px; margin: 0 0 6px; letter-spacing: .04em; color: #f2b134; }
-  #hud label { display: block; margin: 2px 0; cursor: pointer; }
-  #hud .row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
-  #hud button { background: #2b3036; color: #e8e6e0; border: 1px solid #4a5058; border-radius: 6px; padding: 4px 8px; cursor: pointer; }
-  #hud button.on { background: #f2b134; color: #1c1f22; border-color: #f2b134; }
-  #hud small { color: #9aa0a6; }
-  /* round 74 (Jake: friendly and bubbly, not computery): a round speech bubble in a rounded face, bigger type, the amber of the name tags */
-  #label { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); background: rgba(28,31,34,.94); border: 2px solid #f2b134; border-radius: 22px; padding: 10px 18px; max-width: min(78vw, 560px); display: none;
-    font: 600 15px/1.45 ui-rounded, 'SF Pro Rounded', 'Nunito', 'Varela Round', 'Segoe UI', system-ui, sans-serif; color: #fff7e6; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,.45); letter-spacing: .1px; }
-  #cross { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border: 2px solid rgba(255,255,255,.7); border-radius: 50%; pointer-events: none; }
-  #load { position: absolute; right: 12px; top: 12px; background: rgba(20,22,25,.82); border: 1px solid #3a3f45; border-radius: 8px; padding: 8px 10px; }
-#hud summary { cursor: pointer; font-size: 14px; letter-spacing: .04em; color: #f2b134; font-weight: 700; }
+/* r99b (2026-10-05, training_house/look/look_ui/NOTES.md): the page around the 3D, one look. walk.js still writes the same
+   elements (#hud, #info, #label, .bubble, #toolboxmenu, #meterkeys, .xlab); only how they are drawn changed. The rules: one panel
+   style (dark glass, a hairline edge, 14 px corners, one soft shadow), one face (Inter, tabular numbers), one icon set (line icons,
+   2 px stroke, Lucide style, ISC licence, as CSS masks so an icon takes the colour of its text), and Happy Pipes amber as the ONLY
+   accent: what you can press first, what is on, what you touched, and the brand. Everything else is white, greys and the glass. */
+/* the face: Inter (rsms.me/inter, SIL Open Font Licence), the latin subset of the variable font, every weight in one 48 KB file,
+   beside this page on the site so nothing is asked of Google. In the app the shell points this url at the file map (a blob page
+   has no folder to find it in); if it never arrives the page falls back to the phone's own face. */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+:root {
+  --hp-amber: #F2B134; --hp-amber-hi: #FFC857; --hp-ink: #17130A; --hp-amber-soft: rgba(242,177,52,.16);
+  --glass: rgba(16,18,22,.80); --glass-strong: rgba(16,18,22,.92); --solid: #14171B;
+  --fill: rgba(255,255,255,.07); --fill-hi: rgba(255,255,255,.13); --line: rgba(255,255,255,.10); --line-hi: rgba(255,255,255,.20);
+  --text: #F5F2EB; --text-2: #BCC0C7; --text-3: #8B9098;
+  --r: 14px; --r-sm: 10px; --shadow: 0 10px 30px rgba(0,0,0,.35), 0 1px 2px rgba(0,0,0,.25);
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* the icons, 24 x 24 line drawings as CSS masks (look_ui/skin/icons.py), only the ones this page uses */
+  --i-about: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
+  --i-apart: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 8.5 9 12l-3.5 3.5L2 12z'/%3E%3Cpath d='M12 2l3.5 3.5L12 9 8.5 5.5z'/%3E%3Cpath d='M18.5 8.5 22 12l-3.5 3.5L15 12z'/%3E%3Cpath d='M12 15l3.5 3.5L12 22l-3.5-3.5z'/%3E%3C/svg%3E");
+  --i-check: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  --i-chev_d: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  --i-chev_r: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+  --i-close: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='M6 6l12 12'/%3E%3C/svg%3E");
+  --i-cut: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='6' cy='6' r='3'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Cpath d='M20 4 8.12 15.88'/%3E%3Cpath d='M14.47 14.48 20 20'/%3E%3Cpath d='M8.12 8.12 12 12'/%3E%3C/svg%3E");
+  --i-dial: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8'/%3E%3Cpath d='M21 3v5h-5'/%3E%3C/svg%3E");
+  --i-down: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v12'/%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3Cpath d='M5 21h14'/%3E%3C/svg%3E");
+  --i-drop: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2.7c3.6 4.3 6.2 7.7 6.2 11a6.2 6.2 0 0 1-12.4 0c0-3.3 2.6-6.7 6.2-11z'/%3E%3C/svg%3E");
+  --i-elev: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7V5a2 2 0 0 1 2-2h2'/%3E%3Cpath d='M17 3h2a2 2 0 0 1 2 2v2'/%3E%3Cpath d='M21 17v2a2 2 0 0 1-2 2h-2'/%3E%3Cpath d='M7 21H5a2 2 0 0 1-2-2v-2'/%3E%3Crect x='8' y='7' width='8' height='10' rx='1'/%3E%3C/svg%3E");
+  --i-eye: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E");
+  --i-help: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+  --i-house: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5 12 3l9 7.5'/%3E%3Cpath d='M5 9.5V21h14V9.5'/%3E%3Cpath d='M10 21v-6h4v6'/%3E%3C/svg%3E");
+  --i-info: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
+  --i-layers: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2 2 7l10 5 10-5z'/%3E%3Cpath d='m2 17 10 5 10-5'/%3E%3Cpath d='m2 12 10 5 10-5'/%3E%3C/svg%3E");
+  --i-menu: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6h16'/%3E%3Cpath d='M4 12h16'/%3E%3Cpath d='M4 18h16'/%3E%3C/svg%3E");
+  --i-more: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14'/%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E");
+  --i-open: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 4h3a2 2 0 0 1 2 2v14'/%3E%3Cpath d='M2 20h3'/%3E%3Cpath d='M13 20h9'/%3E%3Cpath d='M10 12v.01'/%3E%3Cpath d='M13 4.56v16.16a1 1 0 0 1-1.24.97L5 20V5.56a2 2 0 0 1 1.52-1.94l4-1A2 2 0 0 1 13 4.56z'/%3E%3C/svg%3E");
+  --i-plus_sq: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2'/%3E%3Cpath d='M12 8v8'/%3E%3Cpath d='M8 12h8'/%3E%3C/svg%3E");
+  --i-use: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L7.5 3.64A1 1 0 0 0 6 4.5z'/%3E%3C/svg%3E");
+  --i-wrench: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94z'/%3E%3C/svg%3E");
+  --i-zoom: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3Cpath d='M11 8v6'/%3E%3Cpath d='M8 11h6'/%3E%3C/svg%3E");
+}
+html, body { margin: 0; height: 100%; background: #1c1f22; color: var(--text); font: 14px/1.45 var(--font); font-feature-settings: 'tnum' 1, 'cv11' 1; -webkit-font-smoothing: antialiased; overflow: hidden; }
+button { font-family: var(--font); }
+#view { position: absolute; inset: 0; }
+/* one icon helper: any of these with --ic set gets an 18 px icon */
+.hp-ic::before, #info .iverbs .itab::before, #info .iacts button::after, #info .iclose::before, #toolbox::before, #meterkeys button::before,
+#hud summary::before, #hud .tabs button::before, #label::before, #about_close::before {
+  content: ''; display: inline-block; flex: none; width: 18px; height: 18px; background: currentColor;
+  -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat;
+}
+
+/* ---------------------------------------------------------------- the menu (top left): a pill that opens a panel */
+#hud { position: absolute; left: 12px; top: 12px; z-index: 8; width: auto; max-width: 340px; padding: 0; background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); }
+#hud summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 10px; padding: 10px 14px 10px 12px; font: 600 14px/1 var(--font); letter-spacing: 0; color: var(--text); text-transform: none; }
+#hud summary::-webkit-details-marker { display: none; }
+#hud summary::before { --ic: var(--i-drop); color: var(--hp-amber); width: 20px; height: 20px; }
+#hud summary::after { content: ''; width: 16px; height: 16px; margin-left: 2px; background: var(--text-3); -webkit-mask: var(--i-chev_d) center / contain no-repeat; mask: var(--i-chev_d) center / contain no-repeat; transition: transform .15s; }
+#hud details[open] summary::after { transform: rotate(180deg); }
+#hud details[open] { width: 320px; max-height: calc(100vh - 40px); overflow: auto; padding: 0 14px 12px; }
+#hud details[open] summary { margin: 0 -14px 4px; padding: 12px 14px 12px 12px; border-bottom: 1px solid var(--line); }
+/* the status line shows only while the house is still arriving; the shell sets body.hp-ready once walk.js says it is up
+   ("ready: 56 sockets, 12 models placed" is not for a tech) */
+#hud #status { display: block; padding: 0 14px 10px 42px; margin-top: -4px; font-size: 12px; color: var(--text-3); }
+body.hp-ready #hud #status { display: none; }
+#hud details[open] ~ #status { display: none; }
 /* round 45 (Jake: "is there a place we could organize this side section a little bit more, where like additional add ons ...
-   an area that's got like tabs we can just click"): the panel is tabbed now, one page at a time */
-#hud .tabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 6px 0 8px; }
-#hud .tabs button { font-size: 12px; padding: 3px 7px; }
+   an area that's got like tabs we can just click"): the panel is tabbed now, one page at a time. One segmented row of icons with
+   their names. */
+#hud .tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin: 10px 0 12px; padding: 4px; background: var(--fill); border-radius: var(--r-sm); }
+#hud .tabs button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 7px 2px 6px; border: 0; border-radius: 8px; background: transparent; color: var(--text-2); font: 500 11px/1.1 var(--font); }
+#hud .tabs button:hover { background: var(--fill); color: var(--text); }
+#hud .tabs button.on { background: var(--fill-hi); color: var(--text); box-shadow: inset 0 -2px 0 var(--hp-amber); }
+#hud .tabs [data-tab="keys"]::before { --ic: var(--i-help); } #hud .tabs [data-tab="layout"]::before { --ic: var(--i-house); }
+#hud .tabs [data-tab="addons"]::before { --ic: var(--i-plus_sq); } #hud .tabs [data-tab="views"]::before { --ic: var(--i-eye); }
+#hud .tabs [data-tab="layers"]::before { --ic: var(--i-layers); }
 #hud .page { display: none; }
 #hud .page.on { display: block; }
-#hud .addon { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin: 5px 0; font-size: 12px; color: #cfd4da; }
-#hud .addon button { font-size: 12px; min-width: 62px; text-align: center; }
+/* How to: a ruled list; on a touch screen the touch version, on a computer the keys */
+#hud .keys div { margin: 0; padding: 7px 0; border-top: 1px solid var(--line); color: var(--text-2); font-size: 12.5px; line-height: 1.45; }
+#hud .keys div:first-child { border-top: 0; }
+#hud .keys b { color: var(--text); font-weight: 600; }
+#hud .keys kbd { display: inline-block; min-width: 18px; padding: 1px 6px; margin: 0 1px; border: 1px solid var(--line-hi); border-bottom-width: 2px; border-radius: 5px; font: 600 11px/1.5 var(--font); color: var(--text); text-align: center; background: var(--fill); }
+.hp-touch { display: none; }
+@media (pointer: coarse) { .hp-touch { display: block; } .hp-mouse { display: none; } }
+/* views: switches as chips; on is amber */
+#hud .row { display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0; }
+#hud button { cursor: pointer; background: var(--fill); color: var(--text); border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font: 500 12.5px/1 var(--font); }
+#hud button:hover { background: var(--fill-hi); }
+#hud button.on { background: var(--hp-amber-soft); color: var(--hp-amber-hi); border-color: rgba(242,177,52,.55); }
+#hud .tabs button.on { border-color: transparent; }
+/* layers: switches */
+#hud label { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 0; margin: 0; border-top: 1px solid var(--line); color: var(--text); font-size: 13px; cursor: pointer; }
+#hud .page[data-page="layers"] label:first-child { border-top: 0; }
+#hud label input[type=checkbox] { order: 2; -webkit-appearance: none; appearance: none; width: 34px; height: 20px; border-radius: 999px; background: var(--fill-hi); position: relative; margin: 0; cursor: pointer; transition: background .15s; flex: none; }
+#hud label input[type=checkbox]::after { content: ''; position: absolute; left: 2px; top: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .15s; }
+#hud label input[type=checkbox]:checked { background: var(--hp-amber); }
+#hud label input[type=checkbox]:checked::after { transform: translateX(14px); }
+#hud .addon { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 8px 0; margin: 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--text); }
+#hud .addon button { font-size: 12px; min-width: 70px; text-align: center; }
 #hud .addon .nm { flex: 1; }
-#hud .keys div { margin: 3px 0; color: #cfd4da; font-size: 12px; }
-#hud .keys b { color: #fff; }
-#info details.isec { margin: 6px 0; border-top: 1px solid #3a3f45; padding-top: 4px; }
-#info details.isec summary { cursor: pointer; color: #ffcf5a; font-weight: 600; }
-#info { position: absolute; right: 12px; top: 8px; z-index: 7; width: 300px; max-height: 78vh; overflow: auto; background: rgba(20,22,25,.90); border: 1px solid #3a3f45; border-radius: 8px; padding: 10px 12px; display: none; font-size: 13px; line-height: 1.35; }
-#info .ititle { font-weight: 700; font-size: 15px; margin-bottom: 2px; }
-#info .ipart { color: #ffcf5a; margin-bottom: 6px; }
-#info .inote { color: #cfd4da; margin: 4px 0; }
-#info .iacts button { display: block; width: 100%; text-align: left; margin: 4px 0; padding: 6px 8px; font-size: 13px; background: #2b3036; color: #e8e6e0; border: 1px solid #4a5058; border-radius: 6px; cursor: pointer; }
-/* round 45: the clicked thing's components as tabs, one list of actions at a time */
-#info .itabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 6px 0; border-top: 1px solid #3a3f45; padding-top: 6px; }
-#info .itab { background: #2b3036; color: #cfd4da; border: 1px solid #4a5058; border-radius: 6px; padding: 3px 7px; font-size: 12px; cursor: pointer; }
-#info .itab.on { background: #f2b134; color: #1c1f22; border-color: #f2b134; }
+#hud select { background: var(--fill); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; font: 500 12px var(--font); }
+
+/* ---------------------------------------------------------------- the part card (top right on a computer) */
+#info { position: absolute; right: 12px; top: 12px; z-index: 7; width: 340px; max-height: calc(100vh - 24px); overflow: auto; display: none; padding: 14px;
+  background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow);
+  font-size: 13px; line-height: 1.45; color: var(--text); }
 /* Round 60 (Jake, on his phone: "this menu needs to be a lot more clear... it needs to really live as much up close to the top
    as possible so it's not blocking the view of the actual apparatus"). The panel docks at the very top, the close button is an
-   x at the head of the title, and on a narrow screen it runs the width of the screen, a third of its height at most, with the
-   actions as compact buttons that wrap instead of one full width row each, and each note cut to two lines. */
-#info .ititle { display: flex; align-items: center; gap: 8px; }
-#info .iclose { flex: none; width: 26px; height: 26px; padding: 0; border-radius: 50%; font-size: 17px; line-height: 1; background: #2b3036; color: #e8e6e0; border: 1px solid #4a5058; cursor: pointer; }
-@media (max-width: 720px), (max-height: 480px) {
-  #info { left: 6px; right: 6px; top: 6px; width: auto; max-height: 36vh; padding: 7px 9px; font-size: 12px; }
-  #info .ititle { font-size: 14px; }
-  #info .inote { margin: 2px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  #info .iwhat { margin: 4px 0 6px; padding: 6px 8px; font-size: 12px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  #info .itabs { margin: 4px 0; padding-top: 4px; }
-  #info .iacts { display: flex; flex-wrap: wrap; gap: 5px; }
-  #info .iacts button { display: inline-block; width: auto; margin: 0; padding: 7px 10px; font-size: 12px; }
-}
-/* Round 60 (Jake: "just have those controls across the top that pop up... it's just overlay and it can be translucent behind it").
-   On a phone held sideways the strip is see through, the unit shows behind it, and it is two rows and no more: the name and the
-   component tabs on one line, the actions on the next, each row sliding sideways under a finger instead of wrapping down over
-   the unit. The notes are left to the ? bubble there; there is no height to spare for them. */
-@media (max-height: 480px) {
-  #info { background: rgba(20,22,25,.52); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); border-color: rgba(255,255,255,.14); max-height: 34vh; overflow: hidden; }
-  /* the ? bubble's about card is reading matter, not a control strip: it keeps its room and scrolls */
-  #info:has(.about) { max-height: 82vh; overflow: auto; background: rgba(20,22,25,.92); }
-  #info .inote { display: none; }
-  #info .ititle { float: left; margin: 2px 10px 0 0; }
-  #info .itabs { border-top: 0; padding-top: 0; margin: 0 0 5px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
-  #info .itab, #info .iacts button { flex: none; white-space: nowrap; }
-  #info .iacts { clear: both; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
-  #info .itabs::-webkit-scrollbar, #info .iacts::-webkit-scrollbar { display: none; }
-}
-/* Round 60: the meter's thumb buttons, bottom left, and on a phone the teaching line moves up out of the meter's way */
-/* stacked up the right edge above Toolbox: in a row along the bottom they lay across the meter in your hand */
-#meterkeys { position: absolute; right: 12px; bottom: 58px; display: none; flex-direction: column; align-items: flex-end; gap: 6px; z-index: 6; }
+   x at the head of the title (round, at its right end now), and on a short screen it is the top strip below. */
+#info .ititle { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; font: 600 16px/1.25 var(--font); letter-spacing: -.005em; }
+#info .iclose { flex: none; order: 2; margin-left: auto; width: 30px; height: 30px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 0; background: var(--fill); color: var(--text-2);
+  font-size: 0; line-height: 1; cursor: pointer; }
+#info .iclose::before { --ic: var(--i-close); width: 16px; height: 16px; }
+#info .iclose:hover { background: var(--fill-hi); color: var(--text); }
+#info .inote { margin: 10px 0 0; color: var(--text-2); font-size: 12.5px; }
+/* Round 87: the part card (.iwhat), shown the moment a part is tapped: a quiet card under the title with an amber edge, the part
+   you touched */
+#info .iwhat { margin: 0 0 12px; padding: 10px 12px; border: 0; border-left: 3px solid var(--hp-amber); border-radius: 4px 10px 10px 4px; background: var(--fill); color: var(--text-2); font-size: 13px; line-height: 1.45; }
+#info .iwhat b { display: block; margin-bottom: 2px; color: var(--text); font-weight: 600; font-size: 13.5px; }
+/* round 45: the clicked thing's components as tabs, one list of actions at a time. Round 60: the same verbs on every unit, the same
+   tiles in the same places; one this unit has nothing for is dimmed, never missing. */
+#info .itabs, #info .iverbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 0; padding: 0; border: 0; }
+#info .itab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-height: 58px; padding: 8px 4px 7px; border: 1px solid transparent; border-radius: var(--r-sm);
+  background: var(--fill); color: var(--text); font: 500 11.5px/1.15 var(--font); text-align: center; overflow-wrap: anywhere; cursor: pointer; }
+#info .itab:hover:not(:disabled) { background: var(--fill-hi); }
+#info .itab.on { background: var(--hp-amber-soft); border-color: rgba(242,177,52,.55); color: var(--hp-amber-hi); }
+#info .itab:disabled { opacity: .34; cursor: default; background: transparent; border-color: var(--line); }
+#info .iverbs .itab { font-weight: 600; }
+#info .iverbs .itab:nth-child(1)::before { --ic: var(--i-use); } #info .iverbs .itab:nth-child(2)::before { --ic: var(--i-open); }
+#info .iverbs .itab:nth-child(3)::before { --ic: var(--i-cut); } #info .iverbs .itab:nth-child(4)::before { --ic: var(--i-apart); }
+#info .iverbs .itab:nth-child(5)::before { --ic: var(--i-elev); } #info .iverbs .itab:nth-child(6)::before { --ic: var(--i-about); }
+#info .iverbs .itab:nth-child(7)::before { --ic: var(--i-more); }
+/* what is under a verb: a list of rows */
+#info .iacts { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; }
+#info .iacts button { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; margin: 0; padding: 10px 12px; border: 0; border-radius: var(--r-sm);
+  background: var(--fill); color: var(--text); font: 500 13px/1.3 var(--font); text-align: left; cursor: pointer; }
+#info .iacts button:hover { background: var(--fill-hi); }
+#info .iacts button::after { --ic: var(--i-chev_r); width: 16px; height: 16px; color: var(--text-3); }
+/* Round 87: the About card as a proper card: the unit's name, the three headings set small and spaced, the checks as a clean list.
+   It is reading matter, set like a page, with a round close at its top right. */
+#info:has(.about) { padding: 0; }
+#info .about { position: relative; border: 0; border-radius: var(--r); padding: 18px 18px 14px; background: transparent; }
+#info .about h3 { margin: 0 40px 12px 0; padding: 0; border: 0; font: 600 17px/1.3 var(--font); color: var(--text); }
+#info .about p { margin: 0 0 12px; color: var(--text-2); font-size: 13px; line-height: 1.5; }
+#info .about p b { display: block; margin: 0 0 3px; font: 600 11px/1.2 var(--font); letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+#info .about ul { list-style: none; margin: 4px 0 0; padding: 0; }
+#info .about li { position: relative; margin: 0; padding: 8px 0 8px 26px; border-top: 1px solid var(--line); color: var(--text); font-size: 13px; line-height: 1.45; }
+#info .about li::before { content: ''; position: absolute; left: 0; top: 9px; width: 16px; height: 16px; background: var(--text-3); -webkit-mask: var(--i-check) center / contain no-repeat; mask: var(--i-check) center / contain no-repeat; }
+#info .about #about_close { position: absolute; top: 12px; right: 12px; margin: 0; width: 30px; height: 30px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: var(--fill); color: var(--text-2); font-size: 0; cursor: pointer; }
+#info .about #about_close::before { --ic: var(--i-close); width: 16px; height: 16px; }
+body:has(#info[style*="block"] .about) #label { display: none !important; }
+
+/* ---------------------------------------------------------------- the name tag */
+/* round 74 (Jake: friendly and bubbly, not computery): the words stay friendly() and round; the tag is a toast now, bottom centre,
+   words left aligned behind the amber info mark, above the exploded view's tags */
+#label { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 6; display: none; max-width: min(560px, calc(100vw - 280px)); padding: 10px 16px 10px 42px;
+  background: var(--glass-strong); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow);
+  font: 500 14px/1.45 var(--font); color: var(--text); text-align: left; letter-spacing: 0; }
+#label::before { --ic: var(--i-info); position: absolute; left: 14px; top: 11px; color: var(--hp-amber); }
+/* a meter in your hand sits bottom right: the tag steps left of it */
+body.metering #label { left: calc(50% - 110px); }
+#load { position: absolute; right: 12px; top: 12px; background: rgba(20,22,25,.82); border: 1px solid #3a3f45; border-radius: 8px; padding: 8px 10px; }
+#load:empty { display: none; }
+
+/* ---------------------------------------------------------------- round 39: the ? bubble over a unit you have worked with, and the about card it opens */
+.bubble { position: fixed; transform: translate(-50%, -100%); width: 28px; height: 28px; border-radius: 50%; background: var(--hp-amber); color: var(--hp-ink); font: 700 15px/28px var(--font); text-align: center; cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.9), 0 4px 10px rgba(0,0,0,.4); z-index: 6; user-select: none; }
+.bubble:hover { background: var(--hp-amber-hi); }
+
+/* ---------------------------------------------------------------- the toolbox, its drawer, the meter's buttons */
 /* Round 60 (Jake: "We need the toolbox. We don't have the toolbox anymore. Somehow we lost that. I really like that."). It was the
    Tools tab of the Training House panel, and it went out of sight when that panel started minimized, opening on the keyboard help.
    This button is always there, bottom right, and opens the panel straight on the tools. */
+#toolbox, #meterkeys button { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 13px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: var(--text); font: 600 13px/1 var(--font); box-shadow: var(--shadow); cursor: pointer; }
+#toolbox { position: absolute; right: 16px; bottom: 16px; z-index: 9; }
+#toolbox::before { --ic: var(--i-wrench); color: var(--hp-amber); }
+#toolbox:hover, #meterkeys button:hover { background: var(--glass-strong); border-color: var(--line-hi); }
+/* Round 60: the meter's thumb buttons, stacked up the right edge above Toolbox: in a row along the bottom they lay across the meter
+   in your hand */
+#meterkeys { position: absolute; right: 16px; bottom: 70px; display: none; flex-direction: column; align-items: flex-end; gap: 8px; z-index: 6; }
+#meterkeys button:nth-child(1)::before { --ic: var(--i-zoom); } #meterkeys button:nth-child(2)::before { --ic: var(--i-dial); } #meterkeys button:nth-child(3)::before { --ic: var(--i-down); }
 /* Round 60 (Jake: "it should literally open its own toolbox over there to the side, and it should look like tools. Multimeter, the
    pliers, actual tools"). A drawer down the right edge; each tool is a PICTURE of the real model (walk.js renders them once from
    the same GLBs you pick up) with its name under it. The one in your hand is lit. */
-#toolboxmenu { position: absolute; right: 0; top: 0; bottom: 0; z-index: 8; display: none; flex-direction: column; justify-content: center; gap: 10px; padding: 12px 12px 56px;
-  width: 132px; box-sizing: border-box; background: rgba(14,16,19,.86); border-left: 2px solid #f2b134; overflow-y: auto; }
+#toolboxmenu { position: absolute; right: 0; top: 0; bottom: 0; z-index: 8; display: none; flex-direction: column; justify-content: center; gap: 10px; padding: 16px 14px 76px;
+  width: 148px; box-sizing: border-box; background: var(--glass-strong); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-left: 1px solid var(--line); overflow-y: auto; }
 #toolboxmenu.open { display: flex; }
-#toolboxmenu .tbhead { color: #f2b134; font: 700 12px system-ui, sans-serif; letter-spacing: .08em; text-align: center; }
-#toolboxmenu button { background: #23282e; color: #e8e6e0; border: 1px solid #4a5058; border-radius: 10px; padding: 6px 4px 7px; font: 600 12px system-ui, sans-serif; cursor: pointer;
-  display: flex; flex-direction: column; align-items: center; gap: 3px; }
+#toolboxmenu .tbhead { color: var(--text-3); font: 600 11px/1 var(--font); letter-spacing: .1em; text-transform: uppercase; text-align: center; }
+#toolboxmenu button { display: flex; flex-direction: column; align-items: center; gap: 3px; background: var(--fill); border: 1px solid transparent; border-radius: 12px; padding: 8px 6px 9px;
+  color: var(--text); font: 600 12px/1.2 var(--font); cursor: pointer; }
 #toolboxmenu button img { width: 84px; height: 64px; object-fit: contain; pointer-events: none; }
-#toolboxmenu button.on { border-color: #f2b134; box-shadow: 0 0 0 2px #f2b134 inset; }
-@media (max-height: 480px) { #toolboxmenu { gap: 6px; padding-top: 6px; } #toolboxmenu button img { height: 52px; } }
-/* Round 60: the same verbs on every unit. One this unit has nothing for is dimmed, never missing. */
-#info .itab:disabled { opacity: .32; cursor: default; }
-#info .iverbs .itab { font-weight: 600; }
-/* "What can I do here": the button, and the names it hangs over everything you can work */
-#whatcan { position: absolute; right: 104px; bottom: 12px; z-index: 6; background: rgba(20,22,25,.78); color: #e8e6e0; border: 1px solid #4a5058; border-radius: 8px; padding: 9px 12px; font: 600 13px system-ui, sans-serif; cursor: pointer; }
-.canmark { position: fixed; transform: translate(-50%, -100%); z-index: 6; background: #f2b134; color: #1a1a1a; border-radius: 14px; padding: 5px 10px; font: 700 12px system-ui, sans-serif; white-space: nowrap; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,.45); }
-.canmark::after { content: ''; position: absolute; left: 50%; top: 100%; margin-left: -5px; border: 5px solid transparent; border-top-color: #f2b134; }
-#toolbox { position: absolute; right: 12px; bottom: 12px; z-index: 9; background: rgba(20,22,25,.78); color: #f2b134; border: 1px solid #f2b134; border-radius: 8px; padding: 9px 12px; font: 700 13px system-ui, sans-serif; cursor: pointer; }
-#meterkeys button { background: rgba(20,22,25,.78); color: #e8e6e0; border: 1px solid #4a5058; border-radius: 8px; padding: 9px 12px; font: 600 13px system-ui, sans-serif; cursor: pointer; }
+#toolboxmenu button:hover { background: var(--fill-hi); }
+#toolboxmenu button.on { border-color: var(--hp-amber); box-shadow: none; background: var(--hp-amber-soft); }
+/* round 47: the meter in your hand. Round 48 (Jake: "I want you to only read it on the meter"): walk.js keeps this box hidden and the
+   reading is on the meter's own display; the box stays because the Comms lesson pill measures it. */
+#meter { position: absolute; right: 12px; bottom: 12px; width: 230px; display: none; background: var(--glass-strong); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 12px 14px; font-size: 12.5px; }
 @media (max-width: 720px), (max-height: 480px) {
   /* Jake: "the multimeter still has the readout on top of it, which is blocking everything. We don't need the instructions there."
      On a phone there is no line of words at all while a meter is out: the reading is on the meter and the buttons say what they do. */
   body.metering #label { display: none !important; }
 }
+
+/* ---------------------------------------------------------------- round 45: the name tag beside every part of an exploded view */
+.xlab { position: fixed; transform: translate(-50%, -140%); background: var(--glass-strong); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; font: 500 11.5px/1.5 var(--font); color: var(--text);
+  pointer-events: none; white-space: nowrap; z-index: 5; }
+/* round 46: the dot you steer at inside a pipe */
+.aimdot { position: fixed; transform: translate(-50%, -50%); width: 9px; height: 9px; border-radius: 50%; background: var(--hp-amber); box-shadow: 0 0 0 2px rgba(0,0,0,.55), 0 0 8px rgba(242,177,52,.8); pointer-events: none; z-index: 5; }
+/* "What can I do here": the button, and the names it hangs over everything you can work */
+#whatcan { position: absolute; right: 104px; bottom: 12px; z-index: 6; background: rgba(20,22,25,.78); color: #e8e6e0; border: 1px solid #4a5058; border-radius: 8px; padding: 9px 12px; font: 600 13px system-ui, sans-serif; cursor: pointer; }
+.canmark { position: fixed; transform: translate(-50%, -100%); z-index: 6; background: var(--hp-amber); color: var(--hp-ink); border-radius: 14px; padding: 5px 10px; font: 600 12px var(--font); white-space: nowrap; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,.45); }
+.canmark::after { content: ''; position: absolute; left: 50%; top: 100%; margin-left: -5px; border: 5px solid transparent; border-top-color: var(--hp-amber); }
 #flash { position: fixed; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 60; }
+
+/* ---------------------------------------------------------------- a narrow or short screen */
+@media (max-width: 720px), (max-height: 480px) {
+  /* Round 60: on a narrow screen each note is cut to two lines and the part card to three */
+  #info .inote { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  #info .iwhat { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  #info .iacts { flex-wrap: wrap; }
+}
+/* Round 60 (Jake: "just have those controls across the top that pop up... it's just overlay and it can be translucent behind it").
+   On a phone held sideways the strip is see through, the unit shows behind it, and it is two rows and no more: the name and the
+   part card on one line, the verbs on the next, each row sliding sideways under a finger instead of wrapping down over the unit.
+   The notes are left to the ? bubble there; there is no height to spare for them.
+   2026-10-05: three zones that never overlap. The LEFT RAIL (x 0 to 92: the menu button, the eye slider, the walk slider), the TOP
+   STRIP right of the rail (the part card, two rows), the BOTTOM RIGHT corner (toolbox, meter buttons). The name tag sits bottom
+   centre between the rail and the toolbox. The app's own link keeps the top right 104 px (app_shell.html). */
+@media (max-height: 480px) {
+  #hud { left: 14px; top: 10px; }
+  #hud summary { width: 44px; height: 44px; padding: 0; justify-content: center; font-size: 0; gap: 0; }
+  #hud summary::after { display: none; }
+  #hud summary::before { --ic: var(--i-menu); color: var(--text); width: 22px; height: 22px; }
+  #hud details[open] summary::before { --ic: var(--i-drop); color: var(--hp-amber); }
+  #hud #status { display: none; }
+  /* open, the menu is a sheet down the left (the rail steps aside, app_shell.html); #hud itself grows, because its blur makes it
+     the box any fixed child is placed in */
+  #hud:has(#help[open]) { left: 8px; top: 8px; bottom: 8px; width: min(380px, calc(100vw - 16px)); max-width: none; overflow: auto; background: var(--glass-strong); }
+  #hud details[open] { width: auto; max-height: none; overflow: visible; }
+  #hud details[open] summary { width: auto; height: auto; justify-content: flex-start; gap: 10px; font-size: 14px; padding: 12px 14px 12px 12px; }
+  #hud details[open] summary::after { display: block; margin-left: auto; transform: rotate(90deg); -webkit-mask-image: var(--i-close); mask-image: var(--i-close); }
+  #info { left: 92px; top: 8px; width: auto; padding: 8px 10px 9px; max-height: none; overflow: hidden; background: var(--glass); border-color: var(--line); }
+  /* block, not flex, so a long unit name (the Rheem titles) ends in an ellipsis instead of running under the part card */
+  #info .ititle { display: block; float: left; max-width: 40%; margin: 0 12px 8px 0; height: 40px; line-height: 40px; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #info .iclose { display: inline-grid; vertical-align: middle; margin: -3px 10px 0 0; width: 28px; height: 28px; }
+  /* the part card beside the title, two lines at most (9 cards in 10 fit whole: parts.json median 78 characters, p90 126) */
+  #info .iwhat { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; -webkit-box-pack: center; overflow: hidden; margin: 0 0 8px; min-height: 40px; max-height: 40px; padding: 3px 10px; box-sizing: border-box; border-left-width: 3px; white-space: normal; line-height: 17px; font-size: 12px; }
+  #info .iwhat b { display: inline; margin: 0 8px 0 0; font-size: 13px; }
+  #info .iverbs { clear: both; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  #info .itabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  #info .itab { flex: none; flex-direction: row; min-height: 0; height: 36px; padding: 0 10px 0 8px; gap: 6px; font-size: 12px; white-space: nowrap; }
+  #info .itab::before { width: 17px; height: 17px; }
+  #info .iacts { clear: both; flex-direction: row; flex-wrap: nowrap; overflow-x: auto; margin-top: 6px; gap: 6px; scrollbar-width: none; padding-bottom: 2px; }
+  #info .itabs::-webkit-scrollbar, #info .iacts::-webkit-scrollbar { display: none; }
+  #info .iacts button { width: auto; flex: none; padding: 0 12px; height: 34px; white-space: nowrap; }
+  #info .iacts button::after { display: none; }
+  #info .inote { display: none; }
+  /* the ? bubble's about card is reading matter, not a control strip: a reading panel between the rail and the app's link, full
+     height, it scrolls */
+  #info:has(.about) { top: 8px; bottom: 8px; max-height: none; overflow: auto; background: var(--glass-strong); }
+  #label { bottom: 10px; max-width: min(520px, calc(100vw - 92px - 150px)); padding: 8px 14px 8px 38px; font-size: 13px; line-height: 1.4; }
+  #label::before { left: 12px; top: 9px; width: 16px; height: 16px; }
+  #toolbox { right: 12px; bottom: 12px; height: 44px; padding: 0 14px 0 12px; }
+  #meterkeys { right: 12px; bottom: 64px; gap: 6px; }
+  #meterkeys button { height: 38px; font-size: 12.5px; }
+  #toolboxmenu { padding-bottom: 68px; }
+  #toolboxmenu button img { height: 52px; }
+}
+@media (max-width: 720px) and (min-height: 481px) {
+  #info { left: 8px; right: 8px; top: 8px; width: auto; }
+}
+#hud .keys > .hp-mouse, #hud .keys > .hp-touch { margin: 0; padding: 0; border: 0; }
+#hud .keys > div > div:first-child { border-top: 0; }
 </style>
 </head>
 <body>
@@ -144,12 +293,24 @@
 <div id="hud">
   <!-- Round 60 (Jake): the panel starts minimized; its title opens it -->
   <details id="help">
-    <summary>TRAINING HOUSE</summary>
+    <summary>Training House</summary>
     <div class="tabs">
-      <button data-tab="keys" class="on">Keys</button><button data-tab="layout">Layout</button><button data-tab="addons">Add ons</button><button data-tab="views">Views</button><button data-tab="layers">Layers</button>
+      <button data-tab="keys" class="on">How to</button><button data-tab="layout">Layout</button><button data-tab="addons">Add ons</button><button data-tab="views">Views</button><button data-tab="layers">Layers</button>
     </div>
     <div class="page on" data-page="keys">
     <div class="keys">
+    <!-- r99b: on a touch screen the How to page is the touch version; the keyboard list is for a computer -->
+    <div class="hp-touch">
+      <div><b>Look round</b>: drag a finger on the view. Two fingers pinch to zoom.</div>
+      <div><b>Walk</b>: the slider at the bottom left. Push it up to walk forward, down to walk back, all the way to run.</div>
+      <div><b>Eye height</b>: the slider above it. Top is standing, bottom is crawling.</div>
+      <div><b>Tap a unit</b> across the room and you are taken in front of it. Tap it again to work its parts.</div>
+      <div><b>Tap a part</b>: it opens, comes off, cuts open or works. The card along the top lists everything else it can do.</div>
+      <div>The <b>?</b> over a unit you have worked with: what it is, how it works, what we check.</div>
+      <div><b>Toolbox</b>, bottom right: the multimeter, the clamp meter and the pliers.</div>
+      <div><b>The crawl</b>: take the door off at the back of the house, or lift the hatch in the master closet floor, then slide down to crawl. <b>The attic</b>: pull the ladder down in the garage and tap it.</div>
+    </div>
+    <div class="hp-mouse">
       <div><b>Drag</b> on the view to look round. Let go and the mouse is free.</div>
       <div><b>W A S D</b> or arrows: walk. <b>Shift</b>: run.</div>
       <div><b>C</b>: crouch. <b>C</b> again: crawl (under the house). <b>C</b> again: stand. <b>Half crouch</b>: valve height.</div>
@@ -164,6 +325,7 @@
       <div><b>Fly</b> on: <b>Space</b> up, <b>C</b> down.</div>
       <div>The attic: pull the ladder down in the garage and click it. The crawl: click the door in the foundation at the back of the house, it comes off, crouch to get in, then C again to crawl under the joists. Or lift the hatch lid in the master closet floor.</div>
     </div>
+</div>
     </div>
     <div class="page" data-page="layout">
       <div id="layout" class="row"></div>
@@ -201,6 +363,6 @@
 <script src="GLTFLoader.js"></script>
 <script src="meshopt_decoder.js"></script>
 <div id="flash"></div>
-<script src="walk.js?r99a"></script>
+<script src="walk.js?r99b"></script>
 </body>
 </html>

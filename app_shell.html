@@ -6,37 +6,71 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Training House Walk</title>
 <style>
-  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0f17; }
+  /* r99b (2026-10-05, training_house/look/look_ui/NOTES.md): the same tokens, face and icons as the walk page (index.html), whose
+     styles are mounted after these. The face itself (@font-face, Inter) comes with index.html's styles; mountPage points its url
+     at the file map. Until it arrives the setup screen is drawn in the phone's own face. */
+  :root {
+    --hp-amber: #F2B134; --hp-amber-hi: #FFC857; --hp-ink: #17130A; --hp-amber-soft: rgba(242,177,52,.16);
+    --glass: rgba(16,18,22,.80); --glass-strong: rgba(16,18,22,.92); --bg: #0C0E11; --solid: #14171B; --solid-2: #1A1E23;
+    --fill: rgba(255,255,255,.07); --fill-hi: rgba(255,255,255,.13); --line: rgba(255,255,255,.10); --line-hi: rgba(255,255,255,.20);
+    --text: #F5F2EB; --text-2: #BCC0C7; --text-3: #8B9098; --r: 14px; --r-sm: 10px;
+    --shadow: 0 10px 30px rgba(0,0,0,.35), 0 1px 2px rgba(0,0,0,.25);
+    --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    /* the icons the setup screen and the phone controls use (look_ui/skin/icons.py) */
+    --i-arrow_r: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m12 5 7 7-7 7'/%3E%3C/svg%3E");
+    --i-bolt: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 2 3 14h9l-1 8 10-12h-9z'/%3E%3C/svg%3E");
+    --i-check: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+    --i-chev_d: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    --i-chev_u: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m18 15-6-6-6 6'/%3E%3C/svg%3E");
+    --i-duplex: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 17V7'/%3E%3Cpath d='m5 10 3-3 3 3'/%3E%3Cpath d='M16 17V7'/%3E%3Cpath d='m13 10 3-3 3 3'/%3E%3Crect x='3' y='17' width='18' height='4' rx='1'/%3E%3C/svg%3E");
+    --i-house: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5 12 3l9 7.5'/%3E%3Cpath d='M5 9.5V21h14V9.5'/%3E%3Cpath d='M10 21v-6h4v6'/%3E%3C/svg%3E");
+    --i-lift: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 17V7'/%3E%3Cpath d='m7 11 5-5 5 5'/%3E%3Crect x='4' y='17' width='16' height='4' rx='1'/%3E%3C/svg%3E");
+    --i-slab: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5 12 3l9 7.5'/%3E%3Cpath d='M5 9.5V17h14V9.5'/%3E%3Cpath d='M2 17h20v4H2z'/%3E%3C/svg%3E");
+    --i-tree: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22v-5'/%3E%3Cpath d='M12 2 5.5 11H9l-4 6h14l-4-6h3.5z'/%3E%3C/svg%3E");
+    --img-chev-grey: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B9098' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    --img-drop-amber: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F2B134' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2.7c3.6 4.3 6.2 7.7 6.2 11a6.2 6.2 0 0 1-12.4 0c0-3.3 2.6-6.7 6.2-11z'/%3E%3C/svg%3E");
+  }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); }
   /* phone controls, added only on a touch screen: the walk page itself has none */
   /* Round 60 (Jake, after the landscape mockup: "I think it's too much... the walk and turn in the bottom right corner, and the
      stand right above it, and then just have those controls across the top that pop up"): everything a thumb works to MOVE is in
      ONE corner and the rest of the picture is clear. That corner is bottom LEFT: built bottom right first, from what he said, and
      corrected the same day ("the navigation and the stand are on the right-hand side, not the left-hand side"). The walk page's
-     Toolbox button and the meter's buttons have the bottom right. */
+     Toolbox button and the meter's buttons have the bottom right.
+     2026-10-05: one rail down the left edge, x 0 to 92: the menu button at its head, the eye slider, the walk slider at its foot;
+     nothing else ever lives there. */
   /* Round 60 (Jake, once it was in his hand: "on the D-pad we just need forward and back, that's all we need, we don't need side
      to side... that'll make the D a little bit smaller, just have the slider say forward, back, and then we turn, which is nice
      and sensitive, with ourselves"). The round pad is a short upright slider that springs back to the middle: up walks forward,
-     down walks back, the ends run. Turning and looking are a finger on the view and nothing else; two fingers pinch to zoom. */
-  #stick { position: fixed; left: 18px; bottom: 18px; width: 64px; height: 132px; border-radius: 32px;
-           background: rgba(20,22,25,.45); border: 1px solid rgba(255,255,255,.18); z-index: 40; touch-action: none; }
-  #knob { position: absolute; left: 12px; top: 46px; width: 40px; height: 40px; border-radius: 50%;
-          background: rgba(245,182,45,.85); pointer-events: none; }
-  #stick span { position: absolute; left: 0; right: 0; text-align: center; font: 700 10px/1 system-ui, sans-serif; color: rgba(255,255,255,.75);
+     down walks back, the ends run. Turning and looking are a finger on the view and nothing else; two fingers pinch to zoom.
+     Forward and back are chevrons now; the words stay in the page for a screen reader. */
+  #stick { position: fixed; left: 14px; bottom: 12px; width: 64px; height: 120px; border-radius: 32px; z-index: 40; touch-action: none;
+           background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid var(--line); box-shadow: var(--shadow); }
+  #knob { position: absolute; left: 12px; top: 39px; width: 40px; height: 40px; border-radius: 50%; pointer-events: none;
+          background: var(--hp-amber); box-shadow: 0 0 0 4px rgba(242,177,52,.22), 0 2px 6px rgba(0,0,0,.4); }
+  #stick span { position: absolute; left: 0; right: 0; height: 16px; text-align: center; font: 700 0/1 system-ui, sans-serif; color: rgba(255,255,255,.75);
                 pointer-events: none; text-shadow: 0 1px 2px #000; }
-  #stick span.f { top: 8px; } #stick span.b { bottom: 8px; }
+  #stick span::before { content: ''; display: block; margin: 0 auto; width: 18px; height: 16px; background: var(--text-2); -webkit-mask: var(--i-chev_u) center / contain no-repeat; mask: var(--i-chev_u) center / contain no-repeat; }
+  #stick span.b::before { -webkit-mask-image: var(--i-chev_d); mask-image: var(--i-chev_d); }
+  #stick span.f { top: 7px; } #stick span.b { bottom: 7px; }
   /* the height slider does the Crouch button's job in the app */
   #crouch { display: none !important; }
 
   /* the setup screen: pick the house while it is being built behind it */
-  #setup { position: fixed; inset: 0; z-index: 60; background: #0b0f17; color: #e5e7eb; overflow-y: auto;
-           font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-  #setup .wrap { max-width: 720px; margin: 0 auto; padding: 28px 16px 40px; }
-  #setup h1 { margin: 0; font-size: 22px; letter-spacing: .02em; color: #f8fafc; }
-  #setup .sub { margin: 4px 0 0; color: #94a3b8; font-size: 13px; }
-  #setup .build { margin-top: 18px; background: #111827; border: 1px solid #1f2937; border-radius: 10px; padding: 12px 14px;
-                  display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  #setup .build span { color: #cbd5e1; font-size: 13px; flex: 1 1 150px; }
-  #setup .build.ready span { color: #f5b62d; font-weight: 600; }
+  #setup { position: fixed; inset: 0; z-index: 60; background: var(--bg); color: var(--text); overflow-y: auto;
+           font: 14px/1.5 var(--font); -webkit-font-smoothing: antialiased; }
+  #setup .wrap { max-width: 880px; margin: 0 auto; padding: 32px 24px 0; }
+  #setup .wrap::before { content: 'Happy Pipes'; display: block; margin-bottom: 8px; padding-left: 22px; background: var(--img-drop-amber) left center / 16px 16px no-repeat; font: 600 12px/18px var(--font); letter-spacing: .12em; text-transform: uppercase; color: var(--hp-amber); }
+  #setup h1 { margin: 0; font: 700 28px/1.15 var(--font); letter-spacing: -.02em; color: var(--text); }
+  #setup .sub { margin: 6px 0 0; color: var(--text-2); font-size: 14px; }
+  #setup .build { margin-top: 22px; background: var(--solid); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 18px;
+                  display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  /* a spinner that turns into a tick at "House is ready" */
+  #setup .build span { flex: 1 1 150px; display: flex; align-items: center; gap: 10px; color: var(--text-2); font: 500 14px/1.3 var(--font); }
+  #setup .build span::before { content: ''; flex: none; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--fill-hi); border-top-color: var(--hp-amber); animation: hpspin .9s linear infinite; }
+  #setup .build.ready span { color: var(--text); font-weight: 600; }
+  #setup .build.ready span::before { border: 0; animation: none; background: var(--hp-amber); -webkit-mask: var(--i-check) center / 16px no-repeat; mask: var(--i-check) center / 16px no-repeat; width: 18px; height: 18px; }
+  @keyframes hpspin { to { transform: rotate(360deg); } }
   /* Round 98: the house that builds itself, in place of the 6 px bar that slid on a timer. Line art in the app's own
      colours; every stroke draws itself as the real file it stands for arrives (see HB below). The small copy beside
      the enter note is a clone of the same drawing, so both follow the same variables, set on #setup. */
@@ -46,7 +80,7 @@
   #setup .hb * { vector-effect: non-scaling-stroke; }
   /* the stroke colour is set on the stage groups and inherited; a shape only says it has no fill */
   #setup .hb path, #setup .hb rect, #setup .hb circle { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-  #setup .hb .ghost { stroke: #334155; stroke-dasharray: 3 4; }
+  #setup .hb .ghost { stroke: #2A3038; stroke-dasharray: 3 4; }
   /* a stroke draws itself along its length: pathLength is 1 on every stroke, so one dash covers the whole of it and the
      offset is how much is still undrawn. The elements of a stage draw in turn: element i of n */
   #setup .hb .s { stroke-dasharray: 1px 1px; stroke-dashoffset: clamp(0px, calc(1px - (var(--p) * var(--n, 1) - var(--i, 0)) * 1px), 1px); transition: stroke-dashoffset .25s linear; }
@@ -92,27 +126,52 @@
   #setup .hb.mini .frm, #setup .hb.mini .fur, #setup .hb.mini .glow { display: none; }
   /* someone who asked for less motion gets the same house in steps, nothing slides */
   @media (prefers-reduced-motion: reduce) { #setup .hb * { transition: none !important; } }
-  #setup h2 { margin: 22px 0 8px; font-size: 13px; color: #94a3b8; text-transform: uppercase; letter-spacing: .08em; }
-  #setup .presets { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
-  #setup .presets button { background: #111827; color: #e5e7eb; border: 1px solid #334155; border-radius: 8px;
-                           padding: 10px 12px; font: inherit; cursor: pointer; text-align: left; }
-  #setup .presets button.on { border-color: #f5b62d; background: #1f1a0b; }
-  #setup .presets button small { display: block; color: #94a3b8; font-size: 12px; }
-  #setup details { border: 1px solid #1f2937; border-radius: 8px; margin-top: 8px; background: #0f1623; }
-  #setup summary { cursor: pointer; padding: 10px 12px; color: #e5e7eb; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+  /* the presets as cards, each with its icon, an amber ring on the picked one */
+  #setup h2 { margin: 28px 0 10px; font: 600 11px/1 var(--font); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
+  #setup .presets { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+  #setup .presets button { position: relative; display: grid; grid-template-columns: 36px 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: start; padding: 14px 14px 14px 12px;
+                           background: var(--solid); border: 1px solid var(--line); border-radius: var(--r); color: var(--text); font: 600 14px/1.3 var(--font); cursor: pointer; text-align: left; }
+  #setup .presets button::before { content: ''; grid-row: 1 / span 2; width: 36px; height: 36px; border-radius: 10px; background: var(--fill); }
+  #setup .presets button::after { content: ''; position: absolute; left: 21px; top: 23px; width: 18px; height: 18px; background: var(--text-2); -webkit-mask: var(--ic, var(--i-house)) center / contain no-repeat; mask: var(--ic, var(--i-house)) center / contain no-repeat; }
+  #setup .presets button small { display: block; grid-column: 2; margin-top: 3px; color: var(--text-3); font: 400 12.5px/1.4 var(--font); }
+  #setup .presets button:hover { border-color: var(--line-hi); background: var(--solid-2); }
+  #setup .presets button.on { border-color: var(--hp-amber); background: var(--solid); box-shadow: 0 0 0 1px var(--hp-amber) inset; }
+  #setup .presets button.on::before { background: var(--hp-amber-soft); }
+  #setup .presets button.on::after { background: var(--hp-amber); }
+  #setup .presets [data-id="country"] { --ic: var(--i-tree); } #setup .presets [data-id="slab"] { --ic: var(--i-slab); }
+  #setup .presets [data-id="lift"] { --ic: var(--i-lift); } #setup .presets [data-id="duplex"] { --ic: var(--i-duplex); } #setup .presets [data-id="electric"] { --ic: var(--i-bolt); }
+  /* the details as one ruled list, a chevron on each, styled selects */
+  #setup details { margin-top: 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: transparent; }
+  #setup #choices { border: 1px solid var(--line); border-radius: var(--r); background: var(--solid); overflow: hidden; }
+  #setup #choices details:first-child { border-top: 0; }
+  #setup summary { cursor: pointer; padding: 13px 16px; color: var(--text); list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; font: 600 14px/1.3 var(--font); }
   #setup summary::-webkit-details-marker { display: none; }
-  #setup summary em { font-style: normal; color: #94a3b8; font-size: 12px; text-align: right; }
-  #setup details .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px 14px; padding: 0 12px 12px; }
-  #setup label { display: block; font-size: 12px; color: #94a3b8; }
-  #setup select { width: 100%; margin-top: 4px; background: #111827; color: #f8fafc; border: 1px solid #334155;
-                  border-radius: 7px; padding: 8px; font: inherit; }
+  #setup summary::after { content: ''; flex: none; width: 16px; height: 16px; background: var(--text-3); -webkit-mask: var(--i-chev_d) center / contain no-repeat; mask: var(--i-chev_d) center / contain no-repeat; transition: transform .15s; }
+  #setup details[open] summary::after { transform: rotate(180deg); }
+  #setup summary span { flex: none; }
+  #setup summary em { flex: 1; color: var(--text-3); font: 400 12.5px/1.4 var(--font); text-align: right; }
+  #setup details .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px 16px; padding: 2px 16px 16px; }
+  #setup label { display: block; color: var(--text-3); font: 500 12px/1.3 var(--font); }
+  #setup select { width: 100%; margin-top: 6px; padding: 9px 34px 9px 10px; background: var(--fill) var(--img-chev-grey) right 10px center / 14px no-repeat; border: 1px solid var(--line); border-radius: var(--r-sm); color: var(--text); font: 500 13px var(--font);
+                  -webkit-appearance: none; appearance: none; }
+  #setup select:focus, #setup button:focus-visible { outline: 2px solid var(--hp-amber); outline-offset: 2px; }
   /* pinned to the bottom of the screen: sideways on a phone the button was a scroll away, under the details */
-  #setup .go { margin-top: 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; position: sticky; bottom: 0; background: #0b0f17; padding: 10px 0 12px; border-top: 1px solid #1f2937; }
-  #setup .go button { background: #f5b62d; color: #111; border: 0; border-radius: 8px; padding: 12px 22px;
-                      font: 600 15px system-ui, sans-serif; cursor: pointer; }
-  #setup .go button:disabled { opacity: .45; cursor: default; }
-  #setup .note { color: #94a3b8; font-size: 12px; }
+  #setup .go { margin-top: 18px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; position: sticky; bottom: 0; background: var(--bg); padding: 12px 0 14px; border-top: 1px solid var(--line); box-shadow: 0 -12px 24px rgba(12,14,17,.9); }
+  #setup .go button { display: inline-flex; align-items: center; gap: 10px; padding: 0 22px; height: 48px; border: 0; border-radius: 12px; background: var(--hp-amber); color: var(--hp-ink); font: 700 15px/1 var(--font); box-shadow: 0 6px 18px rgba(242,177,52,.25); cursor: pointer; }
+  #setup .go button::after { content: ''; width: 18px; height: 18px; background: currentColor; -webkit-mask: var(--i-arrow_r) center / contain no-repeat; mask: var(--i-arrow_r) center / contain no-repeat; }
+  #setup .go button:hover:not(:disabled) { background: var(--hp-amber-hi); }
+  #setup .go button:disabled { opacity: 1; cursor: default; background: var(--fill-hi); color: var(--text-3); box-shadow: none; }
+  #setup .note { color: var(--text-3); font-size: 12.5px; }
+  #setup #ver { margin: 10px 0 24px; font-size: 11.5px; }
   #setup .err { color: #fca5a5; }
+  @media (max-height: 480px) {
+    #setup .wrap { padding-top: 18px; padding-bottom: 8px; } #setup h1 { font-size: 22px; } #setup .build { margin-top: 14px; padding: 10px 14px; } #setup h2 { margin-top: 18px; }
+    /* a phone sideways has no height for a bar along the bottom: Enter sits in the top right corner, beside the title, over nothing */
+    #setup .go { position: fixed; top: 16px; right: max(20px, calc((100vw - 880px) / 2 + 24px)); bottom: auto; margin: 0; padding: 0; background: none; border: 0; box-shadow: none;
+      flex-direction: column; align-items: flex-end; gap: 6px; max-width: 46vw; z-index: 2; }
+    #setup .go button { height: 44px; }
+    #setup .go .note { text-align: right; }
+  }
   /* Show mode (2026-09-22): the "See it in 3D" link from Comms and the Home Portal opens the house already pointed at one thing.
      The setup screen is only its loading line, and the tools, the Keys, Layout and Add ons tabs and Fly are gone
      (Jake: "I've never used the fly, it goes"). The Views tab, the Layers tab, the stick, the eye slider and the gloves stay. */
@@ -120,30 +179,36 @@
   body.showmode #setup .build { margin-top: 48px; }
   body.showmode #toolbox, body.showmode #toolboxmenu, body.showmode #fly,
   body.showmode [data-tab="keys"], body.showmode [data-tab="layout"], body.showmode [data-tab="addons"] { display: none !important; }
-  /* Round 60: the eye height slider, directly above the thumb stick. Top is standing, bottom is crawling. */
-  #eyebar { position: fixed; left: 27px; bottom: 162px; width: 46px; height: clamp(110px, calc(100vh - 232px), 260px); z-index: 40;
+  /* Round 60: the eye height slider. Top is standing, bottom is crawling. 2026-10-05: in a glass capsule with Stand and Crawl
+     inside it; on a computer it sits alone in the middle of the left edge, on a phone held sideways under the menu button
+     (10 to 56) and over the walk slider (top at 100vh - 132) */
+  #eyebar { position: fixed; left: 23px; top: 50%; bottom: auto; transform: translateY(-50%); width: 46px; height: 240px; z-index: 40;
+            border-radius: 23px; background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid var(--line); box-shadow: var(--shadow);
             touch-action: none; user-select: none; -webkit-user-select: none; cursor: ns-resize; }
-  /* the track stops 36 px short at each end: the knob is 38 px across and parked on top of the word Stand (Jake: "I can't see the
+  @media (max-height: 480px) { #eyebar { top: 62px; transform: none; height: calc(100vh - 62px - 142px); min-height: 110px; } }
+  /* the track stops 44 px short at each end: the knob is 36 px across and was parked on top of the word Stand (Jake: "I can't see the
      stand button"), so the two words get room of their own beyond the knob's travel */
-  #eyebar .track { position: absolute; left: 50%; top: 36px; bottom: 36px; width: 8px; margin-left: -4px; border-radius: 4px;
-                   background: rgba(20,22,25,.55); border: 1px solid rgba(255,255,255,.22); }
-  #eyebar .fill { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 4px; background: rgba(245,182,45,.75); }
-  #eyebar .thumb { position: absolute; left: 50%; width: 38px; height: 38px; margin: -19px 0 0 -19px; border-radius: 50%;
-                   background: rgba(245,182,45,.95); border: 2px solid rgba(20,22,25,.8); box-shadow: 0 2px 6px rgba(0,0,0,.45);
-                   color: #1a1a1a; font: 700 11px/34px system-ui, sans-serif; text-align: center; }
-  #eyebar .end { position: absolute; left: -12px; right: -12px; text-align: center; font: 700 11px/1 system-ui, sans-serif;
-                 color: rgba(255,255,255,.8); text-shadow: 0 1px 2px #000; pointer-events: none; }
-  #eyebar .end.top { top: 0; } #eyebar .end.bot { bottom: 0; }
+  #eyebar .track { position: absolute; left: 50%; top: 44px; bottom: 44px; width: 4px; margin-left: -2px; border: 0; border-radius: 2px; background: var(--fill-hi); }
+  #eyebar .fill { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 2px; background: var(--hp-amber); }
+  #eyebar .thumb { position: absolute; left: 50%; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%;
+                   background: var(--hp-amber); border: 0; box-shadow: 0 0 0 3px rgba(16,18,22,.85), 0 2px 6px rgba(0,0,0,.4);
+                   color: var(--hp-ink); font: 700 11px/36px var(--font); font-feature-settings: 'tnum' 1; text-align: center; }
+  #eyebar .end { position: absolute; left: 0; right: 0; text-align: center; font: 600 9.5px/1 var(--font); letter-spacing: .06em; text-transform: uppercase;
+                 color: var(--text-2); text-shadow: none; pointer-events: none; }
+  #eyebar .end.top { top: 9px; } #eyebar .end.bot { bottom: 9px; }
   /* the walk page's unit strip runs across the top; in the app the ASSETS link sits in the top right corner over this frame,
-     so the strip stops short of it */
+     so the strip stops short of it (the app's own link keeps the top right 104 px) */
   @media (max-width: 920px), (max-height: 480px) { #info { right: 104px !important; } }
+  /* and on a computer the card docks under that link (it runs from 12 to about 41 px down): the card's close button and the About
+     card's are at their top right since r99b, right where the link is (prove_page, 2026-10-05) */
+  @media (min-width: 921px) and (min-height: 481px) { #info { top: 52px !important; max-height: calc(100vh - 64px) !important; } }
   /* the Training House panel opens down the left side, over this corner: while it is open the stick and the slider step aside */
   body:has(#help[open]) #stick, body:has(#help[open]) #eyebar { display: none; }
   /* Sideways only (Jake: "what if this was a landscape only app?"). A web page cannot turn an iPhone, so held upright on a
      touch screen it asks; on Android the Enter button also asks the browser to lock it (see lockLandscape). */
-  #rotate { display: none; position: fixed; inset: 0; z-index: 70; background: #0b0f17; color: #e5e7eb; align-items: center; justify-content: center;
-            flex-direction: column; gap: 14px; text-align: center; padding: 24px; font: 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
-  #rotate .ph { width: 54px; height: 96px; border: 3px solid #f5b62d; border-radius: 10px; animation: turn 2.2s ease-in-out infinite; }
+  #rotate { display: none; position: fixed; inset: 0; z-index: 70; background: var(--bg); color: var(--text); align-items: center; justify-content: center;
+            flex-direction: column; gap: 14px; text-align: center; padding: 24px; font: 500 16px/1.4 var(--font); }
+  #rotate .ph { width: 54px; height: 96px; border: 3px solid var(--hp-amber); border-radius: 12px; animation: turn 2.2s ease-in-out infinite; }
   @keyframes turn { 0%, 25% { transform: rotate(0deg); } 60%, 100% { transform: rotate(90deg); } }
   @media (orientation: portrait) and (pointer: coarse) { body.inhouse #rotate { display: flex; } }
 </style>
@@ -321,7 +386,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '99a';
+  var SHELL = '99b';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -330,7 +395,13 @@
     showVersion(html);
     var doc = new DOMParser().parseFromString(html, 'text/html');
     doc.querySelectorAll('head style, head link[rel="stylesheet"]').forEach(function (n) {
-      document.head.appendChild(document.importNode(n, true));
+      var c = document.importNode(n, true);
+      // r99b: the walk page names its font file beside itself, url('inter-latin.woff2'). This page is a blob with no folder, so the
+      // name is looked up in the file map like every other file; not in the map, the url stays and the phone's own face is used.
+      if (c.tagName === 'STYLE') c.textContent = c.textContent.replace(/url\((['"]?)([\w.-]+\.woff2)\1\)/g, function (m, q, f) {
+        var u = (window.__ASSETS || {})[f]; return u ? 'url("' + u + '")' : m;
+      });
+      document.head.appendChild(c);
     });
     Array.prototype.slice.call(doc.body.childNodes).forEach(function (n) {
       if (n.nodeType === 1 && n.tagName === 'SCRIPT') return;
@@ -690,8 +761,18 @@
       say('House is ready');
       $('build').classList.add('ready');
       $('enter').disabled = false;
+      hpReady();
       if (SHOW) enterHouse();     // no Enter tap in show mode: the link opened the door
     })();
+  }
+  // r99b: the menu's status line is for while the house is still arriving ("ready: 56 sockets, 12 models placed" is not for a
+  // tech); body.hp-ready hides it (index.html). Set the moment watch() sees the house ready, then kept in step with the line
+  // itself by an observer, no timer, so a rebuild from the House layout screen shows its progress and hides it again after.
+  function hpReady() {
+    var st = document.getElementById('status'); if (!st) return;
+    var set = function () { document.body.classList.toggle('hp-ready', /^(ready|the house is up)/.test(st.textContent)); };
+    set();
+    if (window.MutationObserver && !st.__hpWatch) { st.__hpWatch = true; new MutationObserver(set).observe(st, { childList: true, characterData: true, subtree: true }); }
   }
 
   // Round 60 (Jake: "we need to basically have a section that says house layout, and that's where they can go in and select all kinds

@@ -162,13 +162,13 @@
   },
   "kitchen_sink": {
    "what": "The kitchen sink and cabinet: stops, faucet, strainers, trap, the dishwasher connection and the cabinet floor, which is a written history of every leak nobody called about.",
-   "how": "Supply stops under the sink feed the faucet. Waste falls through the strainer or the disposal into the trap, then the drain. The dishwasher drains through a high loop or an air gap into the disposal or the tailpiece.",
+   "how": "Supply stops under the sink feed the faucet. Waste falls through the strainer or the disposal into the trap, then the drain. The dishwasher drains through a high loop under the counter into the disposal or the tailpiece.",
    "checks": [
     "Supply lines and angle stops: both stops turn by hand, lines dry and braided",
     "Faucet, sprayer and aerator: no drip at the base, firm in the deck, sprayer holds, aerator clear",
     "P trap and drain: dry hand on every slip joint, no corroded metal trap",
     "Strainer nut where it joins the sink: no seep under the basket",
-    "Dishwasher air gap or high loop: present and flowing",
+    "Dishwasher high loop: present and flowing",
     "Under sink filter or RO: cartridges in date, no weep at the head",
     "Cabinet base: dry, no swelling or dark rings"
    ]
@@ -789,11 +789,11 @@
    ]
   },
   "dishwasher_line": {
-   "what": "The dishwasher connection: the supply line and its stop, the drain hose with its high loop or air gap, and the floor in front of the machine. We do not fix the machine; the lines are ours.",
-   "how": "The hot line runs from its own stop under the sink to the machine. The drain hose rises in a high loop above the connection, or through an air gap on the deck, before it drops into the disposal or the tailpiece, so sink water cannot siphon back into the dishes.",
+   "what": "The dishwasher connection: the supply line and its stop, the drain hose with its high loop, and the floor in front of the machine. We do not fix the machine; the lines are ours.",
+   "how": "The hot line runs from its own stop under the sink to the machine. The drain hose rises in a high loop under the counter, above the connection, before it drops into the disposal or the tailpiece, so sink water cannot siphon back into the dishes.",
    "checks": [
     "Supply line and shutoff: its own stop, turns by hand, no kink behind the machine",
-    "Drain hose, high loop or air gap: present, no backflow",
+    "Drain hose and high loop: present, no backflow",
     "Under the door and the floor in front: no leak at the door, no swollen flooring",
     "Water quality at the machine: spotting and film on the glassware is the water, not the detergent"
    ]
