@@ -51,7 +51,6 @@
     "cartridge",
     "counter_undermount",
     "deck_covers",
-    "disc_cartridge",
     "dw_hose_branch",
     "dw_hose_low",
     "faucet_ball",
@@ -103,14 +102,35 @@
     "pulldown_head",
     "pulldown_hose",
     "soap_dispenser",
-    "trap_water"
+    "trap_water",
+    "faucet_spout_pulldown",
+    "hose_coupling",
+    "wand_screen",
+    "handle_lever_pulldown",
+    "handle_dome_pulldown",
+    "plug_button_pulldown",
+    "set_screw_pulldown",
+    "disc_cartridge",
+    "cartridge_1255",
+    "cartridge_nut_pulldown",
+    "fc_hose",
+    "hose_weight",
+    "hose_weight_screws",
+    "faucet_mount"
    ],
    "section_set": {
     "pairs": {
-     "disposal_body": "disposal_section"
+     "disposal_body": "disposal_section",
+     "disposal_mount": "disposal_mount_section",
+     "mount_lower_ring": "mount_lower_ring_section",
+     "splash_guard": "splash_guard_section",
+     "grind_chamber": "grind_chamber_section",
+     "stator": "stator_section",
+     "discharge_tube": "discharge_tube_section",
+     "discharge_90": "discharge_90_section"
     },
     "also_hide": [],
-    "note": "Round 22 (Jake: the disposal cutaway is in two different windows): one click swaps the whole body for its half; the grind chamber and motor are built as halves already, so the cut is one piece."
+    "note": "Round 22 (Jake: the disposal cutaway is in two different windows): one click swaps the whole body for its half. Hands pass 2026-10-05 (CUTAWAY_RULES entry 1): the mount (rings with an open throat), the lower mounting ring, the splash guard, the grind chamber, the stator and the discharge tube and 90 are cut on the same plane through the motor axis and the outlet bore, back half kept; the shaft, rotor, bearings, seal and turntable stay whole. The faucet's own half (faucet_pulldown_section, the handle side kept) comes in by elevation's generic pass, as before."
    },
    "addon": {
     "reverse_osmosis": {
@@ -126,7 +146,10 @@
       "deck_plug_ro"
      ]
     }
-   }
+   },
+   "states": [
+    "trap_metal_corroded"
+   ]
   },
   {
    "socket": "sock_vanity_hall_bath",
@@ -140,7 +163,9 @@
     "wall_stub",
     "stopper_gunk",
     "aerator_scale",
-    "faucet_base_drip"
+    "faucet_base_drip",
+    "stop_hot_esc",
+    "stop_cold_esc"
    ],
    "note": "Replaces fix_sink_hall_bath. Round 17 (Jake: no mirror, fake looking sink, doors missing trim, a flat plane under the bowl, the trap not matching the wall stub): the model's back plane (0.30) lands ON the wall face, its own mirror shows, its PVC wall stub is hidden because the house drain starts at the trap arm's end inside the trap adapter hub, and the fault states the hide patterns do not catch are listed. bowl_water is collapsed into the drain until the faucet runs, so it shows.",
    "replaces": [
@@ -153,7 +178,22 @@
    ],
    "show": [
     "bowl_water"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "vanity_top": "vanity_top_section",
+     "popup_drain": "popup_drain_section",
+     "tailpiece": "tailpiece_section",
+     "j_bend": "j_bend_section",
+     "j_nut_in": "j_nut_in_section",
+     "j_washer_in": "j_washer_in_section",
+     "trap_water": "trap_water_section",
+     "trap_water_top": "trap_water_top_section",
+     "bowl_water": "bowl_water_section"
+    },
+    "also_hide": [],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13): one plane through the drain's axis, the front half off, cut faces in the house orange (each section carries cut_open [0,-1,0] in the model frame, [0,0,1] in glTF). One click swaps every pair; elevation does the same and clips the cabinet and doors at the plane as it does the kitchen sink's. The stopper, the pivot rod and the wall bend stay whole (working parts)."
+   }
   },
   {
    "socket": "sock_vanity_master_bath",
@@ -167,7 +207,9 @@
     "wall_stub",
     "stopper_gunk",
     "aerator_scale",
-    "faucet_base_drip"
+    "faucet_base_drip",
+    "stop_hot_esc",
+    "stop_cold_esc"
    ],
    "note": "One 30 in vanity on the west wall. Round 17 (Jake: no mirror, fake looking sink, doors missing trim, a flat plane under the bowl, the trap not matching the wall stub): the model's back plane (0.30) lands ON the wall face, its own mirror shows, its PVC wall stub is hidden because the house drain starts at the trap arm's end inside the trap adapter hub, and the fault states the hide patterns do not catch are listed. bowl_water is collapsed into the drain until the faucet runs, so it shows.",
    "replaces": [
@@ -180,7 +222,22 @@
    ],
    "show": [
     "bowl_water"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "vanity_top": "vanity_top_section",
+     "popup_drain": "popup_drain_section",
+     "tailpiece": "tailpiece_section",
+     "j_bend": "j_bend_section",
+     "j_nut_in": "j_nut_in_section",
+     "j_washer_in": "j_washer_in_section",
+     "trap_water": "trap_water_section",
+     "trap_water_top": "trap_water_top_section",
+     "bowl_water": "bowl_water_section"
+    },
+    "also_hide": [],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13): one plane through the drain's axis, the front half off, cut faces in the house orange (each section carries cut_open [0,-1,0] in the model frame, [0,0,1] in glTF). One click swaps every pair; elevation does the same and clips the cabinet and doors at the plane as it does the kitchen sink's. The stopper, the pivot rod and the wall bend stay whole (working parts)."
+   }
   },
   {
    "socket": "sock_toilet_wc",
@@ -218,13 +275,28 @@
      "tank_water": "tank_water_half",
      "trap_flow": "trap_flow_half",
      "rim_flow": "rim_flow_half",
-     "flange": "flange_section"
+     "flange": "flange_section",
+     "wax_ring": "wax_ring_section",
+     "spud_gasket": "spud_gasket_section"
     },
     "also_hide": [
      "seat_lid",
-     "seat_hinges"
+     "hinge_pin",
+     "hinge_post_right",
+     "hinge_cap_right",
+     "seat_bolt_right",
+     "seat_nut_right",
+     "tank_bolt_right",
+     "tank_bolt_seal_right",
+     "tank_nut_right",
+     "tank_nut_washer_right",
+     "bolt_cap_right",
+     "bolt_cap_base_right",
+     "closet_washer_right",
+     "closet_nut_right",
+     "closet_bolt_right"
     ],
-    "note": "Round 18 (Jake: 'when you click the side of it, the whole cutaway should happen. The bowl, the trap, side of the tank, everything'). A click on any of these parts swaps every one of them for its half at once; a second click puts them all back. The lid and hinges come off while it is open."
+    "note": "Round 18 (Jake: 'when you click the side of it, the whole cutaway should happen. The bowl, the trap, side of the tank, everything'). A click on any of these parts swaps every one of them for its half at once; a second click puts them all back. The lid comes off while it is open. Round 101 (CUTAWAY_RULES entry 14, the hands pass): the seat's half is the seat ring alone with the kept half of the hinge pin; the wax ring and the spud gasket (both on the flow path) are halved on the plane; the right side's hinge post, cap, bolt and nut, tank bolt, seal, washer and nut, and the right closet bolt's cap, base, washer and nut leave with the removed half (the closet bolts stand beside the flange now: the left one stays whole, the right one leaves). seat_hinges is an empty now, so the hinge parts are named one by one."
    },
    "addon": {
     "bidet": {
@@ -272,13 +344,28 @@
      "tank_water": "tank_water_half",
      "trap_flow": "trap_flow_half",
      "rim_flow": "rim_flow_half",
-     "flange": "flange_section"
+     "flange": "flange_section",
+     "wax_ring": "wax_ring_section",
+     "spud_gasket": "spud_gasket_section"
     },
     "also_hide": [
      "seat_lid",
-     "seat_hinges"
+     "hinge_pin",
+     "hinge_post_right",
+     "hinge_cap_right",
+     "seat_bolt_right",
+     "seat_nut_right",
+     "tank_bolt_right",
+     "tank_bolt_seal_right",
+     "tank_nut_right",
+     "tank_nut_washer_right",
+     "bolt_cap_right",
+     "bolt_cap_base_right",
+     "closet_washer_right",
+     "closet_nut_right",
+     "closet_bolt_right"
     ],
-    "note": "Round 18 (Jake: 'when you click the side of it, the whole cutaway should happen. The bowl, the trap, side of the tank, everything'). A click on any of these parts swaps every one of them for its half at once; a second click puts them all back. The lid and hinges come off while it is open."
+    "note": "Round 18 (Jake: 'when you click the side of it, the whole cutaway should happen. The bowl, the trap, side of the tank, everything'). A click on any of these parts swaps every one of them for its half at once; a second click puts them all back. The lid comes off while it is open. Round 101 (CUTAWAY_RULES entry 14, the hands pass): the seat's half is the seat ring alone with the kept half of the hinge pin; the wax ring and the spud gasket (both on the flow path) are halved on the plane; the right side's hinge post, cap, bolt and nut, tank bolt, seal, washer and nut, and the right closet bolt's cap, base, washer and nut leave with the removed half (the closet bolts stand beside the flange now: the left one stays whole, the right one leaves). seat_hinges is an empty now, so the hinge parts are named one by one."
    },
    "note": "Round 18 hall bath (Jake: six inches between the front of the toilet and the tub, fix this layout once for all): the toilet faces down the room from a 42 in ledge wall on the north wall beside the tub, 18-1/2 in from its centre to the tub apron and to the east wall, 6 ft of floor in front of it. Its supply and vent live in the ledge wall, not the outside wall. ballcock is the old style fill valve state; closet_bend belongs to the pipe layer.",
    "addon": {
@@ -334,7 +421,8 @@
     "wall_back",
     "wall_right",
     "overflow_plate",
-    "waste_overflow"
+    "waste_overflow",
+    "grip_overflow_plate"
    ],
    "reveal": {
     "trigger": [
@@ -342,7 +430,8 @@
     ],
     "hide": [
      "valve_wall",
-     "escutcheon",
+     "escutcheon_hot",
+     "escutcheon_cold",
      "stop_tube"
     ],
     "show": [
@@ -403,7 +492,8 @@
     "wall_back",
     "wall_right",
     "overflow_plate",
-    "waste_overflow"
+    "waste_overflow",
+    "grip_overflow_plate"
    ],
    "reveal": {
     "trigger": [
@@ -411,7 +501,8 @@
     ],
     "hide": [
      "valve_wall",
-     "escutcheon",
+     "escutcheon_hot",
+     "escutcheon_cold",
      "stop_tube"
     ],
     "show": [
@@ -474,7 +565,8 @@
     "overflow_plate",
     "waste_overflow",
     "glass_doors",
-    "door_glass"
+    "door_glass",
+    "grip_overflow_plate"
    ],
    "reveal": {
     "trigger": [
@@ -544,7 +636,8 @@
     "overflow_plate",
     "waste_overflow",
     "glass_doors",
-    "door_glass"
+    "door_glass",
+    "grip_overflow_plate"
    ],
    "reveal": {
     "trigger": [
@@ -988,7 +1081,24 @@
    ],
    "show": [
     "heat_stream"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "louver_front": "louver_front_section",
+     "louver_right": "louver_right_section",
+     "cabinet_posts": "cabinet_posts_section",
+     "condenser_coil": "condenser_coil_section",
+     "coil_dirty": "coil_dirty_section",
+     "fan_grille": "fan_grille_section",
+     "top_cap": "top_cap_section",
+     "orifice_ring": "orifice_ring_section"
+    },
+    "also_hide": [
+     "corner_louver_front_right",
+     "rheem_badge"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13, rule 8): a quarter wedge out of the front right corner (toward the yard): louvers, posts, coil, guard, top and orifice cut on two planes through the axis; compressor and fan whole."
+   }
   },
   {
    "socket": "sock_ahu_closet_hall",
@@ -1075,7 +1185,24 @@
    ],
    "show": [
     "heat_stream"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "louver_front": "louver_front_section",
+     "louver_right": "louver_right_section",
+     "cabinet_posts": "cabinet_posts_section",
+     "condenser_coil": "condenser_coil_section",
+     "coil_dirty": "coil_dirty_section",
+     "fan_grille": "fan_grille_section",
+     "top_cap": "top_cap_section",
+     "orifice_ring": "orifice_ring_section"
+    },
+    "also_hide": [
+     "corner_louver_front_right",
+     "rheem_badge"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13, rule 8): a quarter wedge out of the front right corner (toward the yard): louvers, posts, coil, guard, top and orifice cut on two planes through the axis; compressor and fan whole."
+   }
   },
   {
    "socket": "sock_ahu_closet_hall",
@@ -1301,7 +1428,18 @@
     "heat_glow_2",
     "supply_air",
     "supply_air_heat"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "cabinet": "cabinet_section",
+     "insulation": "insulation_section"
+    },
+    "also_hide": [
+     "blower_door",
+     "coil_door"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13, rule 8): the doors come off and the side that faces up laid over is cut back to a window with its corners kept, its liner with it."
+   }
   },
   {
    "socket": "sock_ahu_attic",
@@ -1353,7 +1491,18 @@
     "heat_glow_2",
     "supply_air",
     "supply_air_heat"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "cabinet": "cabinet_section",
+     "insulation": "insulation_section"
+    },
+    "also_hide": [
+     "blower_door",
+     "coil_door"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13, rule 8): the doors come off and the side that faces up laid over is cut back to a window with its corners kept, its liner with it."
+   }
   },
   {
    "socket": "sock_cond_side",
@@ -1380,7 +1529,25 @@
    ],
    "show": [
     "heat_stream"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "louver_front": "louver_front_section",
+     "louver_right": "louver_right_section",
+     "cabinet_posts": "cabinet_posts_section",
+     "condenser_coil": "condenser_coil_section",
+     "coil_dirty": "coil_dirty_section",
+     "fan_grille": "fan_grille_section",
+     "top_cap": "top_cap_section",
+     "orifice_ring": "orifice_ring_section",
+     "coil_frost": "coil_frost_section"
+    },
+    "also_hide": [
+     "corner_louver_front_right",
+     "rheem_badge"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13, rule 8): a quarter wedge out of the front right corner (toward the yard): louvers, posts, coil, guard, top and orifice cut on two planes through the axis; compressor and fan whole."
+   }
   },
   {
    "socket": "sock_cond_side",
@@ -1407,7 +1574,25 @@
    ],
    "show": [
     "heat_stream"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "louver_front": "louver_front_section",
+     "louver_right": "louver_right_section",
+     "cabinet_posts": "cabinet_posts_section",
+     "condenser_coil": "condenser_coil_section",
+     "coil_dirty": "coil_dirty_section",
+     "fan_grille": "fan_grille_section",
+     "top_cap": "top_cap_section",
+     "orifice_ring": "orifice_ring_section",
+     "coil_frost": "coil_frost_section"
+    },
+    "also_hide": [
+     "corner_louver_front_right",
+     "rheem_badge"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13, rule 8): a quarter wedge out of the front right corner (toward the yard): louvers, posts, coil, guard, top and orifice cut on two planes through the axis; compressor and fan whole."
+   }
   },
   {
    "socket": "sock_cond_side",
@@ -1662,7 +1847,38 @@
     "inlet_stub"
    ],
    "config": "sewer=septic_spray",
-   "note": "Default: the Lee Precast 520 GPD plant straight west of the kitchen so the sewer runs straight out of the wall (Jake). Its own blower, panel and spray field are hidden: the blower and panel sit at the house (sock_atu_blower_panel) and the heads come from spray_head_v001 at sock_spray_1..3. 2026-09-12: the pool tablet swap, the fouled intake, the tangled float and the chafed cord are fault states and were showing in the default plant, because Blender's hide does not travel in a GLB. 2026-09-13: inlet_stub is the tank's own feed pipe for viewing it alone; in the house the sewer runs through the wall boot into the inlet tee."
+   "note": "Default: the Lee Precast 520 GPD plant straight west of the kitchen so the sewer runs straight out of the wall (Jake). Its own blower, panel and spray field are hidden: the blower and panel sit at the house (sock_atu_blower_panel) and the heads come from spray_head_v001 at sock_spray_1..3. 2026-09-12: the pool tablet swap, the fouled intake, the tangled float and the chafed cord are fault states and were showing in the default plant, because Blender's hide does not travel in a GLB. 2026-09-13: inlet_stub is the tank's own feed pipe for viewing it alone; in the house the sewer runs through the wall boot into the inlet tee.",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "water_inlet": "water_inlet_section",
+     "water_aer": "water_aer_section",
+     "water_clar": "water_clar_section",
+     "water_pump": "water_pump_section",
+     "sludge": "sludge_section",
+     "scum_inlet": "scum_inlet_section",
+     "riser_pump": "riser_pump_section",
+     "riser_aer": "riser_aer_section",
+     "riser_inlet": "riser_inlet_section",
+     "lid_pump": "lid_pump_section",
+     "lid_aer": "lid_aer_section",
+     "lid_inlet": "lid_inlet_section",
+     "bolts_pump": "bolts_pump_section",
+     "bolts_aer": "bolts_aer_section",
+     "bolts_inlet": "bolts_inlet_section",
+     "inlet": "inlet_section",
+     "inlet_boot": "inlet_boot_section",
+     "transfer": "transfer_section",
+     "chlor_tee_drop": "chlor_tee_drop_section",
+     "chlor_feed_tube": "chlor_feed_tube_section",
+     "bubbles": "bubbles_section"
+    },
+    "also_hide": [
+     "cleanout",
+     "cleanout_cap"
+    ],
+    "note": "Hands pass row 6 (CUTAWAY_RULES entries 2 and 19): one click on the tank (or any pair) opens the whole plant on its centre line: the -y half kept, so the pump chamber's parts stand on the kept side; risers, lids, screws, the inlet tee, the transfer and the chlorinator halved on the same plane; the bubbles and the scum cut with it; the cleanout (wholly on the removed side) goes with the cut."
+   }
   },
   {
    "socket": "sock_atu_back",
@@ -1712,7 +1928,35 @@
     "junction_box"
    ],
    "config": "sewer=septic_overland_lee",
-   "note": "Lee precast in its OVERLAND layout (round 17, Jake: the Lee has an overland option). Built with MODE overland: a 4 in gravity outlet through the pump-chamber end wall with a quarter bend down inside, the chamber holding water to its invert; the pump, float, discharge and conduit are hidden. Its own blower and panel are hidden: the air pump is at the house with no panel (atu_blower_outlet.glb)."
+   "note": "Lee precast in its OVERLAND layout (round 17, Jake: the Lee has an overland option). Built with MODE overland: a 4 in gravity outlet through the pump-chamber end wall with a quarter bend down inside, the chamber holding water to its invert; the pump, float, discharge and conduit are hidden. Its own blower and panel are hidden: the air pump is at the house with no panel (atu_blower_outlet.glb).",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "water_inlet": "water_inlet_section",
+     "water_aer": "water_aer_section",
+     "water_clar": "water_clar_section",
+     "water_pump": "water_pump_section",
+     "sludge": "sludge_section",
+     "scum_inlet": "scum_inlet_section",
+     "riser_pump": "riser_pump_section",
+     "riser_aer": "riser_aer_section",
+     "riser_inlet": "riser_inlet_section",
+     "lid_pump": "lid_pump_section",
+     "lid_aer": "lid_aer_section",
+     "lid_inlet": "lid_inlet_section",
+     "bolts_pump": "bolts_pump_section",
+     "bolts_aer": "bolts_aer_section",
+     "bolts_inlet": "bolts_inlet_section",
+     "inlet": "inlet_section",
+     "inlet_boot": "inlet_boot_section",
+     "transfer": "transfer_section",
+     "chlor_tee_drop": "chlor_tee_drop_section",
+     "chlor_feed_tube": "chlor_feed_tube_section",
+     "bubbles": "bubbles_section"
+    },
+    "also_hide": [],
+    "note": "Hands pass row 6: the overland plant keeps its +y half (its gravity outlet stands at y +0.30; the pump is hidden), so the cut opens to -y as before; the same pairs."
+   }
   },
   {
    "socket": "sock_spray_1",
@@ -1722,7 +1966,8 @@
    "yaw": 0,
    "hide": [
     "grass",
-    "spray_pattern"
+    "spray_pattern",
+    "spray_tee_cap_b"
    ],
    "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train",
    "arc": 360,
@@ -2169,7 +2414,32 @@
     0,
     0
    ],
-   "elevation_group": "two_tank_spray"
+   "elevation_group": "two_tank_spray",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "water": "water_section",
+     "seam": "seam_section",
+     "riser": "riser_section",
+     "riser_adapter": "riser_adapter_section",
+     "lid": "lid_section",
+     "lid_bolts": "lid_bolts_section",
+     "inlet": "inlet_section",
+     "inlet_gasket": "inlet_gasket_section"
+    },
+    "also_hide": [
+     "lid_cracked",
+     "lid_bolt0",
+     "lid_bolt1",
+     "lid_bolt2",
+     "lid_bolt3",
+     "lid_bolt4",
+     "lid_bolt5",
+     "lid_bolt6",
+     "lid_bolt7"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entries 2 and 16): one click on the tank, a tee, the riser or the seam swaps the whole set for its halves on the tank's plane (y = 0, cut_open [0, -1, 0]: the house side): the seam and its clips, the riser, its adapter ring and screws, the lid and its screws, the inlet tee and gasket, the tank and the water. The pump, the float, the union, the discharge and the cords stay whole (rule 2). The cracks on the lid go while it is open. The eight lid screws are listed under also_hide by name: lid_bolts is an empty now, and the click's swap (sectionSet) only switches meshes, so without them the removed half's screws stood in the air (seen on the harness, 2026-10-05); elevation hides the empty and its children by itself."
+   }
   },
   {
    "socket": "sock_pump_tank_back",
@@ -2210,7 +2480,32 @@
     0
    ],
    "elevation_group": "two_tank_spray",
-   "slab_of": "pump_tank.glb"
+   "slab_of": "pump_tank.glb",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "water": "water_section",
+     "seam": "seam_section",
+     "riser": "riser_section",
+     "riser_adapter": "riser_adapter_section",
+     "lid": "lid_section",
+     "lid_bolts": "lid_bolts_section",
+     "inlet": "inlet_section",
+     "inlet_gasket": "inlet_gasket_section"
+    },
+    "also_hide": [
+     "lid_cracked",
+     "lid_bolt0",
+     "lid_bolt1",
+     "lid_bolt2",
+     "lid_bolt3",
+     "lid_bolt4",
+     "lid_bolt5",
+     "lid_bolt6",
+     "lid_bolt7"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entries 2 and 16): one click on the tank, a tee, the riser or the seam swaps the whole set for its halves on the tank's plane (y = 0, cut_open [0, -1, 0]: the house side): the seam and its clips, the riser, its adapter ring and screws, the lid and its screws, the inlet tee and gasket, the tank and the water. The pump, the float, the union, the discharge and the cords stay whole (rule 2). The cracks on the lid go while it is open. The eight lid screws are listed under also_hide by name: lid_bolts is an empty now, and the click's swap (sectionSet) only switches meshes, so without them the removed half's screws stood in the air (seen on the harness, 2026-10-05); elevation hides the empty and its children by itself."
+   }
   },
   {
    "socket": "sock_pump_tank_back",
@@ -2306,7 +2601,18 @@
     0.856,
     4.572,
     0
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "basin": "basin_section",
+     "riser": "riser_section",
+     "lid": "lid_section",
+     "inlet_grommet": "inlet_grommet_section",
+     "water_fill": "water_fill_section"
+    },
+    "also_hide": [],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 2): Cut it open did nothing on this basin (the 1 cm plane on a click). One click now swaps the basin, the riser, the cover (with its vent and the bolts on the kept half) and the inlet grommet for their halves, and the driven water for its half; a second click puts them back. The halves keep +y (model) and open toward -y, written on each as cut_open; the cut faces are the house cut colour. The pump, the riser pipe, the check, the floats and the chain stay whole (rule 2). lid_section rides lid_off, so a cut taken with the cover off shows it off."
+   }
   },
   {
    "socket": "sock_lift_back",
@@ -2350,7 +2656,18 @@
     4.572,
     0
    ],
-   "slab_of": "lift_station_r12.glb"
+   "slab_of": "lift_station_r12.glb",
+   "section_set": {
+    "pairs": {
+     "basin": "basin_section",
+     "riser": "riser_section",
+     "lid": "lid_section",
+     "inlet_grommet": "inlet_grommet_section",
+     "water_fill": "water_fill_section"
+    },
+    "also_hide": [],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 2): Cut it open did nothing on this basin (the 1 cm plane on a click). One click now swaps the basin, the riser, the cover (with its vent and the bolts on the kept half) and the inlet grommet for their halves, and the driven water for its half; a second click puts them back. The halves keep +y (model) and open toward -y, written on each as cut_open; the cut faces are the house cut colour. The pump, the riser pipe, the check, the floats and the chain stay whole (rule 2). lid_section rides lid_off, so a cut taken with the cover off shows it off."
+   }
   },
   {
    "socket": "sock_overland_back",
@@ -2991,16 +3308,29 @@
     "soil",
     "soil_section",
     "sewer_line",
-    "force_main",
-    "basin_section",
-    "water_fill_section"
+    "force_main"
    ],
    "config": "sewer=city_lift_duplex&foundation=crawl",
    "alternate": true,
    "show": [
     "water_fill"
    ],
-   "note": "Round 78 (Jake 2026-09-21): the duplex grinder station (lift_station_duplex, Liberty D3672 on GR20 rails). Basin centre at house (-9.9968, 7.62): on the simplex station's sewer line and on the force main's line to the west manhole. sock_lift_back is rot 90 and yaw 180 makes 270 in all: the model's +y (inlet) faces the house (east), its +x (bulkhead) faces the street (south), its -x (JB70) faces north. offset = R(270) inverse of (centre - socket). The house draws the sewer in, the 2 in force main out and the conduit to the JB70 (build_pipes.py)."
+   "note": "Round 78 (Jake 2026-09-21): the duplex grinder station (lift_station_duplex, Liberty D3672 on GR20 rails). Basin centre at house (-9.9968, 7.62): on the simplex station's sewer line and on the force main's line to the west manhole. sock_lift_back is rot 90 and yaw 180 makes 270 in all: the model's +y (inlet) faces the house (east), its +x (bulkhead) faces the street (south), its -x (JB70) faces north. offset = R(270) inverse of (centre - socket). The house draws the sewer in, the 2 in force main out and the conduit to the JB70 (build_pipes.py).",
+   "section_set": {
+    "pairs": {
+     "basin": "basin_section",
+     "water_fill": "water_fill_section"
+    },
+    "also_hide": [
+     "lid_rim",
+     "lid_gasket_rim",
+     "lid_bolt_3",
+     "lid_bolt_4",
+     "lid_bolt_5",
+     "lid_bolt_6"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 10): a click on the basin or its water opens the window: the -x half of the wall comes away from just over the bottom flange to 0.63 m under the rim (cut faces capped in the cut colour), the water is halved on the same plane and stays see through; the top band keeps the JB70, the float bracket, the chain hooks and the cover, the floor stays under the pumps; the flange lips and the cover's rim are cut back to the wall's line on the open side (also_hide: lid_rim with the four bolts and half gasket on it). Pumps, rails, risers, valves and floats stay whole. A second click closes it. Each _section carries cut_open [-1, 0, 0] (model frame)."
+   }
   },
   {
    "socket": "sock_lift_back",
@@ -3019,9 +3349,7 @@
     "soil",
     "soil_section",
     "sewer_line",
-    "force_main",
-    "basin_section",
-    "water_fill_section"
+    "force_main"
    ],
    "config": "sewer=city_lift_duplex&foundation=slab",
    "alternate": true,
@@ -3029,7 +3357,22 @@
     "water_fill"
    ],
    "note": "Round 78 (Jake 2026-09-21): the duplex grinder station (lift_station_duplex, Liberty D3672 on GR20 rails). Basin centre at house (-9.9968, 7.62): on the simplex station's sewer line and on the force main's line to the west manhole. sock_lift_back is rot 90 and yaw 180 makes 270 in all: the model's +y (inlet) faces the house (east), its +x (bulkhead) faces the street (south), its -x (JB70) faces north. offset = R(270) inverse of (centre - socket). The house draws the sewer in, the 2 in force main out and the conduit to the JB70 (build_pipes.py).",
-   "slab_of": "lift_station_duplex.glb"
+   "slab_of": "lift_station_duplex.glb",
+   "section_set": {
+    "pairs": {
+     "basin": "basin_section",
+     "water_fill": "water_fill_section"
+    },
+    "also_hide": [
+     "lid_rim",
+     "lid_gasket_rim",
+     "lid_bolt_3",
+     "lid_bolt_4",
+     "lid_bolt_5",
+     "lid_bolt_6"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 10): a click on the basin or its water opens the window: the -x half of the wall comes away from just over the bottom flange to 0.63 m under the rim (cut faces capped in the cut colour), the water is halved on the same plane and stays see through; the top band keeps the JB70, the float bracket, the chain hooks and the cover, the floor stays under the pumps; the flange lips and the cover's rim are cut back to the wall's line on the open side (also_hide: lid_rim with the four bolts and half gasket on it). Pumps, rails, risers, valves and floats stay whole. A second click closes it. Each _section carries cut_open [-1, 0, 0] (model frame)."
+   }
   },
   {
    "socket": "sock_lift_back",
@@ -3240,7 +3583,34 @@
    "config": "sewer=septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train&foundation=crawl",
    "alternate": true,
    "note": "2026-09-23 (Jake: \"I like the trash tank idea. Let's do that. You can use the 540 Infiltrator. Just put that in front\"): the trash tank, a primary settling tank in FRONT of the Lee plant, so the house sewer runs house, trash tank, plant. The IM-540 built with its outlet end (build_pump_tank.py MODE trash, 11 in of cover): the house sewer through the inlet saddle's gasket into the inlet tee, the effluent out of the outlet tee (3 in lower, dipping 40 percent of the liquid) through the outlet gasket to the Lee. It has NO pump, float or wiring, so those are hidden here with the model's own spray field, chlorinator and the two stubs it carries for being viewed alone.",
-   "elevation_group": "fiberglass_train"
+   "elevation_group": "fiberglass_train",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "water": "water_section",
+     "seam": "seam_section",
+     "riser": "riser_section",
+     "riser_adapter": "riser_adapter_section",
+     "lid": "lid_section",
+     "lid_bolts": "lid_bolts_section",
+     "inlet": "inlet_section",
+     "inlet_gasket": "inlet_gasket_section",
+     "outlet": "outlet_section",
+     "outlet_gasket": "outlet_gasket_section"
+    },
+    "also_hide": [
+     "lid_cracked",
+     "lid_bolt0",
+     "lid_bolt1",
+     "lid_bolt2",
+     "lid_bolt3",
+     "lid_bolt4",
+     "lid_bolt5",
+     "lid_bolt6",
+     "lid_bolt7"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entries 2 and 16): one click on the tank, a tee, the riser or the seam swaps the whole set for its halves on the tank's plane (y = 0, cut_open [0, -1, 0]: the house side): the seam and its clips, the riser, its adapter ring and screws, the lid and its screws, the inlet tee and gasket and the outlet tee and gasket, the tank and the water. The pump, the float, the union, the discharge and the cords stay whole (rule 2). The cracks on the lid go while it is open. The eight lid screws are listed under also_hide by name: lid_bolts is an empty now, and the click's swap (sectionSet) only switches meshes, so without them the removed half's screws stood in the air (seen on the harness, 2026-10-05); elevation hides the empty and its children by itself."
+   }
   },
   {
    "socket": "sock_trash_tank_back",
@@ -3306,7 +3676,34 @@
    "alternate": true,
    "note": "2026-09-23 (Jake: \"I like the trash tank idea. Let's do that. You can use the 540 Infiltrator. Just put that in front\"): the trash tank, a primary settling tank in FRONT of the Lee plant, so the house sewer runs house, trash tank, plant. The IM-540 built with its outlet end (build_pump_tank.py MODE trash, 11 in of cover): the house sewer through the inlet saddle's gasket into the inlet tee, the effluent out of the outlet tee (3 in lower, dipping 40 percent of the liquid) through the outlet gasket to the Lee. It has NO pump, float or wiring, so those are hidden here with the model's own spray field, chlorinator and the two stubs it carries for being viewed alone.",
    "elevation_group": "fiberglass_train",
-   "slab_of": "pump_tank_trash.glb"
+   "slab_of": "pump_tank_trash.glb",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "water": "water_section",
+     "seam": "seam_section",
+     "riser": "riser_section",
+     "riser_adapter": "riser_adapter_section",
+     "lid": "lid_section",
+     "lid_bolts": "lid_bolts_section",
+     "inlet": "inlet_section",
+     "inlet_gasket": "inlet_gasket_section",
+     "outlet": "outlet_section",
+     "outlet_gasket": "outlet_gasket_section"
+    },
+    "also_hide": [
+     "lid_cracked",
+     "lid_bolt0",
+     "lid_bolt1",
+     "lid_bolt2",
+     "lid_bolt3",
+     "lid_bolt4",
+     "lid_bolt5",
+     "lid_bolt6",
+     "lid_bolt7"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entries 2 and 16): one click on the tank, a tee, the riser or the seam swaps the whole set for its halves on the tank's plane (y = 0, cut_open [0, -1, 0]: the house side): the seam and its clips, the riser, its adapter ring and screws, the lid and its screws, the inlet tee and gasket and the outlet tee and gasket, the tank and the water. The pump, the float, the union, the discharge and the cords stay whole (rule 2). The cracks on the lid go while it is open. The eight lid screws are listed under also_hide by name: lid_bolts is an empty now, and the click's swap (sectionSet) only switches meshes, so without them the removed half's screws stood in the air (seen on the harness, 2026-10-05); elevation hides the empty and its children by itself."
+   }
   },
   {
    "socket": "sock_atu_trash_back",
@@ -3348,7 +3745,38 @@
    "config": "sewer=septic_spray_trash&foundation=crawl",
    "note": "2026-09-23, the trash tank layout: the same Lee Precast 520 plant, turned on sock_atu_trash_back (-90) so its inlet faces the trash tank in front of it on the train at x -35 ft. It is fed by the trash tank's effluent line, not the house sewer (sim_feed tells the page's plant sim which run fills it). Everything else as the default yard: blower at the house, plug in pump, three heads. Round 90 (Jake 2026-09-25: the trash tank's sewer at a full quarter inch per foot): septic_lee_trash.glb, the same plant built at 13 in of cover, so the train sits an inch deeper with the effluent's fall unchanged; the lids are at grade.",
    "alternate": true,
-   "sim_feed": "^pipe_dwv_effluent_trash$"
+   "sim_feed": "^pipe_dwv_effluent_trash$",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "water_inlet": "water_inlet_section",
+     "water_aer": "water_aer_section",
+     "water_clar": "water_clar_section",
+     "water_pump": "water_pump_section",
+     "sludge": "sludge_section",
+     "scum_inlet": "scum_inlet_section",
+     "riser_pump": "riser_pump_section",
+     "riser_aer": "riser_aer_section",
+     "riser_inlet": "riser_inlet_section",
+     "lid_pump": "lid_pump_section",
+     "lid_aer": "lid_aer_section",
+     "lid_inlet": "lid_inlet_section",
+     "bolts_pump": "bolts_pump_section",
+     "bolts_aer": "bolts_aer_section",
+     "bolts_inlet": "bolts_inlet_section",
+     "inlet": "inlet_section",
+     "inlet_boot": "inlet_boot_section",
+     "transfer": "transfer_section",
+     "chlor_tee_drop": "chlor_tee_drop_section",
+     "chlor_feed_tube": "chlor_feed_tube_section",
+     "bubbles": "bubbles_section"
+    },
+    "also_hide": [
+     "cleanout",
+     "cleanout_cap"
+    ],
+    "note": "as septic_lee.glb"
+   }
   },
   {
    "socket": "sock_atu_trash_back",
@@ -3391,7 +3819,38 @@
    "note": "2026-09-23, the trash tank layout: the same Lee Precast 520 plant, turned on sock_atu_trash_back (-90) so its inlet faces the trash tank in front of it on the train at x -35 ft. It is fed by the trash tank's effluent line, not the house sewer (sim_feed tells the page's plant sim which run fills it). Everything else as the default yard: blower at the house, plug in pump, three heads. Round 90 (Jake 2026-09-25: the trash tank's sewer at a full quarter inch per foot): septic_lee_trash.glb, the same plant built at 13 in of cover, so the train sits an inch deeper with the effluent's fall unchanged; the lids are at grade.",
    "alternate": true,
    "sim_feed": "^pipe_dwv_effluent_trash$",
-   "slab_of": "septic_lee_trash.glb"
+   "slab_of": "septic_lee_trash.glb",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "water_inlet": "water_inlet_section",
+     "water_aer": "water_aer_section",
+     "water_clar": "water_clar_section",
+     "water_pump": "water_pump_section",
+     "sludge": "sludge_section",
+     "scum_inlet": "scum_inlet_section",
+     "riser_pump": "riser_pump_section",
+     "riser_aer": "riser_aer_section",
+     "riser_inlet": "riser_inlet_section",
+     "lid_pump": "lid_pump_section",
+     "lid_aer": "lid_aer_section",
+     "lid_inlet": "lid_inlet_section",
+     "bolts_pump": "bolts_pump_section",
+     "bolts_aer": "bolts_aer_section",
+     "bolts_inlet": "bolts_inlet_section",
+     "inlet": "inlet_section",
+     "inlet_boot": "inlet_boot_section",
+     "transfer": "transfer_section",
+     "chlor_tee_drop": "chlor_tee_drop_section",
+     "chlor_feed_tube": "chlor_feed_tube_section",
+     "bubbles": "bubbles_section"
+    },
+    "also_hide": [
+     "cleanout",
+     "cleanout_cap"
+    ],
+    "note": "as septic_lee.glb"
+   }
   },
   {
    "socket": "sock_atu_trash_back",
@@ -4460,7 +4919,32 @@
     0
    ],
    "elevation_group": "fiberglass_train",
-   "sim_feed": "^pipe_dwv_effluent_fglass_pt$"
+   "sim_feed": "^pipe_dwv_effluent_fglass_pt$",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "water": "water_section",
+     "seam": "seam_section",
+     "riser": "riser_section",
+     "riser_adapter": "riser_adapter_section",
+     "lid": "lid_section",
+     "lid_bolts": "lid_bolts_section",
+     "inlet": "inlet_section",
+     "inlet_gasket": "inlet_gasket_section"
+    },
+    "also_hide": [
+     "lid_cracked",
+     "lid_bolt0",
+     "lid_bolt1",
+     "lid_bolt2",
+     "lid_bolt3",
+     "lid_bolt4",
+     "lid_bolt5",
+     "lid_bolt6",
+     "lid_bolt7"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entries 2 and 16): one click on the tank, a tee, the riser or the seam swaps the whole set for its halves on the tank's plane (y = 0, cut_open [0, -1, 0]: the house side): the seam and its clips, the riser, its adapter ring and screws, the lid and its screws, the inlet tee and gasket, the tank and the water. The pump, the float, the union, the discharge and the cords stay whole (rule 2). The cracks on the lid go while it is open. The eight lid screws are listed under also_hide by name: lid_bolts is an empty now, and the click's swap (sectionSet) only switches meshes, so without them the removed half's screws stood in the air (seen on the harness, 2026-10-05); elevation hides the empty and its children by itself."
+   }
   },
   {
    "socket": "sock_pump_tank_train_back",
@@ -4502,7 +4986,32 @@
    ],
    "elevation_group": "fiberglass_train",
    "sim_feed": "^pipe_dwv_effluent_fglass_pt$",
-   "slab_of": "pump_tank_train.glb"
+   "slab_of": "pump_tank_train.glb",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "water": "water_section",
+     "seam": "seam_section",
+     "riser": "riser_section",
+     "riser_adapter": "riser_adapter_section",
+     "lid": "lid_section",
+     "lid_bolts": "lid_bolts_section",
+     "inlet": "inlet_section",
+     "inlet_gasket": "inlet_gasket_section"
+    },
+    "also_hide": [
+     "lid_cracked",
+     "lid_bolt0",
+     "lid_bolt1",
+     "lid_bolt2",
+     "lid_bolt3",
+     "lid_bolt4",
+     "lid_bolt5",
+     "lid_bolt6",
+     "lid_bolt7"
+    ],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entries 2 and 16): one click on the tank, a tee, the riser or the seam swaps the whole set for its halves on the tank's plane (y = 0, cut_open [0, -1, 0]: the house side): the seam and its clips, the riser, its adapter ring and screws, the lid and its screws, the inlet tee and gasket, the tank and the water. The pump, the float, the union, the discharge and the cords stay whole (rule 2). The cracks on the lid go while it is open. The eight lid screws are listed under also_hide by name: lid_bolts is an empty now, and the click's swap (sectionSet) only switches meshes, so without them the removed half's screws stood in the air (seen on the harness, 2026-10-05); elevation hides the empty and its children by itself."
+   }
   },
   {
    "socket": "sock_pump_tank_train_back",

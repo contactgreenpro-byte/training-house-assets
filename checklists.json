@@ -496,7 +496,7 @@
   },
   "lift_station_duplex": {
    "what": "A duplex grinder station: two grinder pumps on guide rails in one basin, pushing sewage up to the city sewer. Grinders die on rags and wipes; read the float stack from the top down and test the alarm.",
-   "how": "Four floats on a tree run it: STOP and LEAD start the lead pump, LAG brings the second pump on if the water keeps rising, ALARM lights the beacon. The panel swaps the lead pump every cycle so both wear evenly. Each pump lifts out on its chain, up its rail, with nothing to unbolt.",
+   "how": "Four floats hung on their cords from a bracket run it: STOP and LEAD start the lead pump, LAG brings the second pump on if the water keeps rising, ALARM lights the beacon. The panel swaps the lead pump every cycle so both wear evenly. Each pump lifts out on its chain, up its rail, with nothing to unbolt.",
    "checks": [
     "The pump: each one in HAND runs, moves the level, amps against the plate",
     "Floats and cords: free, the sequence stop, lead, lag, alarm proven",

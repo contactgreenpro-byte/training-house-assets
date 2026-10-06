@@ -386,7 +386,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '99b';
+  var SHELL = '100a1';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -852,7 +852,19 @@
   // Round 99 (Jake 2026-10-02: no air gap on the deck here, the dishwasher drain's high loop under the counter is the whole thing).
   // A link the Comms deck still draws to a part the house no longer has lands on the part that does that job instead; the finding
   // card and tools/check_links.mjs read the same table (window.__PART_ALIAS). Model file name, then old part name to new.
-  var PART_ALIAS = { 'kitchen_sink.glb': { air_gap: 'dw_hose' } };
+  // r100a (the model pass, wave A): parts the hands pass split into pieces are now empties (a group with no mesh of its own), and a link
+  // lands only on a visible mesh, so each old name lands on the piece that is the part (each model's hands_pass/rename_map.json).
+  // The air handlers are keyed by the stand in the Comms links name (placements stands_for).
+  var PART_ALIAS = {
+    'kitchen_sink.glb': { air_gap: 'dw_hose', p_trap: 'j_bend', strainer_right: 'strainer_body', stop_hot: 'stop_hot_body', stop_cold: 'stop_cold_body',
+      disc_cartridge: 'cartridge_1255', discharge_elbow: 'discharge_tube', motor: 'stator', waste_tee: 'waste_tee_body', pulldown_hose: 'fc_hose',
+      faucet_handle_pulldown: 'handle_lever_pulldown', trap_metal_corroded: 'j_bend_corroded' },
+    'bath_vanity.glb': { p_trap: 'j_bend', popup_linkage: 'pivot_rod', stop_cold: 'stop_cold_body', stop_hot: 'stop_hot_body', supply_cold: 'supply_cold_hose', supply_hot: 'supply_hot_hose' },
+    'toilet.glb': { tank_bolts: 'tank_bolt_left', bolt_caps: 'bolt_cap_left' },
+    'spray_head_r22.glb': { spray_head: 'head_top' },
+    'spray_head_180_r22.glb': { spray_head: 'head_top' },
+    'hvac_air_handler_horizontal.glb': { uv_light: 'uv_lamp' }
+  };
   window.__PART_ALIAS = PART_ALIAS;
   function showLanding() {
     var W = window.walk, S = SHOW;

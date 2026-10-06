@@ -1,28 +1,6 @@
 {
  "hvac_condenser_ac.glb": {
   "parts": {
-   "cap_lead_c_line": {
-    "terminal": "C",
-    "pull": [
-     0.0,
-     0.0,
-     1.0
-    ],
-    "requires_dead": true,
-    "holds_charge": true,
-    "group": "capacitor",
-    "puts_back_on": [
-     "C",
-     "FAN",
-     "HERM"
-    ],
-    "flag": true,
-    "grab_at": [
-     0.3205,
-     -0.2312,
-     0.6823
-    ]
-   },
    "cap_lead_herm": {
     "terminal": "HERM",
     "pull": [
@@ -40,9 +18,53 @@
     ],
     "flag": true,
     "grab_at": [
-     0.3394,
-     -0.2639,
-     0.6823
+     -0.28,
+     0.3718,
+     0.5324
+    ]
+   },
+   "cap_lead_c_line": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3024,
+     0.3778,
+     0.5324
+    ]
+   },
+   "cap_lead_c_comp": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3083,
+     0.3778,
+     0.5324
     ]
    },
    "cap_lead_fan": {
@@ -62,85 +84,43 @@
     ],
     "flag": true,
     "grab_at": [
-     0.3016,
-     -0.2639,
-     0.6823
-    ]
-   },
-   "cap_lead_c_fan": {
-    "terminal": "C",
-    "pull": [
-     0.0,
-     0.0,
-     1.0
-    ],
-    "requires_dead": true,
-    "holds_charge": true,
-    "group": "capacitor",
-    "puts_back_on": [
-     "C",
-     "FAN",
-     "HERM"
-    ],
-    "flag": true,
-    "grab_at": [
-     0.3205,
-     -0.2396,
-     0.6823
+     -0.2986,
+     0.3473,
+     0.5324
     ]
    }
   },
   "terminals": {
    "C": [
-    0.3205,
-    -0.2354,
-    0.6873
+    -0.3054,
+    0.3808,
+    0.5273
    ],
    "FAN": [
-    0.3053,
-    -0.2618,
-    0.6873
+    -0.2975,
+    0.3513,
+    0.5273
    ],
    "HERM": [
-    0.3357,
-    -0.2618,
-    0.6873
+    -0.2759,
+    0.3729,
+    0.5273
    ]
   },
   "power": {
    "breaker": "hvac",
    "disconnect": "disconnect",
    "holds_charge": true,
-   "charge_v": 370,
-   "charge_note": "a 40 microfarad run capacitor holds its charge after the power is off"
+   "charge_v": 340,
+   "rating_v": 440,
+   "charge_note": "a 45 + 5 microfarad, 440 volt dual run capacitor holds its charge after the power is off (up to the 340 V peak of the 240 V line)"
   },
+  "fault_off": "the contactor pulls in and {lead} is still in your hand: what it fed has no run capacitor, so it hums and will not start, and the compressor trips on its overload",
   "group": "capacitor",
   "unit": "the outdoor unit"
  },
  "hvac_condenser_heatpump.glb": {
   "parts": {
-   "cap_lead_c_line": {
-    "terminal": "C",
-    "pull": [
-     0.0,
-     0.0,
-     1.0
-    ],
-    "requires_dead": true,
-    "holds_charge": true,
-    "group": "capacitor",
-    "puts_back_on": [
-     "C",
-     "FAN",
-     "HERM"
-    ],
-    "flag": true,
-    "grab_at": [
-     0.3205,
-     -0.2312,
-     0.6823
-    ]
-   },
    "cap_lead_herm": {
     "terminal": "HERM",
     "pull": [
@@ -158,9 +138,53 @@
     ],
     "flag": true,
     "grab_at": [
-     0.3394,
-     -0.2639,
-     0.6823
+     -0.28,
+     0.3718,
+     0.5324
+    ]
+   },
+   "cap_lead_c_line": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3024,
+     0.3778,
+     0.5324
+    ]
+   },
+   "cap_lead_c_comp": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3083,
+     0.3778,
+     0.5324
     ]
    },
    "cap_lead_fan": {
@@ -180,58 +204,38 @@
     ],
     "flag": true,
     "grab_at": [
-     0.3016,
-     -0.2639,
-     0.6823
-    ]
-   },
-   "cap_lead_c_fan": {
-    "terminal": "C",
-    "pull": [
-     0.0,
-     0.0,
-     1.0
-    ],
-    "requires_dead": true,
-    "holds_charge": true,
-    "group": "capacitor",
-    "puts_back_on": [
-     "C",
-     "FAN",
-     "HERM"
-    ],
-    "flag": true,
-    "grab_at": [
-     0.3205,
-     -0.2396,
-     0.6823
+     -0.2986,
+     0.3473,
+     0.5324
     ]
    }
   },
   "terminals": {
    "C": [
-    0.3205,
-    -0.2354,
-    0.6873
+    -0.3054,
+    0.3808,
+    0.5273
    ],
    "FAN": [
-    0.3053,
-    -0.2618,
-    0.6873
+    -0.2975,
+    0.3513,
+    0.5273
    ],
    "HERM": [
-    0.3357,
-    -0.2618,
-    0.6873
+    -0.2759,
+    0.3729,
+    0.5273
    ]
   },
   "power": {
    "breaker": "hvac",
    "disconnect": "disconnect",
    "holds_charge": true,
-   "charge_v": 370,
-   "charge_note": "a 40 microfarad run capacitor holds its charge after the power is off"
+   "charge_v": 340,
+   "rating_v": 440,
+   "charge_note": "a 45 + 5 microfarad, 440 volt dual run capacitor holds its charge after the power is off (up to the 340 V peak of the 240 V line)"
   },
+  "fault_off": "the contactor pulls in and {lead} is still in your hand: what it fed has no run capacitor, so it hums and will not start, and the compressor trips on its overload",
   "group": "capacitor",
   "unit": "the outdoor unit"
  },
@@ -257,7 +261,7 @@
     "grab_at": [
      -3.092,
      0.611,
-     1.645
+     1.642
     ]
    },
    "cap_lead_run_r": {
@@ -280,7 +284,7 @@
     "grab_at": [
      -3.092,
      0.633,
-     1.645
+     1.642
     ]
    },
    "cap_lead_link": {
@@ -334,12 +338,12 @@
    "RUN 1": [
     -3.092,
     0.611,
-    1.645
+    1.642
    ],
    "RUN 2": [
     -3.092,
     0.633,
-    1.645
+    1.642
    ],
    "START 1": [
     -3.076,
@@ -388,7 +392,7 @@
     "grab_at": [
      -3.092,
      0.611,
-     1.645
+     1.642
     ]
    },
    "cap_lead_run_r": {
@@ -411,7 +415,7 @@
     "grab_at": [
      -3.092,
      0.633,
-     1.645
+     1.642
     ]
    },
    "cap_lead_link": {
@@ -465,12 +469,12 @@
    "RUN 1": [
     -3.092,
     0.611,
-    1.645
+    1.642
    ],
    "RUN 2": [
     -3.092,
     0.633,
-    1.645
+    1.642
    ],
    "START 1": [
     -3.076,
@@ -496,5 +500,485 @@
   "unit": "the lift station panel",
   "fault_off": "the contactor pulls in, the pump hums and does not turn, and the starter trips on overload: {lead} is still in your hand, so the start circuit is open.",
   "fault_wrong": "the contactor pulls in and the pump will not start: {lead} is landed on {on} instead of {home}."
+ },
+ "hvac_condenser_rheem_ra14ay36_house.glb": {
+  "parts": {
+   "cap_lead_herm": {
+    "terminal": "HERM",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.28,
+     0.3718,
+     0.5324
+    ]
+   },
+   "cap_lead_c_line": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3024,
+     0.3778,
+     0.5324
+    ]
+   },
+   "cap_lead_c_comp": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3083,
+     0.3778,
+     0.5324
+    ]
+   },
+   "cap_lead_fan": {
+    "terminal": "FAN",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.2986,
+     0.3473,
+     0.5324
+    ]
+   }
+  },
+  "terminals": {
+   "C": [
+    -0.3054,
+    0.3808,
+    0.5273
+   ],
+   "FAN": [
+    -0.2975,
+    0.3513,
+    0.5273
+   ],
+   "HERM": [
+    -0.2759,
+    0.3729,
+    0.5273
+   ]
+  },
+  "power": {
+   "breaker": "hvac",
+   "disconnect": "disconnect",
+   "holds_charge": true,
+   "charge_v": 340,
+   "rating_v": 440,
+   "charge_note": "a 45 + 5 microfarad, 440 volt dual run capacitor holds its charge after the power is off (up to the 340 V peak of the 240 V line)"
+  },
+  "fault_off": "the contactor pulls in and {lead} is still in your hand: what it fed has no run capacitor, so it hums and will not start, and the compressor trips on its overload",
+  "group": "capacitor",
+  "unit": "the outdoor unit"
+ },
+ "hvac_condenser_rheem_ra15ay36_house.glb": {
+  "parts": {
+   "cap_lead_herm": {
+    "terminal": "HERM",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.28,
+     0.3718,
+     0.5324
+    ]
+   },
+   "cap_lead_c_line": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3024,
+     0.3778,
+     0.5324
+    ]
+   },
+   "cap_lead_c_comp": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3083,
+     0.3778,
+     0.5324
+    ]
+   },
+   "cap_lead_fan": {
+    "terminal": "FAN",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.2986,
+     0.3473,
+     0.5324
+    ]
+   }
+  },
+  "terminals": {
+   "C": [
+    -0.3054,
+    0.3808,
+    0.5273
+   ],
+   "FAN": [
+    -0.2975,
+    0.3513,
+    0.5273
+   ],
+   "HERM": [
+    -0.2759,
+    0.3729,
+    0.5273
+   ]
+  },
+  "power": {
+   "breaker": "hvac",
+   "disconnect": "disconnect",
+   "holds_charge": true,
+   "charge_v": 340,
+   "rating_v": 440,
+   "charge_note": "a 45 + 5 microfarad, 440 volt dual run capacitor holds its charge after the power is off (up to the 340 V peak of the 240 V line)"
+  },
+  "fault_off": "the contactor pulls in and {lead} is still in your hand: what it fed has no run capacitor, so it hums and will not start, and the compressor trips on its overload",
+  "group": "capacitor",
+  "unit": "the outdoor unit"
+ },
+ "hvac_condenser_rheem_rp14ay36_house.glb": {
+  "parts": {
+   "cap_lead_herm": {
+    "terminal": "HERM",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.28,
+     0.3718,
+     0.5324
+    ]
+   },
+   "cap_lead_c_line": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3024,
+     0.3778,
+     0.5324
+    ]
+   },
+   "cap_lead_c_comp": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3083,
+     0.3778,
+     0.5324
+    ]
+   },
+   "cap_lead_fan": {
+    "terminal": "FAN",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.2986,
+     0.3473,
+     0.5324
+    ]
+   }
+  },
+  "terminals": {
+   "C": [
+    -0.3054,
+    0.3808,
+    0.5273
+   ],
+   "FAN": [
+    -0.2975,
+    0.3513,
+    0.5273
+   ],
+   "HERM": [
+    -0.2759,
+    0.3729,
+    0.5273
+   ]
+  },
+  "power": {
+   "breaker": "hvac",
+   "disconnect": "disconnect",
+   "holds_charge": true,
+   "charge_v": 340,
+   "rating_v": 440,
+   "charge_note": "a 45 + 5 microfarad, 440 volt dual run capacitor holds its charge after the power is off (up to the 340 V peak of the 240 V line)"
+  },
+  "fault_off": "the contactor pulls in and {lead} is still in your hand: what it fed has no run capacitor, so it hums and will not start, and the compressor trips on its overload",
+  "group": "capacitor",
+  "unit": "the outdoor unit"
+ },
+ "hvac_condenser_rheem_rp15ay36_house.glb": {
+  "parts": {
+   "cap_lead_herm": {
+    "terminal": "HERM",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3054,
+     0.3972,
+     0.5324
+    ]
+   },
+   "cap_lead_c_line": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3278,
+     0.4032,
+     0.5324
+    ]
+   },
+   "cap_lead_c_comp": {
+    "terminal": "C",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.3337,
+     0.4032,
+     0.5324
+    ]
+   },
+   "cap_lead_fan": {
+    "terminal": "FAN",
+    "pull": [
+     0.0,
+     0.0,
+     1.0
+    ],
+    "requires_dead": true,
+    "holds_charge": true,
+    "group": "capacitor",
+    "puts_back_on": [
+     "C",
+     "FAN",
+     "HERM"
+    ],
+    "flag": true,
+    "grab_at": [
+     -0.324,
+     0.3727,
+     0.5324
+    ]
+   }
+  },
+  "terminals": {
+   "C": [
+    -0.3308,
+    0.4062,
+    0.5273
+   ],
+   "FAN": [
+    -0.3229,
+    0.3767,
+    0.5273
+   ],
+   "HERM": [
+    -0.3013,
+    0.3983,
+    0.5273
+   ]
+  },
+  "power": {
+   "breaker": "hvac",
+   "disconnect": "disconnect",
+   "holds_charge": true,
+   "charge_v": 340,
+   "rating_v": 440,
+   "charge_note": "a 45 + 5 microfarad, 440 volt dual run capacitor holds its charge after the power is off (up to the 340 V peak of the 240 V line)"
+  },
+  "fault_off": "the contactor pulls in and {lead} is still in your hand: what it fed has no run capacitor, so it hums and will not start, and the compressor trips on its overload",
+  "group": "capacitor",
+  "unit": "the outdoor unit"
  }
 }

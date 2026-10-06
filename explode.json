@@ -325,24 +325,14 @@
  ],
  "bath_vanity.glb": [
   {
-   "part": "index_cap_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 140,
-   "why": "index cap pops off the top of the handle, hot side"
-  },
-  {
    "part": "handle_screw_hot",
    "dir": [
     0,
-    1,
-    0
+    0,
+    1
    ],
-   "mm": 120,
-   "why": "handle screw out of the tapped stem"
+   "mm": 25,
+   "why": "set screw backs out of the hub's front face (3/32 hex key), hot side"
   },
   {
    "part": "handle_hot",
@@ -362,7 +352,7 @@
     0
    ],
    "mm": 58,
-   "why": "bonnet nut unscrews off the threaded body boss"
+   "why": "cartridge nut unscrews off the threaded body boss"
   },
   {
    "part": "cartridge_hot",
@@ -375,24 +365,14 @@
    "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
   },
   {
-   "part": "index_cap_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 140,
-   "why": "index cap pops off the top of the handle, cold side"
-  },
-  {
    "part": "handle_screw_cold",
    "dir": [
     0,
-    1,
-    0
+    0,
+    1
    ],
-   "mm": 120,
-   "why": "handle screw out of the tapped stem"
+   "mm": 25,
+   "why": "set screw backs out of the hub's front face (3/32 hex key), cold side"
   },
   {
    "part": "handle_cold",
@@ -412,7 +392,7 @@
     0
    ],
    "mm": 58,
-   "why": "bonnet nut unscrews off the threaded body boss"
+   "why": "cartridge nut unscrews off the threaded body boss"
   },
   {
    "part": "cartridge_cold",
@@ -427,12 +407,12 @@
   {
    "part": "aerator",
    "dir": [
-    0.0,
-    -0.928,
-    0.371
+    0,
+    -1,
+    0
    ],
    "mm": 60,
-   "why": "aerator unscrews out of the spout tip on the spout axis, washer and screen with it"
+   "why": "aerator unscrews straight down out of the spout's underside, washer and screen with it"
   },
   {
    "part": "supply_hot",
@@ -442,7 +422,7 @@
     0
    ],
    "mm": 130,
-   "why": "braided supply off the shank nipple at its coupling nut"
+   "why": "braided supply off the shank tail at its 1/2 in FIP nut"
   },
   {
    "part": "supply_cold",
@@ -452,7 +432,7 @@
     0
    ],
    "mm": 130,
-   "why": "braided supply off the shank nipple at its coupling nut"
+   "why": "braided supply off the shank tail at its 1/2 in FIP nut"
   },
   {
    "part": "mount_nut_hot",
@@ -462,7 +442,7 @@
     0
    ],
    "mm": 55,
-   "why": "mounting nut down off the threaded shank"
+   "why": "wing nut down off the threaded shank"
   },
   {
    "part": "mount_nut_cold",
@@ -472,17 +452,7 @@
     0
    ],
    "mm": 55,
-   "why": "mounting nut down off the threaded shank"
-  },
-  {
-   "part": "mount_nut_spout",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 85,
-   "why": "centre mounting nut down off the spout shank"
+   "why": "wing nut down off the threaded shank"
   },
   {
    "part": "faucet_tubes",
@@ -492,7 +462,7 @@
     0.51
    ],
    "mm": 190,
-   "why": "the supply tubes come up with the body"
+   "why": "the shank tails come up with the body"
   },
   {
    "part": "faucet",
@@ -502,371 +472,7 @@
     0.51
    ],
    "mm": 190,
-   "why": "body lifts off the deck and forward, three shanks up through their holes"
-  }
- ],
- "bath_vanity_v001.glb": [
-  {
-   "part": "index_cap_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 140,
-   "why": "index cap pops off the top of the handle, hot side"
-  },
-  {
-   "part": "handle_screw_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 120,
-   "why": "handle screw out of the tapped stem"
-  },
-  {
-   "part": "handle_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 90,
-   "why": "handle lifts straight off the broach"
-  },
-  {
-   "part": "bonnet_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 58,
-   "why": "bonnet nut unscrews off the threaded body boss"
-  },
-  {
-   "part": "cartridge_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 30,
-   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
-  },
-  {
-   "part": "index_cap_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 140,
-   "why": "index cap pops off the top of the handle, cold side"
-  },
-  {
-   "part": "handle_screw_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 120,
-   "why": "handle screw out of the tapped stem"
-  },
-  {
-   "part": "handle_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 90,
-   "why": "handle lifts straight off the broach"
-  },
-  {
-   "part": "bonnet_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 58,
-   "why": "bonnet nut unscrews off the threaded body boss"
-  },
-  {
-   "part": "cartridge_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 30,
-   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
-  },
-  {
-   "part": "aerator",
-   "dir": [
-    0.0,
-    -0.928,
-    0.371
-   ],
-   "mm": 60,
-   "why": "aerator unscrews out of the spout tip on the spout axis, washer and screen with it"
-  },
-  {
-   "part": "supply_hot",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 130,
-   "why": "braided supply off the shank nipple at its coupling nut"
-  },
-  {
-   "part": "supply_cold",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 130,
-   "why": "braided supply off the shank nipple at its coupling nut"
-  },
-  {
-   "part": "mount_nut_hot",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 55,
-   "why": "mounting nut down off the threaded shank"
-  },
-  {
-   "part": "mount_nut_cold",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 55,
-   "why": "mounting nut down off the threaded shank"
-  },
-  {
-   "part": "mount_nut_spout",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 85,
-   "why": "centre mounting nut down off the spout shank"
-  },
-  {
-   "part": "faucet_tubes",
-   "dir": [
-    0,
-    0.86,
-    0.51
-   ],
-   "mm": 190,
-   "why": "the supply tubes come up with the body"
-  },
-  {
-   "part": "faucet",
-   "dir": [
-    0,
-    0.86,
-    0.51
-   ],
-   "mm": 190,
-   "why": "body lifts off the deck and forward, three shanks up through their holes"
-  }
- ],
- "bath_vanity_v002.glb": [
-  {
-   "part": "index_cap_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 140,
-   "why": "index cap pops off the top of the handle, hot side"
-  },
-  {
-   "part": "handle_screw_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 120,
-   "why": "handle screw out of the tapped stem"
-  },
-  {
-   "part": "handle_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 90,
-   "why": "handle lifts straight off the broach"
-  },
-  {
-   "part": "bonnet_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 58,
-   "why": "bonnet nut unscrews off the threaded body boss"
-  },
-  {
-   "part": "cartridge_hot",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 30,
-   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
-  },
-  {
-   "part": "index_cap_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 140,
-   "why": "index cap pops off the top of the handle, cold side"
-  },
-  {
-   "part": "handle_screw_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 120,
-   "why": "handle screw out of the tapped stem"
-  },
-  {
-   "part": "handle_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 90,
-   "why": "handle lifts straight off the broach"
-  },
-  {
-   "part": "bonnet_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 58,
-   "why": "bonnet nut unscrews off the threaded body boss"
-  },
-  {
-   "part": "cartridge_cold",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 30,
-   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
-  },
-  {
-   "part": "aerator",
-   "dir": [
-    0.0,
-    -0.928,
-    0.371
-   ],
-   "mm": 60,
-   "why": "aerator unscrews out of the spout tip on the spout axis, washer and screen with it"
-  },
-  {
-   "part": "supply_hot",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 130,
-   "why": "braided supply off the shank nipple at its coupling nut"
-  },
-  {
-   "part": "supply_cold",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 130,
-   "why": "braided supply off the shank nipple at its coupling nut"
-  },
-  {
-   "part": "mount_nut_hot",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 55,
-   "why": "mounting nut down off the threaded shank"
-  },
-  {
-   "part": "mount_nut_cold",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 55,
-   "why": "mounting nut down off the threaded shank"
-  },
-  {
-   "part": "mount_nut_spout",
-   "dir": [
-    0,
-    -1,
-    0
-   ],
-   "mm": 85,
-   "why": "centre mounting nut down off the spout shank"
-  },
-  {
-   "part": "faucet_tubes",
-   "dir": [
-    0,
-    0.86,
-    0.51
-   ],
-   "mm": 190,
-   "why": "the supply tubes come up with the body"
-  },
-  {
-   "part": "faucet",
-   "dir": [
-    0,
-    0.86,
-    0.51
-   ],
-   "mm": 190,
-   "why": "body lifts off the deck and forward, three shanks up through their holes"
+   "why": "body lifts off the deck and forward, two shanks up through their holes, the lift rod out of the centre hole"
   }
  ],
  "hvac_minisplit.glb": [
@@ -1601,6 +1207,17 @@
    "why": "handle pulls straight off the stem, key clear of the stem notch"
   },
   {
+   "part": "handle_washer",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 318,
+   "why": "the handle washer out of the back of the hub (round 101: its own part)",
+   "of": "handle"
+  },
+  {
    "part": "limit_stop",
    "dir": [
     1,
@@ -1639,8 +1256,8 @@
     0,
     0
    ],
-   "mm": 228,
-   "why": "escutcheon screw out of the boss",
+   "mm": 262,
+   "why": "escutcheon screw out of the trim's face",
    "of": "escutcheon"
   },
   {
@@ -1650,8 +1267,8 @@
     0,
     0
    ],
-   "mm": 228,
-   "why": "escutcheon screw out of the boss",
+   "mm": 262,
+   "why": "escutcheon screw out of the trim's face",
    "of": "escutcheon"
   },
   {
@@ -1719,6 +1336,17 @@
    "why": "handle pulls straight off the stem, key clear of the stem notch"
   },
   {
+   "part": "handle_washer",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 318,
+   "why": "the handle washer out of the back of the hub (round 101: its own part)",
+   "of": "handle"
+  },
+  {
    "part": "limit_stop",
    "dir": [
     1,
@@ -1757,8 +1385,8 @@
     0,
     0
    ],
-   "mm": 228,
-   "why": "escutcheon screw out of the boss",
+   "mm": 262,
+   "why": "escutcheon screw out of the trim's face",
    "of": "escutcheon"
   },
   {
@@ -1768,8 +1396,8 @@
     0,
     0
    ],
-   "mm": 228,
-   "why": "escutcheon screw out of the boss",
+   "mm": 262,
+   "why": "escutcheon screw out of the trim's face",
    "of": "escutcheon"
   },
   {
@@ -1805,238 +1433,342 @@
  ],
  "shower_two.glb": [
   {
-   "part": "handle_cap",
+   "part": "index_cap_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 385,
-   "why": "cap pops off the end of the handle hub",
-   "of": "handle"
+   "mm": 440,
+   "why": "index button pried off the end of the knob",
+   "of": "handle_hot"
   },
   {
-   "part": "handle_screw",
+   "part": "handle_screw_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 375,
+   "mm": 400,
    "why": "handle screw out of the tapped stem",
-   "of": "handle"
+   "of": "handle_hot"
   },
   {
-   "part": "handle",
+   "part": "handle_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 335,
-   "why": "handle pulls straight off the stem, key clear of the stem notch"
+   "mm": 360,
+   "why": "knob pulls off the stem's broach"
   },
   {
-   "part": "limit_stop",
+   "part": "escutcheon_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 292,
-   "why": "temperature limit stop off the stem",
-   "of": "stop_tube"
+   "mm": 280,
+   "why": "escutcheon and sleeve off the bonnet"
   },
   {
-   "part": "key_stop",
+   "part": "stem_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 274,
-   "why": "key stop off the stop tube",
-   "of": "stop_tube"
+   "mm": 160,
+   "why": "stem out of the body with its bonnet and packing nut (deep socket on the bonnet hex)"
   },
   {
-   "part": "stop_tube",
+   "part": "stem_washer_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 252,
-   "why": "stop tube off the cartridge hub"
+   "mm": 135,
+   "why": "seat washer off the end of the stem",
+   "of": "stem_hot"
   },
   {
-   "part": "escutcheon_screw_a",
+   "part": "stem_washer_screw_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 228,
-   "why": "escutcheon screw out of the boss",
-   "of": "escutcheon"
+   "mm": 115,
+   "why": "bibb screw that holds the washer",
+   "of": "stem_hot"
   },
   {
-   "part": "escutcheon_screw_b",
+   "part": "seat_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 228,
-   "why": "escutcheon screw out of the boss",
-   "of": "escutcheon"
+   "mm": 70,
+   "why": "seat out of the body with a seat wrench"
   },
   {
-   "part": "escutcheon",
+   "part": "index_cap_cold",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 200,
-   "why": "escutcheon off the plasterguard, the rough valve shows"
+   "mm": 440,
+   "why": "index button pried off the end of the knob",
+   "of": "handle_cold"
   },
   {
-   "part": "retainer_clip",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 60,
-   "why": "retainer clip lifts up out of its two slots, nothing holds the cartridge now"
-  },
-  {
-   "part": "cartridge",
+   "part": "handle_screw_cold",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 140,
-   "why": "cartridge pulls straight out between the clip legs, ears out of their notches"
+   "mm": 400,
+   "why": "handle screw out of the tapped stem",
+   "of": "handle_cold"
+  },
+  {
+   "part": "handle_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 360,
+   "why": "knob pulls off the stem's broach"
+  },
+  {
+   "part": "escutcheon_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 280,
+   "why": "escutcheon and sleeve off the bonnet"
+  },
+  {
+   "part": "stem_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 160,
+   "why": "stem out of the body with its bonnet and packing nut (deep socket on the bonnet hex)"
+  },
+  {
+   "part": "stem_washer_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 135,
+   "why": "seat washer off the end of the stem",
+   "of": "stem_cold"
+  },
+  {
+   "part": "stem_washer_screw_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 115,
+   "why": "bibb screw that holds the washer",
+   "of": "stem_cold"
+  },
+  {
+   "part": "seat_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 70,
+   "why": "seat out of the body with a seat wrench"
   }
  ],
  "shower_two_slab.glb": [
   {
-   "part": "handle_cap",
+   "part": "index_cap_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 385,
-   "why": "cap pops off the end of the handle hub",
-   "of": "handle"
+   "mm": 440,
+   "why": "index button pried off the end of the knob",
+   "of": "handle_hot"
   },
   {
-   "part": "handle_screw",
+   "part": "handle_screw_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 375,
+   "mm": 400,
    "why": "handle screw out of the tapped stem",
-   "of": "handle"
+   "of": "handle_hot"
   },
   {
-   "part": "handle",
+   "part": "handle_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 335,
-   "why": "handle pulls straight off the stem, key clear of the stem notch"
+   "mm": 360,
+   "why": "knob pulls off the stem's broach"
   },
   {
-   "part": "limit_stop",
+   "part": "escutcheon_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 292,
-   "why": "temperature limit stop off the stem",
-   "of": "stop_tube"
+   "mm": 280,
+   "why": "escutcheon and sleeve off the bonnet"
   },
   {
-   "part": "key_stop",
+   "part": "stem_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 274,
-   "why": "key stop off the stop tube",
-   "of": "stop_tube"
+   "mm": 160,
+   "why": "stem out of the body with its bonnet and packing nut (deep socket on the bonnet hex)"
   },
   {
-   "part": "stop_tube",
+   "part": "stem_washer_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 252,
-   "why": "stop tube off the cartridge hub"
+   "mm": 135,
+   "why": "seat washer off the end of the stem",
+   "of": "stem_hot"
   },
   {
-   "part": "escutcheon_screw_a",
+   "part": "stem_washer_screw_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 228,
-   "why": "escutcheon screw out of the boss",
-   "of": "escutcheon"
+   "mm": 115,
+   "why": "bibb screw that holds the washer",
+   "of": "stem_hot"
   },
   {
-   "part": "escutcheon_screw_b",
+   "part": "seat_hot",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 228,
-   "why": "escutcheon screw out of the boss",
-   "of": "escutcheon"
+   "mm": 70,
+   "why": "seat out of the body with a seat wrench"
   },
   {
-   "part": "escutcheon",
+   "part": "index_cap_cold",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 200,
-   "why": "escutcheon off the plasterguard, the rough valve shows"
+   "mm": 440,
+   "why": "index button pried off the end of the knob",
+   "of": "handle_cold"
   },
   {
-   "part": "retainer_clip",
-   "dir": [
-    0,
-    1,
-    0
-   ],
-   "mm": 60,
-   "why": "retainer clip lifts up out of its two slots, nothing holds the cartridge now"
-  },
-  {
-   "part": "cartridge",
+   "part": "handle_screw_cold",
    "dir": [
     1,
     0,
     0
    ],
-   "mm": 140,
-   "why": "cartridge pulls straight out between the clip legs, ears out of their notches"
+   "mm": 400,
+   "why": "handle screw out of the tapped stem",
+   "of": "handle_cold"
+  },
+  {
+   "part": "handle_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 360,
+   "why": "knob pulls off the stem's broach"
+  },
+  {
+   "part": "escutcheon_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 280,
+   "why": "escutcheon and sleeve off the bonnet"
+  },
+  {
+   "part": "stem_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 160,
+   "why": "stem out of the body with its bonnet and packing nut (deep socket on the bonnet hex)"
+  },
+  {
+   "part": "stem_washer_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 135,
+   "why": "seat washer off the end of the stem",
+   "of": "stem_cold"
+  },
+  {
+   "part": "stem_washer_screw_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 115,
+   "why": "bibb screw that holds the washer",
+   "of": "stem_cold"
+  },
+  {
+   "part": "seat_cold",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 70,
+   "why": "seat out of the body with a seat wrench"
   }
  ],
  "shower_v001.glb": [
@@ -2273,6 +2005,151 @@
    ],
    "mm": 140,
    "why": "cartridge pulls straight out between the clip legs, ears out of their notches"
+  }
+ ],
+ "kitchen_sink.glb": [
+  {
+   "part": "plug_button_pulldown",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 20,
+   "why": "pop the plug button",
+   "of": "handle_lever_pulldown"
+  },
+  {
+   "part": "set_screw_pulldown",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 12,
+   "why": "loosen the 3/32 set screw",
+   "of": "handle_lever_pulldown"
+  },
+  {
+   "part": "handle_lever_pulldown",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 60,
+   "why": "the handle off the stem"
+  },
+  {
+   "part": "handle_dome_pulldown",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 45,
+   "why": "the dome off"
+  },
+  {
+   "part": "cartridge_nut_pulldown",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 32,
+   "why": "the retainer nut off (pliers)"
+  },
+  {
+   "part": "cartridge_1255",
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "mm": 20,
+   "why": "the 1255 out of the hub"
+  },
+  {
+   "part": "pulldown_head",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 80,
+   "why": "the wand down off the coupling"
+  },
+  {
+   "part": "wand_screen",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 25,
+   "why": "the screen washer out of the wand",
+   "of": "pulldown_head"
+  },
+  {
+   "part": "strainer_basket",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 60,
+   "why": "the basket out"
+  },
+  {
+   "part": "j_nut_in",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 25,
+   "why": "the inlet slip nut backed off"
+  },
+  {
+   "part": "j_washer_in",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 15,
+   "why": "its washer"
+  },
+  {
+   "part": "j_nut_out",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 25,
+   "why": "the outlet slip nut backed off"
+  },
+  {
+   "part": "j_washer_out",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 15,
+   "why": "its washer"
+  },
+  {
+   "part": "j_bend",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 70,
+   "why": "the J down"
   }
  ]
 }

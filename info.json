@@ -14,19 +14,9 @@
     "stop_cold_handle": [
      "Stop will not turn. Do not force it. Replace both stops with quarter turns while the water is off."
     ],
-    "stop_cold": [
-     "Green crust and seep at the stop. It is weeping now and it will let go later. Replace it."
-    ],
-    "supply_hot": [
-     "Corroded or kinked supply line. This is the line that floods a hall bath. Replace with braided stainless."
-    ],
     "faucet": [
      "Drip at the base: the seals in the body, not the spout. Rebuild or replace the faucet.",
      "Aerator packed with scale. Clean or replace it, and note the water hardness for the softener talk."
-    ],
-    "p_trap": [
-     "Seep at the slip joints. Tighten or replace the washers before the cabinet floor goes.",
-     "Slip washer cracked: holds water but lets sewer gas by. New washers, new trap if it is old."
     ],
     "s_trap": [
      "S-trap, no vent. It siphons the seal and the bathroom smells. Re-pipe with a P-trap and a vent or an AAV."
@@ -36,6 +26,24 @@
     ],
     "cabinet": [
      "Water damage in the cabinet floor. Find the source above it before it is patched."
+    ],
+    "j_bend": [
+     "Seep at the slip joints. Tighten or replace the washers before the cabinet floor goes.",
+     "Slip washer cracked: holds water but lets sewer gas by. New washers, new trap if it is old."
+    ],
+    "j_nut_in": [
+     "Seep at the slip joints. Tighten or replace the washers before the cabinet floor goes.",
+     "Slip washer cracked: holds water but lets sewer gas by. New washers, new trap if it is old."
+    ],
+    "j_nut_out": [
+     "Seep at the slip joints. Tighten or replace the washers before the cabinet floor goes.",
+     "Slip washer cracked: holds water but lets sewer gas by. New washers, new trap if it is old."
+    ],
+    "stop_cold_body": [
+     "Green crust and seep at the stop. It is weeping now and it will let go later. Replace it."
+    ],
+    "supply_hot_hose": [
+     "Corroded or kinked supply line. This is the line that floods a hall bath. Replace with braided stainless."
     ]
    },
    "labels": {
@@ -68,7 +76,48 @@
     "bowl_water": "Water in the bowl",
     "water_stream": "Water from the spout",
     "wall": "Wall and mirror",
-    "floor": "Tile floor"
+    "floor": "Tile floor",
+    "j_bend": "J bend, 1-1/4 in chrome: holds the trap seal, the part that clogs",
+    "j_nut_in": "Slip nut on the J's long leg, at the tailpiece",
+    "j_nut_out": "Slip nut on the J's short leg, at the wall bend",
+    "j_washer_in": "Beveled slip washer, taper into the J's mouth",
+    "j_washer_out": "Beveled slip washer, taper into the J's mouth",
+    "trap_water": "The trap seal: water standing in the J",
+    "trap_water_top": "Trap water above the J's short leg: it runs out when the J comes off",
+    "p_trap_arm": "Wall bend (trap arm) into the trap adapter in the wall",
+    "p_trap_arm_washer": "Slip washer on the trap arm in the trap adapter's mouth",
+    "drain_escutcheon": "Wall flange round the drain",
+    "popup_drain": "Pop up drain body: flange, body, pivot boss, gasket and drain nut under the bowl",
+    "pivot_nut": "Pivot nut: holds the pivot ball and its seals",
+    "tailpiece": "1-1/4 in 20 ga tailpiece, threaded into the drain body",
+    "pivot_rod": "Pivot rod and ball: its tip lifts the stopper by its eye",
+    "pivot_seal_front": "Pivot ball seal, body side",
+    "pivot_seal_back": "Pivot ball seal, nut side",
+    "spring_clip": "Spring clip: holds the pivot rod in the strap",
+    "clevis_strap": "Clevis strap on the lift rod, its screw sets the stopper's height",
+    "lift_rod": "Lift rod and knob: pull up to close the stopper, push down to open",
+    "stop_hot_stub": "1/2 in copper stub out of the wall (hot)",
+    "stop_cold_stub": "1/2 in copper stub out of the wall (cold)",
+    "stop_hot_esc": "Bell escutcheon on the hot stub",
+    "stop_cold_esc": "Bell escutcheon on the cold stub",
+    "stop_hot_comp_nut": "Compression nut: stays on the copper when the stop comes off",
+    "stop_cold_comp_nut": "Compression nut: stays on the copper when the stop comes off",
+    "stop_hot_ferrule": "Brass ferrule (sleeve) on the copper: it stays on the stub",
+    "stop_cold_ferrule": "Brass ferrule (sleeve) on the copper: it stays on the stub",
+    "stop_hot_body": "Hot angle stop, quarter turn (BrassCraft G2CR19X)",
+    "stop_cold_body": "Cold angle stop, quarter turn (BrassCraft G2CR19X)",
+    "supply_hot_hose": "Braided hot supply line",
+    "supply_cold_hose": "Braided cold supply line",
+    "supply_hot_nut_stop": "3/8 compression nut on the stop's outlet",
+    "supply_cold_nut_stop": "3/8 compression nut on the stop's outlet",
+    "supply_hot_nut_faucet": "1/2 FIP nut on the faucet's shank tail",
+    "supply_cold_nut_faucet": "1/2 FIP nut on the faucet's shank tail",
+    "aerator_housing": "Aerator housing, 15/16 in",
+    "aerator_insert": "Aerator insert and screen: rinse the grit out of it",
+    "aerator_washer": "Aerator washer: left out, it sprays sideways",
+    "s_trap_nut": "Slip nut on the S-trap",
+    "s_trap_washer": "Slip washer on the S-trap",
+    "s_trap_floor_flange": "Floor flange where the S-trap goes down"
    }
   },
   "condensate_pump": {
@@ -256,7 +305,76 @@
     "door_right": "Cabinet door",
     "cabinet": "Sink base cabinet",
     "counter": "Counter",
-    "dishwasher": "Dishwasher"
+    "dishwasher": "Dishwasher",
+    "j_bend": "J bend (the trap's U): its two slip nuts and washers hold it",
+    "p_trap_arm": "Trap arm into the wall's trap adapter, with its escutcheon",
+    "j_nut_in": "Slip nut, J bend inlet (under the tee)",
+    "j_nut_out": "Slip nut, J bend outlet (under the trap arm)",
+    "j_washer_in": "Beveled slip washer, J inlet (taper toward the J)",
+    "j_washer_out": "Beveled slip washer, J outlet (taper toward the J)",
+    "waste_tee_body": "Baffle tee (continuous waste)",
+    "waste_tee_nut_top": "Slip nut, tee top (the tailpiece)",
+    "waste_tee_nut_side": "Slip nut, tee side (the waste arm)",
+    "waste_tee_washer_top": "Slip washer, tee top",
+    "waste_tee_washer_side": "Slip washer, tee side",
+    "waste_arm_nut": "Slip nut, waste arm over the disposer 90",
+    "waste_arm_washer": "Slip washer, waste arm",
+    "strainer_body": "Basket strainer body",
+    "strainer_basket": "Strainer basket",
+    "strainer_rubber_gasket": "Strainer rubber gasket (under the sink)",
+    "strainer_paper_gasket": "Strainer fibre gasket",
+    "strainer_locknut": "Strainer locknut",
+    "strainer_coupling_nut": "Strainer coupling nut (holds the tailpiece up)",
+    "mount_lower_ring": "Lower mounting ring: turns off the ramps with the disposer",
+    "mount_lower_ring_section": "Lower mounting ring (cut)",
+    "disposal_mount_section": "Sink flange and mounting assembly (cut)",
+    "splash_guard_section": "Splash guard (cut)",
+    "grind_chamber_section": "Grind ring and chamber (cut)",
+    "stator_section": "Stator and windings (cut)",
+    "jam_hex": "Jam release: 1/4 in hex on the shaft (Jam-Buster wrench)",
+    "reset_button": "Red reset button (motor overload)",
+    "motor_shaft": "Motor shaft",
+    "rotor": "Rotor",
+    "stator": "Stator and windings",
+    "bearing_top": "Upper motor bearing",
+    "bearing_bot": "Lower motor bearing",
+    "shaft_seal": "Shaft seal",
+    "discharge_tube": "Discharge tube (moves to a new disposer)",
+    "discharge_tube_section": "Discharge tube (cut)",
+    "discharge_elbow_gasket": "Discharge tube gasket",
+    "discharge_flange_plate": "Discharge flange",
+    "flange_bolts": "Discharge flange bolts",
+    "discharge_90": "Disposer 90 into the waste arm",
+    "discharge_90_section": "Disposer 90 (cut)",
+    "discharge_90_nut": "Slip nut where the discharge tube drops in",
+    "discharge_90_washer": "Slip washer at the discharge tube",
+    "stop_hot_body": "Hot angle stop (dual outlet feeds the dishwasher)",
+    "stop_cold_body": "Cold angle stop",
+    "stop_hot_stub": "Copper stub out of the wall (hot)",
+    "stop_cold_stub": "Copper stub out of the wall (cold)",
+    "stop_hot_ferrule": "Compression ferrule (stays on the copper)",
+    "stop_cold_ferrule": "Compression ferrule (stays on the copper)",
+    "stop_hot_comp_nut": "Compression nut, 3/4 in hex",
+    "stop_cold_comp_nut": "Compression nut, 3/4 in hex",
+    "stop_hot_esc": "Escutcheon",
+    "stop_cold_esc": "Escutcheon",
+    "supply_hot_nut": "3/8 compression nut (the line's own)",
+    "supply_cold_nut": "3/8 compression nut (the line's own)",
+    "dw_supply_nut": "Dishwasher line nut",
+    "dw_hose_clamp": "Hose clamp on the disposer inlet",
+    "handle_lever_pulldown": "Faucet handle (lever)",
+    "handle_dome_pulldown": "Handle dome",
+    "plug_button_pulldown": "Plug button (over the set screw)",
+    "set_screw_pulldown": "Set screw, 3/32 in hex",
+    "cartridge_1255": "Moen 1255 cartridge",
+    "cartridge_nut_pulldown": "Cartridge retainer nut",
+    "faucet_spout_pulldown": "Spout (swivels on the body)",
+    "fc_hose": "Pull down hose",
+    "hose_weight": "Hose weight",
+    "hose_weight_screws": "Hose weight screws",
+    "faucet_mount": "Faucet mount: shank, bracket and nut",
+    "hose_coupling": "Hose coupling (the wand screws on)",
+    "wand_screen": "Wand screen washer"
    }
   },
   "electric_tankless_water_heater": {
@@ -876,7 +994,76 @@
     "door_right": "Cabinet door",
     "cabinet": "Sink base cabinet",
     "counter": "Counter",
-    "dishwasher": "Dishwasher"
+    "dishwasher": "Dishwasher",
+    "j_bend": "J bend (the trap's U): its two slip nuts and washers hold it",
+    "p_trap_arm": "Trap arm into the wall's trap adapter, with its escutcheon",
+    "j_nut_in": "Slip nut, J bend inlet (under the tee)",
+    "j_nut_out": "Slip nut, J bend outlet (under the trap arm)",
+    "j_washer_in": "Beveled slip washer, J inlet (taper toward the J)",
+    "j_washer_out": "Beveled slip washer, J outlet (taper toward the J)",
+    "waste_tee_body": "Baffle tee (continuous waste)",
+    "waste_tee_nut_top": "Slip nut, tee top (the tailpiece)",
+    "waste_tee_nut_side": "Slip nut, tee side (the waste arm)",
+    "waste_tee_washer_top": "Slip washer, tee top",
+    "waste_tee_washer_side": "Slip washer, tee side",
+    "waste_arm_nut": "Slip nut, waste arm over the disposer 90",
+    "waste_arm_washer": "Slip washer, waste arm",
+    "strainer_body": "Basket strainer body",
+    "strainer_basket": "Strainer basket",
+    "strainer_rubber_gasket": "Strainer rubber gasket (under the sink)",
+    "strainer_paper_gasket": "Strainer fibre gasket",
+    "strainer_locknut": "Strainer locknut",
+    "strainer_coupling_nut": "Strainer coupling nut (holds the tailpiece up)",
+    "mount_lower_ring": "Lower mounting ring: turns off the ramps with the disposer",
+    "mount_lower_ring_section": "Lower mounting ring (cut)",
+    "disposal_mount_section": "Sink flange and mounting assembly (cut)",
+    "splash_guard_section": "Splash guard (cut)",
+    "grind_chamber_section": "Grind ring and chamber (cut)",
+    "stator_section": "Stator and windings (cut)",
+    "jam_hex": "Jam release: 1/4 in hex on the shaft (Jam-Buster wrench)",
+    "reset_button": "Red reset button (motor overload)",
+    "motor_shaft": "Motor shaft",
+    "rotor": "Rotor",
+    "stator": "Stator and windings",
+    "bearing_top": "Upper motor bearing",
+    "bearing_bot": "Lower motor bearing",
+    "shaft_seal": "Shaft seal",
+    "discharge_tube": "Discharge tube (moves to a new disposer)",
+    "discharge_tube_section": "Discharge tube (cut)",
+    "discharge_elbow_gasket": "Discharge tube gasket",
+    "discharge_flange_plate": "Discharge flange",
+    "flange_bolts": "Discharge flange bolts",
+    "discharge_90": "Disposer 90 into the waste arm",
+    "discharge_90_section": "Disposer 90 (cut)",
+    "discharge_90_nut": "Slip nut where the discharge tube drops in",
+    "discharge_90_washer": "Slip washer at the discharge tube",
+    "stop_hot_body": "Hot angle stop (dual outlet feeds the dishwasher)",
+    "stop_cold_body": "Cold angle stop",
+    "stop_hot_stub": "Copper stub out of the wall (hot)",
+    "stop_cold_stub": "Copper stub out of the wall (cold)",
+    "stop_hot_ferrule": "Compression ferrule (stays on the copper)",
+    "stop_cold_ferrule": "Compression ferrule (stays on the copper)",
+    "stop_hot_comp_nut": "Compression nut, 3/4 in hex",
+    "stop_cold_comp_nut": "Compression nut, 3/4 in hex",
+    "stop_hot_esc": "Escutcheon",
+    "stop_cold_esc": "Escutcheon",
+    "supply_hot_nut": "3/8 compression nut (the line's own)",
+    "supply_cold_nut": "3/8 compression nut (the line's own)",
+    "dw_supply_nut": "Dishwasher line nut",
+    "dw_hose_clamp": "Hose clamp on the disposer inlet",
+    "handle_lever_pulldown": "Faucet handle (lever)",
+    "handle_dome_pulldown": "Handle dome",
+    "plug_button_pulldown": "Plug button (over the set screw)",
+    "set_screw_pulldown": "Set screw, 3/32 in hex",
+    "cartridge_1255": "Moen 1255 cartridge",
+    "cartridge_nut_pulldown": "Cartridge retainer nut",
+    "faucet_spout_pulldown": "Spout (swivels on the body)",
+    "fc_hose": "Pull down hose",
+    "hose_weight": "Hose weight",
+    "hose_weight_screws": "Hose weight screws",
+    "faucet_mount": "Faucet mount: shank, bracket and nut",
+    "hose_coupling": "Hose coupling (the wand screws on)",
+    "wand_screen": "Wand screen washer"
    }
   },
   "lift_station": {
@@ -888,19 +1075,20 @@
     "fuse_pull": "Pull the control fuse",
     "fill_from_house": "Let water in from the house",
     "pump_down": "Run the pump down",
-    "slide_up": "Pull the slide gate up"
+    "slide_up": "Pull the slide gate up",
+    "gate_valve_close": "Close the gate valve"
    },
    "hotspots": {},
    "labels": {
     "basin": "24 in smooth wall fiberglass basin, 60 in deep, anti-flotation flange at the bottom, bolt flange at the top; 4 in inlet grommet 16 in down, 1-1/4 in discharge seal 6 in under the cover",
     "riser": "12 in fiberglass riser extension bolted on the basin flange so the cover comes to grade (6 in also made)",
-    "lid": "Hard flat cover, 1/2 in, bolted to the flange: vent, conduit hub, lift hook underneath. Unsecured on a wet well is a safety finding",
+    "lid": "Hard flat cover, 1/2 in, on eight stainless bolts into the riser flange, the vent stub through its centre. Unsecured on a wet well is a safety finding",
     "vent": "2 in vent stub through the centre of the cover with the mushroom vent cap: the basin has to breathe or it pulls a vacuum and pushes sewer gas",
     "pump": "Champion 2 HP grinder on its leveling legs, cutter plate under the volute, vertical discharge port | E/One build: Extreme wet well core (grey painted cast housings, black composite cover, level sensor housing and shroud) on its two piece wire stand: inlet shroud, shredder ring and cutter wheel, suction housing, seal housing, banded motor housing with the four tie bolts, motor controls under the composite pump cover, LSH cap with the eye bolt, cable connector, level sensor housing with the ON/OFF and ALARM pressure switches (no floats), AS/CV anti siphon check valve on the discharge side with the 1-1/4 in coupling",
     "discharge": "1-1/4 in PVC discharge riser with the male adapter into the pump, quick disconnect union up top | E/One build: 1-1/4 in flexible discharge hose, stainless swivel end on the core's coupling, the other end slid over the nipple of the slide face adapter with a worm clamp. The check valve is built into the core (AS/CV), so there is no check valve, gate valve or union on this station",
     "check_valve": "In-line PVC check valve on the riser: keeps the force main from draining back into the basin every cycle. Arrow points up",
-    "gate_valve": "Brass gate valve with the red handwheel at the wall, wrench hex on both ends: the shutoff so the check can be cleaned and the pump pulled",
-    "lift_chain": "Stainless lift chain shackled to the pump bail, hooked under the cover on the far side from the cords. Pull the pump by this, never the cord | E/One build: yellow lift rope from the eye bolt on the top housing to the hook under the cover",
+    "gate_valve": "Brass gate valve at the wall, wrench hex on both ends, on PVC male adapters: the shutoff so the check can be cleaned and the pump pulled",
+    "lift_chain": "Stainless lift chain shackled to the pump bail, hung on the J hook on the riser wall. Pull the pump by this, never the cord | E/One build: yellow lift rope from the eye bolt on the top housing to the hook under the cover",
     "cords": "Pump cord and three float cords zip tied down the outside of the discharge pipe, over to the conduit hub in the wall; no float tree, no cable weights on this one | E/One build: 6 conductor power and alarm cable off the top housing up to the NEMA 6P electrical quick disconnect hanging loose on the cable near the top of the riser (no bracket, zip tied up at the hub), then through the hub to the panel",
     "conduit": "1-1/2 in conduit off the panel hub: straight down the wall on straps, one 90, level to the basin, one 90 into the hub in the side of the riser (Jake: just 90 and 90, straight in)",
     "control_panel": "E/One Sentry simplex alarm panel from Jake's photo: beige NEMA 4X thermoplastic box, red beacon dome on its bracket, SILENCE toggle underneath, pump cable in the bottom hub, supply in the brown seal tite",
@@ -952,7 +1140,7 @@
     "starter_knob_tripped": "Motor starter tripped: knob straight up and down. Amps went out of range, the pump is dead until it is reset",
     "water_fill": "Water coming in from the house, rising in the basin",
     "inflow": "Flow out of the inlet pipe while the house drains",
-    "discharge_run": "Existing run out through the basin wall to the force main",
+    "discharge_run": "The run that stays: pipe, the PVC male adapters in the gate valve, the pipe out through the riser's grommet to the house's force main",
     "equalizer": "E/One equalizer: the ribbed breather disc on its 3/16 tube from the level sensor housing barb, strapped to the pump cable below the quick disconnect. Keeps the pressure switches reading true. No floats on this station",
     "sentry_breakers": "Breakers top left: PUMP L1 L2 two pole plus the ALARM BREAKER (On/I Off/O), red ATTENTION SUPPLY POWER INPUT label",
     "sentry_terminals": "Grey neutral terminals on the rail beside the breakers",
@@ -961,7 +1149,36 @@
     "sentry_horn": "Audible alarm bottom left and the silence switch under it",
     "sentry_pcb": "E/One PC1139G level control board: two orange relays that run the pump and the alarm, RUN toggle for a manual run, D1 D2 D3 lights, green terminal blocks (all connections not to exceed 2 amps), data sheet under it, ground bar to the right",
     "slide_adapter": "Slide face adapter (Jake): steel plate bolted to the inside of the basin wall over the discharge hole, cast body with a pull up slide gate instead of a twist gate valve, 1-1/4 in PVC nipple pointing down that the hose slides onto",
-    "slide_blade": "Slide gate blade: pull it up by the tab to open the discharge, drop it to isolate the station"
+    "slide_blade": "Slide gate blade: pull it up by the tab to open the discharge, drop it to isolate the station",
+    "lid_bolts": "The cover's eight bolts: all eight go back in",
+    "lid_bolt_1": "Cover bolt, 3/8 in stainless on a flat washer, into the threaded insert in the riser flange (9/16 in socket)",
+    "lid_bolt_2": "Cover bolt, 3/8 in stainless on a flat washer, into the threaded insert in the riser flange (9/16 in socket)",
+    "lid_bolt_3": "Cover bolt, 3/8 in stainless on a flat washer, into the threaded insert in the riser flange (9/16 in socket)",
+    "lid_bolt_4": "Cover bolt, 3/8 in stainless on a flat washer, into the threaded insert in the riser flange (9/16 in socket)",
+    "lid_bolt_5": "Cover bolt, 3/8 in stainless on a flat washer, into the threaded insert in the riser flange (9/16 in socket)",
+    "lid_bolt_6": "Cover bolt, 3/8 in stainless on a flat washer, into the threaded insert in the riser flange (9/16 in socket)",
+    "lid_bolt_7": "Cover bolt, 3/8 in stainless on a flat washer, into the threaded insert in the riser flange (9/16 in socket)",
+    "lid_bolt_8": "Cover bolt, 3/8 in stainless on a flat washer, into the threaded insert in the riser flange (9/16 in socket)",
+    "chain_hook": "Stainless J hook bolted through the riser wall, 7 cm under the cover: the pump's chain hangs here, where you can reach it with the cover off",
+    "discharge_riser": "1-1/4 in schedule 40 PVC riser: male adapter into the pump's port, the check glued in it, the 90 six inches under the cover and the short stub to the union. It comes up with the pump",
+    "union_left": "PVC union, thread end, glued on the riser's stub; its face carries the O-ring. It comes up with the pump",
+    "union_oring": "The union's O-ring, in the groove of the thread end's face: pinched or missing, the union weeps back into the basin",
+    "union_nut": "Union nut, hand tight. It unscrews toward the gate valve and slides back along the socket end, which keeps it",
+    "union_right": "PVC union, socket end, glued on the run to the gate valve: it stays at the wall with the nut",
+    "discharge_water": "The water the check holds in the riser: it comes up with the pump and pours out of the open union when the riser tips",
+    "check_poppet": "The check's poppet and spring: shut at rest, so the force main cannot drain back into the basin every cycle",
+    "gate_handwheel": "Gate valve handwheel: clockwise seen from above closes, six full turns (the wheel turns in place, the wedge rides down the stem). Shut before you break the union, open before you leave",
+    "gate_wedge": "The gate: up in the bonnet when open, down across the bore when shut",
+    "cords_on_pipe": "Pump cord and float cords zip tied down the riser, bowed round the check: they come up with the pump",
+    "cords_to_hub": "The loop over to the conduit hub: it pays out as the pump comes up, landed in the panel",
+    "discharge_grommet": "Rubber grommet where the discharge leaves the riser: it seals round the pipe",
+    "inlet_grommet": "Rubber inlet grommet in the basin wall, gripping the house sewer where it lies",
+    "capacitor_strap_start": "Steel strap round the start can, its arm and foot screwed to the back plate: loosen the screw and the can slides out; the strap stays",
+    "capacitor_strap_run": "Steel strap round the run can, its arm and foot screwed to the back plate: loosen the screw and the can slides out; the strap stays",
+    "capacitor_strap_start_screw": "Strap screw, 5/16 in hex head: two turns frees the can",
+    "capacitor_strap_run_screw": "Strap screw, 5/16 in hex head: two turns frees the can",
+    "start_relay_screw": "The screw that holds the relay's bracket to the back plate (Phillips): out, and the relay comes off with its bracket",
+    "contactor_din_clip": "The contactor's DIN latch: pry it down with a flat screwdriver and the contactor tips off the rail"
    }
   },
   "lift_station_duplex": {
@@ -990,7 +1207,7 @@
      "Check valve first, ball valve above it, both up high where a hand reaches them. Shut the ball valve and you can pull the pump or the check with the header still full."
     ],
     "float_lead": [
-     "Four floats on a tree. STOP keeps the motors under water. LEAD starts a pump. LAG means one pump is losing, so the second joins it. ALARM is above all of them. If the lag float is doing the lead float's job, a float has failed or a pump is weak."
+     "Four floats hung from a bracket, each on its own cord under a cable weight. STOP keeps the motors under water. LEAD starts a pump. LAG means one pump is losing, so the second joins it. ALARM is above all of them. If the lag float is doing the lead float's job, a float has failed or a pump is weak."
     ],
     "control_board": [
      "The 122 swaps the lead pump every cycle so both wear evenly. If one pump does all the work, check that pump's HOA, its breaker, and then put a clamp on it in HAND: 15 amps running is a healthy LSG202M, 53 for an instant as it starts."
@@ -1025,9 +1242,7 @@
     "discharge_header": "2 in schedule 80 header. The two risers tee together here and go out to the force main",
     "pump_cord_1": "Pump 1 power cord, up to the junction box",
     "pump_cord_2": "Pump 2 power cord, up to the junction box",
-    "float_tree": "Float tree. The four floats clamp to it, out of the inlet stream",
-    "float_clamps": "Float clamps: each float on a 3-1/2 in tether",
-    "float_cords": "Float cords up to the junction box",
+    "float_cords": "Float cords from the bracket down the wall into the junction box",
     "float_off": "STOP float, 13 in off the floor. Both pumps run down to here. It keeps the motors covered",
     "float_lead": "LEAD float, 36 in. It starts the lead pump",
     "float_lag": "LAG float, 44 in. The lead pump is losing, so the second pump comes on 3 seconds later",
@@ -1086,7 +1301,41 @@
     "test_button": "TEST: lights the beacon and sounds the horn. Push it on every visit",
     "silence_button": "SILENCE: stops the horn. The beacon stays lit until the water drops",
     "din_rail_low": "DIN rail for the pump terminal blocks",
-    "panel_stand": "Panel stand"
+    "panel_stand": "Panel stand",
+    "float_bracket": "Float bracket: stainless angle bolted under the rim on the junction box side. Each float hangs on its own cord through a cord grip in it (Liberty: a bracket, not the QuickTree, in a 96 in basin)",
+    "cord_grip_off": "Cord grip for the STOP float. Loosen its cap and the cord slides to set the float's height",
+    "cord_grip_lead": "Cord grip for the LEAD float. Liberty: move the ON float no more than 3 in either way",
+    "cord_grip_lag": "Cord grip for the LAG float",
+    "cord_grip_alarm": "Cord grip for the ALARM float",
+    "float_off_weight": "Cable weight on the STOP float's cord: the float tips on a 4 in tether below it",
+    "float_lead_weight": "Cable weight on the LEAD float's cord",
+    "float_lag_weight": "Cable weight on the LAG float's cord",
+    "float_alarm_weight": "Cable weight on the ALARM float's cord",
+    "float_off_cord": "STOP float cord, up to its grip",
+    "float_lead_cord": "LEAD float cord, up to its grip",
+    "float_lag_cord": "LAG float cord, up to its grip",
+    "float_alarm_cord": "ALARM float cord, up to its grip",
+    "junction_box_body": "JB70 junction box on the outside of the basin wall. The pump and float cords splice here to the conduit wires",
+    "lid_rim": "The cover's rim on the junction box side (part of the cover: it comes off with it)",
+    "lid_gasket_rim": "Cover gasket, the junction box side half",
+    "lid_gasket": "Cover gasket on the basin's flange. Torn or folded: sewer gas at the lid",
+    "lid_bolt_1": "Cover bolt, stainless, with its washer",
+    "lid_bolt_2": "Cover bolt, stainless, with its washer",
+    "lid_bolt_3": "Cover bolt, stainless, with its washer",
+    "lid_bolt_4": "Cover bolt, stainless, with its washer",
+    "lid_bolt_5": "Cover bolt, stainless, with its washer",
+    "lid_bolt_6": "Cover bolt, stainless, with its washer",
+    "lid_bolt_7": "Cover bolt, stainless, with its washer",
+    "lid_bolt_8": "Cover bolt, stainless, with its washer",
+    "jb_cover_gasket": "Junction box cover gasket. Pinched: rain in the box",
+    "jb_cover_screw_1": "Junction box cover screw (captive)",
+    "jb_cover_screw_2": "Junction box cover screw (captive)",
+    "jb_cover_screw_3": "Junction box cover screw (captive)",
+    "jb_cover_screw_4": "Junction box cover screw (captive)",
+    "check_valve_1_disc": "Pump 1 check's disc, shut on its seat: it holds the header full when the pump stops",
+    "check_valve_2_disc": "Pump 2 check's disc",
+    "ball_valve_1_ball": "Pump 1 ball valve's ball: bored along the pipe when open, across it when shut",
+    "ball_valve_2_ball": "Pump 2 ball valve's ball"
    }
   },
   "pressure_tank": {
@@ -1219,6 +1468,63 @@
     ],
     "cords": [
      "The pump cord and the float wire: up the discharge with a zip tie every foot, over the lip under the lid with a zip tie through its hole (the highest, driest point in the riser), down in a slack loop and straight up into the splices."
+    ],
+    "union_nut": [
+     "The union nut: hand tight, ribbed so it can be turned. It is captured on the top half; three turns up off the pump side's thread and the pump's pipe comes off the union.",
+     "Joint weeping inside the riser. Every dose drops part of itself back in the tank."
+    ],
+    "union_tail_low": [
+     "The union's threaded half, glued on the riser pipe. The O-ring sits in its face and comes up with the pump.",
+     "Joint weeping inside the riser. Every dose drops part of itself back in the tank."
+    ],
+    "union_tail_up": [
+     "The union's top half, glued on the 90's pipe, the nut captured on it. It stays when the pump comes out.",
+     "Joint weeping inside the riser. Every dose drops part of itself back in the tank."
+    ],
+    "union_oring": [
+     "The union's O-ring, in the face of the threaded half, so it comes up with the pump. Wipe it, a dab of silicone grease, seat it in its groove before the nut goes back on: left out, the union weeps back into the tank every dose."
+    ],
+    "discharge_lower": [
+     "The pump's own pipe: 1-1/4 in at the pump head, reduced to 1 in, up to the union. It comes up with the pump, the float tied to it."
+    ],
+    "discharge_upper": [
+     "The nipple from the union's top half up into the 90, and the run from the 90 out through the riser wall's grommet to the spray line. Both glued (the purple primer shows at every joint). They stay when the pump comes out."
+    ],
+    "discharge_90": [
+     "A glued 1 in Schedule 40 90: the nipple up into one socket, the run out of the other, primer and cement at both. It turns the dose out through the riser wall. Glued, it stays: changing it is a cut and a coupling, not a wrench job."
+    ],
+    "cords_on_pipe": [
+     "The pump cord and the float wire: up the discharge with a zip tie every foot, over the lip under the lid with a zip tie through its hole (the highest, driest point in the riser), down in a slack loop and straight up into the splices."
+    ],
+    "cords_loop": [
+     "The cord loop under the lid: over the lip tab with a zip tie through its hole, down in a slack loop and up into the splices. It is the slack that lets the pump come up onto the grass without unmaking a splice."
+    ],
+    "lid_gasket": [
+     "The lid's built in gasket. Set the lid back off it and surface water runs into the tank."
+    ],
+    "lid_bolt0": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt1": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt2": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt3": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt4": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt5": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt6": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt7": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
     ]
    },
    "labels": {
@@ -1227,7 +1533,7 @@
     "seam": "Mid-height seam: gasket, alignment dowels, locking seam clips",
     "riser": "24 in riser to grade",
     "lid": "Locking lid",
-    "lid_bolts": "Lid bolts",
+    "lid_bolts": "Lid screws (8, stainless)",
     "water": "Effluent, normal level between the off and on floats",
     "water_section": "Effluent",
     "inlet": "4 in inlet from the aerobic unit",
@@ -1281,7 +1587,32 @@
     "splice_ground_crimp": "Butt connector, ground through: a silver 12 AWG barrel, both wires in from the ends, crimped",
     "splice_ground_sleeve": "Clear adhesive lined heat shrink over the ground through splice: click it to slide it back",
     "entry_sealant": "Bead of duct seal round the cable where it comes through the riser wall",
-    "cord_ends": "The cut ends of the pump cord and the float cord: the jacket stripped back, the conductors leaving side by side"
+    "cord_ends": "The cut ends of the pump cord and the float cord: the jacket stripped back, the conductors leaving side by side",
+    "lid_gasket": "Lid gasket (built into the lid)",
+    "seam_section": "Mid seam and its clips, cut",
+    "riser_section": "Riser, cut (the grommet and the cord grip's hole in its wall)",
+    "riser_adapter_section": "Riser adapter ring and screws, cut",
+    "lid_section": "Lid, cut",
+    "lid_bolts_section": "Lid screws on the kept half",
+    "inlet_section": "Inlet sanitary tee, cut: the sweep down into the run",
+    "inlet_gasket_section": "Inlet gasket, cut",
+    "lid_bolt0": "Lid screw (stainless)",
+    "lid_bolt1": "Lid screw (stainless)",
+    "lid_bolt2": "Lid screw (stainless)",
+    "lid_bolt3": "Lid screw (stainless)",
+    "lid_bolt4": "Lid screw (stainless)",
+    "lid_bolt5": "Lid screw (stainless)",
+    "lid_bolt6": "Lid screw (stainless)",
+    "lid_bolt7": "Lid screw (stainless)",
+    "union_nut": "Union nut (ribbed, hand tight)",
+    "union_tail_low": "Union, threaded half (comes up with the pump)",
+    "union_tail_up": "Union, top half on the 90 (the nut stays on it)",
+    "union_oring": "Union O-ring",
+    "discharge_lower": "Discharge: reducer and riser pipe (comes up with the pump)",
+    "discharge_upper": "Discharge: the nipple into the 90 and the run out through the riser wall",
+    "discharge_90": "Discharge 90 (1 in Schedule 40, glued)",
+    "cords_on_pipe": "Pump cord and float wire, zip tied up the pipe",
+    "cords_loop": "Cord loop over the lip tab, into the splices"
    }
   },
   "pump_wiring": {
@@ -1420,9 +1751,9 @@
     "aerate": "Aerate",
     "lids_off": "Lids off",
     "blower_filter_off": "Filter cover off",
-    "chlorinator_pull": "Pull the tablets",
+    "chlorinator_pull": "Lift the tablet tube",
     "float_test": "Lift the float",
-    "pump_pull": "Pull the pump",
+    "pump_pull": "Pull the pump on its pipe",
     "sleeves_back": "Slide the heat shrink back"
    },
    "hotspots": {
@@ -1507,6 +1838,12 @@
     ],
     "cords": [
      "The pump cord and the float wire: up the discharge with a zip tie every foot, over the lip under the lid with a zip tie through its hole (the highest, driest point in the riser), down in a slack loop and straight up into the splices."
+    ],
+    "union_nut": [
+     "Union nut. Back it off by hand and the pump comes up on its own pipe; the O-ring stays in the lower tail. Check it before it goes back."
+    ],
+    "chlor_feed_tube": [
+     "Lift the tablet tube by its handle. Tablets dissolving evenly, not caked, and wastewater tablets only."
     ]
    },
    "labels": {
@@ -1649,7 +1986,9 @@
     "diverter_lift": "Pull the diverter",
     "trip_lever": "Trip lever",
     "door_open": "Slide the glass door",
-    "retainer_clip_off": "Lift the retainer clip"
+    "retainer_clip_off": "Lift the retainer clip",
+    "stop_hot_off": "Shut the hot stop (screwdriver)",
+    "stop_cold_off": "Shut the cold stop (screwdriver)"
    },
    "hotspots": {
     "spout": [
@@ -1684,8 +2023,8 @@
     "wall_outside": "Drywall on the other side of the wall",
     "floor": "Tile floor over the subfloor",
     "joists": "Floor joists",
-    "valve_body": "Pressure balancing rough valve (Delta R10000 MultiChoice style): brass body in the plasterguard, hot inlet forward, cold to the rear, top outlet to the shower, bottom to the spout, threaded unions on all four",
-    "plaster_ground": "Plasterguard box, face flush with the finished wall, tile cut 4-1/2 in around it",
+    "valve_body": "Moen Posi-Temp 2570 pressure balancing valve: brass casting, 1/2 in sweat cups on all four ports, hot inlet forward, cold to the rear, top outlet to the shower, bottom to the spout, the 1222 cartridge in its bore and a screwdriver stop on each inlet",
+    "plaster_ground": "Moen plaster ground: a round 4-1/2 in plastic cup, its face flush with the finished wall, the cap broken out for the trim",
     "cartridge": "Moen 1222 Posi-Temp cartridge: white body, two O rings, side ports, balance spool at the back, brass stem with the notch down",
     "supply_hot": "1/2 in hot riser into the front inlet",
     "supply_cold": "1/2 in cold riser into the rear inlet",
@@ -1703,10 +2042,10 @@
     "spout_drip": "Drip from the spout after shutoff",
     "diverter_split": "Water splitting back out the spout with the diverter up",
     "head_scale": "Scale on the head face",
-    "strainer": "Drain strainer and grate",
-    "waste_overflow": "Waste and overflow: shoe, tee, overflow tube, tailpiece through the floor",
-    "overflow_plate": "Overflow plate",
-    "trip_lever": "Trip lever",
+    "strainer": "Watco 600-TL strainer body: zinc, threaded 1-1/2 in 11-1/2 NPSM into the drain ell. A drain key in its cross bar turns it out",
+    "waste_overflow": "Watco 600-TL trip lever bath waste, 1-1/2 in schedule 40 PVC, glued: drain ell under the strainer, tee with seat, 2-hole overflow elbow and tube, tailpiece through the floor",
+    "overflow_plate": "Watco 600-TL trip lever faceplate: two 2-1/4 in screws either side of the lever. The linkage and drop cylinder hang behind it",
+    "trip_lever": "Trip lever: up closes the drain (the drop cylinder drops into the tee's seat), down opens it",
     "p_trap": "1-1/2 in P-trap and arm under the floor",
     "drain_line": "Sanitary tee and the drain drop",
     "drain_clog": "Hair at the strainer, standing water",
@@ -1714,7 +2053,24 @@
     "grout_missing": "Grout missing at the base of the tile",
     "retainer_clip": "Retainer clip: the U shaped brass clip that locks the cartridge in the body. Lift it out before you pull the cartridge, and never turn the water on without it",
     "door_glass": "Sliding glass panel: slides behind the fixed panel to open the tub",
-    "glass_doors": "Bypass glass doors: track, header, jambs and the fixed panel"
+    "glass_doors": "Bypass glass doors: track, header, jambs and the fixed panel",
+    "riser_hot": "1/2 in type L copper hot riser, up from the floor into the valve's hot inlet (round 101: hollow, the house's line lands in its open bottom)",
+    "riser_cold": "1/2 in type L copper cold riser into the valve's cold inlet",
+    "drain_tee": "1-1/2 in sanitary tee at the end of the trap arm: the arm glues into its side, the tub's vent into the hub on its top, the house's drain into its bottom",
+    "arm_flange": "Shower arm flange: slides on the arm and covers the hole in the tile",
+    "spout_setscrew": "Slip fit spout clamp screw: 5/32 in hex, under the spout's root, bites the copper",
+    "spout_oring": "Spout O ring: seals the slip fit spout on the copper. A burr on the copper cuts it and the leak is behind the wall",
+    "head_washer": "Showerhead washer: the rubber washer (with the flow restrictor) in the head's socket. Left out, the head drips at the arm",
+    "strainer_cover": "Strainer cover plate: one screw holds it on the strainer body. It catches the hair; take it off to clean under it",
+    "strainer_cover_screw": "Strainer cover screw: into the strainer body's cross bar. Snug, not cranked",
+    "retainer_plate": "Retainer plate: two screws hold it inside the overflow hole and pull the overflow elbow and its foam washer tight to the tub. It stays when the faceplate comes off",
+    "faceplate_screw_top": "Faceplate screw, back wall side of the lever (2-1/4 in)",
+    "faceplate_screw_bottom": "Faceplate screw, apron side of the lever (2-1/4 in)",
+    "trip_linkage": "Trip linkage: the clevis, eye bolt, linkage nut and double loop wire down the overflow, with the plastic drop cylinder on the end. The lever drops the cylinder into the tee to hold water; hair on it is the slow drain",
+    "trap_water": "Trap seal: the water the trap holds to keep sewer gas out of the bathroom",
+    "stop_hot_plug": "Hot integral stop: a flat screwdriver turns it a quarter turn. Slot vertical is shut, horizontal is open. Shut both and the cartridge comes out with the house water on",
+    "stop_cold_plug": "Cold integral stop: slot vertical is shut, horizontal is open",
+    "handle_washer": "Handle washer: the black washer in the back of the lever's hub"
    }
   },
   "shower_two": {
@@ -1775,10 +2131,10 @@
     "spout_drip": "Drip from the spout after shutoff",
     "diverter_split": "Water splitting back out the spout with the diverter up",
     "head_scale": "Scale on the head face",
-    "strainer": "Drain strainer and grate",
-    "waste_overflow": "Waste and overflow: shoe, tee, overflow tube, tailpiece through the floor",
-    "overflow_plate": "Overflow plate",
-    "trip_lever": "Trip lever",
+    "strainer": "Watco 600-TL strainer body: zinc, threaded 1-1/2 in 11-1/2 NPSM into the drain ell. A drain key in its cross bar turns it out",
+    "waste_overflow": "Watco 600-TL trip lever bath waste, 1-1/2 in schedule 40 PVC, glued: drain ell under the strainer, tee with seat, 2-hole overflow elbow and tube, tailpiece through the floor",
+    "overflow_plate": "Watco 600-TL trip lever faceplate: two 2-1/4 in screws either side of the lever. The linkage and drop cylinder hang behind it",
+    "trip_lever": "Trip lever: up closes the drain (the drop cylinder drops into the tee's seat), down opens it",
     "p_trap": "1-1/2 in P-trap and arm under the floor",
     "drain_line": "Sanitary tee and the drain drop",
     "drain_clog": "Hair at the strainer, standing water",
@@ -1791,7 +2147,31 @@
     "escutcheon_cold": "Cold escutcheon and sleeve",
     "handle_cold": "Cold knob, C index cap, clockwise to open",
     "stem_leak_hot": "Hot side dripping: worn washer and seat, water down the tile under the hot escutcheon and out the spout",
-    "stem_leak_cold": "Cold side dripping: worn washer and seat"
+    "stem_leak_cold": "Cold side dripping: worn washer and seat",
+    "riser_hot": "1/2 in type L copper hot riser, up from the floor into the valve's hot inlet (round 101: hollow, the house's line lands in its open bottom)",
+    "riser_cold": "1/2 in type L copper cold riser into the valve's cold inlet",
+    "drain_tee": "1-1/2 in sanitary tee at the end of the trap arm: the arm glues into its side, the tub's vent into the hub on its top, the house's drain into its bottom",
+    "arm_flange": "Shower arm flange: slides on the arm and covers the hole in the tile",
+    "spout_setscrew": "Slip fit spout clamp screw: 5/32 in hex, under the spout's root, bites the copper",
+    "spout_oring": "Spout O ring: seals the slip fit spout on the copper. A burr on the copper cuts it and the leak is behind the wall",
+    "head_washer": "Showerhead washer: the rubber washer (with the flow restrictor) in the head's socket. Left out, the head drips at the arm",
+    "strainer_cover": "Strainer cover plate: one screw holds it on the strainer body. It catches the hair; take it off to clean under it",
+    "strainer_cover_screw": "Strainer cover screw: into the strainer body's cross bar. Snug, not cranked",
+    "retainer_plate": "Retainer plate: two screws hold it inside the overflow hole and pull the overflow elbow and its foam washer tight to the tub. It stays when the faceplate comes off",
+    "faceplate_screw_top": "Faceplate screw, back wall side of the lever (2-1/4 in)",
+    "faceplate_screw_bottom": "Faceplate screw, apron side of the lever (2-1/4 in)",
+    "trip_linkage": "Trip linkage: the clevis, eye bolt, linkage nut and double loop wire down the overflow, with the plastic drop cylinder on the end. The lever drops the cylinder into the tee to hold water; hair on it is the slow drain",
+    "trap_water": "Trap seal: the water the trap holds to keep sewer gas out of the bathroom",
+    "escutcheon_hot": "Hot escutcheon and sleeve",
+    "handle_hot": "Hot knob, H index cap, counterclockwise to open",
+    "index_cap_hot": "Hot index button: pry it out to reach the handle screw",
+    "index_cap_cold": "Cold index button",
+    "handle_screw_hot": "Handle screw: holds the hot knob on the stem's broach",
+    "handle_screw_cold": "Handle screw, cold side",
+    "stem_washer_hot": "Hot seat washer: the rubber washer on the stem's end that closes on the seat. Worn, the spout drips",
+    "stem_washer_cold": "Cold seat washer",
+    "stem_washer_screw_hot": "Bibb screw: holds the washer on the hot stem",
+    "stem_washer_screw_cold": "Bibb screw, cold side"
    }
   },
   "sump_pump": {
@@ -1842,7 +2222,8 @@
     "tanklid_off": "Take the tank lid off",
     "flush_weak": "Weak flush (chain slack)",
     "trickle": "Flapper leaking by",
-    "overflow": "Running over the overflow"
+    "overflow": "Running over the overflow",
+    "stops_off": "Shut the stop"
    },
    "hotspots": {
     "handle_loose": [
@@ -1932,7 +2313,54 @@
     "leak_stream": "Water slipping past the flapper",
     "overflow_stream": "Water going down the overflow tube",
     "tank_water_high": "Water line above the overflow tube",
-    "tank_section": "Tank with the front wall off"
+    "tank_section": "Tank with the front wall off",
+    "angle_stop_handle": "Stop handle: a quarter turn shuts the toilet's water",
+    "angle_stop_stem": "Stop stem",
+    "stop_stub": "Copper stub out of the wall",
+    "stop_nut_in": "Inlet compression nut (stays on the copper)",
+    "stop_ferrule": "Compression ferrule (crimped on the copper)",
+    "supply_nut_stop": "3/8 compression nut on the stop",
+    "supply_nut_fill": "Coupling nut on the fill valve shank (hand tight)",
+    "fill_locknut": "Fill valve locknut (under the tank, hand tight)",
+    "fill_shank_washer": "Fill valve shank washer (wide side up)",
+    "fill_cap": "Fill valve cap: an eighth turn off",
+    "fill_seal_242": "Fill valve seal (242)",
+    "refill_tube": "Refill tube: tops up the bowl through the overflow",
+    "flush_locknut": "Flush valve locknut",
+    "spud_gasket": "Spud gasket: seals the tank to the bowl",
+    "handle_nut": "Trip lever nut (left hand thread)",
+    "hinge_post_left": "Seat hinge post",
+    "hinge_post_right": "Seat hinge post",
+    "hinge_pin": "Seat hinge pin",
+    "hinge_cap_left": "Hinge cap (pry it up with a flat screwdriver)",
+    "hinge_cap_right": "Hinge cap (pry it up with a flat screwdriver)",
+    "seat_bolt_left": "Seat bolt",
+    "seat_bolt_right": "Seat bolt",
+    "seat_nut_left": "Seat nut, under the deck",
+    "seat_nut_right": "Seat nut, under the deck",
+    "tank_bolt_left": "Tank bolt",
+    "tank_bolt_right": "Tank bolt",
+    "tank_bolt_seal_left": "Tank bolt seal (inside the tank)",
+    "tank_bolt_seal_right": "Tank bolt seal (inside the tank)",
+    "tank_nut_left": "Tank bolt nut (under the bowl's shelf)",
+    "tank_nut_right": "Tank bolt nut (under the bowl's shelf)",
+    "tank_nut_washer_left": "Tank bolt washer",
+    "tank_nut_washer_right": "Tank bolt washer",
+    "closet_bolt_left": "Closet bolt (in the flange's slot)",
+    "closet_bolt_right": "Closet bolt (in the flange's slot)",
+    "closet_nut_left": "Closet nut",
+    "closet_nut_right": "Closet nut",
+    "closet_washer_left": "Closet bolt washer",
+    "closet_washer_right": "Closet bolt washer",
+    "bolt_cap_left": "Bolt cap",
+    "bolt_cap_right": "Bolt cap",
+    "bolt_cap_base_left": "Bolt cap base",
+    "bolt_cap_base_right": "Bolt cap base",
+    "ballcock_locknut": "Ballcock locknut",
+    "seat_section": "Cut view: the seat",
+    "wax_ring_section": "Cut view: the wax ring sealing the horn to the flange",
+    "spud_gasket_section": "Cut view: the spud gasket between the tank and the bowl",
+    "flange_section": "Cut view: the closet flange and the house pipe's socket"
    }
   },
   "water_filter": {
@@ -2175,10 +2603,23 @@
    "name": "Air Pump on a Receptacle"
   },
   "spray_head_r22": {
-   "name": "Spray Head"
+   "name": "Spray Head",
+   "hotspots": {
+    "head_filter": [
+     "Short throw or a head that will not turn: unscrew the top, lift the assembly out, rinse the filter on its bottom."
+    ]
+   }
   },
   "spray_head_180_r22": {
-   "name": "Spray Head (half circle)"
+   "name": "Spray Head (half circle)",
+   "hotspots": {
+    "head_filter": [
+     "Short throw or a head that will not turn: unscrew the top, lift the assembly out, rinse the filter on its bottom."
+    ],
+    "head_top": [
+     "Put back turned, the half circle sprays over the property line. Set the left start before the top goes down."
+    ]
+   }
   },
   "washer_box": {
    "name": "Washer Box"
@@ -2210,6 +2651,33 @@
     "water": [
      "Measure the scum and the sludge. When they fill a third of the tank it is time to pump it, or the solids carry over into the plant. The trash tank gets pumped more often than the plant.",
      "Normal level is the bottom of the outlet pipe. Liquid up in the riser means the outlet or the line to the plant is blocked. Low means the tank is leaking."
+    ],
+    "lid_gasket": [
+     "The lid's built in gasket. Set the lid back off it and surface water runs into the tank."
+    ],
+    "lid_bolt0": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt1": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt2": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt3": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt4": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt5": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt6": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
+    ],
+    "lid_bolt7": [
+     "One of the eight stainless screws that hold the lid down. Every one back in, snug and not stripped: a lid a child can lift is a failed inspection."
     ]
    },
    "labels": {
@@ -2219,7 +2687,7 @@
     "riser": "24 in riser to grade",
     "riser_adapter": "Riser adapter ring, ten stainless screws",
     "lid": "Locking lid",
-    "lid_bolts": "Lid bolts",
+    "lid_bolts": "Lid screws (8, stainless)",
     "water": "Liquid standing at the outlet invert: a trash tank is always full",
     "water_section": "Liquid, scum on top and sludge on the floor stay here",
     "inlet": "4 in inlet sanitary tee from the house sewer, its drop under the scum",
@@ -2227,7 +2695,25 @@
     "outlet": "Outlet sanitary tee, 3 in lower than the inlet, its leg dipping into the clear middle",
     "outlet_gasket": "Outlet gasket in a 5 in hole through the moulded saddle",
     "lid_buried": "Lid under the grass",
-    "lid_cracked": "Cracked lid"
+    "lid_cracked": "Cracked lid",
+    "lid_gasket": "Lid gasket (built into the lid)",
+    "seam_section": "Mid seam and its clips, cut",
+    "riser_section": "Riser, cut (the grommet and the cord grip's hole in its wall)",
+    "riser_adapter_section": "Riser adapter ring and screws, cut",
+    "lid_section": "Lid, cut",
+    "lid_bolts_section": "Lid screws on the kept half",
+    "inlet_section": "Inlet sanitary tee, cut: the sweep down into the run",
+    "inlet_gasket_section": "Inlet gasket, cut",
+    "lid_bolt0": "Lid screw (stainless)",
+    "lid_bolt1": "Lid screw (stainless)",
+    "lid_bolt2": "Lid screw (stainless)",
+    "lid_bolt3": "Lid screw (stainless)",
+    "lid_bolt4": "Lid screw (stainless)",
+    "lid_bolt5": "Lid screw (stainless)",
+    "lid_bolt6": "Lid screw (stainless)",
+    "lid_bolt7": "Lid screw (stainless)",
+    "outlet_section": "Outlet sanitary tee, cut: the dip leg up to the branch",
+    "outlet_gasket_section": "Outlet gasket, cut"
    }
   },
   "wh_surge_protector": {

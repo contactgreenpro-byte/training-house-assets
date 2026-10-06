@@ -1,15 +1,15 @@
 {
- "published": "2026-10-05T08:36:04",
- "house": "r99b",
- "note": "r99b: the clean page (one panel style, icons on the verbs, the phone layout with nothing overlapping, the name tag as a small toast, Inter self hosted with its OFL licence), the kitchen About card high loop only, six small copy fixes",
+ "published": "2026-10-06T03:00:28",
+ "house": "r100a1",
+ "note": "r100a1: interim. Wave A models: kitchen sink (J bend in real pieces, disposal and J cutaways), vanities, toilets (tank lid set on the floor), showers (stops split, Watco 600-TL waste, tub tee top closed), lift stations (gate valve 6 turns, panel rewired), duplex, pump tanks (real glued 90), Lee plants, spray heads, Rheem air handlers and condensers. Houses unchanged from r99b.",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "740b595050",
-   "bytes": 86408
+   "v": "98dc98276a",
+   "bytes": 87577
   },
   "asset-shim.js": {
    "v": "d5ae3a2ead",
@@ -28,12 +28,12 @@
    "bytes": 568328
   },
   "bath_vanity.glb": {
-   "v": "88bfa1d3d0",
-   "bytes": 492480
+   "v": "2633a330d8",
+   "bytes": 684072
   },
   "checklists.json": {
-   "v": "2815896477",
-   "bytes": 58389
+   "v": "25aaf18a6a",
+   "bytes": 58414
   },
   "clamp_meter.glb": {
    "v": "5262a30852",
@@ -84,8 +84,8 @@
    "bytes": 1084960
   },
   "explode.json": {
-   "v": "5d02c8c9c6",
-   "bytes": 37288
+   "v": "45ca2c8796",
+   "bytes": 34997
   },
   "flo_shutoff.glb": {
    "v": "00042bce4d",
@@ -124,8 +124,8 @@
    "bytes": 44800
   },
   "grab.json": {
-   "v": "c6b117f52e",
-   "bytes": 8714
+   "v": "65be8e4edd",
+   "bytes": 17955
   },
   "grease_interceptor.glb": {
    "v": "c0593679f4",
@@ -168,12 +168,12 @@
    "bytes": 3176796
   },
   "hvac_air_handler_rheem_rh2ty36_house.glb": {
-   "v": "091e0334a3",
-   "bytes": 2270300
+   "v": "0c04a4fdef",
+   "bytes": 2321388
   },
   "hvac_air_handler_rheem_rh2vy36_house.glb": {
-   "v": "4617c4e934",
-   "bytes": 2328312
+   "v": "e5bee37536",
+   "bytes": 2379624
   },
   "hvac_air_handler_upflow.glb": {
    "v": "10e8e1edba",
@@ -188,20 +188,20 @@
    "bytes": 5079704
   },
   "hvac_condenser_rheem_ra14ay36_house.glb": {
-   "v": "17e164f939",
-   "bytes": 1938520
+   "v": "5275283771",
+   "bytes": 2396348
   },
   "hvac_condenser_rheem_ra15ay36_house.glb": {
-   "v": "212d3120ec",
-   "bytes": 2009104
+   "v": "8e1e5ed506",
+   "bytes": 2481548
   },
   "hvac_condenser_rheem_rp14ay36_house.glb": {
-   "v": "067ca81da5",
-   "bytes": 2731096
+   "v": "585773b96b",
+   "bytes": 3200844
   },
   "hvac_condenser_rheem_rp15ay36_house.glb": {
-   "v": "4d8ca6fec3",
-   "bytes": 2801024
+   "v": "77bdbd3c1b",
+   "bytes": 3286552
   },
   "hvac_condenser_side_discharge_rd16ay36_house.glb": {
    "v": "d255dbc602",
@@ -260,48 +260,48 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "1e54f3dad1",
-   "bytes": 40940
+   "v": "df4c931d8b",
+   "bytes": 40691
   },
   "induct_purifier.glb": {
    "v": "1a2cebb5af",
    "bytes": 335628
   },
   "info.json": {
-   "v": "417c4b1c7c",
-   "bytes": 168535
+   "v": "3475cbbe15",
+   "bytes": 203296
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "a12c8f7022",
-   "bytes": 97877
+   "v": "d76f4d153c",
+   "bytes": 113070
   },
   "kitchen_sink.glb": {
-   "v": "d0ddf86f5f",
-   "bytes": 1508868
+   "v": "5cbcc760bd",
+   "bytes": 1669272
   },
   "lift_station_duplex.glb": {
-   "v": "e3e1dacf06",
-   "bytes": 737540
+   "v": "84c3cf60aa",
+   "bytes": 934436
   },
   "lift_station_duplex_panel.glb": {
-   "v": "92e5239be3",
-   "bytes": 1206428
+   "v": "57085ffca4",
+   "bytes": 1204768
   },
   "lift_station_duplex_slab.glb": {
-   "v": "96bbecafcf",
-   "bytes": 737556
+   "v": "a78f9fbab3",
+   "bytes": 934424
   },
   "lift_station_r12.glb": {
-   "v": "0d6bb8091b",
-   "bytes": 1506308
+   "v": "e2549bd710",
+   "bytes": 1635980
   },
   "lift_station_r12_slab.glb": {
-   "v": "26c112b91f",
-   "bytes": 1504980
+   "v": "abf8219029",
+   "bytes": 1634800
   },
   "media_air_cleaner.glb": {
    "v": "1a7e5427d0",
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "adfd05c0c6",
-   "bytes": 76000
+   "v": "79f9a8a8a4",
+   "bytes": 97498
   },
   "pipes.json": {
    "v": "5f62a965e4",
@@ -520,7 +520,7 @@
    "bytes": 29456
   },
   "pipes_groups.json": {
-   "v": "a653d9845f",
+   "v": "8d55569753",
    "bytes": 50098
   },
   "pipes_hvac__common.glb": {
@@ -904,8 +904,8 @@
    "bytes": 33984
   },
   "placements.json": {
-   "v": "344cd91ed3",
-   "bytes": 151958
+   "v": "4c69dcd6d9",
+   "bytes": 177270
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -916,28 +916,28 @@
    "bytes": 553272
   },
   "pump_tank.glb": {
-   "v": "4877fdc579",
-   "bytes": 748624
+   "v": "54b904455e",
+   "bytes": 888356
   },
   "pump_tank_slab.glb": {
-   "v": "4ae2247fab",
-   "bytes": 748464
+   "v": "544217e955",
+   "bytes": 886032
   },
   "pump_tank_train.glb": {
-   "v": "c0376a7161",
-   "bytes": 748216
+   "v": "528e2d2aa8",
+   "bytes": 887292
   },
   "pump_tank_train_slab.glb": {
-   "v": "230b3fae6d",
-   "bytes": 746608
+   "v": "5856a35107",
+   "bytes": 884172
   },
   "pump_tank_trash.glb": {
-   "v": "6132c3576a",
-   "bytes": 789868
+   "v": "5bd2452e97",
+   "bytes": 935728
   },
   "pump_tank_trash_slab.glb": {
-   "v": "a8c7577876",
-   "bytes": 800280
+   "v": "b857286f00",
+   "bytes": 936188
   },
   "pump_wiring.glb": {
    "v": "e689bab46c",
@@ -980,20 +980,20 @@
    "bytes": 301168
   },
   "septic_lee.glb": {
-   "v": "e120997e9a",
-   "bytes": 952804
+   "v": "979f3432ca",
+   "bytes": 1400368
   },
   "septic_lee_overland.glb": {
-   "v": "5391aefb2b",
-   "bytes": 883092
+   "v": "a15dfdc395",
+   "bytes": 1259816
   },
   "septic_lee_trash.glb": {
-   "v": "cd1caab3c4",
-   "bytes": 959064
+   "v": "5096adc3f7",
+   "bytes": 1427296
   },
   "septic_lee_trash_slab.glb": {
-   "v": "76c2ffbfa3",
-   "bytes": 965156
+   "v": "c1611c6d51",
+   "bytes": 1442800
   },
   "septic_tank_risers.glb": {
    "v": "d6d8714865",
@@ -1004,20 +1004,20 @@
    "bytes": 720624
   },
   "shower.glb": {
-   "v": "81e654674c",
-   "bytes": 741476
+   "v": "46ce091a20",
+   "bytes": 934632
   },
   "shower_slab.glb": {
-   "v": "23fc9109de",
-   "bytes": 741516
+   "v": "52e52c0002",
+   "bytes": 934476
   },
   "shower_two.glb": {
-   "v": "47a19e7378",
-   "bytes": 732968
+   "v": "360b7a1f41",
+   "bytes": 885592
   },
   "shower_two_slab.glb": {
-   "v": "b584751590",
-   "bytes": 720092
+   "v": "c8482515d0",
+   "bytes": 885472
   },
   "slab_attic_ladder.glb": {
    "v": "1c5c173545",
@@ -1532,12 +1532,12 @@
    "bytes": 492684
   },
   "spray_head_180_r22.glb": {
-   "v": "774057bfcf",
-   "bytes": 54120
+   "v": "8613a13172",
+   "bytes": 103076
   },
   "spray_head_r22.glb": {
-   "v": "21a1c94007",
-   "bytes": 54148
+   "v": "7353cf1281",
+   "bytes": 103104
   },
   "spray_pump_filter.glb": {
    "v": "4f377fad41",
@@ -1576,8 +1576,8 @@
    "bytes": 747036
   },
   "toilet.glb": {
-   "v": "7fb98c6bcb",
-   "bytes": 1263236
+   "v": "7e5945a9bc",
+   "bytes": 1361384
   },
   "uni_lateral.glb": {
    "v": "1c93901418",

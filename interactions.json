@@ -113,20 +113,30 @@
    "stop_hot_handle": {
     "look": "clip:stops_off"
    },
-   "p_trap": {
-    "look": "cut"
-   },
    "s_trap": {
     "look": "cut"
    },
    "wall_stub": {
     "look": "cut"
    },
-   "supply_cold": {
+   "j_bend": {
     "look": "cut"
    },
-   "supply_hot": {
+   "p_trap_arm": {
     "look": "cut"
+   },
+   "tailpiece": {
+    "look": "cut"
+   },
+   "supply_hot_hose": {
+    "look": "cut"
+   },
+   "supply_cold_hose": {
+    "look": "cut"
+   },
+   "lift_rod": {
+    "look": "clip:popup_lift",
+    "note": "hands pass: the lift knob is what a person pulls to work the stopper"
    }
   },
   "condensate_pump.glb": {
@@ -757,6 +767,21 @@
    },
    "warning_label": {
     "look": "clip:doors_off"
+   },
+   "heater_breaker": {
+    "work": "heat_run"
+   },
+   "sequencer_1": {
+    "work": "heat_run"
+   },
+   "sequencer_2": {
+    "work": "heat_run"
+   },
+   "heater_limit_1": {
+    "work": "heat_run"
+   },
+   "heater_limit_2": {
+    "work": "heat_run"
    }
   },
   "hvac_condenser_ac.glb": {
@@ -847,6 +872,15 @@
    },
    "orifice_ring": {
     "look": "clip:shell_off"
+   },
+   "cap_lead_c_comp": {
+    "look": "cut"
+   },
+   "cap_lead_herm": {
+    "look": "cut"
+   },
+   "cap_lead_fan": {
+    "look": "cut"
    }
   },
   "hvac_condenser_heatpump.glb": {
@@ -961,6 +995,15 @@
    },
    "valve_cover": {
     "look": "aside"
+   },
+   "cap_lead_c_comp": {
+    "look": "cut"
+   },
+   "cap_lead_herm": {
+    "look": "cut"
+   },
+   "cap_lead_fan": {
+    "look": "cut"
    }
   },
   "hvac_furnace_cond96.glb": {
@@ -1447,13 +1490,6 @@
     "work": "faucet_run",
     "look": "clip:faucet_run"
    },
-   "faucet_handle_pulldown": {
-    "work": "faucet_run",
-    "look": "clip:faucet_run"
-   },
-   "faucet_pulldown_section": {
-    "work": "faucet_run"
-   },
    "faucet_stream": {
     "work": "faucet_run"
    },
@@ -1487,14 +1523,8 @@
    "stop_hot_handle": {
     "look": "clip:stops_off"
    },
-   "discharge_elbow": {
-    "look": "cut"
-   },
    "disposal_body": {
     "look": "section"
-   },
-   "p_trap": {
-    "look": "cut"
    },
    "tailpiece_left": {
     "look": "cut"
@@ -1505,13 +1535,7 @@
    "waste_arm": {
     "look": "cut"
    },
-   "waste_tee": {
-    "look": "cut"
-   },
    "ro_drain_saddle": {
-    "look": "cut"
-   },
-   "pulldown_hose": {
     "look": "cut"
    },
    "dw_drain_bore": {
@@ -1546,6 +1570,53 @@
    },
    "supply_hot": {
     "look": "cut"
+   },
+   "handle_lever_pulldown": {
+    "work": "faucet_run",
+    "look": "clip:faucet_run"
+   },
+   "faucet_spout_pulldown": {
+    "work": "faucet_run"
+   },
+   "j_bend": {
+    "look": "cut"
+   },
+   "p_trap_arm": {
+    "look": "cut"
+   },
+   "waste_tee_body": {
+    "look": "cut"
+   },
+   "discharge_tube": {
+    "look": "section"
+   },
+   "discharge_90": {
+    "look": "section"
+   },
+   "disposal_mount": {
+    "look": "section"
+   },
+   "mount_lower_ring": {
+    "look": "section"
+   },
+   "splash_guard": {
+    "look": "section"
+   },
+   "grind_chamber": {
+    "look": "section",
+    "work": "disposal_run"
+   },
+   "stator": {
+    "look": "section"
+   },
+   "fc_hose": {
+    "look": "cut"
+   },
+   "stop_hot_stub": {
+    "look": "cut"
+   },
+   "stop_cold_stub": {
+    "look": "cut"
    }
   },
   "lift_station_duplex.glb": {
@@ -1556,7 +1627,8 @@
     "look": "clip:lid_off"
    },
    "water_fill": {
-    "work": "fill_from_house"
+    "work": "fill_from_house",
+    "look": "section"
    },
    "float_alarm": {
     "work": "float_swing",
@@ -1574,16 +1646,6 @@
     "work": "float_swing",
     "look": "clip:float_swing"
    },
-   "lift_chain": {
-    "look": "clip:pump_1_pull"
-   },
-   "pump": {
-    "look": "clip:pump_1_pull"
-   },
-   "valve_handle": {
-    "work": "valve_1_close",
-    "look": "clip:valve_1_close"
-   },
    "basin": {
     "look": "section"
    },
@@ -1593,13 +1655,7 @@
    "vent": {
     "look": "cut"
    },
-   "base_elbow": {
-    "look": "cut"
-   },
    "discharge_header": {
-    "look": "cut"
-   },
-   "riser": {
     "look": "cut"
    },
    "sewer_line": {
@@ -1610,6 +1666,117 @@
    },
    "soil": {
     "look": "section"
+   },
+   "pump_1": {
+    "look": "clip:pump_1_pull"
+   },
+   "pump_2": {
+    "look": "clip:pump_2_pull"
+   },
+   "lift_chain_1": {
+    "look": "clip:pump_1_pull"
+   },
+   "lift_chain_2": {
+    "look": "clip:pump_2_pull"
+   },
+   "valve_handle_1": {
+    "work": "valve_1_close",
+    "look": "clip:valve_1_close"
+   },
+   "valve_handle_2": {
+    "work": "valve_2_close",
+    "look": "clip:valve_2_close"
+   },
+   "base_elbow_1": {
+    "look": "cut"
+   },
+   "base_elbow_2": {
+    "look": "cut"
+   },
+   "riser_1": {
+    "look": "cut"
+   },
+   "riser_2": {
+    "look": "cut"
+   },
+   "bulkhead": {
+    "look": "cut"
+   },
+   "check_valve_1": {
+    "look": "cut"
+   },
+   "check_valve_2": {
+    "look": "cut"
+   },
+   "ball_valve_1": {
+    "look": "cut"
+   },
+   "ball_valve_2": {
+    "look": "cut"
+   },
+   "lid_bolt_1": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_2": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_3": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_4": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_5": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_6": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_7": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_8": {
+    "look": "clip:lid_off"
+   },
+   "lid_gasket": {
+    "look": "clip:lid_off"
+   },
+   "lid_rim": {
+    "look": "clip:lid_off"
+   },
+   "lid_gasket_rim": {
+    "look": "clip:lid_off"
+   },
+   "jb_cover_screw_1": {
+    "look": "clip:jb_cover_off"
+   },
+   "jb_cover_screw_2": {
+    "look": "clip:jb_cover_off"
+   },
+   "jb_cover_screw_3": {
+    "look": "clip:jb_cover_off"
+   },
+   "jb_cover_screw_4": {
+    "look": "clip:jb_cover_off"
+   },
+   "jb_cover_gasket": {
+    "look": "clip:jb_cover_off"
+   },
+   "float_off_weight": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_lead_weight": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_lag_weight": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_alarm_weight": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
    }
   },
   "lift_station_duplex_panel.glb": {
@@ -1637,9 +1804,6 @@
    "fuse_control": {
     "look": "clip:fuse_control_pull"
    },
-   "hoa_lever": {
-    "look": "clip:hoa_1_off"
-   },
    "lead_select_lever": {
     "work": "lead_select_1",
     "look": "clip:lead_select_1"
@@ -1655,6 +1819,12 @@
    },
    "wire_duct": {
     "look": "cut"
+   },
+   "hoa_lever_1": {
+    "look": "clip:hoa_1_off"
+   },
+   "hoa_lever_2": {
+    "look": "clip:hoa_2_off"
    }
   },
   "lift_station_r12.glb": {
@@ -1712,11 +1882,32 @@
    "wire_duct": {
     "look": "cut"
    },
-   "discharge": {
-    "look": "cut"
-   },
    "sewer_line": {
     "look": "cut"
+   },
+   "discharge_riser": {
+    "look": "cut"
+   },
+   "discharge_run": {
+    "look": "cut"
+   },
+   "union_left": {
+    "look": "cut"
+   },
+   "union_right": {
+    "look": "cut"
+   },
+   "union_nut": {
+    "look": "cut"
+   },
+   "check_valve": {
+    "look": "cut"
+   },
+   "gate_valve": {
+    "look": "clip:gate_valve_close"
+   },
+   "gate_handwheel": {
+    "look": "clip:gate_valve_close"
    }
   },
   "little/attic_ladder.glb": {
@@ -2055,6 +2246,51 @@
    },
    "tank": {
     "look": "section"
+   },
+   "union_nut": {
+    "look": "cut"
+   },
+   "union_tail_low": {
+    "look": "cut"
+   },
+   "union_tail_up": {
+    "look": "cut"
+   },
+   "discharge_lower": {
+    "look": "cut"
+   },
+   "discharge_upper": {
+    "look": "cut"
+   },
+   "discharge_90": {
+    "look": "cut"
+   },
+   "lid_gasket": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt0": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt1": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt2": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt3": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt4": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt5": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt6": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt7": {
+    "look": "clip:lid_off"
    }
   },
   "septic_aquaklear.glb": {
@@ -2364,6 +2600,30 @@
    },
    "transfer": {
     "look": "cut"
+   },
+   "union_tail_up": {
+    "look": "cut"
+   },
+   "union_nut": {
+    "look": "cut"
+   },
+   "union_tail_low": {
+    "look": "cut"
+   },
+   "union_oring": {
+    "look": "cut"
+   },
+   "discharge_lower": {
+    "look": "cut"
+   },
+   "discharge_upper": {
+    "look": "cut"
+   },
+   "chlor_feed_tube": {
+    "look": "clip:chlorinator_pull"
+   },
+   "chlor_tee_drop": {
+    "look": "cut"
    }
   },
   "septic_lee_overland.glb": {
@@ -2468,6 +2728,30 @@
     "look": "section"
    },
    "transfer": {
+    "look": "cut"
+   },
+   "union_tail_up": {
+    "look": "cut"
+   },
+   "union_nut": {
+    "look": "cut"
+   },
+   "union_tail_low": {
+    "look": "cut"
+   },
+   "union_oring": {
+    "look": "cut"
+   },
+   "discharge_lower": {
+    "look": "cut"
+   },
+   "discharge_upper": {
+    "look": "cut"
+   },
+   "chlor_feed_tube": {
+    "look": "clip:chlorinator_pull"
+   },
+   "chlor_tee_drop": {
     "look": "cut"
    }
   },
@@ -2583,6 +2867,22 @@
    },
    "overflow_plate": {
     "look": "aside"
+   },
+   "stop_hot_plug": {
+    "look": "clip:stop_hot_off",
+    "note": "round 101: the hot integral stop, a quarter turn with a flat screwdriver (slot vertical shut). Shut, a Posi-Temp gives a trickle or nothing: the page's flows should stop the shower and tub while either stop clip is open"
+   },
+   "stop_cold_plug": {
+    "look": "clip:stop_cold_off",
+    "note": "round 101: the cold integral stop (as the hot)"
+   },
+   "trip_linkage": {
+    "look": "clip:trip_lever",
+    "note": "round 101: the linkage and drop cylinder behind the overflow plate; it is worked by the trip lever"
+   },
+   "strainer_cover": {
+    "look": "aside",
+    "note": "round 101b (Watco 600-TL): the strainer cover plate, a child of strainer; set aside it shows the hair and the body's cross bar"
    }
   },
   "shower_two.glb": {
@@ -2653,6 +2953,49 @@
    },
    "stop_tube": {
     "look": "cut"
+   },
+   "index_cap_hot": {
+    "work": "shower_on",
+    "look": "clip:shower_on",
+    "note": "round 101: the knob's index button, a child of handle_hot: a click on it is a click on the knob"
+   },
+   "handle_screw_hot": {
+    "work": "shower_on",
+    "look": "clip:shower_on",
+    "note": "round 101: under the index button, a child of handle_hot"
+   },
+   "stem_washer_hot": {
+    "work": "stem_pull_hot",
+    "note": "round 101: the seat washer on the stem's end, a child of stem_hot"
+   },
+   "stem_washer_screw_hot": {
+    "work": "stem_pull_hot",
+    "note": "round 101: the bibb screw, a child of stem_hot"
+   },
+   "index_cap_cold": {
+    "work": "shower_on",
+    "look": "clip:shower_on",
+    "note": "round 101: the knob's index button, a child of handle_cold: a click on it is a click on the knob"
+   },
+   "handle_screw_cold": {
+    "work": "shower_on",
+    "look": "clip:shower_on",
+    "note": "round 101: under the index button, a child of handle_cold"
+   },
+   "stem_washer_cold": {
+    "work": "stem_pull_cold",
+    "note": "round 101: the seat washer on the stem's end, a child of stem_cold"
+   },
+   "stem_washer_screw_cold": {
+    "work": "stem_pull_cold",
+    "note": "round 101: the bibb screw, a child of stem_cold"
+   },
+   "trip_linkage": {
+    "look": "clip:trip_lever"
+   },
+   "strainer_cover": {
+    "look": "aside",
+    "note": "round 101b (Watco 600-TL): the strainer cover plate, a child of strainer; set aside it shows the hair and the body's cross bar"
    }
   },
   "spray_pump_filter.glb": {
@@ -2932,6 +3275,15 @@
    },
    "refill_drop": {
     "work": "flapper_leak"
+   },
+   "angle_stop_handle": {
+    "look": "clip:stops_off"
+   },
+   "angle_stop_stem": {
+    "look": "clip:stops_off"
+   },
+   "angle_stop": {
+    "look": "clip:stops_off"
    }
   },
   "uni_lateral.glb": {
@@ -4253,6 +4605,33 @@
    },
    "tank": {
     "look": "section"
+   },
+   "lid_gasket": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt0": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt1": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt2": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt3": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt4": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt5": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt6": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt7": {
+    "look": "clip:lid_off"
    }
   },
   "wh_surge_protector.glb": {
@@ -5192,6 +5571,51 @@
    },
    "tank": {
     "look": "section"
+   },
+   "union_nut": {
+    "look": "cut"
+   },
+   "union_tail_low": {
+    "look": "cut"
+   },
+   "union_tail_up": {
+    "look": "cut"
+   },
+   "discharge_lower": {
+    "look": "cut"
+   },
+   "discharge_upper": {
+    "look": "cut"
+   },
+   "discharge_90": {
+    "look": "cut"
+   },
+   "lid_gasket": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt0": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt1": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt2": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt3": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt4": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt5": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt6": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt7": {
+    "look": "clip:lid_off"
    }
   },
   "septic_aquaklear_train.glb": {
@@ -5417,6 +5841,30 @@
    },
    "transfer": {
     "look": "cut"
+   },
+   "union_tail_up": {
+    "look": "cut"
+   },
+   "union_nut": {
+    "look": "cut"
+   },
+   "union_tail_low": {
+    "look": "cut"
+   },
+   "union_oring": {
+    "look": "cut"
+   },
+   "discharge_lower": {
+    "look": "cut"
+   },
+   "discharge_upper": {
+    "look": "cut"
+   },
+   "chlor_feed_tube": {
+    "look": "clip:chlorinator_pull"
+   },
+   "chlor_tee_drop": {
+    "look": "cut"
    }
   },
   "sump_pump.glb": {
@@ -5497,6 +5945,326 @@
    },
    "vent": {
     "look": "cut"
+   }
+  },
+  "lift_station_r12_slab.glb": {
+   "discharge_riser": {
+    "look": "cut"
+   },
+   "discharge_run": {
+    "look": "cut"
+   },
+   "union_left": {
+    "look": "cut"
+   },
+   "union_right": {
+    "look": "cut"
+   },
+   "union_nut": {
+    "look": "cut"
+   },
+   "check_valve": {
+    "look": "cut"
+   },
+   "gate_valve": {
+    "look": "clip:gate_valve_close"
+   },
+   "gate_handwheel": {
+    "look": "clip:gate_valve_close"
+   }
+  },
+  "lift_station_duplex_slab.glb": {
+   "pump_1": {
+    "look": "clip:pump_1_pull"
+   },
+   "pump_2": {
+    "look": "clip:pump_2_pull"
+   },
+   "lift_chain_1": {
+    "look": "clip:pump_1_pull"
+   },
+   "lift_chain_2": {
+    "look": "clip:pump_2_pull"
+   },
+   "valve_handle_1": {
+    "work": "valve_1_close",
+    "look": "clip:valve_1_close"
+   },
+   "valve_handle_2": {
+    "work": "valve_2_close",
+    "look": "clip:valve_2_close"
+   },
+   "base_elbow_1": {
+    "look": "cut"
+   },
+   "base_elbow_2": {
+    "look": "cut"
+   },
+   "riser_1": {
+    "look": "cut"
+   },
+   "riser_2": {
+    "look": "cut"
+   },
+   "bulkhead": {
+    "look": "cut"
+   },
+   "check_valve_1": {
+    "look": "cut"
+   },
+   "check_valve_2": {
+    "look": "cut"
+   },
+   "ball_valve_1": {
+    "look": "cut"
+   },
+   "ball_valve_2": {
+    "look": "cut"
+   },
+   "water_fill": {
+    "work": "fill_from_house",
+    "look": "section"
+   },
+   "lid_bolt_1": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_2": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_3": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_4": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_5": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_6": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_7": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt_8": {
+    "look": "clip:lid_off"
+   },
+   "lid_gasket": {
+    "look": "clip:lid_off"
+   },
+   "lid_rim": {
+    "look": "clip:lid_off"
+   },
+   "lid_gasket_rim": {
+    "look": "clip:lid_off"
+   },
+   "jb_cover_screw_1": {
+    "look": "clip:jb_cover_off"
+   },
+   "jb_cover_screw_2": {
+    "look": "clip:jb_cover_off"
+   },
+   "jb_cover_screw_3": {
+    "look": "clip:jb_cover_off"
+   },
+   "jb_cover_screw_4": {
+    "look": "clip:jb_cover_off"
+   },
+   "jb_cover_gasket": {
+    "look": "clip:jb_cover_off"
+   },
+   "float_off_weight": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_lead_weight": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_lag_weight": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   },
+   "float_alarm_weight": {
+    "work": "float_swing",
+    "look": "clip:float_swing"
+   }
+  },
+  "pump_tank_slab.glb": {
+   "union_nut": {
+    "look": "cut"
+   },
+   "union_tail_low": {
+    "look": "cut"
+   },
+   "union_tail_up": {
+    "look": "cut"
+   },
+   "discharge_lower": {
+    "look": "cut"
+   },
+   "discharge_upper": {
+    "look": "cut"
+   },
+   "discharge_90": {
+    "look": "cut"
+   },
+   "lid_gasket": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt0": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt1": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt2": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt3": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt4": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt5": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt6": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt7": {
+    "look": "clip:lid_off"
+   }
+  },
+  "pump_tank_train_slab.glb": {
+   "union_nut": {
+    "look": "cut"
+   },
+   "union_tail_low": {
+    "look": "cut"
+   },
+   "union_tail_up": {
+    "look": "cut"
+   },
+   "discharge_lower": {
+    "look": "cut"
+   },
+   "discharge_upper": {
+    "look": "cut"
+   },
+   "discharge_90": {
+    "look": "cut"
+   },
+   "lid_gasket": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt0": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt1": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt2": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt3": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt4": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt5": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt6": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt7": {
+    "look": "clip:lid_off"
+   }
+  },
+  "pump_tank_trash_slab.glb": {
+   "lid_gasket": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt0": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt1": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt2": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt3": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt4": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt5": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt6": {
+    "look": "clip:lid_off"
+   },
+   "lid_bolt7": {
+    "look": "clip:lid_off"
+   }
+  },
+  "septic_lee_trash_slab.glb": {
+   "union_tail_up": {
+    "look": "cut"
+   },
+   "union_nut": {
+    "look": "cut"
+   },
+   "union_tail_low": {
+    "look": "cut"
+   },
+   "union_oring": {
+    "look": "cut"
+   },
+   "discharge_lower": {
+    "look": "cut"
+   },
+   "discharge_upper": {
+    "look": "cut"
+   },
+   "chlor_feed_tube": {
+    "look": "clip:chlorinator_pull"
+   },
+   "chlor_tee_drop": {
+    "look": "cut"
+   }
+  },
+  "spray_head_r22.glb": {
+   "head_stem": {
+    "work": "spray"
+   },
+   "head_riser": {
+    "work": "spray"
+   },
+   "head_nozzle": {
+    "work": "spray"
+   },
+   "head_top": {
+    "work": "spray"
+   }
+  },
+  "spray_head_180_r22.glb": {
+   "head_stem": {
+    "work": "spray"
+   },
+   "head_riser": {
+    "work": "spray"
+   },
+   "head_nozzle": {
+    "work": "spray"
+   },
+   "head_top": {
+    "work": "spray"
    }
   }
  }
