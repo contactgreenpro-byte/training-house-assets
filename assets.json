@@ -1,15 +1,15 @@
 {
- "published": "2026-10-06T10:54:33",
+ "published": "2026-10-06T14:43:17",
  "house": "r100a2",
- "note": "r100a2: r100a1 plus six wave B models (well pump and pressure tank, water heater surge protector, condensate pump, water filter, hose bib protection, the three thermostats) with their page patches; houses unchanged",
+ "note": "r100a2 + app 100a2h: the Building the house drawing redrawn to a real house's proportions (narrower, 9 ft walls, about a 6/12 roof); nothing else changed",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "66e6a3229d",
-   "bytes": 87691
+   "v": "0c61274fcc",
+   "bytes": 88028
   },
   "asset-shim.js": {
    "v": "d5ae3a2ead",
@@ -520,7 +520,7 @@
    "bytes": 29456
   },
   "pipes_groups.json": {
-   "v": "2c3f2a1365",
+   "v": "1de2371e35",
    "bytes": 50098
   },
   "pipes_hvac__common.glb": {

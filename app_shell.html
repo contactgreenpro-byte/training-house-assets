@@ -74,9 +74,9 @@
   /* Round 98: the house that builds itself, in place of the 6 px bar that slid on a timer. Line art in the app's own
      colours; every stroke draws itself as the real file it stands for arrives (see HB below). The small copy beside
      the enter note is a clone of the same drawing, so both follow the same variables, set on #setup. */
-  #setup .hb { flex: 1 1 320px; width: 100%; max-height: 104px; display: block; stroke: #e2e8f0; }
-  @media (min-height: 600px) { #setup .hb { max-height: 130px; } }
-  @media (max-width: 560px) { #setup .build span { min-width: 0; } #setup .hb { max-height: 80px; } }
+  #setup .hb { flex: 1 1 320px; width: 100%; max-height: 150px; display: block; stroke: #e2e8f0; }
+  @media (min-height: 600px) { #setup .hb { max-height: 190px; } }
+  @media (max-width: 560px) { #setup .build span { min-width: 0; } #setup .hb { max-height: 110px; } }
   #setup .hb * { vector-effect: non-scaling-stroke; }
   /* the stroke colour is set on the stage groups and inherited; a shape only says it has no fill */
   #setup .hb path, #setup .hb rect, #setup .hb circle { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
@@ -120,7 +120,7 @@
                      transform: skewY(calc(var(--lit, 0) * -24deg)) scaleX(calc(1 - var(--lit, 0) * .58)); transition: transform .7s cubic-bezier(.3, 1.3, .5, 1) .1s, opacity .2s linear; }
   #setup .hb .porch { fill: #f5b62d; stroke: none; fill-opacity: var(--lit, 0); transition: fill-opacity .3s ease; }
   /* the small copy on the House layout screen, beside "Building the slab house...": thinner lines, the fine detail left out */
-  #setup .hb.mini { display: none; flex: 0 0 auto; width: 200px; max-height: 40px; }
+  #setup .hb.mini { display: none; flex: 0 0 auto; width: 200px; max-height: 58px; }
   #setup .hb.mini.on { display: block; }
   #setup .hb.mini path, #setup .hb.mini rect, #setup .hb.mini circle { stroke-width: 1.1; }
   #setup .hb.mini .frm, #setup .hb.mini .fur, #setup .hb.mini .glow { display: none; }
@@ -221,7 +221,7 @@
     <p class="sub">Pick the house you want to work in while it is being built.</p>
     <div class="build" id="build">
       <span id="bstatus">Building the house...</span>
-      <svg class="hb" id="hb" viewBox="0 0 560 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <svg class="hb" id="hb" viewBox="0 -64 560 164" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <!-- the empty lot, drawn with the page before a single byte of the house has arrived -->
         <path class="ghost" d="M0 82 H30 V76 H560"/>
         <!-- the lot: street, kerb, grade, grass, the mailbox, a tree (the site file) -->
@@ -237,16 +237,16 @@
         </g>
         <!-- the foundation: a crawl space (stem walls, piers, footings) or a slab on grade (monolithic, turned down edges) -->
         <g class="fnd oncrawl" style="--n:6">
-          <path class="s" style="--i:0" pathLength="1" d="M146 58 V84 H152 V58"/>
-          <path class="s" style="--i:1" pathLength="1" d="M428 58 V84 H434 V58"/>
-          <path class="s" style="--i:2" pathLength="1" d="M216 62 V82 H222 V62"/>
-          <path class="s" style="--i:3" pathLength="1" d="M286 62 V82 H292 V62"/>
-          <path class="s" style="--i:4" pathLength="1" d="M356 62 V82 H362 V62"/>
-          <path class="s" style="--i:5" pathLength="1" d="M140 84 H158 M422 84 H440 M210 82 H228 M280 82 H298 M350 82 H368"/>
+          <path class="s" style="--i:0" pathLength="1" d="M174.8 55.2 V84 H179.6 V55.2"/>
+          <path class="s" style="--i:1" pathLength="1" d="M400.4 55.2 V84 H405.2 V55.2"/>
+          <path class="s" style="--i:2" pathLength="1" d="M230.8 62 V82 H235.6 V62"/>
+          <path class="s" style="--i:3" pathLength="1" d="M286.8 62 V82 H291.6 V62"/>
+          <path class="s" style="--i:4" pathLength="1" d="M342.8 62 V82 H347.6 V62"/>
+          <path class="s" style="--i:5" pathLength="1" d="M170 84 H184.4 M395.6 84 H410 M226 82 H240.4 M282 82 H296.4 M338 82 H352.4"/>
         </g>
         <g class="fnd onslab" style="--n:2">
-          <path class="s" style="--i:0" pathLength="1" d="M142 68 H438 V74 H434 V86 H422 V74 H158 V86 H146 V74 H142 Z"/>
-          <path class="s" style="--i:1" pathLength="1" d="M164 74 H416"/>
+          <path class="s" style="--i:0" pathLength="1" d="M171.6 68 H408.4 V74 H405.2 V86 H395.6 V74 H184.4 V86 H174.8 V74 H171.6 Z"/>
+          <path class="s" style="--i:1" pathLength="1" d="M189.2 74 H390.8"/>
         </g>
         <!-- the yard: the water meter or the well head, their risers (fixed to grade; the house moves with its foundation) -->
         <g class="fnd" style="--n:1">
@@ -257,74 +257,74 @@
         <g class="house">
           <!-- floor and walls going up (floor1): floor, the two outside walls, the ceiling, the partition, two windows, the door frame -->
           <g class="wal" style="--n:8">
-            <path class="s" style="--i:0" pathLength="1" d="M146 62 H434"/>
-            <path class="s" style="--i:1" pathLength="1" d="M150 62 V30"/>
-            <path class="s" style="--i:2" pathLength="1" d="M430 62 V30"/>
-            <path class="s" style="--i:3" pathLength="1" d="M146 30 H434"/>
-            <path class="s" style="--i:4" pathLength="1" d="M330 62 V30"/>
-            <rect class="glow" x="172" y="34" width="36" height="20" rx="4"/>
-            <rect class="s win" style="--i:5" pathLength="1" x="176" y="38" width="28" height="12"/>
-            <rect class="glow" x="368" y="34" width="36" height="20" rx="4"/>
-            <rect class="s win" style="--i:6" pathLength="1" x="372" y="38" width="28" height="12"/>
-            <path class="s" style="--i:7" pathLength="1" d="M270 62 V40 H286 V62"/>
+            <path class="s" style="--i:0" pathLength="1" d="M174.8 62 H405.2"/>
+            <path class="s" style="--i:1" pathLength="1" d="M178 62 V7.9"/>
+            <path class="s" style="--i:2" pathLength="1" d="M402 62 V7.9"/>
+            <path class="s" style="--i:3" pathLength="1" d="M174.8 7.9 H405.2"/>
+            <path class="s" style="--i:4" pathLength="1" d="M322 62 V7.9"/>
+            <rect class="glow" x="195.6" y="14.7" width="28.8" height="33.8" rx="4"/>
+            <rect class="s win" style="--i:5" pathLength="1" x="198.8" y="21.4" width="22.4" height="20.3"/>
+            <rect class="glow" x="352.4" y="14.7" width="28.8" height="33.8" rx="4"/>
+            <rect class="s win" style="--i:6" pathLength="1" x="355.6" y="21.4" width="22.4" height="20.3"/>
+            <path class="s" style="--i:7" pathLength="1" d="M271.9 62 V24.8 H288.9 V62"/>
           </g>
           <!-- rafters and roof (attic): the two slopes and the eaves -->
           <g class="rof" style="--n:3">
-            <path class="s" style="--i:0" pathLength="1" d="M136 32 L290 4"/>
-            <path class="s" style="--i:1" pathLength="1" d="M290 4 L444 32"/>
-            <path class="s" style="--i:2" pathLength="1" d="M136 32 H146 M434 32 H444"/>
+            <path class="s" style="--i:0" pathLength="1" d="M166.8 11.3 L290 -55.3"/>
+            <path class="s" style="--i:1" pathLength="1" d="M290 -55.3 L413.2 11.3"/>
+            <path class="s" style="--i:2" pathLength="1" d="M166.8 11.3 H174.8 M405.2 11.3 H413.2"/>
           </g>
           <!-- the framing file: the rafters under the roof deck, the ceiling joists, the floor joists over a crawl space -->
           <g class="frm" style="--n:4">
-            <path class="s" style="--i:0" pathLength="1" d="M154 31 L290 7.5"/>
-            <path class="s" style="--i:1" pathLength="1" d="M290 7.5 L426 31"/>
-            <path class="s" style="--i:2" pathLength="1" d="M150 33 H430"/>
-            <path class="s oncrawl" style="--i:3" pathLength="1" d="M152 65 H428"/>
+            <path class="s" style="--i:0" pathLength="1" d="M181.2 9.6 L290 -46.8"/>
+            <path class="s" style="--i:1" pathLength="1" d="M290 -46.8 L398.8 9.6"/>
+            <path class="s" style="--i:2" pathLength="1" d="M178 13 H402"/>
+            <path class="s oncrawl" style="--i:3" pathLength="1" d="M179.6 65 H400.4"/>
           </g>
           <!-- the furniture file: a sofa, a bed, the kitchen counter with its sink and faucet -->
           <g class="fur" style="--n:4">
-            <path class="s" style="--i:0" pathLength="1" d="M160 62 V50 H192 V62 M160 55 H192"/>
-            <path class="s" style="--i:1" pathLength="1" d="M394 62 V53 H426 V62 M394 57 H426"/>
-            <path class="s" style="--i:2" pathLength="1" d="M296 52 H318 V62"/>
-            <path class="s" style="--i:3" pathLength="1" d="M306 52 V47 H311"/>
+            <path class="s" style="--i:0" pathLength="1" d="M186 62 V41.7 H211.6 V62 M186 50.2 H211.6"/>
+            <path class="s" style="--i:1" pathLength="1" d="M373.2 62 V46.8 H398.8 V62 M373.2 53.5 H398.8"/>
+            <path class="s" style="--i:2" pathLength="1" d="M294.8 45.1 H312.4 V62"/>
+            <path class="s" style="--i:3" pathLength="1" d="M302.8 45.1 V36.7 H306.8"/>
           </g>
           <!-- the water: cold in blue from the service, hot in red from the heater, both to the sink -->
           <g class="sup" style="--n:3">
-            <path class="s cold" style="--i:0" pathLength="1" d="M70 90 H156 V72 H362 V62"/>
-            <path class="s cold" style="--i:1" pathLength="1" d="M304 72 V52"/>
-            <path class="s hot whcloset" style="--i:2" pathLength="1" d="M362 44 V38 H310 V52"/>
-            <path class="s cold whattic" style="--i:2" pathLength="1" d="M353 72 V30"/>
-            <path class="s hot whattic" style="--i:2" pathLength="1" d="M359 30 V38 H310 V52"/>
+            <path class="s cold" style="--i:0" pathLength="1" d="M70 90 H182.8 V72 H347.6 V62"/>
+            <path class="s cold" style="--i:1" pathLength="1" d="M301.2 72 V45.1"/>
+            <path class="s hot whcloset" style="--i:2" pathLength="1" d="M347.6 31.6 V21.4 H306 V45.1"/>
+            <path class="s cold whattic" style="--i:2" pathLength="1" d="M340.4 72 V7.9"/>
+            <path class="s hot whattic" style="--i:2" pathLength="1" d="M345.2 7.9 V21.4 H306 V45.1"/>
           </g>
           <!-- the drain in white: the sink's trap arm down and out to the septic tank, or out to the street; the vent through the roof -->
           <g class="dwv" style="--n:2">
-            <path class="s onseptic" style="--i:0" pathLength="1" d="M308 52 V74 H430 L476 88"/>
-            <path class="s oncity" style="--i:0" pathLength="1" d="M308 52 V74 H150 L30 92"/>
-            <path class="s" style="--i:1" pathLength="1" d="M312 52 V3 M309 3 H315"/>
+            <path class="s onseptic" style="--i:0" pathLength="1" d="M304.4 45.1 V74 H402 L476 88"/>
+            <path class="s oncity" style="--i:0" pathLength="1" d="M304.4 45.1 V74 H178 L30 92"/>
+            <path class="s" style="--i:1" pathLength="1" d="M307.6 45.1 V-57.7 M305.2 -57.7 H310"/>
           </g>
           <!-- the gas in yellow: from the street main or the propane tank, up to the meter or regulator at the wall, to the furnace and the heater -->
           <g class="gas" style="--n:3">
             <path class="s onnatural" style="--i:0" pathLength="1" d="M20 94 H100"/>
-            <path class="s" style="--i:0" pathLength="1" d="M100 94 H150 V52 M143 49 H150 V55 H143 Z"/>
-            <path class="s hvcloset nopack" style="--i:1" pathLength="1" d="M150 52 H158 V70 H343 V62"/>
-            <path class="s whcloset" style="--i:2" pathLength="1" d="M366 70 V62"/>
-            <path class="s whattic" style="--i:2" pathLength="1" d="M366 70 V30"/>
+            <path class="s" style="--i:0" pathLength="1" d="M100 94 H178 V45.1 M172.4 40 H178 V50.2 H172.4 Z"/>
+            <path class="s hvcloset nopack" style="--i:1" pathLength="1" d="M178 45.1 H184.4 V70 H332.4 V62"/>
+            <path class="s whcloset" style="--i:2" pathLength="1" d="M350.8 70 V62"/>
+            <path class="s whattic" style="--i:2" pathLength="1" d="M350.8 70 V7.9"/>
           </g>
           <!-- the duct: from the furnace, or from the attic air handler, along under the ceiling -->
           <g class="hvc" style="--n:2">
-            <path class="s hvcloset nopack" style="--i:0" pathLength="1" d="M343 42 V35"/>
-            <path class="s hvcloset" style="--i:1" pathLength="1" d="M170 35 H420"/>
-            <path class="s hvattic" style="--i:0" pathLength="1" d="M270 23 H340"/>
-            <path class="s hvattic" style="--i:1" pathLength="1" d="M300 23 V30 M338 23 V30 M250 23 H270"/>
+            <path class="s hvcloset nopack" style="--i:0" pathLength="1" d="M332.4 28.2 V16.4"/>
+            <path class="s hvcloset" style="--i:1" pathLength="1" d="M194 16.4 H394"/>
+            <path class="s hvattic" style="--i:0" pathLength="1" d="M274 -9.1 H330"/>
+            <path class="s hvattic" style="--i:1" pathLength="1" d="M298 -9.1 V7.9 M328.4 -9.1 V7.9 M258 -9.1 H274"/>
           </g>
           <!-- the equipment, one unit per model placed: the water heater, the furnace or the attic air handler -->
-          <g class="eq eq1 whcloset"><rect x="356" y="44" width="12" height="18" rx="3"/><path d="M362 44 V36"/></g>
-          <g class="eq eq1 whattic"><rect x="350" y="17" width="12" height="13" rx="3"/></g>
-          <g class="eq eq2 hvcloset"><rect x="336" y="42" width="14" height="20"/><path d="M339 50 H347 M339 54 H347"/></g>
-          <g class="eq eq2 hvattic"><rect x="250" y="16" width="20" height="14"/><path d="M255 19 V27 M260 19 V27 M265 19 V27"/></g>
+          <g class="eq eq1 whcloset"><rect x="342.8" y="31.6" width="9.6" height="30.4" rx="3"/><path d="M347.6 31.6 V18.1"/></g>
+          <g class="eq eq1 whattic"><rect x="338" y="-23.7" width="9.6" height="31.6" rx="3"/></g>
+          <g class="eq eq2 hvcloset"><rect x="326.8" y="28.2" width="11.2" height="33.8"/><path d="M329.2 41.7 H335.6 M329.2 48.5 H335.6"/></g>
+          <g class="eq eq2 hvattic"><rect x="258" y="-26.1" width="16" height="34"/><path d="M262 -18.8 V0.6 M266 -18.8 V0.6 M270 -18.8 V0.6"/></g>
           <!-- the door and its light: amber, open when the house is ready -->
-          <rect class="door" x="271" y="41" width="14" height="21"/>
-          <circle class="porch" cx="291" cy="37" r="1.7"/>
+          <rect class="door" x="272.9" y="26.5" width="15" height="35.5"/>
+          <circle class="porch" cx="292.1" cy="19.8" r="1.7"/>
         </g>
         <!-- yard equipment on grade: the condenser or the gas pack, the propane tank, the septic tank or the cleanout at the street -->
         <g class="eq eq3 nopack"><rect x="440" y="64" width="18" height="12" rx="1"/><circle cx="449" cy="70" r="3.6"/><path d="M438 76 H460"/></g>
@@ -386,7 +386,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '100a2';
+  var SHELL = '100a2h';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
