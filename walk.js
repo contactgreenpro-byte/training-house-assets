@@ -1146,7 +1146,7 @@
       if (lbl === 'hoa_knob') return spraySwitch();
       // the head is the control, and anything drawn INSIDE the tank (the bed, its arrows, the centre tube, the water) is
       // the cycle too: clicked on its own it used to run that clip alone, outside the cycle
-      if ((o.userData.pack || '') === 'water_filter' && /^(head|svc_|bw_|carbon_|riser_tube|tank_water|particles|diffuser_plate)/.test(lbl)) return filterCycle(inst);
+      if ((o.userData.pack || '') === 'water_filter' && /^(filter_head(?!_pex)|svc_|bw_|carbon_|riser_tube|riser_water|tank_water|particles|diffuser_plate)/.test(lbl)) return filterCycle(inst);
       if (/^hoa_(switch|lever_(auto|hand|off))$/.test(lbl)) return liftSwitch(inst);
       // the load centre: with the cover on, a click anywhere on it (the breaker handles show through the dead front) runs
       // the cycle; with the cover off, the can and the cover put it back and every other part says what it is. Returning
@@ -2135,9 +2135,9 @@
     [/ground_bar|^ground$|ground_lug|_pg$|term_ground/, { v: 0, node: 'G' }, 'the ground bar'],
     [/^term_l1$|^wh_l1$|^t1$/, HOT_A, 'L1 at the unit'],
     [/^term_l2$|^wh_l2$|^t2$/, HOT_B, 'L2 at the unit'],
-    [/^term_rc$|^term_rh$|^term_r$|sub_screw_rc|sub_screw_rh|sub_screw_r$/, { v: 24, node: 'R' }, 'R, the 24 V hot off the control transformer'],
-    [/^term_c$|sub_screw_c$/, { v: 0, node: 'C' }, 'C, the 24 V common'],
-    [/^term_(w1|w2|y1|y2|g|o|e)$|sub_screw_(w1|w2|y1|y2|g|ob|aux)/, { v: 0, node: 'SIG' }, 'a call wire: 24 V to C only while that call is on'],
+    [/^term_rc$|^term_rh$|^term_r$|(?:sub_term_|sub_boss_)rc|(?:sub_term_|sub_boss_)rh|(?:sub_term_|sub_boss_)r$/, { v: 24, node: 'R' }, 'R, the 24 V hot off the control transformer'],
+    [/^term_c$|(?:sub_term_|sub_boss_)c$/, { v: 0, node: 'C' }, 'C, the 24 V common'],
+    [/^term_(w1|w2|y1|y2|g|o|e)$|(?:sub_term_|sub_boss_)(w1|w2|y1|y2|g|ob|aux|w|y|e)/, { v: 0, node: 'SIG' }, 'a call wire: 24 V to C only while that call is on'],
     [/^term_1$/, HOT_A, 'terminal 1 on the mini split, one leg of the line'],
     [/^term_2$/, HOT_B, 'terminal 2 on the mini split, the other leg'],
     [/^term_3$/, { v: 0, node: 'SIG' }, 'terminal 3, the signal between the head and the outdoor unit'],
@@ -3384,7 +3384,7 @@
     return 'set ' + st.set + ', now ' + st.now + ', ' + st.mode + ', fan ' + st.fan + (st.hold ? ', holding' : '')
       + ', calling for ' + call + (runs.length ? ' (' + runs.join(' and ') + ' running)' : '');
   }
-  const STAT_CTL = { head_ctl_up: 'up', head_ctl_down: 'down', head_ctl_mode: 'mode', head_ctl_fan: 'fan', head_ctl_schedule: 'schedule', head_ctl_hold: 'hold', head_ctl_run: 'run', head_ctl_set: 'set', head_ctl_press: 'press', head_ctl_day: 'schedule', head_ctl_system: 'mode' };
+  const STAT_CTL = { head_ctl_up: 'up', head_ctl_down: 'down', head_ctl_mode: 'mode', head_ctl_fan: 'fan', head_ctl_schedule: 'schedule', head_ctl_hold: 'hold', head_ctl_run: 'run', head_ctl_set: 'set', head_ctl_press: 'press', head_ctl_menu: 'schedule', head_ctl_day: 'schedule', head_ctl_system: 'mode' };
   function statSet(inst, d) {
     inst.userData.setpoint = Math.max(50, Math.min(90, (inst.userData.setpoint || 72) + d));
     let scr = null, sp = null; inst.traverse(o => { if (!o.isMesh) return; const p = partName(o); if (p === 'stat_screen') scr = o; if (p === 'stat_setpoint') sp = o; });

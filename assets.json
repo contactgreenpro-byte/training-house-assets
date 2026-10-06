@@ -1,15 +1,15 @@
 {
- "published": "2026-10-06T03:00:28",
- "house": "r100a1",
- "note": "r100a1: interim. Wave A models: kitchen sink (J bend in real pieces, disposal and J cutaways), vanities, toilets (tank lid set on the floor), showers (stops split, Watco 600-TL waste, tub tee top closed), lift stations (gate valve 6 turns, panel rewired), duplex, pump tanks (real glued 90), Lee plants, spray heads, Rheem air handlers and condensers. Houses unchanged from r99b.",
+ "published": "2026-10-06T10:54:33",
+ "house": "r100a2",
+ "note": "r100a2: r100a1 plus six wave B models (well pump and pressure tank, water heater surge protector, condensate pump, water filter, hose bib protection, the three thermostats) with their page patches; houses unchanged",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "98dc98276a",
-   "bytes": 87577
+   "v": "66e6a3229d",
+   "bytes": 87691
   },
   "asset-shim.js": {
    "v": "d5ae3a2ead",
@@ -44,8 +44,8 @@
    "bytes": 330424
   },
   "condensate_pump.glb": {
-   "v": "460fd3a4a8",
-   "bytes": 311892
+   "v": "3baae4d96d",
+   "bytes": 480120
   },
   "drains.json": {
    "v": "0d7fa5d09c",
@@ -132,8 +132,8 @@
    "bytes": 967544
   },
   "hosebib_protection.glb": {
-   "v": "e438a7d1f7",
-   "bytes": 351588
+   "v": "f072ac6df9",
+   "bytes": 400056
   },
   "house_attic.glb": {
    "v": "ae96e266f9",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "df4c931d8b",
+   "v": "438522b17f",
    "bytes": 40691
   },
   "induct_purifier.glb": {
@@ -268,16 +268,16 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "3475cbbe15",
-   "bytes": 203296
+   "v": "3e33d47ad7",
+   "bytes": 213238
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "d76f4d153c",
-   "bytes": 113070
+   "v": "f568f6233b",
+   "bytes": 116294
   },
   "kitchen_sink.glb": {
    "v": "5cbcc760bd",
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "79f9a8a8a4",
-   "bytes": 97498
+   "v": "f7562fa7f1",
+   "bytes": 105409
   },
   "pipes.json": {
    "v": "5f62a965e4",
@@ -520,7 +520,7 @@
    "bytes": 29456
   },
   "pipes_groups.json": {
-   "v": "8d55569753",
+   "v": "2c3f2a1365",
    "bytes": 50098
   },
   "pipes_hvac__common.glb": {
@@ -904,16 +904,16 @@
    "bytes": 33984
   },
   "placements.json": {
-   "v": "4c69dcd6d9",
-   "bytes": 177270
+   "v": "f5dec271c7",
+   "bytes": 180540
   },
   "playset.glb": {
    "v": "ef2b756173",
    "bytes": 20208
   },
   "pressure_tank.glb": {
-   "v": "d913feb0d8",
-   "bytes": 553272
+   "v": "3de7ea0eb3",
+   "bytes": 675048
   },
   "pump_tank.glb": {
    "v": "54b904455e",
@@ -1556,16 +1556,16 @@
    "bytes": 9312
   },
   "thermostat_programmable.glb": {
-   "v": "0c6472cf11",
-   "bytes": 195724
+   "v": "998bdf58a2",
+   "bytes": 316888
   },
   "thermostat_smart_ecobee.glb": {
-   "v": "5c38757556",
-   "bytes": 188040
+   "v": "0340781002",
+   "bytes": 258216
   },
   "thermostat_smart_nest.glb": {
-   "v": "264202b524",
-   "bytes": 249036
+   "v": "90f9d0bdbc",
+   "bytes": 365104
   },
   "thermostatic_mixing_valve.glb": {
    "v": "ca0ebe8c26",
@@ -1584,8 +1584,8 @@
    "bytes": 1108804
   },
   "walk.js": {
-   "v": "4e122dc058",
-   "bytes": 441370
+   "v": "eed4425659",
+   "bytes": 441495
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -1596,28 +1596,28 @@
    "bytes": 85928
   },
   "water_filter.glb": {
-   "v": "e36628c4cc",
-   "bytes": 1896936
+   "v": "db58633038",
+   "bytes": 2057040
   },
   "water_softener.glb": {
    "v": "2b7372f616",
    "bytes": 762212
   },
   "well_pump.glb": {
-   "v": "730b5d85b1",
-   "bytes": 402236
+   "v": "3f2ee7e214",
+   "bytes": 596324
   },
   "wh_surge_protector.glb": {
-   "v": "62048e035d",
-   "bytes": 610664
+   "v": "2353211adf",
+   "bytes": 666616
   },
   "whole_house_spd_inside.glb": {
    "v": "b859bd7288",
    "bytes": 432660
   },
   "wires.json": {
-   "v": "0c1588a28c",
-   "bytes": 16534
+   "v": "2242bbe35c",
+   "bytes": 17299
   }
  },
  "menu_art": {

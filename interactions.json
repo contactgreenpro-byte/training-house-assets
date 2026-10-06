@@ -182,9 +182,6 @@
    "check_valve_section": {
     "work": "cutaway"
    },
-   "pump_section": {
-    "work": "cutaway"
-   },
    "puddle": {
     "work": "float_stuck"
    },
@@ -204,6 +201,32 @@
     "look": "cut"
    },
    "tube_clips": {
+    "look": "cut"
+   },
+   "reservoir_section": {
+    "work": "cutaway"
+   },
+   "lid_section": {
+    "work": "cutaway"
+   },
+   "float_safety": {
+    "look": "clip:lid_off",
+    "work": "float_stuck"
+   },
+   "inlet_hose_run": {
+    "work": "pump_run",
+    "look": "cut"
+   },
+   "inlet_hose_end": {
+    "work": "pump_run",
+    "look": "cut"
+   },
+   "discharge_tube_run": {
+    "work": "pump_run",
+    "look": "cut"
+   },
+   "discharge_tube_end": {
+    "work": "pump_run",
     "look": "cut"
    }
   },
@@ -2143,9 +2166,6 @@
    "tank_diaphragm_section": {
     "work": "waterlogged"
    },
-   "tank_waterlogged_section": {
-    "work": "waterlogged"
-   },
    "water_tank_body": {
     "work": "waterlogged"
    },
@@ -2169,6 +2189,36 @@
    },
    "wire_stub": {
     "look": "cut"
+   },
+   "switch_cover_nut": {
+    "look": "clip:cover_off"
+   },
+   "disconnect_cover_screw_a": {
+    "look": "clip:disconnect_off"
+   },
+   "disconnect_cover_screw_b": {
+    "look": "clip:disconnect_off"
+   },
+   "disconnect_toggle": {
+    "work": "disconnect_toggle_off"
+   },
+   "ball_valve_handle": {
+    "work": "ball_valve_close"
+   },
+   "boiler_drain_wheel": {
+    "work": "boiler_drain_open"
+   },
+   "outlet_union_tail_low": {
+    "look": "cut"
+   },
+   "outlet_union_nut": {
+    "look": "cut"
+   },
+   "outlet_union_tail_up": {
+    "look": "cut"
+   },
+   "tank_waterlogged_half": {
+    "work": "waterlogged"
    }
   },
   "pump_tank.glb": {
@@ -3178,11 +3228,11 @@
    }
   },
   "thermostat_programmable.glb": {
-   "head_cover": {
-    "look": "clip:cover_open"
-   },
    "sub_plate": {
     "look": "aside"
+   },
+   "sub_door": {
+    "look": "clip:door_open"
    }
   },
   "thermostat_smart_ecobee.glb": {
@@ -3655,9 +3705,6 @@
     "work": "service",
     "look": "cut"
    },
-   "b_stub": {
-    "look": "cut"
-   },
    "hose_bib": {
     "look": "cut"
    },
@@ -3696,6 +3743,39 @@
    },
    "tank_water": {
     "look": "section"
+   },
+   "filter_head": {
+    "look": "section"
+   },
+   "riser_water": {
+    "look": "section"
+   },
+   "filter_head_pex_adapter_in": {
+    "look": "cut"
+   },
+   "filter_head_pex_adapter_out": {
+    "look": "cut"
+   },
+   "union_city_tail": {
+    "look": "cut"
+   },
+   "union_city_nut": {
+    "look": "cut"
+   },
+   "union_city_body": {
+    "look": "cut"
+   },
+   "union_house_tail": {
+    "look": "cut"
+   },
+   "union_house_nut": {
+    "look": "cut"
+   },
+   "union_house_body": {
+    "look": "cut"
+   },
+   "lid_bolt": {
+    "look": "clip:lid_off"
    }
   },
   "water_softener.glb": {
@@ -3806,6 +3886,39 @@
    },
    "wire_stub": {
     "look": "cut"
+   },
+   "pitless_outer": {
+    "work": "pump_run"
+   },
+   "pitless_slide": {
+    "work": "pump_run"
+   },
+   "pitless_slide_oring": {
+    "work": "pump_run"
+   },
+   "well_cap_bolt_a": {
+    "look": "clip:cap_off"
+   },
+   "well_cap_bolt_b": {
+    "look": "clip:cap_off"
+   },
+   "well_cap_bolt_c": {
+    "look": "clip:cap_off"
+   },
+   "jbox_cover_screw_a": {
+    "look": "clip:jbox_off"
+   },
+   "jbox_cover_screw_b": {
+    "look": "clip:jbox_off"
+   },
+   "jbox_cover_screw_c": {
+    "look": "clip:jbox_off"
+   },
+   "jbox_cover_screw_d": {
+    "look": "clip:jbox_off"
+   },
+   "jbox_cover_gasket": {
+    "look": "clip:jbox_off"
    }
   },
   "whole_house_spd_inside.glb": {
@@ -4673,6 +4786,21 @@
    },
    "whs_spd_nipple": {
     "look": "cut"
+   },
+   "whs_cover_screw_top": {
+    "look": "clip:cover_off"
+   },
+   "whs_cover_screw_bottom": {
+    "look": "clip:cover_off"
+   },
+   "whs_soot_box": {
+    "work": "protection_lost"
+   },
+   "whs_spd_body_section": {
+    "look": "section"
+   },
+   "whs_spd_nipple_section": {
+    "look": "section"
    }
   },
   "thermostatic_mixing_valve.glb": {
@@ -5019,9 +5147,41 @@
     "look": "section"
    },
    "vb_cap": {
-    "look": "aside"
+    "look": "clip:vb_drain"
    },
    "vb_hose_thread": {
+    "look": "cut"
+   },
+   "vb_adapter": {
+    "look": "section"
+   },
+   "vb_lower_body": {
+    "look": "section"
+   },
+   "vb_gasket_washer": {
+    "look": "section"
+   },
+   "vb_story_coupling": {
+    "work": "backflow_block",
+    "look": "cut"
+   },
+   "vb_story_hose_washer": {
+    "work": "backflow_block",
+    "look": "cut"
+   },
+   "vb_story_hose_tube": {
+    "work": "backflow_block",
+    "look": "cut"
+   },
+   "vb_story_hose_tube_slab": {
+    "work": "backflow_block",
+    "look": "cut"
+   },
+   "vb_story_bucket_slab": {
+    "work": "backflow_block"
+   },
+   "vb_hose_slab_packets": {
+    "work": "backflow_block",
     "look": "cut"
    }
   },

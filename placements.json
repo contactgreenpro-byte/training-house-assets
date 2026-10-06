@@ -1796,7 +1796,7 @@
     "media_band",
     "media_spent",
     "particles",
-    "head_wet",
+    "filter_head_wet",
     "carbon_loaded",
     "carbon_loaded_band",
     "box_water"
@@ -1807,7 +1807,22 @@
     0,
     0,
     0
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section",
+     "carbon_media": "carbon_media_section",
+     "tank_water": "tank_water_section",
+     "riser_tube": "riser_tube_section",
+     "riser_water": "riser_water_section",
+     "diffuser_plate": "diffuser_plate_section",
+     "filter_head": "filter_head_section",
+     "filter_head_oring": "filter_head_oring_section",
+     "filter_head_riser_oring": "filter_head_riser_oring_section"
+    },
+    "also_hide": [],
+    "note": "Round 101 hands pass (CUTAWAY_RULES entry 2: 'Cut it open' did nothing on the filter). One plane through the tank's axis, the half away from the box removed (cut_open [0, -1, 0] model local): the shell, the bed, the water, the riser and the water in it, the diffuser plate, the head and both its o-rings cut together, so the IN passage down beside the riser and the OUT passage up the riser and over to the right port are cut through their middles. The PEX adapters, the jumpers and the box stay whole. The loaded layers and the specks are placement hidden, so the swap leaves them alone."
+   }
   },
   {
    "socket": "sock_atu_back",
@@ -3011,7 +3026,17 @@
    ],
    "config": "water=well",
    "alternate": true,
-   "note": "Round 41: the well layout's pressure tank on the garage east wall south of the softener's brine tank; the well service rises through the slab into its tee, its outlet climbs the wall and joins the softener's drop."
+   "note": "Round 41: the well layout's pressure tank on the garage east wall south of the softener's brine tank; the well service rises through the slab into its tee, its outlet climbs the wall and joins the softener's drop.",
+   "section_set": {
+    "pairs": {
+     "tank": "tank_section"
+    }
+   },
+   "show": [
+    "water_tank_body",
+    "tank_air_section",
+    "tank_diaphragm_section"
+   ]
   },
   {
    "socket": "sock_well_side",
@@ -3029,7 +3054,22 @@
    ],
    "config": "water=well",
    "alternate": true,
-   "note": "Round 41: the well in the east side yard, its 1 in poly service and pump cable trenched to the garage east wall."
+   "note": "Round 41: the well in the east side yard, its 1 in poly service and pump cable trenched to the garage east wall.",
+   "section_set": {
+    "pairs": {
+     "casing": "casing_section",
+     "well_cap": "well_cap_section",
+     "cap_seal": "cap_seal_section",
+     "pitless_outer": "pitless_outer_section",
+     "pitless_slide": "pitless_slide_section"
+    },
+    "also_hide": [
+     "well_cap_bolt_a"
+    ]
+   },
+   "show": [
+    "water_well_column_section"
+   ]
   },
   {
    "socket": "sock_ahu_closet_hall",
@@ -3056,8 +3096,17 @@
    "states": [
     "float_stuck",
     "puddle",
-    "water_full"
-   ]
+    "water_full",
+    "water_rise"
+   ],
+   "section_set": {
+    "pairs": {
+     "reservoir": "reservoir_section",
+     "lid": "lid_section",
+     "check_valve": "check_valve_section"
+    },
+    "also_hide": []
+   }
   },
   {
    "socket": "sock_softener_garage",
@@ -3091,7 +3140,7 @@
    "yaw": 180,
    "offset": [
     0,
-    0,
+    0.00381,
     0
    ],
    "config": "thermostat=programmable",
@@ -3119,7 +3168,7 @@
    "yaw": 180,
    "offset": [
     0,
-    0,
+    0.00381,
     0
    ],
    "config": "thermostat=smart_ecobee",
@@ -3147,7 +3196,7 @@
    "yaw": 180,
    "offset": [
     0,
-    0,
+    0.00381,
     0
    ],
    "config": "thermostat=smart_nest",
@@ -3929,9 +3978,23 @@
     "whs_soot",
     "whs_housing_crack",
     "whs_surge_bolt",
-    "whs_surge_bolt_ground"
+    "whs_surge_bolt_ground",
+    "whs_soot_box"
    ],
-   "note": "Round 89 (Jake 2026-09-23: surge protection as the add on for the water heater). wh_surge_protector/HANDOFF.md: built in this socket's frame, a Type 1/2 SPD in a handy box on a 2x4 post nailed to the rafter, its whip into the heater's junction box beside the house feed (cable_wh_attic_feed, round 89). Remove: cover_off; Work: surge; fault: protection_lost."
+   "note": "Round 89 (Jake 2026-09-23: surge protection as the add on for the water heater). wh_surge_protector/HANDOFF.md: built in this socket's frame, a Type 1/2 SPD in a handy box on a 2x4 post nailed to the rafter, its whip into the heater's junction box beside the house feed (cable_wh_attic_feed, round 89). Remove: cover_off; Work: surge; fault: protection_lost.",
+   "section_set": {
+    "pairs": {
+     "whs_spd_body": "whs_spd_body_section",
+     "whs_spd_nipple": "whs_spd_nipple_section"
+    },
+    "also_hide": [
+     "whs_spd_label",
+     "whs_led_bezel",
+     "whs_led_lit",
+     "whs_led_text",
+     "whs_spd_board"
+    ]
+   }
   },
   {
    "socket": "sock_wh_attic",
@@ -4113,7 +4176,10 @@
     "ctx_bib",
     "ctx_block",
     "ctx_wall",
-    "ctx_bed"
+    "ctx_bed",
+    "vb_story_hose_tube_slab",
+    "vb_story_bucket_slab",
+    "vb_hose_slab_packets"
    ],
    "states": [
     "cover_gasket_gap",
@@ -4143,7 +4209,10 @@
    "section_set": {
     "pairs": {
      "cover_shell": "cover_shell_section",
-     "vb_body": "vb_body_section"
+     "vb_body": "vb_body_section",
+     "vb_adapter": "vb_body_section",
+     "vb_lower_body": "vb_body_section",
+     "vb_gasket_washer": "vb_body_section"
     },
     "also_hide": [
      "cover_foam",
@@ -4173,7 +4242,10 @@
     "ctx_bib",
     "ctx_block",
     "ctx_wall",
-    "ctx_bed"
+    "ctx_bed",
+    "vb_story_hose_tube",
+    "vb_story_bucket",
+    "vb_hose_packets"
    ],
    "states": [
     "cover_gasket_gap",
@@ -4184,7 +4256,9 @@
     "vb_story_bucket",
     "vb_air_packets",
     "vb_hose_packets",
-    "vb_vent_drip"
+    "vb_vent_drip",
+    "vb_story_bucket_slab",
+    "vb_hose_slab_packets"
    ],
    "addon": {
     "freeze_cover": {
@@ -4203,7 +4277,10 @@
    "section_set": {
     "pairs": {
      "cover_shell": "cover_shell_section",
-     "vb_body": "vb_body_section"
+     "vb_body": "vb_body_section",
+     "vb_adapter": "vb_body_section",
+     "vb_lower_body": "vb_body_section",
+     "vb_gasket_washer": "vb_body_section"
     },
     "also_hide": [
      "cover_foam",
@@ -4216,6 +4293,11 @@
    "config": "foundation=slab",
    "move": {
     "vb_story_bucket": [
+     0,
+     0,
+     0.4028
+    ],
+    "vb_story_bucket_slab": [
      0,
      0,
      0.4028
@@ -4241,7 +4323,10 @@
     "ctx_bib",
     "ctx_block",
     "ctx_wall",
-    "ctx_bed"
+    "ctx_bed",
+    "vb_story_hose_tube_slab",
+    "vb_story_bucket_slab",
+    "vb_hose_slab_packets"
    ],
    "states": [
     "cover_gasket_gap",
@@ -4271,7 +4356,10 @@
    "section_set": {
     "pairs": {
      "cover_shell": "cover_shell_section",
-     "vb_body": "vb_body_section"
+     "vb_body": "vb_body_section",
+     "vb_adapter": "vb_body_section",
+     "vb_lower_body": "vb_body_section",
+     "vb_gasket_washer": "vb_body_section"
     },
     "also_hide": [
      "cover_foam",
@@ -4308,7 +4396,10 @@
     "ctx_bib",
     "ctx_block",
     "ctx_wall",
-    "ctx_bed"
+    "ctx_bed",
+    "vb_story_hose_tube",
+    "vb_story_bucket",
+    "vb_hose_packets"
    ],
    "states": [
     "cover_gasket_gap",
@@ -4319,7 +4410,9 @@
     "vb_story_bucket",
     "vb_air_packets",
     "vb_hose_packets",
-    "vb_vent_drip"
+    "vb_vent_drip",
+    "vb_story_bucket_slab",
+    "vb_hose_slab_packets"
    ],
    "addon": {
     "freeze_cover": {
@@ -4338,7 +4431,10 @@
    "section_set": {
     "pairs": {
      "cover_shell": "cover_shell_section",
-     "vb_body": "vb_body_section"
+     "vb_body": "vb_body_section",
+     "vb_adapter": "vb_body_section",
+     "vb_lower_body": "vb_body_section",
+     "vb_gasket_washer": "vb_body_section"
     },
     "also_hide": [
      "cover_foam",
@@ -4350,6 +4446,11 @@
    "note": "Round 90 (owed from round 89: the kit on the BACK bib too). The same kit as the front bib's, always placed, its two add ons (freeze_cover, vacuum_breaker) switching both bibs. The back socket faces into the house, so yaw 180. The back bib stands over the lawn at -0.897 (the front's is a mulch bed at -0.850), so the backflow story's bucket (a scale keyed state, so a move holds) comes down 4.7 cm onto the grass and 6 cm north, clear of the back stoop's north face. walk.js asks each bib's own kit whether its cover is on.",
    "move": {
     "vb_story_bucket": [
+     0.06,
+     0.0,
+     0.3558
+    ],
+    "vb_story_bucket_slab": [
      0.06,
      0.0,
      0.3558

@@ -386,7 +386,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '100a1';
+  var SHELL = '100a2';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -863,7 +863,8 @@
     'toilet.glb': { tank_bolts: 'tank_bolt_left', bolt_caps: 'bolt_cap_left' },
     'spray_head_r22.glb': { spray_head: 'head_top' },
     'spray_head_180_r22.glb': { spray_head: 'head_top' },
-    'hvac_air_handler_horizontal.glb': { uv_light: 'uv_lamp' }
+    'hvac_air_handler_horizontal.glb': { uv_light: 'uv_lamp' },
+    'hosebib_protection.glb': { vb_body: 'vb_lower_body' }     // r100a2: vb_body is an empty now (wave B split)
   };
   window.__PART_ALIAS = PART_ALIAS;
   function showLanding() {

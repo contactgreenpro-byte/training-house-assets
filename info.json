@@ -153,31 +153,78 @@
     ],
     "inlet_hose": [
      "Test pour: pour water in until it runs, watch it pump down, shut off, and not run back."
+    ],
+    "safety_lead_com": [
+     "Safety switch wired to the furnace's R circuit. Lift the float past its high point: the furnace call should drop."
+    ],
+    "safety_lead_no": [
+     "Safety switch wired to the furnace's R circuit. Lift the float past its high point: the furnace call should drop."
+    ],
+    "safety_wire_nut_com": [
+     "Safety switch wired to the furnace's R circuit. Lift the float past its high point: the furnace call should drop."
+    ],
+    "safety_wire_nut_no": [
+     "Safety switch wired to the furnace's R circuit. Lift the float past its high point: the furnace call should drop."
+    ],
+    "safety_cable": [
+     "Safety switch wired to the furnace's R circuit. Lift the float past its high point: the furnace call should drop."
+    ],
+    "inlet_hose_run": [
+     "Test pour: pour water in until it runs, watch it pump down, shut off, and not run back."
+    ],
+    "inlet_hose_end": [
+     "Test pour: pour water in until it runs, watch it pump down, shut off, and not run back."
+    ],
+    "discharge_tube_run": [
+     "Follow the discharge: no kinks, no crushed spots, clipped to the wall, ends where it should."
+    ],
+    "discharge_tube_end": [
+     "Follow the discharge: no kinks, no crushed spots, clipped to the wall, ends where it should."
+    ],
+    "float_safety": [
+     "Power on, lift the high water float by hand: the furnace's call for heat should drop. That is the safety switch test."
+    ],
+    "check_valve_section": [
+     "Ball on its seat: water lifts it on the way out and it drops back when the pump stops. Slime holds it up (short cycling) or glues it down (the pump runs and runs)."
     ]
    },
    "labels": {
     "reservoir": "Condensate pump reservoir: a condensing furnace makes water all heating season, and in a closet with no drain this lifts it out",
-    "reservoir_water": "Normal level, float down, pump off",
-    "water_full": "Reservoir full to the brim: the pump is not running",
-    "lid": "Lid with three inlet holes and the motor on top. Lift it off to clean the tank: it should be clean, no slime or grit",
-    "float": "Float on its arm: the water lifts it and it starts the pump. Push it up by hand, it should move free and the motor should start",
+    "reservoir_water": "Normal level, about 1.2 in: the pump has just stopped (it never empties the tank)",
+    "water_full": "Tank full to the brim and over: the pump float is stuck and the safety switch did not stop the furnace (not wired, or jumpered). Wired in series with R it opens at about 2.2 in and the furnace stops: no heat, but a dry closet",
+    "lid": "Cover assembly: three 1-1/8 in inlets (two closed with cap plugs) and the motor under the white cover. It snaps onto the tank: pull out on the slot on the long side and lift it off level to clean the tank and the floats",
+    "float": "Pump switch float on its arm: the water lifts it at about 1.6 in and the motor starts; it stops at about 1.2 in. Push it up by hand: it moves free and the motor starts",
     "float_stuck": "Float stuck down with slime on the hinge: the pump never starts",
-    "impeller": "Impeller in the intake cage: keep the cage clear of sludge",
+    "impeller": "Impeller in the volute on the tank floor, on the stainless shaft: keep the intake screen under it clear of slime",
     "motor_fan": "Motor cooling fan: a hot, humming motor that will not pump is a bad motor or a clogged impeller",
     "check_valve": "Check valve on the outlet: it keeps the water in the tube from running back down. If it leaks back the pump short cycles",
     "check_valve_section": "Check valve cut open: the ball on its seat",
-    "pump_section": "Reservoir cut open: the float, the intake cage and the impeller",
-    "inlet_hose": "3/4 in vinyl from the furnace's condensate trap into one inlet hole, falling all the way, no sags that hold water",
+    "inlet_hose": "3/4 in class vinyl from the furnace's condensate trap into the open inlet, falling all the way, no sags that hold water",
     "inlet_clamp": "Clamp on the trap's drain outlet",
     "discharge_tube": "3/8 in vinyl discharge up the wall: routed smooth, clipped, not kinked or pinched, and sloped down once it tops out",
     "discharge_stub": "Where the discharge leaves the closet for the attic and outside",
     "tube_clips": "Clips holding the discharge on the wall",
     "discharge_clamp": "Clamp on the check valve barb",
     "flow_packets": "Water pumped up the discharge",
-    "safety_leads": "Safety switch leads to the furnace: wired in series with the thermostat's R circuit so a full reservoir shuts the furnace off",
+    "safety_leads": "Safety switch leads (two black, 5 in) spliced to the thermostat cable, in series with the furnace's R circuit: a full tank shuts the furnace off",
     "receptacle": "Receptacle on the closet wall: the pump plugs in on its own receptacle, not an extension cord",
     "power_cord": "Pump cord, 115 V",
-    "puddle": "Water on the platform: the reservoir ran over"
+    "puddle": "Water on the platform: the tank ran over because the safety switch was not stopping the furnace",
+    "reservoir_section": "Tank cut open on the line through the open inlet: both floats, the volute with its intake screen, and the water",
+    "lid_section": "Cover plate cut back on the same line: the inlet line goes down through the opening into the tank",
+    "float_safety": "High water float: the safety switch's own float. It rises at about 2.2 in of water and opens the furnace's R circuit: no heat, but a dry closet",
+    "water_rise": "The water coming up to the start level, about 1.6 in: the pump float lifts and the motor starts",
+    "inlet_hose_run": "Inlet line from the furnace's condensate trap: clamped over the trap's 1/2 in drain, falling all the way, no sags that hold water",
+    "inlet_hose_end": "Inlet line's end: 1 to 3 in into the open inlet, cut at 45 degrees so it cannot seal on the floor or hold a float down",
+    "discharge_tube_run": "3/8 in vinyl discharge up the wall: routed smooth, clipped, not kinked or pinched, and sloped down once it tops out",
+    "discharge_tube_end": "Discharge tube's end: over both ridges of the 3/8 in barb and clamped",
+    "safety_lead_com": "Safety switch lead (black, 5 in): from the switch's COM terminal inside the motor cover",
+    "safety_lead_no": "Safety switch lead (black, 5 in): from the switch's NO terminal (Little Giant sets NO from the factory, for shutting the furnace down)",
+    "safety_wire_nut_com": "Wire nut: the switch lead spliced to the thermostat cable's conductor",
+    "safety_wire_nut_no": "Wire nut: the other switch lead spliced to the thermostat cable's other conductor",
+    "safety_cable": "18/2 thermostat cable from the splice to the furnace's low voltage entry: the switch in series with R",
+    "power_cord_plug": "Pump plug, 115 V, 3 prong: on its own receptacle",
+    "power_cord_run": "Pump cord, 115 V, 6 ft"
    }
   },
   "disposal": {
@@ -1345,7 +1392,10 @@
     "pump_cycle_loop": "40 to 60 and back",
     "cover_off": "Switch cover off",
     "disconnect_off": "Disconnect cover off",
-    "waterlogged": "Waterlogged tank"
+    "waterlogged": "Waterlogged tank",
+    "disconnect_toggle_off": "Disconnect OFF",
+    "ball_valve_close": "Ball valve closed",
+    "boiler_drain_open": "Boiler drain open"
    },
    "hotspots": {
     "boiler_drain": [
@@ -1365,6 +1415,9 @@
     ],
     "disconnect": [
      "Disconnect: lock it off before the switch cover comes off"
+    ],
+    "tank_air_valve": [
+     "Air charge: tank empty, 2 psi under the cut in (38 psi for 40/60)"
     ]
    },
    "labels": {
@@ -1374,7 +1427,6 @@
     "tank_diaphragm_section": "Diaphragm: air above, water below, they never touch",
     "tank_air_section": "Air charge: set 2 psi under the cut in with the tank drained",
     "water_tank_body": "Water side of the diaphragm",
-    "tank_waterlogged_section": "Waterlogged: the diaphragm failed, no air cushion, the pump short cycles",
     "base_ring": "Base ring the tank stands on",
     "tank_tee": "Brass tank tee: every fitting on one manifold",
     "inlet_stub": "Well service up through the slab",
@@ -1394,7 +1446,21 @@
     "water_tank_inlet": "Water in the inlet",
     "water_tank_outlet": "Water out to the house",
     "flow_packets_in": "Pump running: water in",
-    "flow_packets_out": "House drawing: water out"
+    "flow_packets_out": "House drawing: water out",
+    "tank_air_valve": "Air valve: read and set the precharge here with the tank empty",
+    "tank_air_cap": "Air valve cap: back on, or the precharge leaks away",
+    "switch_cover_nut": "Switch cover nut",
+    "disconnect_cover_screw_a": "Cover screw",
+    "disconnect_cover_screw_b": "Cover screw",
+    "disconnect_toggle": "Disconnect handle: ON up, OFF down",
+    "ball_valve_handle": "Ball valve handle: in line open, across closed",
+    "boiler_drain_wheel": "Boiler drain handle: a hose on the threads first",
+    "outlet_union": "Outlet union: undo it and the tank walks out with its tee",
+    "outlet_union_tail_low": "Union's tank side: threaded into the tee, it goes with the tank",
+    "outlet_union_nut": "Union nut: captured on the house side",
+    "outlet_union_tail_up": "Union's house side: sweated onto the copper",
+    "inlet_clamp": "Clamp on the poly over the check's barb",
+    "tank_waterlogged_half": "Waterlogged: the diaphragm failed, no air cushion, the pump short cycles"
    }
   },
   "pump_tank": {
@@ -2384,20 +2450,25 @@
      "Water standing in the box. Find the leak: a union, the bib, or ground water. The box is not a sump.",
      "Box set on dirt, not on a gravel bed. It will settle and the lid will sit crooked. Reset it level on pea gravel."
     ],
-    "head": [
-     "Wet soil around the head: o-rings. Silicone grease only on the head o-rings, never petroleum jelly."
-    ],
     "unions": [
      "No unions on the city and house stubs: the manifold cannot come out for service. Cut in unions."
     ],
     "hose_bib": [
      "Hose bib weeping. Repack or replace it before it fills the box."
+    ],
+    "filter_head": [
+     "Wet soil around the head: o-rings. Silicone grease only on the head o-rings, never petroleum jelly."
+    ],
+    "union_city_body": [
+     "No unions on the city and house stubs: the manifold cannot come out for service. Cut in unions."
+    ],
+    "union_house_body": [
+     "No unions on the city and house stubs: the manifold cannot come out for service. Cut in unions."
     ]
    },
    "labels": {
     "valve_box": "Jumbo poly meter box, 15 x 22 in inner, set level with grade on the gravel bed",
     "box_lid": "Box lid, level with the grass",
-    "gravel_bed": "Pea gravel levelling bed under the box",
     "manifold": "HP filter manifold: T column (city to the filter), B column (filter to the house), crossover, V4 riser",
     "v1_handle": "V1 red: city into the filter",
     "v3_handle": "V3 blue: bypass, shut in normal service",
@@ -2406,20 +2477,36 @@
     "unions": "1 in unions glued on site to the city and house stubs",
     "filter_adapters": "Female adapters and brass PEX adapters on the two filter stubs",
     "tank": "10 x 54 in mineral tank, buried beside the box",
-    "head": "In/out head, two 1 in ports toward the box",
     "pex_jumpers": "1 in PEX jumpers, box to head, crimped",
-    "riser": "Riser tube, head to the diffuser plate",
     "diffuser_plate": "Diffuser plate at the bottom: water collects here and goes up the riser",
-    "media": "Carbon bed, downflow: black granular carbon, the top layer loads up first",
-    "media_band": "Loaded layer at the top of the bed",
     "particles": "What the bed traps: sediment, chlorine by-products, metals, caught in the top of the carbon",
-    "bib_handle": "Bib wheel",
     "tank_water": "Clean city water above the bed",
     "flow_arrows": "Flow: down through the media, up the riser",
     "city_line": "1 in service line from the meter into V1",
     "house_line": "1 in line to the house out of V4",
     "soil": "Backfill",
-    "house_wall": "House"
+    "house_wall": "House",
+    "filter_head": "In/out head, two 1 in ports toward the box",
+    "pea_gravel": "Pea gravel levelling bed under the box",
+    "riser_tube": "Riser tube, head to the diffuser plate",
+    "carbon_media": "Carbon bed, downflow: black granular carbon, the top layer loads up first",
+    "carbon_loaded_band": "Loaded layer at the top of the bed",
+    "bib_wheel": "Bib wheel",
+    "filter_head_oring": "Head o-ring on the tank's neck: silicone grease only",
+    "filter_head_riser_oring": "Riser o-ring in the head's pilot: the seal between the water going down and the water coming up",
+    "filter_head_pex_adapter_in": "Female brass PEX adapter on the head's IN tailpiece, crimped into the IN jumper",
+    "filter_head_pex_adapter_out": "Female brass PEX adapter on the head's OUT tailpiece, crimped into the OUT jumper",
+    "lid_bolt": "Lid bolt, 3/8 in stainless, captive in the lid, into a clip nut under the box's tab",
+    "union_city_tail": "Union tail, glued on the city stub",
+    "union_city_nut": "Union nut (city side): back it off by hand, channel locks to break it",
+    "union_city_oring": "Union o-ring, in the body's face",
+    "union_city_body": "Union body, glued on the service line from the meter",
+    "union_house_tail": "Union tail, glued on the house stub",
+    "union_house_nut": "Union nut (house side): back it off by hand, channel locks to break it",
+    "union_house_oring": "Union o-ring, in the body's face",
+    "union_house_body": "Union body, glued on the line to the house",
+    "riser_water": "Filtered water coming up the riser to the head's OUT port",
+    "carbon_loaded": "Spent carbon: the loaded layer has grown down through the bed"
    }
   },
   "water_softener": {
@@ -2511,6 +2598,9 @@
     ],
     "water_well_column": [
      "Static level: measure it, then again after a long run for drawdown"
+    ],
+    "pitless_outer": [
+     "Pitless: below frost, no leak at the casing"
     ]
    },
    "labels": {
@@ -2539,7 +2629,24 @@
     "water_well_service": "Water in the service line",
     "flow_packets_up": "Pump running: water up the drop pipe",
     "flow_packets_out": "Out the pitless to the house",
-    "backflow_packets": "Check valve failed: the water runs back down the well with the pump off"
+    "backflow_packets": "Check valve failed: the water runs back down the well with the pump off",
+    "pitless_outer": "Pitless outer half: saddled and bolted to the casing below frost, the service leaves the well here. It stays.",
+    "pitless_slide": "Pitless slide: the drop pipe hangs on it. A T-handle threaded into its boss lifts it off its seat to pull the pump.",
+    "pitless_slide_oring": "The slide's O-ring: seals the slide to the outer half. A cut one lets the water run back down the casing.",
+    "well_cap_bolts": "The cap's three set bolts",
+    "well_cap_bolt_a": "Cap set bolt",
+    "well_cap_bolt_b": "Cap set bolt",
+    "well_cap_bolt_c": "Cap set bolt",
+    "jbox_cover_gasket": "Cover gasket: keeps the rain off the splices",
+    "jbox_cover_screw_a": "Cover screw",
+    "jbox_cover_screw_b": "Cover screw",
+    "jbox_cover_screw_c": "Cover screw",
+    "jbox_cover_screw_d": "Cover screw",
+    "well_cap_section": "The cap cut open: the seal on the casing's edge",
+    "cap_seal_section": "The cap seal cut open",
+    "pitless_outer_section": "The pitless cut open: out through the casing wall to the service",
+    "pitless_slide_section": "The pitless slide cut open: up out of the drop pipe and round the bend to the outer half",
+    "water_well_column_section": "Standing water in the well, with the static level line"
    }
   },
   "easystart": {
@@ -2758,7 +2865,7 @@
     "whs_spd_board": "Light board inside the device",
     "whs_spd_leads_inside": "Factory leads out of the potting",
     "whs_spd_body_section": "Cut open: three MOVs potted in the housing, each with a thermal link",
-    "whs_spd_nipple": "1/2 in nipple into the handy box, locknut inside",
+    "whs_spd_nipple": "1/2 in threaded nipple into the handy box: the leads run up its bore",
     "whs_handy_box": "Steel handy box on the post: the splices live here",
     "whs_handy_box_screws": "Wood screws holding the box to the post",
     "whs_handy_cover": "Blank cover: take it off to see the splices",
@@ -2782,7 +2889,15 @@
     "whs_soot": "Black soot at the nipple and on the housing: the device has failed, replace it",
     "whs_housing_crack": "Cracked housing: replace it",
     "whs_surge_bolt": "Surge coming in on the line",
-    "whs_surge_bolt_ground": "The surge dumped to ground through the device instead of through the heater's controls"
+    "whs_surge_bolt_ground": "The surge dumped to ground through the device instead of through the heater's controls",
+    "whs_wire_nut_black_1": "Wire nut, line 1: the device's black lead and a black #12, twisted under it",
+    "whs_wire_nut_black_2": "Wire nut, line 2: the other black pair",
+    "whs_wire_nut_green": "Wire nut, ground: the device's WHITE lead, the green #12 and the box pigtail (240 V heater: no neutral)",
+    "whs_cover_screw_top": "Cover screw (6-32)",
+    "whs_cover_screw_bottom": "Cover screw (6-32)",
+    "whs_spd_locknut": "Locknut on the device's nipple, inside the box",
+    "whs_soot_box": "Soot on the box floor round the nipple: the device has failed, replace it",
+    "whs_spd_nipple_section": "Cut open: the three leads run up the nipple's bore into the box"
    }
   },
   "thermostatic_mixing_valve": {
@@ -3056,7 +3171,8 @@
     "backflow_block": "Hose in a bucket, the pressure drops",
     "backflow_block_loop": "Vent opens, air in, the hose drains back",
     "vb_leak": "Vent dripping with the bib on",
-    "vb_leak_loop": "Drip off the breaker"
+    "vb_leak_loop": "Drip off the breaker",
+    "vb_drain": "Black ring pulled down: the bib's head drains"
    },
    "hotspots": {
     "cover_gasket": [
@@ -3069,13 +3185,17 @@
      "Cover goes on before the first freeze, hose off first"
     ],
     "vb_cap": [
-     "Vent dry with the bib running; a short spit at shut off is normal"
+     "Vent dry with the bib running; a short spit at shut off is normal",
+     "Before a hard freeze: bib off, pull the black ring down so the bib drains"
     ],
     "vb_set_screw": [
      "Set screw snapped off: the breaker stays on"
     ],
     "vb_hose_thread": [
      "Hose on the breaker, never straight on the bib"
+    ],
+    "vb_lower_body": [
+     "Spits from under the black ring with the bib running: rebuild it with an RK-NF8 kit, do not cut it off"
     ]
    },
    "labels": {
@@ -3090,19 +3210,27 @@
     "warm_band": "Heat coming out of the house along the bib: the cover keeps it there",
     "cold_packets": "Cold air: it stops at the shell",
     "vb_body": "Hose connection vacuum breaker, brass, 3/4 in hose thread in and out (Watts NF8 class, the frost free bib model)",
-    "vb_cap": "Vent cap: the atmospheric vent opens under its skirt",
+    "vb_cap": "Black drain ring: pull it down gently to drain a frost free bib, the hose can stay on. The vent opens under its skirt",
     "vb_set_screw": "Breakaway set screw, head snapped off: the breaker can't be unscrewed",
     "vb_hose_thread": "Hose thread: the hose goes on here, never straight on the bib",
     "vb_check_disc": "Check disc: pushed open by the supply, snaps shut when pressure drops",
     "vb_spring": "Spring that shuts the disc",
-    "vb_body_section": "The breaker cut open: check disc, spring, vent ports under the cap",
+    "vb_body_section": "The breaker cut open: adapter on the bib, lower body, check disc, spring, vent ports under the black ring",
     "vb_vent_drip": "Water out of the vent with the bib on: the disc is not seating",
     "vb_story_hose": "A hose left running into a bucket",
     "vb_story_bucket": "Bucket of dirty water: what back siphoning would pull into the house",
     "vb_air_packets": "Air drawn in at the vent: it breaks the siphon",
     "vb_hose_packets": "The hose drains back into the bucket, not into the house",
     "ctx_bib": "The frost free sillcock on the front wall",
-    "ctx_block": "Siding mounting block the bib and the cover gasket sit on"
+    "ctx_block": "Siding mounting block the bib and the cover gasket sit on",
+    "vb_adapter": "Adapter: screwed on the bib's thread and locked there by the snapped set screw. It stays when the breaker is rebuilt",
+    "vb_lower_body": "Lower body: unscrews from the adapter by hand to rebuild the breaker (Watts RK-NF8 kit)",
+    "vb_gasket_washer": "Gasket washer: the bib's thread end seals on it. In the RK-NF8 kit",
+    "vb_story_coupling": "Hose coupling: it swivels on the hose and turns off the breaker's thread by hand",
+    "vb_story_hose_washer": "Hose washer inside the coupling: the breaker's thread seals on it",
+    "vb_story_hose_tube": "A hose left running into a bucket",
+    "vb_story_hose_tube_slab": "A hose left running into a pail",
+    "vb_story_bucket_slab": "Pail of dirty water: what back siphoning would pull into the house"
    }
   },
   "erv": {

@@ -360,13 +360,23 @@
   },
   {
    "pack": "condensate_pump",
-   "part": "safety_leads",
-   "text": "Safety switch leads to the furnace's R circuit: if the reservoir overfills these open and the furnace stops calling for heat instead of flooding the closet."
+   "part": "safety_lead|safety_wire_nut|safety_cable",
+   "text": "The pump's high water switch: two black 5 in leads spliced in wire nuts to an 18/2 thermostat cable, in series with the furnace's R circuit. If the tank overfills the switch opens and the furnace stops calling for heat instead of flooding the closet."
   },
   {
    "pack": "condensate_pump",
    "part": "cord|receptacle",
    "text": "The pump's cord on its own receptacle. It must not share the furnace's circuit through a switched outlet."
+  },
+  {
+   "pack": "thermostat",
+   "part": "^cable_(red|blue|white|yellow|green|orange|brown|black)(_bare)?$",
+   "text": "One conductor of the thermostat cable. Its colour is its job and the letter on the plate is where it lands: red R (24 volts), blue C (common), white W (heat), yellow Y (cool), green G (fan); on the smart stats orange O/B (the reversing valve), brown W2 (the second heat), black Y2 (the second cool)."
+  },
+  {
+   "pack": "thermostat",
+   "part": "^cable_jacket$",
+   "text": "The thermostat cable from the wall: 18/8 on the smart stats, 18/5 on the T4 Pro, up the stud bay to the indoor unit's low voltage terminals."
   }
  ]
 }
