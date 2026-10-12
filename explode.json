@@ -475,6 +475,310 @@
    "why": "body lifts off the deck and forward, two shanks up through their holes, the lift rod out of the centre hole"
   }
  ],
+ "bath_vanity_v001.glb": [
+  {
+   "part": "handle_screw_hot",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 25,
+   "why": "set screw backs out of the hub's front face (3/32 hex key), hot side"
+  },
+  {
+   "part": "handle_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 90,
+   "why": "handle lifts straight off the broach"
+  },
+  {
+   "part": "bonnet_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 58,
+   "why": "cartridge nut unscrews off the threaded body boss"
+  },
+  {
+   "part": "cartridge_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 30,
+   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
+  },
+  {
+   "part": "handle_screw_cold",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 25,
+   "why": "set screw backs out of the hub's front face (3/32 hex key), cold side"
+  },
+  {
+   "part": "handle_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 90,
+   "why": "handle lifts straight off the broach"
+  },
+  {
+   "part": "bonnet_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 58,
+   "why": "cartridge nut unscrews off the threaded body boss"
+  },
+  {
+   "part": "cartridge_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 30,
+   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
+  },
+  {
+   "part": "aerator",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 60,
+   "why": "aerator unscrews straight down out of the spout's underside, washer and screen with it"
+  },
+  {
+   "part": "supply_hot",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 130,
+   "why": "braided supply off the shank tail at its 1/2 in FIP nut"
+  },
+  {
+   "part": "supply_cold",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 130,
+   "why": "braided supply off the shank tail at its 1/2 in FIP nut"
+  },
+  {
+   "part": "mount_nut_hot",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 55,
+   "why": "wing nut down off the threaded shank"
+  },
+  {
+   "part": "mount_nut_cold",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 55,
+   "why": "wing nut down off the threaded shank"
+  },
+  {
+   "part": "faucet_tubes",
+   "dir": [
+    0,
+    0.86,
+    0.51
+   ],
+   "mm": 190,
+   "why": "the shank tails come up with the body"
+  },
+  {
+   "part": "faucet",
+   "dir": [
+    0,
+    0.86,
+    0.51
+   ],
+   "mm": 190,
+   "why": "body lifts off the deck and forward, two shanks up through their holes, the lift rod out of the centre hole"
+  }
+ ],
+ "bath_vanity_v002.glb": [
+  {
+   "part": "handle_screw_hot",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 25,
+   "why": "set screw backs out of the hub's front face (3/32 hex key), hot side"
+  },
+  {
+   "part": "handle_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 90,
+   "why": "handle lifts straight off the broach"
+  },
+  {
+   "part": "bonnet_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 58,
+   "why": "cartridge nut unscrews off the threaded body boss"
+  },
+  {
+   "part": "cartridge_hot",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 30,
+   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
+  },
+  {
+   "part": "handle_screw_cold",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "mm": 25,
+   "why": "set screw backs out of the hub's front face (3/32 hex key), cold side"
+  },
+  {
+   "part": "handle_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 90,
+   "why": "handle lifts straight off the broach"
+  },
+  {
+   "part": "bonnet_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 58,
+   "why": "cartridge nut unscrews off the threaded body boss"
+  },
+  {
+   "part": "cartridge_cold",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 30,
+   "why": "cartridge lifts out: ears clear their notches, both O rings and the bottom seal show"
+  },
+  {
+   "part": "aerator",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 60,
+   "why": "aerator unscrews straight down out of the spout's underside, washer and screen with it"
+  },
+  {
+   "part": "supply_hot",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 130,
+   "why": "braided supply off the shank tail at its 1/2 in FIP nut"
+  },
+  {
+   "part": "supply_cold",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 130,
+   "why": "braided supply off the shank tail at its 1/2 in FIP nut"
+  },
+  {
+   "part": "mount_nut_hot",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 55,
+   "why": "wing nut down off the threaded shank"
+  },
+  {
+   "part": "mount_nut_cold",
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "mm": 55,
+   "why": "wing nut down off the threaded shank"
+  },
+  {
+   "part": "faucet_tubes",
+   "dir": [
+    0,
+    0.86,
+    0.51
+   ],
+   "mm": 190,
+   "why": "the shank tails come up with the body"
+  },
+  {
+   "part": "faucet",
+   "dir": [
+    0,
+    0.86,
+    0.51
+   ],
+   "mm": 190,
+   "why": "body lifts off the deck and forward, two shanks up through their holes, the lift rod out of the centre hole"
+  }
+ ],
  "hvac_minisplit.glb": [
   {
    "part": "front_panel",

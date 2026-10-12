@@ -1,15 +1,15 @@
 {
- "published": "2026-10-06T14:43:17",
- "house": "r100a2",
- "note": "r100a2 + app 100a2h: the Building the house drawing redrawn to a real house's proportions (narrower, 9 ft walls, about a 6/12 roof); nothing else changed",
+ "published": "2026-10-12T18:21:53",
+ "house": "r100a3",
+ "note": "r100a3: real fittings at every junction in both houses (each junction is the real hollow fitting from the maker's table, every pipe ends at its socket bottom), the slab sewer on a straight quarter inch line to the Lee, condensate lines at 1/8 in per ft with a 2 in air gap, the Rheem air handlers with real 3/4 FPT drain threads, the Lee plants with a real 4 in inlet hub and the overland outlet bored through, the septic blowers on their axis; app 100a3",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "0c61274fcc",
-   "bytes": 88028
+   "v": "90ec4ef26e",
+   "bytes": 88027
   },
   "asset-shim.js": {
    "v": "d5ae3a2ead",
@@ -20,12 +20,12 @@
    "bytes": 28852
   },
   "atu_blower_outlet.glb": {
-   "v": "84d1063b49",
-   "bytes": 149976
+   "v": "5b9e1c8fc1",
+   "bytes": 187892
   },
   "atu_blower_panel.glb": {
-   "v": "b1c34937bc",
-   "bytes": 568328
+   "v": "11110b0527",
+   "bytes": 626876
   },
   "bath_vanity.glb": {
    "v": "2633a330d8",
@@ -48,8 +48,8 @@
    "bytes": 480120
   },
   "drains.json": {
-   "v": "0d7fa5d09c",
-   "bytes": 10643
+   "v": "e168350676",
+   "bytes": 10628
   },
   "dryer.glb": {
    "v": "0c266ce22a",
@@ -84,8 +84,8 @@
    "bytes": 1084960
   },
   "explode.json": {
-   "v": "45ca2c8796",
-   "bytes": 34997
+   "v": "0348c3343d",
+   "bytes": 40167
   },
   "flo_shutoff.glb": {
    "v": "00042bce4d",
@@ -140,20 +140,20 @@
    "bytes": 28524
   },
   "house_crawl.glb": {
-   "v": "9ac35082e1",
+   "v": "f855d88bad",
    "bytes": 29444
   },
   "house_floor1.glb": {
-   "v": "0c56fce0f5",
-   "bytes": 606400
+   "v": "833b430963",
+   "bytes": 606228
   },
   "house_framing.glb": {
-   "v": "59237e4953",
-   "bytes": 606896
+   "v": "3dd47f5b64",
+   "bytes": 603244
   },
   "house_furniture.glb": {
-   "v": "1589bc9ee9",
-   "bytes": 8760852
+   "v": "b6ad2209f7",
+   "bytes": 8751008
   },
   "house_site.glb": {
    "v": "1782663620",
@@ -168,12 +168,12 @@
    "bytes": 3176796
   },
   "hvac_air_handler_rheem_rh2ty36_house.glb": {
-   "v": "0c04a4fdef",
-   "bytes": 2321388
+   "v": "a31ac27f5f",
+   "bytes": 2358904
   },
   "hvac_air_handler_rheem_rh2vy36_house.glb": {
-   "v": "e5bee37536",
-   "bytes": 2379624
+   "v": "e8ac9527ec",
+   "bytes": 2416388
   },
   "hvac_air_handler_upflow.glb": {
    "v": "10e8e1edba",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "438522b17f",
+   "v": "952ac23016",
    "bytes": 40691
   },
   "induct_purifier.glb": {
@@ -328,16 +328,16 @@
    "bytes": 46277
   },
   "pipes_alternates__hvac-gas_pack_and_gas-natural.glb": {
-   "v": "86e46a62eb",
-   "bytes": 37220
+   "v": "17b5505273",
+   "bytes": 60828
   },
   "pipes_alternates__hvac-gas_pack_and_gas-propane.glb": {
-   "v": "9c49ff6fca",
-   "bytes": 37544
+   "v": "aeb58bb7e7",
+   "bytes": 61116
   },
   "pipes_dwv__common.glb": {
-   "v": "04c671512a",
-   "bytes": 1688540
+   "v": "b8077f1dbf",
+   "bytes": 1589148
   },
   "pipes_dwv__sewer-city_gravity+city_lift+city_lift_duplex_and_commercial_lot-no.glb": {
    "v": "06c5564e6d",
@@ -347,77 +347,69 @@
    "v": "48121c0d74",
    "bytes": 157508
   },
-  "pipes_dwv__sewer-city_gravity.glb": {
-   "v": "7d6c671808",
-   "bytes": 58740
-  },
   "pipes_dwv__sewer-city_gravity_and_fault-belly.glb": {
-   "v": "bc6252c9ca",
-   "bytes": 207276
+   "v": "76a56d4bbd",
+   "bytes": 303988
   },
   "pipes_dwv__sewer-city_gravity_and_fault-none.glb": {
-   "v": "a091e253ae",
-   "bytes": 134208
-  },
-  "pipes_dwv__sewer-city_lift+city_lift_duplex.glb": {
-   "v": "ac3f5e80cb",
-   "bytes": 29128
+   "v": "53a8c002ad",
+   "bytes": 251384
   },
   "pipes_dwv__sewer-city_lift.glb": {
-   "v": "9f29207752",
-   "bytes": 165932
+   "v": "f06695ac18",
+   "bytes": 210336
   },
   "pipes_dwv__sewer-city_lift_duplex.glb": {
-   "v": "8fc4e2e827",
-   "bytes": 152436
+   "v": "ee4dc93303",
+   "bytes": 211196
   },
   "pipes_dwv__sewer-septic_gravity.glb": {
-   "v": "999e07b9ab",
-   "bytes": 127476
+   "v": "ff1533f4c2",
+   "bytes": 165200
   },
   "pipes_dwv__sewer-septic_gravity_and_sludgehammer-yes.glb": {
    "v": "6c3e5c0794",
    "bytes": 20760
   },
   "pipes_dwv__sewer-septic_overland.glb": {
-   "v": "bafc057b75",
-   "bytes": 177744
+   "v": "0745351271",
+   "bytes": 218048
   },
   "pipes_dwv__sewer-septic_overland_aquaklear.glb": {
-   "v": "15ecdacb24",
-   "bytes": 149800
+   "v": "3024b213e5",
+   "bytes": 186148
   },
   "pipes_dwv__sewer-septic_overland_fiberglass_train.glb": {
-   "v": "509b075c61",
-   "bytes": 48888
+   "v": "e74052526b",
+   "bytes": 55364
   },
   "pipes_dwv__sewer-septic_overland_lee.glb": {
-   "v": "e67de0112c",
-   "bytes": 46432
+   "v": "2d818d03d0",
+   "bytes": 39812
   },
   "pipes_dwv__sewer-septic_spray+septic_overland_lee.glb": {
-   "v": "53f6672e71",
-   "bytes": 178752
+   "v": "c8b775c94e",
+   "bytes": 232472
   },
   "pipes_dwv__sewer-septic_spray.glb": {
-   "v": "b456761844",
-   "bytes": 39080
+   "v": "5c34fd4de3",
+   "bytes": 33992
   },
   "pipes_dwv__sewer-septic_spray_fiberglass_train+septic_overland_fiberglass_train.glb": {
-   "v": "0a60e636d3",
-   "bytes": 109192
+   "v": "2a529aed96",
+   "bytes": 135300
   },
   "pipes_dwv__sewer-septic_spray_fiberglass_train.glb": {
-   "v": "302674a834",
-   "bytes": 73712
+   "v": "3c7a25fec9",
+   "bytes": 76604
   },
   "pipes_dwv__sewer-septic_spray_trash.glb": {
-   "v": "aeabdedc11",
-   "bytes": 184060
+   "v": "b17b145785",
+   "bytes": 194452
   },
   "pipes_dwv__sewer-septic_spray_two_tank.glb": {
-   "v": "b7b0a3e940",
-   "bytes": 231428
+   "v": "6a72e275ef",
+   "bytes": 270248
   },
   "pipes_dwv__sewer-septic_spray_with_panel.glb": {
    "v": "aabe148326",
@@ -428,8 +420,8 @@
    "bytes": 3796
   },
   "pipes_dwv__sewer__44c0ab5d.glb": {
-   "v": "e6bacfab92",
-   "bytes": 48528
+   "v": "33700553d1",
+   "bytes": 30712
   },
   "pipes_dwv__sewer__5397f126.glb": {
    "v": "9f470793fa",
@@ -444,92 +436,144 @@
    "bytes": 4108
   },
   "pipes_dwv__sewer__eff531ad.glb": {
-   "v": "4172a447c8",
-   "bytes": 127496
+   "v": "5fa11e8331",
+   "bytes": 172260
   },
   "pipes_dwv__softener-yes.glb": {
    "v": "ef9955b948",
    "bytes": 6420
   },
+  "pipes_dwv__sump-no.glb": {
+   "v": "dc8ff99dd5",
+   "bytes": 21348
+  },
   "pipes_dwv__sump-yes.glb": {
-   "v": "8fd08aee2a",
-   "bytes": 300112
+   "v": "6cea69336d",
+   "bytes": 354468
   },
   "pipes_dwv__water_heater-closet_gas_tank+closet_electric_tank.glb": {
-   "v": "aee5fc4c2b",
-   "bytes": 46520
+   "v": "e91a4c0e91",
+   "bytes": 40776
   },
   "pipes_dwv__water_heater-garage_hybrid.glb": {
-   "v": "b956155df5",
-   "bytes": 30468
+   "v": "d02799d76c",
+   "bytes": 22752
   },
   "pipes_dwv__water_heater-garage_tankless.glb": {
-   "v": "36cc708a56",
-   "bytes": 29608
+   "v": "c825bcaef9",
+   "bytes": 21936
   },
   "pipes_gas__common.glb": {
-   "v": "6c43985495",
-   "bytes": 196340
+   "v": "26d1451495",
+   "bytes": 322180
   },
   "pipes_gas__gas-natural.glb": {
-   "v": "f7a4770aa5",
-   "bytes": 76836
+   "v": "e5d99702d4",
+   "bytes": 115548
+  },
+  "pipes_gas__gas-natural_and_hvac-gas_pack.glb": {
+   "v": "a77dd456fb",
+   "bytes": 9004
   },
   "pipes_gas__gas-propane.glb": {
-   "v": "a1c3625e01",
-   "bytes": 420240
+   "v": "abe924411d",
+   "bytes": 454968
+  },
+  "pipes_gas__gas-propane_and_hvac-gas_pack.glb": {
+   "v": "29931cb59f",
+   "bytes": 8908
+  },
+  "pipes_gas__gas__46628508.glb": {
+   "v": "4d8fd42fe5",
+   "bytes": 7764
+  },
+  "pipes_gas__gas__63a0ff5e.glb": {
+   "v": "464e42e590",
+   "bytes": 7824
+  },
+  "pipes_gas__gas__6d108291.glb": {
+   "v": "a81a4bc17a",
+   "bytes": 7892
+  },
+  "pipes_gas__gas__88c8a0af.glb": {
+   "v": "7a30b5b8a2",
+   "bytes": 7840
+  },
+  "pipes_gas__gas__9620aef7.glb": {
+   "v": "baeba0fd56",
+   "bytes": 6820
+  },
+  "pipes_gas__gas__a7f8e225.glb": {
+   "v": "374c17944d",
+   "bytes": 7924
+  },
+  "pipes_gas__gas__b246fb05.glb": {
+   "v": "59d5cbf226",
+   "bytes": 8048
+  },
+  "pipes_gas__gas__c40f1971.glb": {
+   "v": "a872e1ff6d",
+   "bytes": 6756
+  },
+  "pipes_gas__gas__c8e53df3.glb": {
+   "v": "ec02473a38",
+   "bytes": 7952
+  },
+  "pipes_gas__gas__f997bb20.glb": {
+   "v": "c64d3086dd",
+   "bytes": 7784
   },
   "pipes_gas__hvac-gas_pack_and_gas-natural.glb": {
-   "v": "46f1972846",
-   "bytes": 16748
+   "v": "392b6d9bfe",
+   "bytes": 23128
   },
   "pipes_gas__hvac-gas_pack_and_gas-propane.glb": {
-   "v": "c24baa8bef",
-   "bytes": 16740
+   "v": "8c6c6d6881",
+   "bytes": 23108
   },
   "pipes_gas__hvac-split_furnace.glb": {
-   "v": "d4c974f48c",
-   "bytes": 70980
+   "v": "40f5100cf4",
+   "bytes": 90004
   },
   "pipes_gas__hvac-split_furnace_92+split_furnace_cond96+split_furnace_98.glb": {
-   "v": "85bcebaf3e",
-   "bytes": 55256
+   "v": "00f6daa234",
+   "bytes": 110080
   },
   "pipes_gas__hvac__fc5d2ebc.glb": {
-   "v": "dc4a4c0166",
-   "bytes": 11576
+   "v": "2ac3f897dd",
+   "bytes": 9772
   },
   "pipes_gas__water_heater-attic_gas_tank.glb": {
-   "v": "0eaaf95853",
-   "bytes": 54624
+   "v": "168e6e0ab2",
+   "bytes": 72276
   },
   "pipes_gas__water_heater-closet_gas_tank.glb": {
-   "v": "0bb1d829a3",
-   "bytes": 59260
+   "v": "db3c2dae00",
+   "bytes": 77380
   },
   "pipes_gas__water_heater-garage_tankless+garage_tankless_noncondensing.glb": {
-   "v": "bbeb579075",
-   "bytes": 41696
+   "v": "5153274f79",
+   "bytes": 58788
   },
   "pipes_gas__water_heater-garage_tankless.glb": {
-   "v": "46dad8961e",
-   "bytes": 56208
+   "v": "2186ace5d9",
+   "bytes": 81684
   },
   "pipes_gas__water_heater-garage_tankless_noncondensing.glb": {
-   "v": "c5a3de4580",
-   "bytes": 29456
+   "v": "ca06c2ba8e",
+   "bytes": 36388
   },
   "pipes_groups.json": {
-   "v": "1de2371e35",
-   "bytes": 50098
+   "v": "859039caee",
+   "bytes": 93439
   },
   "pipes_hvac__common.glb": {
    "v": "f2bb3860a1",
    "bytes": 1463564
   },
   "pipes_hvac__dehumidifier__182fe2b3.glb": {
-   "v": "254fc717ef",
-   "bytes": 65532
+   "v": "0f3bf5dfee",
+   "bytes": 50148
   },
   "pipes_hvac__erv-yes_and_hvac-split_furnace.glb": {
    "v": "ceba3352e7",
@@ -580,12 +624,12 @@
    "bytes": 49504
   },
   "pipes_hvac__hvac-split_furnace.glb": {
-   "v": "eac6fa5c97",
-   "bytes": 224124
+   "v": "1227f8c93a",
+   "bytes": 235328
   },
   "pipes_hvac__hvac-split_furnace_92+split_furnace_cond96+split_furnace_98.glb": {
-   "v": "0c016d37b5",
-   "bytes": 219704
+   "v": "6696ef48d7",
+   "bytes": 236172
   },
   "pipes_hvac__hvac-split_furnace_92.glb": {
    "v": "022016e3e8",
@@ -599,13 +643,21 @@
    "v": "89b97d0547",
    "bytes": 86044
   },
+  "pipes_hvac__hvac__5e17c43d.glb": {
+   "v": "785c7350f3",
+   "bytes": 114760
+  },
   "pipes_hvac__hvac__9184bdf7.glb": {
-   "v": "b41ef01ca9",
+   "v": "5b25319eab",
    "bytes": 17680
   },
   "pipes_hvac__hvac__a340dde3.glb": {
-   "v": "06ba6bf7ce",
-   "bytes": 241892
+   "v": "eefdd7da80",
+   "bytes": 111780
+  },
+  "pipes_hvac__hvac__d128c58d.glb": {
+   "v": "48209a5a87",
+   "bytes": 113712
   },
   "pipes_hvac__shutoff_extra-attic_and_water_heater-attic_gas_tank+attic_electric_tank.glb": {
    "v": "abb111b0cf",
@@ -636,272 +688,660 @@
    "bytes": 38520
   },
   "pipes_supply__common.glb": {
-   "v": "1aaa811fc6",
-   "bytes": 50048
+   "v": "546f63baf8",
+   "bytes": 45656
   },
   "pipes_supply__plumbing-cpvc.glb": {
-   "v": "8b3f95a6a4",
-   "bytes": 660596
+   "v": "4382065c34",
+   "bytes": 798640
+  },
+  "pipes_supply__plumbing-cpvc_and_shutoff_extra-attic+none.glb": {
+   "v": "128254a779",
+   "bytes": 115020
   },
   "pipes_supply__plumbing-cpvc_and_shutoff_extra-wall.glb": {
-   "v": "2fa3def410",
-   "bytes": 26420
-  },
-  "pipes_supply__plumbing-cpvc_and_shutoff_extra-wall_and_plumbing-cpvc.glb": {
-   "v": "1283945421",
-   "bytes": 40464
+   "v": "298be9939f",
+   "bytes": 162740
   },
   "pipes_supply__plumbing-galvanized.glb": {
-   "v": "59b3298aa6",
-   "bytes": 837128
+   "v": "30a7cb47a0",
+   "bytes": 1275488
+  },
+  "pipes_supply__plumbing-galvanized_and_shutoff_extra-attic+none.glb": {
+   "v": "8e466be9cd",
+   "bytes": 198588
   },
   "pipes_supply__plumbing-galvanized_and_shutoff_extra-wall.glb": {
-   "v": "f9e32bfd49",
-   "bytes": 38812
+   "v": "9c476e848b",
+   "bytes": 289780
   },
-  "pipes_supply__plumbing-galvanized_and_shutoff_extra-wall_and_plumbing-galvanized.glb": {
-   "v": "5d6679f4f1",
-   "bytes": 48340
+  "pipes_supply__plumbing-galvanized_and_water_heater-attic_electric_tank+attic_gas_tank.glb": {
+   "v": "2c2d1b3d5b",
+   "bytes": 11260
   },
   "pipes_supply__plumbing-pex.glb": {
-   "v": "f7a31f427f",
-   "bytes": 658508
+   "v": "09d9586e83",
+   "bytes": 728688
+  },
+  "pipes_supply__plumbing-pex_and_shutoff_extra-attic+none.glb": {
+   "v": "0ee3d06e00",
+   "bytes": 156196
   },
   "pipes_supply__plumbing-pex_and_shutoff_extra-wall.glb": {
-   "v": "c4b151f604",
-   "bytes": 6656
+   "v": "499508ba08",
+   "bytes": 213080
   },
-  "pipes_supply__plumbing-pex_and_shutoff_extra-wall_and_plumbing-pex.glb": {
-   "v": "0155d20136",
-   "bytes": 33260
+  "pipes_supply__plumbing__01332c55.glb": {
+   "v": "8910886ac8",
+   "bytes": 9092
+  },
+  "pipes_supply__plumbing__094d56cc.glb": {
+   "v": "085dae7d60",
+   "bytes": 13876
+  },
+  "pipes_supply__plumbing__1f34325e.glb": {
+   "v": "3478c1baa9",
+   "bytes": 9144
+  },
+  "pipes_supply__plumbing__2d3ac5c4.glb": {
+   "v": "1cec92f052",
+   "bytes": 6768
+  },
+  "pipes_supply__plumbing__41ff7074.glb": {
+   "v": "e8f85a2063",
+   "bytes": 6760
+  },
+  "pipes_supply__plumbing__440e3611.glb": {
+   "v": "0f8a4b9c56",
+   "bytes": 13792
+  },
+  "pipes_supply__plumbing__44434602.glb": {
+   "v": "ad42e79671",
+   "bytes": 7844
+  },
+  "pipes_supply__plumbing__641d2402.glb": {
+   "v": "94d13a40bc",
+   "bytes": 8536
+  },
+  "pipes_supply__plumbing__82d784b9.glb": {
+   "v": "2c638908f2",
+   "bytes": 13680
+  },
+  "pipes_supply__plumbing__8360789e.glb": {
+   "v": "76c58b966a",
+   "bytes": 12684
+  },
+  "pipes_supply__plumbing__8c1e97e2.glb": {
+   "v": "92009b6417",
+   "bytes": 16416
+  },
+  "pipes_supply__plumbing__94a060a3.glb": {
+   "v": "068b8bdcf9",
+   "bytes": 10148
+  },
+  "pipes_supply__plumbing__a578f531.glb": {
+   "v": "dbc2290c3b",
+   "bytes": 9236
+  },
+  "pipes_supply__plumbing__a580219e.glb": {
+   "v": "38e9c42d00",
+   "bytes": 12584
+  },
+  "pipes_supply__plumbing__ad6f9a8b.glb": {
+   "v": "019fad83af",
+   "bytes": 12608
+  },
+  "pipes_supply__plumbing__afe6c561.glb": {
+   "v": "385c541041",
+   "bytes": 9088
+  },
+  "pipes_supply__plumbing__c39ef438.glb": {
+   "v": "c3e29cfbda",
+   "bytes": 13704
+  },
+  "pipes_supply__plumbing__cab4a47b.glb": {
+   "v": "01ca2549e8",
+   "bytes": 15156
+  },
+  "pipes_supply__plumbing__d684a134.glb": {
+   "v": "75d52ea19f",
+   "bytes": 10148
+  },
+  "pipes_supply__plumbing__e27b9171.glb": {
+   "v": "6b2b03384c",
+   "bytes": 7832
+  },
+  "pipes_supply__plumbing__ebf9eb12.glb": {
+   "v": "97fa3b7a17",
+   "bytes": 11224
+  },
+  "pipes_supply__plumbing__f11f7792.glb": {
+   "v": "01e745d3e0",
+   "bytes": 16408
+  },
+  "pipes_supply__plumbing__fd1a7ff2.glb": {
+   "v": "f8408b7a70",
+   "bytes": 9736
+  },
+  "pipes_supply__shutoff_extra-attic+none_and_plumbing-cpvc.glb": {
+   "v": "b3338d42c5",
+   "bytes": 13728
+  },
+  "pipes_supply__shutoff_extra-attic+none_and_plumbing-galvanized.glb": {
+   "v": "4b54007181",
+   "bytes": 32932
+  },
+  "pipes_supply__shutoff_extra-attic+none_and_plumbing-pex.glb": {
+   "v": "62afa22ec5",
+   "bytes": 11688
   },
   "pipes_supply__shutoff_extra-none+attic_and_plumbing-cpvc.glb": {
-   "v": "475bde1681",
-   "bytes": 38140
+   "v": "5281ecb60e",
+   "bytes": 22780
   },
   "pipes_supply__shutoff_extra-none+attic_and_plumbing-galvanized.glb": {
-   "v": "6a319dbecc",
-   "bytes": 52216
+   "v": "0303338dd9",
+   "bytes": 38344
   },
   "pipes_supply__shutoff_extra-none+attic_and_plumbing-pex.glb": {
-   "v": "e7719441d6",
-   "bytes": 33628
+   "v": "5f8b84633b",
+   "bytes": 29804
+  },
+  "pipes_supply__shutoff_extra__10304b99.glb": {
+   "v": "db2f61ae04",
+   "bytes": 17312
+  },
+  "pipes_supply__shutoff_extra__1a4d8f6e.glb": {
+   "v": "6547ad64ad",
+   "bytes": 17240
+  },
+  "pipes_supply__shutoff_extra__6e44eea1.glb": {
+   "v": "d4071949bc",
+   "bytes": 20340
+  },
+  "pipes_supply__shutoff_extra__70261f7a.glb": {
+   "v": "7c681862d0",
+   "bytes": 17344
+  },
+  "pipes_supply__shutoff_extra__912fa2d4.glb": {
+   "v": "0b6cd0143d",
+   "bytes": 17256
+  },
+  "pipes_supply__shutoff_extra__a018ebd8.glb": {
+   "v": "6e9cf8bc03",
+   "bytes": 17412
+  },
+  "pipes_supply__shutoff_extra__b75eb90f.glb": {
+   "v": "3209775a5a",
+   "bytes": 17284
+  },
+  "pipes_supply__shutoff_extra__cfa1c43b.glb": {
+   "v": "f4f60997c3",
+   "bytes": 20372
+  },
+  "pipes_supply__shutoff_extra__ed2ab9f3.glb": {
+   "v": "26ec4d0aeb",
+   "bytes": 20384
   },
   "pipes_supply__softener-yes_and_plumbing-cpvc.glb": {
-   "v": "f62dffaffa",
-   "bytes": 147992
+   "v": "7886a162fe",
+   "bytes": 159148
+  },
+  "pipes_supply__softener-yes_and_plumbing-cpvc_and_shutoff_extra-attic+none.glb": {
+   "v": "a5c2d0ee1c",
+   "bytes": 11760
+  },
+  "pipes_supply__softener-yes_and_plumbing-cpvc_and_shutoff_extra-wall.glb": {
+   "v": "0044dbc026",
+   "bytes": 11764
   },
   "pipes_supply__softener-yes_and_plumbing-galvanized.glb": {
-   "v": "d6ea2300fa",
-   "bytes": 193176
+   "v": "1585377c5c",
+   "bytes": 234488
+  },
+  "pipes_supply__softener-yes_and_plumbing-galvanized_and_shutoff_extra-attic+none.glb": {
+   "v": "46407857df",
+   "bytes": 19588
+  },
+  "pipes_supply__softener-yes_and_plumbing-galvanized_and_shutoff_extra-wall.glb": {
+   "v": "bd78117002",
+   "bytes": 19588
   },
   "pipes_supply__softener-yes_and_plumbing-pex.glb": {
-   "v": "044cf2ff5f",
-   "bytes": 79724
+   "v": "85aaee46ea",
+   "bytes": 178328
+  },
+  "pipes_supply__softener-yes_and_plumbing-pex_and_shutoff_extra-attic+none.glb": {
+   "v": "4dd11a2ae3",
+   "bytes": 15528
+  },
+  "pipes_supply__softener-yes_and_plumbing-pex_and_shutoff_extra-wall.glb": {
+   "v": "cc427c9806",
+   "bytes": 15528
   },
   "pipes_supply__water-city_filter.glb": {
-   "v": "1b172d04d5",
-   "bytes": 278124
+   "v": "41cab7e826",
+   "bytes": 304780
   },
   "pipes_supply__water-city_filter_and_softener-no_and_plumbing-cpvc.glb": {
-   "v": "6ea487b58a",
-   "bytes": 27068
+   "v": "09b92edfa7",
+   "bytes": 24332
+  },
+  "pipes_supply__water-city_filter_and_softener-no_and_plumbing-cpvc_and_shutoff_extra-attic+none.glb": {
+   "v": "4dd5840de4",
+   "bytes": 11792
+  },
+  "pipes_supply__water-city_filter_and_softener-no_and_plumbing-cpvc_and_shutoff_extra-wall.glb": {
+   "v": "7d380bc5e0",
+   "bytes": 11792
   },
   "pipes_supply__water-city_filter_and_softener-no_and_plumbing-galvanized.glb": {
-   "v": "ff61d9f962",
-   "bytes": 34276
+   "v": "a0d4da0620",
+   "bytes": 49552
+  },
+  "pipes_supply__water-city_filter_and_softener-no_and_plumbing-galvanized_and_shutoff_extra-wall.glb": {
+   "v": "483a867db2",
+   "bytes": 19584
   },
   "pipes_supply__water-city_filter_and_softener-no_and_plumbing-pex.glb": {
-   "v": "5de61dc924",
-   "bytes": 15732
+   "v": "2e98e0fa57",
+   "bytes": 50448
+  },
+  "pipes_supply__water-city_filter_and_softener-no_and_plumbing-pex_and_shutoff_extra-attic+none.glb": {
+   "v": "60b8fc6382",
+   "bytes": 15536
+  },
+  "pipes_supply__water-city_filter_and_softener-no_and_plumbing-pex_and_shutoff_extra-wall.glb": {
+   "v": "8353cfee2f",
+   "bytes": 15540
   },
   "pipes_supply__water-city_filter_and_softener-yes_and_plumbing-cpvc.glb": {
-   "v": "8df56ea636",
-   "bytes": 92748
+   "v": "d68d82f7c1",
+   "bytes": 108748
   },
   "pipes_supply__water-city_filter_and_softener-yes_and_plumbing-galvanized.glb": {
-   "v": "3943f52939",
-   "bytes": 123388
+   "v": "7388384d77",
+   "bytes": 183252
   },
   "pipes_supply__water-city_filter_and_softener-yes_and_plumbing-pex.glb": {
-   "v": "94d3c04390",
-   "bytes": 50960
+   "v": "b8e8d3a3c1",
+   "bytes": 109216
   },
   "pipes_supply__water-well.glb": {
    "v": "1b60926b0c",
    "bytes": 9764
   },
   "pipes_supply__water-well_and_softener-no_and_plumbing-cpvc.glb": {
-   "v": "3315176424",
-   "bytes": 83700
+   "v": "5d3b92ff89",
+   "bytes": 84456
+  },
+  "pipes_supply__water-well_and_softener-no_and_plumbing-cpvc_and_shutoff_extra-attic+none.glb": {
+   "v": "8c67c4be91",
+   "bytes": 11772
+  },
+  "pipes_supply__water-well_and_softener-no_and_plumbing-cpvc_and_shutoff_extra-wall.glb": {
+   "v": "bac71690d8",
+   "bytes": 11772
   },
   "pipes_supply__water-well_and_softener-no_and_plumbing-galvanized.glb": {
-   "v": "3f2c3b35fa",
-   "bytes": 110332
+   "v": "a376e630b4",
+   "bytes": 118856
+  },
+  "pipes_supply__water-well_and_softener-no_and_plumbing-galvanized_and_shutoff_extra-attic+none.glb": {
+   "v": "1bff0db1b7",
+   "bytes": 19596
+  },
+  "pipes_supply__water-well_and_softener-no_and_plumbing-galvanized_and_shutoff_extra-wall.glb": {
+   "v": "054bbb7fe9",
+   "bytes": 19600
   },
   "pipes_supply__water-well_and_softener-no_and_plumbing-pex.glb": {
-   "v": "2218aba091",
-   "bytes": 40336
+   "v": "4cf5dc708d",
+   "bytes": 57724
+  },
+  "pipes_supply__water-well_and_softener-no_and_plumbing-pex_and_shutoff_extra-attic+none.glb": {
+   "v": "a26bd67fcd",
+   "bytes": 15536
+  },
+  "pipes_supply__water-well_and_softener-no_and_plumbing-pex_and_shutoff_extra-wall.glb": {
+   "v": "a2bae1f5b2",
+   "bytes": 15540
   },
   "pipes_supply__water-well_and_softener-yes_and_plumbing-cpvc.glb": {
-   "v": "21ee2f6bcf",
-   "bytes": 69292
+   "v": "c0ec28fa5e",
+   "bytes": 91684
   },
   "pipes_supply__water-well_and_softener-yes_and_plumbing-galvanized.glb": {
-   "v": "2bb7b2ba0f",
-   "bytes": 89564
+   "v": "c241689d8b",
+   "bytes": 127940
   },
   "pipes_supply__water-well_and_softener-yes_and_plumbing-pex.glb": {
-   "v": "cb074857c4",
-   "bytes": 30472
+   "v": "93108bd557",
+   "bytes": 72544
+  },
+  "pipes_supply__water__45168ee7.glb": {
+   "v": "917a3e6d35",
+   "bytes": 19580
+  },
+  "pipes_supply__water_heater-attic_electric_tank+attic_gas_tank_and_plumbing-galvanized.glb": {
+   "v": "df00f5d815",
+   "bytes": 130408
   },
   "pipes_supply__water_heater-attic_gas_tank+attic_electric_tank.glb": {
-   "v": "e2180859bb",
-   "bytes": 58064
+   "v": "4a2d8ff611",
+   "bytes": 59292
   },
   "pipes_supply__water_heater-attic_gas_tank+attic_electric_tank_and_plumbing-cpvc.glb": {
-   "v": "66f206652f",
-   "bytes": 79396
+   "v": "57cecf847f",
+   "bytes": 37160
   },
   "pipes_supply__water_heater-attic_gas_tank+attic_electric_tank_and_plumbing-galvanized.glb": {
-   "v": "41e4b4c814",
-   "bytes": 172024
+   "v": "1f86003c1d",
+   "bytes": 59532
   },
   "pipes_supply__water_heater-attic_gas_tank+attic_electric_tank_and_plumbing-pex.glb": {
-   "v": "178499ae35",
-   "bytes": 54176
+   "v": "8d1717c7f5",
+   "bytes": 37676
+  },
+  "pipes_supply__water_heater-closet_electric_tank+closet_gas_tank_and_plumbing-cpvc.glb": {
+   "v": "1c7a3e3158",
+   "bytes": 12700
+  },
+  "pipes_supply__water_heater-closet_electric_tank+closet_gas_tank_and_plumbing-galvanized.glb": {
+   "v": "9be2813c2e",
+   "bytes": 21828
+  },
+  "pipes_supply__water_heater-closet_electric_tank+closet_gas_tank_and_plumbing-pex.glb": {
+   "v": "383b6ac5f6",
+   "bytes": 18560
   },
   "pipes_supply__water_heater-closet_gas_tank+closet_electric_tank_and_plumbing-cpvc.glb": {
-   "v": "df9f1495dc",
-   "bytes": 150372
+   "v": "a12bb4fdc8",
+   "bytes": 152800
   },
   "pipes_supply__water_heater-closet_gas_tank+closet_electric_tank_and_plumbing-galvanized.glb": {
-   "v": "2f9a17af8c",
-   "bytes": 183188
+   "v": "a68b31772d",
+   "bytes": 208080
   },
   "pipes_supply__water_heater-closet_gas_tank+closet_electric_tank_and_plumbing-pex.glb": {
-   "v": "829d92eda8",
-   "bytes": 123060
+   "v": "12baede2e5",
+   "bytes": 144140
   },
   "pipes_supply__water_heater-garage_electric_tankless_and_plumbing-cpvc.glb": {
-   "v": "e1a17f6eb9",
-   "bytes": 138856
+   "v": "8ac5409659",
+   "bytes": 152596
+  },
+  "pipes_supply__water_heater-garage_electric_tankless_and_plumbing-cpvc_and_shutoff_extra-wall.glb": {
+   "v": "7bd8e87345",
+   "bytes": 12492
   },
   "pipes_supply__water_heater-garage_electric_tankless_and_plumbing-galvanized.glb": {
-   "v": "559787c9a3",
-   "bytes": 178316
+   "v": "6f1c22cc55",
+   "bytes": 243276
   },
   "pipes_supply__water_heater-garage_electric_tankless_and_plumbing-pex.glb": {
-   "v": "ed610b85b9",
-   "bytes": 133656
+   "v": "355c952ac6",
+   "bytes": 173656
+  },
+  "pipes_supply__water_heater-garage_electric_tankless_and_plumbing-pex_and_shutoff_extra-wall.glb": {
+   "v": "9c83af386e",
+   "bytes": 18276
+  },
+  "pipes_supply__water_heater-garage_gas_tank+garage_hybrid_and_plumbing-cpvc.glb": {
+   "v": "185c5b35f0",
+   "bytes": 12692
+  },
+  "pipes_supply__water_heater-garage_gas_tank+garage_hybrid_and_plumbing-galvanized.glb": {
+   "v": "7406e21b5a",
+   "bytes": 21820
+  },
+  "pipes_supply__water_heater-garage_gas_tank+garage_hybrid_and_plumbing-pex.glb": {
+   "v": "354354f0ba",
+   "bytes": 18556
   },
   "pipes_supply__water_heater-garage_hybrid+garage_gas_tank_and_plumbing-cpvc.glb": {
-   "v": "5e2087306f",
-   "bytes": 153096
+   "v": "06b6c8447d",
+   "bytes": 163308
   },
   "pipes_supply__water_heater-garage_hybrid+garage_gas_tank_and_plumbing-galvanized.glb": {
-   "v": "437cb87dd2",
-   "bytes": 205520
+   "v": "75a4752699",
+   "bytes": 256772
   },
   "pipes_supply__water_heater-garage_hybrid+garage_gas_tank_and_plumbing-pex.glb": {
-   "v": "e49947c942",
-   "bytes": 124648
-  },
-  "pipes_supply__water_heater-garage_tankless+garage_tankless_noncondensing.glb": {
-   "v": "3baea7cf5a",
-   "bytes": 14708
+   "v": "af1681a276",
+   "bytes": 153836
   },
   "pipes_supply__water_heater-garage_tankless+garage_tankless_noncondensing_and_plumbing-cpvc.glb": {
-   "v": "d29dfaf27c",
-   "bytes": 260636
+   "v": "ac00bf9200",
+   "bytes": 309388
   },
   "pipes_supply__water_heater-garage_tankless+garage_tankless_noncondensing_and_plumbing-pex.glb": {
-   "v": "1d3781da87",
-   "bytes": 235996
+   "v": "9eee2f3809",
+   "bytes": 345056
   },
-  "pipes_supply__water_heater__08cb9f15.glb": {
-   "v": "2622cfbb00",
-   "bytes": 15572
+  "pipes_supply__water_heater__04f5183e.glb": {
+   "v": "dee62655ac",
+   "bytes": 32076
+  },
+  "pipes_supply__water_heater__065efd22.glb": {
+   "v": "60116a3e4e",
+   "bytes": 18272
+  },
+  "pipes_supply__water_heater__076c0489.glb": {
+   "v": "bdfe92c56d",
+   "bytes": 12492
+  },
+  "pipes_supply__water_heater__08e5ec19.glb": {
+   "v": "6c0a7b59c3",
+   "bytes": 18276
   },
   "pipes_supply__water_heater__09e92b58.glb": {
-   "v": "653f5903f4",
-   "bytes": 41380
+   "v": "ba9d92caaa",
+   "bytes": 49772
+  },
+  "pipes_supply__water_heater__115718d2.glb": {
+   "v": "02b742ed50",
+   "bytes": 21640
+  },
+  "pipes_supply__water_heater__1a2d3432.glb": {
+   "v": "9aedb77c57",
+   "bytes": 48356
+  },
+  "pipes_supply__water_heater__206f7e51.glb": {
+   "v": "1783143727",
+   "bytes": 21660
   },
   "pipes_supply__water_heater__2fd0fe3a.glb": {
-   "v": "1f121ffb65",
-   "bytes": 8492
+   "v": "7d48ac4fbe",
+   "bytes": 16304
   },
-  "pipes_supply__water_heater__304c5cb0.glb": {
-   "v": "c0f207eb53",
-   "bytes": 28236
+  "pipes_supply__water_heater__312511b8.glb": {
+   "v": "ab3bc94e9f",
+   "bytes": 18484
   },
   "pipes_supply__water_heater__351c022b.glb": {
-   "v": "98b9a7cd2d",
-   "bytes": 43572
+   "v": "12752e395a",
+   "bytes": 9764
+  },
+  "pipes_supply__water_heater__3814e968.glb": {
+   "v": "da5ffe9d2b",
+   "bytes": 102328
+  },
+  "pipes_supply__water_heater__383a1623.glb": {
+   "v": "72a057f4ae",
+   "bytes": 21644
+  },
+  "pipes_supply__water_heater__3bdb7b9a.glb": {
+   "v": "a8d2a66fe0",
+   "bytes": 12512
   },
   "pipes_supply__water_heater__3c116039.glb": {
-   "v": "66daab83d2",
-   "bytes": 59236
+   "v": "a12a148b65",
+   "bytes": 10448
   },
   "pipes_supply__water_heater__4d5ae3da.glb": {
-   "v": "51938fa452",
-   "bytes": 39556
+   "v": "9263da837a",
+   "bytes": 55280
   },
   "pipes_supply__water_heater__509a0662.glb": {
-   "v": "1356635f37",
-   "bytes": 62652
+   "v": "6710ce8eda",
+   "bytes": 12784
   },
-  "pipes_supply__water_heater__54d0388a.glb": {
-   "v": "7e4bc3be9d",
-   "bytes": 28440
+  "pipes_supply__water_heater__52643468.glb": {
+   "v": "04ba7c09e5",
+   "bytes": 117292
+  },
+  "pipes_supply__water_heater__56834b71.glb": {
+   "v": "cc54cd194e",
+   "bytes": 21896
+  },
+  "pipes_supply__water_heater__5e030893.glb": {
+   "v": "dd52eb4355",
+   "bytes": 12492
   },
   "pipes_supply__water_heater__6a3c69c0.glb": {
-   "v": "7a4bb414cb",
-   "bytes": 80344
+   "v": "ad22fa01f7",
+   "bytes": 78012
+  },
+  "pipes_supply__water_heater__75efac84.glb": {
+   "v": "2e57728e17",
+   "bytes": 19048
+  },
+  "pipes_supply__water_heater__75f64457.glb": {
+   "v": "04f77bc892",
+   "bytes": 40504
   },
   "pipes_supply__water_heater__86824b80.glb": {
-   "v": "2cafe7f691",
-   "bytes": 8624
+   "v": "ee3defdf0a",
+   "bytes": 12852
+  },
+  "pipes_supply__water_heater__88879707.glb": {
+   "v": "791e6836d9",
+   "bytes": 12672
+  },
+  "pipes_supply__water_heater__8e1fc880.glb": {
+   "v": "01af1cb00f",
+   "bytes": 11124
   },
   "pipes_supply__water_heater__8e60832d.glb": {
-   "v": "b546e91e95",
-   "bytes": 7656
+   "v": "636847f23a",
+   "bytes": 11788
   },
   "pipes_supply__water_heater__922b8daa.glb": {
-   "v": "02a9dc944b",
-   "bytes": 17896
+   "v": "c63b9ab772",
+   "bytes": 17352
   },
   "pipes_supply__water_heater__9301fbc9.glb": {
-   "v": "f7651b21bb",
-   "bytes": 7520
+   "v": "2831fb6957",
+   "bytes": 14196
+  },
+  "pipes_supply__water_heater__93aaca4c.glb": {
+   "v": "1b87292111",
+   "bytes": 21644
+  },
+  "pipes_supply__water_heater__960465d7.glb": {
+   "v": "726df5b6b2",
+   "bytes": 56172
+  },
+  "pipes_supply__water_heater__977172ac.glb": {
+   "v": "1958147185",
+   "bytes": 21892
+  },
+  "pipes_supply__water_heater__99715f38.glb": {
+   "v": "00681f60f9",
+   "bytes": 12488
+  },
+  "pipes_supply__water_heater__9aa4148f.glb": {
+   "v": "7d25c5bfba",
+   "bytes": 23004
   },
   "pipes_supply__water_heater__9f73fc6e.glb": {
-   "v": "e38eade355",
-   "bytes": 2968
+   "v": "0e6478b3f0",
+   "bytes": 5088
+  },
+  "pipes_supply__water_heater__a6c2ab71.glb": {
+   "v": "8ae54f95e4",
+   "bytes": 19044
+  },
+  "pipes_supply__water_heater__a73fb4cd.glb": {
+   "v": "f741f94844",
+   "bytes": 40632
+  },
+  "pipes_supply__water_heater__aa3d3b14.glb": {
+   "v": "e1df3335f3",
+   "bytes": 12508
+  },
+  "pipes_supply__water_heater__aaba956e.glb": {
+   "v": "0b359c914a",
+   "bytes": 18272
+  },
+  "pipes_supply__water_heater__af26b772.glb": {
+   "v": "0955ed847c",
+   "bytes": 10912
   },
   "pipes_supply__water_heater__b30706dc.glb": {
-   "v": "1e4dc89ed9",
-   "bytes": 355460
+   "v": "907b08b38e",
+   "bytes": 498392
   },
-  "pipes_supply__water_heater__b8e9f0df.glb": {
-   "v": "58234c9dcb",
-   "bytes": 15588
+  "pipes_supply__water_heater__b4220856.glb": {
+   "v": "b25cd34cb3",
+   "bytes": 21664
   },
-  "pipes_supply__water_heater__bcce1270.glb": {
-   "v": "588e1da6b0",
-   "bytes": 16228
+  "pipes_supply__water_heater__c1b5490a.glb": {
+   "v": "7d5598444e",
+   "bytes": 23008
+  },
+  "pipes_supply__water_heater__c330da76.glb": {
+   "v": "5f8bae26a4",
+   "bytes": 12672
+  },
+  "pipes_supply__water_heater__c3867b7c.glb": {
+   "v": "5d40d66ec9",
+   "bytes": 62864
+  },
+  "pipes_supply__water_heater__c3f5c2f9.glb": {
+   "v": "672da25885",
+   "bytes": 12896
   },
   "pipes_supply__water_heater__ccb79a87.glb": {
-   "v": "3873b032b5",
-   "bytes": 60284
+   "v": "a0187c2adc",
+   "bytes": 22632
   },
-  "pipes_supply__water_heater__cebf3ff8.glb": {
-   "v": "1f6d13e8f8",
-   "bytes": 14732
+  "pipes_supply__water_heater__d9ba3d83.glb": {
+   "v": "3dc9a61e04",
+   "bytes": 21640
+  },
+  "pipes_supply__water_heater__e094f50d.glb": {
+   "v": "1e59135520",
+   "bytes": 18904
+  },
+  "pipes_supply__water_heater__e0b83c06.glb": {
+   "v": "53ad8dde77",
+   "bytes": 18484
   },
   "pipes_supply__water_heater__e94b438d.glb": {
-   "v": "91e085b091",
-   "bytes": 33984
+   "v": "7ab22de5c5",
+   "bytes": 42896
+  },
+  "pipes_supply__water_heater__eb76e280.glb": {
+   "v": "20b63f360b",
+   "bytes": 45724
+  },
+  "pipes_supply__water_heater__ec541351.glb": {
+   "v": "e24ffb6186",
+   "bytes": 18296
+  },
+  "pipes_supply__water_heater__f123f090.glb": {
+   "v": "e9624df6c4",
+   "bytes": 12896
+  },
+  "pipes_supply__water_heater__fa47b359.glb": {
+   "v": "6b4ea40cef",
+   "bytes": 18292
+  },
+  "pipes_supply__water_heater__ffddf92d.glb": {
+   "v": "cba7a95777",
+   "bytes": 13164
   },
   "placements.json": {
    "v": "f5dec271c7",
@@ -980,20 +1420,20 @@
    "bytes": 301168
   },
   "septic_lee.glb": {
-   "v": "979f3432ca",
-   "bytes": 1400368
+   "v": "7554222bd5",
+   "bytes": 1416088
   },
   "septic_lee_overland.glb": {
-   "v": "a15dfdc395",
-   "bytes": 1259816
+   "v": "cdcb14a782",
+   "bytes": 1296468
   },
   "septic_lee_trash.glb": {
-   "v": "5096adc3f7",
-   "bytes": 1427296
+   "v": "7e0723ab9a",
+   "bytes": 1441708
   },
   "septic_lee_trash_slab.glb": {
-   "v": "c1611c6d51",
-   "bytes": 1442800
+   "v": "149e38a919",
+   "bytes": 1456900
   },
   "septic_tank_risers.glb": {
    "v": "d6d8714865",
@@ -1024,16 +1464,16 @@
    "bytes": 27304
   },
   "slab_drains.json": {
-   "v": "aa99ea6eab",
-   "bytes": 10516
+   "v": "41dcd0096c",
+   "bytes": 11462
   },
   "slab_house_floor1.glb": {
-   "v": "ccd8276c96",
-   "bytes": 669796
+   "v": "21af8935ff",
+   "bytes": 671148
   },
   "slab_house_framing.glb": {
-   "v": "c535b504d6",
-   "bytes": 115360
+   "v": "db67071e0f",
+   "bytes": 114996
   },
   "slab_house_garagefurn.glb": {
    "v": "22987b15c6",
@@ -1044,20 +1484,20 @@
    "bytes": 7085364
   },
   "slab_house_slab.glb": {
-   "v": "6b40649693",
-   "bytes": 2977828
+   "v": "d3d59f21ee",
+   "bytes": 2242520
   },
   "slab_pipes_alternates__hvac-gas_pack_and_gas-natural.glb": {
-   "v": "90f72f5606",
-   "bytes": 37524
+   "v": "f1d6c657db",
+   "bytes": 61044
   },
   "slab_pipes_alternates__hvac-gas_pack_and_gas-propane.glb": {
-   "v": "eb8e708c00",
-   "bytes": 37760
+   "v": "a12e6f6d8d",
+   "bytes": 61712
   },
   "slab_pipes_dwv__common.glb": {
-   "v": "e9ee44a27a",
-   "bytes": 1849024
+   "v": "a0cd4ee72c",
+   "bytes": 1614028
   },
   "slab_pipes_dwv__sewer-city_gravity+city_lift+city_lift_duplex_and_commercial_lot-no.glb": {
    "v": "554750e3d0",
@@ -1067,89 +1507,89 @@
    "v": "e9820d8b02",
    "bytes": 156036
   },
-  "slab_pipes_dwv__sewer-city_gravity.glb": {
-   "v": "37923a77ad",
-   "bytes": 59544
-  },
   "slab_pipes_dwv__sewer-city_gravity_and_fault-belly.glb": {
-   "v": "89a4aa9a63",
-   "bytes": 180292
+   "v": "87123ff64f",
+   "bytes": 276076
   },
   "slab_pipes_dwv__sewer-city_gravity_and_fault-none.glb": {
-   "v": "b934524b86",
-   "bytes": 103016
-  },
-  "slab_pipes_dwv__sewer-city_lift+city_lift_duplex.glb": {
-   "v": "5a1813c672",
-   "bytes": 29804
+   "v": "379863c386",
+   "bytes": 222144
   },
   "slab_pipes_dwv__sewer-city_lift.glb": {
-   "v": "45e67cf33f",
-   "bytes": 135944
+   "v": "f865602785",
+   "bytes": 187056
   },
   "slab_pipes_dwv__sewer-city_lift_duplex.glb": {
-   "v": "0fd523055c",
-   "bytes": 124508
+   "v": "965dbe3a53",
+   "bytes": 188860
   },
   "slab_pipes_dwv__sewer-septic_gravity.glb": {
-   "v": "27ed78ec8a",
-   "bytes": 104560
+   "v": "99f35adcd1",
+   "bytes": 145472
   },
   "slab_pipes_dwv__sewer-septic_gravity_and_sludgehammer-yes.glb": {
    "v": "9674082656",
    "bytes": 20752
   },
   "slab_pipes_dwv__sewer-septic_overland.glb": {
-   "v": "65ca155a40",
-   "bytes": 182396
+   "v": "f701de42a8",
+   "bytes": 223964
   },
   "slab_pipes_dwv__sewer-septic_overland_aquaklear.glb": {
-   "v": "a210345dee",
-   "bytes": 115640
+   "v": "34966409b6",
+   "bytes": 131976
   },
   "slab_pipes_dwv__sewer-septic_overland_fiberglass_train.glb": {
-   "v": "6490fc18a4",
-   "bytes": 49080
+   "v": "de15152d20",
+   "bytes": 55660
+  },
+  "slab_pipes_dwv__sewer-septic_overland_lee+septic_spray.glb": {
+   "v": "a734048a8a",
+   "bytes": 14124
   },
   "slab_pipes_dwv__sewer-septic_overland_lee.glb": {
-   "v": "a9d30fac21",
-   "bytes": 46488
+   "v": "3a7677d467",
+   "bytes": 39960
   },
   "slab_pipes_dwv__sewer-septic_spray+septic_overland_lee.glb": {
-   "v": "99a936df73",
-   "bytes": 151868
+   "v": "48a7722564",
+   "bytes": 187332
   },
   "slab_pipes_dwv__sewer-septic_spray.glb": {
-   "v": "d2bb565630",
-   "bytes": 39388
+   "v": "b3a397116c",
+   "bytes": 34120
   },
   "slab_pipes_dwv__sewer-septic_spray_fiberglass_train+septic_overland_fiberglass_train.glb": {
-   "v": "553a3ddcca",
-   "bytes": 110752
+   "v": "d960cc4685",
+   "bytes": 136840
   },
   "slab_pipes_dwv__sewer-septic_spray_fiberglass_train.glb": {
-   "v": "391780f191",
-   "bytes": 74380
+   "v": "66a77fdfd7",
+   "bytes": 77148
   },
   "slab_pipes_dwv__sewer-septic_spray_trash.glb": {
-   "v": "a890f7837b",
-   "bytes": 186716
+   "v": "1b633adbc6",
+   "bytes": 196976
   },
   "slab_pipes_dwv__sewer-septic_spray_two_tank.glb": {
-   "v": "6cfb145527",
-   "bytes": 208232
+   "v": "a01a355cc6",
+   "bytes": 229088
   },
   "slab_pipes_dwv__sewer-septic_spray_with_panel.glb": {
    "v": "6a1595fb2d",
    "bytes": 6616
+  },
+  "slab_pipes_dwv__sewer__20c39a35.glb": {
+   "v": "181e95b2a8",
+   "bytes": 215052
   },
   "slab_pipes_dwv__sewer__2fe51efd.glb": {
    "v": "c076726926",
    "bytes": 3800
   },
   "slab_pipes_dwv__sewer__44c0ab5d.glb": {
-   "v": "e34a0e9b30",
-   "bytes": 49704
+   "v": "22241cf14d",
+   "bytes": 31172
   },
   "slab_pipes_dwv__sewer__5397f126.glb": {
    "v": "53ed86a22a",
@@ -1163,89 +1603,145 @@
    "v": "60ed328e98",
    "bytes": 4088
   },
+  "slab_pipes_dwv__sewer__bf4ad6d7.glb": {
+   "v": "63c0214181",
+   "bytes": 12272
+  },
   "slab_pipes_dwv__sewer__eff531ad.glb": {
-   "v": "95ba21e017",
-   "bytes": 96460
+   "v": "e1ba17146a",
+   "bytes": 139864
+  },
+  "slab_pipes_dwv__sewer__fafaa492.glb": {
+   "v": "99c4a07f90",
+   "bytes": 214988
   },
   "slab_pipes_dwv__softener-yes.glb": {
    "v": "b286b267dc",
    "bytes": 6596
   },
   "slab_pipes_dwv__water_heater-closet_gas_tank+closet_electric_tank.glb": {
-   "v": "da97f44d1c",
-   "bytes": 56964
+   "v": "b204401541",
+   "bytes": 51192
   },
   "slab_pipes_dwv__water_heater-garage_gas_tank.glb": {
-   "v": "e56c0a17d4",
-   "bytes": 31968
+   "v": "aad09d90ac",
+   "bytes": 25612
   },
   "slab_pipes_dwv__water_heater-garage_hybrid.glb": {
-   "v": "f36b1e011d",
-   "bytes": 31144
+   "v": "a149004e89",
+   "bytes": 23324
   },
   "slab_pipes_dwv__water_heater-garage_tankless.glb": {
-   "v": "380cd540b0",
-   "bytes": 29656
+   "v": "6a63ff7c99",
+   "bytes": 21928
   },
   "slab_pipes_gas__common.glb": {
-   "v": "fc3ea1e3b1",
-   "bytes": 191372
+   "v": "336404d434",
+   "bytes": 322176
   },
   "slab_pipes_gas__gas-natural.glb": {
-   "v": "a22c209211",
-   "bytes": 76072
+   "v": "4da86ce5d9",
+   "bytes": 114240
+  },
+  "slab_pipes_gas__gas-natural_and_hvac-gas_pack.glb": {
+   "v": "c66e492004",
+   "bytes": 8872
   },
   "slab_pipes_gas__gas-propane.glb": {
-   "v": "1a4eb7dc4f",
-   "bytes": 420640
+   "v": "8356c1f289",
+   "bytes": 453524
+  },
+  "slab_pipes_gas__gas-propane_and_hvac-gas_pack.glb": {
+   "v": "eb85243525",
+   "bytes": 8764
+  },
+  "slab_pipes_gas__gas__27bdbcb1.glb": {
+   "v": "2eda9d9e3e",
+   "bytes": 7920
+  },
+  "slab_pipes_gas__gas__47fcad34.glb": {
+   "v": "de753b9281",
+   "bytes": 6804
+  },
+  "slab_pipes_gas__gas__64f7e563.glb": {
+   "v": "3997f52d54",
+   "bytes": 7864
+  },
+  "slab_pipes_gas__gas__6d108291.glb": {
+   "v": "a81a4bc17a",
+   "bytes": 7892
+  },
+  "slab_pipes_gas__gas__88c8a0af.glb": {
+   "v": "f016b757ba",
+   "bytes": 7840
+  },
+  "slab_pipes_gas__gas__a7f8e225.glb": {
+   "v": "e573cf3edc",
+   "bytes": 7876
+  },
+  "slab_pipes_gas__gas__b246fb05.glb": {
+   "v": "892cf87c6f",
+   "bytes": 7932
+  },
+  "slab_pipes_gas__gas__c8e53df3.glb": {
+   "v": "ec02473a38",
+   "bytes": 7952
+  },
+  "slab_pipes_gas__gas__f00d2a07.glb": {
+   "v": "d1a702e506",
+   "bytes": 6740
+  },
+  "slab_pipes_gas__gas__f997bb20.glb": {
+   "v": "53cf8e13ee",
+   "bytes": 7784
   },
   "slab_pipes_gas__hvac-gas_pack_and_gas-natural.glb": {
-   "v": "c0c09269f5",
-   "bytes": 16456
+   "v": "c9918be4ea",
+   "bytes": 22548
   },
   "slab_pipes_gas__hvac-gas_pack_and_gas-propane.glb": {
-   "v": "e4e98bca05",
-   "bytes": 16636
+   "v": "bbbf523a4a",
+   "bytes": 22908
   },
   "slab_pipes_gas__hvac-split_furnace.glb": {
-   "v": "d4c974f48c",
-   "bytes": 70980
+   "v": "02ea5d9522",
+   "bytes": 90000
   },
   "slab_pipes_gas__hvac-split_furnace_92+split_furnace_cond96+split_furnace_98.glb": {
-   "v": "85bcebaf3e",
-   "bytes": 55256
+   "v": "72bfa7c1e5",
+   "bytes": 110052
   },
   "slab_pipes_gas__hvac__fc5d2ebc.glb": {
-   "v": "1cf05cb0c4",
-   "bytes": 11644
+   "v": "2ac3f897dd",
+   "bytes": 9772
   },
   "slab_pipes_gas__water_heater-closet_gas_tank.glb": {
-   "v": "0bb1d829a3",
-   "bytes": 59260
+   "v": "db3c2dae00",
+   "bytes": 77380
   },
   "slab_pipes_gas__water_heater-garage_gas_tank.glb": {
-   "v": "79b5da7396",
-   "bytes": 64404
+   "v": "da9ca73d0c",
+   "bytes": 74880
   },
   "slab_pipes_gas__water_heater-garage_tankless+garage_tankless_noncondensing.glb": {
-   "v": "ebe692bc63",
-   "bytes": 41432
+   "v": "0c10b44519",
+   "bytes": 58420
   },
   "slab_pipes_gas__water_heater-garage_tankless.glb": {
-   "v": "143739e584",
-   "bytes": 56132
+   "v": "3f015137d3",
+   "bytes": 81188
   },
   "slab_pipes_gas__water_heater-garage_tankless_noncondensing.glb": {
-   "v": "c507a5d68a",
-   "bytes": 29316
+   "v": "fd04763497",
+   "bytes": 36084
   },
   "slab_pipes_hvac__common.glb": {
    "v": "f2bb3860a1",
    "bytes": 1463564
   },
   "slab_pipes_hvac__dehumidifier__182fe2b3.glb": {
-   "v": "254fc717ef",
-   "bytes": 65532
+   "v": "0f3bf5dfee",
+   "bytes": 50148
   },
   "slab_pipes_hvac__erv-yes_and_hvac-split_furnace.glb": {
    "v": "ceba3352e7",
@@ -1296,12 +1792,12 @@
    "bytes": 48748
   },
   "slab_pipes_hvac__hvac-split_furnace.glb": {
-   "v": "c7c94d6d23",
-   "bytes": 202700
+   "v": "01d1aac1b7",
+   "bytes": 212076
   },
   "slab_pipes_hvac__hvac-split_furnace_92+split_furnace_cond96+split_furnace_98.glb": {
-   "v": "c32e8dbfb6",
-   "bytes": 267960
+   "v": "9193bf11e5",
+   "bytes": 262932
   },
   "slab_pipes_hvac__hvac-split_furnace_92.glb": {
    "v": "c1e4e18f34",
@@ -1315,13 +1811,21 @@
    "v": "f68973d960",
    "bytes": 83584
   },
+  "slab_pipes_hvac__hvac__5e17c43d.glb": {
+   "v": "e151028538",
+   "bytes": 105024
+  },
   "slab_pipes_hvac__hvac__9184bdf7.glb": {
-   "v": "74a5bbcfc1",
+   "v": "4414d37f42",
    "bytes": 17112
   },
   "slab_pipes_hvac__hvac__a340dde3.glb": {
-   "v": "2c509c4e7e",
-   "bytes": 232988
+   "v": "66b191b82c",
+   "bytes": 111812
+  },
+  "slab_pipes_hvac__hvac__d128c58d.glb": {
+   "v": "78509ef7a9",
+   "bytes": 103884
   },
   "slab_pipes_hvac__sump-yes.glb": {
    "v": "65cdc98a75",
@@ -1348,180 +1852,368 @@
    "bytes": 36324
   },
   "slab_pipes_supply__common.glb": {
-   "v": "2b96165e2a",
-   "bytes": 38580
+   "v": "dec5ba6192",
+   "bytes": 50040
+  },
+  "slab_pipes_supply__plumbing-attic_repipe+pex+pex_branch_and_water-city_filter.glb": {
+   "v": "678c46467e",
+   "bytes": 11364
+  },
+  "slab_pipes_supply__plumbing-attic_repipe+pex.glb": {
+   "v": "b204e41fbf",
+   "bytes": 9984
+  },
+  "slab_pipes_supply__plumbing-attic_repipe+pex_and_water_heater-closet_electric_tank+closet_gas_tank.glb": {
+   "v": "2d2a8b7830",
+   "bytes": 10012
+  },
+  "slab_pipes_supply__plumbing-attic_repipe+pex_and_water_heater-garage_electric_tankless.glb": {
+   "v": "314e7c9302",
+   "bytes": 10004
+  },
+  "slab_pipes_supply__plumbing-attic_repipe+pex_and_water_heater-garage_gas_tank+garage_hybrid.glb": {
+   "v": "632b93de7b",
+   "bytes": 10004
   },
   "slab_pipes_supply__plumbing-attic_repipe.glb": {
-   "v": "eecebf65d8",
-   "bytes": 1648276
+   "v": "2cf9f621dd",
+   "bytes": 2205552
   },
   "slab_pipes_supply__plumbing-copper.glb": {
-   "v": "c782a003be",
-   "bytes": 327276
+   "v": "9a245ee58e",
+   "bytes": 615640
+  },
+  "slab_pipes_supply__plumbing-copper_and_water-city_filter.glb": {
+   "v": "0624a66435",
+   "bytes": 10552
+  },
+  "slab_pipes_supply__plumbing-copper_and_water_heater-closet_electric_tank+closet_gas_tank.glb": {
+   "v": "472bc0bd96",
+   "bytes": 6248
+  },
+  "slab_pipes_supply__plumbing-copper_and_water_heater-garage_electric_tankless.glb": {
+   "v": "56e514d62a",
+   "bytes": 6244
+  },
+  "slab_pipes_supply__plumbing-copper_and_water_heater-garage_gas_tank+garage_hybrid.glb": {
+   "v": "3f9fcd02fc",
+   "bytes": 6240
+  },
+  "slab_pipes_supply__plumbing-copper_and_water_heater-garage_tankless+garage_tankless_noncondensing.glb": {
+   "v": "757d41861c",
+   "bytes": 29492
   },
   "slab_pipes_supply__plumbing-pex+attic_repipe.glb": {
-   "v": "fca106c7cc",
-   "bytes": 23972
+   "v": "098f00eaca",
+   "bytes": 28804
   },
   "slab_pipes_supply__plumbing-pex+copper+attic_repipe.glb": {
-   "v": "23fabb032f",
-   "bytes": 37792
+   "v": "934e834a87",
+   "bytes": 34708
   },
   "slab_pipes_supply__plumbing-pex+copper.glb": {
-   "v": "824b612745",
-   "bytes": 43356
+   "v": "a37ba5619d",
+   "bytes": 50512
   },
   "slab_pipes_supply__plumbing-pex.glb": {
-   "v": "a4506f89ee",
-   "bytes": 588860
+   "v": "9557df806b",
+   "bytes": 882124
+  },
+  "slab_pipes_supply__plumbing-pex_and_water_heater-garage_tankless+garage_tankless_noncondensing.glb": {
+   "v": "0b96d3c190",
+   "bytes": 24328
   },
   "slab_pipes_supply__plumbing-pex_branch.glb": {
-   "v": "c96b6a7d27",
-   "bytes": 660204
+   "v": "997f82a213",
+   "bytes": 852512
+  },
+  "slab_pipes_supply__plumbing__07943de7.glb": {
+   "v": "1db4a4410f",
+   "bytes": 23020
+  },
+  "slab_pipes_supply__plumbing__0a079756.glb": {
+   "v": "d5a350cdb3",
+   "bytes": 17292
+  },
+  "slab_pipes_supply__plumbing__0ba0d542.glb": {
+   "v": "b0cf40b238",
+   "bytes": 29880
+  },
+  "slab_pipes_supply__plumbing__1d6b6cc1.glb": {
+   "v": "78a8d7f0b7",
+   "bytes": 6460
+  },
+  "slab_pipes_supply__plumbing__21cfd3ba.glb": {
+   "v": "4a3b087590",
+   "bytes": 5304
+  },
+  "slab_pipes_supply__plumbing__2301cfa4.glb": {
+   "v": "10c1da7286",
+   "bytes": 6356
+  },
+  "slab_pipes_supply__plumbing__27f2cc3c.glb": {
+   "v": "16724abdec",
+   "bytes": 7512
+  },
+  "slab_pipes_supply__plumbing__2d635275.glb": {
+   "v": "249cde651f",
+   "bytes": 36820
+  },
+  "slab_pipes_supply__plumbing__308d9418.glb": {
+   "v": "180fd304ce",
+   "bytes": 6448
+  },
+  "slab_pipes_supply__plumbing__3c412761.glb": {
+   "v": "b61376c976",
+   "bytes": 8464
+  },
+  "slab_pipes_supply__plumbing__430621fd.glb": {
+   "v": "3ad5b58153",
+   "bytes": 10128
+  },
+  "slab_pipes_supply__plumbing__52b1e824.glb": {
+   "v": "7acb2b3053",
+   "bytes": 5288
+  },
+  "slab_pipes_supply__plumbing__81d5af00.glb": {
+   "v": "e8c299aec9",
+   "bytes": 29992
+  },
+  "slab_pipes_supply__plumbing__8e715674.glb": {
+   "v": "b61146df67",
+   "bytes": 6460
+  },
+  "slab_pipes_supply__plumbing__a27d13e6.glb": {
+   "v": "4d657c8602",
+   "bytes": 6384
+  },
+  "slab_pipes_supply__plumbing__a6e2eb22.glb": {
+   "v": "500500ceb0",
+   "bytes": 28776
+  },
+  "slab_pipes_supply__plumbing__ac9082d4.glb": {
+   "v": "1e345a6f85",
+   "bytes": 5520
+  },
+  "slab_pipes_supply__plumbing__bc755c40.glb": {
+   "v": "f72c2564ed",
+   "bytes": 28776
+  },
+  "slab_pipes_supply__plumbing__cc7b2075.glb": {
+   "v": "3c4534e9e2",
+   "bytes": 39168
+  },
+  "slab_pipes_supply__plumbing__e0ccc7ba.glb": {
+   "v": "42d31f86db",
+   "bytes": 29996
+  },
+  "slab_pipes_supply__plumbing__f3464e15.glb": {
+   "v": "5d760fc70e",
+   "bytes": 10024
+  },
+  "slab_pipes_supply__plumbing__f98d82b0.glb": {
+   "v": "bc0f26d6fa",
+   "bytes": 7492
+  },
+  "slab_pipes_supply__plumbing__fdd3a6d4.glb": {
+   "v": "e694fcc429",
+   "bytes": 5304
   },
   "slab_pipes_supply__softener-yes_and_plumbing-copper.glb": {
-   "v": "c356871ea0",
-   "bytes": 83596
+   "v": "340cc4a5a1",
+   "bytes": 134936
   },
   "slab_pipes_supply__softener-yes_and_plumbing-pex+attic_repipe+pex_branch.glb": {
-   "v": "5fd28f8aa6",
-   "bytes": 114184
+   "v": "c02f239fc2",
+   "bytes": 217836
   },
   "slab_pipes_supply__water-city_filter.glb": {
-   "v": "63313c66d5",
-   "bytes": 253188
+   "v": "42fcc9a491",
+   "bytes": 274048
+  },
+  "slab_pipes_supply__water-city_filter_and_plumbing-attic_repipe_and_softener-no.glb": {
+   "v": "a993e502c0",
+   "bytes": 12372
+  },
+  "slab_pipes_supply__water-city_filter_and_plumbing-attic_repipe_and_softener-yes.glb": {
+   "v": "2e51b6dc93",
+   "bytes": 12372
   },
   "slab_pipes_supply__water-city_filter_and_plumbing-copper.glb": {
-   "v": "8dda11430a",
-   "bytes": 36600
+   "v": "4732f96d76",
+   "bytes": 57832
   },
-  "slab_pipes_supply__water-city_filter_and_plumbing-pex+attic_repipe+pex_branch.glb": {
-   "v": "7b488c7065",
-   "bytes": 16416
+  "slab_pipes_supply__water-city_filter_and_plumbing-copper_and_softener-no.glb": {
+   "v": "3dd0b5ac23",
+   "bytes": 13376
+  },
+  "slab_pipes_supply__water-city_filter_and_plumbing-copper_and_softener-yes.glb": {
+   "v": "100d51ca8e",
+   "bytes": 13388
   },
   "slab_pipes_supply__water-city_filter_and_plumbing-pex+pex_branch.glb": {
-   "v": "48c52bc259",
-   "bytes": 62120
+   "v": "9a88da6285",
+   "bytes": 86420
+  },
+  "slab_pipes_supply__water-city_filter_and_plumbing-pex+pex_branch_and_softener-no.glb": {
+   "v": "21e5e03cf9",
+   "bytes": 21384
+  },
+  "slab_pipes_supply__water-city_filter_and_plumbing-pex+pex_branch_and_softener-yes.glb": {
+   "v": "33fd3fcf06",
+   "bytes": 13532
+  },
+  "slab_pipes_supply__water-city_filter_and_softener-no_and_plumbing-attic_repipe+pex+pex_branch.glb": {
+   "v": "5f846e1349",
+   "bytes": 20884
+  },
+  "slab_pipes_supply__water-city_filter_and_softener-no_and_plumbing-attic_repipe+pex.glb": {
+   "v": "a926220a3a",
+   "bytes": 10004
   },
   "slab_pipes_supply__water-city_filter_and_softener-no_and_plumbing-copper.glb": {
-   "v": "214e500390",
-   "bytes": 7344
-  },
-  "slab_pipes_supply__water-city_filter_and_softener-no_and_plumbing-pex+attic_repipe+pex_branch.glb": {
-   "v": "0f868ed41e",
-   "bytes": 6796
-  },
-  "slab_pipes_supply__water-city_filter_and_softener-no_and_plumbing-pex+attic_repipe.glb": {
-   "v": "b23e8c01c8",
-   "bytes": 6788
+   "v": "77960b6578",
+   "bytes": 12500
   },
   "slab_pipes_supply__water-city_filter_and_softener-no_and_plumbing-pex_branch.glb": {
-   "v": "bd37ba003d",
-   "bytes": 10576
+   "v": "21407ecb8a",
+   "bytes": 9988
+  },
+  "slab_pipes_supply__water-city_filter_and_softener-yes_and_plumbing-attic_repipe+pex+pex_branch.glb": {
+   "v": "ecf721ad0a",
+   "bytes": 11648
   },
   "slab_pipes_supply__water-city_filter_and_softener-yes_and_plumbing-copper.glb": {
-   "v": "2081ed2dbd",
-   "bytes": 44860
+   "v": "adf24ecaa8",
+   "bytes": 62704
   },
   "slab_pipes_supply__water-city_filter_and_softener-yes_and_plumbing-pex+attic_repipe+pex_branch.glb": {
-   "v": "9d3911f29b",
-   "bytes": 56628
+   "v": "9c5ee16e2d",
+   "bytes": 73456
   },
   "slab_pipes_supply__water-well.glb": {
    "v": "84086d617d",
    "bytes": 10676
   },
   "slab_pipes_supply__water-well_and_plumbing-copper.glb": {
-   "v": "79a362a3b3",
-   "bytes": 29232
+   "v": "2a932e4c95",
+   "bytes": 57572
   },
   "slab_pipes_supply__water-well_and_plumbing-pex.glb": {
-   "v": "0ff7e590ed",
-   "bytes": 60980
+   "v": "7b2c229a77",
+   "bytes": 79708
   },
   "slab_pipes_supply__water-well_and_plumbing-pex_branch.glb": {
-   "v": "fe440eb380",
-   "bytes": 60996
+   "v": "ce24745089",
+   "bytes": 79720
   },
   "slab_pipes_supply__water-well_and_softener-no_and_plumbing-copper.glb": {
-   "v": "82274ebaa1",
-   "bytes": 45056
+   "v": "984d1b1b75",
+   "bytes": 80112
   },
   "slab_pipes_supply__water-well_and_softener-no_and_plumbing-pex+attic_repipe+pex_branch.glb": {
-   "v": "8ce17cd1b4",
-   "bytes": 39728
+   "v": "521eeee76d",
+   "bytes": 68072
   },
   "slab_pipes_supply__water-well_and_softener-yes_and_plumbing-copper.glb": {
-   "v": "5fca17f4e3",
-   "bytes": 45152
+   "v": "fd1438570e",
+   "bytes": 72000
   },
   "slab_pipes_supply__water-well_and_softener-yes_and_plumbing-pex+attic_repipe+pex_branch.glb": {
-   "v": "683fde1bb6",
-   "bytes": 37140
+   "v": "000e0e89f0",
+   "bytes": 72448
+  },
+  "slab_pipes_supply__water_heater-closet_electric_tank+closet_gas_tank_and_plumbing-attic_repipe+pex.glb": {
+   "v": "f2732d542e",
+   "bytes": 42816
+  },
+  "slab_pipes_supply__water_heater-closet_electric_tank+closet_gas_tank_and_plumbing-copper.glb": {
+   "v": "98bab215b6",
+   "bytes": 11184
+  },
+  "slab_pipes_supply__water_heater-closet_electric_tank+closet_gas_tank_and_plumbing-pex_branch.glb": {
+   "v": "c09dab3428",
+   "bytes": 17940
   },
   "slab_pipes_supply__water_heater-closet_gas_tank+closet_electric_tank_and_plumbing-copper.glb": {
-   "v": "54b5b39f0f",
-   "bytes": 105992
+   "v": "c6cd8e0882",
+   "bytes": 165380
   },
   "slab_pipes_supply__water_heater-closet_gas_tank+closet_electric_tank_and_plumbing-pex+attic_repipe.glb": {
-   "v": "db99f42344",
-   "bytes": 115968
+   "v": "d19bc6e53f",
+   "bytes": 177864
   },
   "slab_pipes_supply__water_heater-closet_gas_tank+closet_electric_tank_and_plumbing-pex_branch.glb": {
-   "v": "9f0093a32f",
-   "bytes": 101988
+   "v": "2c84cb7421",
+   "bytes": 142796
+  },
+  "slab_pipes_supply__water_heater-garage_electric_tankless_and_plumbing-attic_repipe+pex.glb": {
+   "v": "95314d41c2",
+   "bytes": 17944
   },
   "slab_pipes_supply__water_heater-garage_electric_tankless_and_plumbing-copper.glb": {
-   "v": "f6f419fc19",
-   "bytes": 97620
+   "v": "ce55463336",
+   "bytes": 167024
   },
   "slab_pipes_supply__water_heater-garage_electric_tankless_and_plumbing-pex+attic_repipe.glb": {
-   "v": "55f8f9b42f",
-   "bytes": 102820
+   "v": "a83f3645c3",
+   "bytes": 159308
   },
   "slab_pipes_supply__water_heater-garage_electric_tankless_and_plumbing-pex_branch.glb": {
-   "v": "bed19ce0e9",
-   "bytes": 82448
+   "v": "e75496d702",
+   "bytes": 131956
+  },
+  "slab_pipes_supply__water_heater-garage_gas_tank+garage_hybrid_and_plumbing-attic_repipe+pex.glb": {
+   "v": "8c2d160d69",
+   "bytes": 17944
+  },
+  "slab_pipes_supply__water_heater-garage_gas_tank+garage_hybrid_and_plumbing-copper.glb": {
+   "v": "c09cedf4ee",
+   "bytes": 11180
+  },
+  "slab_pipes_supply__water_heater-garage_gas_tank+garage_hybrid_and_plumbing-pex_branch.glb": {
+   "v": "a28cc2b925",
+   "bytes": 17932
   },
   "slab_pipes_supply__water_heater-garage_hybrid+garage_gas_tank_and_plumbing-copper.glb": {
-   "v": "fb41cda164",
-   "bytes": 97220
+   "v": "d8c999c75f",
+   "bytes": 159944
   },
   "slab_pipes_supply__water_heater-garage_hybrid+garage_gas_tank_and_plumbing-pex+attic_repipe.glb": {
-   "v": "c4f5506e00",
-   "bytes": 103204
+   "v": "972ae340cb",
+   "bytes": 160416
   },
   "slab_pipes_supply__water_heater-garage_hybrid+garage_gas_tank_and_plumbing-pex_branch.glb": {
-   "v": "34e65cad50",
-   "bytes": 83592
+   "v": "fe5880f5ae",
+   "bytes": 115616
   },
   "slab_pipes_supply__water_heater-garage_tankless+garage_tankless_noncondensing.glb": {
-   "v": "6198431220",
-   "bytes": 4404
+   "v": "b068a372de",
+   "bytes": 4164
   },
   "slab_pipes_supply__water_heater-garage_tankless+garage_tankless_noncondensing_and_plumbing-copper.glb": {
-   "v": "2388fa9302",
-   "bytes": 171592
+   "v": "5112e4f575",
+   "bytes": 289568
   },
   "slab_pipes_supply__water_heater-garage_tankless+garage_tankless_noncondensing_and_plumbing-pex.glb": {
-   "v": "69a961b025",
-   "bytes": 79544
+   "v": "baa691931f",
+   "bytes": 118880
   },
-  "slab_pipes_supply__water_heater__10833165.glb": {
-   "v": "58c427b8f0",
-   "bytes": 12744
+  "slab_pipes_supply__water_heater__229026b0.glb": {
+   "v": "9bdeeee7d9",
+   "bytes": 17964
   },
   "slab_pipes_supply__water_heater__b2401a7a.glb": {
-   "v": "7f6b2bc753",
-   "bytes": 12216
+   "v": "4b2e38e37b",
+   "bytes": 13152
   },
   "slab_pipes_supply__water_heater__c18dd513.glb": {
-   "v": "7cff994a15",
-   "bytes": 186844
+   "v": "6735700072",
+   "bytes": 286776
   },
   "slab_pipes_supply__water_heater__d31828ef.glb": {
-   "v": "4dc99f4a63",
-   "bytes": 128544
+   "v": "0bd2b7cbf6",
+   "bytes": 198716
   },
   "slab_pipes_supply__water_heater__ef7813b2.glb": {
    "v": "eaf177f761",
