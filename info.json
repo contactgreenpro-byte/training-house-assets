@@ -2486,7 +2486,7 @@
     "house_line": "1 in line to the house out of V4",
     "soil": "Backfill",
     "house_wall": "House",
-    "filter_head": "In/out head, two 1 in ports toward the box",
+    "filter_head": "In/out head (Clack 1190 style), two 1 in ports toward the box: downflow IN on the left as you face them, OUT on the right",
     "pea_gravel": "Pea gravel levelling bed under the box",
     "riser_tube": "Riser tube, head to the diffuser plate",
     "carbon_media": "Carbon bed, downflow: black granular carbon, the top layer loads up first",

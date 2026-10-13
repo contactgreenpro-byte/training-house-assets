@@ -1783,7 +1783,7 @@
    "file": "site",
    "pack": "water_filter",
    "model": "water_filter.glb",
-   "yaw": 90,
+   "yaw": 270,
    "hide": [
     "grass",
     "grass_section",
@@ -1802,7 +1802,7 @@
     "box_water"
    ],
    "config": "water=city_filter",
-   "note": "Set PERPENDICULAR to the service, box and tank on the right hand side looking up the line from the road. The meter was set first and the line ran straight to the house; the filter was cut into it later, so the line turns east into the red V1 union and comes back west out of the green V4 union (Jake 2026-09-11). 2026-09-12 (tools/hiddencheck.py): the flooded box, the spent media, the media band and the particles are states the builder hides in Blender, and they were all showing in the house. 2026-09-13: the hide list named the builder's dictionary keys (media_spent, media_band, box_flooded), not the parts (carbon_loaded, carbon_loaded_band, box_water), so the brown spent carbon and the flooded box water showed in the house (Jake: the filter should be black charcoal). The real names are hidden now.",
+   "note": "r100a4 (Jake 2026-10-12: \"the two pipes coming out of the manifold to the filter are the wrong order ... spin the whole filtration system 180 degrees and put it on the opposite side of the water meter and then flip the entire manifold over\"): the head is the real Clack 1190 in/out head now (its ports are moulded DOWNFLOW INLET and UPFLOW INLET; downflow IN is the LEFT port as you face the ports), the manifold is built mirror image of the SOP photo so the T stub jumper runs straight to that IN, and the system is turned round: yaw 270 (was 90), sock_filter_street moved to the WEST side of the service line (x -6.0585, build_house.py), box and tank on the LEFT hand side looking up the line from the road, the union faces pointing east at the line. The red V1 union is still the one toward the meter; the meter, curb stop and house shutoff did not move. Before r100a4: Set PERPENDICULAR to the service, box and tank on the right hand side looking up the line from the road. The meter was set first and the line ran straight to the house; the filter was cut into it later, so the line turns east into the red V1 union and comes back west out of the green V4 union (Jake 2026-09-11). 2026-09-12 (tools/hiddencheck.py): the flooded box, the spent media, the media band and the particles are states the builder hides in Blender, and they were all showing in the house. 2026-09-13: the hide list named the builder's dictionary keys (media_spent, media_band, box_flooded), not the parts (carbon_loaded, carbon_loaded_band, box_water), so the brown spent carbon and the flooded box water showed in the house (Jake: the filter should be black charcoal). The real names are hidden now.",
    "offset": [
     0,
     0,
@@ -1821,7 +1821,7 @@
      "filter_head_riser_oring": "filter_head_riser_oring_section"
     },
     "also_hide": [],
-    "note": "Round 101 hands pass (CUTAWAY_RULES entry 2: 'Cut it open' did nothing on the filter). One plane through the tank's axis, the half away from the box removed (cut_open [0, -1, 0] model local): the shell, the bed, the water, the riser and the water in it, the diffuser plate, the head and both its o-rings cut together, so the IN passage down beside the riser and the OUT passage up the riser and over to the right port are cut through their middles. The PEX adapters, the jumpers and the box stay whole. The loaded layers and the specks are placement hidden, so the swap leaves them alone."
+    "note": "Round 101 hands pass (CUTAWAY_RULES entry 2: 'Cut it open' did nothing on the filter). One plane through the tank's axis, the half away from the box removed (cut_open [0, -1, 0] model local): the shell, the bed, the water, the riser and the water in it, the diffuser plate, the head and both its o-rings cut together, so the IN passage down beside the riser and the OUT passage up the riser and over to the OUT port are cut through their middles (r100a4: the IN port is the left one as you face the ports). The PEX adapters, the jumpers and the box stay whole. The loaded layers and the specks are placement hidden, so the swap leaves them alone."
    }
   },
   {

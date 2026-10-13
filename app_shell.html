@@ -386,7 +386,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '100a3';
+  var SHELL = '100a4';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -972,6 +972,14 @@
     GL.load('gloves.glb', function (g) {
       var hands = g.scene;
       hands.traverse(function (o) { if (o.isMesh) { o.frustumCulled = false; o.renderOrder = 10; } });
+      // r100a4 (Jake: orange nitrile gloves, "the black ones are just like a little creepy"). This loader is not walk.js's, so the
+      // gloves missed its tuneMaterials() and took the whole grey environment: a white veil over them (the black gloves drew as
+      // grey ghosts, the orange ones as salmon, the grip texture washed out). A non-metal takes 0.06 of it, as every painted thing
+      // in the house does; then the orange draws as the measured glove colour (round100/r100a4_gloves, try_env006 pictures).
+      hands.traverse(function (o) {
+        if (!o.isMesh) return;
+        [].concat(o.material).forEach(function (m) { if (m && m.envMapIntensity !== undefined) { m.envMapIntensity = 0.06 + 0.3 * (m.metalness || 0); m.needsUpdate = true; } });
+      });
       W.camera.add(hands);
       if (!W.camera.parent) W.scene.add(W.camera);
       // Round 60 (Jake, on his phone: "I can barely see the gloves"). They were posed for a wide window: 17 cm either side of
