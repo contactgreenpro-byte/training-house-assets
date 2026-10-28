@@ -1,7 +1,7 @@
 {
- "published": "2026-10-13T00:15:20",
- "house": "r100a4",
- "note": "r100a4: the water filter system turned round to the west side of the meter line with its manifold mirror image, so the city side feeds the real Clack head's IN port (downflow IN on the left); the technician's gloves are orange textured nitrile; app 100a4",
+ "published": "2026-10-28T05:38:16",
+ "house": "r100a4b",
+ "note": "r100a4b: the attic air handlers' UV coil lamp moved onto the coil's entering face (in the filter base, head on its top, ballast on the unit's east side beside it, 24 V lead along that side); its finding picture redrawn; nothing else changed",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -168,12 +168,12 @@
    "bytes": 3176796
   },
   "hvac_air_handler_rheem_rh2ty36_house.glb": {
-   "v": "a31ac27f5f",
-   "bytes": 2358904
+   "v": "adc934942c",
+   "bytes": 2375804
   },
   "hvac_air_handler_rheem_rh2vy36_house.glb": {
-   "v": "e8ac9527ec",
-   "bytes": 2416388
+   "v": "152c6c9173",
+   "bytes": 2434032
   },
   "hvac_air_handler_upflow.glb": {
    "v": "10e8e1edba",
@@ -260,8 +260,8 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "b757070f53",
-   "bytes": 40691
+   "v": "16be0339fa",
+   "bytes": 41060
   },
   "induct_purifier.glb": {
    "v": "1a2cebb5af",
@@ -2816,8 +2816,8 @@
    "bytes": 39090
   },
   "finding-art/hvac_air_handler_horizontal__uv_light.jpg": {
-   "v": "8bf992a86a",
-   "bytes": 40298
+   "v": "b4d7ad8293",
+   "bytes": 44930
   },
   "finding-art/hvac_condenser_ac__capacitor.jpg": {
    "v": "bbdea88e62",
