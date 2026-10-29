@@ -219,6 +219,8 @@
       };
       this.eyeFwd = this.eyes.map(fwdLocal);
       this.headFwd = this.head ? fwdLocal(this.head) : new T.Vector3(0, 0, 1);
+      this.chest = bone(/Spine2$/) || bone(/Spine1$/);
+      this.chestFwd = this.chest ? fwdLocal(this.chest) : null;
       this.eyeRest = this.eyes.map((e) => e.quaternion.clone());
       this.target = null;            // () => world Vector3 to look at, or null to look ahead
       this.line = null;              // the line being spoken: {L (buildLine), t0, audio}
@@ -358,19 +360,29 @@
         const eye = this.eyeMid(new T.Vector3());
         const d = tgt.clone().sub(eye);
         const yaw = angle(Math.atan2(d.x, d.z) - bodyH), pitch = Math.atan2(-d.y, Math.hypot(d.x, d.z));
-        // the neck turns up to about 60 degrees; past that the person should turn (the scene does that)
-        want = [clamp(angle(yaw - this.lp[0]), -60 * DEG - this.lp[0], 60 * DEG - this.lp[0]), clamp(pitch - this.lp[1], -25 * DEG, 25 * DEG) * 0.8];
+        // the neck turns up to about 55 degrees from the chest; past that the person should turn (the scene does that). From the
+        // chest, not the hips: a move that turns the upper body (John's "come in" wave) plus a full turn of the head read as a
+        // twisted neck (105 degrees head to chest, 2026-10-29)
+        let chest = 0;
+        if (this.chest) { const cf = this.chestFwd.clone().applyQuaternion(this.chest.getWorldQuaternion(new T.Quaternion())); chest = angle(Math.atan2(cf.x, cf.z) - bodyH); }
+        want = [clamp(angle(yaw - this.lp[0]), chest - 55 * DEG - this.lp[0], chest + 55 * DEG - this.lp[0]), clamp(pitch - this.lp[1], -25 * DEG, 25 * DEG) * 0.8];
       }
-      // critically damped towards the wanted steering, about 0.35 s to settle
-      const w0 = 9;
-      for (let i = 0; i < 2; i++) {
-        this.corrV[i] += (w0 * w0 * (want[i] - this.corr[i]) - 2 * w0 * this.corrV[i]) * dt;
-        this.corr[i] += this.corrV[i] * dt;
+      // critically damped towards the wanted steering, about 0.35 s to settle; in steps of at most 1/60 s, as one long step (a
+      // recording at 6 frames a second) made the spring blow up to infinity and the whole skeleton with it (2026-10-29)
+      const w0 = 9, n = Math.max(1, Math.ceil(dt / (1 / 60))), h = dt / n;
+      for (let s = 0; s < n; s++) {
+        for (let i = 0; i < 2; i++) {
+          this.corrV[i] += (w0 * w0 * (want[i] - this.corr[i]) - 2 * w0 * this.corrV[i]) * h;
+          this.corr[i] += this.corrV[i] * h;
+        }
       }
+      for (let i = 0; i < 2; i++) if (!Number.isFinite(this.corr[i]) || Math.abs(this.corr[i]) > 2) { this.corr[i] = want[i]; this.corrV[i] = 0; }
       const right = new T.Vector3(Math.cos(bodyH + this.lp[0]), 0, -Math.sin(bodyH + this.lp[0]));
       const dq = new T.Quaternion().setFromAxisAngle(UP, this.corr[0]).premultiply(new T.Quaternion().setFromAxisAngle(right, this.corr[1] + nod * DEG));
       const split = (q, f) => new T.Quaternion().slerp(q, f);
-      if (this.neck) turnBone(this.neck, split(dq, 0.4));
+      // keep(): the clip's own value comes back before the next frame (sim.js Person.keep), so the turn is never added twice
+      if (this.neck) { this.p.keep(this.neck); turnBone(this.neck, split(dq, 0.4)); }
+      this.p.keep(head);
       turnBone(head, split(dq, this.neck ? 0.6 : 1));
     }
 

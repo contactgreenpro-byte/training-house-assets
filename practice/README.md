@@ -5,4 +5,5 @@ Published by `happy_pipes_instructor/sim/publish_practice.py`. All rights reserv
 
 - the two people (`candidates/sim/*.glb`) and their moves (`candidates/sim/moves/*.glb`) are converted from Microsoft Rocketbox
   avatars and animations, MIT licence, notice in `LICENSE_ROCKETBOX.md`;
-- the voices were made with ElevenLabs.
+- the voices were made with ElevenLabs;
+- the Happy Pipes logo (on the polo and `sim/props/hp_lockup.png`, the business card) is Happy Pipes' own.

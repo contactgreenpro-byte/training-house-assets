@@ -30,6 +30,28 @@
   const SIT_BACK = 0.462;   // sit_down_chair_01 ends with the hips this far behind where he stood (clip units; times the person's scale)
   const STAND_FWD = 0.4225; // sit_stand_up_chair_01 ends with the hips this far in front of the seat
   class Cancelled extends Error {}
+
+  // three's mixer writes a bone only when its value has changed since the frame before (PropertyMixer.apply). For the people
+  // that went wrong twice over (2026-10-29, Jake at the front door: heads wound round, arms out, backs bent): a bone turned on
+  // top of the clip (the face's head steering, a reaching arm) stayed turned wherever the clip held it still, and after a step
+  // jump (stopAllAction puts every bone back to the pose it had when first bound, the arms-out T pose) a bone the next clip
+  // holds still stayed in that T pose. So for the people's mixers every bone is written every frame: r128's apply without its
+  // "has it changed" test. Everything else in the house (walk.js's appliances) keeps three's own behaviour.
+  const PM = T.PropertyMixer && T.PropertyMixer.prototype;
+  if (PM && !PM.__simAlways) {
+    const apply = PM.apply;
+    PM.apply = function (accuIndex) {
+      const root = this.binding && this.binding.rootNode;
+      if (!root || !root.userData || !root.userData.simPerson) return apply.call(this, accuIndex);
+      const stride = this.valueSize, buffer = this.buffer, offset = accuIndex * stride + stride;
+      const weight = this.cumulativeWeight, weightAdditive = this.cumulativeWeightAdditive;
+      this.cumulativeWeight = 0; this.cumulativeWeightAdditive = 0;
+      if (weight < 1) this._mixBufferRegion(buffer, offset, stride * this._origIndex, 1 - weight, stride);
+      if (weightAdditive > 0) this._mixBufferRegionAdditive(buffer, offset, this._addIndex * stride, 1, stride);
+      this.binding.setValue(buffer, offset);
+    };
+    PM.__simAlways = true;
+  }
   // stretches of the long talking takes where a hand goes up to the head (measured: hand above the neck); a line's
   // gesture starts clear of them, so a technician never scratches his head mid-sentence unless asked to
   const FIDGETS = { talk_neutral_03: [[37.3, 38.6], [59.4, 60.3]], talk_self_assured_01: [[13.7, 13.8]] };
@@ -39,6 +61,7 @@
       this.name = name;
       this.root = gltf.scene;
       this.root.name = "sim_" + name;
+      this.root.userData.simPerson = true;                 // its mixer writes every bone every frame (PM.apply above)
       this.root.traverse((o) => {
         if (o.isSkinnedMesh) o.frustumCulled = false;     // r128 culls a skinned mesh by its bind-space sphere
         if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; }
@@ -55,6 +78,8 @@
       this.base = "idle_neutral_01";                      // the pose a gesture returns to (a seated idle once seated)
       this.gtok = 0;
       this.walking = false;
+      this.kept = new Map();                              // bones turned on top of the clip this frame (keep)
+      this.posers = [];                                   // run after the clip each frame: reaching arms (reach)
     }
     // body clips only: the face bones are the face's (face.js)
     addClips(anims) { for (const c of anims) this.clips[clipKey(c.name)] = window.SimFace.bodyOnly(c); }
@@ -76,14 +101,59 @@
     }
     place(x, y, z, h) { this.pos.set(x, y, z); this.heading = h; this.sync(); }
     sync() { this.root.position.copy(this.pos); this.root.rotation.set(0, this.heading, 0); }
+    // A bone turned on top of the clip (the face's head steering, a reaching arm) goes back to the clip's own value before the
+    // next frame. Before the mixer wrote every bone every frame (PM.apply), a turn where the clip held a bone still stayed and was
+    // added again every frame: Mike's head wound round past 170 degrees at the front door (2026-10-29, Jake: "make sure they're
+    // tracking"). With that fixed this is belt and braces. keep(bone) is called before turning it; the first call in a frame
+    // records the clip's value.
+    keep(b) { if (!this.kept.has(b)) this.kept.set(b, b.quaternion.clone()); }
     update(dt) {
       this.tasks = this.tasks.filter((t) => { if (t.fn(dt)) { t.res(); return false; } return true; });
       this.ticks = this.ticks.filter((f) => !f(dt));
       this.sync();
+      for (const [b, q] of this.kept) b.quaternion.copy(q);
+      this.kept.clear();
       this.mixer.update(dt);
+      this.posers = this.posers.filter((f) => !f(dt));
     }
     run(fn) { return new Promise((res, rej) => this.tasks.push({ fn, res, rej })); }
-    cancel() { const t = this.tasks; this.tasks = []; this.ticks = []; this.gtok++; this.walking = false; t.forEach((x) => x.rej(new Cancelled())); }
+    cancel() { const t = this.tasks; this.tasks = []; this.ticks = []; this.posers = []; this.gtok++; this.walking = false; t.forEach((x) => x.rej(new Cancelled())); }
+
+    // ---- arms ----------------------------------------------------------------------------------------------
+    // Reach with an arm towards a point (target() gives it in the world, every frame): a two-bone solve on the upper arm and
+    // forearm after the clip, the elbow down and out, blended in over dur. For what no clip does: knocking on this door, handing
+    // over a card, taking it, pulling a door open by its handle. Returns a handle: release(sec) blends back to the clip.
+    reach(side, target, { dur = 0.45 } = {}) {
+      const S = side === "L" ? "L" : "R";
+      const up = this.root.getObjectByName(`Bip01_${S}_UpperArm`), fore = this.root.getObjectByName(`Bip01_${S}_Forearm`), hand = this.root.getObjectByName(`Bip01_${S}_Hand`);
+      const h = { target, w: 0, goal: 1, rate: 1 / dur, out: null, hand };
+      h.release = (sec = 0.45) => { h.goal = 0; h.rate = 1 / sec; return new Promise((res) => (h.out = res)); };
+      h.set = (fn) => { h.target = fn; };
+      const v = (o) => o.getWorldPosition(new T.Vector3());
+      this.posers.push((dt) => {
+        h.w = Math.max(0, Math.min(1, h.w + Math.sign(h.goal - h.w) * h.rate * dt));
+        if (h.goal === 0 && h.w <= 0) { if (h.out) h.out(); return true; }
+        const k = h.w * h.w * (3 - 2 * h.w);
+        this.root.updateMatrixWorld(true);
+        const s = v(up), e = v(fore), w = v(hand);
+        const a = s.distanceTo(e), b = e.distanceTo(w);
+        const d = h.target().clone().sub(s);
+        const dl = Math.max(Math.abs(a - b) + 0.01, Math.min(d.length(), (a + b) * 0.995));
+        const dir = d.normalize();
+        const fwd = new T.Vector3(Math.sin(this.heading), 0, Math.cos(this.heading));
+        const out = new T.Vector3(-Math.cos(this.heading), 0, Math.sin(this.heading)).multiplyScalar(S === "R" ? 1 : -1);
+        const pole = new T.Vector3(0, -1, 0).addScaledVector(out, 0.6).addScaledVector(fwd, -0.25);
+        const perp = pole.clone().addScaledVector(dir, -pole.dot(dir)).normalize();
+        const cosA = Math.max(-1, Math.min(1, (a * a + dl * dl - b * b) / (2 * a * dl)));
+        const elbow = s.clone().addScaledVector(dir, a * cosA).addScaledVector(perp, a * Math.sqrt(1 - cosA * cosA));
+        this.keep(up); this.keep(fore);
+        turnBone(up, new T.Quaternion().slerp(new T.Quaternion().setFromUnitVectors(e.clone().sub(s).normalize(), elbow.sub(s).normalize()), k));
+        const e2 = v(fore), w2 = v(hand), tgt = s.clone().addScaledVector(dir, dl);
+        turnBone(fore, new T.Quaternion().slerp(new T.Quaternion().setFromUnitVectors(w2.sub(e2).normalize(), tgt.sub(e2).normalize()), k));
+        return false;
+      });
+      return h;
+    }
 
     // ---- moves -------------------------------------------------------------------------------------------
     once(name, opts = {}) {
@@ -217,11 +287,16 @@
     reset(base) { this.mixer.stopAllAction(); this.action = null; this.base = base; this.play(base, { fade: 0 }); this.root.visible = this.root.visible; }
     stand(x, y, z, h) { this.place(x, y, z, h); this.reset("idle_neutral_01"); }
     seated(x, y, z, h, base = "sit_chair_idle_neutral_01") { this.place(x, y, z, h); this.reset(base); }
-    // walk a polyline of [x, y, z] points at the walk clip's own pace; turns into each leg, eases out at the end
-    walk(points, { speed = null, backwards = false, end = null } = {}) {
+    // Walk a polyline of [x, y, z] points at the walk clip's own pace; eases out at the end. The corners are rounded off (a
+    // curve of up to `round` metres each side) and the body turns along the curve at a walking person's rate, so a corner is a
+    // turn, not a snap (Jake 2026-10-29: "he gets to a turn point and just snaps real quick"). ground: the feet follow what is
+    // under them (the driveway, the porch steps) instead of the points' own heights.
+    walk(points, { speed = null, backwards = false, end = null, round = 0.45, ground = false } = {}) {
       this.gtok++;
       this.walking = true;
-      const pts = [this.pos.clone(), ...points.map((p) => new T.Vector3(p[0], p[1], p[2]))];
+      let pts = [this.pos.clone(), ...points.map((p) => new T.Vector3(p[0], p[1], p[2]))];
+      if (round > 0 && pts.length > 2) pts = rounded(pts, round);
+      let gy = this.pos.y;
       const legs = [];
       let total = 0;
       for (let i = 1; i < pts.length; i++) { const l = pts[i].distanceTo(pts[i - 1]); if (l > 1e-4) { legs.push([pts[i - 1], pts[i], total, l]); total += l; } }
@@ -238,13 +313,18 @@
         const leg = legs.find((g) => s <= g[2] + g[3]) || legs[legs.length - 1];
         const f = leg ? (s - leg[2]) / leg[3] : 1;
         if (leg) this.pos.lerpVectors(leg[0], leg[1], Math.min(1, Math.max(0, f)));
-        // look a little ahead so corners are rounded rather than snapped
-        const ahead = this.pointAt(legs, Math.min(total, s + 0.45));
-        if (ahead.distanceTo(this.pos) > 0.05) {
+        if (ground) {
+          const g = groundAt(this.pos.x, this.pos.z, gy + 0.4);
+          if (g !== null) gy += (g - gy) * Math.min(1, dt * 10);
+          this.pos.y = gy;
+        }
+        // look a little ahead along the (rounded) path, and turn towards it no faster than a person walking a corner
+        const ahead = this.pointAt(legs, Math.min(total, s + 0.6));
+        if (Math.hypot(ahead.x - this.pos.x, ahead.z - this.pos.z) > 0.05) {
           let want = Math.atan2(ahead.x - this.pos.x, ahead.z - this.pos.z);
           if (backwards) want += Math.PI;
           const d = angleDiff(want, this.heading);
-          this.heading += Math.sign(d) * Math.min(Math.abs(d), 3.2 * dt);
+          this.heading += Math.sign(d) * Math.min(Math.abs(d), 2.0 * dt, Math.abs(d) * 6 * dt + 0.2 * dt);
         }
         if (s >= total) { this.walking = false; this.play(end || this.base, { fade: 0.35 }); return true; }
         return false;
@@ -283,6 +363,161 @@
     g.add(board, paper, clip);
     g.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     return g;
+  }
+
+  // The business card (Jake 2026-10-29: "It's just purple and say Happy Pipes on it. You can put the logo if you want to."):
+  // 3.5 by 2 in, the brand purple, the real lockup (sim/props/hp_lockup.png, cut from Jake's flat polo mockup like the polo's
+  // own logos) on the front, HAPPY PIPES PLUMBING on the back. Built lying in the hand's axes, as the clipboard.
+  let cardTex = null;
+  function card() {
+    if (!cardTex) {
+      const face = (draw) => { const c = document.createElement("canvas"); c.width = 512; c.height = 292; const g = c.getContext("2d"); g.fillStyle = "#5e2f90"; g.fillRect(0, 0, 512, 292); draw(g, c); const t = new T.CanvasTexture(c); t.anisotropy = 4; return t; };
+      cardTex = {
+        front: face((g, c) => {
+          const img = new Image();
+          img.onload = () => { const w = 400, h = w * img.height / img.width; g.drawImage(img, (512 - w) / 2, (292 - h) / 2, w, h); cardTex.front.needsUpdate = true; };
+          img.src = url("sim/props/hp_lockup.png");
+        }),
+        back: face((g) => {
+          g.fillStyle = "#f2b134"; g.textAlign = "center"; g.font = "bold 58px system-ui, sans-serif"; g.fillText("HAPPY PIPES", 256, 140);
+          g.fillStyle = "#ffffff"; g.font = "bold 30px system-ui, sans-serif"; g.fillText("PLUMBING", 256, 190);
+        }),
+      };
+    }
+    const edge = new T.MeshStandardMaterial({ color: 0x5e2f90, roughness: 0.6 });
+    const mats = [edge, edge, new T.MeshStandardMaterial({ map: cardTex.back, roughness: 0.55 }), new T.MeshStandardMaterial({ map: cardTex.front, roughness: 0.55 }), edge, edge];
+    const m = new T.Mesh(new T.BoxGeometry(0.089, 0.0006, 0.051), mats);
+    m.name = "prop_card"; m.castShadow = true;
+    return m;
+  }
+
+  // ---- knocking: a knuckle on a wooden door, made on the spot (Web Audio: a short knock of filtered noise and a low thump), so
+  // there is no sound file to fetch. unlockAudio() starts the audio on the Start tap, as phones require.
+  let actx = null;
+  function knockSound(soft = false) {
+    if (!actx || !isLive || muted) return;
+    const t0 = actx.currentTime, gain = soft ? 0.12 : 0.55;
+    const len = Math.floor(actx.sampleRate * 0.09), buf = actx.createBuffer(1, len, actx.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (actx.sampleRate * 0.012));
+    const src = actx.createBufferSource(); src.buffer = buf;
+    const bp = actx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = soft ? 1400 : 950; bp.Q.value = 1.2;
+    const g1 = actx.createGain(); g1.gain.value = gain;
+    src.connect(bp).connect(g1).connect(actx.destination); src.start(t0);
+    const o = actx.createOscillator(); o.frequency.setValueAtTime(soft ? 210 : 150, t0); o.frequency.exponentialRampToValueAtTime(70, t0 + 0.08);
+    const g2 = actx.createGain(); g2.gain.setValueAtTime(gain * 0.9, t0); g2.gain.exponentialRampToValueAtTime(0.001, t0 + 0.1);
+    o.connect(g2).connect(actx.destination); o.start(t0); o.stop(t0 + 0.12);
+  }
+
+  // A polyline with its corners rounded: each inner corner becomes a curve starting up to r before it and ending up to r after
+  // (less on short legs), so a person walking it turns smoothly through the corner.
+  function rounded(pts, r) {
+    const out = [pts[0]];
+    for (let i = 1; i < pts.length - 1; i++) {
+      const p = pts[i], a = pts[i - 1], b = pts[i + 1];
+      const la = p.distanceTo(a), lb = p.distanceTo(b);
+      const c = Math.min(r, la * 0.45, lb * 0.45);
+      if (c < 0.02) { out.push(p); continue; }
+      const p0 = p.clone().addScaledVector(a.clone().sub(p).normalize(), c), p2 = p.clone().addScaledVector(b.clone().sub(p).normalize(), c);
+      for (let k = 0; k <= 6; k++) { const t = k / 6; out.push(p0.clone().multiplyScalar((1 - t) * (1 - t)).addScaledVector(p, 2 * t * (1 - t)).addScaledVector(p2, t * t)); }
+    }
+    out.push(pts[pts.length - 1]);
+    return out;
+  }
+
+  // a bone turned by d (a world-space rotation) about its own joint
+  const pq = new T.Quaternion(), tq = new T.Quaternion();
+  function turnBone(b, d) {
+    b.parent.getWorldQuaternion(pq);
+    b.quaternion.premultiply(tq.copy(pq).invert().multiply(d).multiply(pq));
+    b.updateMatrixWorld(true);
+  }
+
+  // ---- the ground and what is in the way, for people the trainee steers (player.js) and for walks with ground: true
+  let floorList = null, wallList = null, glassList = null;
+  function floors() {
+    if (!floorList) { floorList = []; W().scene.traverse((o) => { if (o.isMesh && /^(col_|floor_|stair_|site_mow|trim_step|trim_porch_cap)/.test(o.name)) floorList.push(o); }); }
+    return floorList;
+  }
+  const rcDown = new T.Raycaster(), rcSide = new T.Raycaster();
+  // the height of the walkable surface under (x, z), searching down from y (so a floor overhead does not count)
+  function groundAt(x, z, y = 3) {
+    rcDown.set(new T.Vector3(x, y, z), new T.Vector3(0, -1, 0)); rcDown.far = 6;
+    const h = rcDown.intersectObjects(floors(), false).find((x) => !x.face || x.face.normal.y > 0.3);
+    return h ? h.point.y : null;
+  }
+  // Would a body of radius r at p (feet), moving along the flat direction dir by step, hit something: the house walls (the col_
+  // shells, knee and chest height), furniture and fixtures (porch rails, columns), a door leaf where it stands now, another person.
+  function blockedMove(p, dir, step, r = 0.24, self = null) {
+    if (!wallList) {
+      wallList = []; W().scene.traverse((o) => { if (o.isMesh && /^col_/.test(o.name)) wallList.push(o); });
+    }
+    const doorMeshes = []; for (const d of W().doors) d.traverse((o) => { if (o.isMesh) doorMeshes.push(o); });
+    for (const hgt of [0.45, 1.2]) {
+      rcSide.set(new T.Vector3(p.x, p.y + hgt, p.z), dir); rcSide.far = r + step;
+      if (rcSide.intersectObjects(wallList, false).some((x) => !x.face || Math.abs(x.face.normal.y) < 0.5)) return "wall";
+      if (rcSide.intersectObjects(doorMeshes, false).length) return "door";
+    }
+    const q = p.clone().addScaledVector(dir, step);
+    for (const [nm, b] of furnitureBoxes()) {
+      if (b.max.y < q.y + 0.3 || b.min.y > q.y + 1.7) continue;
+      if (q.x > b.min.x - r && q.x < b.max.x + r && q.z > b.min.z - r && q.z < b.max.z + r) return nm;
+    }
+    for (const o of Object.values(people)) if (o !== self && o.root.visible && Math.hypot(o.pos.x - q.x, o.pos.z - q.z) < r + 0.24) return o.name;
+    return null;
+  }
+  let furnBoxes = null;
+  function furnitureBoxes() {
+    if (furnBoxes) return furnBoxes;
+    furnBoxes = [];
+    W().scene.traverse((o) => {
+      if (!o.visible || !/^(furn_|fix_)/.test(o.name) || /^(furn_rug|fix_frame_|fix_walkway_attic|fix_beam_)/.test(o.name)) return;
+      if (o.parent && /^(furn_|fix_)/.test(o.parent.name)) return;
+      const b = new T.Box3().setFromObject(o);
+      if (b.isEmpty() || b.max.y - b.min.y < 0.05) return;
+      furnBoxes.push([o.name, b]);
+    });
+    return furnBoxes;
+  }
+  // The windows (their glass), for "never look in windows": a person is looking in when he stands within 0.8 m of the glass,
+  // in front of it (not off past its edge) and facing it.
+  function windows() {
+    if (!glassList) {
+      glassList = [];
+      W().scene.traverse((o) => {
+        if (!o.isMesh || !/^win_/.test(o.name) || ![].concat(o.material).some((m) => m && (m.transparent || m.opacity < 1))) return;
+        const b = new T.Box3().setFromObject(o), s = b.getSize(new T.Vector3());
+        if (s.y < 0.5) return;
+        glassList.push({ name: o.name, b, alongX: s.x > s.z });
+      });
+    }
+    return glassList;
+  }
+  function lookingIn(p) {
+    const fwd = new T.Vector3(Math.sin(p.heading), 0, Math.cos(p.heading));
+    for (const g of windows()) {
+      if (g.b.max.y < p.pos.y + 1.4 || g.b.min.y > p.pos.y + 1.75) continue;
+      const c = g.b.getCenter(new T.Vector3());
+      const lat = g.alongX ? Math.abs(p.pos.x - c.x) - (g.b.max.x - g.b.min.x) / 2 : Math.abs(p.pos.z - c.z) - (g.b.max.z - g.b.min.z) / 2;
+      const off = g.alongX ? Math.abs(p.pos.z - c.z) : Math.abs(p.pos.x - c.x);
+      if (lat > 0.12 || off > 0.8) continue;
+      const to = g.alongX ? new T.Vector3(0, 0, Math.sign(c.z - p.pos.z)) : new T.Vector3(Math.sign(c.x - p.pos.x), 0, 0);
+      if (fwd.dot(to) > Math.cos(55 * Math.PI / 180)) return g.name;
+    }
+    return null;
+  }
+  // a door's handle on one side, in the world, wherever the door has swung to
+  function handlePoint(name, inside = true) {
+    const d = door(name);
+    if (!d) return null;
+    if (!d.userData.handleLocal) {
+      // in the door's own frame, so it does not matter how far it is open: the small part is the handle (both knobs), its
+      // two faces are the two sides (inside is -z for the front door, which opens into the house)
+      const box = (o) => { o.geometry.computeBoundingBox(); return o.geometry.boundingBox.clone().applyMatrix4(o.matrix); };
+      const hm = d.children.find((o) => o.isMesh && (() => { const b = box(o); return b.max.y - b.min.y < 0.2; })());
+      const b = hm ? box(hm) : new T.Box3(new T.Vector3(), new T.Vector3()), c = b.getCenter(new T.Vector3());
+      d.userData.handleLocal = { in: new T.Vector3(c.x, c.y, b.min.z - 0.01), out: new T.Vector3(c.x, c.y, b.max.z + 0.01) };
+    }
+    return d.localToWorld(d.userData.handleLocal[inside ? "in" : "out"].clone());
   }
 
   const angleDiff = (a, b) => { let d = (a - b) % (2 * Math.PI); if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI; return d; };
@@ -389,10 +624,12 @@
   let clock = 0, isLive = false;
   const camera = { follow: null };
   const timers = [];                                      // the director's own waits, cancellable like a person's
+  const watchers = [];                                    // until(): conditions checked every step, cancellable too
   function step(dt) {
     clock += dt;
     if (!isLive) W().stepDoors(dt);                       // live, walk.js's own frame loop swings the doors
     for (let i = timers.length - 1; i >= 0; i--) if (clock >= timers[i].at) { timers[i].res(); timers.splice(i, 1); }
+    for (let i = watchers.length - 1; i >= 0; i--) if (watchers[i].fn(dt)) { watchers[i].res(); watchers.splice(i, 1); }
     for (const p of Object.values(people)) p.update(dt);
     for (const p of Object.values(people)) if (p.face && p.root.visible) p.face.update(clock, dt);
     if (camera.follow) camera.follow(dt);
@@ -400,9 +637,12 @@
   }
   const flush = async () => { for (let i = 0; i < 6; i++) await Promise.resolve(); };
   const wait = (sec) => new Promise((res, rej) => timers.push({ at: clock + sec, res, rej }));
+  // resolves once fn(dt) returns true (checked every step; fn can also just watch, and return true when it is done)
+  const until = (fn) => new Promise((res, rej) => watchers.push({ fn, res, rej }));
   function cancelAll() {
     for (const p of Object.values(people)) p.cancel();
     timers.splice(0).forEach((t) => t.rej(new Cancelled()));
+    watchers.splice(0).forEach((t) => t.rej(new Cancelled()));
     stopVoices();
     for (const p of Object.values(people)) if (p.face) p.face.stop();
   }
@@ -517,6 +757,7 @@
   let poolNext = 0;
   function unlockAudio() {
     const first = Object.values(lines)[0];
+    try { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === "suspended") actx.resume(); } catch (e) { actx = null; }
     if (pool.length || !first) return;
     for (let i = 0; i < 2; i++) {
       const a = new Audio(url(first.audio));
@@ -576,12 +817,15 @@
     if (sim.freeCamera) return;
     const s = scenario.shots[name];
     let first = true;
+    const at = new T.Vector3(), to = new T.Vector3();
     W().setFly(true);
     camera.follow = (dt) => {
       const want = s.look(sim);
-      if (first) { look.copy(want); first = false; } else look.lerp(want, Math.min(1, dt * 3));
       const p = typeof s.pos === "function" ? s.pos(sim) : s.pos;
-      setCam(p[0], p[1], p[2], look.x, look.y, look.z);
+      to.set(p[0], p[1], p[2]);
+      // a moving camera (pos a function: following someone up the driveway) eases after its spot, as a camera operator would
+      if (first) { look.copy(want); at.copy(to); first = false; } else { look.lerp(want, Math.min(1, dt * 3)); at.lerp(to, Math.min(1, dt * 1.2)); }
+      setCam(at.x, at.y, at.z, look.x, look.y, look.z);
     };
     camera.follow(0);
   }
@@ -600,8 +844,9 @@
 
   const sim = {
     T, SIT_BACK, STAND_FWD, Cancelled, people, load, step, flush, record, setCam, freeCam, camera, openDoor, setDoor, door, wp,
-    checkPath, angleDiff, shot, loadScenario, say, wait, cancelAll, live, lines, loadLines, measureMove, stopVoices, unlockAudio,
-    props: { clipboard }, names: {}, practice: false, freeCamera: false, current: null, captions, voiceLog,
+    checkPath, angleDiff, shot, loadScenario, say, wait, until, cancelAll, live, lines, loadLines, measureMove, stopVoices, unlockAudio,
+    groundAt, blockedMove, windows, lookingIn, handlePoint, knockSound, rounded,
+    props: { clipboard, card }, names: {}, practice: false, freeCamera: false, current: null, captions, voiceLog,
     caption: (t) => captions.push([clock, t]),
     mute: (m) => { muted = m; if (m) stopVoices(); },
     get scenario() { return scenario; }, get clock() { return clock; }, get isLive() { return isLive; }, BASE, url,
