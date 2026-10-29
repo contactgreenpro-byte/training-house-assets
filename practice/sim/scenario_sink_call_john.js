@@ -34,8 +34,13 @@ window.SCENARIOS = window.SCENARIOS || {};
   };
   const standFromSofa = (sim, p) => [SOFA[0] + sim.STAND_FWD * p.root.scale.x, 0, SOFA[2], SOFA[3]];
 
-  // the technician's line: said by him in watch mode, put on the card for the trainee in practice mode
-  const T = (sim, id, o) => (sim.practice ? sim.prompt(id) : sim.say(id, o));
+  // the technician's line: said by him in watch mode, put on the card for the trainee in practice mode; a question brings the
+  // clipboard up in front of him while he asks it (Jake 2026-10-29: "It'll come up as he's asking questions")
+  const T = async (sim, id, o) => {
+    const ask = /\?/.test(sim.lines[id].text);
+    if (ask) boardUp(sim, true);
+    try { await (sim.practice ? sim.prompt(id) : sim.say(id, o)); } finally { if (ask) boardUp(sim, false); }
+  };
   // John's line, to the technician (in Practice that is Mike too: the trainee is him)
   const H = (sim, id, o = {}) => sim.say(id, o);
   const watch = (sim, f) => (sim.practice ? Promise.resolve() : f());
@@ -46,17 +51,92 @@ window.SCENARIOS = window.SCENARIOS || {};
   // a walk that starts with a straight line from wherever the trainee left Mike: if that line would cross a wall or furniture
   // (he wandered off), he is put at the walk's first point first
   const goAlong = (sim, p, path, o) => { if (sim.checkPath([p.pos.toArray(), path[0]]).length) p.place(...path[0], p.heading); return p.walk(path, o); };
-  // the technician's clipboard: in his left hand on his feet, on the table once he sits for the recap; his business card
+  // his business card
   let board = null, card = null;
-  const inHand = (sim) => sim.people.tech.hold(board, "Bip01_L_Hand", [0.11, 0.03, 0.02]);
   const putAway = () => { if (card && card.parent) card.parent.remove(card); };
 
+  // ---- the clipboard ------------------------------------------------------------------------------------------------
+  // Jake 2026-10-29: "his hand should be like grasping the side of it, it's tucked into his side. It'll come up as he's asking
+  // questions." Then: "Typically the fingers curl around the edge of the clipboard when it's in the relaxed position, and it's
+  // in the horizontal plane instead of the vertical." So he carries it flat along his left forearm, the forearm low at his side
+  // and running forward, paper up, its back end tucked against his hip and his fingers curled round its front edge; for a
+  // question the arm brings it up in front of him, tilted towards his face to read and write on, and it goes back down after.
+  // The wrist's place is set from his hips (the pelvis, so a crouch or a sit takes it down with him) and his facing; the board
+  // lies on the forearm as it is; both every frame once the body is final (sim.late). On the table at the recap (putDown) it
+  // stays where it is put.
+  // hx, hy, hz: the wrist from his hips (out to his left, up, forward); back, lift, out: the board's middle from the wrist (back
+  // along the forearm, up off it, out to his left); twist: the hand turned palm up round the board's edge
+  const carry = { on: false, up: 0, want: 0, arm: null, downAt: 0, hx: 0.21, hy: 0.17, hz: 0.27, back: 0.07, lift: 0.05, out: 0.06, twist: -1.2 };
+  const M4 = () => new THREE.Matrix4();
+  const V3 = () => new THREE.Vector3();
+  function bodyFrame(p) {
+    const h = p.heading;
+    p.root.updateMatrixWorld(true);
+    const hips = p.root.getObjectByName("Bip01_Pelvis").getWorldPosition(V3());
+    return { hips, left: new THREE.Vector3(Math.cos(h), 0, -Math.sin(h)), fwd: new THREE.Vector3(Math.sin(h), 0, Math.cos(h)), up: new THREE.Vector3(0, 1, 0) };
+  }
+  // The two poses, each the board's place (m) and the left wrist's (hand). The board (clipboard(): long side its x, the clip at
+  // its -x end, paper on its -y face, width its z).
+  function boardPoses(p) {
+    const { hips, left, fwd, up } = bodyFrame(p);
+    // carried: the wrist low at his side, a little forward, so the forearm runs from his hip forward; the board lies along the
+    // forearm itself (from the elbow and the wrist as they are), paper up, the clip away from him, its front edge at his fingers
+    // and its back end at his hip
+    const hand = hips.clone().addScaledVector(up, carry.hy).addScaledVector(left, carry.hx).addScaledVector(fwd, carry.hz);
+    const el = p.root.getObjectByName("Bip01_L_Forearm").getWorldPosition(V3()), wr = p.root.getObjectByName("Bip01_L_Hand").getWorldPosition(V3());
+    const dir = wr.clone().sub(el).normalize(), nUp = up.clone().addScaledVector(dir, -up.dot(dir)).normalize();
+    const cc = wr.clone().addScaledVector(dir, -carry.back).addScaledVector(nUp, carry.lift).addScaledVector(left, carry.out);
+    const xA = dir.clone().negate(), yA = nUp.clone().negate();
+    const carried = { m: M4().makeBasis(xA, yA, xA.clone().cross(yA)).setPosition(cc), hand };
+    // up for a question: in front of him, tilted towards his face, paper to his face, the clip at the far end
+    const out = fwd.clone().multiplyScalar(Math.cos(0.7)).addScaledVector(up, Math.sin(0.7));
+    const rc = hips.clone().addScaledVector(up, 0.15).addScaledVector(fwd, 0.3).addScaledVector(left, 0.02);
+    const read = { m: M4().makeBasis(out.clone().negate(), left.clone().cross(out).normalize(), left.clone().negate()).setPosition(rc),
+      hand: rc.clone().addScaledVector(left, 0.13).addScaledVector(out, -0.05) };
+    return { carried, read };
+  }
+  const pos = new THREE.Vector3(), quat = new THREE.Quaternion(), scl = new THREE.Vector3(), p2 = new THREE.Vector3(), q2 = new THREE.Quaternion(), s2 = new THREE.Vector3();
+  const smooth = (x) => x * x * (3 - 2 * x);
+  function handPlace(p) { const b = boardPoses(p); return b.carried.hand.lerp(b.read.hand, smooth(carry.up)); }
+  function carryStep(sim, dt) {
+    const tech = sim.people.tech;
+    if (!carry.on || !board) return;
+    if (carry.downAt && sim.clock >= carry.downAt) { carry.want = 0; carry.downAt = 0; }
+    carry.up += Math.sign(carry.want - carry.up) * Math.min(Math.abs(carry.want - carry.up), dt / 0.55);
+    // the grip and the arm (a step change clears every pose on top of the clips, so they come back here)
+    if (!tech._fing || !tech._fing.L) tech.fingers("L", 0.72, 0.2);
+    if (!carry.arm || !tech.posers.includes(carry.arm.fn)) carry.arm = tech.reach("L", () => handPlace(tech), { dur: 0.35, twist: carry.twist });
+    const k = smooth(carry.up), b = boardPoses(tech);
+    b.carried.m.decompose(pos, quat, scl);
+    if (k > 0) { b.read.m.decompose(p2, q2, s2); pos.lerp(p2, k); quat.slerp(q2, k); }
+    if (board.parent !== window.walk.scene) window.walk.scene.add(board);
+    board.position.copy(pos); board.quaternion.copy(quat); board.scale.set(1, 1, 1);
+  }
+  // up for a question (and a moment after, so a run of questions does not bob it up and down)
+  function boardUp(sim, up) {
+    if (!carry.on) return;
+    if (up) { carry.want = 1; carry.downAt = 0; } else carry.downAt = sim.clock + 1.2;
+  }
+  // on his forearm (every step that starts with him on his feet)
+  function inHand(sim) {
+    carry.on = true; carry.want = 0; carry.up = 0; carry.downAt = 0;
+  }
+  function putDownBoard(sim, x, y, z, h) {
+    const tech = sim.people.tech;
+    carry.on = false; if (carry.arm) { carry.arm.release(0.3); carry.arm = null; }
+    tech.fingers("L", 0, 0.3);
+    tech.putDown(board, x, y, z, h);
+  }
+
   // ---- the door (S2) ----------------------------------------------------------------------------------------------
-  // A knock with the right hand on the door's face, at about chest height: the hand swings back and in, a knock sounds each time
-  // it lands. Five firm knocks is the one (Jake 2026-10-29: "take a good firm knock ... a good, you know, five times").
+  // A knock with the right fist on the door's face, at about chest height: the fist swings back and in, a knock sounds each time
+  // it lands. Five firm knocks is the one (Jake 2026-10-29: "take a good firm knock ... a good, you know, five times"; "Mike
+  // knocked open-handed instead of a full knock, and it needs to be like with a fist"). The reach puts the wrist where asked, so
+  // the wrist stops 0.09 m short of the door's face (0.03) and the knuckles land on it; a light tap is the fingers, half closed.
   async function knock(sim, p, n = 5, soft = false) {
-    const face = new sim.T.Vector3(0.16, p.pos.y + 1.38, 0.06);
+    const face = new sim.T.Vector3(0.16, p.pos.y + 1.36, 0.03 + (soft ? 0.12 : 0.09));
     const tgt = face.clone().setZ(face.z + 0.1);
+    p.fingers("R", soft ? 0.45 : 1, 0.3);
     const arm = p.reach("R", () => tgt, { dur: 0.4 });
     await p.wait(0.45);
     const period = soft ? 0.55 : 0.26, back = soft ? 0.035 : 0.09;
@@ -68,6 +148,7 @@ window.SCENARIOS = window.SCENARIOS || {};
       tgt.z = face.z + (hits >= n && f > 0.5 ? back : back * Math.pow(Math.sin(Math.PI * f), 0.8));
       return hits >= n && f > 0.6;
     });
+    p.fingers("R", 0, 0.5);
     await arm.release(0.45);
   }
   // the bad call, shown so it can be seen: up to the side window, hands cupped, looking in
@@ -202,7 +283,23 @@ window.SCENARIOS = window.SCENARIOS || {};
       tech: { name: "Mike", glb: "candidates/sim/tech_uniform.glb", moves: ["candidates/sim/moves/tech_moves.glb", "candidates/sim/moves/tech_moves_b.glb"], height: 1.83, tech: true },
     },
     legs: L,
-    setup(sim) { board = sim.props.clipboard(); card = sim.props.card(); inHand(sim); },
+    setup(sim) {
+      board = sim.props.clipboard(); card = sim.props.card();
+      sim.late.push((dt) => carryStep(sim, dt));
+      sim.carry = carry;                                    // its numbers, for trying a hold out in the page
+      inHand(sim);
+      // The front door opens IN, into the foyer (Jake 2026-10-29: "the door should open in. Most doors open in, not out.").
+      // walk.js chooses each door's side once the whole house is in (chooseDoorSides: a door to the outside swings into the room
+      // it is opened from); the game now starts after that, and makes sure of this door anyway.
+      const d = sim.door("door_foyer_outside");
+      if (d) {
+        const r0 = d.rotation.y;
+        d.rotation.y = d.userData.dir * Math.PI / 2; d.updateMatrixWorld(true);
+        const c = new sim.T.Box3().setFromObject(d).getCenter(new sim.T.Vector3());
+        d.rotation.y = r0; d.updateMatrixWorld(true);
+        if (c.z > 0) d.userData.dir = -d.userData.dir;
+      }
+    },
     steps: [
       {
         // Jake 2026-10-29: catch him from the edge of the driveway and the whole approach; not overly confident, no snapping
@@ -440,7 +537,7 @@ window.SCENARIOS = window.SCENARIOS || {};
           const sit = async (approach) => {
             await tech.sitAtTable("furn_chair_kitchen_s0", { approach, sideDir: 1 });
             const top = new sim.T.Box3().setFromObject(window.walk.scene.getObjectByName("furn_table_kitchen") || tech.root).max.y;
-            tech.putDown(board, tech.pos.x + Math.sin(tech.heading) * 0.55, top + 0.004, tech.pos.z + Math.cos(tech.heading) * 0.55, tech.heading + 0.2);
+            putDownBoard(sim, tech.pos.x + Math.sin(tech.heading) * 0.55, top + 0.004, tech.pos.z + Math.cos(tech.heading) * 0.55, tech.heading + 0.2);
           };
           if (sim.practice) await act(sim, "Sit down across from him. Discovery sheet, pictures and the failed part on the table.", "Sit down", last(L.tech_to_table), () => goAlong(sim, tech, L.tech_to_table), () => sit([]));
           else await sit(L.tech_to_table);

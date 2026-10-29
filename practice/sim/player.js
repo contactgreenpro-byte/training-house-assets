@@ -318,7 +318,7 @@
   // him, eases round after him as he walks, and pulls in short of walls; a drag on the view looks round him, the wheel or a
   // pinch brings it nearer or further. When a line is up it swings round past his shoulder to John.
   const ctl = sim.control = { enabled: true, locked: 0, running: false, speed: 0, input: { x: 0, y: 0, run: false }, keys: {},
-    yaw: 0, pitch: 0.24, dist: 2.8, drag: null, talkTo: null, cam: null };
+    yaw: 0, pitch: 0.24, dist: 2.5, drag: null, talkTo: null, cam: null };
   const MOVE_KEYS = new Set(["KeyW", "KeyA", "KeyS", "KeyD", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "ShiftLeft", "ShiftRight"]);
   function controlStep(dt) {
     const me = techPerson();
@@ -376,11 +376,11 @@
     const me = techPerson(), T = sim.T;
     if (!me) return;
     const moving = ctl.speed > 0.2 || me.walking;
+    const home = homeowner();
+    const talking = home && home.root.visible && !moving && Math.hypot(home.pos.x - me.pos.x, home.pos.z - me.pos.z) < 3.2;
     if (!ctl.drag) {
       // standing near John: past Mike's right shoulder to John; walking (his feet or the button's): behind him; standing
       // elsewhere: slowly round behind him
-      const home = homeowner();
-      const talking = home && home.root.visible && !moving && Math.hypot(home.pos.x - me.pos.x, home.pos.z - me.pos.z) < 3.0;
       const want = talking ? Math.atan2(home.pos.x - me.pos.x, home.pos.z - me.pos.z) - 0.42 : me.heading;
       ctl.yaw += sim.angleDiff(want, ctl.yaw) * Math.min(1, dt * (moving ? 1.6 : talking ? 2.2 : 0.9));
     }
@@ -396,10 +396,24 @@
       const hit = new T.Raycaster(head, back, 0, ctl.dist + 0.25).intersectObjects(walls(), false)[0];
       return [hit ? Math.max(0.55, hit.distance - 0.25) : ctl.dist, back];
     };
+    // and while he talks to John, John must be in sight from there: nothing (a wall, the open door, a doorframe) between the
+    // camera and John's face (Jake 2026-10-29: "it had like me stuck behind the door. I couldn't see the other person")
+    // (glass does not hide him; Mike's own head and shoulders do: straight behind Mike, John in the doorway is behind Mike)
+    const eyes = talking ? home.eyes() : null;
+    const sees = (b, dd) => {
+      if (!eyes) return true;
+      const from = head.clone().addScaledVector(b, dd), to = eyes.clone().sub(from), len = to.length();
+      const ray = new T.Ray(from, to.clone().normalize());
+      for (const [c, r] of [[head, 0.17], [head.clone().setY(head.y - 0.32), 0.3]]) if (ray.distanceSqToPoint(c) < r * r && c.distanceTo(from) < len) return false;
+      return !new T.Raycaster(from, to.normalize(), 0.05, len - 0.15).intersectObjects(walls(), false).some((x) => !x.object.material || ![].concat(x.object.material).some((m) => m.transparent));
+    };
     let [d, back] = room(ctl.yaw), yaw = ctl.yaw;
     const need = Math.min(ctl.dist, 1.5);
-    if (d < need && !ctl.drag) {
-      for (const off of [0.45, -0.45, 0.9, -0.9, 1.4, -1.4, 2.0, -2.0]) { const [d2, b2] = room(ctl.yaw + off); if (d2 >= need) { [d, back, yaw] = [d2, b2, ctl.yaw + off]; break; } }
+    if ((d < need || !sees(back, d)) && !ctl.drag) {
+      for (const off of [0.3, -0.3, 0.6, -0.6, 0.9, -0.9, 1.3, -1.3, 1.8, -1.8, 2.4, -2.4]) {
+        const [d2, b2] = room(ctl.yaw + off);
+        if (d2 >= need && sees(b2, d2)) { [d, back, yaw] = [d2, b2, ctl.yaw + off]; break; }
+      }
       ctl.yaw += sim.angleDiff(yaw, ctl.yaw) * Math.min(1, dt * 3);
     }
     const want = head.clone().addScaledVector(back, d);
@@ -408,8 +422,8 @@
     sim.setCam(ctl.cam.x, ctl.cam.y, ctl.cam.z, look.x, look.y, look.z);
   }
   let wallMeshes = null;
-  // what the camera keeps out of: walls, windows, ceilings, the porch's posts and beam, and anything tall (the fridge, the
-  // upper cabinets, a bookcase), so it never sits inside them
+  // what the camera keeps out of: walls, windows, ceilings, the doors (where they stand now), the porch's posts and beam, and
+  // anything tall (the fridge, the upper cabinets, a bookcase), so it never sits inside or behind them
   const walls = () => wallMeshes || (wallMeshes = (() => {
     const a = [], box = new sim.T.Box3();
     window.walk.scene.traverse((o) => {
@@ -417,6 +431,7 @@
       if (/^(col_|win_|wall_|ext_|roof_|ceil|trim_porch|fix_beam|fix_column)/.test(o.name)) a.push(o);
       else if (/^(furn_|fix_)/.test(o.name) && o.visible && box.setFromObject(o).max.y > 1.5 && box.max.y - box.min.y > 0.5) a.push(o);
     });
+    for (const d of window.walk.doors) d.traverse((o) => { if (o.isMesh) a.push(o); });
     return a;
   })());
   function controlInput() {
@@ -588,15 +603,34 @@
 
   // ---------------------------------------------------------------------------------------------------- start up
   async function boot() {
-    // on a phone the people and their moves take a while to come down after the house: say so instead of showing nothing
+    // Everything comes down before Start (Jake 2026-10-29: "it should load the entire thing. And then starts me out."). walk.js
+    // lets you in as soon as the house's shell is up and brings the furniture, the framing, the pipes and the equipment in behind
+    // you, and the equipment only as you walk near it; it also picks which way each door swings at the very end, so a game
+    // started early had the front door open out onto the porch. So: the house to its "ready", then every model that would have
+    // loaded on the way, with John and Mike coming down alongside. The button says how far it has got.
     const stepped = qs.get("stepped") === "1";              // the preview pane: steps driven by hand, no start button
     const goBtn = el("button", { disabled: "" }, "Loading the house…");
     const go = el("div", { id: "ppstart" }, goBtn);
     if (!stepped) document.body.append(go);
-    while (!window.walk || !window.walk.scene || window.walk.pending() > 0) await new Promise((r) => setTimeout(r, 300));
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    while (!window.walk || !window.walk.scene) await sleep(300);
     addEventListener("unhandledrejection", (e) => { if (e.reason instanceof sim.Cancelled) e.preventDefault(); });
-    goBtn.textContent = "Loading John and Mike…";
-    await sim.loadScenario(NAME);
+    let houseText = "Loading the house…", peopleText = "", peopleDone = false;
+    const show = () => { goBtn.textContent = [houseText, peopleDone ? "" : peopleText].filter(Boolean).join("  ·  "); };
+    const people = (async () => { while (!document.getElementById("status")) await sleep(100); peopleText = "John and Mike…"; show(); await sim.loadScenario(NAME); peopleDone = true; show(); })();
+    const status = document.getElementById("status");
+    for (;;) {
+      const s = status ? status.textContent : "ready";
+      if (/^ready/.test(s)) break;
+      if (/^error/.test(s)) { houseText = "The house could not load. Reload the page."; show(); return; }
+      houseText = /house is up/.test(s) ? "Loading the furniture and the pipes…" : "Loading the house…"; show();
+      await sleep(300);
+    }
+    const total = window.walk.pending(), all = window.walk.loadAll();
+    while (window.walk.pending() > 0) { houseText = `Loading the equipment… ${total - window.walk.pending()} of ${total}`; show(); await sleep(300); }
+    await all;
+    houseText = "The house is in"; show();
+    await people;
     scen = sim.scenario;
     try { directions = await (await fetch(sim.url("sim/lines/script_v2_steps.json"))).json(); } catch (e) { directions = {}; }
     build();

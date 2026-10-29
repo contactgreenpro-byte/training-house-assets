@@ -117,20 +117,44 @@
       this.posers = this.posers.filter((f) => !f(dt));
     }
     run(fn) { return new Promise((res, rej) => this.tasks.push({ fn, res, rej })); }
-    cancel() { const t = this.tasks; this.tasks = []; this.ticks = []; this.posers = []; this.gtok++; this.walking = false; t.forEach((x) => x.rej(new Cancelled())); }
+    cancel() { const t = this.tasks; this.tasks = []; this.ticks = []; this.posers = []; this._fing = {}; this.gtok++; this.walking = false; t.forEach((x) => x.rej(new Cancelled())); }
 
     // ---- arms ----------------------------------------------------------------------------------------------
+    // Curl a hand's fingers on top of the clip: 1 is a fist (knocking: Jake 2026-10-29, "it needs to be like with a fist"), about
+    // 0.5 a grip round an edge. Rocketbox fingers (Bip01_L/R_Finger0..4, each with joints 1 and 2) all bend about their own z.
+    fingers(side, amount = 1, dur = 0.25) {
+      const S = side === "L" ? "L" : "R";
+      this._fing = this._fing || {};
+      let f = this._fing[S];
+      if (!f || !this.posers.includes(f.fn)) {
+        const bones = [];
+        for (let n = 0; n <= 4; n++) ["", "1", "2"].forEach((j, k) => { const b = this.root.getObjectByName(`Bip01_${S}_Finger${n}${j}`); if (b) bones.push([b, n, k]); });
+        f = this._fing[S] = { cur: 0, want: 0, rate: 4, bones };
+        f.fn = (dt) => {
+          f.cur += Math.sign(f.want - f.cur) * Math.min(Math.abs(f.want - f.cur), f.rate * dt);
+          if (f.cur <= 0 && f.want <= 0) { delete this._fing[S]; return true; }
+          for (const [b, n, k] of f.bones) {
+            const a = (n === 0 ? [0.55, 0.45, 0.35] : [1.25, 1.45, 0.95])[k] * f.cur;     // knuckles, middle, tips; the thumb folds over
+            this.keep(b);
+            b.quaternion.multiply(fq.setFromAxisAngle(ZAX, a));
+          }
+          return false;
+        };
+        this.posers.push(f.fn);
+      }
+      f.want = amount; f.rate = 1 / Math.max(0.05, dur);
+    }
     // Reach with an arm towards a point (target() gives it in the world, every frame): a two-bone solve on the upper arm and
     // forearm after the clip, the elbow down and out, blended in over dur. For what no clip does: knocking on this door, handing
     // over a card, taking it, pulling a door open by its handle. Returns a handle: release(sec) blends back to the clip.
-    reach(side, target, { dur = 0.45 } = {}) {
+    reach(side, target, { dur = 0.45, twist = 0 } = {}) {
       const S = side === "L" ? "L" : "R";
       const up = this.root.getObjectByName(`Bip01_${S}_UpperArm`), fore = this.root.getObjectByName(`Bip01_${S}_Forearm`), hand = this.root.getObjectByName(`Bip01_${S}_Hand`);
-      const h = { target, w: 0, goal: 1, rate: 1 / dur, out: null, hand };
+      const h = { target, w: 0, goal: 1, rate: 1 / dur, out: null, hand, twist };
       h.release = (sec = 0.45) => { h.goal = 0; h.rate = 1 / sec; return new Promise((res) => (h.out = res)); };
       h.set = (fn) => { h.target = fn; };
       const v = (o) => o.getWorldPosition(new T.Vector3());
-      this.posers.push((dt) => {
+      this.posers.push(h.fn = (dt) => {
         h.w = Math.max(0, Math.min(1, h.w + Math.sign(h.goal - h.w) * h.rate * dt));
         if (h.goal === 0 && h.w <= 0) { if (h.out) h.out(); return true; }
         const k = h.w * h.w * (3 - 2 * h.w);
@@ -150,6 +174,8 @@
         turnBone(up, new T.Quaternion().slerp(new T.Quaternion().setFromUnitVectors(e.clone().sub(s).normalize(), elbow.sub(s).normalize()), k));
         const e2 = v(fore), w2 = v(hand), tgt = s.clone().addScaledVector(dir, dl);
         turnBone(fore, new T.Quaternion().slerp(new T.Quaternion().setFromUnitVectors(w2.sub(e2).normalize(), tgt.sub(e2).normalize()), k));
+        // twist: the hand turned about the forearm (palm up to carry something flat on it), radians
+        if (h.twist) { this.keep(hand); const ax = v(hand).sub(v(fore)).normalize(); turnBone(hand, new T.Quaternion().setFromAxisAngle(ax, h.twist * k)); }
         return false;
       });
       return h;
@@ -425,7 +451,7 @@
   }
 
   // a bone turned by d (a world-space rotation) about its own joint
-  const pq = new T.Quaternion(), tq = new T.Quaternion();
+  const pq = new T.Quaternion(), tq = new T.Quaternion(), fq = new T.Quaternion(), ZAX = new T.Vector3(0, 0, 1);
   function turnBone(b, d) {
     b.parent.getWorldQuaternion(pq);
     b.quaternion.premultiply(tq.copy(pq).invert().multiply(d).multiply(pq));
@@ -625,6 +651,7 @@
   const camera = { follow: null };
   const timers = [];                                      // the director's own waits, cancellable like a person's
   const watchers = [];                                    // until(): conditions checked every step, cancellable too
+  const late = [];                                        // run every step after the bodies and faces (a scenario's carried props)
   function step(dt) {
     clock += dt;
     if (!isLive) W().stepDoors(dt);                       // live, walk.js's own frame loop swings the doors
@@ -632,6 +659,7 @@
     for (let i = watchers.length - 1; i >= 0; i--) if (watchers[i].fn(dt)) { watchers[i].res(); watchers.splice(i, 1); }
     for (const p of Object.values(people)) p.update(dt);
     for (const p of Object.values(people)) if (p.face && p.root.visible) p.face.update(clock, dt);
+    for (const f of late) f(dt);                          // props carried by a posed hand (the clipboard): after every body is final
     if (camera.follow) camera.follow(dt);
     if (sim.onStep) sim.onStep(dt);
   }
@@ -845,7 +873,7 @@
   const sim = {
     T, SIT_BACK, STAND_FWD, Cancelled, people, load, step, flush, record, setCam, freeCam, camera, openDoor, setDoor, door, wp,
     checkPath, angleDiff, shot, loadScenario, say, wait, until, cancelAll, live, lines, loadLines, measureMove, stopVoices, unlockAudio,
-    groundAt, blockedMove, windows, lookingIn, handlePoint, knockSound, rounded,
+    groundAt, blockedMove, windows, lookingIn, handlePoint, knockSound, rounded, late,
     props: { clipboard, card }, names: {}, practice: false, freeCamera: false, current: null, captions, voiceLog,
     caption: (t) => captions.push([clock, t]),
     mute: (m) => { muted = m; if (m) stopVoices(); },
