@@ -1,0 +1,107 @@
+{
+ "text": "Now that you mention it, the shower heads get crusty, and the glasses come out of the dishwasher cloudy.",
+ "voice_id": "gPPH6SLdL8XSX6GNJ40G",
+ "voice": "Brian - Relatable Everyman (ElevenLabs library)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 5.294,
+ "word_count": 19,
+ "words": [
+  {
+   "word": "Now",
+   "start": 0.0,
+   "end": 0.186
+  },
+  {
+   "word": "that",
+   "start": 0.221,
+   "end": 0.313
+  },
+  {
+   "word": "you",
+   "start": 0.348,
+   "end": 0.43
+  },
+  {
+   "word": "mention",
+   "start": 0.488,
+   "end": 0.766
+  },
+  {
+   "word": "it,",
+   "start": 0.813,
+   "end": 0.987
+  },
+  {
+   "word": "the",
+   "start": 1.161,
+   "end": 1.277
+  },
+  {
+   "word": "shower",
+   "start": 1.347,
+   "end": 1.707
+  },
+  {
+   "word": "heads",
+   "start": 1.776,
+   "end": 1.985
+  },
+  {
+   "word": "get",
+   "start": 2.032,
+   "end": 2.183
+  },
+  {
+   "word": "crusty,",
+   "start": 2.241,
+   "end": 2.728
+  },
+  {
+   "word": "and",
+   "start": 2.752,
+   "end": 2.868
+  },
+  {
+   "word": "the",
+   "start": 2.914,
+   "end": 2.984
+  },
+  {
+   "word": "glasses",
+   "start": 3.03,
+   "end": 3.448
+  },
+  {
+   "word": "come",
+   "start": 3.506,
+   "end": 3.646
+  },
+  {
+   "word": "out",
+   "start": 3.669,
+   "end": 3.738
+  },
+  {
+   "word": "of",
+   "start": 3.773,
+   "end": 3.82
+  },
+  {
+   "word": "the",
+   "start": 3.855,
+   "end": 3.924
+  },
+  {
+   "word": "dishwasher",
+   "start": 3.959,
+   "end": 4.493
+  },
+  {
+   "word": "cloudy.",
+   "start": 4.551,
+   "end": 5.294
+  }
+ ]
+}

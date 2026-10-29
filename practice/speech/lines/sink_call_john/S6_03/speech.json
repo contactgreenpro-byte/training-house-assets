@@ -1,0 +1,57 @@
+{
+ "text": "I'll be in the living room. Come grab me.",
+ "voice_id": "gPPH6SLdL8XSX6GNJ40G",
+ "voice": "Brian - Relatable Everyman (ElevenLabs library)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 2.368,
+ "word_count": 9,
+ "words": [
+  {
+   "word": "I'll",
+   "start": 0.0,
+   "end": 0.221
+  },
+  {
+   "word": "be",
+   "start": 0.244,
+   "end": 0.302
+  },
+  {
+   "word": "in",
+   "start": 0.325,
+   "end": 0.372
+  },
+  {
+   "word": "the",
+   "start": 0.406,
+   "end": 0.476
+  },
+  {
+   "word": "living",
+   "start": 0.499,
+   "end": 0.708
+  },
+  {
+   "word": "room.",
+   "start": 0.743,
+   "end": 1.022
+  },
+  {
+   "word": "Come",
+   "start": 1.347,
+   "end": 1.533
+  },
+  {
+   "word": "grab",
+   "start": 1.567,
+   "end": 1.8
+  },
+  {
+   "word": "me.",
+   "start": 1.858,
+   "end": 2.368
+  }
+ ]
+}

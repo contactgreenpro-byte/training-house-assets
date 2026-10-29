@@ -1,0 +1,207 @@
+{
+ "text": "Before I get started, I want to leave this with you. It's yours to keep. A lot of our customers are surprised how much more we handle than plumbing. Things that make a home more comfortable to live in.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 10.403,
+ "word_count": 39,
+ "words": [
+  {
+   "word": "Before",
+   "start": 0.0,
+   "end": 0.337
+  },
+  {
+   "word": "I",
+   "start": 0.372,
+   "end": 0.395
+  },
+  {
+   "word": "get",
+   "start": 0.453,
+   "end": 0.569
+  },
+  {
+   "word": "started,",
+   "start": 0.615,
+   "end": 1.161
+  },
+  {
+   "word": "I",
+   "start": 1.277,
+   "end": 1.324
+  },
+  {
+   "word": "want",
+   "start": 1.393,
+   "end": 1.509
+  },
+  {
+   "word": "to",
+   "start": 1.533,
+   "end": 1.579
+  },
+  {
+   "word": "leave",
+   "start": 1.625,
+   "end": 1.788
+  },
+  {
+   "word": "this",
+   "start": 1.823,
+   "end": 1.95
+  },
+  {
+   "word": "with",
+   "start": 2.009,
+   "end": 2.148
+  },
+  {
+   "word": "you.",
+   "start": 2.194,
+   "end": 2.438
+  },
+  {
+   "word": "It's",
+   "start": 2.589,
+   "end": 2.775
+  },
+  {
+   "word": "yours",
+   "start": 2.821,
+   "end": 3.077
+  },
+  {
+   "word": "to",
+   "start": 3.135,
+   "end": 3.193
+  },
+  {
+   "word": "keep.",
+   "start": 3.262,
+   "end": 3.692
+  },
+  {
+   "word": "A",
+   "start": 4.203,
+   "end": 4.284
+  },
+  {
+   "word": "lot",
+   "start": 4.365,
+   "end": 4.481
+  },
+  {
+   "word": "of",
+   "start": 4.516,
+   "end": 4.563
+  },
+  {
+   "word": "our",
+   "start": 4.598,
+   "end": 4.679
+  },
+  {
+   "word": "customers",
+   "start": 4.737,
+   "end": 5.12
+  },
+  {
+   "word": "are",
+   "start": 5.155,
+   "end": 5.248
+  },
+  {
+   "word": "surprised",
+   "start": 5.283,
+   "end": 5.77
+  },
+  {
+   "word": "how",
+   "start": 5.805,
+   "end": 5.886
+  },
+  {
+   "word": "much",
+   "start": 5.921,
+   "end": 6.06
+  },
+  {
+   "word": "more",
+   "start": 6.118,
+   "end": 6.258
+  },
+  {
+   "word": "we",
+   "start": 6.281,
+   "end": 6.362
+  },
+  {
+   "word": "handle",
+   "start": 6.42,
+   "end": 6.722
+  },
+  {
+   "word": "than",
+   "start": 6.757,
+   "end": 6.885
+  },
+  {
+   "word": "plumbing.",
+   "start": 6.943,
+   "end": 7.442
+  },
+  {
+   "word": "Things",
+   "start": 7.953,
+   "end": 8.22
+  },
+  {
+   "word": "that",
+   "start": 8.255,
+   "end": 8.359
+  },
+  {
+   "word": "make",
+   "start": 8.394,
+   "end": 8.545
+  },
+  {
+   "word": "a",
+   "start": 8.58,
+   "end": 8.615
+  },
+  {
+   "word": "home",
+   "start": 8.673,
+   "end": 8.916
+  },
+  {
+   "word": "more",
+   "start": 8.963,
+   "end": 9.125
+  },
+  {
+   "word": "comfortable",
+   "start": 9.172,
+   "end": 9.601
+  },
+  {
+   "word": "to",
+   "start": 9.636,
+   "end": 9.694
+  },
+  {
+   "word": "live",
+   "start": 9.764,
+   "end": 9.927
+  },
+  {
+   "word": "in.",
+   "start": 9.961,
+   "end": 10.403
+  }
+ ]
+}

@@ -1,7 +1,7 @@
 {
- "published": "2026-10-28T05:38:16",
- "house": "r100a4b",
- "note": "r100a4b: the attic air handlers' UV coil lamp moved onto the coil's entering face (in the filter base, head on its top, ballast on the unit's east side beside it, 24 V lead along that side); its finding picture redrawn; nothing else changed",
+ "published": "2026-10-29T02:43:54",
+ "house": "r100a4c",
+ "note": "r100a4c: the practice run-through game (practice.html: the field script's sink call with John and Mike, 52 voiced lines, Watch it done or Practice it, phone controls) and the kitchen island from round 102b (2.5 ft deep, the dining set 6 in east), the island's nodes only; the unpublished r100a5 house pass stays out",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -144,16 +144,16 @@
    "bytes": 29444
   },
   "house_floor1.glb": {
-   "v": "833b430963",
-   "bytes": 606228
+   "v": "4906b96b8f",
+   "bytes": 606028
   },
   "house_framing.glb": {
    "v": "3dd47f5b64",
    "bytes": 603244
   },
   "house_furniture.glb": {
-   "v": "564e5ab6fe",
-   "bytes": 8755940
+   "v": "28d9edeaf0",
+   "bytes": 8755904
   },
   "house_site.glb": {
    "v": "edc092c240",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "16be0339fa",
+   "v": "ab58511dd9",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -1468,8 +1468,8 @@
    "bytes": 11462
   },
   "slab_house_floor1.glb": {
-   "v": "21af8935ff",
-   "bytes": 671148
+   "v": "e58f569a98",
+   "bytes": 671176
   },
   "slab_house_framing.glb": {
    "v": "db67071e0f",

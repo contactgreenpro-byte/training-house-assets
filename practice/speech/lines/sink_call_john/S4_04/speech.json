@@ -1,0 +1,37 @@
+{
+ "text": "Yeah, it's been pretty frustrating.",
+ "voice_id": "gPPH6SLdL8XSX6GNJ40G",
+ "voice": "Brian - Relatable Everyman (ElevenLabs library)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 2.322,
+ "word_count": 5,
+ "words": [
+  {
+   "word": "Yeah,",
+   "start": 0.0,
+   "end": 0.464
+  },
+  {
+   "word": "it's",
+   "start": 0.789,
+   "end": 0.975
+  },
+  {
+   "word": "been",
+   "start": 1.01,
+   "end": 1.149
+  },
+  {
+   "word": "pretty",
+   "start": 1.184,
+   "end": 1.37
+  },
+  {
+   "word": "frustrating.",
+   "start": 1.428,
+   "end": 2.322
+  }
+ ]
+}

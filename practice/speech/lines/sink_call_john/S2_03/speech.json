@@ -1,0 +1,132 @@
+{
+ "text": "I'm Mike with Happy Pipes. Here's my card. We visited on the phone a little bit ago. It's good to meet you in person.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 6.269,
+ "word_count": 24,
+ "words": [
+  {
+   "word": "I'm",
+   "start": 0.0,
+   "end": 0.186
+  },
+  {
+   "word": "Mike",
+   "start": 0.244,
+   "end": 0.453
+  },
+  {
+   "word": "with",
+   "start": 0.476,
+   "end": 0.592
+  },
+  {
+   "word": "Happy",
+   "start": 0.639,
+   "end": 0.859
+  },
+  {
+   "word": "Pipes.",
+   "start": 0.906,
+   "end": 1.416
+  },
+  {
+   "word": "Here's",
+   "start": 1.66,
+   "end": 1.892
+  },
+  {
+   "word": "my",
+   "start": 1.939,
+   "end": 2.02
+  },
+  {
+   "word": "card.",
+   "start": 2.09,
+   "end": 2.473
+  },
+  {
+   "word": "We",
+   "start": 2.589,
+   "end": 2.705
+  },
+  {
+   "word": "visited",
+   "start": 2.775,
+   "end": 3.111
+  },
+  {
+   "word": "on",
+   "start": 3.158,
+   "end": 3.216
+  },
+  {
+   "word": "the",
+   "start": 3.262,
+   "end": 3.332
+  },
+  {
+   "word": "phone",
+   "start": 3.355,
+   "end": 3.599
+  },
+  {
+   "word": "a",
+   "start": 3.634,
+   "end": 3.657
+  },
+  {
+   "word": "little",
+   "start": 3.68,
+   "end": 3.831
+  },
+  {
+   "word": "bit",
+   "start": 3.855,
+   "end": 3.947
+  },
+  {
+   "word": "ago.",
+   "start": 3.971,
+   "end": 4.377
+  },
+  {
+   "word": "It's",
+   "start": 4.702,
+   "end": 4.888
+  },
+  {
+   "word": "good",
+   "start": 4.923,
+   "end": 5.062
+  },
+  {
+   "word": "to",
+   "start": 5.097,
+   "end": 5.143
+  },
+  {
+   "word": "meet",
+   "start": 5.19,
+   "end": 5.317
+  },
+  {
+   "word": "you",
+   "start": 5.352,
+   "end": 5.422
+  },
+  {
+   "word": "in",
+   "start": 5.468,
+   "end": 5.526
+  },
+  {
+   "word": "person.",
+   "start": 5.573,
+   "end": 6.269
+  }
+ ]
+}

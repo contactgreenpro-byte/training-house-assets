@@ -1,0 +1,142 @@
+{
+ "text": "I appreciate you having us out, John. I know you've got plenty of companies you could've called, so thank you for trusting us with your home.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 7.291,
+ "word_count": 26,
+ "words": [
+  {
+   "word": "I",
+   "start": 0.0,
+   "end": 0.093
+  },
+  {
+   "word": "appreciate",
+   "start": 0.139,
+   "end": 0.546
+  },
+  {
+   "word": "you",
+   "start": 0.569,
+   "end": 0.639
+  },
+  {
+   "word": "having",
+   "start": 0.673,
+   "end": 0.859
+  },
+  {
+   "word": "us",
+   "start": 0.894,
+   "end": 0.975
+  },
+  {
+   "word": "out,",
+   "start": 1.033,
+   "end": 1.242
+  },
+  {
+   "word": "John.",
+   "start": 1.277,
+   "end": 1.695
+  },
+  {
+   "word": "I",
+   "start": 2.136,
+   "end": 2.183
+  },
+  {
+   "word": "know",
+   "start": 2.252,
+   "end": 2.345
+  },
+  {
+   "word": "you've",
+   "start": 2.368,
+   "end": 2.531
+  },
+  {
+   "word": "got",
+   "start": 2.554,
+   "end": 2.67
+  },
+  {
+   "word": "plenty",
+   "start": 2.728,
+   "end": 2.949
+  },
+  {
+   "word": "of",
+   "start": 2.984,
+   "end": 3.03
+  },
+  {
+   "word": "companies",
+   "start": 3.1,
+   "end": 3.471
+  },
+  {
+   "word": "you",
+   "start": 3.506,
+   "end": 3.576
+  },
+  {
+   "word": "could've",
+   "start": 3.611,
+   "end": 3.843
+  },
+  {
+   "word": "called,",
+   "start": 3.878,
+   "end": 4.307
+  },
+  {
+   "word": "so",
+   "start": 4.632,
+   "end": 4.888
+  },
+  {
+   "word": "thank",
+   "start": 5.213,
+   "end": 5.457
+  },
+  {
+   "word": "you",
+   "start": 5.503,
+   "end": 5.584
+  },
+  {
+   "word": "for",
+   "start": 5.642,
+   "end": 5.747
+  },
+  {
+   "word": "trusting",
+   "start": 5.805,
+   "end": 6.2
+  },
+  {
+   "word": "us",
+   "start": 6.258,
+   "end": 6.351
+  },
+  {
+   "word": "with",
+   "start": 6.385,
+   "end": 6.502
+  },
+  {
+   "word": "your",
+   "start": 6.548,
+   "end": 6.664
+  },
+  {
+   "word": "home.",
+   "start": 6.699,
+   "end": 7.291
+  }
+ ]
+}

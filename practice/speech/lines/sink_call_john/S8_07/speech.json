@@ -1,0 +1,87 @@
+{
+ "text": "Before I get started on all that, I wanted to ask you about your water.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 3.529,
+ "word_count": 15,
+ "words": [
+  {
+   "word": "Before",
+   "start": 0.0,
+   "end": 0.302
+  },
+  {
+   "word": "I",
+   "start": 0.337,
+   "end": 0.36
+  },
+  {
+   "word": "get",
+   "start": 0.395,
+   "end": 0.499
+  },
+  {
+   "word": "started",
+   "start": 0.534,
+   "end": 0.859
+  },
+  {
+   "word": "on",
+   "start": 0.906,
+   "end": 0.964
+  },
+  {
+   "word": "all",
+   "start": 0.998,
+   "end": 1.091
+  },
+  {
+   "word": "that,",
+   "start": 1.138,
+   "end": 1.428
+  },
+  {
+   "word": "I",
+   "start": 1.753,
+   "end": 1.8
+  },
+  {
+   "word": "wanted",
+   "start": 1.858,
+   "end": 2.043
+  },
+  {
+   "word": "to",
+   "start": 2.067,
+   "end": 2.113
+  },
+  {
+   "word": "ask",
+   "start": 2.159,
+   "end": 2.299
+  },
+  {
+   "word": "you",
+   "start": 2.334,
+   "end": 2.403
+  },
+  {
+   "word": "about",
+   "start": 2.426,
+   "end": 2.589
+  },
+  {
+   "word": "your",
+   "start": 2.624,
+   "end": 2.752
+  },
+  {
+   "word": "water.",
+   "start": 2.833,
+   "end": 3.529
+  }
+ ]
+}

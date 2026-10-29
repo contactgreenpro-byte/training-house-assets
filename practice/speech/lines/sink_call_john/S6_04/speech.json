@@ -1,0 +1,32 @@
+{
+ "text": "Perfect. I'll get started.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 1.3,
+ "word_count": 4,
+ "words": [
+  {
+   "word": "Perfect.",
+   "start": 0.0,
+   "end": 0.441
+  },
+  {
+   "word": "I'll",
+   "start": 0.464,
+   "end": 0.592
+  },
+  {
+   "word": "get",
+   "start": 0.627,
+   "end": 0.708
+  },
+  {
+   "word": "started.",
+   "start": 0.743,
+   "end": 1.3
+  }
+ ]
+}

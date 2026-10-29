@@ -1,0 +1,132 @@
+{
+ "text": "I see you got to visit with Sarah when you called in. She takes good care of our customers. We're lucky to have her.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 6.548,
+ "word_count": 24,
+ "words": [
+  {
+   "word": "I",
+   "start": 0.0,
+   "end": 0.093
+  },
+  {
+   "word": "see",
+   "start": 0.186,
+   "end": 0.302
+  },
+  {
+   "word": "you",
+   "start": 0.337,
+   "end": 0.406
+  },
+  {
+   "word": "got",
+   "start": 0.476,
+   "end": 0.592
+  },
+  {
+   "word": "to",
+   "start": 0.627,
+   "end": 0.685
+  },
+  {
+   "word": "visit",
+   "start": 0.743,
+   "end": 0.964
+  },
+  {
+   "word": "with",
+   "start": 0.987,
+   "end": 1.103
+  },
+  {
+   "word": "Sarah",
+   "start": 1.161,
+   "end": 1.533
+  },
+  {
+   "word": "when",
+   "start": 1.556,
+   "end": 1.66
+  },
+  {
+   "word": "you",
+   "start": 1.695,
+   "end": 1.765
+  },
+  {
+   "word": "called",
+   "start": 1.823,
+   "end": 2.078
+  },
+  {
+   "word": "in.",
+   "start": 2.136,
+   "end": 2.473
+  },
+  {
+   "word": "She",
+   "start": 3.077,
+   "end": 3.216
+  },
+  {
+   "word": "takes",
+   "start": 3.274,
+   "end": 3.495
+  },
+  {
+   "word": "good",
+   "start": 3.553,
+   "end": 3.715
+  },
+  {
+   "word": "care",
+   "start": 3.762,
+   "end": 3.947
+  },
+  {
+   "word": "of",
+   "start": 3.971,
+   "end": 4.017
+  },
+  {
+   "word": "our",
+   "start": 4.052,
+   "end": 4.133
+  },
+  {
+   "word": "customers.",
+   "start": 4.18,
+   "end": 4.841
+  },
+  {
+   "word": "We're",
+   "start": 5.12,
+   "end": 5.41
+  },
+  {
+   "word": "lucky",
+   "start": 5.48,
+   "end": 5.747
+  },
+  {
+   "word": "to",
+   "start": 5.793,
+   "end": 5.84
+  },
+  {
+   "word": "have",
+   "start": 5.909,
+   "end": 6.072
+  },
+  {
+   "word": "her.",
+   "start": 6.107,
+   "end": 6.548
+  }
+ ]
+}

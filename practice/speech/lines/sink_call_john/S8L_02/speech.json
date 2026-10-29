@@ -1,0 +1,47 @@
+{
+ "text": "Sure, let's sit at the kitchen table.",
+ "voice_id": "gPPH6SLdL8XSX6GNJ40G",
+ "voice": "Brian - Relatable Everyman (ElevenLabs library)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 1.718,
+ "word_count": 7,
+ "words": [
+  {
+   "word": "Sure,",
+   "start": 0.0,
+   "end": 0.279
+  },
+  {
+   "word": "let's",
+   "start": 0.302,
+   "end": 0.464
+  },
+  {
+   "word": "sit",
+   "start": 0.499,
+   "end": 0.615
+  },
+  {
+   "word": "at",
+   "start": 0.65,
+   "end": 0.708
+  },
+  {
+   "word": "the",
+   "start": 0.731,
+   "end": 0.801
+  },
+  {
+   "word": "kitchen",
+   "start": 0.836,
+   "end": 1.091
+  },
+  {
+   "word": "table.",
+   "start": 1.126,
+   "end": 1.718
+  }
+ ]
+}

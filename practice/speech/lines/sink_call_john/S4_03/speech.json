@@ -1,0 +1,47 @@
+{
+ "text": "Oh no, I hate that for you.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 1.3,
+ "word_count": 7,
+ "words": [
+  {
+   "word": "Oh",
+   "start": 0.0,
+   "end": 0.197
+  },
+  {
+   "word": "no,",
+   "start": 0.232,
+   "end": 0.337
+  },
+  {
+   "word": "I",
+   "start": 0.36,
+   "end": 0.383
+  },
+  {
+   "word": "hate",
+   "start": 0.441,
+   "end": 0.58
+  },
+  {
+   "word": "that",
+   "start": 0.604,
+   "end": 0.731
+  },
+  {
+   "word": "for",
+   "start": 0.789,
+   "end": 0.906
+  },
+  {
+   "word": "you.",
+   "start": 0.975,
+   "end": 1.3
+  }
+ ]
+}

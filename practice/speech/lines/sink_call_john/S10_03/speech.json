@@ -1,0 +1,187 @@
+{
+ "text": "I was able to pin down exactly what's going on and what kind of repair it needs. Like I showed you, your drain line is partly clogged, and the trap under your sink is cracked.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 10.31,
+ "word_count": 35,
+ "words": [
+  {
+   "word": "I",
+   "start": 0.0,
+   "end": 0.081
+  },
+  {
+   "word": "was",
+   "start": 0.151,
+   "end": 0.255
+  },
+  {
+   "word": "able",
+   "start": 0.302,
+   "end": 0.464
+  },
+  {
+   "word": "to",
+   "start": 0.488,
+   "end": 0.534
+  },
+  {
+   "word": "pin",
+   "start": 0.592,
+   "end": 0.766
+  },
+  {
+   "word": "down",
+   "start": 0.824,
+   "end": 0.998
+  },
+  {
+   "word": "exactly",
+   "start": 1.045,
+   "end": 1.451
+  },
+  {
+   "word": "what's",
+   "start": 1.486,
+   "end": 1.672
+  },
+  {
+   "word": "going",
+   "start": 1.707,
+   "end": 1.916
+  },
+  {
+   "word": "on",
+   "start": 1.985,
+   "end": 2.218
+  },
+  {
+   "word": "and",
+   "start": 2.299,
+   "end": 2.496
+  },
+  {
+   "word": "what",
+   "start": 2.566,
+   "end": 2.705
+  },
+  {
+   "word": "kind",
+   "start": 2.752,
+   "end": 2.902
+  },
+  {
+   "word": "of",
+   "start": 2.949,
+   "end": 2.995
+  },
+  {
+   "word": "repair",
+   "start": 3.065,
+   "end": 3.413
+  },
+  {
+   "word": "it",
+   "start": 3.483,
+   "end": 3.553
+  },
+  {
+   "word": "needs.",
+   "start": 3.611,
+   "end": 4.168
+  },
+  {
+   "word": "Like",
+   "start": 4.865,
+   "end": 5.062
+  },
+  {
+   "word": "I",
+   "start": 5.097,
+   "end": 5.12
+  },
+  {
+   "word": "showed",
+   "start": 5.178,
+   "end": 5.399
+  },
+  {
+   "word": "you,",
+   "start": 5.433,
+   "end": 5.677
+  },
+  {
+   "word": "your",
+   "start": 6.06,
+   "end": 6.2
+  },
+  {
+   "word": "drain",
+   "start": 6.258,
+   "end": 6.49
+  },
+  {
+   "word": "line",
+   "start": 6.548,
+   "end": 6.745
+  },
+  {
+   "word": "is",
+   "start": 6.78,
+   "end": 6.85
+  },
+  {
+   "word": "partly",
+   "start": 6.943,
+   "end": 7.256
+  },
+  {
+   "word": "clogged,",
+   "start": 7.314,
+   "end": 7.872
+  },
+  {
+   "word": "and",
+   "start": 8.197,
+   "end": 8.336
+  },
+  {
+   "word": "the",
+   "start": 8.382,
+   "end": 8.452
+  },
+  {
+   "word": "trap",
+   "start": 8.487,
+   "end": 8.742
+  },
+  {
+   "word": "under",
+   "start": 8.8,
+   "end": 8.951
+  },
+  {
+   "word": "your",
+   "start": 8.998,
+   "end": 9.114
+  },
+  {
+   "word": "sink",
+   "start": 9.16,
+   "end": 9.369
+  },
+  {
+   "word": "is",
+   "start": 9.416,
+   "end": 9.497
+  },
+  {
+   "word": "cracked.",
+   "start": 9.567,
+   "end": 10.31
+  }
+ ]
+}

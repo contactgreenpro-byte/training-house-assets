@@ -1,0 +1,152 @@
+{
+ "text": "That's everything I wanted to look at today. Give me a few minutes to put it all together. Is there a place we could sit for a second?",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 6.594,
+ "word_count": 28,
+ "words": [
+  {
+   "word": "That's",
+   "start": 0.0,
+   "end": 0.255
+  },
+  {
+   "word": "everything",
+   "start": 0.313,
+   "end": 0.639
+  },
+  {
+   "word": "I",
+   "start": 0.685,
+   "end": 0.72
+  },
+  {
+   "word": "wanted",
+   "start": 0.778,
+   "end": 0.975
+  },
+  {
+   "word": "to",
+   "start": 0.998,
+   "end": 1.045
+  },
+  {
+   "word": "look",
+   "start": 1.068,
+   "end": 1.207
+  },
+  {
+   "word": "at",
+   "start": 1.254,
+   "end": 1.324
+  },
+  {
+   "word": "today.",
+   "start": 1.37,
+   "end": 1.8
+  },
+  {
+   "word": "Give",
+   "start": 2.496,
+   "end": 2.659
+  },
+  {
+   "word": "me",
+   "start": 2.694,
+   "end": 2.763
+  },
+  {
+   "word": "a",
+   "start": 2.786,
+   "end": 2.821
+  },
+  {
+   "word": "few",
+   "start": 2.868,
+   "end": 2.995
+  },
+  {
+   "word": "minutes",
+   "start": 3.03,
+   "end": 3.251
+  },
+  {
+   "word": "to",
+   "start": 3.286,
+   "end": 3.332
+  },
+  {
+   "word": "put",
+   "start": 3.379,
+   "end": 3.506
+  },
+  {
+   "word": "it",
+   "start": 3.541,
+   "end": 3.599
+  },
+  {
+   "word": "all",
+   "start": 3.622,
+   "end": 3.715
+  },
+  {
+   "word": "together.",
+   "start": 3.773,
+   "end": 4.272
+  },
+  {
+   "word": "Is",
+   "start": 4.516,
+   "end": 4.644
+  },
+  {
+   "word": "there",
+   "start": 4.679,
+   "end": 4.83
+  },
+  {
+   "word": "a",
+   "start": 4.865,
+   "end": 4.888
+  },
+  {
+   "word": "place",
+   "start": 4.946,
+   "end": 5.178
+  },
+  {
+   "word": "we",
+   "start": 5.201,
+   "end": 5.259
+  },
+  {
+   "word": "could",
+   "start": 5.306,
+   "end": 5.445
+  },
+  {
+   "word": "sit",
+   "start": 5.48,
+   "end": 5.631
+  },
+  {
+   "word": "for",
+   "start": 5.677,
+   "end": 5.782
+  },
+  {
+   "word": "a",
+   "start": 5.84,
+   "end": 5.863
+  },
+  {
+   "word": "second?",
+   "start": 5.921,
+   "end": 6.594
+  }
+ ]
+}

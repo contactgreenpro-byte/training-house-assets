@@ -1,0 +1,137 @@
+{
+ "text": "John, since you chose Happy Pipes, I'm going to get you a Guaranteed Proposal and do my best to get this taken care of today.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 6.409,
+ "word_count": 25,
+ "words": [
+  {
+   "word": "John,",
+   "start": 0.0,
+   "end": 0.418
+  },
+  {
+   "word": "since",
+   "start": 0.464,
+   "end": 0.65
+  },
+  {
+   "word": "you",
+   "start": 0.673,
+   "end": 0.755
+  },
+  {
+   "word": "chose",
+   "start": 0.813,
+   "end": 1.045
+  },
+  {
+   "word": "Happy",
+   "start": 1.08,
+   "end": 1.289
+  },
+  {
+   "word": "Pipes,",
+   "start": 1.347,
+   "end": 1.788
+  },
+  {
+   "word": "I'm",
+   "start": 1.962,
+   "end": 2.09
+  },
+  {
+   "word": "going",
+   "start": 2.125,
+   "end": 2.241
+  },
+  {
+   "word": "to",
+   "start": 2.264,
+   "end": 2.31
+  },
+  {
+   "word": "get",
+   "start": 2.345,
+   "end": 2.45
+  },
+  {
+   "word": "you",
+   "start": 2.485,
+   "end": 2.554
+  },
+  {
+   "word": "a",
+   "start": 2.601,
+   "end": 2.635
+  },
+  {
+   "word": "Guaranteed",
+   "start": 2.717,
+   "end": 3.135
+  },
+  {
+   "word": "Proposal",
+   "start": 3.158,
+   "end": 3.611
+  },
+  {
+   "word": "and",
+   "start": 3.785,
+   "end": 4.075
+  },
+  {
+   "word": "do",
+   "start": 4.145,
+   "end": 4.214
+  },
+  {
+   "word": "my",
+   "start": 4.272,
+   "end": 4.365
+  },
+  {
+   "word": "best",
+   "start": 4.481,
+   "end": 4.76
+  },
+  {
+   "word": "to",
+   "start": 4.795,
+   "end": 4.841
+  },
+  {
+   "word": "get",
+   "start": 4.888,
+   "end": 4.992
+  },
+  {
+   "word": "this",
+   "start": 5.016,
+   "end": 5.143
+  },
+  {
+   "word": "taken",
+   "start": 5.201,
+   "end": 5.433
+  },
+  {
+   "word": "care",
+   "start": 5.48,
+   "end": 5.654
+  },
+  {
+   "word": "of",
+   "start": 5.689,
+   "end": 5.747
+  },
+  {
+   "word": "today.",
+   "start": 5.793,
+   "end": 6.409
+  }
+ ]
+}

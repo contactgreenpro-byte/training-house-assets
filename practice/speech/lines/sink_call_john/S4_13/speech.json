@@ -1,0 +1,207 @@
+{
+ "text": "I follow an EPA checklist. While I'm working, if I spot anything that could make your home more comfortable, save you money, or cause damage or be a safety concern, would you like me to share it with you?",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 0.92,
+ "audio": "speech.mp3",
+ "spoken_seconds": 12.074,
+ "word_count": 39,
+ "words": [
+  {
+   "word": "I",
+   "start": 0.0,
+   "end": 0.093
+  },
+  {
+   "word": "follow",
+   "start": 0.221,
+   "end": 0.534
+  },
+  {
+   "word": "an",
+   "start": 0.557,
+   "end": 0.604
+  },
+  {
+   "word": "EPA",
+   "start": 0.662,
+   "end": 1.08
+  },
+  {
+   "word": "checklist.",
+   "start": 1.115,
+   "end": 1.834
+  },
+  {
+   "word": "While",
+   "start": 2.31,
+   "end": 2.519
+  },
+  {
+   "word": "I'm",
+   "start": 2.554,
+   "end": 2.647
+  },
+  {
+   "word": "working,",
+   "start": 2.682,
+   "end": 3.158
+  },
+  {
+   "word": "if",
+   "start": 3.32,
+   "end": 3.46
+  },
+  {
+   "word": "I",
+   "start": 3.541,
+   "end": 3.564
+  },
+  {
+   "word": "spot",
+   "start": 3.669,
+   "end": 3.971
+  },
+  {
+   "word": "anything",
+   "start": 4.052,
+   "end": 4.423
+  },
+  {
+   "word": "that",
+   "start": 4.458,
+   "end": 4.563
+  },
+  {
+   "word": "could",
+   "start": 4.586,
+   "end": 4.737
+  },
+  {
+   "word": "make",
+   "start": 4.783,
+   "end": 4.934
+  },
+  {
+   "word": "your",
+   "start": 4.969,
+   "end": 5.085
+  },
+  {
+   "word": "home",
+   "start": 5.12,
+   "end": 5.341
+  },
+  {
+   "word": "more",
+   "start": 5.375,
+   "end": 5.526
+  },
+  {
+   "word": "comfortable,",
+   "start": 5.573,
+   "end": 6.153
+  },
+  {
+   "word": "save",
+   "start": 6.385,
+   "end": 6.641
+  },
+  {
+   "word": "you",
+   "start": 6.676,
+   "end": 6.757
+  },
+  {
+   "word": "money,",
+   "start": 6.838,
+   "end": 7.117
+  },
+  {
+   "word": "or",
+   "start": 7.152,
+   "end": 7.245
+  },
+  {
+   "word": "cause",
+   "start": 7.326,
+   "end": 7.605
+  },
+  {
+   "word": "damage",
+   "start": 7.639,
+   "end": 8.197
+  },
+  {
+   "word": "or",
+   "start": 8.382,
+   "end": 8.545
+  },
+  {
+   "word": "be",
+   "start": 8.626,
+   "end": 8.742
+  },
+  {
+   "word": "a",
+   "start": 8.777,
+   "end": 8.812
+  },
+  {
+   "word": "safety",
+   "start": 8.905,
+   "end": 9.288
+  },
+  {
+   "word": "concern,",
+   "start": 9.346,
+   "end": 9.961
+  },
+  {
+   "word": "would",
+   "start": 10.437,
+   "end": 10.612
+  },
+  {
+   "word": "you",
+   "start": 10.635,
+   "end": 10.704
+  },
+  {
+   "word": "like",
+   "start": 10.751,
+   "end": 10.89
+  },
+  {
+   "word": "me",
+   "start": 10.925,
+   "end": 10.995
+  },
+  {
+   "word": "to",
+   "start": 11.029,
+   "end": 11.076
+  },
+  {
+   "word": "share",
+   "start": 11.122,
+   "end": 11.32
+  },
+  {
+   "word": "it",
+   "start": 11.355,
+   "end": 11.401
+  },
+  {
+   "word": "with",
+   "start": 11.436,
+   "end": 11.564
+  },
+  {
+   "word": "you?",
+   "start": 11.598,
+   "end": 12.074
+  }
+ ]
+}

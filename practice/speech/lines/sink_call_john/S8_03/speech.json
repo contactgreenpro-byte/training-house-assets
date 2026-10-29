@@ -1,0 +1,287 @@
+{
+ "text": "I took plenty of pictures and video so you can see it for yourself. Here's what I found: your drain line is partly clogged, so when the dishwasher drains, the water backs up and leaks out of a cracked trap under the cabinet. If that keeps up, it'll rot out the floor of the cabinet.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 17.786,
+ "word_count": 55,
+ "words": [
+  {
+   "word": "I",
+   "start": 0.0,
+   "end": 0.081
+  },
+  {
+   "word": "took",
+   "start": 0.163,
+   "end": 0.337
+  },
+  {
+   "word": "plenty",
+   "start": 0.383,
+   "end": 0.627
+  },
+  {
+   "word": "of",
+   "start": 0.673,
+   "end": 0.72
+  },
+  {
+   "word": "pictures",
+   "start": 0.789,
+   "end": 1.184
+  },
+  {
+   "word": "and",
+   "start": 1.231,
+   "end": 1.3
+  },
+  {
+   "word": "video",
+   "start": 1.347,
+   "end": 1.683
+  },
+  {
+   "word": "so",
+   "start": 1.753,
+   "end": 1.858
+  },
+  {
+   "word": "you",
+   "start": 1.927,
+   "end": 1.997
+  },
+  {
+   "word": "can",
+   "start": 2.032,
+   "end": 2.148
+  },
+  {
+   "word": "see",
+   "start": 2.218,
+   "end": 2.392
+  },
+  {
+   "word": "it",
+   "start": 2.426,
+   "end": 2.496
+  },
+  {
+   "word": "for",
+   "start": 2.531,
+   "end": 2.624
+  },
+  {
+   "word": "yourself.",
+   "start": 2.682,
+   "end": 3.297
+  },
+  {
+   "word": "Here's",
+   "start": 4.249,
+   "end": 4.528
+  },
+  {
+   "word": "what",
+   "start": 4.551,
+   "end": 4.656
+  },
+  {
+   "word": "I",
+   "start": 4.702,
+   "end": 4.725
+  },
+  {
+   "word": "found:",
+   "start": 4.841,
+   "end": 5.271
+  },
+  {
+   "word": "your",
+   "start": 5.875,
+   "end": 6.026
+  },
+  {
+   "word": "drain",
+   "start": 6.084,
+   "end": 6.362
+  },
+  {
+   "word": "line",
+   "start": 6.444,
+   "end": 6.687
+  },
+  {
+   "word": "is",
+   "start": 6.722,
+   "end": 6.803
+  },
+  {
+   "word": "partly",
+   "start": 6.885,
+   "end": 7.233
+  },
+  {
+   "word": "clogged,",
+   "start": 7.291,
+   "end": 7.872
+  },
+  {
+   "word": "so",
+   "start": 8.255,
+   "end": 8.51
+  },
+  {
+   "word": "when",
+   "start": 8.568,
+   "end": 8.731
+  },
+  {
+   "word": "the",
+   "start": 8.766,
+   "end": 8.835
+  },
+  {
+   "word": "dishwasher",
+   "start": 8.893,
+   "end": 9.404
+  },
+  {
+   "word": "drains,",
+   "start": 9.451,
+   "end": 9.973
+  },
+  {
+   "word": "the",
+   "start": 10.252,
+   "end": 10.356
+  },
+  {
+   "word": "water",
+   "start": 10.426,
+   "end": 10.716
+  },
+  {
+   "word": "backs",
+   "start": 10.774,
+   "end": 11.053
+  },
+  {
+   "word": "up",
+   "start": 11.099,
+   "end": 11.215
+  },
+  {
+   "word": "and",
+   "start": 11.262,
+   "end": 11.343
+  },
+  {
+   "word": "leaks",
+   "start": 11.459,
+   "end": 11.738
+  },
+  {
+   "word": "out",
+   "start": 11.773,
+   "end": 11.877
+  },
+  {
+   "word": "of",
+   "start": 11.912,
+   "end": 11.958
+  },
+  {
+   "word": "a",
+   "start": 11.993,
+   "end": 12.016
+  },
+  {
+   "word": "cracked",
+   "start": 12.074,
+   "end": 12.399
+  },
+  {
+   "word": "trap",
+   "start": 12.469,
+   "end": 12.771
+  },
+  {
+   "word": "under",
+   "start": 12.841,
+   "end": 12.992
+  },
+  {
+   "word": "the",
+   "start": 13.038,
+   "end": 13.108
+  },
+  {
+   "word": "cabinet.",
+   "start": 13.142,
+   "end": 13.7
+  },
+  {
+   "word": "If",
+   "start": 14.303,
+   "end": 14.431
+  },
+  {
+   "word": "that",
+   "start": 14.478,
+   "end": 14.605
+  },
+  {
+   "word": "keeps",
+   "start": 14.663,
+   "end": 14.907
+  },
+  {
+   "word": "up,",
+   "start": 14.965,
+   "end": 15.302
+  },
+  {
+   "word": "it'll",
+   "start": 15.511,
+   "end": 15.778
+  },
+  {
+   "word": "rot",
+   "start": 15.848,
+   "end": 16.08
+  },
+  {
+   "word": "out",
+   "start": 16.126,
+   "end": 16.254
+  },
+  {
+   "word": "the",
+   "start": 16.3,
+   "end": 16.37
+  },
+  {
+   "word": "floor",
+   "start": 16.451,
+   "end": 16.73
+  },
+  {
+   "word": "of",
+   "start": 16.788,
+   "end": 16.834
+  },
+  {
+   "word": "the",
+   "start": 16.869,
+   "end": 16.939
+  },
+  {
+   "word": "cabinet.",
+   "start": 16.985,
+   "end": 17.786
+  }
+ ]
+}

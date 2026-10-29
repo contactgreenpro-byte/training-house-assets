@@ -1,0 +1,197 @@
+{
+ "text": "I know it's not the news you were hoping for, but I promise we've seen worse. In situations like this, most of our customers like to see a couple of options. I'll put those together for you.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 10.124,
+ "word_count": 37,
+ "words": [
+  {
+   "word": "I",
+   "start": 0.0,
+   "end": 0.081
+  },
+  {
+   "word": "know",
+   "start": 0.163,
+   "end": 0.279
+  },
+  {
+   "word": "it's",
+   "start": 0.313,
+   "end": 0.43
+  },
+  {
+   "word": "not",
+   "start": 0.464,
+   "end": 0.569
+  },
+  {
+   "word": "the",
+   "start": 0.604,
+   "end": 0.673
+  },
+  {
+   "word": "news",
+   "start": 0.743,
+   "end": 0.952
+  },
+  {
+   "word": "you",
+   "start": 0.987,
+   "end": 1.057
+  },
+  {
+   "word": "were",
+   "start": 1.091,
+   "end": 1.207
+  },
+  {
+   "word": "hoping",
+   "start": 1.231,
+   "end": 1.463
+  },
+  {
+   "word": "for,",
+   "start": 1.521,
+   "end": 1.718
+  },
+  {
+   "word": "but",
+   "start": 1.753,
+   "end": 1.939
+  },
+  {
+   "word": "I",
+   "start": 1.997,
+   "end": 2.055
+  },
+  {
+   "word": "promise",
+   "start": 2.171,
+   "end": 2.612
+  },
+  {
+   "word": "we've",
+   "start": 2.659,
+   "end": 2.856
+  },
+  {
+   "word": "seen",
+   "start": 2.891,
+   "end": 3.1
+  },
+  {
+   "word": "worse.",
+   "start": 3.158,
+   "end": 3.646
+  },
+  {
+   "word": "In",
+   "start": 4.156,
+   "end": 4.272
+  },
+  {
+   "word": "situations",
+   "start": 4.319,
+   "end": 4.807
+  },
+  {
+   "word": "like",
+   "start": 4.841,
+   "end": 4.969
+  },
+  {
+   "word": "this,",
+   "start": 5.004,
+   "end": 5.399
+  },
+  {
+   "word": "most",
+   "start": 5.782,
+   "end": 6.002
+  },
+  {
+   "word": "of",
+   "start": 6.037,
+   "end": 6.095
+  },
+  {
+   "word": "our",
+   "start": 6.13,
+   "end": 6.211
+  },
+  {
+   "word": "customers",
+   "start": 6.258,
+   "end": 6.653
+  },
+  {
+   "word": "like",
+   "start": 6.687,
+   "end": 6.803
+  },
+  {
+   "word": "to",
+   "start": 6.827,
+   "end": 6.873
+  },
+  {
+   "word": "see",
+   "start": 6.92,
+   "end": 7.024
+  },
+  {
+   "word": "a",
+   "start": 7.047,
+   "end": 7.07
+  },
+  {
+   "word": "couple",
+   "start": 7.117,
+   "end": 7.326
+  },
+  {
+   "word": "of",
+   "start": 7.349,
+   "end": 7.396
+  },
+  {
+   "word": "options.",
+   "start": 7.454,
+   "end": 7.999
+  },
+  {
+   "word": "I'll",
+   "start": 8.44,
+   "end": 8.58
+  },
+  {
+   "word": "put",
+   "start": 8.615,
+   "end": 8.731
+  },
+  {
+   "word": "those",
+   "start": 8.766,
+   "end": 8.963
+  },
+  {
+   "word": "together",
+   "start": 9.009,
+   "end": 9.392
+  },
+  {
+   "word": "for",
+   "start": 9.451,
+   "end": 9.601
+  },
+  {
+   "word": "you.",
+   "start": 9.671,
+   "end": 10.124
+  }
+ ]
+}

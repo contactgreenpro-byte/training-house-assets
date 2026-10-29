@@ -1,0 +1,57 @@
+{
+ "text": "And how long have you been in the home?",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 1.672,
+ "word_count": 9,
+ "words": [
+  {
+   "word": "And",
+   "start": 0.0,
+   "end": 0.139
+  },
+  {
+   "word": "how",
+   "start": 0.186,
+   "end": 0.279
+  },
+  {
+   "word": "long",
+   "start": 0.325,
+   "end": 0.441
+  },
+  {
+   "word": "have",
+   "start": 0.464,
+   "end": 0.557
+  },
+  {
+   "word": "you",
+   "start": 0.58,
+   "end": 0.65
+  },
+  {
+   "word": "been",
+   "start": 0.697,
+   "end": 0.836
+  },
+  {
+   "word": "in",
+   "start": 0.859,
+   "end": 0.917
+  },
+  {
+   "word": "the",
+   "start": 0.952,
+   "end": 1.022
+  },
+  {
+   "word": "home?",
+   "start": 1.068,
+   "end": 1.672
+  }
+ ]
+}

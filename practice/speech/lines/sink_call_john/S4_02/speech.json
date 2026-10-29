@@ -1,0 +1,137 @@
+{
+ "text": "Well, it all started about two weeks ago. The kitchen sink got slow, and now every time the dishwasher runs, there's water under the cabinet.",
+ "voice_id": "gPPH6SLdL8XSX6GNJ40G",
+ "voice": "Brian - Relatable Everyman (ElevenLabs library)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 7.384,
+ "word_count": 25,
+ "words": [
+  {
+   "word": "Well,",
+   "start": 0.0,
+   "end": 0.232
+  },
+  {
+   "word": "it",
+   "start": 0.255,
+   "end": 0.313
+  },
+  {
+   "word": "all",
+   "start": 0.348,
+   "end": 0.453
+  },
+  {
+   "word": "started",
+   "start": 0.499,
+   "end": 0.755
+  },
+  {
+   "word": "about",
+   "start": 0.778,
+   "end": 0.952
+  },
+  {
+   "word": "two",
+   "start": 0.975,
+   "end": 1.103
+  },
+  {
+   "word": "weeks",
+   "start": 1.138,
+   "end": 1.335
+  },
+  {
+   "word": "ago.",
+   "start": 1.37,
+   "end": 1.8
+  },
+  {
+   "word": "The",
+   "start": 2.183,
+   "end": 2.299
+  },
+  {
+   "word": "kitchen",
+   "start": 2.345,
+   "end": 2.601
+  },
+  {
+   "word": "sink",
+   "start": 2.647,
+   "end": 2.833
+  },
+  {
+   "word": "got",
+   "start": 2.868,
+   "end": 3.019
+  },
+  {
+   "word": "slow,",
+   "start": 3.065,
+   "end": 3.425
+  },
+  {
+   "word": "and",
+   "start": 3.599,
+   "end": 3.738
+  },
+  {
+   "word": "now",
+   "start": 3.785,
+   "end": 3.924
+  },
+  {
+   "word": "every",
+   "start": 4.04,
+   "end": 4.272
+  },
+  {
+   "word": "time",
+   "start": 4.307,
+   "end": 4.505
+  },
+  {
+   "word": "the",
+   "start": 4.528,
+   "end": 4.598
+  },
+  {
+   "word": "dishwasher",
+   "start": 4.632,
+   "end": 5.143
+  },
+  {
+   "word": "runs,",
+   "start": 5.19,
+   "end": 5.561
+  },
+  {
+   "word": "there's",
+   "start": 5.677,
+   "end": 5.921
+  },
+  {
+   "word": "water",
+   "start": 5.968,
+   "end": 6.258
+  },
+  {
+   "word": "under",
+   "start": 6.304,
+   "end": 6.455
+  },
+  {
+   "word": "the",
+   "start": 6.49,
+   "end": 6.56
+  },
+  {
+   "word": "cabinet.",
+   "start": 6.594,
+   "end": 7.384
+  }
+ ]
+}

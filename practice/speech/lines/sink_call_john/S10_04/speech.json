@@ -1,0 +1,187 @@
+{
+ "text": "This one's a significant investment. The good news is I do have the part on the truck. I am able to take care of it today. A repair like this usually takes about sixty minutes.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 10.124,
+ "word_count": 35,
+ "words": [
+  {
+   "word": "This",
+   "start": 0.0,
+   "end": 0.209
+  },
+  {
+   "word": "one's",
+   "start": 0.267,
+   "end": 0.453
+  },
+  {
+   "word": "a",
+   "start": 0.488,
+   "end": 0.511
+  },
+  {
+   "word": "significant",
+   "start": 0.58,
+   "end": 1.115
+  },
+  {
+   "word": "investment.",
+   "start": 1.149,
+   "end": 1.765
+  },
+  {
+   "word": "The",
+   "start": 2.206,
+   "end": 2.322
+  },
+  {
+   "word": "good",
+   "start": 2.357,
+   "end": 2.485
+  },
+  {
+   "word": "news",
+   "start": 2.519,
+   "end": 2.682
+  },
+  {
+   "word": "is",
+   "start": 2.728,
+   "end": 2.891
+  },
+  {
+   "word": "I",
+   "start": 3.019,
+   "end": 3.065
+  },
+  {
+   "word": "do",
+   "start": 3.181,
+   "end": 3.297
+  },
+  {
+   "word": "have",
+   "start": 3.367,
+   "end": 3.495
+  },
+  {
+   "word": "the",
+   "start": 3.518,
+   "end": 3.587
+  },
+  {
+   "word": "part",
+   "start": 3.634,
+   "end": 3.889
+  },
+  {
+   "word": "on",
+   "start": 3.947,
+   "end": 4.029
+  },
+  {
+   "word": "the",
+   "start": 4.075,
+   "end": 4.145
+  },
+  {
+   "word": "truck.",
+   "start": 4.18,
+   "end": 4.574
+  },
+  {
+   "word": "I",
+   "start": 5.271,
+   "end": 5.317
+  },
+  {
+   "word": "am",
+   "start": 5.364,
+   "end": 5.433
+  },
+  {
+   "word": "able",
+   "start": 5.468,
+   "end": 5.631
+  },
+  {
+   "word": "to",
+   "start": 5.666,
+   "end": 5.712
+  },
+  {
+   "word": "take",
+   "start": 5.759,
+   "end": 5.898
+  },
+  {
+   "word": "care",
+   "start": 5.933,
+   "end": 6.084
+  },
+  {
+   "word": "of",
+   "start": 6.107,
+   "end": 6.165
+  },
+  {
+   "word": "it",
+   "start": 6.2,
+   "end": 6.269
+  },
+  {
+   "word": "today.",
+   "start": 6.304,
+   "end": 6.792
+  },
+  {
+   "word": "A",
+   "start": 7.303,
+   "end": 7.396
+  },
+  {
+   "word": "repair",
+   "start": 7.512,
+   "end": 7.767
+  },
+  {
+   "word": "like",
+   "start": 7.814,
+   "end": 7.941
+  },
+  {
+   "word": "this",
+   "start": 7.976,
+   "end": 8.127
+  },
+  {
+   "word": "usually",
+   "start": 8.208,
+   "end": 8.51
+  },
+  {
+   "word": "takes",
+   "start": 8.557,
+   "end": 8.742
+  },
+  {
+   "word": "about",
+   "start": 8.777,
+   "end": 8.951
+  },
+  {
+   "word": "sixty",
+   "start": 9.021,
+   "end": 9.358
+  },
+  {
+   "word": "minutes.",
+   "start": 9.404,
+   "end": 10.124
+  }
+ ]
+}

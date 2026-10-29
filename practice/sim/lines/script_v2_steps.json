@@ -1,0 +1,183 @@
+{
+ "S1": {
+  "title": "Call Ahead",
+  "part": "Part 1: Before the Door",
+  "directions": [
+   "Ring... ring..."
+  ]
+ },
+ "S2": {
+  "title": "The Approach",
+  "part": "Part 1: Before the Door",
+  "directions": [
+   "Walking up: hands out of your pockets, in plain sight. Clean clipboard, phone on it recording. Shoulders upright, chin level. Confident, never cocky. Smile before the door opens. Eyes on the door. Never scan the house or look in windows. A steady pace. Not rushing, not timid.",
+   "At the door: knock, then step back far enough to move left or right if a dog comes out. Give them plenty of space. Hands always offered palm up. No sudden or jerky movements. Hand them your card instead of reaching for a handshake. If they offer a hand, shake it.",
+   "Never step inside until they invite you. It has to be a real invitation, like \"Come on in.\" That invitation starts S3."
+  ]
+ },
+ "S3": {
+  "title": "First Contact",
+  "part": "Part 2: The Open",
+  "directions": [
+   "Starts the moment they say \"Come on in,\" or when you meet them in the yard. If you're outside, stay outside and use the outdoor lines. Use their name as they give it. This is the gratitude moment: if not for this customer, none of us gets paid.",
+   "If you're inside: slip on shoe covers while they answer.",
+   "If they say it's not necessary, never blame company policy. Make it about respecting their home.",
+   "If you're outside:",
+   "Optional, use your judgment: Option A below. Otherwise go to S4.",
+   "S3 Option A: Intention + Credibility. Optional. First time for this challenge only, and only when it fits the customer. Skip it if we've been to this home before.",
+   "If they have:",
+   "Homeowner may respond.",
+   "Homeowner may respond.",
+   "If they have not:",
+   "Credibility:"
+  ]
+ },
+ "S4": {
+  "title": "Initial Discovery",
+  "part": "Part 2: The Open",
+  "directions": [
+   "The discovery sheet is your question list. Work it naturally while they talk, and write answers as you go. Never announce the sheet or mention that it's scored. Acknowledge the emotion: \"Oh no, I hate that for you.\" \"That sounds miserable.\" \"Sounds like you're at your wit's end.\"",
+   "That yes is your doorway into the discovery sheet. Stay on what they called about. The other systems get their questions later, in S9. Don't flood them at the door.",
+   "The permission statement. Never skipped. Slow down and deliver it:"
+  ]
+ },
+ "S5": {
+  "title": "Happy Homes Guide",
+  "part": "Part 2: The Open",
+  "directions": [
+   "As they walk you to the spot, get ready to hand them the guide.",
+   "Before handing it over, point out three or four features: water softeners and filtration, tired or dripping faucets, garbage disposals, tankless water heaters and recirculation pumps, and on the septic side, bacteria treatments, backflow prevention, and clean-outs."
+  ]
+ },
+ "S6": {
+  "title": "Game Plan",
+  "part": "Part 2: The Open",
+  "directions": [
+   "Still standing at the spot. Tell them how the next few minutes go, so they never wonder where you are or what you're doing.",
+   "What you tag depends on the trade. Plumbing: main water, hot water at the heater, gas. HVAC: every breaker or disconnect that kills a unit, plus gas if the house has it. Septic: main water, plus the cleanout or backflow valve if they have one. Every tag gets a photo."
+  ]
+ },
+ "S7": {
+  "title": "The Check",
+  "part": "Part 3: The Discovery Loop",
+  "directions": [
+   "Directions only. The checklists live in Comms.",
+   "The first check is on what they called about, right after S6. Every check after that comes out of S9.",
+   "This is an informed checklist, not a hunt. On the system you're checking, look at what it has, what it should have, and what it could have, up to today's best technology.",
+   "Never ask for general permission to look around the home for something broken. If they aren't having a challenge with a system and nothing points to it, there's no reason to check it.",
+   "As you check, notice what a finding points to. Corrosion at the water heater points to water quality. That is your strongest question at S9.",
+   "If something could get damaged during the check, warn them and get approval before you start.",
+   "Take pictures of what you find and what you don't find, in the app or on your phone. Save the failed part when it can travel: the part in their hand beats any picture.",
+   "Every checklist section ends with a short \"what I found\" line. That is what you share at S8."
+  ]
+ },
+ "S8": {
+  "title": "Check-In / Share",
+  "part": "Part 3: The Discovery Loop",
+  "directions": [
+   "Standing up, on the go, phone in hand. Under 2 minutes. No table, no investment, no solutions yet. You are sharing the challenge.",
+   "First check-in, right after the first check:",
+   "Two sentences: what it is, then what it risks for them. Show the picture.",
+   "Go to S9.",
+   "Every check-in after that:",
+   "If it checked out fine:",
+   "Last check-in, once the proposal is full enough:"
+  ]
+ },
+ "S9": {
+  "title": "Follow-Up Discovery",
+  "part": "Part 3: The Discovery Loop",
+  "directions": [
+   "You just shared what you found. Now ask about what it points to. One question at a time. Don't flood them.",
+   "Direct: straight from a checklist finding. Strongest. Lead with it. Indirect: a connected system with no finding behind it. Weaker. Reach: unrelated to anything you found. Hardest ask. Use sparingly.",
+   "Read their face and body on every question. If one lands badly, drop it. Don't push it, and don't bring it back later. Never generalize: no \"Mind if I look around the house?\"",
+   "Direct:",
+   "A missing item on the checklist is a direct question too:",
+   "Listen and uncover the pain. Get their opinion on what it looks like day to day. Write it on the discovery sheet.",
+   "Indirect:",
+   "Reach:",
+   "Then:",
+   "Go to S7 for that system."
+  ]
+ },
+ "S10": {
+  "title": "The Recap",
+  "part": "Part 4: The Presentation",
+  "directions": [
+   "Once you're seated. Your discovery sheet, your pictures, and the failed part are the evidence. Lead with the part in their hand. This card should take under a minute.",
+   "Name each finding in a few words. No pictures and no explaining. They already saw each one at a check-in."
+  ]
+ },
+ "S11": {
+  "title": "The Solution",
+  "part": "Part 4: The Presentation",
+  "directions": [
+   "They already saw every challenge. Don't re-explain it. One or two sentences per finding: the solution, then the benefit.",
+   "Tie every finding to a benefit: peace of mind, save money, health, longer equipment life, comfort, save time and hassle.",
+   "Only if they ask whether they can keep using it:",
+   "For a safety part (relief valve, gas, carbon monoxide), use this instead:",
+   "Accessories:",
+   "Listen to decide if you should recommend anything. If not, don't.",
+   "Full enough? Once the proposal solves what they called about, stop adding:"
+  ]
+ },
+ "S12": {
+  "title": "The Protection",
+  "part": "Part 4: The Presentation",
+  "directions": [
+   "The tech brings it up. Don't wait for them to ask.",
+   "S12-A for septic customers, S12-B for plumbing and HVAC. The short version: lead with this. Same pitch for both, with the system swapped.",
+   "Stop there. If they want more, go deeper below. If not, move on.",
+   "If they hesitate on being locked in:",
+   "Only if they ask for more, septic (S12-A): a full year of septic care, 12 months of bacteria treatment plus chlorine tablets; no diagnostic investment, ever; 10% off all repairs as long as you're a member; priority scheduling when everybody else is booked solid; 10% off any install in your first 30 days.",
+   "Only if they ask for more, HVAC and plumbing (S12-B): a full annual service, HVAC cleaned, tested and tuned, plumbing flushed, treated, flow-tested and leak-checked, every year; no diagnostic investment, ever; 10% off all repairs as long as you're a member; priority scheduling when it's blazing hot or freezing cold; smart monitoring and the app (live system tracking, real-time leak alerts, up to 5 leak sensors, filter reminders); warranty protection (we match your manufacturer's labor warranty on anything we install and keep your maintenance records); the piggy bank (every monthly investment stacks up and never expires, straight toward any future install); 10% off any install in your first 30 days.",
+   "After going deeper, ask again:"
+  ]
+ },
+ "S13": {
+  "title": "Menu Pricing / Proposal Overview",
+  "part": "Part 4: The Presentation",
+  "directions": [
+   "The device stays in your hand. Walk them through the proposal line by line: \"Here's this, and here's this.\" They see each line's investment, with and without the Protection Plan.",
+   "Do not share the total investment. The one number comes at S14, part 4.",
+   "If they ask to take something off, take it off. They are choosing their options. You are shaping the recommendation you make at S14.",
+   "Read their body language on every line. What lights them up leads your S14 recommendation. What they pull away from, let go.",
+   "If they can't be there in person, adjust how you show it, but walk it the same way.",
+   "Financing: only if it looks like it would help them. Keep it to two lines.",
+   "Optional here: Repair vs Replace. Only when the age of the equipment, or a repair over 40 percent of the new investment, puts replacement on the table. The diagnosis was already shared, so start at the age conversation.",
+   "Validate whatever comes back. No scare tactics, ever. Use real numbers and our real inflation number from the Price Book page.",
+   "For system-level equipment (furnace, AC, ductless), use the full worksheet on paper: age, today's diagnostic, today's repair, one small future repair over 5 years, utility overpayment (monthly bill x 12 x 5 years x 20 percent), inflation on the most economical replacement. Add it up out loud, then offer a design consultant visit.",
+   "Go to S14."
+  ]
+ },
+ "S14": {
+  "title": "Five-Part Close",
+  "part": "Part 5: The Close",
+  "directions": [
+   "The emotional connect. Recommend what lit them up at S13. Leave off what they pulled away from.",
+   "1. Five seconds:",
+   "2. Two minutes, tie it to their own words:",
+   "Example: \"You shared that you've been worried about the water coming out of your tap, and you keep finding buildup on your faucets and shower heads. You also told me your family travels a lot, and ever since that leak scare last year, you lay awake on trips wondering if everything's okay back home. Because of that, I'm recommending the whole-house water softener we went over. I'm also recommending the Moen Flo automatic shutoff with leak detection, so you can travel with real peace of mind. And last, I'm recommending our membership. It protects your family from surprise repairs, puts you at the front of the line, and gives you real savings on every repair.\"",
+   "3. Ten seconds, the promise:",
+   "4. Five seconds, one number:",
+   "5. Ten seconds, ask for trust:"
+  ]
+ },
+ "S15": {
+  "title": "Areas of Concern",
+  "part": "Part 5: The Close",
+  "directions": [
+   "The standing play for every concern: 1. Begin by agreeing. 2. Isolate the concern and listen. 3. Ask clarifying questions before responding. 4. Run the specific move. 5. Gently ask for the order again on any hint of agreement.",
+   "The funnel, climbed in order: 1. Three bids or brand. 2. Stalls: think about it, unavailable party, talk to my spouse. 3. Price, first and second time. 4. Stalls again: unavailable party, spouse, the porch light. 5. Indecision: change the solution, reduce the offer. 6. Systematic follow-up, then close out with class.",
+   "The 11 concern scripts stay as they are in Comms for now. A wording pass on them is a separate round."
+  ]
+ },
+ "S8L": {
+  "title": "Last Check-In",
+  "part": "Part 3: The Discovery Loop",
+  "directions": [
+   "Last check-in, once the proposal is full enough.",
+   "Standing up, on the go, phone in hand. Under 2 minutes. No table, no investment, no solutions yet. You are sharing the challenge."
+  ]
+ }
+}

@@ -1,0 +1,162 @@
+{
+ "text": "It sounds like your sink has been acting up. I've got her notes right here. So nothing gets lost between her notes and me, tell me what's been going on.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 8.22,
+ "word_count": 30,
+ "words": [
+  {
+   "word": "It",
+   "start": 0.0,
+   "end": 0.128
+  },
+  {
+   "word": "sounds",
+   "start": 0.163,
+   "end": 0.337
+  },
+  {
+   "word": "like",
+   "start": 0.36,
+   "end": 0.453
+  },
+  {
+   "word": "your",
+   "start": 0.476,
+   "end": 0.592
+  },
+  {
+   "word": "sink",
+   "start": 0.65,
+   "end": 0.906
+  },
+  {
+   "word": "has",
+   "start": 0.952,
+   "end": 1.045
+  },
+  {
+   "word": "been",
+   "start": 1.08,
+   "end": 1.207
+  },
+  {
+   "word": "acting",
+   "start": 1.242,
+   "end": 1.498
+  },
+  {
+   "word": "up.",
+   "start": 1.556,
+   "end": 1.846
+  },
+  {
+   "word": "I've",
+   "start": 2.287,
+   "end": 2.473
+  },
+  {
+   "word": "got",
+   "start": 2.496,
+   "end": 2.624
+  },
+  {
+   "word": "her",
+   "start": 2.659,
+   "end": 2.728
+  },
+  {
+   "word": "notes",
+   "start": 2.786,
+   "end": 2.995
+  },
+  {
+   "word": "right",
+   "start": 3.053,
+   "end": 3.204
+  },
+  {
+   "word": "here.",
+   "start": 3.239,
+   "end": 3.599
+  },
+  {
+   "word": "So",
+   "start": 4.203,
+   "end": 4.342
+  },
+  {
+   "word": "nothing",
+   "start": 4.4,
+   "end": 4.644
+  },
+  {
+   "word": "gets",
+   "start": 4.679,
+   "end": 4.853
+  },
+  {
+   "word": "lost",
+   "start": 4.923,
+   "end": 5.19
+  },
+  {
+   "word": "between",
+   "start": 5.248,
+   "end": 5.492
+  },
+  {
+   "word": "her",
+   "start": 5.526,
+   "end": 5.596
+  },
+  {
+   "word": "notes",
+   "start": 5.642,
+   "end": 5.84
+  },
+  {
+   "word": "and",
+   "start": 5.875,
+   "end": 5.956
+  },
+  {
+   "word": "me,",
+   "start": 6.002,
+   "end": 6.409
+  },
+  {
+   "word": "tell",
+   "start": 6.734,
+   "end": 6.92
+  },
+  {
+   "word": "me",
+   "start": 6.966,
+   "end": 7.024
+  },
+  {
+   "word": "what's",
+   "start": 7.047,
+   "end": 7.21
+  },
+  {
+   "word": "been",
+   "start": 7.245,
+   "end": 7.361
+  },
+  {
+   "word": "going",
+   "start": 7.396,
+   "end": 7.593
+  },
+  {
+   "word": "on.",
+   "start": 7.663,
+   "end": 8.22
+  }
+ ]
+}

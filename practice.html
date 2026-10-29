@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Practice Run-Through</title>
+<style>
+  :root { --boot-bg: #121417; --boot-text: #eef0f2; --boot-dim: #a9b0b8; }
+  body { margin: 0; background: var(--boot-bg); color: var(--boot-text); font: 16px/1.45 system-ui, sans-serif; }
+  #boot { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 0 16px; text-align: center; }
+  #boot small { color: var(--boot-dim); }
+</style>
+</head>
+<body>
+<div id="boot"><div>Opening the training house…</div><small>The first time on a phone this takes a minute: the house, then John and Mike.</small></div>
+<script>
+// The practice run-through on the training house site (published by happy_pipes_instructor/sim/publish_practice.py).
+// Nothing of the house is copied here: like the apps' shell, this reads the live assets.json, puts the published index.html's
+// styles and markup in place and runs the published walk.js, so a house publish reaches this page by itself. Then the game
+// (practice/sim/*.js, listed with hashes in practice/files.json) goes on top.
+(async () => {
+  const t = Date.now();
+  if (!new URLSearchParams(location.search).get("play")) history.replaceState(null, "", "?play=sink_call_john");
+  // both lists before asset-shim.js is running: it answers any relative .json it does not know with a 404 (the game's own
+  // files are asked for by absolute URL, practice/sim/sim.js's BASE, so it lets those through)
+  const [d, g] = await Promise.all(["assets.json", "practice/files.json"].map((f) => fetch(f + "?t=" + t, { cache: "no-store" }).then((r) => r.json())));
+  const map = {};
+  for (const [name, x] of Object.entries(d.files)) map[name] = encodeURIComponent(name) + "?v=" + x.v;
+  window.__ASSETS = map;
+  const html = await fetch(map["index.html"], { cache: "no-store" }).then((r) => r.text());
+  const page = new DOMParser().parseFromString(html, "text/html");
+  for (const s of page.head.querySelectorAll("style")) document.head.appendChild(document.importNode(s, true));
+  document.getElementById("boot").remove();
+  for (const n of [...page.body.childNodes]) if (n.nodeName !== "SCRIPT") document.body.appendChild(document.importNode(n, true));
+  const add = (src) => new Promise((res, rej) => {
+    const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("could not load " + src.split("?")[0]));
+    document.body.appendChild(s);
+  });
+  // the same three.js r128 build and meshopt decoder the apps' shell loads
+  await add("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js");
+  await add("https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js");
+  await add("https://cdn.jsdelivr.net/npm/meshoptimizer@0.18.1/meshopt_decoder.js");
+  await add(map["asset-shim.js"]);
+  await add(map["walk.js"]);
+  for (const f of ["sim/face.js", "sim/sim.js", "sim/player.js"]) await add("practice/" + f + "?v=" + g[f]);
+})().catch((e) => {
+  const p = document.createElement("p");
+  p.style.cssText = "position:fixed;left:16px;right:16px;bottom:16px;margin:0;padding:12px 14px;border-radius:10px;background:#5a1d1d;color:#fff;font:15px system-ui,sans-serif;z-index:99";
+  p.textContent = "The run-through could not start (" + e.message + "). Check the connection and reload the page.";
+  document.body.appendChild(p);
+});
+</script>
+</body>
+</html>

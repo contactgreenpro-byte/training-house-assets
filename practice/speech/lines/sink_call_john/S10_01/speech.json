@@ -1,0 +1,157 @@
+{
+ "text": "When I got here, you shared that your kitchen sink had been draining slow and leaking under the cabinet for about two weeks. I wrote it down right here.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 8.499,
+ "word_count": 29,
+ "words": [
+  {
+   "word": "When",
+   "start": 0.0,
+   "end": 0.186
+  },
+  {
+   "word": "I",
+   "start": 0.221,
+   "end": 0.244
+  },
+  {
+   "word": "got",
+   "start": 0.302,
+   "end": 0.453
+  },
+  {
+   "word": "here,",
+   "start": 0.499,
+   "end": 0.766
+  },
+  {
+   "word": "you",
+   "start": 1.045,
+   "end": 1.149
+  },
+  {
+   "word": "shared",
+   "start": 1.219,
+   "end": 1.486
+  },
+  {
+   "word": "that",
+   "start": 1.509,
+   "end": 1.614
+  },
+  {
+   "word": "your",
+   "start": 1.649,
+   "end": 1.788
+  },
+  {
+   "word": "kitchen",
+   "start": 1.869,
+   "end": 2.194
+  },
+  {
+   "word": "sink",
+   "start": 2.264,
+   "end": 2.508
+  },
+  {
+   "word": "had",
+   "start": 2.554,
+   "end": 2.635
+  },
+  {
+   "word": "been",
+   "start": 2.67,
+   "end": 2.81
+  },
+  {
+   "word": "draining",
+   "start": 2.856,
+   "end": 3.193
+  },
+  {
+   "word": "slow",
+   "start": 3.274,
+   "end": 3.68
+  },
+  {
+   "word": "and",
+   "start": 4.005,
+   "end": 4.238
+  },
+  {
+   "word": "leaking",
+   "start": 4.354,
+   "end": 4.702
+  },
+  {
+   "word": "under",
+   "start": 4.748,
+   "end": 4.899
+  },
+  {
+   "word": "the",
+   "start": 4.934,
+   "end": 5.004
+  },
+  {
+   "word": "cabinet",
+   "start": 5.05,
+   "end": 5.422
+  },
+  {
+   "word": "for",
+   "start": 5.457,
+   "end": 5.55
+  },
+  {
+   "word": "about",
+   "start": 5.584,
+   "end": 5.77
+  },
+  {
+   "word": "two",
+   "start": 5.805,
+   "end": 5.968
+  },
+  {
+   "word": "weeks.",
+   "start": 6.026,
+   "end": 6.548
+  },
+  {
+   "word": "I",
+   "start": 7.152,
+   "end": 7.198
+  },
+  {
+   "word": "wrote",
+   "start": 7.268,
+   "end": 7.43
+  },
+  {
+   "word": "it",
+   "start": 7.454,
+   "end": 7.5
+  },
+  {
+   "word": "down",
+   "start": 7.535,
+   "end": 7.709
+  },
+  {
+   "word": "right",
+   "start": 7.755,
+   "end": 7.906
+  },
+  {
+   "word": "here.",
+   "start": 7.941,
+   "end": 8.499
+  }
+ ]
+}

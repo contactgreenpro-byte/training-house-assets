@@ -1,0 +1,132 @@
+{
+ "text": "I also found that the shutoff valves under your sink are seized up, and a couple of things that could save you some money.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 5.433,
+ "word_count": 24,
+ "words": [
+  {
+   "word": "I",
+   "start": 0.0,
+   "end": 0.093
+  },
+  {
+   "word": "also",
+   "start": 0.163,
+   "end": 0.348
+  },
+  {
+   "word": "found",
+   "start": 0.418,
+   "end": 0.546
+  },
+  {
+   "word": "that",
+   "start": 0.569,
+   "end": 0.662
+  },
+  {
+   "word": "the",
+   "start": 0.697,
+   "end": 0.766
+  },
+  {
+   "word": "shutoff",
+   "start": 0.824,
+   "end": 1.126
+  },
+  {
+   "word": "valves",
+   "start": 1.161,
+   "end": 1.451
+  },
+  {
+   "word": "under",
+   "start": 1.533,
+   "end": 1.718
+  },
+  {
+   "word": "your",
+   "start": 1.765,
+   "end": 1.881
+  },
+  {
+   "word": "sink",
+   "start": 1.939,
+   "end": 2.206
+  },
+  {
+   "word": "are",
+   "start": 2.241,
+   "end": 2.345
+  },
+  {
+   "word": "seized",
+   "start": 2.38,
+   "end": 2.67
+  },
+  {
+   "word": "up,",
+   "start": 2.728,
+   "end": 2.972
+  },
+  {
+   "word": "and",
+   "start": 3.297,
+   "end": 3.413
+  },
+  {
+   "word": "a",
+   "start": 3.437,
+   "end": 3.46
+  },
+  {
+   "word": "couple",
+   "start": 3.495,
+   "end": 3.692
+  },
+  {
+   "word": "of",
+   "start": 3.715,
+   "end": 3.762
+  },
+  {
+   "word": "things",
+   "start": 3.796,
+   "end": 3.994
+  },
+  {
+   "word": "that",
+   "start": 4.017,
+   "end": 4.122
+  },
+  {
+   "word": "could",
+   "start": 4.156,
+   "end": 4.307
+  },
+  {
+   "word": "save",
+   "start": 4.342,
+   "end": 4.54
+  },
+  {
+   "word": "you",
+   "start": 4.563,
+   "end": 4.632
+  },
+  {
+   "word": "some",
+   "start": 4.679,
+   "end": 4.818
+  },
+  {
+   "word": "money.",
+   "start": 4.853,
+   "end": 5.433
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+ "text": "Oh boy, what are we looking at?",
+ "voice_id": "gPPH6SLdL8XSX6GNJ40G",
+ "voice": "Brian - Relatable Everyman (ElevenLabs library)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 1.533,
+ "word_count": 7,
+ "words": [
+  {
+   "word": "Oh",
+   "start": 0.0,
+   "end": 0.186
+  },
+  {
+   "word": "boy,",
+   "start": 0.244,
+   "end": 0.441
+  },
+  {
+   "word": "what",
+   "start": 0.464,
+   "end": 0.557
+  },
+  {
+   "word": "are",
+   "start": 0.58,
+   "end": 0.65
+  },
+  {
+   "word": "we",
+   "start": 0.673,
+   "end": 0.731
+  },
+  {
+   "word": "looking",
+   "start": 0.778,
+   "end": 1.022
+  },
+  {
+   "word": "at?",
+   "start": 1.08,
+   "end": 1.533
+  }
+ ]
+}

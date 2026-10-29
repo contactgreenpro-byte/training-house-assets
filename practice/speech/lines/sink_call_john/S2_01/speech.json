@@ -1,0 +1,42 @@
+{
+ "text": "Hey there, you must be John?",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 1.393,
+ "word_count": 6,
+ "words": [
+  {
+   "word": "Hey",
+   "start": 0.0,
+   "end": 0.197
+  },
+  {
+   "word": "there,",
+   "start": 0.244,
+   "end": 0.441
+  },
+  {
+   "word": "you",
+   "start": 0.476,
+   "end": 0.546
+  },
+  {
+   "word": "must",
+   "start": 0.592,
+   "end": 0.72
+  },
+  {
+   "word": "be",
+   "start": 0.755,
+   "end": 0.824
+  },
+  {
+   "word": "John?",
+   "start": 0.882,
+   "end": 1.393
+  }
+ ]
+}

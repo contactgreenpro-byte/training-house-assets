@@ -1,0 +1,32 @@
+{
+ "text": "About twelve years now.",
+ "voice_id": "gPPH6SLdL8XSX6GNJ40G",
+ "voice": "Brian - Relatable Everyman (ElevenLabs library)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 1.533,
+ "word_count": 4,
+ "words": [
+  {
+   "word": "About",
+   "start": 0.0,
+   "end": 0.313
+  },
+  {
+   "word": "twelve",
+   "start": 0.348,
+   "end": 0.685
+  },
+  {
+   "word": "years",
+   "start": 0.72,
+   "end": 0.952
+  },
+  {
+   "word": "now.",
+   "start": 1.01,
+   "end": 1.533
+  }
+ ]
+}

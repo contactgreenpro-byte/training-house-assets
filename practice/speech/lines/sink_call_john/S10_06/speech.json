@@ -1,0 +1,117 @@
+{
+ "text": "Together, we also found the seized shutoff valves, the hard water buildup, and the missing drain pan under your water heater.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 6.223,
+ "word_count": 21,
+ "words": [
+  {
+   "word": "Together,",
+   "start": 0.0,
+   "end": 0.43
+  },
+  {
+   "word": "we",
+   "start": 0.453,
+   "end": 0.522
+  },
+  {
+   "word": "also",
+   "start": 0.569,
+   "end": 0.766
+  },
+  {
+   "word": "found",
+   "start": 0.836,
+   "end": 1.068
+  },
+  {
+   "word": "the",
+   "start": 1.115,
+   "end": 1.196
+  },
+  {
+   "word": "seized",
+   "start": 1.277,
+   "end": 1.591
+  },
+  {
+   "word": "shutoff",
+   "start": 1.637,
+   "end": 1.95
+  },
+  {
+   "word": "valves,",
+   "start": 2.009,
+   "end": 2.426
+  },
+  {
+   "word": "the",
+   "start": 2.461,
+   "end": 2.554
+  },
+  {
+   "word": "hard",
+   "start": 2.612,
+   "end": 2.786
+  },
+  {
+   "word": "water",
+   "start": 2.821,
+   "end": 3.019
+  },
+  {
+   "word": "buildup,",
+   "start": 3.053,
+   "end": 3.529
+  },
+  {
+   "word": "and",
+   "start": 3.808,
+   "end": 3.924
+  },
+  {
+   "word": "the",
+   "start": 3.959,
+   "end": 4.029
+  },
+  {
+   "word": "missing",
+   "start": 4.052,
+   "end": 4.342
+  },
+  {
+   "word": "drain",
+   "start": 4.4,
+   "end": 4.656
+  },
+  {
+   "word": "pan",
+   "start": 4.725,
+   "end": 4.946
+  },
+  {
+   "word": "under",
+   "start": 5.016,
+   "end": 5.178
+  },
+  {
+   "word": "your",
+   "start": 5.224,
+   "end": 5.329
+  },
+  {
+   "word": "water",
+   "start": 5.375,
+   "end": 5.596
+  },
+  {
+   "word": "heater.",
+   "start": 5.631,
+   "end": 6.223
+  }
+ ]
+}

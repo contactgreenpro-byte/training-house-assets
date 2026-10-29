@@ -1,0 +1,22 @@
+{
+ "text": "That's me.",
+ "voice_id": "gPPH6SLdL8XSX6GNJ40G",
+ "voice": "Brian - Relatable Everyman (ElevenLabs library)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 0.929,
+ "word_count": 2,
+ "words": [
+  {
+   "word": "That's",
+   "start": 0.0,
+   "end": 0.302
+  },
+  {
+   "word": "me.",
+   "start": 0.36,
+   "end": 0.929
+  }
+ ]
+}

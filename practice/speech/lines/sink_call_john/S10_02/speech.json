@@ -1,0 +1,47 @@
+{
+ "text": "Yes, that's right. It's been getting worse.",
+ "voice_id": "gPPH6SLdL8XSX6GNJ40G",
+ "voice": "Brian - Relatable Everyman (ElevenLabs library)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 2.322,
+ "word_count": 7,
+ "words": [
+  {
+   "word": "Yes,",
+   "start": 0.0,
+   "end": 0.313
+  },
+  {
+   "word": "that's",
+   "start": 0.348,
+   "end": 0.557
+  },
+  {
+   "word": "right.",
+   "start": 0.615,
+   "end": 0.894
+  },
+  {
+   "word": "It's",
+   "start": 1.01,
+   "end": 1.196
+  },
+  {
+   "word": "been",
+   "start": 1.242,
+   "end": 1.37
+  },
+  {
+   "word": "getting",
+   "start": 1.405,
+   "end": 1.649
+  },
+  {
+   "word": "worse.",
+   "start": 1.695,
+   "end": 2.322
+  }
+ ]
+}

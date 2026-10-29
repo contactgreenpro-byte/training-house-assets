@@ -1,0 +1,72 @@
+{
+ "text": "Anything else you can think of? Anything I should've asked and didn't?",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 3.529,
+ "word_count": 12,
+ "words": [
+  {
+   "word": "Anything",
+   "start": 0.0,
+   "end": 0.348
+  },
+  {
+   "word": "else",
+   "start": 0.395,
+   "end": 0.534
+  },
+  {
+   "word": "you",
+   "start": 0.569,
+   "end": 0.639
+  },
+  {
+   "word": "can",
+   "start": 0.673,
+   "end": 0.778
+  },
+  {
+   "word": "think",
+   "start": 0.813,
+   "end": 0.975
+  },
+  {
+   "word": "of?",
+   "start": 1.022,
+   "end": 1.254
+  },
+  {
+   "word": "Anything",
+   "start": 1.463,
+   "end": 1.823
+  },
+  {
+   "word": "I",
+   "start": 1.881,
+   "end": 1.904
+  },
+  {
+   "word": "should've",
+   "start": 1.939,
+   "end": 2.241
+  },
+  {
+   "word": "asked",
+   "start": 2.299,
+   "end": 2.543
+  },
+  {
+   "word": "and",
+   "start": 2.577,
+   "end": 2.682
+  },
+  {
+   "word": "didn't?",
+   "start": 2.798,
+   "end": 3.529
+  }
+ ]
+}
