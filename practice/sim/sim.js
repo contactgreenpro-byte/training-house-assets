@@ -477,7 +477,8 @@
     if (!wallList) {
       wallList = []; W().scene.traverse((o) => { if (o.isMesh && /^col_/.test(o.name)) wallList.push(o); });
     }
-    const doorMeshes = []; for (const d of W().doors) d.traverse((o) => { if (o.isMesh) doorMeshes.push(o); });
+    // where each door stands now (its swing is set on the node; the world matrices are only refreshed when a frame is drawn)
+    const doorMeshes = []; for (const d of W().doors) { d.updateMatrixWorld(true); d.traverse((o) => { if (o.isMesh) doorMeshes.push(o); }); }
     for (const hgt of [0.45, 1.2]) {
       rcSide.set(new T.Vector3(p.x, p.y + hgt, p.z), dir); rcSide.far = r + step;
       if (rcSide.intersectObjects(wallList, false).some((x) => !x.face || Math.abs(x.face.normal.y) < 0.5)) return "wall";

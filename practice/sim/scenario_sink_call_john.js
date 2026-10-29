@@ -21,8 +21,15 @@ window.SCENARIOS = window.SCENARIOS || {};
     john_to_door: [[0.42, 0, -1.3], [0.52, 0, -0.66]],    // the handle side, outside the door's swing (it opens in, hinged west)
     john_back: [[0.68, 0, -0.98]],                         // back out of the way as it swings
     john_in_door: [[0.16, 0, -0.22]],
-    john_aside: [[0.55, 0, -1.7]],
-    tech_in: [[0.35, -0.02, 0.6], [0.15, 0, -0.35], [-0.05, 0, -1.05]],
+    // S3 (Jake 2026-10-29): John steps back to the hall side, clear of where Mike will come in; Mike steps up to the threshold,
+    // puts his shoe covers on there, on the porch, then steps straight in through the middle of the doorway (the doorway is
+    // x -0.41 to 0.46 with the door open against its west jamb), just far enough to be clear of the door's swing (0.91 m round
+    // its hinge at x -0.457), and John closes it
+    john_aside: [[-0.2, 0, -1.45]],
+    tech_threshold: [[0.06, -0.02, 0.45]],
+    tech_in: [[0.07, 0, -0.3], [0.38, 0, -0.95]],
+    john_to_close: [[-0.12, 0, -1.15]],
+    john_after: [[-0.15, 0, -1.5]],
     john_lead: [[-0.4, 0, -1.85], [-1.22, 0, -1.9], [-2.3, 0, -2.3], [-3.6, 0, -4.45], [-4.55, 0, -5.2], [-5.55, 0, -5.3], [-5.55, 0, -7.1]],
     tech_follow: [[-0.4, 0, -1.85], [-1.22, 0, -1.9], [-2.3, 0, -2.3], [-3.6, 0, -4.45], [-4.55, 0, -5.2], [-5.55, 0, -5.3], [-5.55, 0, -6.05]],
     john_to_sofa: [[-4.6, 0, -7.4], [-3.2, 0, -7.2], [-3.2, 0, -5.3], [-3.5, 0, -4.6], [-4.6, 0, -4.32], [-5.46, 0, -4.32]],
@@ -58,15 +65,16 @@ window.SCENARIOS = window.SCENARIOS || {};
   // ---- the clipboard ------------------------------------------------------------------------------------------------
   // Jake 2026-10-29: "his hand should be like grasping the side of it, it's tucked into his side. It'll come up as he's asking
   // questions." Then: "Typically the fingers curl around the edge of the clipboard when it's in the relaxed position, and it's
-  // in the horizontal plane instead of the vertical." So he carries it flat along his left forearm, the forearm low at his side
-  // and running forward, paper up, its back end tucked against his hip and his fingers curled round its front edge; for a
-  // question the arm brings it up in front of him, tilted towards his face to read and write on, and it goes back down after.
-  // The wrist's place is set from his hips (the pelvis, so a crouch or a sit takes it down with him) and his facing; the board
-  // lies on the forearm as it is; both every frame once the body is final (sim.late). On the table at the recap (putDown) it
-  // stays where it is put.
-  // hx, hy, hz: the wrist from his hips (out to his left, up, forward); back, lift, out: the board's middle from the wrist (back
-  // along the forearm, up off it, out to his left); twist: the hand turned palm up round the board's edge
-  const carry = { on: false, up: 0, want: 0, arm: null, downAt: 0, hx: 0.21, hy: 0.17, hz: 0.27, back: 0.07, lift: 0.05, out: 0.06, twist: -1.2 };
+  // in the horizontal plane instead of the vertical." And then: "It stays horizontal, but not with the flat side up, with the
+  // rib of the border up, and it's tucked down by his side." So at rest his left arm hangs at his side, his fingers curled over
+  // the board's top edge, and the board hangs from them against his thigh: its long side level (front to back), its edge up,
+  // paper to his leg. For a question the arm brings it up in front of him, tilted towards his face to read and write on, the
+  // hand turned palm up under it, and it goes back down after. The wrist's place is set from his hips (the pelvis, so a crouch
+  // or a sit takes it down with him) and his facing; the board hangs from the wrist as it is; both every frame once the body is
+  // final (sim.late). On the table at the recap (putDown) it stays where it is put.
+  // hx, hy, hz: the wrist from his hips (out to his left, up, forward); drop, ahead, inset: the board's middle from the wrist
+  // (down, forward, in towards his leg); twist: the hand turned palm up under the board when it is up
+  const carry = { on: false, up: 0, want: 0, arm: null, downAt: 0, hx: 0.25, hy: -0.08, hz: 0.04, drop: 0.17, ahead: 0.03, inset: 0.028, twist: -1.2 };
   const M4 = () => new THREE.Matrix4();
   const V3 = () => new THREE.Vector3();
   function bodyFrame(p) {
@@ -79,14 +87,12 @@ window.SCENARIOS = window.SCENARIOS || {};
   // its -x end, paper on its -y face, width its z).
   function boardPoses(p) {
     const { hips, left, fwd, up } = bodyFrame(p);
-    // carried: the wrist low at his side, a little forward, so the forearm runs from his hip forward; the board lies along the
-    // forearm itself (from the elbow and the wrist as they are), paper up, the clip away from him, its front edge at his fingers
-    // and its back end at his hip
+    // carried: the arm hanging, the wrist by his thigh; the board hangs from the fingers (its top edge in them), long side level
+    // front to back with the clip forward, short side down, paper to his leg
     const hand = hips.clone().addScaledVector(up, carry.hy).addScaledVector(left, carry.hx).addScaledVector(fwd, carry.hz);
-    const el = p.root.getObjectByName("Bip01_L_Forearm").getWorldPosition(V3()), wr = p.root.getObjectByName("Bip01_L_Hand").getWorldPosition(V3());
-    const dir = wr.clone().sub(el).normalize(), nUp = up.clone().addScaledVector(dir, -up.dot(dir)).normalize();
-    const cc = wr.clone().addScaledVector(dir, -carry.back).addScaledVector(nUp, carry.lift).addScaledVector(left, carry.out);
-    const xA = dir.clone().negate(), yA = nUp.clone().negate();
+    const wr = p.root.getObjectByName("Bip01_L_Hand").getWorldPosition(V3());
+    const cc = wr.clone().addScaledVector(up, -carry.drop).addScaledVector(fwd, carry.ahead).addScaledVector(left, -carry.inset);
+    const xA = fwd.clone().negate(), yA = left.clone();
     const carried = { m: M4().makeBasis(xA, yA, xA.clone().cross(yA)).setPosition(cc), hand };
     // up for a question: in front of him, tilted towards his face, paper to his face, the clip at the far end
     const out = fwd.clone().multiplyScalar(Math.cos(0.7)).addScaledVector(up, Math.sin(0.7));
@@ -105,8 +111,9 @@ window.SCENARIOS = window.SCENARIOS || {};
     carry.up += Math.sign(carry.want - carry.up) * Math.min(Math.abs(carry.want - carry.up), dt / 0.55);
     // the grip and the arm (a step change clears every pose on top of the clips, so they come back here)
     if (!tech._fing || !tech._fing.L) tech.fingers("L", 0.72, 0.2);
-    if (!carry.arm || !tech.posers.includes(carry.arm.fn)) carry.arm = tech.reach("L", () => handPlace(tech), { dur: 0.35, twist: carry.twist });
+    if (!carry.arm || !tech.posers.includes(carry.arm.fn)) carry.arm = tech.reach("L", () => handPlace(tech), { dur: 0.35 });
     const k = smooth(carry.up), b = boardPoses(tech);
+    carry.arm.twist = carry.twist * k;                     // palm up under it only when it is up
     b.carried.m.decompose(pos, quat, scl);
     if (k > 0) { b.read.m.decompose(p2, q2, s2); pos.lerp(p2, k); quat.slerp(q2, k); }
     if (board.parent !== window.walk.scene) window.walk.scene.add(board);
@@ -117,7 +124,7 @@ window.SCENARIOS = window.SCENARIOS || {};
     if (!carry.on) return;
     if (up) { carry.want = 1; carry.downAt = 0; } else carry.downAt = sim.clock + 1.2;
   }
-  // on his forearm (every step that starts with him on his feet)
+  // at his side (every step that starts with him on his feet)
   function inHand(sim) {
     carry.on = true; carry.want = 0; carry.up = 0; carry.downAt = 0;
   }
@@ -178,6 +185,20 @@ window.SCENARIOS = window.SCENARIOS || {};
     await john.wait(0.3);
     await john.walk(L.john_in_door, { speed: 0.6 });
     await john.turnTo(0.1, 2);
+  }
+  // John closes the front door behind Mike: a step to it, his hand to its handle, it swings shut, and he steps back to face Mike
+  async function johnCloses(sim) {
+    const { john, tech } = sim.people;
+    await john.walk(L.john_to_close, { speed: 0.5, round: 0 });
+    const hp = sim.handlePoint("door_foyer_outside", true);
+    await john.turnToward(hp.x, hp.z);
+    const hand = john.reach("R", () => sim.handlePoint("door_foyer_outside", true), { dur: 0.45 });
+    await john.wait(0.5);
+    sim.openDoor("door_foyer_outside", false);
+    await john.wait(0.55);
+    await hand.release(0.4);
+    await john.walk(L.john_after, { backwards: true, speed: 0.45, round: 0 });
+    await john.turnToward(tech.pos.x, tech.pos.z);
   }
   // "Here's my card": Mike takes a step up and holds it out, John reaches for it and takes it; it stays in his hand
   async function handCard(sim, step = true) {
@@ -342,7 +363,10 @@ window.SCENARIOS = window.SCENARIOS || {};
         },
       },
       {
-        num: "S3", title: "First Contact", shot: "foyer",
+        num: "S3", title: "First Contact", shot: "doorway_in",
+        // Jake 2026-10-29: "when he's invited in, he should put on the shoe covers before stepping foot inside the door. And he
+        // walks through the door frame just a little bit ... more subtle in those movements, just stepping in ... just enough to
+        // clear the door so the door can close, and then he's going to pull up his clipboard to start having a conversation."
         start(sim) {
           const { john, tech } = sim.people;
           putAway(); inHand(sim);
@@ -352,35 +376,56 @@ window.SCENARIOS = window.SCENARIOS || {};
         },
         async run(sim) {
           const { john, tech } = sim.people;
-          sim.shot("foyer");
-          const aside = john.walk(L.john_aside, { backwards: true, speed: 0.6 });
-          await watch(sim, async () => { await john.wait(0.5); await tech.walk(L.tech_in); });
+          const TH = last(L.tech_threshold);
+          sim.shot("doorway_in");
+          // John steps back out of the way (the invitation); Mike steps up to the threshold, on the porch still
+          const aside = (async () => { await john.walk(L.john_aside, { backwards: true, speed: 0.5, round: 0 }); putAway(); await john.turnToward(TH[0], TH[2]); })();
+          await watch(sim, async () => { await tech.wait(0.6); await tech.walk(L.tech_threshold, { speed: 0.45, round: 0 }); await tech.turnTo(Math.PI, 1.5); });
           await aside;
-          putAway();                                            // John pockets the card
-          if (sim.practice) await act(sim, "He has asked you in: step inside.", "Step inside", last(L.tech_in), () => goAlong(sim, tech, L.tech_in));
+          let covered = false, barged = false;
+          if (sim.practice) {
+            sim.until(() => { if (!covered && !barged && tech.pos.z < -0.05) { barged = true; sim.feedback(false, "Shoe covers go on before you step inside. Put them on at the door."); } return false; }).catch(() => {});
+          }
           await T(sim, "S3_01");
           await H(sim, "S3_02");
           await T(sim, "S3_03");
-          // shoe covers: he crouches while John answers (in Practice too: it is Mike's body, not a call to make)
-          await tech.once("crouch_in", { early: 0.05 }); tech.play("crouch_idle");
-          await H(sim, "S3_04", { listen: null });
-          await tech.wait(0.6); await tech.once("crouch_out", { early: 0.05 }); tech.play(tech.base, { fade: 0.2 });
+          // shoe covers, on the porch, before a foot goes inside; he crouches while John answers
+          const covers = async () => {
+            if (Math.hypot(tech.pos.x - TH[0], tech.pos.z - TH[2]) > 0.3) await tech.walk([TH], { speed: 0.45, round: 0 });
+            await tech.turnTo(Math.PI, 1.5);
+            await tech.once("crouch_in", { early: 0.05 }); tech.play("crouch_idle");
+            await H(sim, "S3_04", { listen: null });
+            await tech.wait(0.6); await tech.once("crouch_out", { early: 0.05 }); tech.play(tech.base, { fade: 0.2 });
+            covered = true;
+          };
+          if (sim.practice) await act(sim, "Put your shoe covers on, at the door, before you step inside.", "Shoe covers on", null, null, covers);
+          else await covers();
+          if (sim.practice) sim.score("covers", !barged, barged ? "Stepped inside before the shoe covers were on" : "Shoe covers on before stepping inside");
           await T(sim, "S3_05");
+          // in, straight through the middle of the doorway, small steps, just far enough for the door to close behind him
+          const stepIn = () => tech.walk(L.tech_in, { speed: 0.5, round: 0.25 });
+          if (sim.practice) await act(sim, "Step inside, just far enough for the door to close behind you.", "Step inside", last(L.tech_in), stepIn);
+          else await stepIn();
+          await tech.turnToward(john.pos.x, john.pos.z);
+          await johnCloses(sim);
+          // the clipboard comes up to start the conversation
+          boardUp(sim, true);
           await T(sim, "S3_06");
           await H(sim, "S3_07");
+          boardUp(sim, false);
         },
       },
       {
-        num: "S4", title: "Initial Discovery", shot: "foyer",
+        num: "S4", title: "Initial Discovery", shot: "doorway_in",
         start(sim) {
           const { john, tech } = sim.people;
           inHand(sim);
-          sim.setDoor("door_foyer_outside", true);
-          john.stand(0.55, 0, -1.7, -2.2);
-          tech.stand(-0.05, 0, -1.05, 0.9);
+          sim.setDoor("door_foyer_outside", false);
+          john.stand(...last(L.john_after), Math.atan2(last(L.tech_in)[0] - last(L.john_after)[0], last(L.tech_in)[2] - last(L.john_after)[2]));
+          tech.stand(...last(L.tech_in), Math.atan2(last(L.john_after)[0] - last(L.tech_in)[0], last(L.john_after)[2] - last(L.tech_in)[2]));
         },
         async run(sim) {
-          sim.shot("foyer");
+          sim.shot("doorway_in");
           for (const id of ["S4_01", "S4_02", "S4_03", "S4_04", "S4_05", "S4_06", "S4_07", "S4_08", "S4_09", "S4_10", "S4_11", "S4_12", "S4_13", "S4_14"])
             await (sim.lines[id].who === "tech" ? T(sim, id) : H(sim, id));
         },
@@ -390,9 +435,9 @@ window.SCENARIOS = window.SCENARIOS || {};
         start(sim) {
           const { john, tech } = sim.people;
           inHand(sim);
-          sim.setDoor("door_foyer_outside", true);
-          john.stand(0.55, 0, -1.7, -2.2);
-          tech.stand(-0.05, 0, -1.05, 0.9);
+          sim.setDoor("door_foyer_outside", false);
+          john.stand(...last(L.john_after), Math.atan2(last(L.tech_in)[0] - last(L.john_after)[0], last(L.tech_in)[2] - last(L.john_after)[2]));
+          tech.stand(...last(L.tech_in), Math.atan2(last(L.john_after)[0] - last(L.tech_in)[0], last(L.john_after)[2] - last(L.tech_in)[2]));
         },
         async run(sim) {
           const { john, tech } = sim.people;
@@ -561,6 +606,9 @@ window.SCENARIOS = window.SCENARIOS || {};
       // (until 2026-10-29 it stood 0.9 m behind Mike, his head filling the frame)
       doorway: { pos: [-1.3, 1.58, 0.75], look: (s) => s.people.tech.eyes().lerp(s.people.john.eyes(), 0.5).setY(1.42) },
       foyer: { pos: [-0.85, 1.62, -3.0], look: (s) => s.people.tech.eyes().lerp(s.people.john.eyes(), 0.5).setY(1.4) },
+      // S3 and S4 from the foyer's east side, across at the doorway: John on the hall side, Mike at the threshold (his shoe covers on
+      // the porch), then the two of them once he is in and the door is shut (the shot above stands behind John)
+      doorway_in: { pos: [1.0, 1.58, -2.5], look: (s) => s.people.tech.eyes().lerp(s.people.john.eyes(), 0.5).setY(Math.min(1.4, s.people.tech.eyes().y + 0.1)) },
       follow_living: { pos: [-3.3, 1.65, -0.75], look: (s) => s.people.john.pos.clone().lerp(s.people.tech.pos, 0.35).setY(1.2) },
       sink: { pos: [-2.6, 1.68, -7.95], look: (s) => s.people.tech.eyes().lerp(s.people.john.eyes(), 0.5).setY(1.4) },
       check: { pos: [-3.2, 1.7, -6.4], look: (s) => s.people.tech.pos.clone().setY(0.9) },

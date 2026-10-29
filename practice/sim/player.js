@@ -4,7 +4,7 @@
 // - Back, Replay, Next: Next starts the next step (from where everyone is, or from the step's start if you skip ahead);
 // - the line card: who is talking and the words; in Practice it shows YOUR line to say out loud, then "I said it"
 //   (or Space, or click on John) and he answers;
-// - Watch it done / Practice it: the technician does it, or you do: in Practice you ARE Mike, seen from behind (Jake
+// - Watch it done / Play as Mike (Practice): the technician does it, or you do: in Practice you ARE Mike, seen from behind (Jake
 //   2026-10-29: "I'm looking at me and I'm controlling that character"). The stick or W A S D walk him (Shift, or the stick
 //   pushed all the way, hurries), a drag looks round him; at the door a pop-up asks what you do, and every call gets a
 //   good or bad with the script's reason, and a score at the end of the step;
@@ -73,10 +73,13 @@
   #pp .who button { flex: 1; }
   #pp .min { position: sticky; top: 0; float: right; z-index: 2; margin: -4px -6px 0 6px; border: 0; border-radius: 6px; background: var(--glass-strong, rgba(20,22,26,.9));
         color: inherit; font: inherit; font-size: 12px; opacity: .85; cursor: pointer; padding: 4px 6px; }
-  #pp.mini .sub, #pp.mini .seg, #pp.mini .chips, #pp.mini .part, #pp.mini details { display: none; }
+  #pp.mini .sub, #pp.mini .camseg, #pp.mini .chips, #pp.mini .part, #pp.mini details { display: none; }
   #pp.mini .card { margin: 6px 0; }
   #ppstart { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.45); }
-  #ppstart button { padding: 16px 26px; font: 700 17px var(--font, system-ui, sans-serif); border: 0; border-radius: 10px; background: #5e2f90; color: #fff; cursor: pointer; }
+  #ppstart { flex-direction: column; gap: 12px; }
+  #ppstart button { padding: 16px 26px; min-width: 240px; font: 700 17px var(--font, system-ui, sans-serif); border: 0; border-radius: 10px; background: #5e2f90; color: #fff; cursor: pointer; }
+  #ppstart button.alt { background: rgba(255,255,255,.14); }
+  #ppstart small { color: #fff; opacity: .85; font: 14px var(--font, system-ui, sans-serif); max-width: 300px; text-align: center; }
   #ppstart button:disabled { background: #3a3f47; cursor: default; }
   @media (max-width: 720px) { #pp { top: auto; bottom: 8px; right: 8px; left: 8px; width: auto; max-height: 52vh; } }
   #stick { position: fixed; left: 14px; bottom: 12px; width: 116px; height: 116px; border-radius: 50%; z-index: 41; touch-action: none;
@@ -120,8 +123,8 @@
     ui.sub = el("div", { class: "sub" }, scen.title);
     ui.mode = el("div", { class: "seg" },
       el("button", { "data-m": "watch", onclick: () => setMode("watch") }, "Watch it done"),
-      el("button", { "data-m": "practice", onclick: () => setMode("practice") }, "Practice it"));
-    ui.cam = el("div", { class: "seg" },
+      el("button", { "data-m": "practice", onclick: () => setMode("practice") }, "Play as Mike"));
+    ui.cam = el("div", { class: "seg camseg" },
       el("button", { "data-c": "director", onclick: () => setCam("director") }, "Director camera"),
       el("button", { "data-c": "free", onclick: () => setCam("free") }, "Walk freely"));
     ui.chips = el("div", { class: "chips" });
@@ -526,7 +529,7 @@
   // way out hurries him); with the free camera it presses W and S (Shift at the ends) and turns you, as the apps' stick does.
   function touchControls() {
     if (!("ontouchstart" in window) || document.getElementById("stick")) return;
-    const stick = el("div", { id: "stick" }, el("div", { id: "knob" }), el("span", { class: "f" }, "▲"), el("span", { class: "b" }, "▼"));
+    const stick = el("div", { id: "stick" }, el("div", { id: "knob" }));
     const knob = stick.firstChild;
     document.body.append(stick);
     // on a phone the panel is a sheet along the bottom: the stick sits just above it, on the left (out of the way of a pop-up)
@@ -641,8 +644,12 @@
     window.player = { runStep, next, back, replay, setMode, setCam, said, tryMove, get idx() { return idx; }, get state() { return state; }, get pending() { return !!pending; } };
     if (stepped) return;
     sim.live(true);
-    goBtn.textContent = "Start the run-through"; goBtn.disabled = false;
-    goBtn.onclick = () => { sim.unlockAudio(); go.remove(); runStep(0, true); };
+    // two ways in, on the Start screen itself (on a phone the panel starts folded, and Jake never found Practice behind "Show all":
+    // "I still have no control ... I guess that's the way it's supposed to be")
+    const begin = (m) => { sim.unlockAudio(); go.remove(); mode = m; camMode = m === "practice" ? "free" : "director"; runStep(0, true); };
+    goBtn.textContent = "Play as Mike"; goBtn.disabled = false; goBtn.onclick = () => begin("practice");
+    go.append(el("button", { class: "alt", onclick: () => begin("watch") }, "Watch it done"),
+      el("small", {}, TOUCH ? "Play: the stick walks Mike, drag the picture to look round him." : "Play: W A S D or the arrows walk Mike, Shift hurries, drag to look round him."));
   }
   boot();
 })();

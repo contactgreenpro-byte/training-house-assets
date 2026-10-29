@@ -1,8 +1,8 @@
 {
  "sim/face.js": "e3abe75280",
- "sim/sim.js": "74929492c1",
- "sim/player.js": "6befe9cc7a",
- "sim/scenario_sink_call_john.js": "7a80e45181",
+ "sim/sim.js": "a0fba498e9",
+ "sim/player.js": "23d74be79c",
+ "sim/scenario_sink_call_john.js": "a424ebb59b",
  "sim/lines/sink_call_john.json": "0fb5b19907",
  "sim/lines/script_v2_steps.json": "3956324788",
  "speech/lines/sink_call_john/S2_01/speech.mp3": "b3b118cf54",
