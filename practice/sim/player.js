@@ -68,7 +68,8 @@
   #pp .mv button { padding: 4px 7px; font-size: 12px; }
   #pp .who { display: flex; gap: 4px; margin-top: 6px; }
   #pp .who button { flex: 1; }
-  #pp .min { position: absolute; top: 8px; right: 10px; border: 0; background: none; color: inherit; font: inherit; font-size: 12px; opacity: .75; cursor: pointer; padding: 4px; }
+  #pp .min { position: sticky; top: 0; float: right; z-index: 2; margin: -4px -6px 0 6px; border: 0; border-radius: 6px; background: var(--glass-strong, rgba(20,22,26,.9));
+        color: inherit; font: inherit; font-size: 12px; opacity: .85; cursor: pointer; padding: 4px 6px; }
   #pp.mini .sub, #pp.mini .seg, #pp.mini .chips, #pp.mini .part, #pp.mini details { display: none; }
   #pp.mini .card { margin: 6px 0; }
   #ppstart { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.45); }
