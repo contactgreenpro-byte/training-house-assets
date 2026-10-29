@@ -82,9 +82,9 @@
   #ppstart small { color: #fff; opacity: .85; font: 14px var(--font, system-ui, sans-serif); max-width: 300px; text-align: center; }
   #ppstart button:disabled { background: #3a3f47; cursor: default; }
   @media (max-width: 720px) { #pp { top: auto; bottom: 8px; right: 8px; left: 8px; width: auto; max-height: 52vh; } }
-  #stick { position: fixed; left: 14px; bottom: 12px; width: 116px; height: 116px; border-radius: 50%; z-index: 41; touch-action: none;
+  #stick { position: fixed; left: 14px; bottom: 12px; width: 66px; height: 132px; border-radius: 33px; z-index: 41; touch-action: none;
            background: var(--glass, rgba(20,22,26,.6)); border: 1px solid var(--line, rgba(255,255,255,.14)); box-shadow: 0 4px 14px rgba(0,0,0,.35); }
-  #knob { position: absolute; left: 38px; top: 38px; width: 40px; height: 40px; border-radius: 50%; pointer-events: none;
+  #knob { position: absolute; left: 12px; top: 45px; width: 40px; height: 40px; border-radius: 50%; pointer-events: none;
           background: #f2b134; box-shadow: 0 0 0 4px rgba(242,177,52,.22), 0 2px 6px rgba(0,0,0,.4); }
   #stick span { position: absolute; left: 0; right: 0; text-align: center; font: 700 12px/1 system-ui, sans-serif; color: rgba(255,255,255,.8); pointer-events: none; }
   #stick span.f { top: 7px; } #stick span.b { bottom: 7px; }
@@ -99,6 +99,22 @@
   #ppfb { position: fixed; left: 50%; top: 14px; transform: translateX(-50%); z-index: 46; width: max-content; max-width: min(520px, calc(100vw - 32px)); box-sizing: border-box;
           padding: 10px 14px; border-radius: 10px; font: 600 14px/1.4 var(--font, system-ui, sans-serif); color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
   #ppfb.good { background: #1f7a4d; } #ppfb.bad { background: #a33a2c; }
+  #pp.gone { display: none; }
+  #ppmenu { position: fixed; top: 10px; right: 10px; z-index: 42; border: 1px solid var(--line, rgba(255,255,255,.2)); border-radius: 10px;
+            background: var(--glass-strong, rgba(20,22,26,.9)); color: var(--text, #f2f2f2); font: 600 14px var(--font, system-ui, sans-serif);
+            padding: 9px 12px; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+  #ppbar { position: fixed; left: 50%; transform: translateX(-50%); bottom: 10px; z-index: 43; width: min(520px, calc(100vw - 20px)); box-sizing: border-box;
+           color: var(--text, #f2f2f2); font: 13px/1.35 var(--font, system-ui, sans-serif); display: flex; flex-direction: column; gap: 6px; }
+  @media (max-width: 720px) { #ppbar { left: 90px; right: 8px; width: auto; transform: none; } }
+  #ppbar .card { margin: 0; padding: 7px 10px; border-radius: 10px; background: rgba(20,22,26,.8); box-shadow: 0 6px 18px rgba(0,0,0,.4); }
+  #ppbar .card.you { background: rgba(60,30,95,.88); border: 1px solid #7b46b5; }
+  #ppbar .card .who { font-size: 11px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; opacity: .8; margin-bottom: 2px; }
+  #ppbar .card .go, #ppbar .next { margin-top: 6px; width: 100%; padding: 8px; border-radius: 8px; border: 0; background: #f2b134; color: #1b1b1b; font: inherit; font-weight: 700; cursor: pointer; }
+  #ppbar .next { margin-top: 0; }
+  #ppbar .score { margin: 4px 0 0; padding: 0; list-style: none; }
+  #ppbar .score li { margin: 0 0 3px; padding-left: 20px; position: relative; }
+  #ppbar .score li::before { position: absolute; left: 0; font-weight: 700; }
+  #ppbar .score li.good::before { content: "✓"; color: #5fd08f; } #ppbar .score li.bad::before { content: "✗"; color: #ff7b6b; }
   #pp .score { margin: 6px 0 0; padding: 0; list-style: none; }
   #pp .score li { margin: 0 0 4px; padding-left: 22px; position: relative; }
   #pp .score li::before { position: absolute; left: 0; font-weight: 700; }
@@ -139,9 +155,16 @@
     ui.status = el("div", { class: "status" });
     ui.coach = el("ul");
     const coach = el("details", innerWidth > 720 ? { open: "" } : {}, el("summary", {}, "Coaching: the script's directions"), ui.coach);
-    // on a phone the panel can shrink to the line and the buttons, so the house shows; it starts that way there
-    ui.min = el("button", { class: "min", onclick: () => { pp.classList.toggle("mini"); ui.min.textContent = pp.classList.contains("mini") ? "Show all" : "Hide"; } }, "Hide");
-    if (innerWidth <= 720) { pp.classList.add("mini"); ui.min.textContent = "Show all"; }
+    // Three sizes (Jake 2026-10-29: "the menus are so big that they're really blocking a lot of the view ... fix the menus where
+    // they fully collapse"): all of it; the line and the buttons; or gone, with a small Menu button at the top and only what needs
+    // you (your line and its button, John's words, the score) in a slim bar along the bottom. A phone starts with it gone.
+    ui.pp = pp;
+    ui.min = el("button", { class: "min", onclick: () => setPanel(panel === "full" ? "mini" : "full") }, "Show all");
+    ui.x = el("button", { class: "min", title: "Hide the menu", onclick: () => setPanel("gone") }, "Hide");
+    ui.menu = el("button", { id: "ppmenu", onclick: () => setPanel("mini") }, "☰ Menu");
+    ui.bar = el("div", { id: "ppbar" });
+    ui.barNext = el("button", { class: "next", onclick: next }, "Next step ▶");
+    document.body.append(ui.menu, ui.bar);
     ui.moves = el("div", { class: "mv" });
     ui.who = el("div", { class: "who" });
     for (const [k, c] of Object.entries(scen.people)) ui.who.append(el("button", { "data-w": k, onclick: () => { moveWho = k; render(); } }, c.name));
@@ -151,8 +174,9 @@
       ui.moves.append(el("h3", {}, g), row);
     }
     const body = el("details", {}, el("summary", {}, "Body language: try a move"), ui.who, ui.moves);
-    pp.append(ui.min, ui.title, ui.sub, ui.mode, ui.cam, ui.chips, ui.step, ui.part, ui.card, ui.ctl, ui.status, coach, body);
+    pp.append(ui.x, ui.min, ui.title, ui.sub, ui.mode, ui.cam, ui.chips, ui.step, ui.part, ui.card, ui.ctl, ui.status, coach, body);
     document.body.append(pp);
+    setPanel(innerWidth <= 720 ? "mini" : "full");
     addEventListener("keydown", (e) => {
       if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
       const arrows = mode !== "practice";                   // in Practice the arrows walk Mike
@@ -187,7 +211,20 @@
     for (const t of ["mouseup", "click", "dblclick"]) addEventListener(t, (e) => { if (swallow) { e.stopImmediatePropagation(); if (t !== "mouseup") swallow = false; } }, true);
   }
 
+  // the panel's size; gone, the line card moves into the bar (it is the same card, so everything written to it shows there)
+  let panel = "full";
+  function setPanel(s) {
+    panel = s;
+    ui.pp.classList.toggle("mini", s !== "full");
+    ui.pp.classList.toggle("gone", s === "gone");
+    ui.min.textContent = s === "full" ? "Less" : "Show all";
+    ui.menu.style.display = s === "gone" ? "" : "none";
+    if (s === "gone") { ui.bar.append(ui.card, ui.barNext); ui.bar.style.display = ""; }
+    else { ui.pp.insertBefore(ui.card, ui.ctl); ui.bar.style.display = "none"; }
+    render();
+  }
   function render() {
+    if (ui.barNext) ui.barNext.style.display = state === "done" && idx + 1 < scen.steps.length ? "" : "none";
     const s = scen.steps[idx];
     [...ui.mode.children].forEach((b) => b.classList.toggle("on", b.dataset.m === mode));
     [...ui.cam.children].forEach((b) => b.classList.toggle("on", b.dataset.c === camMode));
@@ -289,8 +326,8 @@
   function closeAsk() { if (asking) { asking.box.remove(); asking = null; } }
   function placeAsk() {
     if (!asking) return;
-    const pp = document.getElementById("pp"), r = pp.getBoundingClientRect();
-    asking.box.style.bottom = (innerWidth <= 720 ? innerHeight - r.top + 10 : 18) + "px";
+    const pp = panel === "gone" ? ui.bar : document.getElementById("pp"), r = pp.getBoundingClientRect();
+    asking.box.style.bottom = (innerWidth <= 720 || panel === "gone" ? innerHeight - r.top + 10 : 18) + "px";
   }
   // good or bad, with the reason, for a few seconds at the top
   let fbTimer = null;
@@ -315,39 +352,40 @@
   }
 
   // ---------------------------------------------------------------------------------------------------- Mike under your thumbs
-  // Practice: Mike walks where you push, relative to the camera behind him (W A S D or the arrows, or the stick); Shift or the
-  // stick pushed all the way hurries him (and the approach counts it as rushing). He turns into the way he is going, follows the
-  // ground (the driveway, the porch steps), and stops at walls, furniture, rails, door leaves and people. The camera sits behind
-  // him, eases round after him as he walks, and pulls in short of walls; a drag on the view looks round him, the wheel or a
-  // pinch brings it nearer or further. When a line is up it swings round past his shoulder to John.
+  // Practice, two hands (Jake 2026-10-29, on his phone: the round stick was "really sensitive ... the other is just forwards or
+  // backwards. That way I can back up easier ... I'm controlling the view"): the stick (or W and S, the up and down arrows) is
+  // forwards and backwards only, a gentle curve so a small push is a slow step, all the way up hurries him (and the approach
+  // counts it as rushing); backwards he steps back facing the way he faces. A finger held and dragged on the view (or the mouse,
+  // or A and D, the side arrows) turns him, and the camera with him. He follows the ground (the driveway, the porch steps) and
+  // stops at walls, furniture, rails, door leaves and people. The camera sits behind him and pulls in short of walls; standing
+  // near John with your hands off the controls for a couple of seconds, it eases round past his shoulder to John. The wheel or a
+  // pinch brings it nearer or further.
   const ctl = sim.control = { enabled: true, locked: 0, running: false, speed: 0, input: { x: 0, y: 0, run: false }, keys: {},
-    yaw: 0, pitch: 0.24, dist: 2.5, drag: null, talkTo: null, cam: null };
+    yaw: 0, pitch: 0.24, dist: 2.5, drag: null, talkTo: null, cam: null, touched: -9 };
   const MOVE_KEYS = new Set(["KeyW", "KeyA", "KeyS", "KeyD", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "ShiftLeft", "ShiftRight"]);
   function controlStep(dt) {
     const me = techPerson();
     if (mode !== "practice" || !me) return;
     const k = ctl.keys;
-    let ix = ctl.input.x, iy = ctl.input.y;
-    if (k.KeyW || k.ArrowUp) iy += 1; if (k.KeyS || k.ArrowDown) iy -= 1;
-    if (k.KeyD || k.ArrowRight) ix += 1; if (k.KeyA || k.ArrowLeft) ix -= 1;
-    let mag = Math.min(1, Math.hypot(ix, iy));
+    let fwdIn = ctl.input.y, turnIn = 0;
+    if (k.KeyW || k.ArrowUp) fwdIn += 1; if (k.KeyS || k.ArrowDown) fwdIn -= 1;
+    if (k.KeyA || k.ArrowLeft) turnIn += 1; if (k.KeyD || k.ArrowRight) turnIn -= 1;
+    fwdIn = Math.max(-1, Math.min(1, fwdIn));
     // his feet are yours only when the scene is not moving him (a scripted walk, the knock, sitting) and he is standing
     const free = ctl.enabled && !ctl.locked && !me.tasks.length && !asking && me.base === "idle_neutral_01";
-    if (!free) mag = 0;
-    const hurry = mag > 0.1 && (k.ShiftLeft || k.ShiftRight || ctl.input.run);
+    if (!free) { fwdIn = 0; turnIn = 0; }
+    if (fwdIn || turnIn) ctl.touched = sim.clock;
+    if (turnIn) { me.heading += turnIn * 1.7 * dt; ctl.yaw = me.heading; }
+    // hurrying: Shift, or the stick held at the very top for half a second (a quick push all the way is still a walk)
+    const hurry = fwdIn > 0.1 && (k.ShiftLeft || k.ShiftRight || (ctl.input.top && sim.clock - ctl.input.topAt > 0.5));
     const T = sim.T;
-    if (mag > 0.1) {
-      const want = Math.atan2(Math.sin(ctl.yaw) * iy - Math.cos(ctl.yaw) * ix, Math.cos(ctl.yaw) * iy + Math.sin(ctl.yaw) * ix);
-      const d = sim.angleDiff(want, me.heading);
-      me.heading += Math.sign(d) * Math.min(Math.abs(d), 5.5 * dt);
-      const target = Math.abs(d) > 1.4 ? 0.15 : mag * (hurry ? 2.5 : 1.15);
-      ctl.speed += (target - ctl.speed) * Math.min(1, dt * 5);
-    } else ctl.speed += (0 - ctl.speed) * Math.min(1, dt * 7);
-    if (ctl.speed < 0.03 && mag <= 0.1) ctl.speed = 0;
+    const target = fwdIn > 0.02 ? fwdIn * (hurry ? 2.5 : 1.15) : fwdIn < -0.02 ? fwdIn * 0.6 : 0;
+    ctl.speed += (target - ctl.speed) * Math.min(1, dt * (target ? 5 : 8));
+    if (Math.abs(ctl.speed) < 0.03 && !target) ctl.speed = 0;
     ctl.running = ctl.speed > 1.7;
-    if (ctl.speed > 0) {
-      const step = ctl.speed * dt;
-      const fwd = new T.Vector3(Math.sin(me.heading), 0, Math.cos(me.heading));
+    if (ctl.speed) {
+      const step = Math.abs(ctl.speed) * dt;
+      const fwd = new T.Vector3(Math.sin(me.heading), 0, Math.cos(me.heading)).multiplyScalar(Math.sign(ctl.speed));
       const tryMove = (dir, len) => {
         if (len < 1e-4 || sim.blockedMove(me.pos, dir, len, 0.24, me)) return false;
         const nx = me.pos.x + dir.x * len, nz = me.pos.z + dir.z * len;
@@ -362,7 +400,8 @@
       }
       if (!me.walking) me.gtok++;                           // a talking move in progress gives way to the walk
       me.walking = true;
-      me.play("walk_neutral_01", { speed: Math.max(0.35, ctl.speed / (me.walkSpeed || 1.2)) });
+      // the walk at his pace, run backwards when he steps back
+      me.play("walk_neutral_01", { speed: Math.sign(ctl.speed) * Math.max(0.35, Math.abs(ctl.speed) / (me.walkSpeed || 1.2)) });
       me.sync();
     } else if (me.walking && free) {
       me.walking = false;
@@ -371,21 +410,22 @@
     // walked into an action's ring: the action is done (then() runs, as for the button); a ring he starts in waits for the button
     if (pending && pending.ring && free) {
       if (!inRing(pending)) pending.wasOut = true;
-      else if (pending.wasOut && ctl.speed < 0.6) { ctl.speed = 0; said(); }
+      else if (pending.wasOut && Math.abs(ctl.speed) < 0.6) { ctl.speed = 0; said(); }
     }
     for (const r of rings) r.mesh.material.opacity = 0.55 + 0.35 * Math.sin(performance.now() / 260);
   }
   function followCam(dt) {
     const me = techPerson(), T = sim.T;
     if (!me) return;
-    const moving = ctl.speed > 0.2 || me.walking;
+    const moving = Math.abs(ctl.speed) > 0.2 || me.walking;
     const home = homeowner();
-    const talking = home && home.root.visible && !moving && Math.hypot(home.pos.x - me.pos.x, home.pos.z - me.pos.z) < 3.2;
+    const yours = sim.clock - ctl.touched < 2.5;            // you have had your hands on it just now: the view is yours
+    const talking = home && home.root.visible && !moving && !yours && Math.hypot(home.pos.x - me.pos.x, home.pos.z - me.pos.z) < 3.2;
     if (!ctl.drag) {
-      // standing near John: past Mike's right shoulder to John; walking (his feet or the button's): behind him; standing
-      // elsewhere: slowly round behind him
+      // standing near John, hands off: past Mike's right shoulder to John; otherwise behind him (where you turned him, at once;
+      // where a scripted walk turns him, easing after him)
       const want = talking ? Math.atan2(home.pos.x - me.pos.x, home.pos.z - me.pos.z) - 0.42 : me.heading;
-      ctl.yaw += sim.angleDiff(want, ctl.yaw) * Math.min(1, dt * (moving ? 1.6 : talking ? 2.2 : 0.9));
+      ctl.yaw += sim.angleDiff(want, ctl.yaw) * Math.min(1, dt * (yours ? 12 : moving ? 1.6 : talking ? 2.2 : 0.9));
     }
     const head = new T.Vector3(me.pos.x, me.eyes().y + 0.02, me.pos.z);       // his real head: lower once he sits
     // under a ceiling (the porch's is 2.4 m, the house's 2.74) the camera comes down rather than look through it
@@ -446,9 +486,14 @@
       if (mode !== "practice" || e.button !== 0 || e.target.tagName !== "CANVAS") return;
       ctl.drag = { x: e.clientX, y: e.clientY }; e.stopImmediatePropagation(); e.preventDefault();
     }, true);
+    // a drag turns Mike and the view with him (while the scene has him busy, the view alone); up and down tilts the view
     addEventListener("mousemove", (e) => {
       if (!ctl.drag || mode !== "practice") return;
-      ctl.yaw -= (e.clientX - ctl.drag.x) * 0.006; ctl.pitch = Math.max(-0.05, Math.min(1.0, ctl.pitch + (e.clientY - ctl.drag.y) * 0.004));
+      const turn = -(e.clientX - ctl.drag.x) * (TOUCH ? 0.0045 : 0.005), me = techPerson();
+      const free = me && ctl.enabled && !ctl.locked && !me.tasks.length && !asking && me.base === "idle_neutral_01";
+      if (free) { me.heading += turn; ctl.yaw = me.heading; me.sync(); } else ctl.yaw += turn;
+      ctl.pitch = Math.max(-0.05, Math.min(1.0, ctl.pitch + (e.clientY - ctl.drag.y) * 0.004));
+      ctl.touched = sim.clock;
       ctl.drag = { x: e.clientX, y: e.clientY }; e.stopImmediatePropagation();
     }, true);
     addEventListener("mouseup", (e) => { if (!ctl.drag) return; ctl.drag = null; if (mode === "practice") { e.stopImmediatePropagation(); e.preventDefault(); } }, true);
@@ -529,12 +574,12 @@
   // way out hurries him); with the free camera it presses W and S (Shift at the ends) and turns you, as the apps' stick does.
   function touchControls() {
     if (!("ontouchstart" in window) || document.getElementById("stick")) return;
-    const stick = el("div", { id: "stick" }, el("div", { id: "knob" }));
+    const stick = el("div", { id: "stick" }, el("div", { id: "knob" }), el("span", { class: "f" }, "▲"), el("span", { class: "b" }, "▼"));
     const knob = stick.firstChild;
     document.body.append(stick);
     // on a phone the panel is a sheet along the bottom: the stick sits just above it, on the left (out of the way of a pop-up)
     const pp = document.getElementById("pp");
-    const place = () => { const r = pp.getBoundingClientRect(); stick.style.bottom = (innerWidth <= 720 ? innerHeight - r.top + 10 : 12) + "px"; stick.style.display = asking ? "none" : ""; placeAsk(); };
+    const place = () => { const r = pp.getBoundingClientRect(); stick.style.bottom = (innerWidth <= 720 && panel !== "gone" ? innerHeight - r.top + 10 : 12) + "px"; stick.style.display = asking ? "none" : ""; placeAsk(); };
     place(); setInterval(place, 300);
     const held = {};
     const key = (code, on) => {
@@ -543,20 +588,23 @@
       document.dispatchEvent(new KeyboardEvent(on ? "keydown" : "keyup", { code, key: code, bubbles: true }));
     };
     let sid = null, cx = 0, cy = 0;
-    const R = 40;
+    // forwards and backwards only (an upright pill); a gentle curve, so a small push is a slow step, and only the very top hurries
+    const R = 44;
     const setStick = (dx, dy) => {
-      const l = Math.hypot(dx, dy), k = l > R ? R / l : 1;
-      dx *= k; dy *= k;
-      knob.style.transform = `translate(${dx}px,${dy}px)`;
-      const x = dx / R, y = dy / R;
+      dy = Math.max(-R, Math.min(R, dy));
+      knob.style.transform = `translate(0px,${dy}px)`;
+      const y = -dy / R, a = Math.abs(y), v = a < 0.15 ? 0 : Math.sign(y) * Math.pow((a - 0.15) / 0.85, 1.4);
       if (mode === "practice") {
-        ctl.input.x = Math.abs(x) > 0.15 ? x : 0; ctl.input.y = Math.abs(y) > 0.15 ? -y : 0; ctl.input.run = Math.hypot(x, y) > 0.95;
+        const top = y > 0.97;
+        if (top && !ctl.input.top) ctl.input.topAt = sim.clock;
+        ctl.input.x = 0; ctl.input.y = v; ctl.input.top = top; ctl.input.run = false;
+        if (v) ctl.touched = sim.clock;
         key("KeyW", false); key("KeyS", false); key("ShiftLeft", false);
         return;
       }
       ctl.input.x = ctl.input.y = 0; ctl.input.run = false;
-      key("KeyW", y < -0.25); key("KeyS", y > 0.25); key("ShiftLeft", Math.abs(y) > 0.9);
-      if (window.walk.setTurn) window.walk.setTurn(Math.abs(x) > 0.3 ? x * 1.6 : 0);
+      key("KeyW", y > 0.25); key("KeyS", y < -0.25); key("ShiftLeft", a > 0.9);
+      if (window.walk.setTurn) window.walk.setTurn(0);
     };
     stick.addEventListener("touchstart", (e) => {
       e.preventDefault();
@@ -646,7 +694,7 @@
     sim.live(true);
     // two ways in, on the Start screen itself (on a phone the panel starts folded, and Jake never found Practice behind "Show all":
     // "I still have no control ... I guess that's the way it's supposed to be")
-    const begin = (m) => { sim.unlockAudio(); go.remove(); mode = m; camMode = m === "practice" ? "free" : "director"; runStep(0, true); };
+    const begin = (m) => { sim.unlockAudio(); go.remove(); mode = m; camMode = m === "practice" ? "free" : "director"; if (innerWidth <= 720) setPanel("gone"); runStep(0, true); };
     goBtn.textContent = "Play as Mike"; goBtn.disabled = false; goBtn.onclick = () => begin("practice");
     go.append(el("button", { class: "alt", onclick: () => begin("watch") }, "Watch it done"),
       el("small", {}, TOUCH ? "Play: the stick walks Mike, drag the picture to look round him." : "Play: W A S D or the arrows walk Mike, Shift hurries, drag to look round him."));

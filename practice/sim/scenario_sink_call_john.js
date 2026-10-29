@@ -239,6 +239,7 @@ window.SCENARIOS = window.SCENARIOS || {};
     await tech.walk([[KNOCK[0], tech.pos.y, Math.max(KNOCK[2], Math.min(tech.pos.z, 1.0))], KNOCK], { speed: 0.6, round: 0.2 });
     await tech.turnTo(Math.PI, 2);
     tech.face.mood = "smile";
+    sim.coach("You are at the door. Make your call.");
     let tries = 0;
     for (;;) {
       const c = await sim.choose("At the door", "What do you do?", [
