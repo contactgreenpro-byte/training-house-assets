@@ -469,10 +469,12 @@
   // anything tall (the fridge, the upper cabinets, a bookcase), so it never sits inside or behind them
   const walls = () => wallMeshes || (wallMeshes = (() => {
     const a = [], box = new sim.T.Box3();
+    window.walk.scene.traverse((o) => { if (o.isMesh && /^(col_|win_|wall_|ext_|roof_|ceil|trim_porch|fix_beam|fix_column)/.test(o.name)) a.push(o); });
+    // tall furniture and fixtures whole: a group's meshes carry their own names (the van in the driveway is fix_van_driveway, its
+    // parts "Cylinder113" and so on, and the camera sat inside it, 2026-10-29)
     window.walk.scene.traverse((o) => {
-      if (!o.isMesh) return;
-      if (/^(col_|win_|wall_|ext_|roof_|ceil|trim_porch|fix_beam|fix_column)/.test(o.name)) a.push(o);
-      else if (/^(furn_|fix_)/.test(o.name) && o.visible && box.setFromObject(o).max.y > 1.5 && box.max.y - box.min.y > 0.5) a.push(o);
+      if (!/^(furn_|fix_)/.test(o.name) || !o.visible || (o.parent && /^(furn_|fix_)/.test(o.parent.name))) return;
+      if (box.setFromObject(o).max.y > 1.5 && box.max.y - box.min.y > 0.5) o.traverse((m) => { if (m.isMesh && !a.includes(m)) a.push(m); });
     });
     for (const d of window.walk.doors) d.traverse((o) => { if (o.isMesh) a.push(o); });
     return a;
