@@ -417,6 +417,38 @@
     return m;
   }
 
+  // The Happy Homes Guide (Jake 2026-10-29: "He needs to hand him the happy homes guide for real"): a booklet, half letter (5.5 by
+  // 8.5 in, 16 pages), the brand purple like the card, the real lockup, its name in the gold. Built like the card: long side its
+  // x, the front cover on its -y face, so it is held the card's way. Nothing on it says more than its name: what is inside is the
+  // company's, and Jake has not sent it.
+  let guideTex = null;
+  function guide() {
+    if (!guideTex) {
+      const c = document.createElement("canvas"); c.width = 400; c.height = 620;
+      const g = c.getContext("2d");
+      const draw = (img) => {
+        g.fillStyle = "#5e2f90"; g.fillRect(0, 0, 400, 620);
+        g.fillStyle = "#f2b134"; g.fillRect(40, 452, 320, 8);
+        if (img) { const w = Math.min(240, 190 * img.width / img.height), h = w * img.height / img.width; g.drawImage(img, 200 - w / 2, 36, w, h); }
+        g.textAlign = "center";
+        g.fillStyle = "#f2b134"; g.font = "bold 66px system-ui, sans-serif"; g.fillText("HAPPY", 200, 330); g.fillText("HOMES", 200, 400);
+        g.fillStyle = "#ffffff"; g.font = "bold 44px system-ui, sans-serif"; g.fillText("GUIDE", 200, 530);
+      };
+      draw(null);
+      guideTex = new T.CanvasTexture(c); guideTex.anisotropy = 4;
+      const img = new Image();
+      img.onload = () => { draw(img); guideTex.needsUpdate = true; };
+      img.src = url("sim/props/hp_lockup.png");
+    }
+    const pages = new T.MeshStandardMaterial({ color: 0xf4f2ec, roughness: 0.9 }), back = new T.MeshStandardMaterial({ color: 0x5e2f90, roughness: 0.6 });
+    // the cover's picture runs up the long side (x): the canvas is turned a quarter round onto it
+    guideTex.center.set(0.5, 0.5); guideTex.rotation = Math.PI / 2;
+    const mats = [pages, pages, back, new T.MeshStandardMaterial({ map: guideTex, roughness: 0.55 }), pages, pages];
+    const m = new T.Mesh(new T.BoxGeometry(0.216, 0.004, 0.14), mats);
+    m.name = "prop_guide"; m.castShadow = true;
+    return m;
+  }
+
   // ---- knocking: a knuckle on a wooden door, made on the spot (Web Audio: a short knock of filtered noise and a low thump), so
   // there is no sound file to fetch. unlockAudio() starts the audio on the Start tap, as phones require.
   let actx = null;
@@ -835,7 +867,10 @@
       to.face.hear(ln.L, clock, audio);
       if (o.listen !== null) to.gesture(o.listen || ln.listen, hold);
     }
+    // something done while it is said (o.during: the guide handed over as he offers it), started with the words
+    const side = o.during ? o.during() : null;
     await wait(ln.L.spoken + (o.gap ?? 0.35));
+    if (side) await side;
     if (audio) voices.delete(audio);
   }
 
@@ -877,7 +912,7 @@
     T, SIT_BACK, STAND_FWD, Cancelled, people, load, step, flush, record, setCam, freeCam, camera, openDoor, setDoor, door, wp,
     checkPath, angleDiff, shot, loadScenario, say, wait, until, cancelAll, live, lines, loadLines, measureMove, stopVoices, unlockAudio,
     groundAt, blockedMove, windows, lookingIn, handlePoint, knockSound, rounded, late,
-    props: { clipboard, card }, names: {}, practice: false, freeCamera: false, current: null, captions, voiceLog,
+    props: { clipboard, card, guide }, names: {}, practice: false, freeCamera: false, current: null, captions, voiceLog,
     caption: (t) => captions.push([clock, t]),
     mute: (m) => { muted = m; if (m) stopVoices(); },
     get scenario() { return scenario; }, get clock() { return clock; }, get isLive() { return isLive; }, BASE, url,
