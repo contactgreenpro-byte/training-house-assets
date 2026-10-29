@@ -786,6 +786,8 @@
   let poolNext = 0;
   function unlockAudio() {
     const first = Object.values(lines)[0];
+    // an iPhone with its ring switch on silent mutes Web Audio (the knock) but not the voices; as media playback it plays both
+    try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) { /* older phones: no such setting */ }
     try { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === "suspended") actx.resume(); } catch (e) { actx = null; }
     if (pool.length || !first) return;
     for (let i = 0; i < 2; i++) {

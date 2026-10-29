@@ -100,6 +100,9 @@
           padding: 10px 14px; border-radius: 10px; font: 600 14px/1.4 var(--font, system-ui, sans-serif); color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
   #ppfb.good { background: #1f7a4d; } #ppfb.bad { background: #a33a2c; }
   #pp.gone { display: none; }
+  #ppdir { position: fixed; top: 42%; z-index: 41; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+           background: #f2b134; color: #1b1b1b; font: 700 20px/1 system-ui, sans-serif; pointer-events: none; box-shadow: 0 0 0 5px rgba(242,177,52,.25), 0 4px 12px rgba(0,0,0,.4); }
+  #ppdir.l { left: 10px; } #ppdir.r { right: 10px; }
   #ppmenu { position: fixed; top: 10px; right: 10px; z-index: 42; border: 1px solid var(--line, rgba(255,255,255,.2)); border-radius: 10px;
             background: var(--glass-strong, rgba(20,22,26,.9)); color: var(--text, #f2f2f2); font: 600 14px var(--font, system-ui, sans-serif);
             padding: 9px 12px; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
@@ -164,7 +167,8 @@
     ui.menu = el("button", { id: "ppmenu", onclick: () => setPanel("mini") }, "☰ Menu");
     ui.bar = el("div", { id: "ppbar" });
     ui.barNext = el("button", { class: "next", onclick: next }, "Next step ▶");
-    document.body.append(ui.menu, ui.bar);
+    ui.dir = el("div", { id: "ppdir", style: "display:none" });
+    document.body.append(ui.menu, ui.bar, ui.dir);
     ui.moves = el("div", { class: "mv" });
     ui.who = el("div", { class: "who" });
     for (const [k, c] of Object.entries(scen.people)) ui.who.append(el("button", { "data-w": k, onclick: () => { moveWho = k; render(); } }, c.name));
@@ -200,10 +204,19 @@
       }
       return null;
     };
+    // In Practice a finger put down on John is just as often the start of a drag to turn Mike, so there only a tap on him (down and
+    // up in place) says your line, and an action never starts from one (it used to: a drag that began on John sent Mike off).
+    let tap = null;
+    addEventListener("mouseup", (e) => {
+      if (!tap) return;
+      const t = tap; tap = null;
+      if (Math.hypot(e.clientX - t.x, e.clientY - t.y) < 12 && performance.now() - t.at < 450 && pending && pending.id) said();
+    }, true);
     addEventListener("mousedown", (e) => {
       if (e.button !== 0 || e.target.tagName !== "CANVAS") return;
       const k = personAt(e);
       if (!k) return;
+      if (mode === "practice") { tap = { x: e.clientX, y: e.clientY, at: performance.now() }; return; }
       swallow = true; e.stopImmediatePropagation(); e.preventDefault();
       if (pending && !scen.people[k].tech) said();
       else if (!pending) ui.status.textContent = `${sim.names[k]} is ${sim.current && sim.current.who === k ? "talking" : "listening"}.`;
@@ -242,44 +255,56 @@
   }
   function showPrompt(text, btn, isLine) {
     ui.card.className = "card you";
-    ui.card.replaceChildren(el("div", { class: "who" }, isLine ? "Your line: say it out loud" : "You"), el("div", {}, text),
-      el("button", { class: "go", onclick: said }, (btn || "I said it") + (TOUCH ? (isLine ? "  (or tap John)" : "") : (isLine ? "  (Space, or click John)" : "  (Space)"))));
+    ui.card.replaceChildren(el("div", { class: "who" }, isLine ? "Your line (say it along with Mike)" : "You"), el("div", {}, text),
+      el("button", { class: "go", onclick: said }, (btn || "Say it") + (TOUCH ? (isLine ? "  (or tap John)" : "") : (isLine ? "  (Space, or click John)" : "  (Space)"))));
   }
   const TOUCH = "ontouchstart" in window;
   sim.onLine = (ln) => showLine(ln);
 
-  // Practice: the trainee's turn. A line: Mike faces John and talks with his hands (the line's move) while you say it out loud;
-  // "I said it" (Space, or a tap on John) and John answers. An action (mark = {at, go, then}): a ring on the floor where Mike
-  // should be; walk him into it yourself, or tap the button and he goes there (go), then does it (then: sitting down, say).
-  sim.prompt = (id, text, btn, mark) => new Promise((res, rej) => {
+  // Practice: the trainee's turn. A line: the card shows it, Mike turns to John, and "Say it" (Space, or a tap on John) has Mike
+  // say it in his own voice, lips and hands (Jake 2026-10-29, playing: "I didn't hear my audio ... does the tech speak? I don't
+  // understand when I run it as Mike, like what's supposed to happen there"; Mike used to talk with his hands in silence while
+  // you said it out loud). Then John answers. An action (mark = {at, go, then, path}): a ring on the floor where Mike should be,
+  // a marker over it and a trail to it; walk him into it yourself, or tap the button and he goes there (go), then does it
+  // (then: sitting down, say). o: the line's say() options (move: null when the card goes with it, say).
+  sim.prompt = (id, text, btn, mark, o) => new Promise((res, rej) => {
     const ln = id && sim.lines[id];
     showPrompt(ln ? ln.text : text, btn, !!ln);
     const home = homeowner(), me = techPerson();
-    if (home && ln && ln.listen) home.gesture(ln.listen, 120);
-    if (ln && me) {
+    if (ln && me && home) {
       ctl.talkTo = home;
-      (async () => {
-        if (home && me.base === "idle_neutral_01" && !me.walking && !me.tasks.length && Math.abs(sim.angleDiff(Math.atan2(home.pos.x - me.pos.x, home.pos.z - me.pos.z), me.heading)) > 0.9)
-          await me.turnToward(home.pos.x, home.pos.z).catch(() => {});
-        if (pending && pending.res === res && ln.move) me.gesture(ln.move, 120);
-      })();
+      if (me.base === "idle_neutral_01" && !me.walking && !me.tasks.length && Math.abs(sim.angleDiff(Math.atan2(home.pos.x - me.pos.x, home.pos.z - me.pos.z), me.heading)) > 0.9)
+        me.turnToward(home.pos.x, home.pos.z).catch(() => {});
     }
-    const ring = mark && mark.at ? ringAt(mark.at, mark.r || 0.45) : null;
-    pending = { res, rej, mark, ring, line: !!ln };
+    // no ring where he already stands (the check at the sink): the button does it (walking about in a ring he started in did
+    // nothing, and looked like it should)
+    const there = mark && mark.at && me && Math.hypot(me.pos.x - mark.at[0], me.pos.z - mark.at[2]) < (mark.r || 0.45);
+    const ring = mark && mark.at && !there ? ringAt(mark.at, mark.r || 0.45, mark.path) : null;
+    pending = { res, rej, mark, ring, id: ln ? id : null, o };
     render();
   });
   async function said() {
     if (!pending) return;
     const p = pending; pending = null;
     ui.card.className = "card";
-    const me = techPerson();
-    if (p.line && me && !me.walking && me.base === "idle_neutral_01") { me.gtok++; me.play(me.base, { fade: 0.4 }); }
     render();
+    if (p.id) {
+      // he says it, and your feet are still while he does
+      ctl.locked++; stopWalk();
+      try { await sim.say(p.id, p.o); } catch (e) { ctl.locked--; return p.rej(e); }
+      ctl.locked--;
+    }
     if (p.mark) {
-      // tapped the button: he goes there (unless he is already in the ring) and does it; walked in: he just does it
+      // tapped the button: he goes there (unless he is already in the ring) and does it; walked in: he finishes his step into
+      // the middle (facing the way he faces, so stepping back he steps back) and does it
       ctl.locked++;
       try {
+        const me = techPerson(), mid = p.ring && me ? Math.hypot(me.pos.x - p.ring.x, me.pos.z - p.ring.z) : 0;
         if (p.mark.at && p.mark.go && !inRing(p)) await p.mark.go();
+        else if (p.mark.at && mid > 0.12) {
+          const back = Math.abs(sim.angleDiff(Math.atan2(p.ring.x - me.pos.x, p.ring.z - me.pos.z), me.heading)) > Math.PI / 2;
+          await me.walk([p.mark.at], { speed: 0.45, round: 0, backwards: back });
+        }
         if (p.mark.then) await p.mark.then();
       } catch (e) { if (!(e instanceof sim.Cancelled)) console.error(e); else { ctl.locked--; if (p.ring) p.ring.remove(); return p.rej(e); } }
       ctl.locked--;
@@ -293,21 +318,90 @@
 
   // ---------------------------------------------------------------------------------------------------- the game's calls
   // What the scenario uses in Practice (sim.coach, sim.choose, sim.feedback, sim.score, sim.mark, sim.control).
-  // a ring on the floor: where Mike should go (pulses so it is seen on a phone)
-  function ringAt(at, r = 0.45) {
-    const T = sim.T;
-    const m = new T.Mesh(new T.RingGeometry(r - 0.06, r, 48), new T.MeshBasicMaterial({ color: 0xf2b134, transparent: true, opacity: 0.85, depthWrite: false, side: T.DoubleSide }));
+  // Where Mike should go (Jake 2026-10-29, playing: "very, very glitchy trying to like follow through and be [Mike] and like where
+  // to step, where to stand"): a ring on the floor (it pulses), a gold arrow standing over it that shows through walls (seen from
+  // the end of the driveway, or from the next room), and, given his way there (path), a trail of dots to it from where he is,
+  // going as he walks it. markers() runs them, and puts an arrow at the side of the screen when the ring is out of view.
+  function ringAt(at, r = 0.45, path = null) {
+    const T = sim.T, GOLD = 0xf2b134, grp = new T.Group();
+    const ground = (x, z, y) => { const g = sim.groundAt(x, z, y + 0.5); return g === null ? y : g; };
+    const y0 = ground(at[0], at[2], at[1]);
+    const m = new T.Mesh(new T.RingGeometry(r - 0.06, r, 48), new T.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0.85, depthWrite: false, side: T.DoubleSide }));
     m.rotation.x = -Math.PI / 2;
-    const g = sim.groundAt(at[0], at[2], at[1] + 0.5);
-    m.position.set(at[0], (g === null ? at[1] : g) + 0.02, at[2]);
+    m.position.set(at[0], y0 + 0.02, at[2]);
     m.renderOrder = 5;
-    window.walk.scene.add(m);
-    const ring = { x: at[0], z: at[2], r, mesh: m, remove() { if (m.parent) m.parent.remove(m); rings.delete(ring); } };
+    const arrow = new T.Mesh(new T.ConeGeometry(0.12, 0.3, 20), new T.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0, depthTest: false, depthWrite: false }));
+    arrow.rotation.x = Math.PI;                              // point down
+    arrow.position.set(at[0], y0 + 2.3, at[2]);
+    arrow.renderOrder = 20;
+    grp.add(m, arrow);
+    const dots = [];
+    const me = techPerson();
+    if (path && path.length && me) {
+      // from where he stands to the nearest place on his way, then the rest of the way, to the ring's middle
+      let pts = path.map((p) => [p[0], p[2]]), start = [me.pos.x, me.pos.z], from = 0, best = Infinity, near = pts[0];
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i], b = pts[Math.min(i + 1, pts.length - 1)], ab = [b[0] - a[0], b[1] - a[1]], l2 = ab[0] * ab[0] + ab[1] * ab[1];
+        const t = l2 ? Math.max(0, Math.min(1, ((start[0] - a[0]) * ab[0] + (start[1] - a[1]) * ab[1]) / l2)) : 0;
+        const q = [a[0] + ab[0] * t, a[1] + ab[1] * t], d = Math.hypot(q[0] - start[0], q[1] - start[1]);
+        if (d < best) { best = d; from = i + 1; near = q; }
+      }
+      pts = [start, near, ...pts.slice(from)];
+      if (Math.hypot(pts[pts.length - 1][0] - at[0], pts[pts.length - 1][1] - at[2]) > 0.05) pts.push([at[0], at[2]]);
+      const geo = new T.CircleGeometry(0.085, 16), mat = new T.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0.9, depthWrite: false });
+      let walked = 0, nextAt = 0.7, y = me.pos.y;           // a dot every 0.42 m, the first a little ahead of him
+      for (let i = 0; i + 1 < pts.length; i++) {
+        const [a, b] = [pts[i], pts[i + 1]], len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+        for (; len > 0 && nextAt <= walked + len; nextAt += 0.42) {
+          const s = (nextAt - walked) / len, x = a[0] + (b[0] - a[0]) * s, z = a[1] + (b[1] - a[1]) * s;
+          if (Math.hypot(x - at[0], z - at[2]) < r) continue;
+          y = ground(x, z, y);
+          const d = new T.Mesh(geo, mat);
+          d.rotation.x = -Math.PI / 2; d.position.set(x, y + 0.015, z); d.renderOrder = 5;
+          grp.add(d); dots.push(d);
+        }
+        walked += len;
+      }
+    }
+    window.walk.scene.add(grp);
+    const ring = { x: at[0], z: at[2], y0, r, mesh: m, arrow, dots, remove() { if (grp.parent) grp.parent.remove(grp); rings.delete(ring); } };
     rings.add(ring);
     return ring;
   }
   const rings = new Set();
-  sim.mark = (at, r) => ringAt(at, r);
+  sim.mark = (at, r, path) => ringAt(at, r, path);
+  function markers() {
+    const me = techPerson(), t = performance.now() / 1000, cam = window.walk.camera;
+    let goal = null;
+    for (const r of rings) {
+      goal = r;
+      r.mesh.material.opacity = 0.55 + 0.35 * Math.sin(t * 3.8);
+      if (!me) continue;
+      const d = Math.hypot(me.pos.x - r.x, me.pos.z - r.z);
+      r.arrow.position.y = r.y0 + 2.3 + 0.08 * Math.sin(t * 3);
+      // it fades as he gets there, and when it is right in front of the camera (a ring behind him, between the two)
+      const near = cam.position.distanceTo(r.arrow.position), k = (x) => Math.max(0, Math.min(1, x));
+      r.arrow.material.opacity = 0.9 * k((d - 0.7) / 1.2) * k((near - 1.5) / 2);
+      for (let i = r.dots.length - 1; i >= 0; i--) {
+        if (!r.dots[i].visible || Math.hypot(me.pos.x - r.dots[i].position.x, me.pos.z - r.dots[i].position.z) > 0.55) continue;
+        for (let j = 0; j <= i; j++) r.dots[j].visible = false;
+        break;
+      }
+    }
+    // the way on out of the picture (the trail a couple of steps ahead, or the newest ring): which way to turn him
+    let side = 0;
+    if (goal && me && mode === "practice" && Math.hypot(me.pos.x - goal.x, me.pos.z - goal.z) > goal.r) {
+      const ahead = goal.dots.filter((d) => d.visible), p = ahead.length ? ahead[Math.min(3, ahead.length - 1)].position : null;
+      const v = p ? p.clone().setY(p.y + 0.3).project(cam) : new sim.T.Vector3(goal.x, goal.y0 + 1, goal.z).project(cam);
+      if (v.z > 1 || Math.abs(v.x) > 0.9 || Math.abs(v.y) > 0.95) {
+        const f = new sim.T.Vector3(0, 0, -1).applyQuaternion(cam.quaternion);
+        side = sim.angleDiff(Math.atan2((p ? p.x : goal.x) - cam.position.x, (p ? p.z : goal.z) - cam.position.z), Math.atan2(f.x, f.z)) < 0 ? 1 : -1;
+      }
+    }
+    ui.dir.style.display = side ? "" : "none";
+    ui.dir.className = side < 0 ? "l" : "r";
+    ui.dir.textContent = side < 0 ? "◀" : "▶";
+  }
   // the card says what to do now (no button: the game moves on by itself)
   sim.coach = (text) => {
     ui.card.className = "card you";
@@ -361,7 +455,7 @@
   // near John with your hands off the controls for a couple of seconds, it eases round past his shoulder to John. The wheel or a
   // pinch brings it nearer or further.
   const ctl = sim.control = { enabled: true, locked: 0, running: false, speed: 0, input: { x: 0, y: 0, run: false }, keys: {},
-    yaw: 0, pitch: 0.24, dist: 2.5, drag: null, talkTo: null, cam: null, touched: -9 };
+    yaw: 0, pitch: 0.24, dist: 2.5, drag: null, talkTo: null, cam: null, touched: -9, off: 0, offWant: 0, hy: null, pc: null, dcur: null };
   const MOVE_KEYS = new Set(["KeyW", "KeyA", "KeyS", "KeyD", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "ShiftLeft", "ShiftRight"]);
   function controlStep(dt) {
     const me = techPerson();
@@ -373,9 +467,10 @@
     fwdIn = Math.max(-1, Math.min(1, fwdIn));
     // his feet are yours only when the scene is not moving him (a scripted walk, the knock, sitting) and he is standing
     const free = ctl.enabled && !ctl.locked && !me.tasks.length && !asking && me.base === "idle_neutral_01";
-    if (!free) { fwdIn = 0; turnIn = 0; }
+    // the scene takes him (or a pop-up comes up): he stops there and then, rather than glide on or walk on the spot
+    if (!free) { if (ctl.speed) stopWalk(); fwdIn = 0; turnIn = 0; }
     if (fwdIn || turnIn) ctl.touched = sim.clock;
-    if (turnIn) { me.heading += turnIn * 1.7 * dt; ctl.yaw = me.heading; }
+    if (turnIn) { me.heading += turnIn * 1.7 * dt; ctl.yaw += turnIn * 1.7 * dt; }
     // hurrying: Shift, or the stick held at the very top for half a second (a quick push all the way is still a walk)
     const hurry = fwdIn > 0.1 && (k.ShiftLeft || k.ShiftRight || (ctl.input.top && sim.clock - ctl.input.topAt > 0.5));
     const T = sim.T;
@@ -407,12 +502,22 @@
       me.walking = false;
       me.play(me.base, { fade: 0.3 });
     }
-    // walked into an action's ring: the action is done (then() runs, as for the button); a ring he starts in waits for the button
+    // walked into an action's ring: he stops in it and the action is done (then() runs, as for the button); a ring he starts in
+    // waits for the button (he used to have to slow down inside it, and at a walk he went straight through)
     if (pending && pending.ring && free) {
       if (!inRing(pending)) pending.wasOut = true;
-      else if (pending.wasOut && Math.abs(ctl.speed) < 0.6) { ctl.speed = 0; said(); }
+      else if (pending.wasOut) { stopWalk(); said(); }
     }
-    for (const r of rings) r.mesh.material.opacity = 0.55 + 0.35 * Math.sin(performance.now() / 260);
+  }
+  // an angle eased toward another: rate of the gap per second, no faster than max radians a second
+  function easeAngle(cur, want, rate, max, dt) {
+    const step = sim.angleDiff(want, cur) * Math.min(1, dt * rate);
+    return cur + Math.max(-max * dt, Math.min(max * dt, step));
+  }
+  function stopWalk() {
+    const me = techPerson();
+    ctl.speed = 0; ctl.running = false;
+    if (me && me.walking && !me.tasks.length) { me.walking = false; me.play(me.base, { fade: 0.3 }); }
   }
   function followCam(dt) {
     const me = techPerson(), T = sim.T;
@@ -422,16 +527,28 @@
     const yours = sim.clock - ctl.touched < 2.5;            // you have had your hands on it just now: the view is yours
     const talking = home && home.root.visible && !moving && !yours && Math.hypot(home.pos.x - me.pos.x, home.pos.z - me.pos.z) < 3.2;
     if (!ctl.drag) {
-      // standing near John, hands off: past Mike's right shoulder to John; otherwise behind him (where you turned him, at once;
-      // where a scripted walk turns him, easing after him)
+      // standing near John, hands off: past Mike's right shoulder to John; otherwise behind him. Where you turn him (a drag, A or
+      // D) the view is set with him; everything else eases (it used to snap straight back behind him the moment you touched the
+      // stick after it had gone round to John)
       const want = talking ? Math.atan2(home.pos.x - me.pos.x, home.pos.z - me.pos.z) - 0.42 : me.heading;
-      ctl.yaw += sim.angleDiff(want, ctl.yaw) * Math.min(1, dt * (yours ? 12 : moving ? 1.6 : talking ? 2.2 : 0.9));
+      ctl.yaw = !dt ? want : easeAngle(ctl.yaw, want, moving || yours ? 2.6 : talking ? 1.8 : 0.9, 1.6, dt);
     }
-    const head = new T.Vector3(me.pos.x, me.eyes().y + 0.02, me.pos.z);       // his real head: lower once he sits
+    // his head, steadied: the camera does not bob with his steps or nod with him. His real head, not his feet's mark: lower once he
+    // sits, and where it is (sitting down moves his mark 0.47 m back under him at the end, and the camera hopped with it)
+    const e = me.eyes();
+    if (ctl.hy == null || !dt) { ctl.hx = e.x; ctl.hy = e.y + 0.02; ctl.hz = e.z; }
+    else {
+      const kxz = Math.min(1, dt * 10), ky = Math.min(1, dt * 3);
+      ctl.hx += (e.x - ctl.hx) * kxz; ctl.hz += (e.z - ctl.hz) * kxz; ctl.hy += (e.y + 0.02 - ctl.hy) * ky;
+    }
+    const head = new T.Vector3(ctl.hx, ctl.hy, ctl.hz);
+    for (const dr of window.walk.doors) dr.updateMatrixWorld(true);       // where each door stands now, not at the last frame drawn
     // under a ceiling (the porch's is 2.4 m, the house's 2.74) the camera comes down rather than look through it
     const up = new T.Raycaster(head, new T.Vector3(0, 1, 0), 0, 2).intersectObjects(walls(), false)[0];
     let pitch = ctl.pitch;
     if (up) pitch = Math.min(pitch, Math.asin(Math.max(0, Math.min(1, (up.distance - 0.3) / ctl.dist))));
+    ctl.pc = ctl.pc == null || !dt || ctl.drag ? pitch : ctl.pc + (pitch - ctl.pc) * Math.min(1, dt * (pitch < ctl.pc ? 6 : 1.5));
+    pitch = ctl.pc;
     // how far the camera can sit back along a direction before a wall; where that is too close (his back to the sink, the wall
     // behind his chair) it swings round to the nearest clear side rather than sit inside his head
     const room = (yaw) => {
@@ -450,17 +567,26 @@
       for (const [c, r] of [[head, 0.17], [head.clone().setY(head.y - 0.32), 0.3]]) if (ray.distanceSqToPoint(c) < r * r && c.distanceTo(from) < len) return false;
       return !new T.Raycaster(from, to.normalize(), 0.05, len - 0.15).intersectObjects(walls(), false).some((x) => !x.object.material || ![].concat(x.object.material).some((m) => m.transparent));
     };
-    let [d, back] = room(ctl.yaw), yaw = ctl.yaw;
+    // The swing to a clear side is held while it stays clear and eases in and out (it used to be looked for afresh every frame,
+    // so beside a post or a doorframe it flicked from one side to the other); straight behind him is taken back once it is clear
+    // with room to spare. While you drag, the view is yours.
     const need = Math.min(ctl.dist, 1.5);
-    if ((d < need || !sees(back, d)) && !ctl.drag) {
-      for (const off of [0.3, -0.3, 0.6, -0.6, 0.9, -0.9, 1.3, -1.3, 1.8, -1.8, 2.4, -2.4]) {
-        const [d2, b2] = room(ctl.yaw + off);
-        if (d2 >= need && sees(b2, d2)) { [d, back, yaw] = [d2, b2, ctl.yaw + off]; break; }
-      }
-      ctl.yaw += sim.angleDiff(yaw, ctl.yaw) * Math.min(1, dt * 3);
+    // (the nearest clear side to where it is now, so it does not cross from one side of him to the other, at 90 degrees a
+    // second at most)
+    const clear = (off, spare = 0) => { const [d2, b2] = room(ctl.yaw + off); return d2 >= need + spare && sees(b2, d2); };
+    if (ctl.drag) ctl.offWant = 0;
+    else if (ctl.offWant && clear(0, 0.25)) ctl.offWant = 0;
+    else if (!clear(ctl.offWant)) {
+      const offs = [0, 0.3, -0.3, 0.6, -0.6, 0.9, -0.9, 1.3, -1.3, 1.8, -1.8, 2.4, -2.4].sort((a, b) => Math.abs(a - ctl.off) - Math.abs(b - ctl.off));
+      ctl.offWant = offs.find((o) => clear(o)) ?? 0;
     }
-    const want = head.clone().addScaledVector(back, d);
-    if (!ctl.cam) ctl.cam = want.clone(); else ctl.cam.lerp(want, Math.min(1, dt * 9));
+    ctl.off = !dt ? ctl.offWant : ctl.off + Math.max(-1.6 * dt, Math.min(1.6 * dt, (ctl.offWant - ctl.off) * Math.min(1, dt * 2.5)));
+    const yaw = ctl.yaw + ctl.off, [d, back] = room(yaw);
+    // how far back: in quickly (5 m/s), to keep out of a wall; out again slowly (no popping in and out under the porch roof or
+    // past a post)
+    ctl.dcur = ctl.dcur == null || !dt ? d : d < ctl.dcur ? Math.max(d, ctl.dcur - 5 * dt) : ctl.dcur + (d - ctl.dcur) * Math.min(1, dt * 1.5);
+    const want = head.clone().addScaledVector(back, ctl.dcur);
+    if (!ctl.cam || !dt) ctl.cam = want.clone(); else ctl.cam.lerp(want, Math.min(1, dt * 14));
     const look = head.clone().add(new T.Vector3(Math.sin(yaw), 0, Math.cos(yaw)).multiplyScalar(0.8)).setY(head.y - 0.12);
     sim.setCam(ctl.cam.x, ctl.cam.y, ctl.cam.z, look.x, look.y, look.z);
   }
@@ -486,17 +612,21 @@
     addEventListener("blur", () => { ctl.keys = {}; });
     addEventListener("mousedown", (e) => {
       if (mode !== "practice" || e.button !== 0 || e.target.tagName !== "CANVAS") return;
-      ctl.drag = { x: e.clientX, y: e.clientY }; e.stopImmediatePropagation(); e.preventDefault();
+      ctl.drag = { x: e.clientX, y: e.clientY, sx: 0, sy: 0 }; e.stopImmediatePropagation(); e.preventDefault();
     }, true);
     // a drag turns Mike and the view with him (while the scene has him busy, the view alone); up and down tilts the view
     addEventListener("mousemove", (e) => {
       if (!ctl.drag || mode !== "practice") return;
-      const turn = -(e.clientX - ctl.drag.x) * (TOUCH ? 0.0045 : 0.005), me = techPerson();
+      const dx = e.clientX - ctl.drag.x, dy = e.clientY - ctl.drag.y, turn = -dx * (TOUCH ? 0.0045 : 0.005), me = techPerson();
       const free = me && ctl.enabled && !ctl.locked && !me.tasks.length && !asking && me.base === "idle_neutral_01";
-      if (free) { me.heading += turn; ctl.yaw = me.heading; me.sync(); } else ctl.yaw += turn;
-      ctl.pitch = Math.max(-0.05, Math.min(1.0, ctl.pitch + (e.clientY - ctl.drag.y) * 0.004));
+      // the view turns by as much as he does (set to his heading, it jumped when the view had gone round to John)
+      if (free) { me.heading += turn; me.sync(); }
+      ctl.yaw += turn;
+      // the tilt only from a drag that is mostly up and down (a thumb turning him drifts up or down and tipped the view)
+      const sx = ctl.drag.sx + Math.abs(dx), sy = ctl.drag.sy + Math.abs(dy);
+      if (sy > 1.5 * sx) ctl.pitch = Math.max(0, Math.min(0.85, ctl.pitch + dy * 0.004));
       ctl.touched = sim.clock;
-      ctl.drag = { x: e.clientX, y: e.clientY }; e.stopImmediatePropagation();
+      ctl.drag = { x: e.clientX, y: e.clientY, sx, sy }; e.stopImmediatePropagation();
     }, true);
     addEventListener("mouseup", (e) => { if (!ctl.drag) return; ctl.drag = null; if (mode === "practice") { e.stopImmediatePropagation(); e.preventDefault(); } }, true);
     addEventListener("click", (e) => { if (mode === "practice" && e.target.tagName === "CANVAS") e.stopImmediatePropagation(); }, true);
@@ -540,7 +670,7 @@
     if (mode !== "practice") return;
     const t = techPerson();
     if (!t) return;
-    ctl.yaw = t.heading; ctl.pitch = 0.24; ctl.cam = null;
+    ctl.yaw = t.heading; ctl.pitch = 0.24; ctl.cam = null; ctl.off = ctl.offWant = 0; ctl.hy = ctl.pc = ctl.dcur = null;
     followCam(0);
   }
   function applyMode() {
@@ -548,8 +678,9 @@
     if (t) { t.root.visible = true; t.face.enabled = true; }
     sim.practice = mode === "practice";
     sim.freeCamera = mode === "practice" || camMode === "free";
-    if (mode === "practice") { window.walk.setFly(true); sim.camera.follow = (dt) => { controlStep(dt); followCam(dt); }; }
+    if (mode === "practice") { window.walk.setFly(true); sim.camera.follow = (dt) => { controlStep(dt); followCam(dt); markers(); }; }
     else if (sim.freeCamera) sim.freeCam();
+    if (mode !== "practice") ui.dir.style.display = "none";
     const stick = document.getElementById("stick");
     if (stick) stick.classList.toggle("tp", mode === "practice");
   }
@@ -699,7 +830,8 @@
     const begin = (m) => { sim.unlockAudio(); go.remove(); mode = m; camMode = m === "practice" ? "free" : "director"; if (innerWidth <= 720) setPanel("gone"); runStep(0, true); };
     goBtn.textContent = "Play as Mike"; goBtn.disabled = false; goBtn.onclick = () => begin("practice");
     go.append(el("button", { class: "alt", onclick: () => begin("watch") }, "Watch it done"),
-      el("small", {}, TOUCH ? "Play: the stick walks Mike, drag the picture to look round him." : "Play: W A S D or the arrows walk Mike, Shift hurries, drag to look round him."));
+      el("small", {}, (TOUCH ? "Play: you are Mike. The stick walks him forwards and back, a drag on the picture turns him." : "Play: you are Mike. W and S walk him, A and D or a drag turn him, Shift hurries.")
+        + " Walk to the gold arrow and its ring. When it is your turn to talk, your line comes up: tap Say it and Mike says it (say it along with him to learn it)."));
   }
   boot();
 })();

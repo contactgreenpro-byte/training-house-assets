@@ -46,15 +46,15 @@ window.SCENARIOS = window.SCENARIOS || {};
   const T = async (sim, id, o) => {
     const ask = /\?/.test(sim.lines[id].text);
     if (ask) boardUp(sim, true);
-    try { await (sim.practice ? sim.prompt(id) : sim.say(id, o)); } finally { if (ask) boardUp(sim, false); }
+    try { await (sim.practice ? sim.prompt(id, null, null, null, o) : sim.say(id, o)); } finally { if (ask) boardUp(sim, false); }
   };
   // John's line, to the technician (in Practice that is Mike too: the trainee is him)
   const H = (sim, id, o = {}) => sim.say(id, o);
   const watch = (sim, f) => (sim.practice ? Promise.resolve() : f());
   const last = (path) => path[path.length - 1];
-  // An action in Practice: the card says what to do; walk Mike to the ring yourself, or tap the button and he goes (a phone does
-  // not have to walk every step). go: how he gets there; then: what he does once there (sitting down, say).
-  const act = (sim, text, btn, at, go, then = null) => sim.prompt(null, text, btn, { at, go, then });
+  // An action in Practice: the card says what to do; walk Mike to the ring yourself (a trail of dots shows the way, path), or tap
+  // the button and he goes (a phone does not have to walk every step). go: how he gets there; then: what he does once there.
+  const act = (sim, text, btn, at, go, then = null, path = null) => sim.prompt(null, text, btn, { at, go, then, path });
   // a walk that starts with a straight line from wherever the trainee left Mike: if that line would cross a wall or furniture
   // (he wandered off), he is put at the walk's first point first
   const goAlong = (sim, p, path, o) => { if (sim.checkPath([p.pos.toArray(), path[0]]).length) p.place(...path[0], p.heading); return p.walk(path, o); };
@@ -224,8 +224,8 @@ window.SCENARIOS = window.SCENARIOS || {};
   // inside until they invite you."
   async function approachGame(sim) {
     const { john, tech } = sim.people;
-    const near = (p, x, z, r) => Math.hypot(p.pos.x - x, p.pos.z - z) < r;
-    sim.coach("Walk up to the front door. A steady pace, not rushing. Eyes on the door: never look in the windows.");
+    sim.coach("Walk up to the front door: follow the dots to the gold arrow. A steady pace, not rushing. Eyes on the door: never look in the windows.");
+    const doorRing = sim.mark([0.2, -0.02, 0.95], 0.5, L.tech_drive.slice(0, -1));
     let rushed = 0, peeked = false, looking = 0;
     const atDoor = () => tech.pos.y > -0.2 && tech.pos.z > 0.15 && tech.pos.z < 1.5 && Math.abs(tech.pos.x - 0.1) < 0.7;
     const windowsWatch = (dt) => {
@@ -233,6 +233,7 @@ window.SCENARIOS = window.SCENARIOS || {};
       if (looking > 0.5 && !peeked) { peeked = true; sim.feedback(false, "Never look in their windows. That's a huge no-no."); }
     };
     await sim.until((dt) => { if (sim.control.running) rushed += dt; windowsWatch(dt); return atDoor(); });
+    doorRing.remove();
     sim.control.enabled = false;
     sim.score("pace", rushed < 0.8, rushed < 0.8 ? "A steady pace up to the door" : "Rushed up to the door (a steady pace: not rushing, not timid)");
     sim.feedback(rushed < 0.8 && !peeked, rushed >= 0.8 ? "You hurried up to the door. Walk up at a steady pace: not rushing, not timid." : peeked ? "Up to the door, but you looked in a window on the way." : "A steady approach, eyes on the door.");
@@ -256,14 +257,11 @@ window.SCENARIOS = window.SCENARIOS || {};
     sim.score("windows", !peeked, peeked ? "Looked in a window (never look in their windows)" : "Eyes on the door, never in the windows");
     // step back
     const spotBack = last(L.tech_back);
-    const ring = sim.mark(spotBack, 0.38);
-    sim.coach("Now step back, far enough to move left or right if a dog comes out. Stand in the ring.");
     sim.control.enabled = true;
-    let waited = 0;
-    await sim.until((dt) => { waited += dt; windowsWatch(dt); return (near(tech, spotBack[0], spotBack[2], 0.38) && sim.control.speed < 0.5) || waited > 10; });
-    ring.remove();
+    await sim.prompt(null, "Now step back, far enough to move left or right if a dog comes out: pull the stick back into the ring.", "Step back",
+      { at: spotBack, r: 0.38, path: [spotBack], go: () => tech.walk(L.tech_back, { backwards: true, speed: 0.45, round: 0 }) });
     sim.control.enabled = false;
-    const roomy = tech.pos.z > 1.0;
+    const roomy = tech.pos.z > 0.9;                        // in the ring (0.8 m back from the knock)
     sim.score("space", roomy, roomy ? "Stepped back to give them room" : "Stayed too close to the door (step back: room for them, and to move if a dog comes out)");
     sim.feedback(roomy, roomy ? "Room for them, and room to move if a dog comes out." : "Step back from the door: give them plenty of space, and room to move if a dog comes out.");
     await tech.turnToward(0.1, 0);
@@ -278,16 +276,20 @@ window.SCENARIOS = window.SCENARIOS || {};
     // your line with the card in it: the card, not a handshake
     const ln = sim.lines.S2_03;
     for (let n = 0; ; n++) {
-      const c = await sim.choose("Your line: say it out loud", `“${ln.text}”`, [
+      const c = await sim.choose("Your line", `“${ln.text}”`, [
         { key: "shake", label: "Reach out to shake his hand" },
-        { key: "card", label: "Hand him your card" },
+        { key: "card", label: "Hand him your card as you say it" },
       ]);
       if (c === "card") {
         sim.score("card", n === 0, n === 0 ? "Handed him your card, not a handshake" : "Went for a handshake first (hand them your card instead)");
         sim.feedback(true, "Your card, not a handshake. If they offer a hand, shake it.");
         sim.control.enabled = false;
         await tech.turnToward(john.pos.x, john.pos.z);
+        // he says it, and "Here's my card" is its second sentence (as in Watch it done)
+        const line = sim.say("S2_03", { move: null });
+        await tech.wait(1.1);
         await handCard(sim, Math.hypot(tech.pos.x - john.pos.x, tech.pos.z - john.pos.z) > 1.25);
+        await line;
         sim.control.enabled = true;
         break;
       }
@@ -405,7 +407,7 @@ window.SCENARIOS = window.SCENARIOS || {};
           await T(sim, "S3_05");
           // in, straight through the middle of the doorway, small steps, just far enough for the door to close behind him
           const stepIn = () => tech.walk(L.tech_in, { speed: 0.5, round: 0.25 });
-          if (sim.practice) await act(sim, "Step inside, just far enough for the door to close behind you.", "Step inside", last(L.tech_in), stepIn);
+          if (sim.practice) await act(sim, "Step inside, just far enough for the door to close behind you.", "Step inside", last(L.tech_in), stepIn, null, L.tech_in);
           else await stepIn();
           await tech.turnToward(john.pos.x, john.pos.z);
           await johnCloses(sim);
@@ -445,7 +447,7 @@ window.SCENARIOS = window.SCENARIOS || {};
           sim.shot("follow_living");
           const lead = john.walk(L.john_lead);
           await watch(sim, async () => { await tech.wait(1.4); await tech.walk(L.tech_follow); });
-          if (sim.practice) await act(sim, "Follow John to the kitchen sink.", "Follow him", last(L.tech_follow), () => goAlong(sim, tech, L.tech_follow));
+          if (sim.practice) await act(sim, "Follow John to the kitchen sink.", "Follow him", last(L.tech_follow), () => goAlong(sim, tech, L.tech_follow), null, L.tech_follow);
           await lead;
           sim.shot("sink");
           await H(sim, "S5_01");
@@ -500,7 +502,7 @@ window.SCENARIOS = window.SCENARIOS || {};
             await tech.once("take_picture", { early: 0.3 });
             tech.play(tech.base);
           };
-          if (sim.practice) await act(sim, "Do the check at the sink: get down and look under it, then take a picture.", "Do the check", [-5.55, 0, -6.05], () => tech.walk([[-5.55, 0, -6.05]]), check);
+          if (sim.practice) await act(sim, "Do the check at the sink: get down and look under it, then take a picture.", "Do the check", [-5.55, 0, -6.05], () => tech.walk([[-5.55, 0, -6.05]]), check, [[-5.55, 0, -6.05]]);
           else await check();
           await toSofa;
         },
@@ -517,7 +519,7 @@ window.SCENARIOS = window.SCENARIOS || {};
           const { john, tech } = sim.people;
           sim.shot("sofa");
           await watch(sim, async () => { await tech.walk(L.tech_to_sofa); await tech.turnToward(john.pos.x, john.pos.z); });
-          if (sim.practice) await act(sim, "Walk over to John. Standing up, on the go, phone in hand. Under 2 minutes.", "Go to him", last(L.tech_to_sofa), () => goAlong(sim, tech, L.tech_to_sofa), () => tech.turnToward(john.pos.x, john.pos.z));
+          if (sim.practice) await act(sim, "Walk over to John. Standing up, on the go, phone in hand. Under 2 minutes.", "Go to him", last(L.tech_to_sofa), () => goAlong(sim, tech, L.tech_to_sofa), () => tech.turnToward(john.pos.x, john.pos.z), L.tech_to_sofa);
           await T(sim, "S8_01");
           await john.standUp();
           await H(sim, "S8_02");
@@ -543,7 +545,7 @@ window.SCENARIOS = window.SCENARIOS || {};
           await H(sim, "S9_02");
           await T(sim, "S9_03");
           await watch(sim, () => tech.walk(L.tech_off));
-          if (sim.practice) await act(sim, "Go and check the water heater (S7 for that system).", "Go check it", last(L.tech_off), () => goAlong(sim, tech, L.tech_off));
+          if (sim.practice) await act(sim, "Go and check the water heater (S7 for that system).", "Go check it", last(L.tech_off), () => goAlong(sim, tech, L.tech_off), null, L.tech_off);
           sim.caption("He checks the water heater (S7 for that system), then comes back");
         },
       },
@@ -559,7 +561,7 @@ window.SCENARIOS = window.SCENARIOS || {};
           const { john, tech } = sim.people;
           sim.shot("sofa");
           await watch(sim, async () => { await tech.walk(L.tech_back_in); });
-          if (sim.practice) await act(sim, "Back to John for the last check-in.", "Go back to him", last(L.tech_back_in), () => goAlong(sim, tech, L.tech_back_in), () => tech.turnToward(john.pos.x, john.pos.z));
+          if (sim.practice) await act(sim, "Back to John for the last check-in.", "Go back to him", last(L.tech_back_in), () => goAlong(sim, tech, L.tech_back_in), () => tech.turnToward(john.pos.x, john.pos.z), L.tech_back_in);
           await T(sim, "S8L_01");
           await H(sim, "S8L_02");
         },
@@ -585,7 +587,7 @@ window.SCENARIOS = window.SCENARIOS || {};
             const top = new sim.T.Box3().setFromObject(window.walk.scene.getObjectByName("furn_table_kitchen") || tech.root).max.y;
             putDownBoard(sim, tech.pos.x + Math.sin(tech.heading) * 0.55, top + 0.004, tech.pos.z + Math.cos(tech.heading) * 0.55, tech.heading + 0.2);
           };
-          if (sim.practice) await act(sim, "Sit down across from him. Discovery sheet, pictures and the failed part on the table.", "Sit down", last(L.tech_to_table), () => goAlong(sim, tech, L.tech_to_table), () => sit([]));
+          if (sim.practice) await act(sim, "Sit down across from him. Discovery sheet, pictures and the failed part on the table.", "Sit down", last(L.tech_to_table), () => goAlong(sim, tech, L.tech_to_table), () => sit([]), L.tech_to_table);
           else await sit(L.tech_to_table);
           sim.shot("table_close");
           await T(sim, "S10_01");
