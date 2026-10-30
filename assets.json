@@ -1,7 +1,7 @@
 {
- "published": "2026-10-30T05:13:46",
- "house": "r100a4d",
- "note": "r100a4d: round 103 (the spray field on a 120 x 340 ft lot with three full 30 ft heads, the small lot's west line out over a 6.5 percent hillside, the well in the front yard), round 103's files only; the unpublished r100a5 pass and the filter bypass fix stay out",
+ "published": "2026-10-30T06:07:14",
+ "house": "r100a4e",
+ "note": "r100a4e: the whole house filter's bypass fix alone (Jake 2026-10-29): bypass is V1 shut, V3 open, V4 open (V3 opens first, then V1 shuts); the backflush is the bypass plus V4 shut and the bib open, caption 'V1 and V4 shut, V3 open, the bib opens'. water_filter.glb, walk.js (the bypass hunks only), info.json (two texts); the r100a5 pass and the RO card fix stay out",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "434e0f7d31",
+   "v": "7320cb8a50",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -268,8 +268,8 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "0a0957eae0",
-   "bytes": 213317
+   "v": "91128a3a0e",
+   "bytes": 213332
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
@@ -2276,8 +2276,8 @@
    "bytes": 1108804
   },
   "walk.js": {
-   "v": "eed4425659",
-   "bytes": 441495
+   "v": "ddf88a6fae",
+   "bytes": 441992
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -2288,8 +2288,8 @@
    "bytes": 85928
   },
   "water_filter.glb": {
-   "v": "ed7f88714f",
-   "bytes": 2059944
+   "v": "ff43e13d2d",
+   "bytes": 2061276
   },
   "water_softener.glb": {
    "v": "2b7372f616",

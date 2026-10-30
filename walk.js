@@ -1066,8 +1066,10 @@
   }
   // The whole house filter (Jake 2026-09-13: "when we activate it, it'll actually show what happens in the forward flush
   // and a back flush cycle"). Click the head: SERVICE, the water in over the bed, down through the carbon and up the centre
-  // tube clean. Again: BACKWASH, bypass over and the bib open, water down the tube and up through the bed, lifting it, the
-  // dirt out the hose. Again: back at rest. The arrows are drawn in the cut, so it reads in elevation.
+  // tube clean. Again: BACKWASH, V1 and V4 shut, V3 open and the bib open, water down the tube and up through the bed, lifting
+  // it, the dirt out the hose. Again: back at rest. The arrows are drawn in the cut, so it reads in elevation.
+  // 2026-10-29 (Jake: "the 3D code is wrong"): the bypass clip is the real bypass now, V1 shut, V3 open, V4 open (V3 opens first,
+  // then V1 shuts; played back, V1 opens first, then V3 shuts). The backflush is the bypass plus V4 shut (v4_turn) and the bib open.
   function filterCycle(inst) {
     const A = inst.userData.anim; if (!A) return null;
     const st = inst.userData.filter || (inst.userData.filter = { step: 0, seq: 0 }); st.step = (st.step + 1) % 3; const my = ++st.seq;
@@ -1083,18 +1085,19 @@
     const later = (sec, fn) => setTimeout(() => { if (st.seq === my) fn(); }, sec * 1000);
     if (st.step === 1) {
       const t = once('backwash', false, 2) + 0; loop('backwash_loop', false);
-      later(t, () => { const u = once('bib_open', false, 4); streams(false); later(u, () => { const v = once('bypass', false); later(v, () => { once('service', true); loop('service_loop', true); }); }); });
+      later(t, () => { const u = once('bib_open', false, 4); streams(false); later(u, () => { const w = once('v4_turn', false); later(w, () => { const v = once('bypass', false); later(v, () => { once('service', true); loop('service_loop', true); }); }); }); });
       return 'Filter in service: in at the head, dirty water down through the carbon, cleaner as it goes, up the centre tube and out clean';
     }
     if (st.step === 2) {
-      // service stops COMPLETELY first, then the bypass swings over, then the bib opens and the backwash comes in at the bottom
+      // service stops COMPLETELY first, then V3 opens and V1 shuts (the bypass clip), then V4 shuts, then the bib opens and the
+      // backwash comes in at the bottom
       const t = once('service', false, 1.5); later(t, () => { loop('service_loop', false);
-        const u = once('bypass', true); later(u + 0.3, () => { once('bib_open', true); streams(true); once('backwash', true); loop('backwash_loop', true); }); });
-      return 'Backwash: service stops, the bypass goes over and the bib opens; clean water goes down the centre tube, comes in at the bottom and rises through the bed, lifting it, and the dirt goes out the hose';
+        const u = once('bypass', true); later(u, () => { const w = once('v4_turn', true); later(w + 0.3, () => { once('bib_open', true); streams(true); once('backwash', true); loop('backwash_loop', true); }); }); });
+      return 'Backwash: service stops, V1 and V4 shut, V3 open, the bib opens; clean water goes down the centre tube, comes in at the bottom and rises through the bed, lifting it, and the dirt goes out the hose';
     }
     const t = once('backwash', false, 2); once('service', false, 1.5);
-    later(t, () => { loop('backwash_loop', false); loop('service_loop', false); const u = once('bib_open', false, 4); streams(false); later(u, () => once('bypass', false)); });
-    return 'Filter back to rest: the flow stops, the bib shuts and the bypass comes back';
+    later(t, () => { loop('backwash_loop', false); loop('service_loop', false); const u = once('bib_open', false, 4); streams(false); later(u, () => { const w = once('v4_turn', false); later(w, () => once('bypass', false)); }); });
+    return 'Filter back to rest: the flow stops, the bib shuts, V4 opens, then V1 opens and V3 shuts';
   }
   // The lift station's HOA (city_lift). HAND runs the pump whatever the floats say: the contactor pulls in and the basin is
   // drawn down to the off float, which lies on the surface, and the on float hangs dry. Back in AUTO the contactor drops

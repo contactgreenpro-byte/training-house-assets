@@ -2436,12 +2436,12 @@
     "v3_turn": "V3 blue (bypass)",
     "v4_turn": "V4 green",
     "bib_open": "Open the bib",
-    "bypass": "Put it in bypass (shut V1 and V4, open V3)",
+    "bypass": "Put it in bypass (open V3, then shut V1; V4 stays open)",
     "lid_off": "Lift the lid"
    },
    "hotspots": {
     "v3_handle": [
-     "Left in bypass: V3 open with V1 and V4 shut. The house is drinking city water straight through. Put it back: open V1 and V4, shut V3."
+     "Left in bypass: V1 shut, V3 open, V4 open. The house is drinking city water straight through. Put it back: open V1 first, then shut V3."
     ],
     "tank": [
      "KDF 55 spent. Chlorine and metals ride through. Schedule the media change."
