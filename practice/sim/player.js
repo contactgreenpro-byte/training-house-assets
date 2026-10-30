@@ -101,12 +101,13 @@
           padding: 10px 14px; border-radius: 10px; font: 600 14px/1.4 var(--font, system-ui, sans-serif); color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
   #ppfb.good { background: #1f7a4d; } #ppfb.bad { background: #a33a2c; }
   #pp.gone { display: none; }
-  #ppsay { position: fixed; left: 50%; top: 92px; transform: translateX(-50%); z-index: 44; width: min(430px, calc(100vw - 24px)); box-sizing: border-box;
+  #ppsay, #ppdo { position: fixed; left: 50%; top: 92px; transform: translateX(-50%); z-index: 44; width: min(430px, calc(100vw - 24px)); box-sizing: border-box;
            background: rgba(60,30,95,.95); color: #fff; border: 1px solid #7b46b5; border-radius: 14px; padding: 10px 12px 12px;
            font: 15px/1.4 var(--font, system-ui, sans-serif); box-shadow: 0 10px 30px rgba(0,0,0,.5); }
-  #ppsay .who { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; opacity: .85; }
-  #ppsay .line { font-size: 16px; margin: 3px 0 9px; }
-  #ppsay button { display: block; width: 100%; padding: 10px; border-radius: 9px; border: 0; background: #f2b134; color: #1b1b1b; font: inherit; font-weight: 700; cursor: pointer; }
+  #ppdo { background: rgba(18,70,52,.95); border-color: #2f9a6c; }
+  #ppsay .who, #ppdo .who { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; opacity: .85; }
+  #ppsay .line, #ppdo .line { font-size: 16px; margin: 3px 0 9px; }
+  #ppsay button, #ppdo button { display: block; width: 100%; padding: 10px; border-radius: 9px; border: 0; background: #f2b134; color: #1b1b1b; font: inherit; font-weight: 700; cursor: pointer; }
   #ppbar .card:empty { display: none; }
   #ppfb ul { margin: 4px 0 0; padding-left: 18px; font-weight: 500; }
   #stick.hurry #knob { background: #e0533d; box-shadow: 0 0 0 4px rgba(224,83,61,.3), 0 2px 6px rgba(0,0,0,.4); }
@@ -271,11 +272,17 @@
     clearTimeout(capTimer);
     capTimer = setTimeout(() => ui.cap.replaceChildren(), (dur + 1.5) * 1000);
   }
+  // what to do: at the top too, under your line when one waits (Jake 2026-10-30, round 3i: "it didn't actually start the deal.
+  // It just had two guys staged at the front door": Play waited at the door for "Shoe covers on", and its button was in the bar
+  // at the bottom by the stick, while his eyes were on the top, where his lines come up)
   function showPrompt(text, btn) {
-    ui.card.className = "card you";
-    ui.card.replaceChildren(el("div", { class: "who" }, "You"), el("div", {}, text),
+    closeDo();
+    ui.doBox = el("div", { id: "ppdo" }, el("div", { class: "who" }, "Do this"), el("div", { class: "line" }, text),
       el("button", { class: "go", onclick: said }, (btn || "Done") + (TOUCH ? "" : "  (Space)")));
+    document.body.append(ui.doBox);
+    placeSay();
   }
+  function closeDo() { if (ui.doBox) { ui.doBox.remove(); ui.doBox = null; } }
   // your line, at the top where it is seen (Jake 2026-10-29: "if I have to say something, I think the top should give me a
   // button, or maybe right there it should say ... what to say, say this"); it can be up while an action waits in the bar
   function showSay(text) {
@@ -286,10 +293,13 @@
     placeSay();
   }
   function closeSay() { if (ui.say) { ui.say.remove(); ui.say = null; } }
+  // under the score banner when it shows; "Do this" under "Say this" when both wait
   function placeSay() {
-    if (!ui.say) return;
+    if (!ui.say && !ui.doBox) return;
     const b = document.getElementById("ppfb"), r = b && b.style.display !== "none" ? b.getBoundingClientRect() : null;
-    ui.say.style.top = (r && r.height ? Math.max(92, r.bottom + 8) : 92) + "px";
+    let top = r && r.height ? Math.max(92, r.bottom + 8) : 92;
+    if (ui.say) { ui.say.style.top = top + "px"; top += ui.say.getBoundingClientRect().height + 8; }
+    if (ui.doBox) ui.doBox.style.top = top + "px";
   }
   const TOUCH = "ontouchstart" in window;
   sim.onLine = (ln) => showLine(ln);
@@ -335,7 +345,7 @@
     const p = pending; pending = null;
     // done with: the card clears (Jake 2026-10-29: "When I clicked back away from the door, that back away from the door screen
     // didn't go away"; it stayed up until the next line)
-    ui.card.className = "card"; ui.card.replaceChildren();
+    ui.card.className = "card"; ui.card.replaceChildren(); closeDo();
     render();
     if (p.mark) {
       // tapped the button: he goes there (unless he is already in the ring) and does it; walked in: he finishes his step into
@@ -766,6 +776,7 @@
   // ---------------------------------------------------------------------------------------------------- steps
   async function runStep(i, snap) {
     if (pending) { if (pending.ring) pending.ring.remove(); pending.rej(new sim.Cancelled()); pending = null; }
+    closeDo();
     if (linePending) { closeSay(); linePending.rej(new sim.Cancelled()); linePending = null; }
     if (asking) { const a = asking; closeAsk(); a.rej(new sim.Cancelled()); }
     for (const r of [...rings]) r.remove();
