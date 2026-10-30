@@ -1,12 +1,12 @@
 {
- "text": "Thank you. We've got a good team. Everybody here wants to serve our customers at the highest level. Let me slip these shoe covers on first to keep your floors clean.",
+ "text": "Thank you. We've got a good team. Everybody here wants to serve our customers at the highest level.",
  "voice_id": "iP95p4xoKVk53GoZ742B",
  "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
  "model": "eleven_multilingual_v2",
  "speed": 1.0,
  "audio": "speech.mp3",
- "spoken_seconds": 8.591,
- "word_count": 31,
+ "spoken_seconds": 5.248,
+ "word_count": 18,
  "words": [
   {
    "word": "Thank",
@@ -15,153 +15,88 @@
   },
   {
    "word": "you.",
-   "start": 0.348,
-   "end": 0.557
+   "start": 0.337,
+   "end": 0.546
   },
   {
    "word": "We've",
-   "start": 0.592,
-   "end": 0.801
+   "start": 0.871,
+   "end": 1.057
   },
   {
    "word": "got",
-   "start": 0.824,
-   "end": 0.94
+   "start": 1.08,
+   "end": 1.173
   },
   {
    "word": "a",
-   "start": 0.975,
-   "end": 0.998
+   "start": 1.207,
+   "end": 1.231
   },
   {
    "word": "good",
-   "start": 1.045,
-   "end": 1.184
+   "start": 1.265,
+   "end": 1.405
   },
   {
    "word": "team.",
-   "start": 1.207,
-   "end": 1.637
+   "start": 1.428,
+   "end": 1.869
   },
   {
    "word": "Everybody",
-   "start": 2.078,
-   "end": 2.473
+   "start": 2.38,
+   "end": 2.74
   },
   {
    "word": "here",
-   "start": 2.519,
-   "end": 2.659
+   "start": 2.786,
+   "end": 2.926
   },
   {
    "word": "wants",
-   "start": 2.694,
-   "end": 2.856
+   "start": 2.961,
+   "end": 3.123
   },
   {
    "word": "to",
-   "start": 2.902,
-   "end": 2.961
+   "start": 3.146,
+   "end": 3.204
   },
   {
    "word": "serve",
-   "start": 3.03,
-   "end": 3.251
+   "start": 3.262,
+   "end": 3.46
   },
   {
    "word": "our",
-   "start": 3.274,
-   "end": 3.355
+   "start": 3.495,
+   "end": 3.564
   },
   {
    "word": "customers",
-   "start": 3.413,
-   "end": 3.866
+   "start": 3.611,
+   "end": 4.04
   },
   {
    "word": "at",
-   "start": 3.901,
-   "end": 3.959
+   "start": 4.075,
+   "end": 4.145
   },
   {
    "word": "the",
-   "start": 3.994,
-   "end": 4.063
+   "start": 4.18,
+   "end": 4.249
   },
   {
    "word": "highest",
-   "start": 4.122,
-   "end": 4.412
+   "start": 4.307,
+   "end": 4.586
   },
   {
    "word": "level.",
-   "start": 4.458,
-   "end": 4.818
-  },
-  {
-   "word": "Let",
-   "start": 5.515,
-   "end": 5.654
-  },
-  {
-   "word": "me",
-   "start": 5.689,
-   "end": 5.759
-  },
-  {
-   "word": "slip",
-   "start": 5.793,
-   "end": 5.991
-  },
-  {
-   "word": "these",
-   "start": 6.037,
-   "end": 6.2
-  },
-  {
-   "word": "shoe",
-   "start": 6.235,
-   "end": 6.432
-  },
-  {
-   "word": "covers",
-   "start": 6.467,
-   "end": 6.745
-  },
-  {
-   "word": "on",
-   "start": 6.803,
-   "end": 6.896
-  },
-  {
-   "word": "first",
-   "start": 6.978,
-   "end": 7.21
-  },
-  {
-   "word": "to",
-   "start": 7.245,
-   "end": 7.291
-  },
-  {
-   "word": "keep",
-   "start": 7.338,
-   "end": 7.477
-  },
-  {
-   "word": "your",
-   "start": 7.512,
-   "end": 7.616
-  },
-  {
-   "word": "floors",
-   "start": 7.651,
-   "end": 7.93
-  },
-  {
-   "word": "clean.",
-   "start": 7.988,
-   "end": 8.591
+   "start": 4.621,
+   "end": 5.248
   }
  ]
 }

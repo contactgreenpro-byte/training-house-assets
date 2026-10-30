@@ -55,6 +55,8 @@
   // stretches of the long talking takes where a hand goes up to the head (measured: hand above the neck); a line's
   // gesture starts clear of them, so a technician never scratches his head mid-sentence unless asked to
   const FIDGETS = { talk_neutral_03: [[37.3, 38.6], [59.4, 60.3]], talk_self_assured_01: [[13.7, 13.8]] };
+  // the bones a talking move keeps once it is laid over a stand (overlay): from the waist up
+  const UPPER = /^Bip01_(Spine\d?|Neck|Head|[LR]_(Clavicle|UpperArm|Forearm|Hand|Finger\d+))$/;
 
   class Person {
     constructor(name, gltf, height) {
@@ -65,6 +67,7 @@
       this.root.traverse((o) => {
         if (o.isSkinnedMesh) o.frustumCulled = false;     // r128 culls a skinned mesh by its bind-space sphere
         if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; }
+        if (o.isBone && /Finger/.test(o.name)) o.userData.rest = o.quaternion.clone();     // the hand open and flat (grip abs)
       });
       this.mixer = new T.AnimationMixer(this.root);
       this.clips = {};
@@ -79,7 +82,10 @@
       this.gtok = 0;
       this.walking = false;
       this.kept = new Map();                              // bones turned on top of the clip this frame (keep)
+      this.keptPos = new Map();                           // and moved (keepPos)
       this.posers = [];                                   // run after the clip each frame: reaching arms (reach)
+      this.solids = [];                                   // what his fingers may not go into (keepFingersOut)
+      this.selfSolid = false;                             // his trunk and head solid to his own arms (keepArmsOut): the sink check for now
     }
     // body clips only: the face bones are the face's (face.js)
     addClips(anims) { for (const c of anims) this.clips[clipKey(c.name)] = window.SimFace.bodyOnly(c); }
@@ -89,6 +95,7 @@
       if (!this.clips[name]) throw new Error(`${this.name} has no clip ${name}`);
       const a = this.act(name);
       if (this.action === a && loop) { a.timeScale = speed; return a; }
+      if (this.over && name !== this.base) this.overlay(null);    // a talking move on top ends when the body does something else
       a.reset();
       a.setLoop(loop ? T.LoopRepeat : T.LoopOnce, Infinity);
       a.clampWhenFinished = !loop;
@@ -107,17 +114,192 @@
     // tracking"). With that fixed this is belt and braces. keep(bone) is called before turning it; the first call in a frame
     // records the clip's value.
     keep(b) { if (!this.kept.has(b)) this.kept.set(b, b.quaternion.clone()); }
+    // the same for a bone moved (the hips set down to kneel): its place goes back too
+    keepPos(b) { if (!this.keptPos.has(b)) this.keptPos.set(b, b.position.clone()); }
     update(dt) {
       this.tasks = this.tasks.filter((t) => { if (t.fn(dt)) { t.res(); return false; } return true; });
       this.ticks = this.ticks.filter((f) => !f(dt));
       this.sync();
       for (const [b, q] of this.kept) b.quaternion.copy(q);
       this.kept.clear();
+      for (const [b, q] of this.keptPos) b.position.copy(q);
+      this.keptPos.clear();
       this.mixer.update(dt);
-      this.posers = this.posers.filter((f) => !f(dt));
+      // the body's own poses (kneeling, a foot up: f.body) now; the arms, hands and fingers after the face has turned the head
+      // (finish): the shoulders hang from the neck in these skeletons, so the head's steering, done after the arms, carried both
+      // hands 3 cm off what they held (round 3k: his fingers in front of the guide's page, not behind it)
+      this.posers = this.posers.filter((f) => !f.body || !f(dt));
+    }
+    finish(dt) { this.posers = this.posers.filter((f) => f.body || !f(dt)); if (this.selfSolid || this._armFix) this.keepArmsOut(); if (this.solids.length) this.keepFingersOut(); }
+    // His own body solid to his arms (round 3n, Jake 2026-10-30: "The top arm is now like resting through his body. Treat these
+    // things as solid objects"). The trunk and the head in slices along each bone (pelvis, the three spine bones, neck, head), each
+    // slice's cross-section measured once from the skin's own vertices in that bone's bind space (those with no real weight on an
+    // arm or a leg).
+    // armInBody(side): how far, in metres, that arm (the outer half of the upper arm, the forearm, the hand, each as thick as it
+    // is) goes into them, or into the floor when that is one of his solids. keepArmsOut (selfSolid on): the elbow
+    // swung out about the line from the shoulder to the wrist first (the hand stays where it is, on what it holds), and only if that
+    // is not enough the upper arm turned at the shoulder or the forearm at the elbow; a small step at a time from last frame's
+    // turn, until the arm is out or as far out as it gets, and let go again a step a frame once it is not needed. armInBody also
+    // finds an arm in a body in other steps (talking moves, the guide held, the clipboard carried); turned on for everyone it moved
+    // the carried clipboard 20 cm, so those are for their own poses, one by one.
+    bodyShapes() {
+      if (this._shapes) return this._shapes;
+      const want = ["Pelvis", "Spine", "Spine1", "Spine2", "Neck", "Head"].map((n) => "Bip01_" + n), acc = new Map();
+      this.root.traverse((m) => {
+        if (!m.isSkinnedMesh || /^prop_/.test(m.name)) return;
+        const pos = m.geometry.attributes.position, si = m.geometry.attributes.skinIndex, sw = m.geometry.attributes.skinWeight, bones = m.skeleton.bones;
+        for (let i = 0; i < pos.count; i++) {
+          const ix = [si.getX(i), si.getY(i), si.getZ(i), si.getW(i)], ws = [sw.getX(i), sw.getY(i), sw.getZ(i), sw.getW(i)];
+          let limb = 0;
+          for (let k = 0; k < 4; k++) if (LIMB.test(bones[ix[k]].name)) limb += ws[k];
+          if (limb > 0.3) continue;
+          for (let k = 0; k < 4; k++) {
+            const b = bones[ix[k]];
+            if (ws[k] < 0.2 || !want.includes(b.name)) continue;
+            if (!acc.has(b)) acc.set(b, []);
+            acc.get(b).push(new T.Vector3().fromBufferAttribute(pos, i).applyMatrix4(m.bindMatrix).applyMatrix4(m.skeleton.boneInverses[ix[k]]));
+          }
+        }
+      });
+      // in slices along the bone (its x, every 3 units, each from the skin within 4 either side): his waist is not as wide as his
+      // hips (one box a bone made an elbow resting at his side look in him)
+      return (this._shapes = [...acc].map(([b, vs]) => {
+        let x0 = Infinity, x1 = -Infinity;
+        for (const v of vs) { x0 = Math.min(x0, v.x); x1 = Math.max(x1, v.x); }
+        const sl = [];
+        for (let x = x0; x <= x1 + 1e-6; x += 3) {
+          let y0 = Infinity, y1 = -Infinity, z0 = Infinity, z1 = -Infinity;
+          for (const v of vs) if (Math.abs(v.x - x) <= 4) { y0 = Math.min(y0, v.y); y1 = Math.max(y1, v.y); z0 = Math.min(z0, v.z); z1 = Math.max(z1, v.z); }
+          sl.push(y0 < y1 && z0 < z1 ? { cy: (y0 + y1) / 2, cz: (z0 + z1) / 2, hy: (y1 - y0) / 2, hz: (z1 - z0) / 2 } : null);
+        }
+        return { b, x0, x1, sl };
+      }));
+    }
+    armInBody(S, fresh = true) {
+      if (fresh) this.root.updateMatrixWorld(true);
+      const shapes = this.bodyShapes(), V = () => new T.Vector3(), at = (n) => this.root.getObjectByName(`Bip01_${S}_${n}`).getWorldPosition(V());
+      const sh = at("UpperArm"), el = at("Forearm"), wr = at("Hand"), hb = this.root.getObjectByName(`Bip01_${S}_Hand`);
+      const hc = wr.clone().add(V().set(0.07, 0, 0).applyQuaternion(hb.getWorldQuaternion(new T.Quaternion())));
+      const pts = [[sh.clone().lerp(el, 0.5), 0.045], [sh.clone().lerp(el, 0.75), 0.045], [el, 0.042], [el.clone().lerp(wr, 0.33), 0.04], [el.clone().lerp(wr, 0.67), 0.035], [wr, 0.03], [hc, 0.03]];
+      let d = 0;
+      const inv = new T.Matrix4(), l = V();
+      // the floor too, when it is one of his solids (lying down)
+      for (const f of this.solids) {
+        if (!f.floor) continue;
+        const bx = f();
+        for (const [p, r] of pts) {
+          l.copy(p).applyMatrix4(bx.inv);
+          const ox = bx.half.x + r - Math.abs(l.x), oy = bx.half.y + r - Math.abs(l.y), oz = bx.half.z + r - Math.abs(l.z);
+          if (ox > 0 && oy > 0 && oz > 0) d = Math.max(d, Math.min(ox, oy, oz));
+        }
+      }
+      for (const s of shapes) {
+        inv.copy(s.b.matrixWorld).invert();
+        const unit = 1 / s.b.getWorldScale(V()).x;          // metres to the bone's own units
+        for (const [p, r] of pts) {
+          l.copy(p).applyMatrix4(inv);
+          const ru = r * unit;
+          if (l.x < s.x0 - ru || l.x > s.x1 + ru) continue;
+          const c = s.sl[Math.max(0, Math.min(s.sl.length - 1, Math.round((l.x - s.x0) / 3)))];
+          if (!c) continue;
+          // the slice's cross-section, rounded (between an ellipse and its box), as thick again as the arm there
+          const hy = c.hy + ru, hz = c.hz + ru, q = Math.pow(Math.abs(l.y - c.cy) / hy, 2.5) + Math.pow(Math.abs(l.z - c.cz) / hz, 2.5);
+          // (past either end, only as deep as it is past the end)
+          const end = Math.min(l.x - (s.x0 - ru), s.x1 + ru - l.x);
+          if (q < 1) d = Math.max(d, Math.min((1 - Math.pow(q, 0.4)) * Math.min(hy, hz), end) / unit);
+        }
+      }
+      return d;
+    }
+    keepArmsOut() {
+      this.root.updateMatrixWorld(true);
+      const fix = this._armFix || (this._armFix = {});
+      let any = false;
+      for (const S of ["L", "R"]) {
+        const [up, fore, hand] = ["UpperArm", "Forearm", "Hand"].map((n) => this.root.getObjectByName(`Bip01_${S}_${n}`));
+        let cur = fix[S] || [0, 0, 0, 0];
+        if (!this.selfSolid && !cur.some((x) => x)) continue;
+        this.keep(up); this.keep(fore); this.keep(hand);
+        const q0u = up.quaternion.clone(), q0f = fore.quaternion.clone(), hw0 = hand.getWorldQuaternion(new T.Quaternion()), pinned = this.posers.some((f) => f.pin === S);
+        const sh = up.getWorldPosition(new T.Vector3()), wr0 = hand.getWorldPosition(new T.Vector3()), axis = wr0.clone().sub(sh).normalize(), wr = new T.Vector3();
+        // [swivel: the whole arm about the line from the shoulder to the wrist (the elbow swings, the hand stays put), the upper arm
+        // about its own y and z, the forearm about the elbow]; the hand kept at the angle the posers gave it
+        const set = ([sw, ay, az, fz]) => {
+          up.quaternion.copy(q0u); fore.quaternion.copy(q0f);
+          if (sw) turnBone(up, rq.setFromAxisAngle(axis, sw));
+          if (ay || az) up.quaternion.multiply(fq.setFromAxisAngle(YAX, ay)).multiply(tq2.setFromAxisAngle(ZAX, az));
+          if (fz) fore.quaternion.multiply(fq.setFromAxisAngle(ZAX, fz));
+          up.updateMatrixWorld(true);
+          hand.quaternion.copy(hand.parent.getWorldQuaternion(pq2).invert().multiply(hw0)); hand.updateMatrixWorld(true);
+          const d = this.armInBody(S, false);
+          // (moving the hand off where the posers put it costs: what it holds stays in it)
+          return { d, cost: d + 0.25 * hand.getWorldPosition(wr).distanceTo(wr0) };
+        };
+        let r = set(cur);
+        // let go a step at a time once it is out (all of it once selfSolid is off)
+        if (cur.some((x) => x)) {
+          const back = cur.map((x) => x - Math.sign(x) * Math.min(Math.abs(x), STEP)), rb = set(back);
+          if (!this.selfSolid || rb.d <= OK_IN) { cur = back; r = rb; } else r = set(cur);
+        }
+        // out of it a step at a time from where it was last frame (searched afresh each frame, the way out flipped from one side to
+        // the other as an arm swung through him, and his hand jumped 63 cm in a frame)
+        for (let k = 0; this.selfSolid && k < 8 && r.d > OK_IN; k++) {
+          let best = r, bc = cur;
+          // (a hand on something that stays put, a reach marked pin (the guide): only that elbow swings)
+          for (let a = 0; a < (pinned ? 1 : 4); a++) for (const sg of [1, -1]) {
+            const c = cur.slice(); c[a] += sg * STEP;
+            if (Math.abs(c[a]) > MAX_TURN) continue;
+            const rc = set(c);
+            if (rc.cost < best.cost - 1e-4) { best = rc; bc = c; }
+          }
+          if (bc === cur) break;
+          cur = bc; r = best;
+        }
+        set(cur);
+        fix[S] = cur;
+        (this._armShift || (this._armShift = {}))[S] = hand.getWorldPosition(wr).distanceTo(wr0);     // (for the tests)
+        if (cur.some((x) => x)) any = true;
+      }
+      if (!any && !this.selfSolid) this._armFix = null;
+    }
+    // Fingers do not go into what he holds (round 3l, Jake: "Why can't we tell the fingers that like they can't go through things?
+    // These objects are impenetrable"). solids: functions giving a box, {inv: world to its own frame, half: its half sizes (a
+    // finger's thickness added)}, or null. After every pose of the hands, each finger joint, from the knuckle out, is turned about
+    // its bend axis just as far as it takes for what comes after it (the next joints, the tip, points between them) to be out of
+    // the box, or as far out as it gets.
+    keepFingersOut() {
+      const boxes = this.solids.map((f) => f()).filter(Boolean);
+      if (!boxes.length) return;
+      this.root.updateMatrixWorld(true);
+      const V = () => new T.Vector3();
+      for (const S of ["L", "R"]) for (let n = 0; n <= 4; n++) {
+        const chain = ["", "1", "2"].map((j) => this.root.getObjectByName(`Bip01_${S}_Finger${n}${j}`));
+        if (chain.some((x) => !x)) continue;
+        for (let j = 0; j < 3; j++) {
+          const after = () => {
+            const p = chain.map((b) => b.getWorldPosition(V())), tip = p[2].clone().addScaledVector(p[2].clone().sub(p[1]), 0.85), all = [...p, tip], out = [];
+            for (let i = j; i < 3; i++) for (const f of [0.34, 0.67, 1]) out.push(all[i].clone().lerp(all[i + 1], f));
+            return out;
+          };
+          for (const bx of boxes) {
+            const depth = () => { let d = 0; for (const q of after()) { const l = q.applyMatrix4(bx.inv); const ox = bx.half.x - Math.abs(l.x), oy = bx.half.y - Math.abs(l.y), oz = bx.half.z - Math.abs(l.z); if (ox > 0 && oy > 0 && oz > 0) d = Math.max(d, Math.min(ox, oy, oz)); } return d; };
+            let best = depth();
+            if (best <= 0) continue;
+            const b = chain[j], q0 = b.quaternion.clone();
+            this.keep(b);
+            let ang = 0;
+            for (const a of [0.08, -0.08, 0.16, -0.16, 0.25, -0.25, 0.35, -0.35, 0.5, -0.5, 0.7, -0.7, 0.95, -0.95]) {
+              b.quaternion.copy(q0).multiply(fq.setFromAxisAngle(ZAX, a)); b.updateMatrixWorld(true);
+              const d = depth();
+              if (d < best - 1e-4) { best = d; ang = a; if (d <= 0) break; }
+            }
+            b.quaternion.copy(q0).multiply(fq.setFromAxisAngle(ZAX, ang)); b.updateMatrixWorld(true);
+          }
+        }
+      }
     }
     run(fn) { return new Promise((res, rej) => this.tasks.push({ fn, res, rej })); }
-    cancel() { const t = this.tasks; this.tasks = []; this.ticks = []; this.posers = []; this._fing = {}; this.gtok++; this.walking = false; t.forEach((x) => x.rej(new Cancelled())); }
+    cancel() { const t = this.tasks; this.tasks = []; this.ticks = []; this.posers = []; this._fing = {}; this.gtok++; this.walking = false; this.selfSolid = false; this._armFix = null; t.forEach((x) => x.rej(new Cancelled())); }
 
     // ---- arms ----------------------------------------------------------------------------------------------
     // Curl a hand's fingers on top of the clip: 1 is a fist (knocking: Jake 2026-10-29, "it needs to be like with a fist"), about
@@ -147,9 +329,10 @@
     // Reach with an arm towards a point (target() gives it in the world, every frame): a two-bone solve on the upper arm and
     // forearm after the clip, the elbow down and out, blended in over dur. For what no clip does: knocking on this door, handing
     // over a card, taking it, pulling a door open by its handle. Returns a handle: release(sec) blends back to the clip.
-    reach(side, target, { dur = 0.45, twist = 0 } = {}) {
+    // leg: a leg instead (thigh, calf, foot: the ankle to the point); pole(): the way the elbow or knee goes.
+    reach(side, target, { dur = 0.45, twist = 0, leg = false, pole = null } = {}) {
       const S = side === "L" ? "L" : "R";
-      const up = this.root.getObjectByName(`Bip01_${S}_UpperArm`), fore = this.root.getObjectByName(`Bip01_${S}_Forearm`), hand = this.root.getObjectByName(`Bip01_${S}_Hand`);
+      const [up, fore, hand] = (leg ? ["Thigh", "Calf", "Foot"] : ["UpperArm", "Forearm", "Hand"]).map((n) => this.root.getObjectByName(`Bip01_${S}_${n}`));
       const h = { target, w: 0, goal: 1, rate: 1 / dur, out: null, hand, twist };
       h.release = (sec = 0.45) => { h.goal = 0; h.rate = 1 / sec; return new Promise((res) => (h.out = res)); };
       h.set = (fn) => { h.target = fn; };
@@ -159,26 +342,237 @@
         if (h.goal === 0 && h.w <= 0) { if (h.out) h.out(); return true; }
         const k = h.w * h.w * (3 - 2 * h.w);
         this.root.updateMatrixWorld(true);
-        const s = v(up), e = v(fore), w = v(hand);
-        const a = s.distanceTo(e), b = e.distanceTo(w);
-        const d = h.target().clone().sub(s);
-        const dl = Math.max(Math.abs(a - b) + 0.01, Math.min(d.length(), (a + b) * 0.995));
-        const dir = d.normalize();
         const fwd = new T.Vector3(Math.sin(this.heading), 0, Math.cos(this.heading));
         const out = new T.Vector3(-Math.cos(this.heading), 0, Math.sin(this.heading)).multiplyScalar(S === "R" ? 1 : -1);
-        const pole = new T.Vector3(0, -1, 0).addScaledVector(out, 0.6).addScaledVector(fwd, -0.25);
-        const perp = pole.clone().addScaledVector(dir, -pole.dot(dir)).normalize();
-        const cosA = Math.max(-1, Math.min(1, (a * a + dl * dl - b * b) / (2 * a * dl)));
-        const elbow = s.clone().addScaledVector(dir, a * cosA).addScaledVector(perp, a * Math.sqrt(1 - cosA * cosA));
+        // an elbow down and out, a little back; a knee forward
+        const pl = pole ? pole() : leg ? fwd.clone().addScaledVector(out, 0.15) : new T.Vector3(0, -1, 0).addScaledVector(out, 0.6).addScaledVector(fwd, -0.25);
         this.keep(up); this.keep(fore);
-        turnBone(up, new T.Quaternion().slerp(new T.Quaternion().setFromUnitVectors(e.clone().sub(s).normalize(), elbow.sub(s).normalize()), k));
-        const e2 = v(fore), w2 = v(hand), tgt = s.clone().addScaledVector(dir, dl);
-        turnBone(fore, new T.Quaternion().slerp(new T.Quaternion().setFromUnitVectors(w2.sub(e2).normalize(), tgt.sub(e2).normalize()), k));
+        twoBone(up, fore, hand, h.target(), pl, k);
         // twist: the hand turned about the forearm (palm up to carry something flat on it), radians
         if (h.twist) { this.keep(hand); const ax = v(hand).sub(v(fore)).normalize(); turnBone(hand, new T.Quaternion().setFromAxisAngle(ax, h.twist * k)); }
         return false;
       });
       return h;
+    }
+
+    // A hand held at a set angle in the world, after the clip and the arm's reach (round 3j, the grips Jake asked for: the card
+    // "between the index and the middle finger with palm exposed upwards", the guide "between the palm and with the thumb over on
+    // top and the fingers underneath"). fingers(): the way the fingers point; thumb(): the way the thumb side faces. The hand bones'
+    // own axes (Rocketbox, measured from where the finger joints are, round 3j): x runs out along the fingers, +y is the palm (the
+    // fingers curl that way); the right hand's thumb is on its +z side, the left's on -z. (Round 3h's palmUp took -y for the palm,
+    // and the guide went over lying on the back of his hand: Jake, "It's like on top of his hand".) release() lets it go.
+    orient(side, fingers, thumb, { dur = 0.4 } = {}) {
+      const S = side === "L" ? "L" : "R", hb = this.root.getObjectByName(`Bip01_${S}_Hand`), h = { w: 0, goal: 1, rate: 1 / dur, fingers, thumb, out: null };
+      h.release = (sec = 0.4) => { h.goal = 0; h.rate = 1 / sec; return new Promise((res) => (h.out = res)); };
+      this.posers.push(h.fn = (dt) => {
+        h.w = Math.max(0, Math.min(1, h.w + Math.sign(h.goal - h.w) * h.rate * dt));
+        if (h.goal === 0 && h.w <= 0) { if (h.out) h.out(); return true; }
+        const x = h.fingers().normalize(), th = h.thumb();
+        const z = th.addScaledVector(x, -th.dot(x)).normalize().multiplyScalar(S === "R" ? 1 : -1), y = z.clone().cross(x);
+        const want = new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x, y, z));
+        this.root.updateMatrixWorld(true);
+        this.keep(hb);
+        const cur = hb.getWorldQuaternion(new T.Quaternion()).slerp(want, h.w * h.w * (3 - 2 * h.w));
+        hb.quaternion.copy(hb.parent.getWorldQuaternion(new T.Quaternion()).invert().multiply(cur));
+        hb.updateMatrixWorld(true);
+        return false;
+      });
+      return h;
+    }
+    // Each finger its own curl (0 straight, 1 a fist), thumb first: [thumb, index, middle, ring, little]. The card between the
+    // index and middle fingers: those two straight, the other two folded in. release() opens the hand again.
+    // abs: the curls from the hand's rest, open and flat (its bind pose), not on top of the clip's own relaxed curl (round 3l: a
+    // flat open hand to show the guide on; the clip's curl took the fingers into it).
+    grip(side, curls, dur = 0.3, abs = false) {
+      const S = side === "L" ? "L" : "R";
+      this._grip = this._grip || {};
+      if (this._grip[S]) this._grip[S].done = true;
+      const bones = [];
+      for (let n = 0; n <= 4; n++) ["", "1", "2"].forEach((j, k) => { const b = this.root.getObjectByName(`Bip01_${S}_Finger${n}${j}`); if (b) bones.push([b, n, k]); });
+      const g = this._grip[S] = { cur: [0, 0, 0, 0, 0], want: curls.slice(), rate: 1 / Math.max(0.05, dur), done: false, open: false, abs, aw: 0 };
+      const tq2 = new T.Quaternion();
+      this.posers.push((dt) => {
+        if (g.done) return true;
+        let any = false;
+        for (let n = 0; n < 5; n++) { const d = g.want[n] - g.cur[n]; g.cur[n] += Math.sign(d) * Math.min(Math.abs(d), g.rate * dt); if (g.cur[n] > 1e-3) any = true; }
+        g.aw = Math.max(0, Math.min(1, g.aw + (g.abs && !g.open ? 1 : -1) * g.rate * dt));
+        if (g.open && !any && g.aw <= 0) { if (this._grip[S] === g) delete this._grip[S]; return true; }
+        for (const [b, n, k] of bones) {
+          this.keep(b);
+          const c = fq.setFromAxisAngle(ZAX, (n === 0 ? [0.55, 0.45, 0.35] : [1.25, 1.45, 0.95])[k] * g.cur[n]);
+          if (g.aw > 0 && b.userData.rest) { tq2.copy(b.quaternion).multiply(c); b.quaternion.copy(b.userData.rest).multiply(c).slerp(tq2, 1 - g.aw); }
+          else b.quaternion.multiply(c);
+        }
+        return false;
+      });
+      return { release: (dur2 = 0.3) => { g.want = [0, 0, 0, 0, 0]; g.open = true; g.rate = 1 / Math.max(0.05, dur2); }, set: (c, a = g.abs) => { g.want = c.slice(); g.abs = a; } };
+    }
+    // The thumb turned at its root so its tip comes to a point (target() in the world): over the top of the guide, holding it
+    // (round 3l, Jake: "There's no thumb"). release() lets it go.
+    thumbAt(side, target, { dur = 0.35 } = {}) {
+      const S = side === "L" ? "L" : "R", [b0, b1, b2] = ["", "1", "2"].map((j) => this.root.getObjectByName(`Bip01_${S}_Finger0${j}`));
+      const h = { w: 0, goal: 1, rate: 1 / dur, target, out: null };
+      h.release = (sec = 0.3) => { h.goal = 0; h.rate = 1 / sec; return new Promise((res) => (h.out = res)); };
+      h.set = (f) => { h.target = f; };
+      this.posers.push((dt) => {
+        h.w = Math.max(0, Math.min(1, h.w + Math.sign(h.goal - h.w) * h.rate * dt));
+        if (h.goal === 0 && h.w <= 0) { if (h.out) h.out(); return true; }
+        const t = h.target && h.target();
+        if (!t) return false;
+        this.root.updateMatrixWorld(true);
+        const p0 = b0.getWorldPosition(new T.Vector3()), p1 = b1.getWorldPosition(new T.Vector3()), p2 = b2.getWorldPosition(new T.Vector3());
+        const tip = p2.clone().addScaledVector(p2.clone().sub(p1), 0.85);
+        const q = new T.Quaternion().setFromUnitVectors(tip.sub(p0).normalize(), t.clone().sub(p0).normalize());
+        this.keep(b0);
+        turnBone(b0, new T.Quaternion().slerp(q, h.w * h.w * (3 - 2 * h.w)));
+        return false;
+      });
+      return h;
+    }
+    // The head turned so the face looks at target() (lying on his side under the sink, where the face's own steering, made for a
+    // body upright, does not hold: set the face's target to null). A body pose: done before the face and the arms.
+    lookAt(target, { dur = 0.5 } = {}) {
+      if (this._look) this._look.goal = 0;
+      const head = this.root.getObjectByName("Bip01_Head"), neck = this.root.getObjectByName("Bip01_Neck");
+      const h = this._look = { w: 0, goal: 1, rate: 1 / dur, target, out: null };
+      h.release = (sec = 0.5) => { h.goal = 0; h.rate = 1 / sec; return new Promise((res) => (h.out = res)); };
+      const fn = (dt) => {
+        h.w = Math.max(0, Math.min(1, h.w + Math.sign(h.goal - h.w) * h.rate * dt));
+        if (h.goal === 0 && h.w <= 0) { if (h.out) h.out(); return true; }
+        this.root.updateMatrixWorld(true);
+        const fwdL = this.face && this.face.headFwd ? this.face.headFwd : new T.Vector3(0, 0, 1);
+        const want = h.target().sub(head.getWorldPosition(new T.Vector3())).normalize();
+        const k = h.w * h.w * (3 - 2 * h.w);
+        let q = new T.Quaternion().setFromUnitVectors(fwdL.clone().applyQuaternion(head.getWorldQuaternion(new T.Quaternion())).normalize(), want);
+        const ang = 2 * Math.acos(Math.min(1, Math.abs(q.w)));
+        if (ang > 1.3) q = new T.Quaternion().slerp(q, 1.3 / ang);
+        if (neck) { this.keep(neck); turnBone(neck, new T.Quaternion().slerp(q, 0.4 * k)); }
+        this.keep(head);
+        q = new T.Quaternion().setFromUnitVectors(fwdL.clone().applyQuaternion(head.getWorldQuaternion(new T.Quaternion())).normalize(), want);
+        turnBone(head, new T.Quaternion().slerp(q, 0.75 * k));
+        return false;
+      };
+      fn.body = true;
+      this.posers.push(fn);
+      return h;
+    }
+
+    // ---- kneeling, and a foot lifted ---------------------------------------------------------------------------------
+    // Round 3j (Jake 2026-10-30): "him kneeling down, it makes his back all seriously contorted ... like he's got some sort of
+    // scoliosis". The only low pose the move packs have is a full squat (crouch_idle): his back rounds over his knees and his shirt
+    // bulges into a hump. At a sink cabinet a tech goes down on one knee: the right knee on the floor under the hip, the left foot
+    // planted ahead, the back near straight with a lean from the chest. Made on top of standing easy: the hips set down (the pelvis
+    // moved), each leg solved to where its foot goes, the lean put in the upper spine (the thighs hang from the lowest spine bone).
+    // kneel(true) settles into it over dur, kneel(false) back up; each resolves once there.
+    kneel(on = true, { dur = 0.9 } = {}) {
+      const k = this._kn || (this._kn = this.lowPose((g) => {
+        const { fwd, left, up, thigh, calf, hipX } = g, floor = g.floor;
+        const pel = g.base.clone().addScaledVector(fwd, 0.04).setY(floor + 0.075 + thigh * 0.98);
+        const hipR = pel.clone().addScaledVector(left, -hipX), hipL = pel.clone().addScaledVector(left, hipX);
+        return {
+          pelvis: pel, hinge: 0.12, lean: 0.1, roll: 0,
+          R: { at: hipR.clone().addScaledVector(fwd, -calf * 0.95).setY(floor + 0.11), pole: fwd.clone().addScaledVector(up, -0.35) },
+          L: { at: hipL.clone().addScaledVector(fwd, thigh * 0.95).addScaledVector(left, 0.05).setY(floor + 0.087), pole: fwd.clone().addScaledVector(up, 0.35).addScaledVector(left, 0.2) },
+        };
+      }));
+      return k.go(on ? 1 : 0, dur);
+    }
+    get kneeling() { return !!(this._kn && this._kn.w > 0); }
+    // A foot lifted to pull a shoe cover over it, standing (Jake 2026-10-30: "They should be done standing right there"): the weight
+    // onto the other leg, that knee soft, the lifted knee brought up high and forward to the hands, and a bend at the hips, the
+    // back straight. Round 3k (Jake: "He really hunches those shoulders over to get the booties on ... Keep that back straight.
+    // Actually, be like a ... spine"): the bend was 1.25 rad in the upper spine, which rounded his back over; now it is a hinge
+    // at the hips (the pelvis tipped, the back on it as one). Round 3l (Jake: "he probably needs to like bend down, like the other
+    // knee a little bit ... it pulls that knee up at an angle. I don't think people can pull their knees up at that angle"): the
+    // standing knee bends (the hips 17 cm down) and the foot comes up 27 cm, not 52, so the lifted thigh stays below level.
+    footUp(side, on = true, { dur = 0.5 } = {}) {
+      const key = "_fu" + side, S = side === "L" ? "L" : "R", O = S === "L" ? "R" : "L";
+      const k = this[key] || (this[key] = this.lowPose((g) => {
+        const { fwd, left, up } = g, sgn = S === "L" ? 1 : -1;
+        return {
+          pelvis: g.pel0.clone().addScaledVector(up, -0.17).addScaledVector(left, -sgn * 0.05).addScaledVector(fwd, -0.1), hinge: 0.85, lean: 0.06, roll: 0,
+          [S]: { at: g.feet[S].clone().addScaledVector(up, 0.27).addScaledVector(fwd, 0.14).addScaledVector(left, -sgn * 0.05), pole: fwd.clone().addScaledVector(up, 0.3) },
+          [O]: { at: g.feet[O].clone(), pole: fwd.clone() },
+        };
+      }));
+      return k.go(on ? 1 : 0, dur);
+    }
+    // The machinery of the two above: where the hips go and how they are tipped (hinge: forward, the back on them straight;
+    // roll: onto one hip), a little lean in the upper spine, and where each foot goes (pose(g), worked out once from the body as
+    // it stands when it starts), blended in over the clip every frame, first of the after-clip poses (so an arm reaching from the
+    // lowered body reaches from where it is now). change(...) eases it to a changed pose (from his knee down onto one hip).
+    lowPose(pose) {
+      const self = this, b = (n) => this.root.getObjectByName(n), V = () => new T.Vector3();
+      const P = { pelvis: b("Bip01_Pelvis"), s1: b("Bip01_Spine1"), s2: b("Bip01_Spine2"),
+        L: ["Thigh", "Calf", "Foot"].map((n) => b("Bip01_L_" + n)), R: ["Thigh", "Calf", "Foot"].map((n) => b("Bip01_R_" + n)) };
+      const st = { w: 0, goal: 0, rate: 1, g: null, tgt: null, from: null, m: 1, mrate: 1 };
+      const frame = () => {
+        self.root.updateMatrixWorld(true);
+        const h = self.heading, wp = (o) => o.getWorldPosition(V());
+        const fwd = new T.Vector3(Math.sin(h), 0, Math.cos(h)), left = new T.Vector3(Math.cos(h), 0, -Math.sin(h)), up = new T.Vector3(0, 1, 0);
+        return { base: self.pos.clone(), floor: self.pos.y, fwd, left, up,
+          thigh: wp(P.L[0]).distanceTo(wp(P.L[1])), calf: wp(P.L[1]).distanceTo(wp(P.L[2])),
+          hipX: Math.abs(wp(P.L[0]).sub(wp(P.R[0])).dot(left)) / 2, pel0: wp(P.pelvis), feet: { L: wp(P.L[2]), R: wp(P.R[2]) } };
+      };
+      // one pose part way to another
+      const num = (a, c, k) => (a || 0) + ((c || 0) - (a || 0)) * k;
+      const mixPose = (a, c, k) => {
+        const o = { pelvis: a.pelvis.clone().lerp(c.pelvis, k), hinge: num(a.hinge, c.hinge, k), lean: num(a.lean, c.lean, k), roll: num(a.roll, c.roll, k), raise: num(a.raise, c.raise, k) };
+        for (const S of ["L", "R"]) if (a[S] && c[S]) o[S] = { at: a[S].at.clone().lerp(c[S].at, k), pole: a[S].pole.clone().lerp(c[S].pole, k) };
+        return o;
+      };
+      const fn = (dt) => {
+        st.w = Math.max(0, Math.min(1, st.w + Math.sign(st.goal - st.w) * st.rate * dt));
+        if (st.w <= 0 && st.goal === 0) return true;
+        if (st.m < 1) st.m = Math.min(1, st.m + st.mrate * dt);
+        const e = st.w * st.w * (3 - 2 * st.w), t = st.m < 1 ? mixPose(st.from, st.tgt, st.m * st.m * (3 - 2 * st.m)) : st.tgt;
+        st.cur = t;
+        self.root.updateMatrixWorld(true);
+        const feet = { L: P.L[2].getWorldPosition(V()), R: P.R[2].getWorldPosition(V()) };     // where the clip has them
+        self.keep(P.pelvis); self.keepPos(P.pelvis);
+        P.pelvis.position.copy(P.pelvis.parent.worldToLocal(P.pelvis.getWorldPosition(V()).lerp(t.pelvis, e)));
+        P.pelvis.updateMatrixWorld(true);
+        // the hips tipped forward and onto one side, everything above them with them (the thighs, below, are solved after)
+        if (t.hinge) turnBone(P.pelvis, new T.Quaternion().setFromAxisAngle(st.g.left, t.hinge * e));
+        if (t.roll) turnBone(P.pelvis, new T.Quaternion().setFromAxisAngle(st.g.fwd, t.roll * e));
+        // raise: the head end lifted after the roll (lying on his side, the chest up off the floor, the hips on it)
+        if (t.raise) turnBone(P.pelvis, new T.Quaternion().setFromAxisAngle(st.g.left, -t.raise * e));
+        self.keep(P.s1); self.keep(P.s2);
+        if (t.lean) {
+          turnBone(P.s1, new T.Quaternion().setFromAxisAngle(st.g.left, t.lean * 0.5 * e));
+          turnBone(P.s2, new T.Quaternion().setFromAxisAngle(st.g.left, t.lean * 0.5 * e));
+        }
+        for (const S of ["L", "R"]) {
+          if (!t[S]) continue;
+          const [th, ca, fo] = P[S];
+          self.keep(th); self.keep(ca);
+          twoBone(th, ca, fo, feet[S].lerp(t[S].at, e), t[S].pole, 1);
+        }
+        return false;
+      };
+      return {
+        get w() { return st.w; },
+        get tgt() { return st.tgt; },
+        get g() { return st.g; },
+        go(goal, dur) {
+          if (!self.posers.includes(fn)) {
+            if (goal === 0) { st.w = 0; return Promise.resolve(); }
+            st.g = frame(); st.tgt = pose(st.g); st.w = 0; st.m = 1;
+            fn.body = true;
+            self.posers.unshift(fn);
+          }
+          st.goal = goal; st.rate = 1 / Math.max(0.05, dur);
+          return self.run(() => st.w === st.goal);
+        },
+        // to another pose (f(g, now) gives it, or an object of changes to the one now), over sec
+        change(f, sec = 0.8) {
+          if (!st.tgt) return Promise.resolve();
+          const now = st.cur || st.tgt;
+          st.from = now; st.tgt = typeof f === "function" ? f(st.g, now) : Object.assign({}, now, f);
+          st.m = 0; st.mrate = 1 / Math.max(0.05, sec);
+          return self.run(() => st.m >= 1);
+        },
+      };
     }
 
     // ---- moves -------------------------------------------------------------------------------------------
@@ -193,7 +587,7 @@
     // A body-language move for a while, then back to the base pose. Talking and listening clips are long takes, so a
     // line starts somewhere inside them rather than at the same frame every time; a one-off move (a shrug, pointing,
     // the invitation) plays from its start.
-    gesture(name, hold) {
+    gesture(name, hold, { full = false } = {}) {
       const c = this.clips[name];
       if (!c) return false;
       if (/^sit_/.test(this.base) !== /^sit_/.test(name)) return false;       // a standing move while seated (or back)
@@ -203,6 +597,23 @@
       for (let i = 0; take && i < 20; i++) {
         from = this.rnd() * Math.max(0, c.duration - hold - 0.5);
         if (!(FIDGETS[name] || []).some(([a, b]) => from < b + 0.4 && from + hold > a - 0.4)) break;
+      }
+      // Standing, a talking move is a touch of the take on top of standing easy, from the waist up (round 3j, Jake 2026-10-30:
+      // "every time someone talks, it's just real big mannerisms and flailing the body and rotating and stepping forward and
+      // stepping back. It's going to be a lot more stable"; "he moves toward John with some flailing arm movement. It's kind of a
+      // no-no"). The takes are whole-body mocap: they step, turn the hips and throw the arms. Now the legs and hips stay in the
+      // stand and the take only leans into the spine, head and arms (a talk a third of the way, a listen half, a one-off move
+      // such as a shrug or "Come on in" six tenths). full: the whole move, as it was (the Body language panel's try-a-move).
+      if (!full && this.base === "idle_neutral_01" && !this.walking) {
+        this.overlay(name, take ? (/^listen_/.test(name) ? 1.0 : 0.55) : 1.5, from, take);
+        let t = 0;
+        this.ticks.push((dt) => {
+          if (this.gtok !== tok) return true;
+          if ((t += dt) < Math.max(hold, take ? 0 : Math.min(c.duration - 0.3, hold + 1.2))) return false;
+          this.overlay(null);
+          return true;
+        });
+        return true;
       }
       this.play(name, { loop: take, fade: 0.35, from });
       let t = 0;
@@ -214,9 +625,32 @@
       });
       return true;
     }
+    // The upper body of a move (spine, neck, head, arms, hands: their turns only), played on top of the clip under it at weight w
+    // (three blends the two by w / (1 + w)); overlay(null) fades it out. Anything that changes the clip under it (a walk, a turn,
+    // sitting down) ends it first (play).
+    overlay(name, w = 0.55, from = 0, loop = true) {
+      const old = this.over;
+      if (old) { old.fadeOut(name ? 0.35 : 0.5); this.over = null; }
+      if (!name) return;
+      const key = name + "~up";
+      if (!this.clips[key]) {
+        const c = this.clips[name].clone();
+        c.tracks = c.tracks.filter((t) => /\.quaternion$/.test(t.name) && UPPER.test(t.name.split(".")[0]));
+        c.name = key;
+        this.clips[key] = c;
+      }
+      const a = this.mixer.clipAction(this.clips[key]);
+      a.reset(); a.setLoop(loop ? T.LoopRepeat : T.LoopOnce, Infinity); a.clampWhenFinished = !loop;
+      a.time = from; a.setEffectiveWeight(w); a.fadeIn(0.35); a.play();
+      this.over = a;
+    }
     rnd() { this._s = ((this._s || 12345) * 1103515245 + 12345) & 0x7fffffff; return this._s / 0x7fffffff; }
+    // (a new turn takes over from one still going: two at once, each to its own angle, pulled him to and fro for ever; Play's line
+    // card turns him to John, and saying the line could turn him again)
     turnTo(h, rate = Math.PI) {
+      const tok = (this._turnTok = (this._turnTok || 0) + 1);
       return this.run((dt) => {
+        if (this._turnTok !== tok) return true;
         const d = angleDiff(h, this.heading);
         const s = Math.sign(d) * Math.min(Math.abs(d), rate * dt);
         this.heading += s;
@@ -310,7 +744,7 @@
       this.play(this.base, { fade: 0 });
     }
     // straight into a pose (a step's start): every running clip stopped, so no crossfade is left over from before
-    reset(base) { this.mixer.stopAllAction(); this.action = null; this.base = base; this.play(base, { fade: 0 }); this.root.visible = this.root.visible; }
+    reset(base) { this.mixer.stopAllAction(); this.action = null; this.over = null; this.base = base; this.play(base, { fade: 0 }); this.root.visible = this.root.visible; }
     stand(x, y, z, h) { this.place(x, y, z, h); this.reset("idle_neutral_01"); }
     seated(x, y, z, h, base = "sit_chair_idle_neutral_01") { this.place(x, y, z, h); this.reset(base); }
     // Walk a polyline of [x, y, z] points at the walk clip's own pace; eases out at the end. The corners are rounded off (a
@@ -417,36 +851,143 @@
     return m;
   }
 
-  // The Happy Homes Guide (Jake 2026-10-29: "He needs to hand him the happy homes guide for real"): a booklet, half letter (5.5 by
-  // 8.5 in, 16 pages), the brand purple like the card, the real lockup, its name in the gold. Built like the card: long side its
-  // x, the front cover on its -y face, so it is held the card's way. Nothing on it says more than its name: what is inside is the
-  // company's, and Jake has not sent it.
+  // The Happy Homes Guide (Jake 2026-10-29: "He needs to hand him the happy homes guide for real"; 2026-10-30: "it isn't really
+  // big enough. It's a full size. It's like a magazine"): letter size (8.5 by 11 in), the brand purple like the card, the real
+  // lockup, its name in the gold, and pages that turn. Jake: "he can even open it a little bit and like show a couple things in the
+  // book before just immediately handing it over", and "John typically is going to flip through a couple pages too". Inside, a
+  // page each for the features the script's S5 has him point out ("water softeners and filtration, tired or dripping faucets,
+  // garbage disposals, tankless water heaters and recirculation pumps, and on the septic side, bacteria treatments, backflow
+  // prevention, and clean-outs"): its name over a picture panel and lines of text. The words and pictures of the real guide are
+  // the company's, and Jake has not sent them; these pages are stand-ins until he does.
+  // Built in its own frame: across its x (the spine at -x), up its -z (the top edge), the front cover facing +y. Leaves turn about
+  // the spine (userData.leaf(i, angle): 0 shut, PI turned right over); leaf 0 is the cover.
+  const GUIDE_W = 0.216, GUIDE_H = 0.279;
+  const GUIDE_PAGES = [
+    ["Water Softeners & Filtration", "#2f7fc1"], ["Tired or Dripping Faucets", "#3a9b6b"], ["Garbage Disposals", "#7a5a3a"],
+    ["Tankless Water Heaters & Recirculation", "#c0562f"], ["Septic Bacteria Treatments", "#5b8a2e"], ["Backflow Prevention & Clean-Outs", "#7b3fa0"],
+  ];
   let guideTex = null;
+  function guidePage(draw) {
+    const c = document.createElement("canvas"); c.width = 432; c.height = 558;
+    const g = c.getContext("2d"); draw(g);
+    const t = new T.CanvasTexture(c); t.anisotropy = 4; t.encoding = T.sRGBEncoding; t._draw = () => { draw(g); t.needsUpdate = true; };
+    return t;
+  }
   function guide() {
     if (!guideTex) {
-      const c = document.createElement("canvas"); c.width = 400; c.height = 620;
-      const g = c.getContext("2d");
-      const draw = (img) => {
-        g.fillStyle = "#5e2f90"; g.fillRect(0, 0, 400, 620);
-        g.fillStyle = "#f2b134"; g.fillRect(40, 452, 320, 8);
-        if (img) { const w = Math.min(240, 190 * img.width / img.height), h = w * img.height / img.width; g.drawImage(img, 200 - w / 2, 36, w, h); }
+      let logo = null;
+      const cover = guidePage((g) => {
+        g.fillStyle = "#5e2f90"; g.fillRect(0, 0, 432, 558);
+        g.fillStyle = "#f2b134"; g.fillRect(46, 418, 340, 8);
+        if (logo) { const w = Math.min(280, 180 * logo.width / logo.height), h = w * logo.height / logo.width; g.drawImage(logo, 216 - w / 2, 40, w, h); }
         g.textAlign = "center";
-        g.fillStyle = "#f2b134"; g.font = "bold 66px system-ui, sans-serif"; g.fillText("HAPPY", 200, 330); g.fillText("HOMES", 200, 400);
-        g.fillStyle = "#ffffff"; g.font = "bold 44px system-ui, sans-serif"; g.fillText("GUIDE", 200, 530);
-      };
-      draw(null);
-      guideTex = new T.CanvasTexture(c); guideTex.anisotropy = 4;
+        g.fillStyle = "#f2b134"; g.font = "bold 70px system-ui, sans-serif"; g.fillText("HAPPY", 216, 300); g.fillText("HOMES", 216, 380);
+        g.fillStyle = "#ffffff"; g.font = "bold 48px system-ui, sans-serif"; g.fillText("GUIDE", 216, 492);
+      });
+      const page = (title, col) => guidePage((g) => {
+        g.fillStyle = "#fbfaf6"; g.fillRect(0, 0, 432, 558);
+        g.fillStyle = col; g.fillRect(0, 0, 432, 78);
+        g.fillStyle = "#ffffff"; g.textAlign = "left"; g.font = "bold 26px system-ui, sans-serif";
+        let line = "", y = 34;
+        for (const w of title.split(" ")) { if (g.measureText(line + w).width > 390 && line) { g.fillText(line.trim(), 22, y); line = ""; y += 30; } line += w + " "; }
+        g.fillText(line.trim(), 22, y);
+        g.fillStyle = col; g.globalAlpha = 0.18; g.fillRect(22, 100, 388, 210); g.globalAlpha = 1;
+        g.strokeStyle = col; g.lineWidth = 3; g.strokeRect(22, 100, 388, 210);
+        g.fillStyle = "#c9c6bf"; for (let i = 0; i < 9; i++) g.fillRect(22, 336 + i * 22, i % 4 === 3 ? 240 : 388, 9);
+      });
+      const blank = guidePage((g) => { g.fillStyle = "#fbfaf6"; g.fillRect(0, 0, 432, 558); g.fillStyle = "#c9c6bf"; for (let i = 0; i < 18; i++) g.fillRect(22, 40 + i * 26, i % 5 === 4 ? 200 : 388, 9); });
+      const back = guidePage((g) => { g.fillStyle = "#5e2f90"; g.fillRect(0, 0, 432, 558); g.fillStyle = "#f2b134"; g.textAlign = "center"; g.font = "bold 40px system-ui, sans-serif"; g.fillText("HAPPY PIPES", 216, 300); });
+      guideTex = { cover, back, blank, pages: GUIDE_PAGES.map(([t, c]) => page(t, c)) };
       const img = new Image();
-      img.onload = () => { draw(img); guideTex.needsUpdate = true; };
+      img.onload = () => { logo = img; cover._draw(); };
       img.src = url("sim/props/hp_lockup.png");
     }
-    const pages = new T.MeshStandardMaterial({ color: 0xf4f2ec, roughness: 0.9 }), back = new T.MeshStandardMaterial({ color: 0x5e2f90, roughness: 0.6 });
-    // the cover's picture runs up the long side (x): the canvas is turned a quarter round onto it
-    guideTex.center.set(0.5, 0.5); guideTex.rotation = Math.PI / 2;
-    const mats = [pages, pages, back, new T.MeshStandardMaterial({ map: guideTex, roughness: 0.55 }), pages, pages];
-    const m = new T.Mesh(new T.BoxGeometry(0.216, 0.004, 0.14), mats);
-    m.name = "prop_guide"; m.castShadow = true;
-    return m;
+    const W = GUIDE_W, H = GUIDE_H, mat = (t) => new T.MeshStandardMaterial({ map: t, roughness: 0.6 });
+    const g = new T.Group(); g.name = "prop_guide";
+    // a page's two faces: the front facing +y (read with its top at -z), the back facing -y (read once turned over the spine)
+    const face = (tex, up) => {
+      const p = new T.Mesh(new T.PlaneGeometry(W, H), mat(tex));
+      p.rotation.x = -Math.PI / 2;
+      if (up) return p;
+      const q = new T.Group(); q.add(p); q.rotation.z = Math.PI; return q;
+    };
+    // the back cover and the block of pages, a page on top of it
+    const block = new T.Mesh(new T.BoxGeometry(W, 0.003, H), new T.MeshStandardMaterial({ color: 0xf1efe8, roughness: 0.9 }));
+    block.position.y = 0.0015; g.add(block);
+    const bottom = face(guideTex.back, false); bottom.position.y = -0.0002; g.add(bottom);
+    const top = face(guideTex.blank, true); top.position.y = 0.0031; g.add(top);
+    // the leaves: the cover, then three pages, each on a hinge at the spine
+    const sides = [[guideTex.cover, guideTex.pages[0]], [guideTex.pages[1], guideTex.pages[2]], [guideTex.pages[3], guideTex.pages[4]], [guideTex.pages[5], guideTex.blank]];
+    const leaves = sides.map(([f, b], i) => {
+      const hinge = new T.Group(); hinge.position.set(-W / 2, 0.0034 + (sides.length - i) * 0.0005, 0);
+      const fr = face(f, true), bk = face(b, false);
+      fr.position.set(W / 2, 0.0002, 0); bk.position.set(W / 2, -0.0002, 0);
+      hinge.add(fr, bk); g.add(hinge);
+      return hinge;
+    });
+    g.userData.leaves = leaves;
+    // a turned leaf rests a little short of flat, each later one higher, so they lie on one another in the order turned
+    g.userData.leaf = (i, a) => { leaves[i].rotation.z = Math.min(a, Math.PI - 0.05 - 0.03 * i); };
+    g.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+    return g;
+  }
+
+  // His phone, for the picture under the sink (Jake 2026-10-30: in time the whole job flow runs on it, the checklist and the
+  // pictures in the Comms app): a black slab with a lit screen (on its -y face), the flash on its back.
+  function phone() {
+    const g = new T.Group(); g.name = "prop_phone";
+    const body = new T.Mesh(new T.BoxGeometry(0.152, 0.008, 0.072), new T.MeshStandardMaterial({ color: 0x16181c, roughness: 0.4, metalness: 0.3 }));
+    const screen = new T.Mesh(new T.PlaneGeometry(0.14, 0.064), new T.MeshBasicMaterial({ color: 0x9fc4e8 }));
+    screen.rotation.x = Math.PI / 2; screen.position.y = -0.0042;
+    const flash = new T.PointLight(0xffffff, 0, 2.5); flash.position.set(0.05, 0.02, 0);
+    g.add(body, screen, flash);
+    g.userData.flash = flash;
+    return g;
+  }
+
+  // Shoe covers (Jake 2026-10-30: "like little shoe covers. They're like a little light blue thingy, like a shower cap on their
+  // feet ... forms to the foot, forms to the boot"): a copy of each shoe's own skin, a few millimetres out from it, light blue and
+  // a little crumpled, moving with the foot. Hidden until he puts them on (covers.L, covers.R); covers.bundle is the pair in his
+  // hand before they go on.
+  function shoeCovers(p) {
+    let skin = null;
+    p.root.traverse((o) => { if (o.isSkinnedMesh && !skin && /body/i.test([].concat(o.material)[0].name)) skin = o; });
+    const out = { L: null, R: null, bundle: null };
+    if (!skin) return out;
+    // (r128: a skinned mesh's material says so, or it is drawn unposed)
+    const mat = new T.MeshStandardMaterial({ color: 0x9fd0f2, roughness: 0.85, side: T.DoubleSide, skinning: true });
+    const geo = skin.geometry, nrm = geo.attributes.normal, si = geo.attributes.skinIndex, sw = geo.attributes.skinWeight;
+    const bones = skin.skeleton.bones.map((b) => b.name);
+    for (const S of ["L", "R"]) {
+      const want = new Set([`Bip01_${S}_Foot`, `Bip01_${S}_Toe0`].map((n) => bones.indexOf(n)).filter((i) => i >= 0));
+      const c4 = (at, v, k) => [at.getX, at.getY, at.getZ, at.getW][k].call(at, v);       // (r128 has no getComponent)
+      const onFoot = (v) => { let w = 0; for (let k = 0; k < 4; k++) if (want.has(c4(si, v, k))) w += c4(sw, v, k); return w >= 0.5; };
+      const idx = geo.index ? geo.index.array : [...Array(geo.attributes.position.count).keys()];
+      const keep = [];
+      for (let i = 0; i < idx.length; i += 3) if (onFoot(idx[i]) && onFoot(idx[i + 1]) && onFoot(idx[i + 2])) keep.push(idx[i], idx[i + 1], idx[i + 2]);
+      if (!keep.length) continue;
+      const g = geo.clone(), P = g.attributes.position;
+      // a few millimetres out along the skin's normals, a little more or less at each point: crumpled. The skin is not in metres
+      // (Rocketbox: centimetres, under a 0.01 scale), so a metre in the world is measured in its units first.
+      p.root.updateMatrixWorld(true);
+      const bw = new T.Box3(), bg = new T.Box3(), tv = new T.Vector3();
+      for (const v of keep) { skin.boneTransform(v, tv); bw.expandByPoint(tv.applyMatrix4(skin.matrixWorld)); bg.expandByPoint(tv.fromBufferAttribute(P, v)); }
+      const unit = bg.getSize(new T.Vector3()).length() / Math.max(1e-6, bw.getSize(new T.Vector3()).length());
+      for (let v = 0; v < P.count; v++) {
+        const d = unit * (0.006 + 0.005 * Math.abs((Math.sin(v * 12.9898) * 43758.5453) % 1));
+        P.setXYZ(v, P.getX(v) + nrm.getX(v) * d, P.getY(v) + nrm.getY(v) * d, P.getZ(v) + nrm.getZ(v) * d);
+      }
+      g.setIndex(keep);
+      const m = new T.SkinnedMesh(g, mat);
+      m.name = `prop_cover_${S}`; m.frustumCulled = false; m.castShadow = true; m.visible = false;
+      skin.parent.add(m);
+      m.bind(skin.skeleton, skin.bindMatrix);
+      out[S] = m;
+    }
+    const bundle = new T.Mesh(new T.IcosahedronGeometry(0.035, 1), new T.MeshStandardMaterial({ color: 0x9fd0f2, roughness: 0.85 }));
+    bundle.scale.set(1.3, 0.7, 1); bundle.name = "prop_cover_bundle";
+    out.bundle = bundle;
+    return out;
   }
 
   // ---- knocking: a knuckle on a wooden door, made on the spot (Web Audio: a short knock of filtered noise and a low thump), so
@@ -483,11 +1024,33 @@
   }
 
   // a bone turned by d (a world-space rotation) about its own joint
-  const pq = new T.Quaternion(), tq = new T.Quaternion(), fq = new T.Quaternion(), ZAX = new T.Vector3(0, 0, 1);
+  const pq = new T.Quaternion(), tq = new T.Quaternion(), fq = new T.Quaternion(), ZAX = new T.Vector3(0, 0, 1), YAX = new T.Vector3(0, 1, 0);
+  const LIMB = /UpperArm|Forearm|Hand|Finger|Thigh|Calf|Foot|Toe/;
+  const OK_IN = 0.02;                                      // an arm resting on him (an elbow at his side) touches; the slices are rounded boxes
+  const MAX_TURN = 0.35;                                   // keepArmsOut turns no part more than this (radians): swung right out of him John's
+                                                           // elbow came up to his shoulder like a chicken's wing, worse than what it fixed
+  const STEP = 0.03;                                       // radians a step, keepArmsOut
+  const rq = new T.Quaternion(), tq2 = new T.Quaternion(), pq2 = new T.Quaternion();
   function turnBone(b, d) {
     b.parent.getWorldQuaternion(pq);
     b.quaternion.premultiply(tq.copy(pq).invert().multiply(d).multiply(pq));
     b.updateMatrixWorld(true);
+  }
+  // Two bones (an upper arm and forearm, a thigh and calf) turned so the end joint (the wrist, the ankle) comes to target, the
+  // middle joint (elbow, knee) bending towards pole; k blends it in over the pose as it was.
+  function twoBone(up, mid, end, target, pole, k) {
+    const v = (o) => o.getWorldPosition(new T.Vector3());
+    const s = v(up), e = v(mid), w = v(end);
+    const a = s.distanceTo(e), b = e.distanceTo(w);
+    const d = target.clone().sub(s);
+    const dl = Math.max(Math.abs(a - b) + 0.01, Math.min(d.length(), (a + b) * 0.995));
+    const dir = d.normalize();
+    const perp = pole.clone().addScaledVector(dir, -pole.dot(dir)).normalize();
+    const cosA = Math.max(-1, Math.min(1, (a * a + dl * dl - b * b) / (2 * a * dl)));
+    const elbow = s.clone().addScaledVector(dir, a * cosA).addScaledVector(perp, a * Math.sqrt(1 - cosA * cosA));
+    turnBone(up, new T.Quaternion().slerp(new T.Quaternion().setFromUnitVectors(e.clone().sub(s).normalize(), elbow.sub(s).normalize()), k));
+    const e2 = v(mid), w2 = v(end), tgt = s.clone().addScaledVector(dir, dl);
+    turnBone(mid, new T.Quaternion().slerp(new T.Quaternion().setFromUnitVectors(w2.sub(e2).normalize(), tgt.sub(e2).normalize()), k));
   }
 
   // ---- the ground and what is in the way, for people the trainee steers (player.js) and for walks with ground: true
@@ -692,6 +1255,7 @@
     for (let i = watchers.length - 1; i >= 0; i--) if (watchers[i].fn(dt)) { watchers[i].res(); watchers.splice(i, 1); }
     for (const p of Object.values(people)) p.update(dt);
     for (const p of Object.values(people)) if (p.face && p.root.visible) p.face.update(clock, dt);
+    for (const p of Object.values(people)) p.finish(dt);
     for (const f of late) f(dt);                          // props carried by a posed hand (the clipboard): after every body is final
     if (camera.follow) camera.follow(dt);
     if (sim.onStep) sim.onStep(dt);
@@ -912,7 +1476,7 @@
     T, SIT_BACK, STAND_FWD, Cancelled, people, load, step, flush, record, setCam, freeCam, camera, openDoor, setDoor, door, wp,
     checkPath, angleDiff, shot, loadScenario, say, wait, until, cancelAll, live, lines, loadLines, measureMove, stopVoices, unlockAudio,
     groundAt, blockedMove, windows, lookingIn, handlePoint, knockSound, rounded, late,
-    props: { clipboard, card, guide }, names: {}, practice: false, freeCamera: false, current: null, captions, voiceLog,
+    props: { clipboard, card, guide, phone, shoeCovers }, GUIDE_W, GUIDE_H, names: {}, practice: false, freeCamera: false, current: null, captions, voiceLog,
     caption: (t) => captions.push([clock, t]),
     mute: (m) => { muted = m; if (m) stopVoices(); },
     get scenario() { return scenario; }, get clock() { return clock; }, get isLive() { return isLive; }, BASE, url,

@@ -311,16 +311,19 @@
   // over it and a trail to it; walk him into it yourself, or tap the button and he goes there (go), then does it (then: shoe
   // covers, sitting down). A line and an action can wait at once (Jake: "there's going to be some talking done while other
   // actions are in fact being done"). o: the line's say() options (move: null when the card goes with it, say).
+  // id can be a list: his lines one after another with nothing from John between, on one card and said with one tap, one
+  // straight after the other (round 3j, Jake 2026-10-30: "A couple of the lines that the tech says are back to back. They should
+  // just flow. You shouldn't have to click every single time."); o is then a list too, one for each.
   sim.prompt = (id, text, btn, mark, o) => new Promise((res, rej) => {
-    const ln = id && sim.lines[id], home = homeowner(), me = techPerson();
+    const ids = [].concat(id || []), ln = ids.length && sim.lines[ids[0]], home = homeowner(), me = techPerson();
     if (ln) {
-      showSay(ln.text);
+      showSay(ids.map((k) => sim.lines[k].text).join(" "));
       if (me && home) {
         ctl.talkTo = home;
-        if (me.base === "idle_neutral_01" && !me.walking && !me.tasks.length && !(o && o.turn === false) && Math.abs(sim.angleDiff(Math.atan2(home.pos.x - me.pos.x, home.pos.z - me.pos.z), me.heading)) > 0.45)
+        if (me.base === "idle_neutral_01" && !me.walking && !me.tasks.length && ((Array.isArray(o) ? o[0] : o) || {}).turn !== false && Math.abs(sim.angleDiff(Math.atan2(home.pos.x - me.pos.x, home.pos.z - me.pos.z), me.heading)) > 0.45)
           me.turnToward(home.pos.x, home.pos.z).catch(() => {});
       }
-      linePending = { res, rej, id, o };
+      linePending = { res, rej, id: ids, o };
       render();
       return;
     }
@@ -337,7 +340,7 @@
     if (!linePending) return;
     const p = linePending; linePending = null;
     closeSay(); render();
-    try { await sim.say(p.id, p.o); } catch (e) { return p.rej(e); }
+    try { for (const [i, k] of p.id.entries()) await sim.say(k, Array.isArray(p.o) ? p.o[i] : p.o); } catch (e) { return p.rej(e); }
     p.res();
   }
   async function said() {
@@ -517,8 +520,9 @@
   // its own), and pulls in short of walls; for his lines he turns to face John, so John is in view past his head. The wheel or a
   // pinch brings it nearer or further.
   const ctl = sim.control = { enabled: true, locked: 0, running: false, speed: 0, input: { x: 0, y: 0, run: false }, keys: {},
-    yaw: 0, pitch: 0.24, dist: 2.5, drag: null, talkTo: null, cam: null, touched: -9, off: 0, offWant: 0, ox: null, pc: null, dcur: null };
+    yaw: 0, pitch: 0.14, dist: 1.6, drag: null, talkTo: null, cam: null, touched: -9, off: 0, offWant: 0, ox: null, pc: null, dcur: null };
   const BUBBLE = 0.95;
+  const SHOULDER = 0.36;                                    // the camera's line past his shoulder, sideways from his eyes (m)
   const MOVE_KEYS = new Set(["KeyW", "KeyA", "KeyS", "KeyD", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "ShiftLeft", "ShiftRight"]);
   function controlStep(dt) {
     const me = techPerson();
@@ -636,8 +640,9 @@
       // turns with him and never on its own. Jake 2026-10-29: "The camera bounces even though we are in first person. It should
       // be steady." Standing near John it used to swing round to aim at John, after him every time he moved (40 degrees, and 1.7 m
       // sideways, while Mike stood still at the door), and back behind Mike every time he took a step. Where you turn him (a drag)
-      // the view is set with him; a turn the scene gives him (to face John for a line) it eases after.
-      const want = me.heading - 0.2;
+      // the view is set with him; a turn the scene gives him (to face John for a line) it eases after. (Round 3j: it looks the way
+      // he faces, from over his shoulder, below; it used to be turned a little off to one side for the same end.)
+      const want = me.heading;
       ctl.yaw0 = ctl.yaw;
       ctl.yaw = !dt ? want : easeAngle(ctl.yaw, want, moving || yours ? 2.6 : 1.2, 1.6, dt);
     }
@@ -659,8 +664,28 @@
       ctl.oy += band(e.y - mp.y - ctl.oy, 0.08);
     }
     ctl.mx = mp.x; ctl.mz = mp.z;
-    const head = new T.Vector3(mp.x + ctl.ox, ctl.gy + ctl.oy + 0.02, mp.z + ctl.oz);
+    const eye = new T.Vector3(mp.x + ctl.ox, ctl.gy + ctl.oy + 0.02, mp.z + ctl.oz);
     for (const dr of window.walk.doors) dr.updateMatrixWorld(true);       // where each door stands now, not at the last frame drawn
+    // Over his shoulder (round 3j, Jake 2026-10-30: "it should be maybe a little bit more over the technician's shoulder so it can
+    // be seen a little bit more from that perspective"): the camera's line runs past his right shoulder, nearer and lower than it
+    // was (2.5 m back and well up, it looked down from the room's corner, and his back hid what his hands did: "I couldn't even see
+    // that handoff"); past his left one when a wall is close on his right. Everything below works from that point (head).
+    const rgt = new T.Vector3(-Math.cos(ctl.yaw), 0, Math.sin(ctl.yaw)), bk = new T.Vector3(-Math.sin(ctl.yaw), 0, -Math.cos(ctl.yaw));
+    const near = (d) => new T.Raycaster(eye, d, 0, SHOULDER + 0.3).intersectObjects(walls(), false).length > 0;
+    // and while he talks to John, a shoulder John can be seen past (by the sofa the kitchen wall stood between the camera over his
+    // right shoulder and John: Jake, "I'm halfway in the wall when John's talking here")
+    const solid = (x) => !x.object.material || ![].concat(x.object.material).some((m) => m.transparent);
+    const seen = (sg) => {
+      if (!talking) return true;
+      const from = eye.clone().addScaledVector(rgt, sg * SHOULDER).addScaledVector(bk, Math.min(ctl.dist, 1.2)).add(new T.Vector3(0, 0.2, 0));
+      const to = home.eyes().sub(from), len = to.length();
+      return !new T.Raycaster(from, to.normalize(), 0.05, len - 0.15).intersectObjects(walls(), false).some(solid);
+    };
+    const ok = (sg) => !near(rgt.clone().multiplyScalar(sg)) && seen(sg);
+    const was = ctl.side || 1;
+    ctl.side = ok(was) ? was : ok(-was) ? -was : ok(1) ? 1 : was;
+    ctl.sh = ctl.sh == null || !dt ? ctl.side * SHOULDER : ctl.sh + Math.max(-dt * 0.9, Math.min(dt * 0.9, ctl.side * SHOULDER - ctl.sh));
+    const head = eye.clone().addScaledVector(rgt, ctl.sh);
     // under a ceiling (the porch's is 2.4 m, the house's 2.74) the camera comes down rather than look through it
     const up = new T.Raycaster(head, new T.Vector3(0, 1, 0), 0, 2).intersectObjects(walls(), false)[0];
     let pitch = ctl.pitch;
@@ -672,7 +697,9 @@
     const room = (yaw) => {
       const back = new T.Vector3(-Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), -Math.cos(yaw) * Math.cos(pitch));
       const hit = new T.Raycaster(head, back, 0, ctl.dist + 0.25).intersectObjects(walls(), false)[0];
-      return [hit ? Math.max(0.55, hit.distance - 0.25) : ctl.dist, back];
+      // (no nearer than 0.2 m: it used to stop at 0.55 whatever was there, and with a wall 0.4 m behind him it sat in the wall: Jake
+      // 2026-10-30, by the sofa, "I'm halfway in the wall when John's talking here")
+      return [hit ? Math.max(0.2, hit.distance - 0.22) : ctl.dist, back];
     };
     // and while he talks to John, John must be in sight from there: nothing (a wall, the open door, a doorframe) between the
     // camera and John's face (Jake 2026-10-29: "it had like me stuck behind the door. I couldn't see the other person")
@@ -725,7 +752,7 @@
     const want = head.clone().addScaledVector(back, ctl.dcur);
     ctl.blend = Math.max(0, (ctl.blend || 0) - dt / 1.2);
     if (!ctl.cam || !dt) ctl.cam = want.clone(); else ctl.cam.lerp(want, Math.min(1, dt * (14 - 12 * ctl.blend)));
-    let look = head.clone().add(new T.Vector3(Math.sin(yaw), 0, Math.cos(yaw)).multiplyScalar(0.8)).setY(head.y - 0.12);
+    let look = head.clone().add(new T.Vector3(Math.sin(yaw), 0, Math.cos(yaw)).multiplyScalar(0.8)).setY(head.y - 0.2);
     // just handed back from a scene's view: the aim eases over from the shot's too
     if (ctl.blend > 0 && ctl.lk) { ctl.lk.lerp(look, Math.min(1, dt * (14 - 12 * ctl.blend))); look = ctl.lk; } else ctl.lk = null;
     sim.setCam(ctl.cam.x, ctl.cam.y, ctl.cam.z, look.x, look.y, look.z);
@@ -823,7 +850,7 @@
     if (mode !== "practice") return;
     const t = techPerson();
     if (!t) return;
-    ctl.yaw = t.heading; ctl.pitch = 0.24; ctl.cam = null; ctl.off = ctl.offWant = 0; ctl.ox = ctl.pc = ctl.dcur = null; ctl.view = null;
+    ctl.yaw = t.heading; ctl.pitch = 0.14; ctl.cam = null; ctl.sh = null; ctl.side = 1; ctl.off = ctl.offWant = 0; ctl.ox = ctl.pc = ctl.dcur = null; ctl.view = null;
     followCam(0);
   }
   function applyMode() {
@@ -850,7 +877,7 @@
     if (!p || !p.root.visible) return;
     const c = p.clips[clip];
     if (!c) { ui.status.textContent = `${sim.names[moveWho]} has no ${clip} yet.`; return; }
-    if (!p.gesture(clip, Math.max(3, c.duration))) ui.status.textContent = /^sit_/.test(clip) ? "That one is for sitting down." : "That one is for standing up.";
+    if (!p.gesture(clip, Math.max(3, c.duration), { full: true })) ui.status.textContent = /^sit_/.test(clip) ? "That one is for sitting down." : "That one is for standing up.";
   }
 
   // ---------------------------------------------------------------------------------------------------- phone controls
@@ -983,7 +1010,7 @@
     touchControls();
     scen.steps[0].start(sim);
     render();
-    window.player = { runStep, next, back, replay, setMode, setCam, said, tryMove, get idx() { return idx; }, get state() { return state; }, get pending() { return !!pending || !!linePending; }, get line() { return linePending && linePending.id; } };
+    window.player = { runStep, next, back, replay, setMode, setCam, said, tryMove, get idx() { return idx; }, get state() { return state; }, get pending() { return !!pending || !!linePending; }, get line() { return linePending && linePending.id.join("+"); } };
     if (stepped) return;
     sim.live(true);
     // two ways in, on the Start screen itself (on a phone the panel starts folded, and Jake never found Practice behind "Show all":

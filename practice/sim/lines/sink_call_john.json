@@ -10,6 +10,7 @@
     "PLUMBING / SEPTIC / HVAC": "plumbing",
     "FIXTURE": "kitchen sink",
     "NEXT STOPS ON THE CHECKLIST": "water heater",
+    "WHAT THEIR ANSWER POINTS TO": "water filtration and your water heater",
     "ORIGINAL REASON FOR CALLOUT": "kitchen sink",
     "WHAT'S BROKEN ONLY. NO SOLUTION YET.": "a partly clogged drain line and a cracked trap",
     "ONE OR TWO SAFETY CONCERNS FROM THE CHECKLIST": "the seized shutoff valves under the sink",
@@ -29,11 +30,10 @@
     { "id": "S2_03", "step": "S2", "who": "tech", "src": "S2:4", "text": "I'm Mike with Happy Pipes. Here's my card. We visited on the phone a little bit ago. It's good to meet you in person.", "move": "talk_self_assured_02", "listen": "listen_accept_02", "face": "smile" },
     { "id": "S2_04", "step": "S2", "who": "john", "src": "S2:6", "text": "Nice to meet you too. Come on in.", "move": "invite_sit", "listen": "listen_relaxed_01", "face": "smile" },
 
+    { "id": "S3_00", "step": "S3", "who": "tech", "src": "", "text": "I'm gonna slip these shoe covers on real quick.", "move": "talk_relaxed_01", "listen": "listen_relaxed_01", "face": "smile", "adapted": "Jake 2026-10-30: the shoe covers go on the moment John asks him in, standing right there, and this is said as he starts; his thanks (S3_01) follows straight on while he puts them on. The script has the covers after the reviews (S3:4)." },
     { "id": "S3_01", "step": "S3", "who": "tech", "src": "S3:1", "text": "I appreciate you having us out, John. I know you've got plenty of companies you could've called, so thank you for trusting us with your home.", "move": "talk_self_assured_01", "listen": "listen_accept_02", "face": "warm" },
     { "id": "S3_02", "step": "S3", "who": "john", "src": "S3:2", "text": "You guys have great reviews.", "move": "talk_relaxed_01", "listen": "listen_relaxed_01", "face": "smile" },
-    { "id": "S3_03", "step": "S3", "who": "tech", "src": "S3:4", "text": "Thank you. We've got a good team. Everybody here wants to serve our customers at the highest level. Let me slip these shoe covers on first to keep your floors clean.", "move": "talk_relaxed_02", "listen": "listen_neutral_02", "face": "warm" },
-    { "id": "S3_04", "step": "S3", "who": "john", "src": "S3:6", "text": "Oh, you don't have to do that.", "move": "talk_relaxed_01", "listen": "crouch_idle", "face": "smile" },
-    { "id": "S3_05", "step": "S3", "who": "tech", "src": "S3:7", "text": "It's my pleasure. I'm in and out of crawl spaces, attics, and backyards all day long.", "move": "talk_relaxed_01", "listen": "laugh_low", "face": "smile" },
+    { "id": "S3_03", "step": "S3", "who": "tech", "src": "S3:9", "text": "Thank you. We've got a good team. Everybody here wants to serve our customers at the highest level.", "move": "talk_relaxed_02", "listen": "listen_neutral_02", "face": "smile" },
     { "id": "S3_06", "step": "S3", "who": "tech", "src": "S3:10", "text": "I see you got to visit with Sarah when you called in. She takes good care of our customers. We're lucky to have her.", "move": "talk_neutral_02", "listen": "listen_accept_01", "face": "warm" },
     { "id": "S3_07", "step": "S3", "who": "john", "src": "S3:11", "text": "She was very friendly.", "move": "talk_relaxed_02", "listen": "listen_accept_03", "face": "smile" },
 
@@ -51,6 +51,7 @@
     { "id": "S4_12", "step": "S4", "who": "tech", "src": "S4:12", "text": "I appreciate you sharing all that.", "move": "talk_neutral_01", "listen": "idle_neutral_01", "face": "warm" },
     { "id": "S4_13", "step": "S4", "who": "tech", "src": "S4:14", "text": "I follow an EPA checklist. While I'm working, if I spot anything that could make your home more comfortable, save you money, or cause damage or be a safety concern, would you like me to share it with you?", "speed": 0.92, "move": "talk_self_assured_02", "listen": "listen_neutral_02", "face": "neutral" },
     { "id": "S4_14", "step": "S4", "who": "john", "src": "S4:15", "text": "Sure.", "move": "listen_accept_03", "listen": "idle_neutral_01", "face": "smile" },
+    { "id": "S4_15", "step": "S4", "who": "tech", "src": "", "text": "Do you mind showing me to the sink? We'll get started.", "move": "talk_relaxed_01", "listen": "listen_accept_02", "face": "smile", "adapted": "Jake 2026-10-30: \"The transition is we got to get to the repair ... you mind showing me to the sink? We'll get started.\" The script's S5 starts as they walk to the spot, with no line for asking to be shown." },
 
     { "id": "S5_01", "step": "S5", "who": "john", "src": "S5:1", "text": "Here it is.", "move": "presentation_right_01", "listen": "idle_neutral_01", "face": "neutral" },
     { "id": "S5_02", "step": "S5", "who": "tech", "src": "S5:2", "text": "Before I get started, I want to leave this with you. It's yours to keep. A lot of our customers are surprised how much more we handle than plumbing. Things that make a home more comfortable to live in.", "move": "talk_self_assured_02", "listen": "listen_accept_02", "face": "warm" },
@@ -63,7 +64,8 @@
     { "id": "S6_03", "step": "S6", "who": "john", "src": "S6:4", "text": "I'll be in the living room. Come grab me.", "adapted": "the script's reply says the kitchen; in this house the technician works at the kitchen sink and John waits on the living room sofa", "move": "talk_neutral_01", "listen": "listen_accept_02", "face": "smile" },
     { "id": "S6_04", "step": "S6", "who": "tech", "src": "S6:5", "text": "Perfect. I'll get started.", "move": "talk_neutral_01", "listen": "idle_neutral_01", "face": "smile" },
 
-    { "id": "S8_01", "step": "S8", "who": "tech", "src": "S8:2", "text": "John, good news. I found the challenge with your kitchen sink.", "move": "talk_relaxed_01", "listen": "listen_neutral_02", "face": "warm" },
+    { "id": "S8_00", "step": "S8", "who": "tech", "src": "", "text": "Hey, John?", "move": "talk_relaxed_01", "listen": "idle_neutral_01", "face": "smile", "adapted": "Jake 2026-10-30: \"before he enters the living room, he needs to go, Hey, John, pause, and then say his line.\" Said again before the last check-in (S8L)." },
+    { "id": "S8_01", "step": "S8", "who": "tech", "src": "S8:2", "text": "Good news. I found the challenge with your kitchen sink.", "move": "talk_relaxed_01", "listen": "listen_neutral_02", "face": "smile", "adapted": "his name comes off the front: he has just called it out (S8_00, Jake 2026-10-30)" },
     { "id": "S8_02", "step": "S8", "who": "john", "src": "S8:3", "text": "Oh boy, what are we looking at?", "move": "talk_nervous_01", "listen": "listen_neutral_02", "face": "concern" },
     { "id": "S8_03", "step": "S8", "who": "tech", "src": "S8:4", "text": "I took plenty of pictures and video so you can see it for yourself. Here's what I found: your drain line is partly clogged, so when the dishwasher drains, the water backs up and leaks out of a cracked trap under the cabinet. If that keeps up, it'll rot out the floor of the cabinet.", "move": "talk_neutral_01", "listen": "listen_nervous_01", "face": "concern" },
     { "id": "S8_04", "step": "S8", "who": "john", "src": "S8:6", "text": "That sounds bad.", "move": "talk_sad_01", "listen": "listen_accept_01", "face": "concern" },
@@ -73,7 +75,7 @@
 
     { "id": "S9_01", "step": "S9", "who": "tech", "src": "S9:4", "text": "While I was at your sink, I noticed white scale built up on the faucet and the shutoff valves. That's usually a sign of what's in the water. Have you noticed any buildup on your faucets or shower heads, or a funny taste or smell?", "adapted": "the script's direct question is about corrosion at the water heater; on this call the finding is scale at the sink", "move": "talk_self_assured_02", "listen": "thoughtful_01", "face": "neutral" },
     { "id": "S9_02", "step": "S9", "who": "john", "src": "S9:5", "text": "Now that you mention it, the shower heads get crusty, and the glasses come out of the dishwasher cloudy.", "adapted": "the script leaves the reply open ([Shares what they've noticed.])", "move": "talk_relaxed_01", "listen": "listen_accept_02", "face": "neutral" },
-    { "id": "S9_03", "step": "S9", "who": "tech", "src": "S9:15", "text": "Thank you for sharing that. Let me take a quick look at your water heater, and I'll come right back.", "move": "talk_neutral_01", "listen": "listen_accept_01", "face": "warm" },
+    { "id": "S9_03", "step": "S9", "who": "tech", "src": "S9:15", "text": "Thank you for sharing that. Let me take a quick look at your water filtration and your water heater, and I'll come right back.", "move": "talk_neutral_01", "listen": "listen_accept_01", "face": "warm" },
 
     { "id": "S8L_01", "step": "S8L", "who": "tech", "src": "S8:16", "text": "That's everything I wanted to look at today. Give me a few minutes to put it all together. Is there a place we could sit for a second?", "move": "talk_relaxed_02", "listen": "listen_neutral_02", "face": "smile" },
     { "id": "S8L_02", "step": "S8L", "who": "john", "src": null, "text": "Sure, let's sit at the kitchen table.", "adapted": "the script gives no reply here", "move": "presentation_left_01", "listen": "listen_accept_01", "face": "smile" },

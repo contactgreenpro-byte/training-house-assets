@@ -377,7 +377,9 @@
         }
       }
       for (let i = 0; i < 2; i++) if (!Number.isFinite(this.corr[i]) || Math.abs(this.corr[i]) > 2) { this.corr[i] = want[i]; this.corrV[i] = 0; }
-      const right = new T.Vector3(Math.cos(bodyH + this.lp[0]), 0, -Math.sin(bodyH + this.lp[0]));
+      // (the nod about the head's right as it is once turned: about its right from before the turn, a head turned well round and
+      // looking up or down rolled onto its shoulder, John's 20 degrees looking up at Mike from the sofa, round 3n)
+      const right = new T.Vector3(Math.cos(bodyH + this.lp[0] + this.corr[0]), 0, -Math.sin(bodyH + this.lp[0] + this.corr[0]));
       const dq = new T.Quaternion().setFromAxisAngle(UP, this.corr[0]).premultiply(new T.Quaternion().setFromAxisAngle(right, this.corr[1] + nod * DEG));
       const split = (q, f) => new T.Quaternion().slerp(q, f);
       // keep(): the clip's own value comes back before the next frame (sim.js Person.keep), so the turn is never added twice

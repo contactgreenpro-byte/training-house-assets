@@ -1,0 +1,22 @@
+{
+ "text": "Hey, John?",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 0.743,
+ "word_count": 2,
+ "words": [
+  {
+   "word": "Hey,",
+   "start": 0.0,
+   "end": 0.255
+  },
+  {
+   "word": "John?",
+   "start": 0.302,
+   "end": 0.743
+  }
+ ]
+}

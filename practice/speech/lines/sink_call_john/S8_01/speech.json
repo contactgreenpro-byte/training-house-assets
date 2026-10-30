@@ -1,67 +1,62 @@
 {
- "text": "John, good news. I found the challenge with your kitchen sink.",
+ "text": "Good news. I found the challenge with your kitchen sink.",
  "voice_id": "iP95p4xoKVk53GoZ742B",
  "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
  "model": "eleven_multilingual_v2",
  "speed": 1.0,
  "audio": "speech.mp3",
- "spoken_seconds": 3.297,
- "word_count": 11,
+ "spoken_seconds": 3.065,
+ "word_count": 10,
  "words": [
   {
-   "word": "John,",
+   "word": "Good",
    "start": 0.0,
-   "end": 0.325
-  },
-  {
-   "word": "good",
-   "start": 0.36,
-   "end": 0.499
+   "end": 0.221
   },
   {
    "word": "news.",
-   "start": 0.546,
-   "end": 0.94
+   "start": 0.267,
+   "end": 0.662
   },
   {
    "word": "I",
-   "start": 1.265,
-   "end": 1.312
+   "start": 0.987,
+   "end": 1.045
   },
   {
    "word": "found",
-   "start": 1.428,
-   "end": 1.579
+   "start": 1.138,
+   "end": 1.289
   },
   {
    "word": "the",
-   "start": 1.602,
-   "end": 1.672
+   "start": 1.324,
+   "end": 1.393
   },
   {
    "word": "challenge",
-   "start": 1.707,
-   "end": 2.055
+   "start": 1.451,
+   "end": 1.788
   },
   {
    "word": "with",
-   "start": 2.078,
-   "end": 2.183
+   "start": 1.811,
+   "end": 1.916
   },
   {
    "word": "your",
-   "start": 2.218,
-   "end": 2.322
+   "start": 1.95,
+   "end": 2.067
   },
   {
    "word": "kitchen",
-   "start": 2.368,
-   "end": 2.659
+   "start": 2.125,
+   "end": 2.415
   },
   {
    "word": "sink.",
-   "start": 2.717,
-   "end": 3.297
+   "start": 2.485,
+   "end": 3.065
   }
  ]
 }

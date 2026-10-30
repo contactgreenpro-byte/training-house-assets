@@ -1,0 +1,57 @@
+{
+ "text": "I'm gonna slip these shoe covers on real quick.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 2.136,
+ "word_count": 9,
+ "words": [
+  {
+   "word": "I'm",
+   "start": 0.0,
+   "end": 0.197
+  },
+  {
+   "word": "gonna",
+   "start": 0.221,
+   "end": 0.372
+  },
+  {
+   "word": "slip",
+   "start": 0.406,
+   "end": 0.615
+  },
+  {
+   "word": "these",
+   "start": 0.662,
+   "end": 0.813
+  },
+  {
+   "word": "shoe",
+   "start": 0.836,
+   "end": 1.01
+  },
+  {
+   "word": "covers",
+   "start": 1.045,
+   "end": 1.289
+  },
+  {
+   "word": "on",
+   "start": 1.335,
+   "end": 1.393
+  },
+  {
+   "word": "real",
+   "start": 1.44,
+   "end": 1.556
+  },
+  {
+   "word": "quick.",
+   "start": 1.591,
+   "end": 2.136
+  }
+ ]
+}

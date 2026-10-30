@@ -1,12 +1,12 @@
 {
- "text": "Thank you for sharing that. Let me take a quick look at your water heater, and I'll come right back.",
+ "text": "Thank you for sharing that. Let me take a quick look at your water filtration and your water heater, and I'll come right back.",
  "voice_id": "iP95p4xoKVk53GoZ742B",
  "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
  "model": "eleven_multilingual_v2",
  "speed": 1.0,
  "audio": "speech.mp3",
- "spoken_seconds": 4.505,
- "word_count": 20,
+ "spoken_seconds": 5.573,
+ "word_count": 24,
  "words": [
   {
    "word": "Thank",
@@ -15,98 +15,118 @@
   },
   {
    "word": "you",
-   "start": 0.255,
-   "end": 0.325
+   "start": 0.267,
+   "end": 0.337
   },
   {
    "word": "for",
-   "start": 0.372,
-   "end": 0.453
+   "start": 0.395,
+   "end": 0.488
   },
   {
    "word": "sharing",
-   "start": 0.488,
-   "end": 0.72
+   "start": 0.522,
+   "end": 0.789
   },
   {
    "word": "that.",
-   "start": 0.755,
-   "end": 1.068
+   "start": 0.824,
+   "end": 1.091
   },
   {
    "word": "Let",
-   "start": 1.509,
-   "end": 1.625
+   "start": 1.416,
+   "end": 1.544
   },
   {
    "word": "me",
-   "start": 1.649,
-   "end": 1.695
+   "start": 1.567,
+   "end": 1.625
   },
   {
    "word": "take",
-   "start": 1.718,
-   "end": 1.846
+   "start": 1.66,
+   "end": 1.8
   },
   {
    "word": "a",
-   "start": 1.869,
-   "end": 1.892
+   "start": 1.823,
+   "end": 1.846
   },
   {
    "word": "quick",
-   "start": 1.939,
-   "end": 2.078
+   "start": 1.904,
+   "end": 2.067
   },
   {
    "word": "look",
    "start": 2.113,
-   "end": 2.229
+   "end": 2.252
   },
   {
    "word": "at",
-   "start": 2.264,
-   "end": 2.31
+   "start": 2.287,
+   "end": 2.357
   },
   {
    "word": "your",
-   "start": 2.345,
-   "end": 2.461
+   "start": 2.403,
+   "end": 2.519
   },
   {
    "word": "water",
-   "start": 2.519,
-   "end": 2.775
+   "start": 2.577,
+   "end": 2.81
   },
   {
-   "word": "heater,",
-   "start": 2.821,
-   "end": 3.065
+   "word": "filtration",
+   "start": 2.856,
+   "end": 3.309
   },
   {
    "word": "and",
-   "start": 3.088,
-   "end": 3.274
+   "start": 3.344,
+   "end": 3.413
+  },
+  {
+   "word": "your",
+   "start": 3.46,
+   "end": 3.553
+  },
+  {
+   "word": "water",
+   "start": 3.599,
+   "end": 3.796
+  },
+  {
+   "word": "heater,",
+   "start": 3.831,
+   "end": 4.214
+  },
+  {
+   "word": "and",
+   "start": 4.389,
+   "end": 4.516
   },
   {
    "word": "I'll",
-   "start": 3.367,
-   "end": 3.541
+   "start": 4.551,
+   "end": 4.656
   },
   {
    "word": "come",
-   "start": 3.576,
-   "end": 3.715
+   "start": 4.69,
+   "end": 4.807
   },
   {
    "word": "right",
-   "start": 3.75,
-   "end": 3.889
+   "start": 4.841,
+   "end": 4.981
   },
   {
    "word": "back.",
-   "start": 3.924,
-   "end": 4.505
+   "start": 5.016,
+   "end": 5.573
   }
  ]
 }

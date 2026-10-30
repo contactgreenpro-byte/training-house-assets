@@ -1,0 +1,67 @@
+{
+ "text": "Do you mind showing me to the sink? We'll get started.",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 2.694,
+ "word_count": 11,
+ "words": [
+  {
+   "word": "Do",
+   "start": 0.0,
+   "end": 0.128
+  },
+  {
+   "word": "you",
+   "start": 0.151,
+   "end": 0.221
+  },
+  {
+   "word": "mind",
+   "start": 0.255,
+   "end": 0.372
+  },
+  {
+   "word": "showing",
+   "start": 0.406,
+   "end": 0.627
+  },
+  {
+   "word": "me",
+   "start": 0.65,
+   "end": 0.72
+  },
+  {
+   "word": "to",
+   "start": 0.743,
+   "end": 0.789
+  },
+  {
+   "word": "the",
+   "start": 0.836,
+   "end": 0.906
+  },
+  {
+   "word": "sink?",
+   "start": 0.94,
+   "end": 1.312
+  },
+  {
+   "word": "We'll",
+   "start": 1.637,
+   "end": 1.811
+  },
+  {
+   "word": "get",
+   "start": 1.846,
+   "end": 1.95
+  },
+  {
+   "word": "started.",
+   "start": 1.997,
+   "end": 2.694
+  }
+ ]
+}
