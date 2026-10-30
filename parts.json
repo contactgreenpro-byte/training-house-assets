@@ -821,7 +821,7 @@
   "head_assembly": "Sprinkler assembly. The riser, gear drive and turret. Lifts out of the can for cleaning.",
   "head_filter": "Inlet filter. On the bottom of the assembly. Effluent fines clog it; rinse it and push it back on.",
   "head_riser": "Riser. Pops up when the pump runs and turns the nozzle across its arc.",
-  "head_nozzle": "Nozzle. Sets the throw and the flow. Low angle on these 22 ft heads.",
+  "head_nozzle": "Nozzle. Sets the throw and the flow. Low angle on these 30 ft heads.",
   "head_nozzle_screw": "Nozzle retention screw. Holds the nozzle in; it is also the break up screw, so too far in shortens the throw.",
   "spray_tee": "Spray tee. The purple line's tee and the black swing pipe up to the head.",
   "spray_tee_cap_b": "End cap. The last head on the line has nothing past its tee, so the tee's far stub is capped.",

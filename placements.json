@@ -1978,7 +1978,7 @@
    "file": "site",
    "pack": null,
    "model": "spray_head_r22.glb",
-   "yaw": 0,
+   "yaw": 90,
    "hide": [
     "grass",
     "spray_pattern",
@@ -1986,36 +1986,39 @@
    ],
    "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train",
    "arc": 360,
-   "radius_ft": 22
+   "radius_ft": 30,
+   "note": "Round 103 (Jake 2026-10-30): three full 30 ft heads in a north-south line 60 ft apart behind the house, on the spray layouts' 120 x 340 ft lot; yaw 90 lays the tee's run along the line. The line carries on north out of this head's tee, so its end cap is hidden."
   },
   {
    "socket": "sock_spray_2",
    "file": "site",
    "pack": null,
    "model": "spray_head_r22.glb",
-   "yaw": 0,
+   "yaw": 90,
+   "hide": [
+    "grass",
+    "spray_pattern",
+    "spray_tee_cap_b"
+   ],
+   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train",
+   "arc": 360,
+   "radius_ft": 30,
+   "note": "Round 103 (Jake 2026-10-30): three full 30 ft heads in a north-south line 60 ft apart behind the house, on the spray layouts' 120 x 340 ft lot; yaw 90 lays the tee's run along the line. The line carries on north out of this head's tee, so its end cap is hidden."
+  },
+  {
+   "socket": "sock_spray_3",
+   "file": "site",
+   "pack": null,
+   "model": "spray_head_r22.glb",
+   "yaw": 90,
    "hide": [
     "grass",
     "spray_pattern"
    ],
    "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train",
    "arc": 360,
-   "radius_ft": 22
-  },
-  {
-   "socket": "sock_spray_3",
-   "file": "site",
-   "pack": null,
-   "model": "spray_head_180_r22.glb",
-   "yaw": 0,
-   "hide": [
-    "grass",
-    "spray_pattern"
-   ],
-   "config": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train",
-   "arc": 180,
-   "note": "At the back property line, half circle facing the house.",
-   "radius_ft": 22
+   "note": "Round 103 (Jake 2026-10-30): three full 30 ft heads in a north-south line 60 ft apart behind the house, on the spray layouts' 120 x 340 ft lot; yaw 90 lays the tee's run along the line. The last head: its tee's north socket takes the end cap. It was a half circle at the old back line, facing the house.",
+   "radius_ft": 30
   },
   {
    "socket": "sock_septic_tank_back",
@@ -3054,7 +3057,7 @@
    ],
    "config": "water=well",
    "alternate": true,
-   "note": "Round 41: the well in the east side yard, its 1 in poly service and pump cable trenched to the garage east wall.",
+   "note": "Round 41: the well and its 1 in poly service and pump cable trenched to the garage east wall. Round 103b (Jake 2026-10-30): moved to the front yard east of the drive, (40, -33) ft, facing north, for every layout: 100 ft or more from the chamber field, the spray circles and the overland areas, 50 ft or more from every tank and plant. The east side yard spot failed the field and the circles.",
    "section_set": {
     "pairs": {
      "casing": "casing_section",

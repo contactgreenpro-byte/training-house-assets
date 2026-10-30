@@ -916,7 +916,7 @@
      "file": "pipes_supply__water-well.glb",
      "tag": "water=well",
      "nodes": 1,
-     "bytes": 9764
+     "bytes": 25808
     },
     {
      "file": "pipes_supply__water-well_and_softener-no_and_plumbing-cpvc.glb",
@@ -1065,37 +1065,37 @@
      "file": "pipes_dwv__sewer-septic_overland.glb",
      "tag": "sewer=septic_overland",
      "nodes": 11,
-     "bytes": 218048
+     "bytes": 218128
     },
     {
      "file": "pipes_dwv__sewer-septic_overland_aquaklear.glb",
      "tag": "sewer=septic_overland_aquaklear",
      "nodes": 10,
-     "bytes": 186148
+     "bytes": 186152
     },
     {
      "file": "pipes_dwv__sewer-septic_overland_fiberglass_train.glb",
      "tag": "sewer=septic_overland_fiberglass_train",
      "nodes": 3,
-     "bytes": 55364
+     "bytes": 55444
     },
     {
      "file": "pipes_dwv__sewer-septic_overland_lee.glb",
      "tag": "sewer=septic_overland_lee",
      "nodes": 4,
-     "bytes": 39812
+     "bytes": 39836
     },
     {
      "file": "pipes_dwv__sewer-septic_spray.glb",
      "tag": "sewer=septic_spray",
      "nodes": 4,
-     "bytes": 33992
+     "bytes": 44812
     },
     {
      "file": "pipes_dwv__sewer-septic_spray_fiberglass_train.glb",
      "tag": "sewer=septic_spray_fiberglass_train",
      "nodes": 6,
-     "bytes": 76604
+     "bytes": 87164
     },
     {
      "file": "pipes_dwv__sewer-septic_spray_fiberglass_train+septic_overland_fiberglass_train.glb",
@@ -1107,7 +1107,7 @@
      "file": "pipes_dwv__sewer-septic_spray_trash.glb",
      "tag": "sewer=septic_spray_trash",
      "nodes": 7,
-     "bytes": 194452
+     "bytes": 205072
     },
     {
      "file": "pipes_dwv__sewer__eff531ad.glb",
@@ -1125,7 +1125,7 @@
      "file": "pipes_dwv__sewer-septic_spray_two_tank.glb",
      "tag": "sewer=septic_spray_two_tank",
      "nodes": 13,
-     "bytes": 270248
+     "bytes": 280920
     },
     {
      "file": "pipes_dwv__sewer__837e9cf8.glb",
@@ -1148,8 +1148,8 @@
     {
      "file": "pipes_dwv__sewer__44c0ab5d.glb",
      "tag": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train",
-     "nodes": 5,
-     "bytes": 30712
+     "nodes": 4,
+     "bytes": 9524
     },
     {
      "file": "pipes_dwv__softener-yes.glb",
@@ -1525,7 +1525,7 @@
      "file": "pipes_hvac__water-well.glb",
      "tag": "water=well",
      "nodes": 3,
-     "bytes": 26608
+     "bytes": 42392
     }
    ]
   },
@@ -2057,7 +2057,7 @@
      "file": "slab_pipes_supply__water-well.glb",
      "tag": "water=well",
      "nodes": 1,
-     "bytes": 10676
+     "bytes": 26696
     },
     {
      "file": "slab_pipes_supply__water-well_and_plumbing-copper.glb",
@@ -2182,19 +2182,19 @@
      "file": "slab_pipes_dwv__sewer-septic_overland.glb",
      "tag": "sewer=septic_overland",
      "nodes": 12,
-     "bytes": 223964
+     "bytes": 224004
     },
     {
      "file": "slab_pipes_dwv__sewer-septic_overland_aquaklear.glb",
      "tag": "sewer=septic_overland_aquaklear",
      "nodes": 11,
-     "bytes": 131976
+     "bytes": 131948
     },
     {
      "file": "slab_pipes_dwv__sewer-septic_overland_fiberglass_train.glb",
      "tag": "sewer=septic_overland_fiberglass_train",
      "nodes": 3,
-     "bytes": 55660
+     "bytes": 55880
     },
     {
      "file": "slab_pipes_dwv__sewer__bf4ad6d7.glb",
@@ -2206,7 +2206,7 @@
      "file": "slab_pipes_dwv__sewer-septic_overland_lee.glb",
      "tag": "sewer=septic_overland_lee",
      "nodes": 4,
-     "bytes": 39960
+     "bytes": 40020
     },
     {
      "file": "slab_pipes_dwv__sewer-septic_overland_lee+septic_spray.glb",
@@ -2218,13 +2218,13 @@
      "file": "slab_pipes_dwv__sewer-septic_spray.glb",
      "tag": "sewer=septic_spray",
      "nodes": 4,
-     "bytes": 34120
+     "bytes": 45108
     },
     {
      "file": "slab_pipes_dwv__sewer-septic_spray_fiberglass_train.glb",
      "tag": "sewer=septic_spray_fiberglass_train",
      "nodes": 6,
-     "bytes": 77148
+     "bytes": 87928
     },
     {
      "file": "slab_pipes_dwv__sewer-septic_spray_fiberglass_train+septic_overland_fiberglass_train.glb",
@@ -2236,7 +2236,7 @@
      "file": "slab_pipes_dwv__sewer-septic_spray_trash.glb",
      "tag": "sewer=septic_spray_trash",
      "nodes": 7,
-     "bytes": 196976
+     "bytes": 207816
     },
     {
      "file": "slab_pipes_dwv__sewer__eff531ad.glb",
@@ -2254,7 +2254,7 @@
      "file": "slab_pipes_dwv__sewer-septic_spray_two_tank.glb",
      "tag": "sewer=septic_spray_two_tank",
      "nodes": 14,
-     "bytes": 229088
+     "bytes": 239152
     },
     {
      "file": "slab_pipes_dwv__sewer__837e9cf8.glb",
@@ -2283,8 +2283,8 @@
     {
      "file": "slab_pipes_dwv__sewer__44c0ab5d.glb",
      "tag": "sewer=septic_spray|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train",
-     "nodes": 5,
-     "bytes": 31172
+     "nodes": 4,
+     "bytes": 9556
     },
     {
      "file": "slab_pipes_dwv__softener-yes.glb",
@@ -2648,7 +2648,7 @@
      "file": "slab_pipes_hvac__water-well.glb",
      "tag": "water=well",
      "nodes": 3,
-     "bytes": 25480
+     "bytes": 41280
     }
    ]
   },

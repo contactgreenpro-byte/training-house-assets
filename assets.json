@@ -1,7 +1,7 @@
 {
- "published": "2026-10-29T02:43:54",
- "house": "r100a4c",
- "note": "r100a4c: the practice run-through game (practice.html: the field script's sink call with John and Mike, 52 voiced lines, Watch it done or Practice it, phone controls) and the kitchen island from round 102b (2.5 ft deep, the dining set 6 in east), the island's nodes only; the unpublished r100a5 house pass stays out",
+ "published": "2026-10-30T05:13:46",
+ "house": "r100a4d",
+ "note": "r100a4d: round 103 (the spray field on a 120 x 340 ft lot with three full 30 ft heads, the small lot's west line out over a 6.5 percent hillside, the well in the front yard), round 103's files only; the unpublished r100a5 pass and the filter bypass fix stay out",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -48,8 +48,8 @@
    "bytes": 480120
   },
   "drains.json": {
-   "v": "e168350676",
-   "bytes": 10628
+   "v": "08f256d349",
+   "bytes": 10714
   },
   "dryer.glb": {
    "v": "0c266ce22a",
@@ -156,8 +156,8 @@
    "bytes": 8755904
   },
   "house_site.glb": {
-   "v": "edc092c240",
-   "bytes": 7147868
+   "v": "b2d490b59c",
+   "bytes": 8563540
   },
   "house_slab.glb": {
    "v": "e170461dbb",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "ab58511dd9",
+   "v": "434e0f7d31",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -320,7 +320,7 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "f7562fa7f1",
+   "v": "e8402ddf9b",
    "bytes": 105409
   },
   "pipes.json": {
@@ -372,44 +372,44 @@
    "bytes": 20760
   },
   "pipes_dwv__sewer-septic_overland.glb": {
-   "v": "0745351271",
-   "bytes": 218048
+   "v": "0e6cb71757",
+   "bytes": 218128
   },
   "pipes_dwv__sewer-septic_overland_aquaklear.glb": {
-   "v": "3024b213e5",
-   "bytes": 186148
+   "v": "821c41ced9",
+   "bytes": 186152
   },
   "pipes_dwv__sewer-septic_overland_fiberglass_train.glb": {
-   "v": "e74052526b",
-   "bytes": 55364
+   "v": "9e4612f46c",
+   "bytes": 55444
   },
   "pipes_dwv__sewer-septic_overland_lee.glb": {
-   "v": "2d818d03d0",
-   "bytes": 39812
+   "v": "8c4ff24c7f",
+   "bytes": 39836
   },
   "pipes_dwv__sewer-septic_spray+septic_overland_lee.glb": {
    "v": "c8b775c94e",
    "bytes": 232472
   },
   "pipes_dwv__sewer-septic_spray.glb": {
-   "v": "5c34fd4de3",
-   "bytes": 33992
+   "v": "0ee728d08e",
+   "bytes": 44812
   },
   "pipes_dwv__sewer-septic_spray_fiberglass_train+septic_overland_fiberglass_train.glb": {
    "v": "2a529aed96",
    "bytes": 135300
   },
   "pipes_dwv__sewer-septic_spray_fiberglass_train.glb": {
-   "v": "3c7a25fec9",
-   "bytes": 76604
+   "v": "4edf951755",
+   "bytes": 87164
   },
   "pipes_dwv__sewer-septic_spray_trash.glb": {
-   "v": "b17b145785",
-   "bytes": 194452
+   "v": "62fd6d3cca",
+   "bytes": 205072
   },
   "pipes_dwv__sewer-septic_spray_two_tank.glb": {
-   "v": "6a72e275ef",
-   "bytes": 270248
+   "v": "c48846d3a6",
+   "bytes": 280920
   },
   "pipes_dwv__sewer-septic_spray_with_panel.glb": {
    "v": "aabe148326",
@@ -420,8 +420,8 @@
    "bytes": 3796
   },
   "pipes_dwv__sewer__44c0ab5d.glb": {
-   "v": "33700553d1",
-   "bytes": 30712
+   "v": "cc71902bdb",
+   "bytes": 9524
   },
   "pipes_dwv__sewer__5397f126.glb": {
    "v": "9f470793fa",
@@ -564,8 +564,8 @@
    "bytes": 36388
   },
   "pipes_groups.json": {
-   "v": "5085fca841",
-   "bytes": 93439
+   "v": "a8abf155cd",
+   "bytes": 96111
   },
   "pipes_hvac__common.glb": {
    "v": "f2bb3860a1",
@@ -672,8 +672,8 @@
    "bytes": 43376
   },
   "pipes_hvac__water-well.glb": {
-   "v": "2d693c2d0c",
-   "bytes": 26608
+   "v": "6394fb5bc0",
+   "bytes": 42392
   },
   "pipes_hvac__water_heater-attic_electric_tank.glb": {
    "v": "b7e4161aaf",
@@ -968,8 +968,8 @@
    "bytes": 109232
   },
   "pipes_supply__water-well.glb": {
-   "v": "1b60926b0c",
-   "bytes": 9764
+   "v": "f9b0b59f2a",
+   "bytes": 25808
   },
   "pipes_supply__water-well_and_softener-no_and_plumbing-cpvc.glb": {
    "v": "5d3b92ff89",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "44eae92ac8",
-   "bytes": 181474
+   "v": "464ada1915",
+   "bytes": 182578
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -1464,8 +1464,8 @@
    "bytes": 27304
   },
   "slab_drains.json": {
-   "v": "41dcd0096c",
-   "bytes": 11462
+   "v": "a122999e4a",
+   "bytes": 11548
   },
   "slab_house_floor1.glb": {
    "v": "e58f569a98",
@@ -1480,8 +1480,8 @@
    "bytes": 382648
   },
   "slab_house_site.glb": {
-   "v": "216e933492",
-   "bytes": 7085204
+   "v": "b6915e5fb4",
+   "bytes": 8510376
   },
   "slab_house_slab.glb": {
    "v": "d3d59f21ee",
@@ -1532,48 +1532,48 @@
    "bytes": 20752
   },
   "slab_pipes_dwv__sewer-septic_overland.glb": {
-   "v": "f701de42a8",
-   "bytes": 223964
+   "v": "6bf5a8afae",
+   "bytes": 224004
   },
   "slab_pipes_dwv__sewer-septic_overland_aquaklear.glb": {
-   "v": "34966409b6",
-   "bytes": 131976
+   "v": "4ce2579e0f",
+   "bytes": 131948
   },
   "slab_pipes_dwv__sewer-septic_overland_fiberglass_train.glb": {
-   "v": "de15152d20",
-   "bytes": 55660
+   "v": "66bbf5f4b3",
+   "bytes": 55880
   },
   "slab_pipes_dwv__sewer-septic_overland_lee+septic_spray.glb": {
    "v": "a734048a8a",
    "bytes": 14124
   },
   "slab_pipes_dwv__sewer-septic_overland_lee.glb": {
-   "v": "3a7677d467",
-   "bytes": 39960
+   "v": "f6f7359f43",
+   "bytes": 40020
   },
   "slab_pipes_dwv__sewer-septic_spray+septic_overland_lee.glb": {
    "v": "48a7722564",
    "bytes": 187332
   },
   "slab_pipes_dwv__sewer-septic_spray.glb": {
-   "v": "b3a397116c",
-   "bytes": 34120
+   "v": "175042ed7a",
+   "bytes": 45108
   },
   "slab_pipes_dwv__sewer-septic_spray_fiberglass_train+septic_overland_fiberglass_train.glb": {
    "v": "d960cc4685",
    "bytes": 136840
   },
   "slab_pipes_dwv__sewer-septic_spray_fiberglass_train.glb": {
-   "v": "66a77fdfd7",
-   "bytes": 77148
+   "v": "6a1cf12e59",
+   "bytes": 87928
   },
   "slab_pipes_dwv__sewer-septic_spray_trash.glb": {
-   "v": "1b633adbc6",
-   "bytes": 196976
+   "v": "d1708d8a03",
+   "bytes": 207816
   },
   "slab_pipes_dwv__sewer-septic_spray_two_tank.glb": {
-   "v": "a01a355cc6",
-   "bytes": 229088
+   "v": "e4168a3e64",
+   "bytes": 239152
   },
   "slab_pipes_dwv__sewer-septic_spray_with_panel.glb": {
    "v": "6a1595fb2d",
@@ -1588,8 +1588,8 @@
    "bytes": 3800
   },
   "slab_pipes_dwv__sewer__44c0ab5d.glb": {
-   "v": "22241cf14d",
-   "bytes": 31172
+   "v": "b768c41c2e",
+   "bytes": 9556
   },
   "slab_pipes_dwv__sewer__5397f126.glb": {
    "v": "53ed86a22a",
@@ -1836,8 +1836,8 @@
    "bytes": 23144
   },
   "slab_pipes_hvac__water-well.glb": {
-   "v": "1941794dfd",
-   "bytes": 25480
+   "v": "799fe1014e",
+   "bytes": 41280
   },
   "slab_pipes_hvac__water_heater-attic_electric_tank.glb": {
    "v": "83a6abcd6e",
@@ -2092,8 +2092,8 @@
    "bytes": 73472
   },
   "slab_pipes_supply__water-well.glb": {
-   "v": "84086d617d",
-   "bytes": 10676
+   "v": "62725820c3",
+   "bytes": 26696
   },
   "slab_pipes_supply__water-well_and_plumbing-copper.glb": {
    "v": "2a932e4c95",
@@ -2228,8 +2228,8 @@
    "bytes": 103076
   },
   "spray_head_r22.glb": {
-   "v": "7353cf1281",
-   "bytes": 103104
+   "v": "6bcce7260b",
+   "bytes": 139104
   },
   "spray_pump_filter.glb": {
    "v": "4f377fad41",
