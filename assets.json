@@ -1,7 +1,7 @@
 {
- "published": "2026-10-30T06:07:14",
- "house": "r100a4e",
- "note": "r100a4e: the whole house filter's bypass fix alone (Jake 2026-10-29): bypass is V1 shut, V3 open, V4 open (V3 opens first, then V1 shuts); the backflush is the bypass plus V4 shut and the bib open, caption 'V1 and V4 shut, V3 open, the bib opens'. water_filter.glb, walk.js (the bypass hunks only), info.json (two texts); the r100a5 pass and the RO card fix stay out",
+ "published": "2026-10-30T06:38:45",
+ "house": "r100a4f",
+ "note": "r100a4f: round 103c, the play set moved to the back east corner, (42, 70) ft, turned north-south, 27.2 ft from the nearest spray circle (Jake: held like a pool or patio, 25 ft); house_site.glb and slab_house_site.glb (only sock_playset_backyard and zone_playset differ) and the placement note",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -156,8 +156,8 @@
    "bytes": 8755904
   },
   "house_site.glb": {
-   "v": "b2d490b59c",
-   "bytes": 8563540
+   "v": "7f67fe4a71",
+   "bytes": 8563608
   },
   "house_slab.glb": {
    "v": "e170461dbb",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "7320cb8a50",
+   "v": "641400c69c",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "464ada1915",
-   "bytes": 182578
+   "v": "dd2184155c",
+   "bytes": 182854
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -1480,8 +1480,8 @@
    "bytes": 382648
   },
   "slab_house_site.glb": {
-   "v": "b6915e5fb4",
-   "bytes": 8510376
+   "v": "63385f4813",
+   "bytes": 8510440
   },
   "slab_house_slab.glb": {
    "v": "d3d59f21ee",
