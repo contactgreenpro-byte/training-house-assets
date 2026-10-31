@@ -1,0 +1,62 @@
+{
+ "text": "It's in the coat closet, right by the front door.",
+ "voice_id": "gPPH6SLdL8XSX6GNJ40G",
+ "voice": "Brian - Relatable Everyman (ElevenLabs library)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 2.461,
+ "word_count": 10,
+ "words": [
+  {
+   "word": "It's",
+   "start": 0.0,
+   "end": 0.186
+  },
+  {
+   "word": "in",
+   "start": 0.221,
+   "end": 0.279
+  },
+  {
+   "word": "the",
+   "start": 0.313,
+   "end": 0.383
+  },
+  {
+   "word": "coat",
+   "start": 0.43,
+   "end": 0.627
+  },
+  {
+   "word": "closet,",
+   "start": 0.685,
+   "end": 1.126
+  },
+  {
+   "word": "right",
+   "start": 1.184,
+   "end": 1.37
+  },
+  {
+   "word": "by",
+   "start": 1.405,
+   "end": 1.486
+  },
+  {
+   "word": "the",
+   "start": 1.544,
+   "end": 1.614
+  },
+  {
+   "word": "front",
+   "start": 1.649,
+   "end": 1.846
+  },
+  {
+   "word": "door.",
+   "start": 1.892,
+   "end": 2.461
+  }
+ ]
+}

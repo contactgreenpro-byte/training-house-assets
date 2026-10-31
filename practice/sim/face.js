@@ -353,7 +353,10 @@
       const clipYaw = angle(Math.atan2(hf.x, hf.z) - bodyH), clipPitch = Math.asin(clamp(-hf.y, -1, 1));
       if (!this.lp) this.lp = [clipYaw, clipPitch];
       const k = 1 - Math.exp(-dt / 0.6);
-      this.lp[0] += angle(clipYaw - this.lp[0]) * k; this.lp[1] += (clipPitch - this.lp[1]) * k;
+      // (kept within half a turn: it had wound up four whole turns on John, and the neck's range below, worked out from it, held his
+      // head 55 degrees off Mike with only his eyes turned back to him; round 3p, Jake: "John is looking more at the camera with his
+      // eyes cut back toward the technician ... John's neck did the entire thing")
+      this.lp[0] = angle(this.lp[0] + angle(clipYaw - this.lp[0]) * k); this.lp[1] += (clipPitch - this.lp[1]) * k;
       let want = [0, 0];
       const tgt = this.lookTarget();
       if (tgt) {
@@ -365,7 +368,8 @@
         // twisted neck (105 degrees head to chest, 2026-10-29)
         let chest = 0;
         if (this.chest) { const cf = this.chestFwd.clone().applyQuaternion(this.chest.getWorldQuaternion(new T.Quaternion())); chest = angle(Math.atan2(cf.x, cf.z) - bodyH); }
-        want = [clamp(angle(yaw - this.lp[0]), chest - 55 * DEG - this.lp[0], chest + 55 * DEG - this.lp[0]), clamp(pitch - this.lp[1], -25 * DEG, 25 * DEG) * 0.8];
+        const c0 = angle(chest - this.lp[0]);
+        want = [clamp(angle(yaw - this.lp[0]), c0 - 55 * DEG, c0 + 55 * DEG), clamp(pitch - this.lp[1], -25 * DEG, 25 * DEG) * 0.8];
       }
       // critically damped towards the wanted steering, about 0.35 s to settle; in steps of at most 1/60 s, as one long step (a
       // recording at 6 frames a second) made the spring blow up to infinity and the whole skeleton with it (2026-10-29)

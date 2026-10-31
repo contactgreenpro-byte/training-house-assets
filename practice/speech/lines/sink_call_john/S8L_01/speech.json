@@ -1,152 +1,127 @@
 {
- "text": "That's everything I wanted to look at today. Give me a few minutes to put it all together. Is there a place we could sit for a second?",
+ "text": "Okay, that's what I've looked at so far. I've got everything put together. Is there a place we could sit for a second?",
  "voice_id": "iP95p4xoKVk53GoZ742B",
  "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
  "model": "eleven_multilingual_v2",
  "speed": 1.0,
  "audio": "speech.mp3",
- "spoken_seconds": 6.594,
- "word_count": 28,
+ "spoken_seconds": 5.666,
+ "word_count": 23,
  "words": [
   {
-   "word": "That's",
+   "word": "Okay,",
    "start": 0.0,
-   "end": 0.255
+   "end": 0.313
   },
   {
-   "word": "everything",
-   "start": 0.313,
-   "end": 0.639
+   "word": "that's",
+   "start": 0.337,
+   "end": 0.476
   },
   {
-   "word": "I",
-   "start": 0.685,
-   "end": 0.72
+   "word": "what",
+   "start": 0.499,
+   "end": 0.592
   },
   {
-   "word": "wanted",
-   "start": 0.778,
-   "end": 0.975
+   "word": "I've",
+   "start": 0.627,
+   "end": 0.743
   },
   {
-   "word": "to",
-   "start": 0.998,
-   "end": 1.045
-  },
-  {
-   "word": "look",
-   "start": 1.068,
-   "end": 1.207
+   "word": "looked",
+   "start": 0.766,
+   "end": 0.94
   },
   {
    "word": "at",
-   "start": 1.254,
-   "end": 1.324
+   "start": 0.975,
+   "end": 1.057
   },
   {
-   "word": "today.",
-   "start": 1.37,
-   "end": 1.8
+   "word": "so",
+   "start": 1.103,
+   "end": 1.219
   },
   {
-   "word": "Give",
-   "start": 2.496,
-   "end": 2.659
+   "word": "far.",
+   "start": 1.289,
+   "end": 1.66
   },
   {
-   "word": "me",
-   "start": 2.694,
-   "end": 2.763
+   "word": "I've",
+   "start": 1.869,
+   "end": 2.032
   },
   {
-   "word": "a",
-   "start": 2.786,
-   "end": 2.821
+   "word": "got",
+   "start": 2.055,
+   "end": 2.183
   },
   {
-   "word": "few",
-   "start": 2.868,
-   "end": 2.995
-  },
-  {
-   "word": "minutes",
-   "start": 3.03,
-   "end": 3.251
-  },
-  {
-   "word": "to",
-   "start": 3.286,
-   "end": 3.332
+   "word": "everything",
+   "start": 2.229,
+   "end": 2.519
   },
   {
    "word": "put",
-   "start": 3.379,
-   "end": 3.506
-  },
-  {
-   "word": "it",
-   "start": 3.541,
-   "end": 3.599
-  },
-  {
-   "word": "all",
-   "start": 3.622,
-   "end": 3.715
+   "start": 2.566,
+   "end": 2.694
   },
   {
    "word": "together.",
-   "start": 3.773,
-   "end": 4.272
+   "start": 2.728,
+   "end": 3.251
   },
   {
    "word": "Is",
-   "start": 4.516,
-   "end": 4.644
+   "start": 3.529,
+   "end": 3.657
   },
   {
    "word": "there",
-   "start": 4.679,
-   "end": 4.83
+   "start": 3.692,
+   "end": 3.843
   },
   {
    "word": "a",
-   "start": 4.865,
-   "end": 4.888
+   "start": 3.878,
+   "end": 3.901
   },
   {
    "word": "place",
-   "start": 4.946,
-   "end": 5.178
+   "start": 3.959,
+   "end": 4.203
   },
   {
    "word": "we",
-   "start": 5.201,
-   "end": 5.259
+   "start": 4.226,
+   "end": 4.284
   },
   {
    "word": "could",
-   "start": 5.306,
-   "end": 5.445
+   "start": 4.331,
+   "end": 4.481
   },
   {
    "word": "sit",
-   "start": 5.48,
-   "end": 5.631
+   "start": 4.528,
+   "end": 4.702
   },
   {
    "word": "for",
-   "start": 5.677,
-   "end": 5.782
+   "start": 4.76,
+   "end": 4.865
   },
   {
    "word": "a",
-   "start": 5.84,
-   "end": 5.863
+   "start": 4.911,
+   "end": 4.934
   },
   {
    "word": "second?",
-   "start": 5.921,
-   "end": 6.594
+   "start": 4.992,
+   "end": 5.666
   }
  ]
 }

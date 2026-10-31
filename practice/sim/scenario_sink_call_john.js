@@ -33,8 +33,10 @@ window.SCENARIOS = window.SCENARIOS || {};
     john_aside: [[-0.2, 0, -1.3]],
     john_in: [[-0.02, 0, -0.8], [-0.2, 0, -1.3]],
     tech_in: [[0.2, 0, -0.25], [0.8, 0, -0.85]],
+    // (round 3p: he steps after the door as he eases it shut, then a step back off it, 0.95 m from Mike)
     john_to_close: [[-0.25, 0, -1.1]],
-    john_after: [[-0.25, 0, -1.45]],
+    john_close_step: [[-0.06, 0, -0.84], [0.04, 0, -0.7]],
+    john_after: [[-0.14, 0, -1.08]],
     // (at the sink John stops 1.2 m from where Mike will stand, round 3h; it was 1.05. Round 3j: Mike stands by the counter south
     // of the sink's basin, so he can set his clipboard down on it, 1.06 m from John)
     john_lead: [[-0.4, 0, -1.85], [-1.22, 0, -1.9], [-2.3, 0, -2.3], [-3.6, 0, -4.45], [-4.55, 0, -5.2], [-5.55, 0, -5.3], [-5.55, 0, -7.25]],
@@ -45,16 +47,28 @@ window.SCENARIOS = window.SCENARIOS || {};
     tech_off: [[-4.3, 0, -5.2], [-3.2, 0, -5.3]],
     tech_back_in: [[-4.3, 0, -5.2], [-4.45, 0, -4.8]],
     tech_aside: [[-4.45, 0, -5.4]],
-    // down the table's west side, between it (and the corner chair, CORNER) and the island's stools
-    john_to_table: [[-4.6, 0, -4.32], [-3.5, 0, -4.6], [-3.32, 0, -5.3], [-3.32, 0, -7.3]],
-    tech_to_table: [[-4.3, 0, -4.9], [-3.3, 0, -5.0]],   // to the table's west side, for the chair off John's corner
+    // down the table's west side, between it (and Mike's chair tucked in there) and the island's stools, to his chair at its north
+    // west corner; Mike after him from where he stepped aside, to his own chair at the side's middle (round 3p: SEATS)
+    john_to_table: [[-4.6, 0, -4.32], [-3.5, 0, -4.6], [-3.35, 0, -5.3], [-3.35, 0, -7.1], [-3.05, 0, -7.75]],
+    tech_to_table: [[-3.6, 0, -5.3], [-3.42, 0, -5.6], [-3.42, 0, -6.12]],
+    // to the water heater in the coat closet off the foyer and back (round 3p)
+    tech_to_wh: [[-3.6, 0, -4.45], [-2.3, 0, -2.3], [-1.22, 0, -1.9], [-0.4, 0, -1.86], [0.3, 0, -1.84]],
+    tech_from_wh: [[-0.4, 0, -1.86], [-1.22, 0, -1.9], [-2.3, 0, -2.3], [-3.3, 0, -3.9], [-3.2, 0, -5.3]],
   };
   const standFromSofa = (sim, p) => [SOFA[0] + sim.STAND_FWD * p.root.scale.x, 0, SOFA[2], SOFA[3]];
   const TALK = L.tech_to_sofa[L.tech_to_sofa.length - 1];   // where Mike stands to talk to him by the sofa
-  const CORNER = { chair: "furn_chair_kitchen_s0", at: [-2.685, 0, -6.85] };   // Mike's chair at the recap (setup)
+  // his toolbag: by the front door for the knock, and by the sink cabinet (bagDown's spots from where he stands; x, z, heading, y)
+  const BAG_PORCH = [0.44, 0.45, Math.PI, -0.02];
+  const BAG_SINK = [-5.235, -6.488, 3.0, 0];
   const AT_SINK = [-5.7, 0, -6.2];                       // Mike at the sink, by the counter, John 1.06 m off (S5, S6)
   const JOHN_SINK = [-5.55, 0, -7.25];
   const KNEEL = [-5.45, 0, -6.05];                       // down on one knee at the sink cabinet's middle (S7)
+  // the plumbing under the basin, as boxes (min, max) from the sink's own parts: the disposal, its waste arm and discharge, the
+  // other bowl's tailpiece and tee, the J bend and its nut, the trap arm to the wall, the supplies and stops (round 3p)
+  const PLUMBING = [
+    [[-6.41, 0.41, -5.98], [-6.22, 0.71, -5.81]], [[-6.34, 0.41, -6.26], [-6.27, 0.56, -5.97]], [[-6.36, 0.37, -6.37], [-6.25, 0.73, -6.24]],
+    [[-6.41, 0.23, -6.33], [-6.27, 0.4, -6.27]], [[-6.65, 0.31, -6.34], [-6.36, 0.4, -6.27]], [[-6.65, 0.47, -6.23], [-6.46, 0.85, -5.96]],
+  ];
   // his clipboard on the counter south of the sink's basin, paper up (S5 to S7: his hands free for the guide and the check)
   const COUNTER = { at: [-6.25, 0.916, -6.64], h: Math.PI / 2 };
 
@@ -109,7 +123,7 @@ window.SCENARIOS = window.SCENARIOS || {};
   // final (sim.late). On the table at the recap (putDown) it stays where it is put.
   // hx, hy, hz: the wrist from his hips (out to his left, up, forward); drop, ahead, inset: the board's middle from the wrist
   // (down, forward, in towards his leg); twist: the hand turned palm up under the board when it is up
-  const carry = { on: false, up: 0, want: 0, arm: null, downAt: 0, hx: 0.25, hy: -0.08, hz: 0.04, drop: 0.17, ahead: 0.03, inset: 0.028, twist: -1.2 };
+  const carry = { on: false, up: 0, want: 0, show: 0, showWant: 0, arm: null, downAt: 0, hx: 0.25, hy: -0.08, hz: 0.04, drop: 0.17, ahead: 0.03, inset: 0.028, twist: -1.2 };
   // Round 3h (Jake: "The clip board floats around alot"): his left hand is held at the angle it has in each pose, in his own frame
   // (the talking moves turned the wrist, and the board swung off his fingers), and the board hangs from that hand, not from a place
   // worked out from his hips (up, the arm fell short of that place and the board stood 7 to 12 cm off his fingers). Measured with
@@ -160,15 +174,35 @@ window.SCENARIOS = window.SCENARIOS || {};
   }
   const pos = new THREE.Vector3(), quat = new THREE.Quaternion(), scl = new THREE.Vector3(), p2 = new THREE.Vector3(), q2 = new THREE.Quaternion(), s2 = new THREE.Vector3();
   const smooth = (x) => x * x * (3 - 2 * x);
-  function handPlace(p) { const b = boardPoses(p); return b.carried.hand.lerp(b.read.hand, smooth(carry.up)); }
+  // Round 3p (Jake 2026-10-31: "I don't think John should put his clipboard down. I think he should hold it. Not John. The tech
+  // should hold the clipboard"): he shows John the guide lying on his clipboard, held flat in his left hand in front of him like a
+  // tray, a little below his chest, tipped 20 degrees toward John, the guide the right way up for John (its top toward Mike, so the
+  // clip end of the board is his). His left hand under the board's left edge, palm up, the thumb forward over the edge. carry.show
+  // eases it there (0 to 1) from wherever the board is, and back. (The tablet is shown the same way at the sofa and the table.)
+  function boardShowPose(p) {
+    const { hips, left, fwd, up } = bodyFrame(p), t = 0.35;
+    const x = fwd.clone().multiplyScalar(Math.cos(t)).addScaledVector(up, -Math.sin(t)), n = up.clone().multiplyScalar(Math.cos(t)).addScaledVector(fwd, Math.sin(t));
+    const y = n.clone().negate(), z = x.clone().cross(y);
+    const c = hips.clone().addScaledVector(up, 0.22).addScaledVector(fwd, 0.36).addScaledVector(left, 0.03);
+    // z is his left (the board's +z edge on his left): the wrist just out past it and under it, the fingers in under the board
+    const wrist = c.clone().addScaledVector(z, 0.115 + 0.035).addScaledVector(n, -0.03).addScaledVector(x, -0.02);
+    return { pos: c, q: new THREE.Quaternion().setFromRotationMatrix(M4().makeBasis(x, y, z)), wrist, fing: z.clone().negate(), thumb: x.clone() };
+  }
+  function handPlace(p) {
+    const b = boardPoses(p), h = b.carried.hand.lerp(b.read.hand, smooth(carry.up));
+    return carry.show > 0 ? h.lerp(boardShowPose(p).wrist, smooth(carry.show)) : h;
+  }
   function carryStep(sim, dt) {
     const tech = sim.people.tech;
     if (!carry.on || !board) return;
     if (carry.downAt && sim.clock >= carry.downAt) { carry.want = 0; carry.downAt = 0; }
     carry.up += Math.sign(carry.want - carry.up) * Math.min(Math.abs(carry.want - carry.up), dt / 0.55);
-    // the grip and the arm (a step change clears every pose on top of the clips, so they come back here)
+    carry.show += Math.sign(carry.showWant - carry.show) * Math.min(Math.abs(carry.showWant - carry.show), dt / 0.7);
+    // the grip and the arm (a step change clears every pose on top of the clips, so they come back here); the fingers flatter under
+    // the board as he shows it
     if (!tech._fing || !tech._fing.L) tech.fingers("L", 0.72, 0.2);
-    if (!carry.arm || !tech.posers.includes(carry.arm.fn)) carry.arm = tech.reach("L", () => handPlace(tech), { dur: 0.35 });
+    tech._fing.L.want = 0.72 - 0.5 * smooth(carry.show);
+    if (!carry.arm || !tech.posers.includes(carry.arm.fn)) { carry.arm = tech.reach("L", () => handPlace(tech), { dur: 0.35 }); carry.arm.fn.pin = "L"; }
     const k = smooth(carry.up);
     carry.arm.twist = 0;                                   // the hand's angle is set whole, below
     // the hand at its angle for the pose, in his frame
@@ -185,6 +219,16 @@ window.SCENARIOS = window.SCENARIOS || {};
     hb.getWorldPosition(pos);
     pos.add(GRIP.at[0].clone().lerp(GRIP.at[1], k).applyQuaternion(handQ));
     quat.copy(handQ).multiply(GRIP.turn[0].clone().slerp(GRIP.turn[1], k));
+    // shown flat to John: the board where the tray pose has it, his hand turned palm up under its edge (a hand's axes as orient
+    // has them: the fingers along x, the palm +y, the left thumb on -z)
+    if (carry.show > 0) {
+      const s = boardShowPose(tech), e = smooth(carry.show);
+      pos.lerp(s.pos, e); quat.slerp(s.q, e);
+      const xh = s.fing.clone().normalize(), zh = s.thumb.clone().addScaledVector(xh, -s.thumb.dot(xh)).normalize().negate(), yh = zh.clone().cross(xh);
+      const hq = new THREE.Quaternion().setFromRotationMatrix(M4().makeBasis(xh, yh, zh));
+      hb.quaternion.slerp(hb.parent.getWorldQuaternion(q2).invert().multiply(hq), e);
+      hb.updateMatrixWorld(true);
+    }
     if (board.parent !== window.walk.scene) window.walk.scene.add(board);
     board.position.copy(pos); board.quaternion.copy(quat); board.scale.set(1, 1, 1);
   }
@@ -195,7 +239,7 @@ window.SCENARIOS = window.SCENARIOS || {};
   }
   // at his side (every step that starts with him on his feet)
   function inHand(sim, ease = false) {
-    carry.on = true; carry.want = 0; carry.up = 0; carry.downAt = 0;
+    carry.on = true; carry.want = 0; carry.up = 0; carry.downAt = 0; carry.show = 0; carry.showWant = 0;
     if (ease) carry.ease = 0;
   }
   function putDownBoard(sim, x, y, z, h) {
@@ -203,6 +247,84 @@ window.SCENARIOS = window.SCENARIOS || {};
     carry.on = false; if (carry.arm) { carry.arm.release(0.3); carry.arm = null; }
     tech.fingers("L", 0, 0.3);
     tech.putDown(board, x, y, z, h);
+  }
+
+  // ---- his toolbag ----------------------------------------------------------------------------------------------------
+  // Round 3p (Jake 2026-10-31): "The tech needs a toolbag in his hand ... Small toolbag. He takes it to the door with him." In his
+  // right hand at his side, hanging from his fingers, held a little out from his leg (the bag is 15 cm wide); set down on the floor
+  // with a bend at the knees and hips, and taken up the same way. It goes down by the front door for the knock (his right fist),
+  // in the foyer while he and John talk (his right hand writes on the clipboard), by the sink cabinet for the guide and the check,
+  // and by the water heater; he takes it with him in between, and to the table at the end.
+  let bag = null, tab = null;
+  const bagS = { by: null, arm: null, keep: true };
+  const GRIP_IN_HAND = new THREE.Vector3(0.085, 0.03, 0);     // the handles in his curled fingers, in the hand's own axes (m)
+  function bagStep() {
+    if (!bag || !bagS.by) return;
+    const p = bagS.by, hb = p.root.getObjectByName("Bip01_R_Hand");
+    // (the hold taken again after a step change cleared the poses; not while it is going down or coming up)
+    if (bagS.keep && (!bagS.arm || !p.posers.includes(bagS.arm.fn))) bagInHand(p);
+    p.root.updateMatrixWorld(true);
+    const grip = hb.getWorldPosition(V3()).add(GRIP_IN_HAND.clone().applyQuaternion(hb.getWorldQuaternion(Q4())));
+    if (bag.parent !== window.walk.scene) window.walk.scene.add(bag);
+    bag.position.copy(grip).setY(grip.y - bag.userData.gripY);
+    bag.quaternion.setFromAxisAngle(V3().set(0, 1, 0), facing(p) - Math.PI / 2);
+    bag.scale.set(1, 1, 1);
+  }
+  // in his hand at once (a step that starts with him carrying it)
+  function bagInHand(p) {
+    bagS.by = p; bagS.keep = true;
+    if (!p._fing || !p._fing.R) p.fingers("R", 0.85, 0.05);
+    const hb = p.root.getObjectByName("Bip01_R_Hand"), out = () => V3().set(-Math.cos(p.heading), 0, Math.sin(p.heading));
+    // (out from his thigh by 6 cm from where the clip has his hand, the clip's own swing kept)
+    if (!bagS.arm || !p.posers.includes(bagS.arm.fn)) { bagS.arm = p.reach("R", () => hb.getWorldPosition(V3()).addScaledVector(out(), 0.06), { dur: 0.3 }); bagS.arm.fn.pin = "R"; }
+  }
+  // standing on the floor at x, z, its length along heading h
+  function bagAt(x, z, h, y = 0) {
+    bagS.by = null;
+    if (bagS.arm) { bagS.arm.release(0.05); bagS.arm = null; }
+    window.walk.scene.add(bag);
+    bag.position.set(x, y, z); bag.quaternion.setFromAxisAngle(V3().set(0, 1, 0), h - Math.PI / 2); bag.scale.set(1, 1, 1);
+  }
+  // down beside his right foot (side: out to his right, m; ahead: forward of his feet); the bend at his knees and hips with his back
+  // straight (Jake, round 3k: "Keep that back straight"), not rounded over it
+  async function bagDown(sim, side = 0.32, ahead = 0.08) {
+    const p = sim.people.tech;
+    if (bagS.by !== p) return;
+    const fwd = V3().set(Math.sin(p.heading), 0, Math.cos(p.heading)), out = V3().set(-Math.cos(p.heading), 0, Math.sin(p.heading));
+    const spot = p.pos.clone().addScaledVector(out, side).addScaledVector(fwd, ahead);
+    bagS.keep = false;
+    if (bagS.arm) { bagS.arm.release(0.2); bagS.arm = null; }
+    const bend = p.bend({ down: 0.34, hinge: 0.5, lean: 0.02, back: 0.08 }, true, { dur: 0.7 });
+    // (the wrist a hand's grip above the handles: the bag's foot just off the floor as the bend bottoms out)
+    const hand = p.reach("R", () => spot.clone().setY(p.pos.y + bag.userData.gripY + GRIP_IN_HAND.x + 0.01).addScaledVector(out, -0.02), { dur: 0.7 });
+    await bend;
+    bagAt(spot.x, spot.z, p.heading, p.pos.y);
+    p.fingers("R", 0, 0.3);
+    await p.wait(0.15);
+    hand.release(0.6);
+    await p.bend({}, false, { dur: 0.6 });
+  }
+  // and up again: a step to it if it is not beside him, the bend, his hand onto the handles
+  async function bagUp(sim) {
+    const p = sim.people.tech;
+    if (bagS.by === p) return;
+    const at = bag.position.clone();
+    const out = V3().set(-Math.cos(p.heading), 0, Math.sin(p.heading));
+    if (Math.hypot(at.x - p.pos.x, at.z - p.pos.z) > 0.55) {
+      const stand = at.clone().addScaledVector(out, -0.3);
+      await p.walk([[stand.x, p.pos.y, stand.z]], { speed: 0.6, round: 0 });
+    }
+    const bend = p.bend({ down: 0.34, hinge: 0.5, lean: 0.02, back: 0.08 }, true, { dur: 0.7 });
+    const grip = () => { bag.updateMatrixWorld(true); return bag.localToWorld(V3().set(0, bag.userData.gripY, 0)).sub(GRIP_IN_HAND.clone().applyQuaternion(p.root.getObjectByName("Bip01_R_Hand").getWorldQuaternion(Q4()))); };
+    const hand = p.reach("R", grip, { dur: 0.7 });
+    await bend;
+    p.fingers("R", 0.85, 0.2);
+    await p.wait(0.2);
+    bagS.by = p; bagS.keep = false;
+    const up = p.bend({}, false, { dur: 0.6 });
+    hand.release(0.6);
+    bagInHand(p);
+    await up;
   }
 
   // ---- the door (S2) ----------------------------------------------------------------------------------------------
@@ -250,8 +372,8 @@ window.SCENARIOS = window.SCENARIOS || {};
     await john.turnToward(0.52, -0.66);
     await john.walk(L.john_to_door);
     await john.turnTo(0, 3);
-    const hand = john.reach("R", () => sim.handlePoint("door_foyer_outside", true), { dur: 0.4 });
-    await john.wait(0.45);
+    const hand = john.reach("R", () => sim.handlePoint("door_foyer_outside", true), { dur: 0.6 });
+    await john.wait(0.65);
     sim.openDoor("door_foyer_outside", true);
     await john.wait(0.35);
     await hand.release(0.3);
@@ -259,18 +381,31 @@ window.SCENARIOS = window.SCENARIOS || {};
     await john.walk(L.john_in_door, { round: 0 });
     await john.turnTo(0.1, 3);
   }
-  // John closes the front door behind Mike: a step to it, his hand to its handle, it swings shut, and he turns back to Mike
+  // John closes the front door behind Mike: a step to it, his hand onto its handle, and he eases it shut, stepping after it and
+  // leaning in as it comes round to the frame, his hand on the handle the whole way; then he straightens, steps back and turns to
+  // Mike. Round 3p (Jake 2026-10-31: "I think the homeowner should like lean in and kind of like close the door instead of
+  // slamming it"): it was let go to swing shut at walk.js's own door pace (fast, then slow) with his hand left behind.
   async function johnCloses(sim) {
     const { john, tech } = sim.people;
+    const d = sim.door("door_foyer_outside");
     await john.walk(L.john_to_close, { speed: 0.8, round: 0 });
     const hp = sim.handlePoint("door_foyer_outside", true);
     await john.turnToward(hp.x, hp.z);
-    const hand = john.reach("R", () => sim.handlePoint("door_foyer_outside", true), { dur: 0.4 });
-    await john.wait(0.45);
-    sim.openDoor("door_foyer_outside", false);
-    await john.wait(0.45);
-    await hand.release(0.35);
-    await john.walk(L.john_after, { backwards: true, speed: 0.6, round: 0 });
+    const hand = john.reach("R", () => sim.handlePoint("door_foyer_outside", true), { dur: 0.6 });
+    john.fingers("R", 0.6, 0.4);
+    await john.wait(0.65);
+    // the swing, slow off the stop and slow into the frame (walk.js leaves a door alone that it is not swinging itself)
+    const a0 = d ? d.rotation.y : 0;
+    if (d) { d.userData.open = false; d.userData.target = 0; }
+    const swing = tween(john, 2.0, (k) => { if (d) { d.rotation.y = a0 * (1 - k); d.updateMatrixWorld(true); } });
+    await john.walk(L.john_close_step, { speed: 0.45, round: 0 });
+    await john.bend({ down: 0.05, hinge: 0.3, lean: 0.08, back: 0.02 }, true, { dur: 0.6 });
+    await swing;
+    await john.wait(0.2);
+    john.fingers("R", 0, 0.35);
+    hand.release(0.5);
+    await john.bend({}, false, { dur: 0.6 });
+    await john.walk(L.john_after, { backwards: true, speed: 0.5, round: 0 });
     await john.turnToward(tech.pos.x, tech.pos.z);
   }
   // "Nice to meet you too. Come on in.": to Mike, then he turns and walks in out of the doorway as he asks him in (a host leads
@@ -337,14 +472,15 @@ window.SCENARIOS = window.SCENARIOS || {};
       const foot = tech.root.getObjectByName(`Bip01_${S}_Foot`);
       let pull = 0;
       tech.face.target = () => foot.getWorldPosition(new V());
-      const lift = tech.footUp(S, true, { dur: 0.45 });
-      const hand = tech.reach("R", () => foot.getWorldPosition(new V()).addScaledVector(fwd(), 0.1 - 0.13 * pull).add(new V(0, 0.1, 0)), { dur: 0.45 });
+      // (round 3p, Jake: "quick, like jerking motions as they walk in to the door": the bend down was 0.45 s, his head 2.3 m/s)
+      const lift = tech.footUp(S, true, { dur: 0.8 });
+      const hand = tech.reach("R", () => foot.getWorldPosition(new V()).addScaledVector(fwd(), 0.1 - 0.13 * pull).add(new V(0, 0.1, 0)), { dur: 0.75 });
       await lift;
       if (covers[S]) covers[S].visible = true;            // over the toe ...
       if (S === "L" && covers.bundle && covers.bundle.parent) covers.bundle.parent.remove(covers.bundle);
-      await tween(tech, 0.5, (k) => { pull = k; });         // ... and back over the heel
-      hand.release(0.35);
-      await tech.footUp(S, false, { dur: 0.4 });
+      await tween(tech, 0.7, (k) => { pull = k; });         // ... and back over the heel
+      hand.release(0.6);
+      await tech.footUp(S, false, { dur: 0.7 });
     }
     tech.face.target = () => john.eyes();
   }
@@ -362,13 +498,15 @@ window.SCENARIOS = window.SCENARIOS || {};
   async function boardDown(sim) {
     const tech = sim.people.tech, V = sim.T.Vector3;
     const p0 = board.position.clone(), q0 = board.quaternion.clone();
-    carry.on = false;
-    if (carry.arm) { carry.arm.release(0.15); carry.arm = null; }
     const p1 = new V(...COUNTER.at), q1 = new sim.T.Quaternion().setFromEuler(new sim.T.Euler(Math.PI, COUNTER.h, 0));
-    const hand = tech.reach("L", () => board.position.clone().add(new V().subVectors(tech.pos, board.position).setY(0).normalize().multiplyScalar(0.11)).add(new V(0, 0.04, 0)), { dur: 0.25 });
-    await tween(tech, 0.65, (k) => { board.position.lerpVectors(p0, p1, k); board.quaternion.copy(q0).slerp(q1, k); board.scale.set(1, 1, 1); board.updateMatrixWorld(true); });
-    tech.fingers("L", 0, 0.25);
-    await hand.release(0.35);
+    // (round 3p: slower, as he puts it down for the check; it went over in two thirds of a second, his hand 4 to 9 m/s; and the carry
+    // let go only once the reach to the board has him: let go first, his hand dropped to his side and back up)
+    const hand = tech.reach("L", () => board.position.clone().add(new V().subVectors(tech.pos, board.position).setY(0).normalize().multiplyScalar(0.11)).add(new V(0, 0.04, 0)), { dur: 0.45 });
+    carry.on = false;
+    if (carry.arm) { carry.arm.release(0.6); carry.arm = null; }
+    await tween(tech, 1.0, (k) => { board.position.lerpVectors(p0, p1, k); board.quaternion.copy(q0).slerp(q1, k); board.scale.set(1, 1, 1); board.updateMatrixWorld(true); });
+    tech.fingers("L", 0, 0.3);
+    await hand.release(0.6);
   }
   // (round 3n: turned so the board is ahead of him on his left; facing the sink it was on his right, and his left arm reached
   // across in through his chest for it. Then the reach let go in 0.05 s and the arm jumped to his side: now they ease over)
@@ -407,7 +545,8 @@ window.SCENARIOS = window.SCENARIOS || {};
   const ON_BOARD = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, -1, 0), new THREE.Vector3(1, 0, 0)));
   const GP = {
     // lying on the clipboard's paper
-    board: () => { board.updateMatrixWorld(true); return { pos: board.localToWorld(new THREE.Vector3(0.015, -0.005, 0)), q: board.getWorldQuaternion(Q4()).multiply(ON_BOARD) }; },
+    // (round 3p: its spine edge 2 cm out over the board's edge, on Mike's right as he shows it, for his fingers to take it by)
+    board: () => { board.updateMatrixWorld(true); return { pos: board.localToWorld(new THREE.Vector3(0.015, -0.005, -0.025)), q: board.getWorldQuaternion(Q4()).multiply(ON_BOARD) }; },
     // shown to John lying on Mike's flat open hand in front of him, tipped up 35 degrees toward John, its top edge toward Mike
     // (round 3l, Jake: "his hand is like crooked at an unnatural angle, trying to present the Happy Homes brochure. It's just flat,
     // open hand, like just show it to them"; it was held up on end, his hand behind it)
@@ -418,9 +557,17 @@ window.SCENARIOS = window.SCENARIOS || {};
     give: (p, q) => { const { fwd, up } = axesOf(p); return { pos: p.pos.clone().lerp(q.pos, 0.5).setY(Math.max(p.pos.y, q.pos.y) + 1.15), q: basis(fwd, up) }; },
     // in John's two hands, tipped up toward his face to read, out from him (round 3n: 15 cm off his chest, his right hand turning a
     // page went across in through his chest)
-    read: (p) => { const { fwd, left, up } = axesOf(p); return { pos: boneAt(p, "Bip01_Spine2").addScaledVector(fwd, 0.42).addScaledVector(up, -0.14), q: basis(left.clone().negate(), fwd.clone().negate().multiplyScalar(Math.cos(0.85)).addScaledVector(up, Math.sin(0.85))) }; },
-    // down at his left side, held by its spine edge at the top, its cover out
-    side: (p) => { const { fwd, left, up } = axesOf(p); return { pos: boneAt(p, "Bip01_Pelvis").addScaledVector(left, 0.25).addScaledVector(fwd, 0.03).addScaledVector(up, -0.32), q: basis(up.clone().negate(), left) }; },
+    // Round 3p (Jake 2026-10-31: "his arm is cutting into his own side as he's, like, trying to hold the guide ... that elbow really
+    // needs to be able to be bent more"): 42 cm out from his chest bone and 14 below, his arms were near straight and his elbows in
+    // his sides; now as a man reads a magazine, 33 cm out (about a forearm in front of his chest), at the bottom of his ribs, his
+    // elbows bent and a little out and forward of his sides
+    read: (p) => { const { fwd, left, up } = axesOf(p); return { pos: boneAt(p, "Bip01_Spine2").addScaledVector(fwd, 0.33).addScaledVector(up, -0.2), q: basis(left.clone().negate(), fwd.clone().negate().multiplyScalar(Math.cos(0.8)).addScaledVector(up, Math.sin(0.8))) }; },
+    // down at his left side in his hanging hand, held by its spine edge at the top, its long side front to back. Round 3p (Jake:
+    // "when he drops it down beside his side, like his wrist is twisted completely out. It'd be like it would be broken"): his hand
+    // was between it and his leg with the palm turned out to it; now the hand is on its outer face, the palm in toward his leg as a
+    // hanging hand's is, the fingers down its back cover and the thumb on its inside. Hung from where his hand hangs (his shoulder,
+    // down an arm's length), not from his hips (it hung at his knee).
+    side: (p) => { const { fwd, left, up } = axesOf(p); return { pos: boneAt(p, "Bip01_L_UpperArm").addScaledVector(left, 0.07).addScaledVector(fwd, 0.04).addScaledVector(up, -0.62 - GW / 2), q: basis(up.clone().negate(), left.clone().negate()) }; },
   };
   // on the sofa's seat to John's right (it is short of seat to his left: he sits at its south end), lying cover up
   const ON_SOFA = { pos: new THREE.Vector3(-5.98, 0.48, -3.74), q: new THREE.Quaternion().setFromEuler(new THREE.Euler(0, Math.PI / 2 + 0.25, 0)) };
@@ -455,13 +602,13 @@ window.SCENARIOS = window.SCENARIOS || {};
   // the guide's block (and the turned pages, once turned) as boxes his fingers keep out of; nothing while it lies on the clipboard
   function guideSolid() {
     const g = guidePose();
-    if (!g || gs.pose === GP.board) return null;
+    if (!g || (gs.pose === GP.board && !gs.holds.length)) return null;
     const box = (cx, cy, hx, hy) => ({ inv: new THREE.Matrix4().compose(new THREE.Vector3(cx, cy, 0).applyQuaternion(g.q).add(g.pos), g.q, new THREE.Vector3(1, 1, 1)).invert(), half: new THREE.Vector3(hx, hy, 0.1395) });
     return box(0, 0.0025, GW / 2, 0.017);
   }
   function pagesSolid() {
     const g = guidePose();
-    if (!g || gs.pose === GP.board || !(gs.ang[0] > 2.6)) return null;
+    if (!g || (gs.pose === GP.board && !gs.holds.length) || !(gs.ang[0] > 2.6)) return null;
     return { inv: new THREE.Matrix4().compose(new THREE.Vector3(-GW, 0.005, 0).applyQuaternion(g.q).add(g.pos), g.q, new THREE.Vector3(1, 1, 1)).invert(), half: new THREE.Vector3(GW / 2, 0.016, 0.1395) };
   }
   function edgeHold(p, side, which, dur = 0.4) {
@@ -478,7 +625,8 @@ window.SCENARIOS = window.SCENARIOS || {};
     // (the elbows a little out from his sides, not down and back: holding it out in front of him they were in his sides, John's
     // most; and a hand turning a page, which crosses to the other side, with its elbow out and in front of him, round 3n)
     const fwdOf = () => V3().set(Math.sin(p.heading), 0, Math.cos(p.heading)), outOf = () => V3().set(-Math.cos(p.heading), 0, Math.sin(p.heading)).multiplyScalar(sg);
-    const arm = p.reach(side, () => frame().w, { dur, pole: () => (typeof which === "number" ? fwdOf().multiplyScalar(0.7).addScaledVector(outOf(), 0.8).add(V3().set(0, -0.2, 0)) : outOf().multiplyScalar(0.9).addScaledVector(fwdOf(), -0.1).add(V3().set(0, -1, 0))) });
+    // (round 3p: the other holds' elbows a little forward of his sides, not back: back, John's went in at his ribs)
+    const arm = p.reach(side, () => frame().w, { dur, pole: () => (typeof which === "number" ? fwdOf().multiplyScalar(0.7).addScaledVector(outOf(), 0.8).add(V3().set(0, -0.2, 0)) : outOf().multiplyScalar(0.75).addScaledVector(fwdOf(), 0.25).add(V3().set(0, -1, 0))) });
     // (the thumb's side, for Person.orient, from the fingers and the palm: fingers x palm, the other way for the left hand)
     const hand = p.orient(side, () => frame().fing, () => { const f = frame(); return f.fing.clone().cross(f.palm).multiplyScalar(sg); }, { dur });
     const fing = p.grip(side, holdAt(which, guidePose() || GP.board(), side).grip, dur, true);
@@ -516,7 +664,7 @@ window.SCENARIOS = window.SCENARIOS || {};
     gs.holds = [];
     if (where === "board") gs.pose = GP.board;
     else if (where === "side") { gs.pose = () => GP.side(john); gs.holds = [{ p: john, side: "L", which: "spine" }]; }
-    else if (where === "reading") { gs.pose = () => GP.read(john); gs.holds = [{ p: john, side: "L", which: "back" }, { p: john, side: "R", which: "outer" }]; }
+    else if (where === "reading") { gs.pose = () => GP.read(john); gs.holds = [{ p: john, side: "L", which: "spine" }, { p: john, side: "R", which: "outer" }]; }
     else if (where === "sofa") { gs.pose = null; gs.fixed = ON_SOFA; }
   }
   // a page turned (to: PI over, 0 back) by a hand holding it: the hand to the page's edge, over with it past upright, and back to
@@ -545,48 +693,54 @@ window.SCENARIOS = window.SCENARIOS || {};
     const a1 = list.map((i) => gs.ang[i]);
     await tween(p, 0.35, (k) => list.forEach((i, n) => { gs.ang[i] = a1[n] * (1 - k); }));
   }
-  // "Before I get started, I want to leave this with you": Mike takes it up off his clipboard on the counter in both hands, holds
-  // it up to John and opens it, turns a page, shuts it, and holds it out flat in his right hand; John takes it and holds it up
+  // "Before I get started, I want to leave this with you". Round 3p (Jake 2026-10-31: "the hand placement is still way off, like with
+  // handing the guide over. I don't think [he] should put his clipboard down ... The tech should hold the clipboard"; and from the
+  // side his arms were out straight, the guide at arm's length): the clipboard comes up flat in front of him in his left hand, the
+  // guide on it the right way up for John; his right hand opens the cover from its outer edge and turns a page, shuts it, takes it
+  // up by the spine edge (out over the board's edge), thumb on top and fingers under, and holds it out flat between them at a
+  // hand's height; John takes the far edge the same way, Mike lets go and his clipboard goes back to his side, and John brings it
+  // up to look at, his left hand coming to the spine.
   async function showGuide(sim) {
     const { john, tech } = sim.people;
-    // up off the counter in his left hand by its near edge (it lies at his left: his right hand reached across in through him for
-    // its spine, round 3n), and his right hand in under it, flat and open, once it is up in front of him
-    const l = edgeHold(tech, "L", "outer");
-    holdGuide([{ p: tech, side: "L", which: "outer", h: l }]);
+    gs.pose = GP.board;
+    carry.showWant = 1;
     tech.face.target = () => guidePose().pos.clone();
-    // (the turned pages solid to his fingers too)
-    await tech.wait(0.45);
-    const from = GP.board();
-    let k1 = 0; gs.pose = () => mix(from, GP.show(tech), k1);
-    await tween(tech, 0.6, (k) => { k1 = k; });
-    gs.pose = () => GP.show(tech);
+    await tech.wait(0.8);
     tech.face.target = () => john.eyes();
-    const r = edgeHold(tech, "R", "palm", 0.35);
-    holdGuide([{ p: tech, side: "R", which: "palm", h: r }, { p: tech, side: "L", which: "outer", h: l }]);
-    await tech.wait(0.45);
-    await turnPage(tech, l, 0, Math.PI, 0.7);             // the cover over: water softeners and filtration, dripping faucets
-    await tech.wait(1.5);
-    await turnPage(tech, l, 1, Math.PI, 0.6);             // garbage disposals, tankless water heaters
-    await tech.wait(1.3);
+    const r = edgeHold(tech, "R", 0, 0.45);
+    holdGuide([{ p: tech, side: "R", which: 0, h: r }]);
+    await tech.wait(0.5);
+    await turnPage(tech, r, 0, Math.PI, 0.8);             // the cover over: water softeners and filtration, dripping faucets
+    await tech.wait(1.4);
+    await turnPage(tech, r, 1, Math.PI, 0.7);             // garbage disposals, tankless water heaters
+    await tech.wait(1.2);
     // shut: the pages brought back over, the last turned first
-    await shutPages(tech, l, [1, 0]);
-    l.set("outer");
-    // out to him, flat, on his right hand under the spine edge, the thumb over the top
+    await shutPages(tech, r, [1, 0]);
+    // up off the board by its spine edge and out to him, flat
     r.set("underSpine");
-    holdGuide([{ p: tech, side: "R", which: "underSpine", h: r }]);
-    let k2 = 0; gs.pose = () => mix(GP.show(tech), GP.give(tech, john), k2);
-    await tween(tech, 0.6, (k) => { k2 = k; });
+    await tech.wait(0.45);
+    // (John steps in to take it, and back: 1.06 m apart, the two of them met with their arms out straight)
+    const home = john.pos.clone(), toMike = V3().subVectors(tech.pos, john.pos).setY(0).normalize();
+    const stepIn = john.walk([[home.x + toMike.x * 0.2, home.y, home.z + toMike.z * 0.2]], { speed: 0.45, round: 0 });
+    let k2 = 0; gs.pose = () => mix(GP.board(), GP.give(tech, john), k2);
+    await tween(tech, 0.8, (k) => { k2 = k; });
     gs.pose = () => GP.give(tech, john);
     john.face.target = () => guidePose().pos.clone();
-    const jr = edgeHold(john, "R", "underOuter");
+    await stepIn;
+    const jr = edgeHold(john, "R", "underOuter", 0.5);
     holdGuide([{ p: tech, side: "R", which: "underSpine", h: r }, { p: john, side: "R", which: "underOuter", h: jr }]);
-    await john.wait(0.55);
-    // his now: up in front of him to look at, his left hand behind the spine, his right on the outer edge to turn the pages
-    const jl = edgeHold(john, "L", "back");
-    holdGuide([{ p: john, side: "R", which: "underOuter", h: jr }, { p: john, side: "L", which: "back", h: jl }]);
-    jr.set("outer");
+    await john.wait(0.6);
+    // his now: Mike lets go, and his clipboard goes back down to his side
+    holdGuide([{ p: john, side: "R", which: "underOuter", h: jr }]);
+    carry.showWant = 0;
     let k3 = 0; gs.pose = () => mix(GP.give(tech, john), GP.read(john), k3);
-    await tween(john, 0.7, (k) => { k3 = k; });
+    const up = tween(john, 0.9, (k) => { k3 = k; });
+    john.walk([[home.x, home.y, home.z]], { backwards: true, speed: 0.4, round: 0 });
+    await john.wait(0.35);
+    const jl = edgeHold(john, "L", "spine", 0.5);
+    holdGuide([{ p: john, side: "R", which: "underOuter", h: jr }, { p: john, side: "L", which: "spine", h: jl }]);
+    jr.set("outer");
+    await up;
     gs.pose = () => GP.read(john);
   }
   // "Does anything in that guide catch your eye?": he turns a couple of pages
@@ -625,14 +779,14 @@ window.SCENARIOS = window.SCENARIOS || {};
     // up in his left hand first, his right off his thigh onto its outer edge once it is in front of him (round 3n: his right hand
     // went for it down at his left hip, across through his belly)
     const jl = holdOf(john, "L");
-    if (jl) jl.set("back");
+    if (jl) jl.set("spine");
     // (from where it is at his side each frame: taken once, the moment he had just sat, it was where his hips had been a moment
     // before, behind him)
     let k = 0; gs.pose = () => mix(GP.side(john), GP.read(john), k);
     await tween(john, 0.7, (x) => { k = x; });
     gs.pose = () => GP.read(john);
     const jr = edgeHold(john, "R", "outer", 0.5);
-    holdGuide([{ p: john, side: "L", which: "back", h: jl }, { p: john, side: "R", which: "outer", h: jr }]);
+    holdGuide([{ p: john, side: "L", which: "spine", h: jl }, { p: john, side: "R", which: "outer", h: jr }]);
     john.face.target = () => guidePose().pos.clone();
   }
   // Mike calls to him: he looks up and puts it down on the seat beside him
@@ -654,7 +808,10 @@ window.SCENARIOS = window.SCENARIOS || {};
   // A hand with nothing in it rests on his thigh while he sits on the sofa, and goes there as he sits down. Round 3n: the chair
   // clip's sitting pose has the hands back behind him on the seat's edge; on the sofa his arms went into his back (12 cm), taking
   // the guide up from there his right arm went through him, and in S8 he sat like that while Mike talked to him.
-  const lap = { L: null, R: null };
+  // (round 3p: anywhere he sits, the table too, and Mike's free hand as well: at the table John "doing something weird with his
+  // hands" was the table clips' fidgets, and those are not played now)
+  const lap = { john: { L: null, R: null }, tech: { L: null, R: null } };
+  let tapping = false;                                    // Mike's right forefinger on his tablet (tapTablet)
   function handOnLap(p, S) {
     const sg = S === "L" ? -1 : 1;
     const thigh = () => { const hip = boneAt(p, `Bip01_${S}_Thigh`), knee = boneAt(p, `Bip01_${S}_Calf`); return { hip, knee, along: knee.clone().sub(hip).setY(0).normalize() }; };
@@ -666,14 +823,15 @@ window.SCENARIOS = window.SCENARIOS || {};
     return { arm, release(sec = 0.4) { fing.release(sec); hand.release(sec); return arm.release(sec); } };
   }
   function lapStep() {
-    const { john } = window.sim.people;
-    const clip = john.action && john.action.getClip().name;
-    const sitting = (john.base === "sit_chair_idle_neutral_01" || clip === "sit_down_chair_01") && clip !== "sit_stand_up_chair_01" && Math.hypot(john.pos.x - SOFA[0], john.pos.z - SOFA[2]) < 0.8;
-    for (const S of ["L", "R"]) {
-      const want = sitting && !gs.holds.some((h) => h.p === john && h.side === S);
-      const h = lap[S];
-      if (want && (!h || !john.posers.includes(h.arm.fn))) lap[S] = handOnLap(john, S);
-      else if (!want && h) { h.release(0.4); lap[S] = null; }
+    for (const who of ["john", "tech"]) {
+      const p = window.sim.people[who], clip = p.action && p.action.getClip().name;
+      const sitting = (p.base === "sit_chair_idle_neutral_01" || clip === "sit_down_chair_01") && clip !== "sit_stand_up_chair_01";
+      for (const S of ["L", "R"]) {
+        const busy = gs.holds.some((h) => h.p === p && h.side === S) || (who === "tech" && (S === "L" ? carry.on : tapping || bagS.by === p));
+        const want = sitting && !busy, h = lap[who][S];
+        if (want && (!h || !p.posers.includes(h.arm.fn))) lap[who][S] = handOnLap(p, S);
+        else if (!want && h) { h.release(0.4); lap[who][S] = null; }
+      }
     }
   }
 
@@ -716,8 +874,23 @@ window.SCENARIOS = window.SCENARIOS || {};
     await tween(tech, 0.6, (k) => { ds.forEach((d, i) => { d.rotation.y = r[i] + ((d.userData.cab.r0 + (open ? d.userData.cab.sign * 1.75 : 0)) - r[i]) * k; d.updateMatrixWorld(true); }); });
     await Promise.all(hands.map((h) => h.release(0.35)));
   }
+  // A hand carried along a path (points after where it is now, a smooth curve through them) over sec by a reach that takes it from
+  // where it is: { arm (release it when done with it), done }. Its reach is whole at once (it starts where the hand is), and the one
+  // it takes over from is let go only after that (glideFrom): while one reach let go and the next came in, each blending from the
+  // arm as the one before left it, the hand dipped half way back to his hip and out again, 0.3 m in a frame (round 3p).
+  function glide(p, side, pts, sec, pole) {
+    const hb = p.root.getObjectByName(`Bip01_${side}_Hand`);
+    p.root.updateMatrixWorld(true);
+    const curve = new THREE.CatmullRomCurve3([hb.getWorldPosition(V3()), ...pts.map((a) => new THREE.Vector3(...a))]);
+    let k = 0;
+    const arm = p.reach(side, () => curve.getPoint(k), { dur: 0.02, pole });            // (tween eases k already)
+    arm.fn.free = true;                                   // (under the sink: his body may move this hand off him, as it could in round 3n)
+    return { arm, done: tween(p, sec, (x) => { k = x; }) };
+  }
+  function glideFrom(prev, p, side, pts, sec, pole) { const g = glide(p, side, pts, sec, pole); p.wait(0.1).then(() => prev.release(0.2)).catch(() => {}); return g; }
   async function checkSink(sim) {
     const { tech } = sim.people, V = sim.T.Vector3;
+    await boardDown(sim);                                 // (round 3p: he holds it all through the guide; down for the check)
     await tech.walk([KNEEL], { speed: 0.6, round: 0 });
     await tech.turnTo(-Math.PI / 2, 2.5);                 // to the sink on the west wall
     show(sim, "check");
@@ -762,6 +935,7 @@ window.SCENARIOS = window.SCENARIOS || {};
     // went in through the floor).
     const shR = tech.root.getObjectByName("Bip01_R_UpperArm");
     const prop = tech.reach("R", () => shR.getWorldPosition(new V()).add(new V(0.3, 0, 0.36)).setY(0.05), { dur: 1.5, pole: () => new V(1, -0.1, -0.6) });
+    prop.fn.free = true;
     // (palm up, the fingers on along the forearm, a little curled as a hand lying open, out from under the open door's corner;
     // the thumb's side, for the right hand, fingers x palm)
     const fR = new V(0.05, 0, 1).normalize();
@@ -774,25 +948,41 @@ window.SCENARIOS = window.SCENARIOS || {};
     // front of his chest its upper arm went 8 cm in through his chest (from the top shoulder the floor is out of reach any other
     // way).
     const restL = tech.reach("L", () => new V(-5.28, 0.365, -5.865), { dur: 0.6, pole: () => new V(0, 1, 0.5) });
+    restL.fn.free = true;
     const fL = new V(0.1, -0.3, 1).normalize();
     const onHip = () => [tech.orient("L", () => fL.clone(), () => fL.clone().cross(new V(0, -1, 0)).negate(), { dur: 0.5 }), tech.grip("L", [0.05, 0.15, 0.2, 0.25, 0.3], 0.5, true)];
     let handL = onHip();
     await tech.wait(0.8);
-    // his top hand in to the trap and the valves, in front of his face, the elbow up and away from his head
+    // his top hand in to the trap: his fingertips on the J bend's nut from the front, the hand reaching in under the waste arm,
+    // in front of his face, the elbow up and away from his head. Round 3p (Jake 2026-10-31: "the technician's hands go into the
+    // plumbing when he's underneath there inspecting, into the plumbing, into the garbage disposal"): his wrist went to a point
+    // inside the disposal's discharge (-6.3, 0.45, -5.97). The plumbing under the basin is solid to his fingers while he is down
+    // there (PLUMBING, from the sink's own parts).
     handL.forEach((h) => h.release(0.4));
-    const reachIn = tech.reach("L", () => new V(-6.3, 0.45, -5.97), { dur: 0.8, pole: () => new V(0.3, 1, 0.4) });
-    await tech.wait(2.0);
+    const pipes = PLUMBING.map(([a, b]) => { const c = a.map((v, i) => (v + b[i]) / 2), half = new V(...a.map((v, i) => (b[i] - v) / 2 + 0.004)); const f = () => ({ inv: new THREE.Matrix4().makeTranslation(-c[0], -c[1], -c[2]), half }); return f; });
+    tech.solids.push(...pipes);
+    // (each way his hand carried along a path, out in front of the cabinet and in: blended from one arm's solve to the other's, the
+    // hand swung out wide on the way back to his hip, 0.3 m in a frame, round 3p)
+    const pole = () => new V(0.3, 1, 0.4), HIP = [-5.28, 0.365, -5.865];
+    const reachIn = glide(tech, "L", [[-5.8, 0.52, -6.1], [-6.12, 0.37, -6.29]], 1.1, pole);
+    const touch = tech.orient("L", () => new V(-1, -0.1, -0.05), () => new V(0, 1, 0), { dur: 0.9 });
+    await reachIn.done;
+    await tech.wait(1.2);
     // back to his hip, for the phone in his pocket (each way about a metre: in half a second it was a rush)
+    touch.release(0.6);
     handL = onHip();
-    await reachIn.release(0.8);
+    const back = glideFrom(reachIn.arm, tech, "L", [[-5.8, 0.55, -6.1], HIP], 1.1, pole);
+    await back.done;
     await tech.wait(0.25);
-    // a picture: his phone up over his face, its camera up into the cabinet, its screen to him
+    // a picture: his phone up over his face, its camera up into the cabinet, its screen to him: in front of the plumbing, between
+    // the disposal and the trap's tailpiece, over the waste arm (round 3p: its far end was in the disposal)
     handL.forEach((h) => h.release(0.3));
     tech.hold(phone, "Bip01_L_Hand", [0.075, 0.02, 0]); phone.rotation.set(Math.PI, 0, 0);     // its back in his palm, the screen out of it
-    const up = tech.reach("L", () => new V(-6.1, 0.52, -5.98), { dur: 0.8, pole: () => new V(0.3, 1, 0.4) });
+    const up = glideFrom(back.arm, tech, "L", [[-5.75, 0.6, -6.05], [-6.05, 0.55, -6.14]], 1.0, pole);
     // (the fingers in toward the back of the cabinet, the palm down to his face; the thumb's side, for the left hand, -(fingers x palm))
-    const aim = tech.orient("L", () => new V(-1, 0.2, 0), () => new V(0, 0, -1), { dur: 0.8 });
-    await tech.wait(1.1);
+    const aim = tech.orient("L", () => new V(-1, 0.25, 0), () => new V(0, 0, -1), { dur: 0.9 });
+    await up.done;
+    await tech.wait(0.3);
     phone.userData.flash.intensity = 4;
     await tech.wait(0.12);
     phone.userData.flash.intensity = 0;
@@ -800,24 +990,222 @@ window.SCENARIOS = window.SCENARIOS || {};
     // and back into his pocket
     aim.release(0.6);
     handL = onHip();
-    await up.release(0.8);
+    const down = glideFrom(up.arm, tech, "L", [[-5.75, 0.55, -6.0], HIP], 1.0, pole);
+    await down.done;
     if (phone.parent) phone.parent.remove(phone);
     await tech.wait(0.4);
     // back up onto his knee
     prop.release(1.4); flatR.release(1.4); openR.release(1.4);
-    restL.release(1.0); handL.forEach((h) => h.release(0.8));
+    restL.release(1.0); down.arm.release(1.0); handL.forEach((h) => h.release(0.8));
     look.release(1.2);
     tech.face.target = () => inside.clone();
     await tech._kn.change(() => onKnee, 1.6);
-    tech.solids.splice(tech.solids.indexOf(floorBox), 1);
+    tech.solids = tech.solids.filter((f) => f !== floorBox && !pipes.includes(f));
     // the doors shut, up off his knee, and the clipboard back off the counter
     await swingCabinet(sim, false);
     tech.face.target = null;
     await tech.kneel(false, { dur: 0.8 });
-    tech.selfSolid = false;
     await tech.walk([[-5.72, 0, -6.35]], { speed: 0.6, round: 0 });
     await boardUpAgain(sim);
     await tech.walk([[-5.5, 0, -6.05]], { speed: 0.6, round: 0, backwards: true });
+    await tabletFromBag(sim);                             // his tablet out of his bag, onto his clipboard (round 3p)
+  }
+
+  // ---- his tablet ----------------------------------------------------------------------------------------------------
+  // Round 3p (Jake 2026-10-31: "typically we'll be using a tablet ... If you can show anything, you need to show the clipboard or
+  // even some of those pictures out of the Happy Home guides, because there's the field diagrams"): it lives in his toolbag; after
+  // the check at the sink he takes it out and lays it on his clipboard, and from there he shows John his pictures (the sofa, S8)
+  // and puts his findings together on it at the water heater, and shows them at the table. Its pages: the house's own finding
+  // pictures (the trap, the drain pan) and the two field diagrams from the Comms app (Jake's component pictures).
+  const TAB_PAGES = [
+    { title: "Kitchen sink: the trap", img: "finding_p_trap.jpg" },
+    { title: "Kitchen sink diagram", img: "field_kitchen_sink.jpg" },
+    { title: "Water heater: the drain pan", img: "finding_drain_pan.jpg" },
+    { title: "Water heater diagram", img: "field_electric_water_heater.jpg" },
+  ];
+  const TAB_ON_BOARD = [0.02, -0.0125, 0];                 // lying on the clipboard's paper, clear of the clip
+  function tabletOnBoard(on) {
+    if (!tab) return;
+    if (on) { board.add(tab); tab.position.set(...TAB_ON_BOARD); tab.rotation.set(0, 0, 0); tab.scale.set(1, 1, 1); }
+    else if (tab.parent) tab.parent.remove(tab);
+  }
+  // out of the bag (bend, his right hand into it, up with it) and onto the clipboard, brought up to him to lay it on
+  async function tabletFromBag(sim) {
+    const p = sim.people.tech;
+    // (each prop's world matrix brought up to date before it is read: until a frame is drawn it is where it was last drawn, and his
+    // hand went for where the bag had last been in his hand, round 3p)
+    const top = () => { bag.updateMatrixWorld(true); return bag.localToWorld(V3().set(0, window.sim.BAG.H + 0.01, 0)); };
+    const fwd = V3().set(Math.sin(p.heading), 0, Math.cos(p.heading)), out = V3().set(-Math.cos(p.heading), 0, Math.sin(p.heading));
+    const near = Math.hypot(bag.position.x - p.pos.x, bag.position.z - p.pos.z);
+    if (near > 0.6) { const st = bag.position.clone().addScaledVector(out, -0.3).addScaledVector(fwd, -0.15); await p.walk([[st.x, p.pos.y, st.z]], { speed: 0.6, round: 0 }); }
+    // (turned to it first, a little to his right: it was behind him after the check, and his hand went round through him to it and
+    // came back across in a quarter of a second, round 3p)
+    await p.turnToward(bag.position.x, bag.position.z);
+    await p.turnTo(p.heading + 0.35, 2);
+    const bend = p.bend({ down: 0.34, hinge: 0.5, lean: 0.02, back: 0.08 }, true, { dur: 0.7 });
+    const hand = p.reach("R", () => top().add(V3().set(0, 0.08, 0)), { dur: 0.7 });
+    p.face.target = () => top();
+    await bend;
+    await p.wait(0.3);
+    // in his hand, held by its edge
+    p.hold(tab, "Bip01_R_Hand", [0.09, 0.03, 0]); tab.rotation.set(Math.PI / 2, 0, 0);
+    p.fingers("R", 0.5, 0.25);
+    const up = p.bend({}, false, { dur: 0.6 });
+    boardUp(sim, true);
+    // (the hand carried from the bag to over the board, not sent there in a frame)
+    const from = top().add(V3().set(0, 0.08, 0)), onto = () => { board.updateMatrixWorld(true); return board.localToWorld(V3().set(...TAB_ON_BOARD)).add(V3().set(0, 0.06, 0)); };
+    let mv = 0; hand.set(() => from.clone().lerp(onto(), mv));
+    p.face.target = () => board.getWorldPosition(V3());
+    await tween(p, 0.8, (k) => { mv = k; });
+    await up;
+    await p.wait(0.2);
+    tabletOnBoard(true);
+    p.fingers("R", 0, 0.3);
+    await hand.release(1.0);                              // (in half a second his hand swung back to his side at 8 m/s)
+    p.face.target = null;
+  }
+  // his right forefinger on the screen a few times, the page changing (putting his findings together, or turning to the next)
+  async function tapTablet(sim, pages, gap = 0.7) {
+    const p = sim.people.tech;
+    tapping = true;
+    const at = (u, v) => () => { tab.updateMatrixWorld(true); return tab.localToWorld(V3().set(u, -0.03, v)); };
+    const point = p.grip("R", [0.5, 0, 0.9, 0.9, 0.9], 0.3);
+    const hand = p.reach("R", at(0, 0.02), { dur: 0.5 });
+    await p.wait(0.5);
+    for (const [i, pg] of pages.entries()) {
+      hand.set(at(0.04 * ((i % 3) - 1), 0.03 * ((i % 2) * 2 - 1)));
+      await p.wait(gap * 0.5);
+      if (pg !== null) tab.userData.show(pg);
+      await p.wait(gap * 0.5);
+    }
+    point.release(0.4);
+    await hand.release(0.5);
+    tapping = false;
+  }
+
+  // ---- the water heater (S9) ------------------------------------------------------------------------------------------
+  // Round 3p (Jake 2026-10-31: "He told him he was going to go to the water heater, so he needs to go to the water heater. And if
+  // that's up in the attic or wherever it is, that needs to happen"): this call's house has the electric tank heater in the coat
+  // closet off the foyer (the house's closet_electric_tank layout, set in setup), and John told him so at the sink (S6_06). He goes
+  // there from the living room: opens the closet door, steps up to it, looks it over and down on one knee at its base (no drain
+  // pan: the finding in the recap), takes a picture, puts it all together on his tablet, shuts the door, and goes back to John.
+  // (the door is hinged on its south jamb and swings out into the foyer: he stands west of its sweep, steps up to take its handle,
+  // and steps back with it as it opens; the foyer's console stands just north of there)
+  const WH = { door: "door_foyer_closet_coat", front: [0.3, 0, -1.84], reach: [0.62, 0, -1.86], look: [1.45, 0, -1.86], base: [1.95, 0.12, -2.98], body: [1.95, 0.9, -3.1] };
+  async function swingDoor(p, name, open, sec, from = 0, to = 1) {
+    const d = window.sim.door(name);
+    if (!d) return;
+    const st = d.userData, a0 = d.rotation.y, a1 = open ? st.dir * Math.PI / 2 : 0;
+    st.open = open; st.target = a1;
+    await tween(p, sec, (k) => { d.rotation.y = a0 + (a1 - a0) * (from + (to - from) * k); d.updateMatrixWorld(true); });
+  }
+  async function checkHeater(sim) {
+    const { tech } = sim.people, V = sim.T.Vector3;
+    await tech.turnToward(WH.front[0] + 1, WH.front[2]);
+    // the door by its handle: it opens out toward him, so a step up to it, his hand on it, and a step back with it as it opens
+    const hp = () => sim.handlePoint(WH.door, false);
+    await tech.walk([WH.reach], { speed: 0.5, round: 0 });
+    const hand = tech.reach("R", hp, { dur: 0.6 });
+    tech.fingers("R", 0.6, 0.4);
+    await tech.wait(0.65);
+    const swing = swingDoor(tech, WH.door, true, 1.6);
+    await tech.walk([WH.front], { speed: 0.45, round: 0, backwards: true });
+    tech.fingers("R", 0, 0.3);
+    hand.release(0.5);
+    await swing;
+    await tech.walk([WH.look], { speed: 0.6, round: 0 });
+    await tech.turnToward(WH.body[0], WH.body[2]);
+    tech.face.target = () => new V(...WH.body);
+    await tech.wait(1.2);
+    // down on one knee to see its base
+    tech.face.target = () => new V(...WH.base);
+    await tech.kneel(true, { dur: 0.9 });
+    await tech.wait(0.8);
+    // a picture with his phone, in his right hand (the clipboard is in his left)
+    tech.hold(phone, "Bip01_R_Hand", [0.075, 0.02, 0]); phone.rotation.set(0, 0, 0);
+    const shoot = tech.reach("R", () => new V(...WH.base).lerp(tech.eyes(), 0.55), { dur: 0.7 });
+    await tech.wait(0.9);
+    phone.userData.flash.intensity = 4; await tech.wait(0.12); phone.userData.flash.intensity = 0;
+    await tech.wait(0.5);
+    await shoot.release(0.6);
+    if (phone.parent) phone.parent.remove(phone);
+    await tech.kneel(false, { dur: 0.8 });
+    // it all put together on his tablet, there and then
+    tech.face.target = () => tab.getWorldPosition(new V());
+    boardUp(sim, true);
+    await tech.wait(0.7);
+    await tapTablet(sim, [null, 1, null, 2, 3, 0], 0.8);
+    boardUp(sim, false, 0.3);
+    tech.face.target = null;
+    // back out, and the door shut after him, a step after it as it closes
+    await tech.walk([WH.front], { speed: 0.55, round: 0, backwards: true });
+    await tech.turnToward(WH.front[0] + 1, WH.front[2] + 0.35);
+    const h2 = tech.reach("R", hp, { dur: 0.6 });
+    tech.fingers("R", 0.6, 0.4);
+    await tech.wait(0.6);
+    const shut = swingDoor(tech, WH.door, false, 1.6);
+    await tech.walk([WH.reach], { speed: 0.45, round: 0 });
+    await shut;
+    tech.fingers("R", 0, 0.3);
+    await h2.release(0.5);
+  }
+
+  // ---- the table (S10) ------------------------------------------------------------------------------------------------
+  // Round 3p (Jake 2026-10-31): "the chair and the technician are still a little close to John, even sitting at the table ... he
+  // should not put his elbows on the table and lean into the table. Should be facing John, squared up, getting serious. John also is
+  // leaning in to the table, and the table leg is going through his right foot, so everything kind of needs to be spaced a little
+  // bit better." John pulls his chair (the north end's west one) out off the table's corner and sits back in it, turned half way to
+  // Mike; Mike pulls his (one of the south end's, tucked in along the west side) out from the table's side and turns it to face John,
+  // 1.45 m seat to seat (they sat 0.5 m apart, Mike at a right angle to him with his elbows on the table). Both sit back in their
+  // chairs (the sofa's sitting pose, not the table's leaning one), Mike with his clipboard and tablet up in front of him for John.
+  // tuck: where the chair stands before (x, y, z, heading); at: where it is pulled out to; pull: where he stands to pull it.
+  const SEATS = {
+    john: { chair: "furn_chair_kitchen_n0", tuck: [-2.4, 0, -7.28, 0], at: [-2.55, 0, -7.95], pull: [-3.05, 0, -7.75] },
+    tech: { chair: "furn_chair_kitchen_s0", tuck: [-2.79, 0, -6.45, Math.PI / 2], at: [-3.1, 0, -6.6], pull: [-3.42, 0, -6.12] },
+  };
+  // (John's turned half way to Mike from square to the table: his head and eyes do the rest)
+  SEATS.john.h = 0.5 * Math.atan2(SEATS.tech.at[0] - SEATS.john.at[0], SEATS.tech.at[2] - SEATS.john.at[2]);
+  SEATS.tech.h = Math.atan2(SEATS.john.at[0] - SEATS.tech.at[0], SEATS.john.at[2] - SEATS.tech.at[2]);
+  function placeChair(who, out = true) {
+    const s = SEATS[who], c = window.walk.scene.getObjectByName(s.chair);
+    if (!c) return null;
+    if (out) { c.position.set(...s.at); c.rotation.set(0, s.h, 0); } else { c.position.set(s.tuck[0], s.tuck[1], s.tuck[2]); c.rotation.set(0, s.tuck[3], 0); }
+    c.updateMatrixWorld(true);
+    return c;
+  }
+  // where he stands to sit down on it once it is out: in front of the seat, his back to it (the sofa's way)
+  function chairMark(sim, who, p) {
+    const s = SEATS[who], c = window.walk.scene.getObjectByName(s.chair);
+    const keep = [c.position.clone(), c.rotation.y];
+    placeChair(who, true);
+    const mid = new THREE.Box3().setFromObject(c).getCenter(V3());
+    c.position.copy(keep[0]); c.rotation.y = keep[1]; c.updateMatrixWorld(true);
+    const f = V3().set(Math.sin(s.h), 0, Math.cos(s.h));
+    return { stand: mid.addScaledVector(f, 0.03 + sim.SIT_BACK * p.root.scale.x).setY(0), h: s.h };
+  }
+  // to the chair, his hand on its back, and it slides out and round to where he will sit
+  async function pullChair(sim, who) {
+    const p = sim.people[who], s = SEATS[who], c = window.walk.scene.getObjectByName(s.chair);
+    await p.turnToward(c.position.x, c.position.z);
+    const back = () => V3().set(-Math.sin(c.rotation.y) * 0.2, 0.85, -Math.cos(c.rotation.y) * 0.2).add(c.position);
+    // (the hand on the side the chair's back is on: John's right hand went across him for it, 17 cm in, round 3p)
+    const S = p === sim.people.tech || back().sub(p.pos).dot(V3().set(-Math.cos(p.heading), 0, Math.sin(p.heading))) >= 0 ? "R" : "L";     // (Mike's left has his clipboard)
+    const hand = p.reach(S, back, { dur: 0.5 });
+    p.fingers(S, 0.6, 0.3);
+    await p.wait(0.5);
+    const p0 = c.position.clone(), r0 = c.rotation.y, p1 = V3().set(...s.at), r1 = r0 + sim.angleDiff(s.h, r0);
+    await tween(p, 0.9, (k) => { c.position.lerpVectors(p0, p1, k); c.rotation.y = r0 + (r1 - r0) * k; c.updateMatrixWorld(true); });
+    p.fingers(S, 0, 0.3);
+    await hand.release(0.4);
+  }
+  async function sitOnChair(sim, who, approach) {
+    const p = sim.people[who], s = SEATS[who];
+    await p.walk([...approach, s.pull]);
+    await pullChair(sim, who);
+    const m = chairMark(sim, who, p);
+    await p.walk([[m.stand.x, 0, m.stand.z]], { speed: 0.6, round: 0 });
+    await p.turnTo(m.h, 2.5);
+    await p.sitDown("sit_chair_idle_neutral_01");
   }
 
   // S2 in Practice: you are Mike, out of the van. The calls the script makes (its S2 directions) are what you are scored on:
@@ -841,6 +1229,7 @@ window.SCENARIOS = window.SCENARIOS || {};
     sim.feedback(rushed < 0.8 && !peeked, rushed >= 0.8 ? "You hurried up to the door. Walk up at a steady pace: not rushing, not timid." : peeked ? "Up to the door, but you looked in a window on the way." : "A steady approach, eyes on the door.");
     await tech.walk([[KNOCK[0], tech.pos.y, Math.max(KNOCK[2], Math.min(tech.pos.z, 1.0))], KNOCK], { speed: 0.6, round: 0.2 });
     await tech.turnTo(Math.PI, 2);
+    await bagDown(sim, 0.3, 0.05);
     tech.face.mood = "smile";
     sim.coach("You are at the door. Make your call.");
     let tries = 0;
@@ -913,15 +1302,18 @@ window.SCENARIOS = window.SCENARIOS || {};
     setup(sim) {
       board = sim.props.clipboard(); card = sim.props.card(); guide = sim.props.guide(); phone = sim.props.phone();
       covers = sim.props.shoeCovers(sim.people.tech);
-      // The recap seat (Jake 2026-10-29, round 3h, with his field guide's "Sit beside them or at the corner, never directly
-      // across"): "He should be off one corner." The table's chairs stand at its two ends and its east side is against the wall,
-      // so one of the north end's chairs is set along the west side, tucked in by the corner at John's end, facing in; Mike
-      // sits there, at a right angle to John, the clipboard on the table between them.
-      const cc = window.walk.scene.getObjectByName(CORNER.chair);
-      if (cc) { cc.position.set(...CORNER.at); cc.rotation.set(0, Math.PI / 2, 0); cc.userData.home = cc.position.clone(); cc.updateMatrixWorld(true); }
+      bag = sim.props.toolbag(); tab = sim.props.tablet(TAB_PAGES);
+      // The recap seats (round 3p): both chairs where they are used, from the start (SEATS). Until round 3o Mike's sat along the
+      // table's west side tucked in at John's corner, at a right angle to him (round 3h, Jake: "He should be off one corner").
+      placeChair("john", false); placeChair("tech", false);
+      // this call's water heater: the electric tank in the coat closet off the foyer (the house's own layout picker; walk.js keeps the
+      // layout in its config and puts the unit in, loading it if it has to). Round 3p: he goes to it after S9.
+      const whSel = [...document.querySelectorAll("select")].find((x) => x.title === "water_heater");
+      if (whSel && whSel.value !== "closet_electric_tank") { whSel.value = "closet_electric_tank"; whSel.dispatchEvent(new Event("change")); }
       sim.late.push((dt) => carryStep(sim, dt));
       sim.late.push(() => guideStep());                    // after the clipboard: the guide can lie on it
       sim.late.push(() => lapStep());
+      sim.late.push(() => bagStep());
       for (const who of ["tech", "john"]) sim.people[who].solids.push(guideSolid, pagesSolid);
       sim.carry = carry;                                    // its numbers, for trying a hold out in the page
       sim.guideState = gs;
@@ -945,8 +1337,9 @@ window.SCENARIOS = window.SCENARIOS || {};
         num: "S2", title: "The Approach", shot: "drive",
         start(sim) {
           const { john, tech } = sim.people;
-          putAway(); inHand(sim); guideAt(sim, "board"); coversOn(false); setCabinet(false);
+          putAway(); inHand(sim); guideAt(sim, "board"); coversOn(false); setCabinet(false); tabletOnBoard(false);
           tech.stand(...VAN);
+          bagInHand(tech);                                      // his toolbag in his right hand from the van (round 3p)
           tech.face.mood = "neutral";
           john.stand(0.2, 0, -2.9, Math.PI);
           sim.setDoor("door_foyer_outside", false);
@@ -961,6 +1354,7 @@ window.SCENARIOS = window.SCENARIOS || {};
           sim.shot("porch");
           await up;
           await tech.turnTo(Math.PI, 1.5);
+          await bagDown(sim, 0.3, 0.05);                        // the bag down by the door for the knock: his right hand is the fist
           tech.face.mood = "smile";                             // "Smile before the door opens"
           await tech.wait(0.4);
           await knock(sim, tech, 5);
@@ -995,7 +1389,8 @@ window.SCENARIOS = window.SCENARIOS || {};
         // not necessary"), and with the covers first his thanks follow on from it.
         start(sim) {
           const { john, tech } = sim.people;
-          putAway(); inHand(sim); guideAt(sim, "board"); coversOn(false); setCabinet(false);
+          putAway(); inHand(sim); guideAt(sim, "board"); coversOn(false); setCabinet(false); tabletOnBoard(false);
+          bagAt(...BAG_PORCH);
           sim.setDoor("door_foyer_outside", true);
           const JA = last(L.john_aside), at = last(L.tech_card);
           john.stand(JA[0], 0, JA[2], Math.atan2(at[0] - JA[0], at[2] - JA[2]));
@@ -1017,12 +1412,13 @@ window.SCENARIOS = window.SCENARIOS || {};
           if (sim.practice) sim.score("covers", !barged, barged ? "Stepped inside before the shoe covers were on" : "Shoe covers on before stepping inside");
           sim.shot("doorway_in");
           await H(sim, "S3_02");
-          // in, through the middle of the doorway and over to the right, as he thanks him for that; John shuts the door once he is
-          // clear of its swing
+          // in, through the middle of the doorway and over to the right, as he thanks him for that, his bag taken up first; John
+          // shuts the door once he is clear of its swing
           const stepIn = () => tech.walk(L.tech_in, { speed: 0.9, round: 0.25 });
           const thanks = T(sim, "S3_03", { move: null, turn: false });
+          await bagUp(sim);
           if (sim.practice) await act(sim, "Step inside, over to the right, so John can close the door behind you.", "Step inside", last(L.tech_in), stepIn, null, L.tech_in);
-          else { await tech.wait(0.2); await stepIn(); }
+          else { await stepIn(); }
           const face = tech.turnToward(john.pos.x, john.pos.z);
           if (sim.practice) sim.view("doorway_in");           // the foyer is too narrow for a camera behind him: the two of them
           await johnCloses(sim);
@@ -1037,14 +1433,16 @@ window.SCENARIOS = window.SCENARIOS || {};
         num: "S4", title: "Initial Discovery", shot: "doorway_in",
         start(sim) {
           const { john, tech } = sim.people;
-          inHand(sim); guideAt(sim, "board"); coversOn(true); setCabinet(false);
+          inHand(sim); guideAt(sim, "board"); coversOn(true); setCabinet(false); tabletOnBoard(false);
           sim.setDoor("door_foyer_outside", false);
           john.stand(...last(L.john_after), Math.atan2(last(L.tech_in)[0] - last(L.john_after)[0], last(L.tech_in)[2] - last(L.john_after)[2]));
           tech.stand(...last(L.tech_in), Math.atan2(last(L.john_after)[0] - last(L.tech_in)[0], last(L.john_after)[2] - last(L.tech_in)[2]));
+          bagInHand(tech);
         },
         async run(sim) {
           sim.shot("doorway_in");
           if (sim.practice) sim.view("doorway_in");
+          await bagDown(sim, 0.3, 0.05);                        // down by his feet while they talk (round 3p)
           // his lines that come one after another flow on (round 3j); "Do you mind showing me to the sink? We'll get started." takes
           // the two of them on to the repair (Jake 2026-10-30: "The transition is we got to get to the repair")
           for (const id of ["S4_01", "S4_02", "S4_03", "S4_04", "S4_05", "S4_06", "S4_07", "S4_08", ["S4_09", "S4_10"], "S4_11", ["S4_12", "S4_13"], "S4_14", "S4_15"])
@@ -1055,23 +1453,27 @@ window.SCENARIOS = window.SCENARIOS || {};
         num: "S5", title: "Happy Homes Guide", shot: "follow_living",
         start(sim) {
           const { john, tech } = sim.people;
-          inHand(sim); guideAt(sim, "board"); coversOn(true); setCabinet(false);
+          inHand(sim); guideAt(sim, "board"); coversOn(true); setCabinet(false); tabletOnBoard(false);
           sim.setDoor("door_foyer_outside", false);
           john.stand(...last(L.john_after), Math.atan2(last(L.tech_in)[0] - last(L.john_after)[0], last(L.tech_in)[2] - last(L.john_after)[2]));
           tech.stand(...last(L.tech_in), Math.atan2(last(L.john_after)[0] - last(L.tech_in)[0], last(L.john_after)[2] - last(L.tech_in)[2]));
+          { const h = tech.heading; bagAt(tech.pos.x - Math.cos(h) * 0.3 + Math.sin(h) * 0.05, tech.pos.z + Math.sin(h) * 0.3 + Math.cos(h) * 0.05, h); }
         },
         async run(sim) {
           const { john, tech } = sim.people;
           sim.shot("follow_living");
-          const lead = john.walk(L.john_lead);
-          await watch(sim, async () => { await tech.wait(1.0); await tech.walk(L.tech_follow); });
+          // his bag up as John sets off, and after him (round 3p)
+          const lead = (async () => { await john.wait(0.6); await john.walk(L.john_lead); })();
+          await bagUp(sim);
+          await watch(sim, async () => { await tech.walk(L.tech_follow); });
           if (sim.practice) await act(sim, "Follow John to the kitchen sink.", "Follow him", last(L.tech_follow), () => goAlong(sim, tech, L.tech_follow), null, L.tech_follow);
           await lead;
           sim.shot("sink");
-          // to John, his clipboard down on the counter as John shows him the sink; then the guide (showGuide), and John looks it over
+          // to John, his bag down by the cabinet as John shows him the sink (his clipboard stays in his hand: round 3p); then the
+          // guide (showGuide), and John looks it over
           await tech.turnToward(john.pos.x, john.pos.z);
           show(sim, "sink");
-          const down = boardDown(sim);
+          const down = bagDown(sim, 0.42, 0.35);
           await H(sim, "S5_01");
           await down;
           await T(sim, ["S5_02", "S5_03"], [{ move: null, during: () => showGuide(sim) }, { move: null, during: () => johnLooks(sim) }]);
@@ -1083,15 +1485,19 @@ window.SCENARIOS = window.SCENARIOS || {};
         num: "S6", title: "Game Plan", shot: "sink",
         start(sim) {
           const { john, tech } = sim.people;
-          guideAt(sim, "side"); coversOn(true); setCabinet(false);
+          inHand(sim); guideAt(sim, "side"); coversOn(true); setCabinet(false); tabletOnBoard(false);
           john.stand(...JOHN_SINK, 0);
           tech.stand(...AT_SINK, Math.atan2(JOHN_SINK[0] - AT_SINK[0], JOHN_SINK[2] - AT_SINK[2]));
-          boardOnCounter(sim);
+          bagAt(...BAG_SINK);
         },
         async run(sim) {
           sim.shot("sink");
+          if (sim.practice) sim.view("sink");
           await T(sim, ["S6_01", "S6_02"]);
           await H(sim, "S6_03");
+          // where the water heater is, before he says he is going to it (round 3p)
+          await T(sim, "S6_05");
+          await H(sim, "S6_06");
           await T(sim, "S6_04");
         },
       },
@@ -1099,10 +1505,10 @@ window.SCENARIOS = window.SCENARIOS || {};
         num: "S7", title: "The Check", shot: "check",
         start(sim) {
           const { john, tech } = sim.people;
-          guideAt(sim, "side"); coversOn(true); setCabinet(false);
+          inHand(sim); guideAt(sim, "side"); coversOn(true); setCabinet(false); tabletOnBoard(false);
           john.stand(...JOHN_SINK, 0);
           tech.stand(...AT_SINK, Math.atan2(JOHN_SINK[0] - AT_SINK[0], JOHN_SINK[2] - AT_SINK[2]));
-          boardOnCounter(sim);
+          bagAt(...BAG_SINK);
         },
         async run(sim) {
           const { john, tech } = sim.people;
@@ -1123,10 +1529,11 @@ window.SCENARIOS = window.SCENARIOS || {};
         num: "S8", title: "Check-In / Share", shot: "sofa",
         start(sim) {
           const { john, tech } = sim.people;
-          inHand(sim); coversOn(true); setCabinet(false);
+          inHand(sim); coversOn(true); setCabinet(false); tabletOnBoard(true); tab.userData.show(0);
           john.seated(...SOFA);
           guideAt(sim, "reading");
           tech.stand(-5.5, 0, -6.05, Math.atan2(SOFA[0] + 5.5, SOFA[2] + 6.05));
+          bagAt(...BAG_SINK);
         },
         async run(sim) {
           const { john, tech } = sim.people;
@@ -1145,8 +1552,12 @@ window.SCENARIOS = window.SCENARIOS || {};
           await T(sim, "S8_01");
           await john.standUp();
           await H(sim, "S8_02");
-          await T(sim, "S8_03");
+          // "I took plenty of pictures and video so you can see it for yourself": his tablet up flat, tipped to John, the trap on it
+          // (round 3p, Jake: "[Mike] needs to be presenting this ... typically we'll be using a tablet")
+          tab.userData.show(0);
+          await T(sim, "S8_03", { during: async () => { await tech.wait(1.2); carry.showWant = 1; } });
           await H(sim, "S8_04");
+          carry.showWant = 0;
           await T(sim, ["S8_05", "S8_06", "S8_07"]);
         },
       },
@@ -1154,40 +1565,53 @@ window.SCENARIOS = window.SCENARIOS || {};
         num: "S9", title: "Follow-Up Discovery", shot: "sofa",
         start(sim) {
           const { john, tech } = sim.people;
-          inHand(sim); guideAt(sim, "sofa"); coversOn(true); setCabinet(false);
+          inHand(sim); guideAt(sim, "sofa"); coversOn(true); setCabinet(false); tabletOnBoard(true); tab.userData.show(0);
           john.stand(...standFromSofa(sim, john));
           tech.stand(...TALK, Math.atan2(standFromSofa(sim, john)[0] - TALK[0], standFromSofa(sim, john)[2] - TALK[2]));
+          bagAt(...BAG_SINK);
+          sim.setDoor(WH.door, false);
         },
         async run(sim) {
-          const { tech } = sim.people;
+          const { john, tech } = sim.people;
           sim.shot("sofa"); show(sim, "sofa");
           await T(sim, "S9_01");
           await H(sim, "S9_02");
-          // what his answer points to is his water (round 3j, Jake: "He's talking about water heater, even though that would have
-          // been like water filtration"): the filtration, and the water heater from the plan
+          // what his answer points to: the water heater (scale in the tank), and he goes to it (round 3p, Jake: "He told him he was
+          // going to go to the water heater, so he needs to go to the water heater"); John sits back down to wait
           await T(sim, "S9_03");
-          await watch(sim, () => tech.walk(L.tech_off));
-          if (sim.practice) await act(sim, "Go and check the water filtration and the water heater (S7 for those systems).", "Go check them", last(L.tech_off), () => goAlong(sim, tech, L.tech_off), null, L.tech_off);
-          sim.caption("He checks the water filtration and the water heater (S7 for those systems), then comes back");
+          const sitBack = (async () => { await john.wait(1.0); await john.turnTo(SOFA[3], 2.6); await john.sitDown(); })();
+          if (sim.practice) await act(sim, "Go and check the water heater: it's in the coat closet by the front door. Follow the dots.", "Go to it", WH.front, () => goAlong(sim, tech, L.tech_to_wh), null, L.tech_to_wh);
+          else { sim.shot("hall_wh"); await tech.walk(L.tech_to_wh); }
+          sim.shot("closet"); show(sim, "closet");
+          await checkHeater(sim);
+          await sitBack;
+          // and back toward the living room
+          sim.shot("hall_wh");
+          if (sim.practice) await act(sim, "Back to John in the living room.", "Go back", last(L.tech_from_wh), () => goAlong(sim, tech, L.tech_from_wh), null, L.tech_from_wh);
+          else await tech.walk(L.tech_from_wh);
         },
       },
       {
         num: "S8L", title: "Last Check-In", shot: "sofa",
         start(sim) {
           const { john, tech } = sim.people;
-          inHand(sim); guideAt(sim, "sofa"); coversOn(true); setCabinet(false);
-          john.stand(...standFromSofa(sim, john));
+          inHand(sim); guideAt(sim, "sofa"); coversOn(true); setCabinet(false); tabletOnBoard(true); tab.userData.show(0);
+          john.seated(...SOFA);
           tech.stand(-3.2, 0, -5.3, -1.7);
+          bagAt(...BAG_SINK);
         },
         async run(sim) {
           const { john, tech } = sim.people;
           sim.shot("sofa");
-          // he calls out again before he comes back in to him
+          // he calls out again before he comes back in to him; John stands up to him as he comes in
           if (!sim.practice) await tech.turnToward(john.pos.x, john.pos.z);
           await T(sim, "S8_00", { move: null });
+          const up = (async () => { await john.wait(0.6); if (/^sit_/.test(john.base)) await john.standUp(); })();
           await watch(sim, async () => { await tech.wait(0.5); await tech.walk(L.tech_back_in); await tech.turnToward(john.pos.x, john.pos.z); });
           if (sim.practice) await act(sim, "Back to John for the last check-in.", "Go back to him", last(L.tech_back_in), () => goAlong(sim, tech, L.tech_back_in), () => tech.turnToward(john.pos.x, john.pos.z), L.tech_back_in);
+          await up;
           show(sim, "sofa");
+          // "Okay, that's what I've looked at so far. I've got everything put together." (round 3p)
           await T(sim, "S8L_01");
           await H(sim, "S8L_02");
         },
@@ -1196,33 +1620,34 @@ window.SCENARIOS = window.SCENARIOS || {};
         num: "S10", title: "The Recap", shot: "table",
         start(sim) {
           const { john, tech } = sim.people;
-          inHand(sim); guideAt(sim, "sofa"); coversOn(true); setCabinet(false);
+          inHand(sim); guideAt(sim, "sofa"); coversOn(true); setCabinet(false); tabletOnBoard(true); tab.userData.show(0);
           john.stand(...standFromSofa(sim, john));
           tech.stand(...TALK, Math.atan2(standFromSofa(sim, john)[0] - TALK[0], standFromSofa(sim, john)[2] - TALK[2]));
-          for (const n of ["furn_chair_kitchen_n0", "furn_chair_kitchen_s0"]) { const c = window.walk.scene.getObjectByName(n); if (c.userData.home) c.position.copy(c.userData.home); }
+          placeChair("john", false); placeChair("tech", false);
+          bagAt(...BAG_SINK);
         },
         async run(sim) {
           const { john, tech } = sim.people;
           sim.shot("table");
-          // John takes the far (south) end first, round the west side, and Mike the chair off his corner (setup: CORNER); until
-          // round 3h Mike sat across from him at the near end (Jake: "He should be off one corner")
-          // after you: Mike steps back out of John's way first (John's way to the table passed 0.3 m from him)
+          // John leads the way and Mike follows right behind him (round 3p, Jake: "He needs the whole follow him option. So it's
+          // like telling him, like, right behind him. So it's not a weird, long, awkward pause"; Mike used to stand and wait while
+          // John walked over and sat down). John sits back in his chair turned toward Mike; Mike in his, facing John (SEATS).
+          // (Mike first a step back out of John's way, as he comes past him from the sofa)
+          const jSits = (async () => { await john.wait(0.5); await sitOnChair(sim, "john", L.john_to_table); })();
           if (Math.hypot(tech.pos.x - TALK[0], tech.pos.z - TALK[2]) < 0.6) await tech.walk(L.tech_aside, { speed: 0.6, round: 0, backwards: true });
-          await john.sitAtTable("furn_chair_kitchen_n0", { approach: L.john_to_table, sideDir: -1 });
-          // the clipboard goes down on the table in front of him (the discovery sheet is the evidence)
-          const sit = async (approach) => {
-            await tech.sitAtTable(CORNER.chair, { approach, sideDir: -1 });
-            const top = new sim.T.Box3().setFromObject(window.walk.scene.getObjectByName("furn_table_kitchen") || tech.root).max.y;
-            putDownBoard(sim, tech.pos.x + Math.sin(tech.heading) * 0.55, top + 0.004, tech.pos.z + Math.cos(tech.heading) * 0.55, tech.heading + 0.2);
-          };
-          if (sim.practice) await act(sim, "Sit down off his corner, not across the table from him. Discovery sheet, pictures and the failed part on the table between you.", "Sit down", last(L.tech_to_table), () => goAlong(sim, tech, L.tech_to_table), () => sit([]), L.tech_to_table);
-          else await sit(L.tech_to_table);
+          if (sim.practice) await act(sim, "Follow John to the table, right behind him. Pull your chair out to face him and sit down.", "Follow him", SEATS.tech.pull, () => goAlong(sim, tech, L.tech_to_table), () => sitOnChair(sim, "tech", []), L.tech_to_table);
+          else { await sim.until(() => john.pos.x > -4.0); await sitOnChair(sim, "tech", L.tech_to_table.slice(0, -1)); }
+          await jSits;
           sim.shot("table_close");
-          await T(sim, "S10_01");
-          await H(sim, "S10_02");
-          await T(sim, ["S10_03", "S10_04"]);
-          await H(sim, "S10_05");
-          await T(sim, "S10_06");
+          // the clipboard and tablet up in front of him, shown to John as he goes over it (his pictures and the diagrams)
+          tab.userData.show(0);
+          carry.showWant = 1;
+          const sat = { move: null, listen: null };
+          await T(sim, "S10_01", sat);
+          await H(sim, "S10_02", { move: "sit_chair_gestic_shrug_01", listen: null });
+          await T(sim, ["S10_03", "S10_04"], [{ move: null, listen: null, during: () => (async () => { await tech.wait(3.5); tab.userData.show(1); await tech.wait(3.5); tab.userData.show(0); })() }, sat]);
+          await H(sim, "S10_05", sat);
+          await T(sim, "S10_06", { move: null, listen: null, during: () => (async () => { await tech.wait(2.2); tab.userData.show(2); await tech.wait(3.0); tab.userData.show(3); })() });
         },
       },
     ],
@@ -1256,14 +1681,24 @@ window.SCENARIOS = window.SCENARIOS || {};
       // at the sink, over Mike's right shoulder to John: the guide shown and handed over, the plan (round 3j, Jake: "now we're in
       // the kitchen and it's like it doesn't move and I'm like up in the corner ... it should be maybe a little bit more over the
       // technician's shoulder"; it stood in the kitchen's far corner, by the window)
-      sink: { pos: [-5.32, 1.62, -5.15], look: (s) => s.people.tech.pos.clone().lerp(s.people.john.pos, 0.6).setY(1.2) },
+      // Round 3p (Jake 2026-10-31: "the camera angle is maybe a little exaggerated ... it needs to be over so that like both people
+      // can be seen ... mostly from the technician's angle. I just can't see what's happening with like John's body language and
+      // stuff because the technician's blocking it"): from the kitchen's open side, off Mike's right shoulder at about 45 degrees,
+      // the two of them whole, John three quarters on (it stood close behind Mike's right shoulder, his back across John)
+      sink: { pos: [-4.4, 1.55, -5.6], look: (s) => s.people.tech.eyes().lerp(s.people.john.eyes(), 0.5).setY(1.05) },
       // the check: over his right shoulder, down into the open cabinet
       check: { pos: [-4.62, 1.32, -6.52], look: (s) => new s.T.Vector3(-6.0, 0.45, -6.05) },
       sofa: { pos: [-3.75, 1.6, -3.25], look: (s) => s.people.john.eyes().lerp(s.people.tech.eyes(), 0.5).setY(1.3) },
-      table: { pos: [-1.45, 1.75, -5.0], look: (s) => s.people.john.pos.clone().lerp(s.people.tech.pos, 0.5).setY(0.95) },
+      table: { pos: [-1.45, 1.75, -5.0], look: (s) => s.people.john.pos.clone().lerp(s.people.tech.pos, 0.5).setY(0.9) },
       // the two of them at the corner, from the table's north east: Mike side on to the right of the frame, John facing it
       // (from the west, where it stood until round 3h, it would be behind Mike's chair)
-      table_close: { pos: [-1.8, 1.45, -5.65], look: (s) => s.people.john.eyes().lerp(s.people.tech.eyes(), 0.5).setY(1.1) },
+      // (round 3p: the new seats, facing each other across the table's corner; from over the table's south east corner, off Mike's
+      // right shoulder at about 55 degrees, the two of them whole and his tablet up toward John; from behind his chair its back hid him)
+      table_close: { pos: [-1.65, 1.5, -5.5], look: (s) => s.people.john.eyes().lerp(s.people.tech.eyes(), 0.5).setY(0.85) },
+      // the water heater: from the foyer, Mike coming through from the hall; then through the closet's doorway over his shoulder
+      hall_wh: { pos: [0.95, 1.65, -0.75], look: (s) => s.people.tech.eyes().setY(1.35) },
+      // (inside the closet, high in its corner by the door: from the foyer the open door's louvres stood between it and him)
+      closet: { pos: [2.15, 2.25, -1.62], look: (s) => new s.T.Vector3(1.75, 0.45, -2.6) },
     },
   };
 })();

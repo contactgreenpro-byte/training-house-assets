@@ -627,6 +627,37 @@
     ctl.yaw = Math.atan2(ctl.lk.x - ctl.cam.x, ctl.lk.z - ctl.cam.z); ctl.off = ctl.offWant = 0; ctl.dcur = null;
     return true;
   }
+  // Round 3p (Jake 2026-10-31: "the camera angle is maybe a little exaggerated from where we were before to where we are now. Like,
+  // it needs to be over so that like both people can be seen. It's kind of okay to do it from a side perspective, but just mostly
+  // from ... the technician's angle ... I should still be able to see both people completely"): standing with John and not walking,
+  // the camera eases out from close over his shoulder to a two-shot: off the line between them on Mike's side at 35 to 70 degrees,
+  // back far enough for the two of them head to foot where the room allows, aimed between them; the side it is on kept while it
+  // stays clear (walls, the doors, tall furniture; glass does not hide anyone). Returns false where no place sees them both.
+  function twoShot(dt, me, home) {
+    const T = sim.T, cam = window.walk.camera;
+    const a = me.pos, b = home.pos, d = new T.Vector3().subVectors(b, a).setY(0), sep = d.length();
+    if (sep < 0.3) return false;
+    d.normalize();
+    const side = new T.Vector3(-d.z, 0, d.x), mid = a.clone().lerp(b, 0.42).setY(Math.min(a.y, b.y) + 0.95);
+    const vh = Math.tan(cam.fov * Math.PI / 360), hh = vh * cam.aspect;
+    // (both whole: 2 m tall in the height of the view at the further one, and the two of them across its width)
+    const want = Math.min(3.4, Math.max(1.05 / vh + sep * 0.45, (sep * 0.5 + 0.55) / hh));
+    const opaque = (x) => !x.object.material || ![].concat(x.object.material).some((m) => m.transparent);
+    const clearTo = (from, to) => { const v = to.clone().sub(from), len = v.length(); return !new T.Raycaster(from, v.normalize(), 0.05, len - 0.12).intersectObjects(walls(), false).some(opaque); };
+    const place = (ang, dist) => mid.clone().addScaledVector(d, -Math.cos(ang) * dist).addScaledVector(side, Math.sin(ang) * dist).add(new T.Vector3(0, 0.6, 0));
+    const ok = (p) => clearTo(mid, p.clone().addScaledVector(p.clone().sub(mid).normalize(), 0.3)) && clearTo(p, me.eyes()) && clearTo(p, home.eyes()) && clearTo(p, home.pos.clone().setY(home.pos.y + 0.5));
+    const sg0 = ctl.ts || 1, tries = [];
+    for (const sg of [sg0, -sg0]) for (const ang of [0.62, 0.85, 1.1]) for (const k of [1, 0.8, 0.62]) tries.push([sg * ang, want * k]);
+    let pick = null;
+    for (const [ang, dist] of tries) { const p = place(ang, dist); if (ok(p)) { pick = p; ctl.ts = Math.sign(ang); break; } }
+    if (!pick) return false;
+    if (!ctl.cam || !dt) ctl.cam = pick.clone(); else ctl.cam.lerp(pick, Math.min(1, dt * 1.6));
+    if (!ctl.lk || !dt) ctl.lk = mid.clone(); else ctl.lk.lerp(mid, Math.min(1, dt * 2.2));
+    sim.setCam(ctl.cam.x, ctl.cam.y, ctl.cam.z, ctl.lk.x, ctl.lk.y, ctl.lk.z);
+    // handed back to the follow from here when he walks off or you drag
+    ctl.yaw = Math.atan2(ctl.lk.x - ctl.cam.x, ctl.lk.z - ctl.cam.z); ctl.off = ctl.offWant = 0; ctl.dcur = null; ctl.blend = 1;
+    return true;
+  }
   function followCam(dt) {
     const me = techPerson(), T = sim.T;
     if (!me) return;
@@ -635,6 +666,7 @@
     const home = homeowner();
     const yours = sim.clock - ctl.touched < 2.5;            // you have had your hands on it just now: the view is yours
     const talking = home && home.root.visible && !moving && !yours && Math.hypot(home.pos.x - me.pos.x, home.pos.z - me.pos.z) < 3.2;
+    if (talking && !ctl.drag && twoShot(dt, me, home)) return;
     if (!ctl.drag) {
       // behind him, a little off to one side (so whoever he faces is past his head, not hidden behind it), and that is all: it
       // turns with him and never on its own. Jake 2026-10-29: "The camera bounces even though we are in first person. It should

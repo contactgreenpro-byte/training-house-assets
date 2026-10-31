@@ -1,0 +1,47 @@
+{
+ "text": "Sounds good. And where's your water heater?",
+ "voice_id": "iP95p4xoKVk53GoZ742B",
+ "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
+ "model": "eleven_multilingual_v2",
+ "speed": 1.0,
+ "audio": "speech.mp3",
+ "spoken_seconds": 2.09,
+ "word_count": 7,
+ "words": [
+  {
+   "word": "Sounds",
+   "start": 0.0,
+   "end": 0.302
+  },
+  {
+   "word": "good.",
+   "start": 0.337,
+   "end": 0.534
+  },
+  {
+   "word": "And",
+   "start": 0.569,
+   "end": 0.673
+  },
+  {
+   "word": "where's",
+   "start": 0.731,
+   "end": 0.975
+  },
+  {
+   "word": "your",
+   "start": 1.01,
+   "end": 1.126
+  },
+  {
+   "word": "water",
+   "start": 1.184,
+   "end": 1.428
+  },
+  {
+   "word": "heater?",
+   "start": 1.474,
+   "end": 2.09
+  }
+ ]
+}

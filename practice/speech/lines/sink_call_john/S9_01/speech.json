@@ -1,12 +1,12 @@
 {
- "text": "While I was at your sink, I noticed white scale built up on the faucet and the shutoff valves. That's usually a sign of what's in the water. Have you noticed any buildup on your faucets or shower heads, or a funny taste or smell?",
+ "text": "While I was at your sink, I noticed white scale built up on the faucet and the shutoff valves. That's usually a sign of what's in the water. Are you seeing that buildup anywhere else in the home? Any odd taste or smell, anything like that?",
  "voice_id": "iP95p4xoKVk53GoZ742B",
  "voice": "Chris - Charming, Down-to-Earth (ElevenLabs premade)",
  "model": "eleven_multilingual_v2",
  "speed": 1.0,
  "audio": "speech.mp3",
- "spoken_seconds": 12.167,
- "word_count": 45,
+ "spoken_seconds": 13.282,
+ "word_count": 46,
  "words": [
   {
    "word": "While",
@@ -20,218 +20,223 @@
   },
   {
    "word": "was",
-   "start": 0.29,
-   "end": 0.36
+   "start": 0.302,
+   "end": 0.395
   },
   {
    "word": "at",
-   "start": 0.395,
-   "end": 0.453
+   "start": 0.43,
+   "end": 0.476
   },
   {
    "word": "your",
-   "start": 0.488,
-   "end": 0.592
+   "start": 0.511,
+   "end": 0.615
   },
   {
    "word": "sink,",
-   "start": 0.65,
-   "end": 1.091
+   "start": 0.673,
+   "end": 0.929
   },
   {
    "word": "I",
-   "start": 1.207,
-   "end": 1.254
+   "start": 0.952,
+   "end": 0.975
   },
   {
    "word": "noticed",
-   "start": 1.335,
-   "end": 1.591
+   "start": 1.057,
+   "end": 1.324
   },
   {
    "word": "white",
-   "start": 1.649,
-   "end": 1.846
+   "start": 1.44,
+   "end": 1.718
   },
   {
    "word": "scale",
-   "start": 1.892,
-   "end": 2.194
+   "start": 1.776,
+   "end": 2.125
   },
   {
    "word": "built",
-   "start": 2.229,
-   "end": 2.392
+   "start": 2.159,
+   "end": 2.368
   },
   {
    "word": "up",
-   "start": 2.438,
+   "start": 2.426,
    "end": 2.519
   },
   {
    "word": "on",
    "start": 2.577,
-   "end": 2.624
+   "end": 2.635
   },
   {
    "word": "the",
-   "start": 2.659,
-   "end": 2.728
+   "start": 2.67,
+   "end": 2.74
   },
   {
    "word": "faucet",
    "start": 2.798,
-   "end": 3.251
+   "end": 3.204
   },
   {
    "word": "and",
-   "start": 3.297,
-   "end": 3.39
+   "start": 3.251,
+   "end": 3.344
   },
   {
    "word": "the",
-   "start": 3.425,
-   "end": 3.495
+   "start": 3.379,
+   "end": 3.448
   },
   {
    "word": "shutoff",
-   "start": 3.564,
-   "end": 3.936
+   "start": 3.495,
+   "end": 3.843
   },
   {
    "word": "valves.",
-   "start": 3.971,
+   "start": 3.913,
    "end": 4.493
   },
   {
    "word": "That's",
    "start": 5.097,
-   "end": 5.329
+   "end": 5.341
   },
   {
    "word": "usually",
-   "start": 5.387,
-   "end": 5.689
+   "start": 5.399,
+   "end": 5.7
   },
   {
    "word": "a",
-   "start": 5.735,
-   "end": 5.77
+   "start": 5.747,
+   "end": 5.782
   },
   {
    "word": "sign",
    "start": 5.84,
-   "end": 6.072
+   "end": 6.095
   },
   {
    "word": "of",
-   "start": 6.095,
-   "end": 6.153
+   "start": 6.142,
+   "end": 6.2
   },
   {
    "word": "what's",
-   "start": 6.2,
-   "end": 6.374
+   "start": 6.258,
+   "end": 6.432
   },
   {
    "word": "in",
-   "start": 6.409,
-   "end": 6.478
+   "start": 6.467,
+   "end": 6.525
   },
   {
    "word": "the",
-   "start": 6.525,
-   "end": 6.594
+   "start": 6.56,
+   "end": 6.629
   },
   {
    "word": "water.",
-   "start": 6.629,
-   "end": 7.105
+   "start": 6.676,
+   "end": 7.21
   },
   {
-   "word": "Have",
-   "start": 7.709,
-   "end": 7.86
-  },
-  {
-   "word": "you",
-   "start": 7.883,
+   "word": "Are",
+   "start": 7.814,
    "end": 7.953
   },
   {
-   "word": "noticed",
-   "start": 8.011,
-   "end": 8.29
+   "word": "you",
+   "start": 7.976,
+   "end": 8.046
   },
   {
-   "word": "any",
-   "start": 8.336,
-   "end": 8.475
+   "word": "seeing",
+   "start": 8.092,
+   "end": 8.266
+  },
+  {
+   "word": "that",
+   "start": 8.301,
+   "end": 8.406
   },
   {
    "word": "buildup",
-   "start": 8.533,
-   "end": 8.847
+   "start": 8.464,
+   "end": 8.8
   },
   {
-   "word": "on",
-   "start": 8.893,
-   "end": 8.951
+   "word": "anywhere",
+   "start": 8.858,
+   "end": 9.149
   },
   {
-   "word": "your",
-   "start": 8.986,
-   "end": 9.091
+   "word": "else",
+   "start": 9.183,
+   "end": 9.358
   },
   {
-   "word": "faucets",
-   "start": 9.149,
-   "end": 9.648
+   "word": "in",
+   "start": 9.392,
+   "end": 9.451
   },
   {
-   "word": "or",
-   "start": 9.706,
-   "end": 9.822
+   "word": "the",
+   "start": 9.485,
+   "end": 9.555
   },
   {
-   "word": "shower",
-   "start": 9.892,
-   "end": 10.194
+   "word": "home?",
+   "start": 9.59,
+   "end": 9.95
   },
   {
-   "word": "heads,",
-   "start": 10.263,
-   "end": 10.542
+   "word": "Any",
+   "start": 10.461,
+   "end": 10.681
   },
   {
-   "word": "or",
-   "start": 10.577,
-   "end": 10.67
-  },
-  {
-   "word": "a",
-   "start": 10.728,
-   "end": 10.751
-  },
-  {
-   "word": "funny",
-   "start": 10.809,
-   "end": 11.053
+   "word": "odd",
+   "start": 10.739,
+   "end": 10.96
   },
   {
    "word": "taste",
-   "start": 11.111,
-   "end": 11.401
+   "start": 11.018,
+   "end": 11.389
   },
   {
    "word": "or",
    "start": 11.436,
-   "end": 11.505
+   "end": 11.517
   },
   {
-   "word": "smell?",
-   "start": 11.564,
-   "end": 12.167
+   "word": "smell,",
+   "start": 11.587,
+   "end": 12.098
+  },
+  {
+   "word": "anything",
+   "start": 12.156,
+   "end": 12.492
+  },
+  {
+   "word": "like",
+   "start": 12.527,
+   "end": 12.655
+  },
+  {
+   "word": "that?",
+   "start": 12.678,
+   "end": 13.282
   }
  ]
 }
