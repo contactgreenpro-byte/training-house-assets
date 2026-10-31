@@ -303,8 +303,8 @@
     {
      "file": "pipes_supply__softener-yes_and_plumbing-cpvc.glb",
      "tag": "softener=yes&plumbing=cpvc",
-     "nodes": 14,
-     "bytes": 159148
+     "nodes": 12,
+     "bytes": 143008
     },
     {
      "file": "pipes_supply__softener-yes_and_plumbing-cpvc_and_shutoff_extra-attic+none.glb",
@@ -321,8 +321,8 @@
     {
      "file": "pipes_supply__softener-yes_and_plumbing-galvanized.glb",
      "tag": "softener=yes&plumbing=galvanized",
-     "nodes": 14,
-     "bytes": 234488
+     "nodes": 12,
+     "bytes": 215080
     },
     {
      "file": "pipes_supply__softener-yes_and_plumbing-galvanized_and_shutoff_extra-attic+none.glb",
@@ -340,7 +340,7 @@
      "file": "pipes_supply__softener-yes_and_plumbing-pex.glb",
      "tag": "softener=yes&plumbing=pex",
      "nodes": 12,
-     "bytes": 178300
+     "bytes": 178412
     },
     {
      "file": "pipes_supply__softener-yes_and_plumbing-pex_and_shutoff_extra-attic+none.glb",
@@ -1001,6 +1001,30 @@
      "tag": "water=well&softener=yes&plumbing=pex",
      "nodes": 5,
      "bytes": 72504
+    },
+    {
+     "file": "pipes_supply__softener-yes_and_plumbing-cpvc_and_water-city_filter.glb",
+     "tag": "softener=yes&plumbing=cpvc&water=city_filter",
+     "nodes": 1,
+     "bytes": 7560
+    },
+    {
+     "file": "pipes_supply__softener-yes_and_plumbing-cpvc_and_water-well.glb",
+     "tag": "softener=yes&plumbing=cpvc&water=well",
+     "nodes": 1,
+     "bytes": 7556
+    },
+    {
+     "file": "pipes_supply__softener-yes_and_plumbing-galvanized_and_water-city_filter.glb",
+     "tag": "softener=yes&plumbing=galvanized&water=city_filter",
+     "nodes": 1,
+     "bytes": 9384
+    },
+    {
+     "file": "pipes_supply__softener-yes_and_plumbing-galvanized_and_water-well.glb",
+     "tag": "softener=yes&plumbing=galvanized&water=well",
+     "nodes": 1,
+     "bytes": 9384
     }
    ]
   },
@@ -1574,34 +1598,10 @@
      "bytes": 2205552
     },
     {
-     "file": "slab_pipes_supply__plumbing__ac9082d4.glb",
-     "tag": "plumbing=attic_repipe&softener=no&water=well&water_heater=attic_electric_tank;plumbing=attic_repipe&softener=yes&water=city_filter&water_heater=attic_electric_tank;plumbing=attic_repipe&softener=yes&water=well&water_heater=attic_electric_tank;plumbing=pex&softener=yes&water=city_filter&water_heater=attic_electric_tank",
-     "nodes": 1,
-     "bytes": 5520
-    },
-    {
-     "file": "slab_pipes_supply__plumbing__3c412761.glb",
-     "tag": "plumbing=attic_repipe&softener=no&water=well&water_heater=closet_electric_tank;plumbing=attic_repipe&softener=no&water=well&water_heater=closet_gas_tank;plumbing=attic_repipe&softener=no&water=well&water_heater=garage_electric_tankless;plumbing=attic_repipe&softener=no&water=well&water_heater=garage_gas_tank;plumbing=attic_repipe&softener=no&water=well&water_heater=garage_hybrid;plumbing=attic_repipe&softener=no&water=well&water_heater=garage_tankless;plumbing=attic_repipe&softener=no&water=well&water_heater=garage_tankless_noncondensing;plumbing=attic_repipe&softener=yes&water=city_filter&water_heater=closet_electric_tank;plumbing=attic_repipe&softener=yes&water=city_filter&water_heater=closet_gas_tank;plumbing=attic_repipe&softener=yes&water=city_filter&water_heater=garage_electric_tankless;plumbing=attic_repipe&softener=yes&water=city_filter&water_heater=garage_gas_tank;plumbing=attic_repipe&softener=yes&water=city_filter&water_heater=garage_hybrid;plumbing=attic_repipe&softener=yes&water=city_filter&water_heater=garage_tankless;plumbing=attic_repipe&softener=yes&water=city_filter&water_heater=garage_tankless_noncondensing;plumbing=attic_repipe&softener=yes&water=well&water_heater=closet_electric_tank;plumbing=attic_repipe&softener=yes&water=well&water_heater=closet_gas_tank;plumbing=attic_repipe&softener=yes&water=well&water_heater=garage_electric_tankless;plumbing=attic_repipe&softener=yes&water=well&water_heater=garage_gas_tank;plumbing=attic_repipe&softener=yes&water=well&water_heater=garage_hybrid;plumbing=attic_repipe&softener=yes&water=well&water_heater=garage_tankless;plumbing=attic_repipe&softener=yes&water=well&water_heater=garage_tankless_noncondensing;plumbing=pex&softener=yes&water=city_filter&water_heater=closet_electric_tank;plumbing=pex&softener=yes&water=city_filter&water_heater=closet_gas_tank;plumbing=pex&softener=yes&water=city_filter&water_heater=garage_electric_tankless;plumbing=pex&softener=yes&water=city_filter&water_heater=garage_gas_tank;plumbing=pex&softener=yes&water=city_filter&water_heater=garage_hybrid;plumbing=pex&softener=yes&water=city_filter&water_heater=garage_tankless;plumbing=pex&softener=yes&water=city_filter&water_heater=garage_tankless_noncondensing",
-     "nodes": 1,
-     "bytes": 8464
-    },
-    {
      "file": "slab_pipes_supply__plumbing-attic_repipe+pex.glb",
      "tag": "plumbing=attic_repipe|pex",
      "nodes": 1,
      "bytes": 9984
-    },
-    {
-     "file": "slab_pipes_supply__plumbing__52b1e824.glb",
-     "tag": "plumbing=attic_repipe|pex&softener=no&water=city_filter&water_heater=attic_electric_tank",
-     "nodes": 1,
-     "bytes": 5288
-    },
-    {
-     "file": "slab_pipes_supply__plumbing__308d9418.glb",
-     "tag": "plumbing=attic_repipe|pex&softener=no&water=city_filter&water_heater=closet_electric_tank|closet_gas_tank|garage_electric_tankless|garage_gas_tank|garage_hybrid|garage_tankless|garage_tankless_noncondensing",
-     "nodes": 1,
-     "bytes": 6448
     },
     {
      "file": "slab_pipes_supply__plumbing-attic_repipe+pex_and_water_heater-closet_electric_tank+closet_gas_tank.glb",
@@ -1628,28 +1628,10 @@
      "bytes": 10024
     },
     {
-     "file": "slab_pipes_supply__plumbing-attic_repipe+pex+pex_branch_and_water-city_filter.glb",
-     "tag": "plumbing=attic_repipe|pex|pex_branch&water=city_filter",
-     "nodes": 1,
-     "bytes": 11364
-    },
-    {
      "file": "slab_pipes_supply__plumbing-copper.glb",
      "tag": "plumbing=copper",
      "nodes": 52,
      "bytes": 615640
-    },
-    {
-     "file": "slab_pipes_supply__plumbing__fdd3a6d4.glb",
-     "tag": "plumbing=copper&softener=no&water=city_filter&water_heater=attic_electric_tank",
-     "nodes": 1,
-     "bytes": 5304
-    },
-    {
-     "file": "slab_pipes_supply__plumbing__8e715674.glb",
-     "tag": "plumbing=copper&softener=no&water=city_filter&water_heater=closet_electric_tank|closet_gas_tank|garage_electric_tankless|garage_gas_tank|garage_hybrid|garage_tankless|garage_tankless_noncondensing",
-     "nodes": 1,
-     "bytes": 6460
     },
     {
      "file": "slab_pipes_supply__plumbing__a27d13e6.glb",
@@ -1661,19 +1643,7 @@
      "file": "slab_pipes_supply__plumbing__27f2cc3c.glb",
      "tag": "plumbing=copper&softener=no|yes&water=well&water_heater=closet_electric_tank|closet_gas_tank|garage_electric_tankless|garage_gas_tank|garage_hybrid|garage_tankless|garage_tankless_noncondensing",
      "nodes": 1,
-     "bytes": 7512
-    },
-    {
-     "file": "slab_pipes_supply__plumbing__21cfd3ba.glb",
-     "tag": "plumbing=copper&softener=yes&water=city_filter&water_heater=attic_electric_tank",
-     "nodes": 1,
-     "bytes": 5304
-    },
-    {
-     "file": "slab_pipes_supply__plumbing__1d6b6cc1.glb",
-     "tag": "plumbing=copper&softener=yes&water=city_filter&water_heater=closet_electric_tank|closet_gas_tank|garage_electric_tankless|garage_gas_tank|garage_hybrid|garage_tankless|garage_tankless_noncondensing",
-     "nodes": 1,
-     "bytes": 6460
+     "bytes": 7520
     },
     {
      "file": "slab_pipes_supply__plumbing__07943de7.glb",
@@ -1704,12 +1674,6 @@
      "tag": "plumbing=copper&water_heater=garage_tankless|garage_tankless_noncondensing",
      "nodes": 2,
      "bytes": 29492
-    },
-    {
-     "file": "slab_pipes_supply__plumbing-copper_and_water-city_filter.glb",
-     "tag": "plumbing=copper&water=city_filter",
-     "nodes": 1,
-     "bytes": 10552
     },
     {
      "file": "slab_pipes_supply__plumbing-pex.glb",
@@ -1772,18 +1736,6 @@
      "bytes": 10128
     },
     {
-     "file": "slab_pipes_supply__plumbing__2301cfa4.glb",
-     "tag": "plumbing=pex&softener=no|yes&water=well&water_heater=attic_electric_tank",
-     "nodes": 1,
-     "bytes": 6356
-    },
-    {
-     "file": "slab_pipes_supply__plumbing__f98d82b0.glb",
-     "tag": "plumbing=pex&softener=no|yes&water=well&water_heater=closet_electric_tank|closet_gas_tank|garage_electric_tankless|garage_gas_tank|garage_hybrid|garage_tankless|garage_tankless_noncondensing",
-     "nodes": 1,
-     "bytes": 7492
-    },
-    {
      "file": "slab_pipes_supply__plumbing__2d635275.glb",
      "tag": "plumbing=pex&water_heater=attic_electric_tank|closet_electric_tank|closet_gas_tank|garage_electric_tankless|garage_gas_tank|garage_hybrid",
      "nodes": 2,
@@ -1816,14 +1768,14 @@
     {
      "file": "slab_pipes_supply__softener-yes_and_plumbing-copper.glb",
      "tag": "softener=yes&plumbing=copper",
-     "nodes": 11,
-     "bytes": 134936
+     "nodes": 9,
+     "bytes": 105616
     },
     {
      "file": "slab_pipes_supply__softener-yes_and_plumbing-pex+attic_repipe+pex_branch.glb",
      "tag": "softener=yes&plumbing=pex|attic_repipe|pex_branch",
-     "nodes": 15,
-     "bytes": 217776
+     "nodes": 13,
+     "bytes": 202580
     },
     {
      "file": "slab_pipes_supply__water_heater-closet_electric_tank+closet_gas_tank_and_plumbing-attic_repipe+pex.glb",
@@ -1988,34 +1940,22 @@
      "bytes": 55132
     },
     {
-     "file": "slab_pipes_supply__water-city_filter_and_plumbing-attic_repipe_and_softener-no.glb",
-     "tag": "water=city_filter&plumbing=attic_repipe&softener=no",
-     "nodes": 1,
-     "bytes": 12372
-    },
-    {
-     "file": "slab_pipes_supply__water-city_filter_and_plumbing-attic_repipe_and_softener-yes.glb",
-     "tag": "water=city_filter&plumbing=attic_repipe&softener=yes",
-     "nodes": 1,
-     "bytes": 12372
-    },
-    {
      "file": "slab_pipes_supply__water-city_filter_and_plumbing-copper.glb",
      "tag": "water=city_filter&plumbing=copper",
-     "nodes": 5,
-     "bytes": 57832
+     "nodes": 7,
+     "bytes": 79512
     },
     {
      "file": "slab_pipes_supply__water-city_filter_and_plumbing-copper_and_softener-no.glb",
      "tag": "water=city_filter&plumbing=copper&softener=no",
      "nodes": 1,
-     "bytes": 13376
+     "bytes": 7764
     },
     {
      "file": "slab_pipes_supply__water-city_filter_and_plumbing-copper_and_softener-yes.glb",
      "tag": "water=city_filter&plumbing=copper&softener=yes",
      "nodes": 1,
-     "bytes": 13388
+     "bytes": 7760
     },
     {
      "file": "slab_pipes_supply__water-city_filter_and_plumbing-pex+pex_branch.glb",
@@ -2024,40 +1964,28 @@
      "bytes": 86420
     },
     {
-     "file": "slab_pipes_supply__water-city_filter_and_plumbing-pex+pex_branch_and_softener-no.glb",
-     "tag": "water=city_filter&plumbing=pex|pex_branch&softener=no",
-     "nodes": 2,
-     "bytes": 21384
-    },
-    {
-     "file": "slab_pipes_supply__water-city_filter_and_plumbing-pex+pex_branch_and_softener-yes.glb",
-     "tag": "water=city_filter&plumbing=pex|pex_branch&softener=yes",
-     "nodes": 1,
-     "bytes": 13532
-    },
-    {
      "file": "slab_pipes_supply__water-city_filter_and_softener-no_and_plumbing-attic_repipe+pex.glb",
      "tag": "water=city_filter&softener=no&plumbing=attic_repipe|pex",
      "nodes": 1,
-     "bytes": 10004
+     "bytes": 5348
     },
     {
      "file": "slab_pipes_supply__water-city_filter_and_softener-no_and_plumbing-attic_repipe+pex+pex_branch.glb",
      "tag": "water=city_filter&softener=no&plumbing=attic_repipe|pex|pex_branch",
-     "nodes": 1,
-     "bytes": 20884
+     "nodes": 2,
+     "bytes": 29112
     },
     {
      "file": "slab_pipes_supply__water-city_filter_and_softener-no_and_plumbing-copper.glb",
      "tag": "water=city_filter&softener=no&plumbing=copper",
-     "nodes": 2,
-     "bytes": 12500
+     "nodes": 4,
+     "bytes": 32016
     },
     {
      "file": "slab_pipes_supply__water-city_filter_and_softener-no_and_plumbing-pex_branch.glb",
      "tag": "water=city_filter&softener=no&plumbing=pex_branch",
-     "nodes": 1,
-     "bytes": 9988
+     "nodes": 2,
+     "bytes": 14688
     },
     {
      "file": "slab_pipes_supply__water-city_filter_and_softener-yes_and_plumbing-attic_repipe+pex+pex_branch.glb",
@@ -2124,6 +2052,96 @@
      "tag": "water=well&softener=yes&plumbing=pex|attic_repipe|pex_branch",
      "nodes": 5,
      "bytes": 72456
+    },
+    {
+     "file": "slab_pipes_supply__plumbing-pex_and_water-well_and_water_heater-attic_electric_tank.glb",
+     "tag": "plumbing=pex&water=well&water_heater=attic_electric_tank",
+     "nodes": 1,
+     "bytes": 6340
+    },
+    {
+     "file": "slab_pipes_supply__plumbing__20d53a5a.glb",
+     "tag": "plumbing=copper&softener=no|yes&water=city_filter&water_heater=attic_electric_tank",
+     "nodes": 1,
+     "bytes": 5308
+    },
+    {
+     "file": "slab_pipes_supply__plumbing__35fd1bb6.glb",
+     "tag": "plumbing=copper&softener=no|yes&water=city_filter&water_heater=closet_electric_tank|closet_gas_tank|garage_electric_tankless|garage_gas_tank|garage_hybrid|garage_tankless|garage_tankless_noncondensing",
+     "nodes": 1,
+     "bytes": 6456
+    },
+    {
+     "file": "slab_pipes_supply__plumbing__3ff57816.glb",
+     "tag": "plumbing=attic_repipe&water=city_filter&water_heater=closet_electric_tank;plumbing=attic_repipe&water=city_filter&water_heater=closet_gas_tank;plumbing=attic_repipe&water=city_filter&water_heater=garage_electric_tankless;plumbing=attic_repipe&water=city_filter&water_heater=garage_gas_tank;plumbing=attic_repipe&water=city_filter&water_heater=garage_hybrid;plumbing=attic_repipe&water=city_filter&water_heater=garage_tankless;plumbing=attic_repipe&water=city_filter&water_heater=garage_tankless_noncondensing;plumbing=attic_repipe&water=well&water_heater=closet_electric_tank;plumbing=attic_repipe&water=well&water_heater=closet_gas_tank;plumbing=attic_repipe&water=well&water_heater=garage_electric_tankless;plumbing=attic_repipe&water=well&water_heater=garage_gas_tank;plumbing=attic_repipe&water=well&water_heater=garage_hybrid;plumbing=attic_repipe&water=well&water_heater=garage_tankless;plumbing=attic_repipe&water=well&water_heater=garage_tankless_noncondensing;plumbing=pex&water=city_filter&water_heater=closet_electric_tank;plumbing=pex&water=city_filter&water_heater=closet_gas_tank;plumbing=pex&water=city_filter&water_heater=garage_electric_tankless;plumbing=pex&water=city_filter&water_heater=garage_gas_tank;plumbing=pex&water=city_filter&water_heater=garage_hybrid;plumbing=pex&water=city_filter&water_heater=garage_tankless;plumbing=pex&water=city_filter&water_heater=garage_tankless_noncondensing",
+     "nodes": 1,
+     "bytes": 7644
+    },
+    {
+     "file": "slab_pipes_supply__plumbing__e7e6ad81.glb",
+     "tag": "plumbing=pex&water=well&water_heater=closet_electric_tank|closet_gas_tank|garage_electric_tankless|garage_gas_tank|garage_hybrid|garage_tankless|garage_tankless_noncondensing",
+     "nodes": 1,
+     "bytes": 7476
+    },
+    {
+     "file": "slab_pipes_supply__plumbing__f2cdb15d.glb",
+     "tag": "plumbing=attic_repipe&water=city_filter&water_heater=attic_electric_tank;plumbing=attic_repipe&water=well&water_heater=attic_electric_tank;plumbing=pex&water=city_filter&water_heater=attic_electric_tank",
+     "nodes": 1,
+     "bytes": 5404
+    },
+    {
+     "file": "slab_pipes_supply__softener-yes_and_plumbing-attic_repipe+pex+pex_branch_and_water-city_filter.glb",
+     "tag": "softener=yes&plumbing=attic_repipe|pex|pex_branch&water=city_filter",
+     "nodes": 1,
+     "bytes": 7584
+    },
+    {
+     "file": "slab_pipes_supply__softener-yes_and_plumbing-attic_repipe+pex+pex_branch_and_water-well.glb",
+     "tag": "softener=yes&plumbing=attic_repipe|pex|pex_branch&water=well",
+     "nodes": 1,
+     "bytes": 7580
+    },
+    {
+     "file": "slab_pipes_supply__softener-yes_and_plumbing-copper_and_water-city_filter.glb",
+     "tag": "softener=yes&plumbing=copper&water=city_filter",
+     "nodes": 1,
+     "bytes": 21420
+    },
+    {
+     "file": "slab_pipes_supply__softener-yes_and_plumbing-copper_and_water-well.glb",
+     "tag": "softener=yes&plumbing=copper&water=well",
+     "nodes": 1,
+     "bytes": 21420
+    },
+    {
+     "file": "slab_pipes_supply__water-city_filter_and_plumbing-attic_repipe+pex+pex_branch_and_softener-no.glb",
+     "tag": "water=city_filter&plumbing=attic_repipe|pex|pex_branch&softener=no",
+     "nodes": 1,
+     "bytes": 11544
+    },
+    {
+     "file": "slab_pipes_supply__water-city_filter_and_plumbing-attic_repipe+pex+pex_branch_and_softener-yes.glb",
+     "tag": "water=city_filter&plumbing=attic_repipe|pex|pex_branch&softener=yes",
+     "nodes": 1,
+     "bytes": 11536
+    },
+    {
+     "file": "slab_pipes_supply__water-city_filter_and_plumbing-attic_repipe_and_softener-no+yes.glb",
+     "tag": "water=city_filter&plumbing=attic_repipe&softener=no|yes",
+     "nodes": 1,
+     "bytes": 12376
+    },
+    {
+     "file": "slab_pipes_supply__water-city_filter_and_plumbing-pex+attic_repipe+pex_branch.glb",
+     "tag": "water=city_filter&plumbing=pex|attic_repipe|pex_branch",
+     "nodes": 1,
+     "bytes": 11352
+    },
+    {
+     "file": "slab_pipes_supply__water-city_filter_and_plumbing-pex+pex_branch_and_softener-no+yes.glb",
+     "tag": "water=city_filter&plumbing=pex|pex_branch&softener=no|yes",
+     "nodes": 2,
+     "bytes": 21392
     }
    ]
   },
@@ -2661,12 +2679,6 @@
      "tag": "water_heater=garage_hybrid",
      "nodes": 14,
      "bytes": 36324
-    },
-    {
-     "file": "slab_pipes_hvac__water-city_filter_and_softener-no_and_foundation-slab.glb",
-     "tag": "water=city_filter&softener=no&foundation=slab",
-     "nodes": 3,
-     "bytes": 23144
     },
     {
      "file": "slab_pipes_hvac__water-well.glb",

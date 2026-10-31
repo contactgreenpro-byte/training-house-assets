@@ -185,7 +185,7 @@
     // round 89 integration (Jake 2026-09-23 build list): the new add on models, all off, and the commercial lot across the street
     mixing_valve: 'no', surge_wh: 'no', iaq_monitor: 'no', media_cabinet: 'no', purifier: 'no', erv: 'no', sludgehammer: 'no', freeze_cover: 'no', vacuum_breaker: 'no', commercial_lot: 'no',
     bidet: 'no', co_detector: 'no', uv_light: 'no', dehumidifier: 'no', fresh_air: 'no', hammer_arrestors: 'no', scale_inhibitor: 'no',
-    flowsmart: 'no', irrigation: 'no', leak_sensor: 'no' };     // round 104 (Jake 2026-10-31): the YoLink FlowSmart in its yard box, the irrigation tee before it, its leak sensor; all off     // round 89 (Jake 2026-09-23): parts the models already carry, now add ons, all off     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
+    flowsmart: 'yes', irrigation: 'no', leak_sensor: 'no' };     // round 104 (Jake 2026-10-31): the YoLink FlowSmart in its yard box, the irrigation tee before it, its leak sensor; round 104b: the FlowSmart is on by default, everywhere (no more Moen Flo)     // round 89 (Jake 2026-09-23): parts the models already carry, now add ons, all off     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
   // The septic plant, the tank, the sewer and the water service are all BURIED, so the ground gets its own switch.
   const GROUND = ['floor_terrain', 'floor_lot', 'floor_street', 'floor_patch_lawn', 'trim_riser_collar', 'site_mow_stripes', 'site_beds', 'site_shrubs', 'floor_driveway', 'floor_walkway', 'floor_crawl', 'soil', 'grass', 'backfill', 'fix_slab_house', 'fix_slab_garage', 'fix_leaveout_tub'];     // 2026-09-25: the slab too, so the drains and lines under it show
   let groundOn = true;
@@ -204,7 +204,7 @@
     plumbing: ['cpvc', 'pex', 'galvanized', 'copper', 'attic_repipe', 'pex_branch'],     // round 99: pex_branch is the slab house's trunk and branch PEX under the slab, no manifold (Jake 2026-10-02). round 97: attic_repipe is the slab house with its failed floor lines abandoned and new PEX home runs over the ceiling. 2026-09-25: copper is the slab house's soft copper in the floor. round 25: the supply exists three ways (Jake: run everything in PEX, galvanized)
     gas: ['natural', 'propane'],                 // round 29: the utility meter set, or a 250 gallon tank in the side yard with its regulators (Jake)
     sump: ['no', 'yes'],                         // round 88: the indoor pump basin under the hall bath (Jake: place the sump pump)
-    shutoff_extra: ['none', 'wall', 'attic'],    // round 88: a second Flo shutoff, in the laundry wall or on the attic cold run
+    // (round 104b, Jake 2026-10-31: no more Moen Flo, so no second Flo shutoff in the laundry wall or on the attic run: shutoff_extra stays 'none')
     commercial_lot: ['no', 'yes'],               // round 89: the storefront and its grease interceptor across the street, tapped into the city main
     fault: ['none', 'belly']                     // round 29: the fault scenario: a belly in the city gravity lateral, standing water in it (Jake)
   };

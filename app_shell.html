@@ -386,7 +386,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '100a4';
+  var SHELL = '100a4h';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -451,7 +451,7 @@
     // Show mode: the parent named one thing to land on. The setup screen is never seen, the job's layout is built, and
     // nothing about it is remembered (Jake, 2026-09-22: the job's layout is not the person's training pick, and a
     // homeowner's guess is not a fact). An open with no start behaves as it always has.
-    SHOW = (show && show.mode === 'show') ? show : null;
+    SHOW = (show && show.mode === 'show') ? unitAlias(show) : null;     // r100a4h: a link to a retired model lands on its replacement (UNIT_ALIAS)
     if (SHOW) document.body.classList.add('showmode');
     window.__patchWalkLoader();
     if (!map['walk.js'] || !map['index.html']) {
@@ -867,6 +867,24 @@
     'hosebib_protection.glb': { vb_body: 'vb_lower_body' }     // r100a2: vb_body is an empty now (wave B split)
   };
   window.__PART_ALIAS = PART_ALIAS;
+  // r100a4h (round 104b, Jake 2026-10-31: no more Moen Flo; the YoLink FlowSmart in its yard box is the smart shut-off in every city water
+  // layout). A link the Comms deck still draws to a model the house no longer has lands on the one that does its job: that model and
+  // socket, the layout keys it needs added to the link's own, and the old part names on the new unit's parts. Applied as the start
+  // arrives, before its layout is built; tools/check_links.mjs reads the same table (window.__UNIT_ALIAS).
+  var UNIT_ALIAS = {
+    'flo_shutoff.glb': { model: 'flowsmart.glb', socket: 'sock_flowsmart_yard', set: { water: 'city_filter', flowsmart: 'yes' },
+      parts: { flo_handle: 'ball_valve_handle', flo_body_section: 'body', flo_unions: 'coupling_in' } }
+  };
+  window.__UNIT_ALIAS = UNIT_ALIAS;
+  function unitAlias(s) {
+    var a = s && UNIT_ALIAS[s.model], o = {}, k; if (!a) return s;
+    for (k in s) o[k] = s[k];
+    o.model = a.model; o.socket = a.socket; o.set = {};
+    for (k in (s.set || {})) o.set[k] = s.set[k];
+    for (k in a.set) o.set[k] = a.set[k];
+    if (o.part && a.parts[o.part]) o.part = a.parts[o.part];
+    return o;
+  }
   function showLanding() {
     var W = window.walk, S = SHOW;
     if (S && S.part && PART_ALIAS[S.model] && PART_ALIAS[S.model][S.part]) S.part = PART_ALIAS[S.model][S.part];

@@ -1663,30 +1663,6 @@
    "note": "HVAC surge protector (hvac_surge_protector, 2026-09-14, AG3000 class) on the wall beside the condenser's disconnect, nipple into its side, two blacks on the load lugs and the green on ground. Built in the condenser's coordinates like the EasyStart: same socket, yaw and offset. Clips: unit_off (Remove), protection_lost, surge (+_loop). Round 45 (Jake): off by default, it is an add on you turn on."
   },
   {
-   "socket": "sock_shutoff_front",
-   "file": "site",
-   "pack": "flo_shutoff",
-   "model": "flo_shutoff.glb",
-   "yaw": 0,
-   "offset": [
-    0,
-    0,
-    0
-   ],
-   "hide": [
-    "ctx_riser",
-    "ctx_stem_wall",
-    "ctx_joist"
-   ],
-   "states": [
-    "flo_led_alert",
-    "flow_packets"
-   ],
-   "note": "Flo by Moen smart shutoff (smart_shutoff_valve, 2026-09-14) inline on the main's riser inside the crawl at (-5.3, 0.12), z -0.53, right after the yard box with the shutoff and the PRV, window facing into the crawl, cord to a receptacle box on the stem wall. Built in sock_shutoff_front's frame, so yaw 0, offset 0. Its own riser, stem wall and joist stand-ins are hidden. Clips: valve_close (the green handle, a quarter turn), leak_alert (red LED, the valve closes), water_flow (+_loop), housing_off (Remove). Round 41: a city part; with a well the service comes from the well through the garage pressure tank.",
-   "config": "water=city_filter&softener=no&foundation=crawl",
-   "alternate": true
-  },
-  {
    "socket": "sock_hosebib_front",
    "file": "site",
    "pack": "sweet_air",
@@ -3113,30 +3089,6 @@
    }
   },
   {
-   "socket": "sock_softener_garage",
-   "file": "floor1",
-   "pack": "flo_shutoff",
-   "model": "flo_shutoff_softener.glb",
-   "yaw": 0,
-   "offset": [
-    0,
-    0,
-    0
-   ],
-   "hide": [
-    "ctx_wall",
-    "ctx_slab",
-    "ctx_softener",
-    "ctx_floor"
-   ],
-   "config": "softener=yes",
-   "alternate": true,
-   "note": "Round 42 (Jake's Flo rules): with a softener the water enters the house at the softener, so the Flo is there, on the main on the garage wall beside it. Without a softener and with the pipes under the house it is on the crawl riser (flo_shutoff.glb). The attic install is for a house whose pipes run in the attic and the wall install for a slab house; neither is this house, so they are not placed.",
-   "states": [
-    "flo_led_alert"
-   ]
-  },
-  {
    "socket": "sock_stat_hall",
    "file": "floor1",
    "pack": "thermostat",
@@ -3478,100 +3430,6 @@
     "rag"
    ],
    "note": "Round 88 (Jake, 2026-09-22: place the sump pump). The indoor pump basin under the hall bath, built in this socket's frame (sump_pump/HANDOFF.md): 24 x 30 basin in the crawl dirt a metre west of the toilet drop, grinder pump, floats, 2 in discharge into a wye that sleeves over the building drain, simplex panel on the girder. Add on, off by default. Round 90: its vent stops in a coupling 14 cm over the lid and the house vent (vent_dwv_sump) takes it into the bath stack in the attic; its panel feed runs to the load centre (cable_sump_feed). Round 96 (Jake 2026-09-29: a groundwater sump): its 3 in inlet is fed by perimeter drain tile round the inside of the crawl's footing (3 in perforated PVC in gravel, falling 1/16 in per foot to a wye north of the basin and a solid lateral into the inlet: pipe_sump_tile_*), not by a fixture."
-  },
-  {
-   "socket": "sock_wh_attic",
-   "file": "attic",
-   "pack": "flo_shutoff_attic",
-   "model": "flo_shutoff_attic.glb",
-   "yaw": 0,
-   "offset": [
-    0,
-    0,
-    0
-   ],
-   "config": "shutoff_extra=attic&water_heater=attic_gas_tank|attic_electric_tank",
-   "hide": [
-    "ctx_attic",
-    "nm_cable"
-   ],
-   "states": [
-    "flo_led_alert",
-    "flow_packets"
-   ],
-   "note": "Round 88 (Jake: place the other Flo valves). The Flo on the attic cold run, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, attic variant): CPVC x PEX transitions at y 7.80 and 8.80 on the cold riser at x -3.025 z 3.31, the brick in a receptacle on the joist. Add on, off by default. Round 90: the house cold riser is cut between the two transitions (build_pipes.py flo_cut), and the add on shows only with an attic tank (there is no attic cold run otherwise). Round 96: its receptacle's feed is the house's cable_flo_attic_feed (12/2 NM-B to the GARAGE DOOR + ATTIC circuit); the model's own tail through the deck is hidden."
-  },
-  {
-   "socket": "sock_laundry_box_laundry",
-   "file": "floor1",
-   "pack": "flo_shutoff_wall",
-   "model": "flo_shutoff_wall.glb",
-   "yaw": 0,
-   "offset": [
-    0,
-    0,
-    0
-   ],
-   "config": "shutoff_extra=wall&foundation=crawl",
-   "hide": [
-    "ctx_drywall_hall",
-    "ctx_drywall_laundry",
-    "ctx_floor",
-    "ctx_framing",
-    "ctx_trunk"
-   ],
-   "states": [
-    "flo_led_alert",
-    "flow_packets"
-   ],
-   "reveal": {
-    "trigger": [
-     "access_door"
-    ],
-    "hide": [
-     "access_door"
-    ],
-    "bore": [],
-    "note": "Round 88: click the access door and it comes off. Round 90: the laundry wall carries the opening itself (build_house.py FLO_WALL_CUT), so nothing is bored any more; the stud bay shows through the opening."
-   },
-   "note": "Round 88 (Jake: place the other Flo valves). The Flo in the laundry wall, built in this socket's frame (smart_shutoff_valve/HANDOFF.md, wall variant): a 14 x 22 in access box in the x 0 wall at y 5.334, the riser up through the bottom plate, its NM cable ending in the crawl. Add on, off by default. Round 90: the opening is cut in the laundry wall (build_house.py FLO_WALL_CUT, a patch fills it in every other layout) and the house trunk stops 7 mm into the model's own trunk at each end (build_pipes.py flo_cut). Round 96: its receptacle's cable carries on as the house's cable_flo_wall_feed (12/2 NM-B to the SOFTENER + SUMP circuit)."
-  },
-  {
-   "socket": "sock_wh_closet_coat",
-   "file": "floor1",
-   "pack": "flo_shutoff_wall",
-   "model": "flo_shutoff_wall_slab.glb",
-   "yaw": 0,
-   "offset": [
-    0,
-    0,
-    0
-   ],
-   "config": "water=city_filter&softener=no&foundation=slab",
-   "hide": [
-    "ctx_drywall_hall",
-    "ctx_drywall_laundry",
-    "ctx_floor",
-    "ctx_framing",
-    "ctx_trunk",
-    "nm_cable"
-   ],
-   "states": [
-    "flo_led_alert",
-    "flow_packets"
-   ],
-   "reveal": {
-    "trigger": [
-     "access_door"
-    ],
-    "hide": [
-     "access_door"
-    ],
-    "bore": [],
-    "note": "Click the access door and it comes off. The closet wall carries the opening (build_house.py FLO_SLAB_CUT)."
-   },
-   "note": "2026-09-25 (SLAB_HOUSE_PLAN.md R5, Jake's default: yes): the slab house's Flo, on the service riser in the coat closet side of the x 8 ft wall, where the crawl house has its Flo under the house (city water, no softener; with a softener it is at the softener in the garage in both houses). smart_shutoff_valve build_flo.py VARIANT wall_slab: the laundry wall kit turned to face the closet, the service up through the slab into its copper stub at 0.173, the water on up out of its outlet stub at 0.807 into the feed to the manifold (pipes_slab_supply.py Z_E, FEED0). The opening is cut in the closet face (build_house.py FLO_SLAB_CUT, wall_patch_flo_closet fills it in every other layout). Its receptacle's cable comes down from the attic.",
-   "slab_of": "flo_shutoff_wall.glb"
   },
   {
    "socket": "sock_trash_tank_back",
@@ -5337,7 +5195,7 @@
      }
     ]
    },
-   "note": "Round 104 (Jake 2026-10-31, new FieldWise topic Smart Water Shut-Off): the YoLink FlowSmart All-in-One, 1 in (YS5018), a meter and a motorized ball valve in one battery body, in its own super jumbo valve box on the 1 in PVC house line past the whole house filter, 2.10 m north of the meter box's centre (the water department's), the same spot on both lots. In the box, upstream to downstream: the irrigation tee (add on irrigation; a plain coupling without it), the plain PVC ball valve YoLink says to keep, 5 pipe widths of straight pipe, the female adapter, the spud coupling, the FlowSmart (dial up, arrow toward the house), the coupling and adapter out; the house line goes on north (3 widths and more straight). House runs pipe_supply_house_line_fs and _fs_out land in its sockets (flowsmart=yes); pipe_supply_house_line stays for flowsmart=no. Built in sock_flowsmart_yard's frame, yaw 0, offset 0. Its own lid rests open (Jake's photos). Clips: flowsmart_flow (+_loop: water packets, the meter rotor, the last digit counting), flowsmart_close (the ball a quarter turn, the water stops, the LED blinks red), flowsmart_open (the reverse, green), lora_signal (a pulse to the hub, then the leak sensor's pulse straight to the valve: placement signals moves the far ends onto the hub and the sensor wherever this layout puts them), box_lid_off, flowsmart_face_shut, manual_valve_close. Off by default (flowsmart=no, an add on like every other), and the old Flo placements are untouched (the app still links to them)."
+   "note": "Round 104 (Jake 2026-10-31, new FieldWise topic Smart Water Shut-Off): the YoLink FlowSmart All-in-One, 1 in (YS5018), a meter and a motorized ball valve in one battery body, in its own super jumbo valve box on the 1 in PVC house line past the whole house filter, 2.10 m north of the meter box's centre (the water department's), the same spot on both lots. In the box, upstream to downstream: the irrigation tee (add on irrigation; a plain coupling without it), the plain PVC ball valve YoLink says to keep, 5 pipe widths of straight pipe, the female adapter, the spud coupling, the FlowSmart (dial up, arrow toward the house), the coupling and adapter out; the house line goes on north (3 widths and more straight). House runs pipe_supply_house_line_fs and _fs_out land in its sockets (flowsmart=yes); pipe_supply_house_line stays for flowsmart=no. Built in sock_flowsmart_yard's frame, yaw 0, offset 0. Its own lid rests open (Jake's photos). Clips: flowsmart_flow (+_loop: water packets, the meter rotor, the last digit counting), flowsmart_close (the ball a quarter turn, the water stops, the LED blinks red), flowsmart_open (the reverse, green), lora_signal (a pulse to the hub, then the leak sensor's pulse straight to the valve: placement signals moves the far ends onto the hub and the sensor wherever this layout puts them), box_lid_off, flowsmart_face_shut, manual_valve_close. Round 104b (Jake 2026-10-31): on by default, everywhere (flowsmart=yes), and the Moen Flo is retired: its five placements are gone (round104b_flo_retired/flo_placements_removed.json)."
   },
   {
    "socket": "sock_yolink_hub",
