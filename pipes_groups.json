@@ -837,8 +837,20 @@
     {
      "file": "pipes_supply__water-city_filter.glb",
      "tag": "water=city_filter",
-     "nodes": 30,
-     "bytes": 304940
+     "nodes": 25,
+     "bytes": 256852
+    },
+    {
+     "file": "pipes_supply__water-city_filter_and_flowsmart-no.glb",
+     "tag": "water=city_filter&flowsmart=no",
+     "nodes": 5,
+     "bytes": 51588
+    },
+    {
+     "file": "pipes_supply__water-city_filter_and_flowsmart-yes.glb",
+     "tag": "water=city_filter&flowsmart=yes",
+     "nodes": 6,
+     "bytes": 53984
     },
     {
      "file": "pipes_supply__water-city_filter_and_softener-no_and_plumbing-cpvc.glb",
@@ -1960,8 +1972,20 @@
     {
      "file": "slab_pipes_supply__water-city_filter.glb",
      "tag": "water=city_filter",
-     "nodes": 26,
-     "bytes": 274068
+     "nodes": 21,
+     "bytes": 224888
+    },
+    {
+     "file": "slab_pipes_supply__water-city_filter_and_flowsmart-no.glb",
+     "tag": "water=city_filter&flowsmart=no",
+     "nodes": 5,
+     "bytes": 52720
+    },
+    {
+     "file": "slab_pipes_supply__water-city_filter_and_flowsmart-yes.glb",
+     "tag": "water=city_filter&flowsmart=yes",
+     "nodes": 6,
+     "bytes": 55132
     },
     {
      "file": "slab_pipes_supply__water-city_filter_and_plumbing-attic_repipe_and_softener-no.glb",

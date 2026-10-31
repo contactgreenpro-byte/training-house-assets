@@ -184,7 +184,8 @@
     foundation: 'crawl',     // 2026-09-25: which house (training_house/SLAB_HOUSE_PLAN.md), crawl space or slab on grade; the slab house is its own set of files
     // round 89 integration (Jake 2026-09-23 build list): the new add on models, all off, and the commercial lot across the street
     mixing_valve: 'no', surge_wh: 'no', iaq_monitor: 'no', media_cabinet: 'no', purifier: 'no', erv: 'no', sludgehammer: 'no', freeze_cover: 'no', vacuum_breaker: 'no', commercial_lot: 'no',
-    bidet: 'no', co_detector: 'no', uv_light: 'no', dehumidifier: 'no', fresh_air: 'no', hammer_arrestors: 'no', scale_inhibitor: 'no' };     // round 89 (Jake 2026-09-23): parts the models already carry, now add ons, all off     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
+    bidet: 'no', co_detector: 'no', uv_light: 'no', dehumidifier: 'no', fresh_air: 'no', hammer_arrestors: 'no', scale_inhibitor: 'no',
+    flowsmart: 'no', irrigation: 'no', leak_sensor: 'no' };     // round 104 (Jake 2026-10-31): the YoLink FlowSmart in its yard box, the irrigation tee before it, its leak sensor; all off     // round 89 (Jake 2026-09-23): parts the models already carry, now add ons, all off     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
   // The septic plant, the tank, the sewer and the water service are all BURIED, so the ground gets its own switch.
   const GROUND = ['floor_terrain', 'floor_lot', 'floor_street', 'floor_patch_lawn', 'trim_riser_collar', 'site_mow_stripes', 'site_beds', 'site_shrubs', 'floor_driveway', 'floor_walkway', 'floor_crawl', 'soil', 'grass', 'backfill', 'fix_slab_house', 'fix_slab_garage', 'fix_leaveout_tub'];     // 2026-09-25: the slab too, so the drains and lines under it show
   let groundOn = true;
@@ -306,6 +307,41 @@
       }
     }
   }
+  // round 104 (Jake 2026-10-31, the YoLink FlowSmart): a radio clip whose far ends are other units. A placement's "signals" names the clip and,
+  // per pulse node, where it starts and ends: "@node" (a point on this unit) or a pack (where that pack stands in this layout: its socket,
+  // yaw and offset, "up" metres over it). The GLB carries stand ins; the clip's position tracks for those nodes are rebuilt here each time
+  // the unit is placed (a layout change places it again), so the pulse lands on the hub in either house and leaves the leak sensor by
+  // whichever heater stands. A far end not placed in this layout (the sensor switched off) hides its node for the whole clip.
+  function packPoint(pack, up) {
+    const pl = ((placements && placements.placements) || []).find(p => p.pack === pack && wants(p)); if (!pl) return null;
+    const sock = sockets[pl.socket]; if (!sock) return null; const off = pl.offset || [0, 0, 0];
+    const m = new T.Matrix4().copy(sock.matrixWorld).multiply(new T.Matrix4().makeRotationY(T.MathUtils.degToRad(pl.yaw || 0))).multiply(new T.Matrix4().makeTranslation(off[0], off[2], -off[1]));
+    return new T.Vector3(0, up || 0, 0).applyMatrix4(m);
+  }
+  function retargetSignals(inst) {
+    const S = inst.userData.pl && inst.userData.pl.signals, A = inst.userData.anim; if (!S || !A) return;
+    const i = A.clips.findIndex(c => c.name === S.clip); if (i < 0) return;
+    inst.updateMatrixWorld(true);
+    const at = (ref, up) => { if (String(ref).charAt(0) !== '@') return packPoint(ref, up); const n = inst.getObjectByName(String(ref).slice(1)); return n ? n.getWorldPosition(new T.Vector3()) : null; };
+    const old = A.clips[i], fps = S.fps || 24; let tracks = old.tracks.slice();
+    const put = (name, tr) => { tracks = tracks.filter(t => t.name !== name); tracks.push(tr); };
+    for (const p of S.pulses || []) {
+      const node = inst.getObjectByName(p.node); if (!node || !node.parent) continue;
+      const local = w => node.parent.worldToLocal(w.clone());
+      if (p.at) {
+        const w = at(p.at, p.up);
+        if (w) { const l = local(w); put(p.node + '.position', new T.VectorKeyframeTrack(p.node + '.position', [0], [l.x, l.y, l.z])); }
+        else put(p.node + '.scale', new T.VectorKeyframeTrack(p.node + '.scale', [0], [0, 0, 0]));
+        continue;
+      }
+      const a = at(p.from, p.from_up), b = at(p.to, p.to_up);
+      if (!a || !b) { put(p.node + '.scale', new T.VectorKeyframeTrack(p.node + '.scale', [0], [0, 0, 0])); continue; }
+      const t0 = p.t[0] / fps, t1 = p.t[1] / fps, lift = Math.min(3, a.distanceTo(b) * 0.2), times = [], vals = [];
+      for (let k = 0; k <= 16; k++) { const u = k / 16, w = a.clone().lerp(b, u); w.y += lift * 4 * u * (1 - u); const l = local(w); times.push(t0 + (t1 - t0) * u); vals.push(l.x, l.y, l.z); }
+      put(p.node + '.position', new T.VectorKeyframeTrack(p.node + '.position', times, vals));
+    }
+    A.mixer.uncacheClip(old); A.clips[i] = new T.AnimationClip(old.name, old.duration, tracks);
+  }
   async function place(pl) {
     const sock = sockets[pl.socket]; if (!sock) { console.warn('no socket', pl.socket); return; }
     // round 98 progress hook: the unit about to arrive (stage equipment), and below, the count once it stands
@@ -348,6 +384,7 @@
     inst.matrixAutoUpdate = false; inst.matrix.copy(m); inst.matrixWorld.copy(m); inst.updateMatrixWorld(true);
     inst.userData.pl = pl;     // round 46: the unit keeps its own placement, so its add ons can be offered where it stands
     equip.add(inst);
+    retargetSignals(inst);     // round 104: lora_signal's far ends on the hub and the leak sensor of this layout
     // round 98 progress hook
     window.__walkProgress = { stage: 'equipment', file: pl.model.replace(/^little\//, ''), filesDone: equip.children.length, filesTotal: equip.children.length + PEND.length, bytesDone: 0, bytesTotal: 0 };
     modelWater(inst);     // round 61: the water that runs through the model's own pipes
@@ -1126,7 +1163,7 @@
   }
   // mode (round 20): 'look' reaches the machine switches and the control clips only; 'remove' the clips that take something off;
   // 'work' the switches and the clips that run something; undefined is the old anything goes
-  const CLIP_REMOVE = /off$|_open$|pull|lift$|door|lid|cover|panel|deadfront|open$/, CLIP_WORK = /run$|_on$|fire|flush|spray|aerate|pump|sprayer|cycle|backwash|service|bib|test|high_water|turn$|auto$|hoa|^sense$|^ventilate$|^purify$|^airflow$|^mix$|^surge$|^flow$|_block$|take_up$|rumble$|^anode_years$|^sediment_build$/;
+  const CLIP_REMOVE = /off$|^(?!flowsmart_).*open$|pull|lift$|door|lid|cover|panel|deadfront/, CLIP_WORK = /run$|_on$|fire|flush|spray|aerate|pump|sprayer|cycle|backwash|service|bib|test|high_water|turn$|auto$|hoa|^sense$|^ventilate$|^purify$|^airflow$|^mix$|^surge$|^flow$|_block$|take_up$|rumble$|^anode_years$|^sediment_build$|^flowsmart_flow$/;     // round 104: flowsmart_open opens a valve, it is not a Take off; flowsmart_flow is a Run
   // round 89: the fault states the new models carry (a cracked lid, a loose cover, a dead light). They are findings, not a cover to
   // take off or a thing to run, so the Work and Remove tools pass them by (lid_cracked used to answer a click on the lid) and the
   // panel lists them by name.
@@ -4411,12 +4448,14 @@
   // is a config key the placement list reads, so turning it on puts the unit in and turning it off takes it out, with no reload.
   const ADDON_NAME = { reverse_osmosis: 'reverse osmosis system', soft_start: 'soft start', surge_condenser: 'surge protector', surge_panel: 'whole house surge protector', softener: 'water softener', filter: 'spray pump filter', expansion_tank: 'thermal expansion tank',
     bidet: 'bidet seat', co_detector: 'CO detector', uv_light: 'UV coil light', dehumidifier: 'whole home dehumidifier', fresh_air: 'fresh air duct', hammer_arrestors: 'water hammer arrestors', scale_inhibitor: 'scale inhibitor',
-    mixing_valve: 'thermostatic mixing valve', surge_wh: 'water heater surge protector', iaq_monitor: 'air quality monitor', media_cabinet: 'media air cleaner', purifier: 'in duct air purifier', erv: 'ERV', sludgehammer: 'SludgeHammer', freeze_cover: 'hose bib freeze cover', vacuum_breaker: 'hose bib vacuum breaker' };
+    mixing_valve: 'thermostatic mixing valve', surge_wh: 'water heater surge protector', iaq_monitor: 'air quality monitor', media_cabinet: 'media air cleaner', purifier: 'in duct air purifier', erv: 'ERV', sludgehammer: 'SludgeHammer', freeze_cover: 'hose bib freeze cover', vacuum_breaker: 'hose bib vacuum breaker',
+    flowsmart: 'YoLink FlowSmart', irrigation: 'irrigation tee', leak_sensor: 'leak sensor' };     // round 104
   const UNIT_ADDONS = [[/condenser/, ['soft_start', 'surge_condenser']], [/electric_panel/, ['surge_panel']], [/kitchen_sink/, ['reverse_osmosis']], [/spray_pump_filter|septic_lee|aquaklear/, ['filter']], [/water_softener/, ['softener']],
     // round 89: the new add ons, offered on the unit they go on (addonFits keeps the offer to layouts where it would actually be placed)
     [/gas_tank_water_heater|electric_tank_water_heater|thermostatic_mixing_valve/, ['mixing_valve']], [/electric_tank_water_heater|wh_surge_protector/, ['surge_wh']],
     [/^thermostat_|air_quality_monitor/, ['iaq_monitor']], [/hvac_furnace_std80|media_air_cleaner|induct_purifier/, ['media_cabinet', 'purifier']],
-    [/hvac_furnace|hvac_air_handler|^erv/, ['erv']], [/septic_tank_risers|pump_tank_trash|sludgehammer/, ['sludgehammer']]];
+    [/hvac_furnace|hvac_air_handler|^erv/, ['erv']], [/septic_tank_risers|pump_tank_trash|sludgehammer/, ['sludgehammer']],
+    [/^flowsmart/, ['irrigation', 'leak_sensor']]];     // round 104: offered on the FlowSmart itself
   // does switching this add on on put anything in THIS layout (a placement whose config names the key, or an add on block on a unit
   // this layout places)? The unit panel only offers what fits: the surge device is an attic electric tank add on, not a closet one.
   // round 89: two add ons that do the same job on the same unit: the ERV and the heat pump air handler's own fresh air duct both bring in
@@ -4453,6 +4492,11 @@
     ['sludgehammer', 'SludgeHammer in the septic tank (gravity or trash tank)'],
     ['freeze_cover', 'Freeze cover on the front hose bib'],
     ['vacuum_breaker', 'Vacuum breaker on the front hose bib'],
+    // round 104 (Jake 2026-10-31): the YoLink FlowSmart in a valve box after the meter, with its hub by the router; the irrigation tee and
+    // the leak sensor show once the FlowSmart is in
+    ['flowsmart', 'YoLink FlowSmart in a valve box after the meter (and its hub)'],
+    ['irrigation', 'Irrigation tee before the FlowSmart (the sprinklers stay on)'],
+    ['leak_sensor', 'YoLink leak sensor by the water heater'],
   ];
   (() => {
     const host = document.getElementById('addons'); if (!host) return;

@@ -384,7 +384,9 @@
     "pipe_gas_drop_furnace_90": "3/4 in gas off the end of the main, down through the closet ceiling onto the 90 plus furnace's own 1/2 in riser through a reducing bushing",
     "cable_hvac_furnace_feed": "14/2 NM-B from the load centre (its own 15 A breaker) up the garage wall, across the attic and down the closet wall into the back of the furnace's service switch",
     "cable_hvac_tstat_hall": "Thermostat cable (18/5) from behind the hall thermostat up the wall, across the attic and down onto the furnace's own thermostat wire",
-    "cable_hvac_tstat_hall_hp": "Thermostat cable (18/5) from behind the hall thermostat up the wall, across the attic and into the air handler's low voltage knockout"
+    "cable_hvac_tstat_hall_hp": "Thermostat cable (18/5) from behind the hall thermostat up the wall, across the attic and into the air handler's low voltage knockout",
+    "pipe_supply_house_line_fs": "1 in PVC from the filter at the road into the FlowSmart's valve box",
+    "pipe_supply_house_line_fs_out": "1 in PVC from the FlowSmart's valve box on to the house"
   },
   "slab_labels": {
     "pipe_supply_house_line": "1 in PVC from the filter at the road to the valve box by the house",
@@ -531,6 +533,8 @@
     "clip_supply_repipe": "PEX straps: on every joist a run crosses, and on the blocking",
     "blocking_supply_repipe_bays": "2x4 blocking on edge between the joists every 32 in, flush with their tops, under the runs that lie along the joists",
     "abandoned_supply_recirc_return": "Old recirculation return under the slab: cut where it comes up and capped",
-    "cap_recirc_repipe": "Cap on the tankless heater's recirculation port: the return under the slab is abandoned"
+    "cap_recirc_repipe": "Cap on the tankless heater's recirculation port: the return under the slab is abandoned",
+    "pipe_supply_house_line_fs": "1 in PVC from the filter at the road into the FlowSmart's valve box",
+    "pipe_supply_house_line_fs_out": "1 in PVC from the FlowSmart's valve box on to the house"
   }
 }

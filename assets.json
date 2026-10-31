@@ -1,7 +1,7 @@
 {
- "published": "2026-10-30T06:38:45",
- "house": "r100a4f",
- "note": "r100a4f: round 103c, the play set moved to the back east corner, (42, 70) ft, turned north-south, 27.2 ft from the nearest spray circle (Jake: held like a pool or patio, 25 ft); house_site.glb and slab_house_site.glb (only sock_playset_backyard and zone_playset differ) and the placement note",
+ "published": "2026-10-31T05:05:05",
+ "house": "r100a4g",
+ "note": "r100a4g: YoLink FlowSmart in a yard box after the meter (irrigation tee and leak sensor add ons), its hub by the router",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -156,8 +156,8 @@
    "bytes": 8755904
   },
   "house_site.glb": {
-   "v": "7f67fe4a71",
-   "bytes": 8563608
+   "v": "5f225103a0",
+   "bytes": 8567144
   },
   "house_slab.glb": {
    "v": "e170461dbb",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "641400c69c",
+   "v": "9211314431",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -268,16 +268,16 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "91128a3a0e",
-   "bytes": 213332
+   "v": "eb301bcf4f",
+   "bytes": 217540
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "f568f6233b",
-   "bytes": 116294
+   "v": "e60682a401",
+   "bytes": 117304
   },
   "kitchen_sink.glb": {
    "v": "5cbcc760bd",
@@ -324,8 +324,8 @@
    "bytes": 105409
   },
   "pipes.json": {
-   "v": "5f62a965e4",
-   "bytes": 46277
+   "v": "87b1e4640a",
+   "bytes": 46681
   },
   "pipes_alternates__hvac-gas_pack_and_gas-natural.glb": {
    "v": "ed2ab8c92d",
@@ -564,8 +564,8 @@
    "bytes": 36388
   },
   "pipes_groups.json": {
-   "v": "a8abf155cd",
-   "bytes": 96111
+   "v": "773cd14109",
+   "bytes": 96809
   },
   "pipes_hvac__common.glb": {
    "v": "f2bb3860a1",
@@ -920,8 +920,8 @@
    "bytes": 15540
   },
   "pipes_supply__water-city_filter.glb": {
-   "v": "74071dbe33",
-   "bytes": 304940
+   "v": "d042ac9fee",
+   "bytes": 256852
   },
   "pipes_supply__water-city_filter_and_softener-no_and_plumbing-cpvc.glb": {
    "v": "09b92edfa7",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "dd2184155c",
-   "bytes": 182854
+   "v": "fc3ff4e9fa",
+   "bytes": 191553
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -1480,8 +1480,8 @@
    "bytes": 382648
   },
   "slab_house_site.glb": {
-   "v": "63385f4813",
-   "bytes": 8510440
+   "v": "5318570a62",
+   "bytes": 8513952
   },
   "slab_house_slab.glb": {
    "v": "d3d59f21ee",
@@ -2028,8 +2028,8 @@
    "bytes": 217776
   },
   "slab_pipes_supply__water-city_filter.glb": {
-   "v": "f71110045c",
-   "bytes": 274068
+   "v": "0ca26655e4",
+   "bytes": 224888
   },
   "slab_pipes_supply__water-city_filter_and_plumbing-attic_repipe_and_softener-no.glb": {
    "v": "a993e502c0",
@@ -2276,8 +2276,8 @@
    "bytes": 1108804
   },
   "walk.js": {
-   "v": "ddf88a6fae",
-   "bytes": 441992
+   "v": "5c7748b400",
+   "bytes": 446115
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -2310,6 +2310,34 @@
   "wires.json": {
    "v": "2242bbe35c",
    "bytes": 17299
+  },
+  "flowsmart.glb": {
+   "v": "0ac4f58ab5",
+   "bytes": 804724
+  },
+  "pipes_supply__water-city_filter_and_flowsmart-no.glb": {
+   "v": "77c3f306ce",
+   "bytes": 51588
+  },
+  "pipes_supply__water-city_filter_and_flowsmart-yes.glb": {
+   "v": "436167d48b",
+   "bytes": 53984
+  },
+  "slab_pipes_supply__water-city_filter_and_flowsmart-no.glb": {
+   "v": "d256938c3c",
+   "bytes": 52720
+  },
+  "slab_pipes_supply__water-city_filter_and_flowsmart-yes.glb": {
+   "v": "def0c74eac",
+   "bytes": 55132
+  },
+  "yolink_hub.glb": {
+   "v": "0f84e31064",
+   "bytes": 74472
+  },
+  "yolink_leak_sensor.glb": {
+   "v": "74e89c38ff",
+   "bytes": 23104
   }
  },
  "menu_art": {

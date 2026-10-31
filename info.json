@@ -3560,6 +3560,87 @@
     "curb_commercial": "Curb with the drive cut",
     "floor_lot_commercial_sidewalk": "Sidewalk"
    }
+  },
+  "flowsmart": {
+   "name": "YoLink FlowSmart (smart water shut-off)",
+   "clips": {
+    "flowsmart_flow": "Water through the meter (the display counts)",
+    "flowsmart_close": "Close the FlowSmart",
+    "flowsmart_open": "Open the FlowSmart",
+    "lora_signal": "Radio: to the hub, then the leak sensor straight to the valve",
+    "box_lid_off": "Lift the box lid",
+    "flowsmart_face_shut": "Shut the lid over the face",
+    "manual_valve_close": "Shut the ball valve by hand"
+   },
+   "hotspots": {},
+   "labels": {
+    "valve_box": "Valve box in the yard, on the house side of the water meter",
+    "valve_box_wall_e": "Valve box wall",
+    "box_lid": "Valve box lid. Lift it off to get at the valves",
+    "valve_box_knockout": "Knockout in the box wall: no irrigation line on this house",
+    "valve_box_gravel": "Gravel floor in the box",
+    "irrigation_tee": "Irrigation tee. The sprinklers come off here, before the FlowSmart, so a shut-off never stops the sprinklers",
+    "irrigation_line": "Line out to the sprinkler valves",
+    "inlet_coupling": "Coupling on the house line",
+    "pvc_nipple": "Short pipe to the ball valve",
+    "pvc_nipple_irrigation": "Short pipe to the ball valve",
+    "ball_valve": "Plain ball valve. Keep it: it shuts the water by hand, and when the FlowSmart has to come out",
+    "ball_valve_handle": "Ball valve handle: along the pipe is open, across is shut",
+    "pvc_straight": "Straight pipe before the FlowSmart: five pipe widths, so the meter reads true",
+    "adapter_in": "Female adapter. The FlowSmart's coupling screws into it",
+    "adapter_out": "Female adapter. The FlowSmart's coupling screws into it",
+    "coupling_in": "Spud coupling: the nut on the FlowSmart's spud, like a union",
+    "coupling_out": "Spud coupling: the nut on the FlowSmart's spud, like a union",
+    "body": "FlowSmart body: a water meter and a motorized ball valve in one",
+    "flow_arrow": "Flow arrow cast in the body. It points toward the house",
+    "housing": "FlowSmart housing. It runs on a battery, so there are no wires to it",
+    "lid": "Lid over the face",
+    "rubber_pad": "Rubber pad inside the lid",
+    "dial": "Display: the gallons through the meter",
+    "dial_digits": "Meter reading in gallons",
+    "manual_override": "Manual override. A hex key turns the valve shut (S) or open (O) by hand",
+    "set_button": "SET button, with the status light beside it",
+    "led": "Status light",
+    "sensor_dot": "Light sensor",
+    "face_text": "FlowSmart All-in-One",
+    "battery_cover": "Battery cover. The battery is under it",
+    "battery": "Battery: 3.6 volt lithium, a D cell",
+    "motor": "Gear motor. It turns the ball",
+    "valve_stem": "Stem from the motor down to the ball",
+    "valve_ball": "Ball. A quarter turn shuts the water off",
+    "meter_turbine": "Meter rotor. The water turns it and the FlowSmart counts the gallons",
+    "pcb": "Control board: the meter, the radio and the valve",
+    "valve_ball_manual": "The ball valve's own ball"
+   }
+  },
+  "yolink_hub": {
+   "name": "YoLink Hub (beside the router)",
+   "clips": {},
+   "hotspots": {},
+   "labels": {
+    "hub": "YoLink Hub. Plugged in indoors next to the router, it puts the FlowSmart and the sensors on the phone app",
+    "hub_leds": "Hub lights: power, internet, feature",
+    "hub_labels": "Hub lights: power, internet, feature",
+    "hub_logo": "YoLink Hub",
+    "router": "The home's router",
+    "router_antennas": "Router antennas",
+    "hub_cord": "Hub power cord",
+    "router_cord": "Router power cord",
+    "network_cable": "Network cable, hub to router",
+    "receptacle": "Receptacle on the wall behind the cabinet"
+   }
+  },
+  "yolink_leak_sensor": {
+   "name": "YoLink Leak Sensor",
+   "clips": {},
+   "hotspots": {},
+   "labels": {
+    "leak_sensor": "Leak sensor. Water at its probes and it tells the FlowSmart to close, straight over the radio, no internet needed",
+    "leak_sensor_probes": "Probes underneath. Water across them is a leak",
+    "leak_sensor_button": "SET button",
+    "leak_sensor_led": "Status light",
+    "leak_sensor_logo": "YoLink Leak Sensor"
+   }
   }
  }
 }

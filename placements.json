@@ -5170,6 +5170,255 @@
    ],
    "note": "Round 91: the spray pump filter over the fiberglass train's pump tank pump (the two tank one's offset less the socket offset, 3 in deeper).",
    "slab_of": "spray_pump_filter.glb"
+  },
+  {
+   "socket": "sock_flowsmart_yard",
+   "file": "site",
+   "pack": "flowsmart",
+   "model": "flowsmart.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "title": "YoLink FlowSmart All-in-One (1 in)",
+   "config": "water=city_filter&flowsmart=yes",
+   "hide": [
+    "ctx_pipe_in",
+    "ctx_pipe_out",
+    "ctx_soil",
+    "ctx_grass",
+    "irrigation_tee",
+    "irrigation_line",
+    "pvc_nipple_irrigation",
+    "irrigation_tee_section",
+    "pvc_nipple_irrigation_section"
+   ],
+   "show": [
+    "flow_arrow"
+   ],
+   "states": [
+    "led_on",
+    "led_alarm",
+    "dial_digit_0",
+    "dial_digit_1",
+    "dial_digit_3",
+    "dial_digit_4",
+    "dial_digit_5",
+    "dial_digit_6",
+    "dial_digit_7",
+    "dial_digit_8",
+    "dial_digit_9",
+    "lora_ring",
+    "lora_ring_b",
+    "lora_pulse_hub",
+    "lora_pulse_hub_t1",
+    "lora_pulse_hub_t2",
+    "lora_pulse_sensor",
+    "lora_pulse_sensor_t1",
+    "lora_pulse_sensor_t2",
+    "lora_flash_hub",
+    "lora_flash_sensor"
+   ],
+   "addon": {
+    "irrigation": {
+     "show": [
+      "irrigation_tee",
+      "irrigation_line",
+      "pvc_nipple_irrigation",
+      "irrigation_tee_section",
+      "pvc_nipple_irrigation_section"
+     ],
+     "hide": [
+      "inlet_coupling",
+      "pvc_nipple",
+      "valve_box_knockout",
+      "inlet_coupling_section",
+      "pvc_nipple_section"
+     ]
+    }
+   },
+   "section_set": {
+    "pairs": {
+     "irrigation_tee": "irrigation_tee_section",
+     "inlet_coupling": "inlet_coupling_section",
+     "pvc_nipple_irrigation": "pvc_nipple_irrigation_section",
+     "pvc_nipple": "pvc_nipple_section",
+     "ball_valve": "ball_valve_section",
+     "pvc_straight": "pvc_straight_section",
+     "adapter_in": "adapter_in_section",
+     "adapter_out": "adapter_out_section",
+     "coupling_in": "coupling_in_section",
+     "coupling_out": "coupling_out_section",
+     "body": "body_section",
+     "housing": "housing_section",
+     "battery_cover": "battery_cover_section"
+    },
+    "also_hide": [
+     "valve_box_wall_e",
+     "box_lid"
+    ],
+    "note": "Round 104: one plane down the line's axis, the east half off (cut_open +x), so the plain ball valve's ball, the FlowSmart's meter rotor, its motorized ball and stem, the motor, the board and the battery show, and the water packets run through. The box's east wall and the lid go with it."
+   },
+   "signals": {
+    "clip": "lora_signal",
+    "fps": 24,
+    "pulses": [
+     {
+      "node": "lora_pulse_hub",
+      "from": "@lora_antenna",
+      "to": "yolink_hub",
+      "to_up": 0.06,
+      "t": [
+       12.0,
+       42.0
+      ]
+     },
+     {
+      "node": "lora_pulse_sensor",
+      "from": "yolink_leak_sensor",
+      "from_up": 0.03,
+      "to": "@lora_antenna",
+      "t": [
+       66.0,
+       96.0
+      ]
+     },
+     {
+      "node": "lora_pulse_hub_t1",
+      "from": "@lora_antenna",
+      "to": "yolink_hub",
+      "to_up": 0.06,
+      "t": [
+       13.5,
+       43.5
+      ]
+     },
+     {
+      "node": "lora_pulse_sensor_t1",
+      "from": "yolink_leak_sensor",
+      "from_up": 0.03,
+      "to": "@lora_antenna",
+      "t": [
+       67.5,
+       97.5
+      ]
+     },
+     {
+      "node": "lora_pulse_hub_t2",
+      "from": "@lora_antenna",
+      "to": "yolink_hub",
+      "to_up": 0.06,
+      "t": [
+       15.0,
+       45.0
+      ]
+     },
+     {
+      "node": "lora_pulse_sensor_t2",
+      "from": "yolink_leak_sensor",
+      "from_up": 0.03,
+      "to": "@lora_antenna",
+      "t": [
+       69.0,
+       99.0
+      ]
+     },
+     {
+      "node": "lora_flash_hub",
+      "at": "yolink_hub",
+      "up": 0.06
+     },
+     {
+      "node": "lora_flash_sensor",
+      "at": "yolink_leak_sensor",
+      "up": 0.03
+     }
+    ]
+   },
+   "note": "Round 104 (Jake 2026-10-31, new FieldWise topic Smart Water Shut-Off): the YoLink FlowSmart All-in-One, 1 in (YS5018), a meter and a motorized ball valve in one battery body, in its own super jumbo valve box on the 1 in PVC house line past the whole house filter, 2.10 m north of the meter box's centre (the water department's), the same spot on both lots. In the box, upstream to downstream: the irrigation tee (add on irrigation; a plain coupling without it), the plain PVC ball valve YoLink says to keep, 5 pipe widths of straight pipe, the female adapter, the spud coupling, the FlowSmart (dial up, arrow toward the house), the coupling and adapter out; the house line goes on north (3 widths and more straight). House runs pipe_supply_house_line_fs and _fs_out land in its sockets (flowsmart=yes); pipe_supply_house_line stays for flowsmart=no. Built in sock_flowsmart_yard's frame, yaw 0, offset 0. Its own lid rests open (Jake's photos). Clips: flowsmart_flow (+_loop: water packets, the meter rotor, the last digit counting), flowsmart_close (the ball a quarter turn, the water stops, the LED blinks red), flowsmart_open (the reverse, green), lora_signal (a pulse to the hub, then the leak sensor's pulse straight to the valve: placement signals moves the far ends onto the hub and the sensor wherever this layout puts them), box_lid_off, flowsmart_face_shut, manual_valve_close. Off by default (flowsmart=no, an add on like every other), and the old Flo placements are untouched (the app still links to them)."
+  },
+  {
+   "socket": "sock_yolink_hub",
+   "file": "site",
+   "pack": "yolink_hub",
+   "model": "yolink_hub.glb",
+   "yaw": 0,
+   "offset": [
+    0,
+    0,
+    0
+   ],
+   "title": "YoLink Hub (beside the router)",
+   "config": "water=city_filter&flowsmart=yes",
+   "note": "Round 104: the YoLink hub, plugged in, beside a plain router on the south end of the living room TV cabinet (indoors, never outside), the two power cords over the cabinet's back edge to a receptacle on the wall behind it, a network cable between them. Built in sock_yolink_hub's frame (turned -90: the hub's front faces the room). Comes and goes with the FlowSmart."
+  },
+  {
+   "socket": "sock_wh_attic",
+   "file": "attic",
+   "pack": "yolink_leak_sensor",
+   "model": "yolink_leak_sensor.glb",
+   "yaw": 0,
+   "offset": [
+    0.486,
+    -0.083,
+    0.0
+   ],
+   "title": "YoLink leak sensor",
+   "config": "water=city_filter&flowsmart=yes&leak_sensor=yes&water_heater=attic_gas_tank|attic_electric_tank",
+   "show": [
+    "leak_sensor",
+    "leak_sensor_probes",
+    "leak_sensor_button",
+    "leak_sensor_led",
+    "leak_sensor_logo"
+   ],
+   "note": "Round 104: the YoLink leak sensor (sold separately: add on leak_sensor, off by default), a puck on the floor of the attic heater's platform, 10 cm south of the drain pan, clear of the gas drip leg. It talks to the FlowSmart straight over LoRa (lora_signal on the FlowSmart). show: the hide pattern 'leak' would swallow every part."
+  },
+  {
+   "socket": "sock_wh_closet_coat",
+   "file": "floor1",
+   "pack": "yolink_leak_sensor",
+   "model": "yolink_leak_sensor.glb",
+   "yaw": 0,
+   "offset": [
+    0.209,
+    0.446,
+    0.0
+   ],
+   "title": "YoLink leak sensor",
+   "config": "water=city_filter&flowsmart=yes&leak_sensor=yes&water_heater=closet_gas_tank|closet_electric_tank",
+   "show": [
+    "leak_sensor",
+    "leak_sensor_probes",
+    "leak_sensor_button",
+    "leak_sensor_led",
+    "leak_sensor_logo"
+   ],
+   "note": "Round 104: the YoLink leak sensor (sold separately: add on leak_sensor, off by default), a puck on the floor of the coat closet, just south of the heater toward the door. It talks to the FlowSmart straight over LoRa (lora_signal on the FlowSmart). show: the hide pattern 'leak' would swallow every part."
+  },
+  {
+   "socket": "sock_wh_garage",
+   "file": "floor1",
+   "pack": "yolink_leak_sensor",
+   "model": "yolink_leak_sensor.glb",
+   "yaw": 0,
+   "offset": [
+    -0.635,
+    0.181,
+    0.0
+   ],
+   "title": "YoLink leak sensor",
+   "config": "water=city_filter&flowsmart=yes&leak_sensor=yes&water_heater=garage_tankless|garage_hybrid|garage_electric_tankless|garage_tankless_noncondensing|garage_gas_tank",
+   "show": [
+    "leak_sensor",
+    "leak_sensor_probes",
+    "leak_sensor_button",
+    "leak_sensor_led",
+    "leak_sensor_logo"
+   ],
+   "note": "Round 104: the YoLink leak sensor (sold separately: add on leak_sensor, off by default), a puck on the floor of the garage by the north wall, east of whichever heater stands there (clear of the gas tank's stand, the hybrid and the tankless lines). It talks to the FlowSmart straight over LoRa (lora_signal on the FlowSmart). show: the hide pattern 'leak' would swallow every part."
   }
  ],
  "hide_patterns": [

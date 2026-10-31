@@ -6426,6 +6426,62 @@
    "head_top": {
     "work": "spray"
    }
+  },
+  "flowsmart.glb": {
+   "box_lid": {
+    "look": "clip:box_lid_off"
+   },
+   "ball_valve_handle": {
+    "look": "clip:manual_valve_close"
+   },
+   "lid": {
+    "look": "clip:flowsmart_face_shut"
+   },
+   "manual_override": {
+    "work": "flowsmart_close"
+   },
+   "valve_ball": {
+    "work": "flowsmart_close"
+   },
+   "valve_stem": {
+    "work": "flowsmart_close"
+   },
+   "motor": {
+    "work": "flowsmart_close"
+   },
+   "meter_turbine": {
+    "work": "flowsmart_flow"
+   },
+   "dial": {
+    "work": "flowsmart_flow"
+   },
+   "set_button": {
+    "work": "lora_signal"
+   },
+   "body": {
+    "look": "section"
+   },
+   "housing": {
+    "look": "section"
+   },
+   "ball_valve": {
+    "look": "section"
+   },
+   "pvc_straight": {
+    "look": "section"
+   },
+   "adapter_in": {
+    "look": "section"
+   },
+   "adapter_out": {
+    "look": "section"
+   },
+   "coupling_in": {
+    "look": "section"
+   },
+   "coupling_out": {
+    "look": "section"
+   }
   }
  }
 }
