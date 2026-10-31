@@ -3610,7 +3610,11 @@
     "valve_ball": "Ball. A quarter turn shuts the water off",
     "meter_turbine": "Meter rotor. The water turns it and the FlowSmart counts the gallons",
     "pcb": "Control board: the meter, the radio and the valve",
-    "valve_ball_manual": "The ball valve's own ball"
+    "valve_ball_manual": "The ball valve's own ball",
+    "check_valve": "Check valve. Water goes through toward the house only, so pressure swings never rock water back through the meter",
+    "check_valve_flap": "Check valve flap. Water pushes it open; with no flow it hangs shut on its seat",
+    "check_valve_pin": "Hinge pin the flap swings on",
+    "check_valve_arrow": "Arrow on the check valve's cap: it points toward the house"
    }
   },
   "yolink_hub": {
@@ -3640,6 +3644,43 @@
     "leak_sensor_button": "SET button",
     "leak_sensor_led": "Status light",
     "leak_sensor_logo": "YoLink Leak Sensor"
+   }
+  },
+  "flowsmart_well": {
+   "name": "YoLink FlowSmart after the pressure tank (well)",
+   "clips": {
+    "flowsmart_flow": "Water through the meter (the display counts)",
+    "flowsmart_close": "Close the FlowSmart",
+    "flowsmart_open": "Open the FlowSmart",
+    "lora_signal": "Radio: to the hub, then the leak sensor straight to the valve",
+    "flowsmart_face_shut": "Shut the lid over the face"
+   },
+   "hotspots": {},
+   "labels": {
+    "pvc_straight": "Straight pipe up from the pressure tank: five pipe widths, so the meter reads true",
+    "adapter_in": "Reducing female adapter: the 3/4 in line in, the FlowSmart's 1 in coupling screws into it",
+    "adapter_out": "Reducing female adapter: the FlowSmart's 1 in coupling in, the 3/4 in line on to the house",
+    "coupling_in": "Spud coupling: the nut on the FlowSmart's spud, like a union",
+    "coupling_out": "Spud coupling: the nut on the FlowSmart's spud, like a union",
+    "body": "FlowSmart body: a water meter and a motorized ball valve in one",
+    "flow_arrow": "Flow arrow cast in the body. It points toward the house",
+    "housing": "FlowSmart housing. It runs on a battery, so there are no wires to it",
+    "lid": "Lid over the face",
+    "rubber_pad": "Rubber pad inside the lid",
+    "dial": "Display: the gallons through the meter",
+    "dial_digits": "Meter reading in gallons",
+    "manual_override": "Manual override. A hex key turns the valve shut (S) or open (O) by hand",
+    "set_button": "SET button, with the status light beside it",
+    "led": "Status light",
+    "sensor_dot": "Light sensor",
+    "face_text": "FlowSmart All-in-One",
+    "battery_cover": "Battery cover. The battery is under it",
+    "battery": "Battery: 3.6 volt lithium, a D cell",
+    "motor": "Gear motor. It turns the ball",
+    "valve_stem": "Stem from the motor down to the ball",
+    "valve_ball": "Ball. A quarter turn shuts the water off",
+    "meter_turbine": "Meter rotor. The water turns it and the FlowSmart counts the gallons",
+    "pcb": "Control board: the meter, the radio and the valve"
    }
   }
  }

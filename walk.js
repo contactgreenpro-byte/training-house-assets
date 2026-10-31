@@ -4455,7 +4455,8 @@
     [/gas_tank_water_heater|electric_tank_water_heater|thermostatic_mixing_valve/, ['mixing_valve']], [/electric_tank_water_heater|wh_surge_protector/, ['surge_wh']],
     [/^thermostat_|air_quality_monitor/, ['iaq_monitor']], [/hvac_furnace_std80|media_air_cleaner|induct_purifier/, ['media_cabinet', 'purifier']],
     [/hvac_furnace|hvac_air_handler|^erv/, ['erv']], [/septic_tank_risers|pump_tank_trash|sludgehammer/, ['sludgehammer']],
-    [/^flowsmart/, ['irrigation', 'leak_sensor']]];     // round 104: offered on the FlowSmart itself
+    [/^flowsmart/, ['irrigation', 'leak_sensor']],     // round 104: offered on the FlowSmart itself
+    [/gas_tank_water_heater|electric_tank_water_heater|hybrid_water_heater/, ['expansion_tank']]];     // round 104c: the tank heaters' expansion tank
   // does switching this add on on put anything in THIS layout (a placement whose config names the key, or an add on block on a unit
   // this layout places)? The unit panel only offers what fits: the surge device is an attic electric tank add on, not a closet one.
   // round 89: two add ons that do the same job on the same unit: the ERV and the heat pump air handler's own fresh air duct both bring in
@@ -4494,9 +4495,12 @@
     ['vacuum_breaker', 'Vacuum breaker on the front hose bib'],
     // round 104 (Jake 2026-10-31): the YoLink FlowSmart in a valve box after the meter, with its hub by the router; the irrigation tee and
     // the leak sensor show once the FlowSmart is in
-    ['flowsmart', 'YoLink FlowSmart in a valve box after the meter (and its hub)'],
+    ['flowsmart', 'YoLink FlowSmart: in a valve box after the meter, or after a well\'s pressure tank (and its hub)'],
     ['irrigation', 'Irrigation tee before the FlowSmart (the sprinklers stay on)'],
     ['leak_sensor', 'YoLink leak sensor by the water heater'],
+    // round 104c (Jake 2026-10-31): the check valve in the FlowSmart's box closes the system, so the water heater needs its expansion tank;
+    // the tank heaters have carried it as an add on block since round 46, but only a link could switch it on
+    ['expansion_tank', 'Thermal expansion tank on the water heater (a check valve closes the system)'],
   ];
   (() => {
     const host = document.getElementById('addons'); if (!host) return;

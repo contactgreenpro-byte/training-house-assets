@@ -850,7 +850,7 @@
      "file": "pipes_supply__water-city_filter_and_flowsmart-yes.glb",
      "tag": "water=city_filter&flowsmart=yes",
      "nodes": 6,
-     "bytes": 53984
+     "bytes": 53948
     },
     {
      "file": "pipes_supply__water-city_filter_and_softener-no_and_plumbing-cpvc.glb",
@@ -932,75 +932,75 @@
     },
     {
      "file": "pipes_supply__water-well_and_softener-no_and_plumbing-cpvc.glb",
-     "tag": "water=well&softener=no&plumbing=cpvc",
+     "tag": "water=well&softener=no&plumbing=cpvc&flowsmart=no",
      "nodes": 8,
-     "bytes": 84456
+     "bytes": 84032
     },
     {
      "file": "pipes_supply__water-well_and_softener-no_and_plumbing-cpvc_and_shutoff_extra-attic+none.glb",
-     "tag": "water=well&softener=no&plumbing=cpvc&shutoff_extra=attic|none",
+     "tag": "water=well&softener=no&plumbing=cpvc&shutoff_extra=attic|none&flowsmart=no",
      "nodes": 1,
-     "bytes": 11772
+     "bytes": 11696
     },
     {
      "file": "pipes_supply__water-well_and_softener-no_and_plumbing-cpvc_and_shutoff_extra-wall.glb",
-     "tag": "water=well&softener=no&plumbing=cpvc&shutoff_extra=wall",
+     "tag": "water=well&softener=no&plumbing=cpvc&shutoff_extra=wall&flowsmart=no",
      "nodes": 1,
-     "bytes": 11772
+     "bytes": 11696
     },
     {
      "file": "pipes_supply__water-well_and_softener-no_and_plumbing-galvanized.glb",
-     "tag": "water=well&softener=no&plumbing=galvanized",
+     "tag": "water=well&softener=no&plumbing=galvanized&flowsmart=no",
      "nodes": 8,
-     "bytes": 118856
+     "bytes": 118596
     },
     {
      "file": "pipes_supply__water-well_and_softener-no_and_plumbing-galvanized_and_shutoff_extra-attic+none.glb",
-     "tag": "water=well&softener=no&plumbing=galvanized&shutoff_extra=attic|none",
+     "tag": "water=well&softener=no&plumbing=galvanized&shutoff_extra=attic|none&flowsmart=no",
      "nodes": 1,
-     "bytes": 19596
+     "bytes": 19644
     },
     {
      "file": "pipes_supply__water-well_and_softener-no_and_plumbing-galvanized_and_shutoff_extra-wall.glb",
-     "tag": "water=well&softener=no&plumbing=galvanized&shutoff_extra=wall",
+     "tag": "water=well&softener=no&plumbing=galvanized&shutoff_extra=wall&flowsmart=no",
      "nodes": 1,
-     "bytes": 19600
+     "bytes": 19644
     },
     {
      "file": "pipes_supply__water-well_and_softener-no_and_plumbing-pex.glb",
-     "tag": "water=well&softener=no&plumbing=pex",
+     "tag": "water=well&softener=no&plumbing=pex&flowsmart=no",
      "nodes": 4,
-     "bytes": 57724
+     "bytes": 57704
     },
     {
      "file": "pipes_supply__water-well_and_softener-no_and_plumbing-pex_and_shutoff_extra-attic+none.glb",
-     "tag": "water=well&softener=no&plumbing=pex&shutoff_extra=attic|none",
+     "tag": "water=well&softener=no&plumbing=pex&shutoff_extra=attic|none&flowsmart=no",
      "nodes": 1,
-     "bytes": 15548
+     "bytes": 15504
     },
     {
      "file": "pipes_supply__water-well_and_softener-no_and_plumbing-pex_and_shutoff_extra-wall.glb",
-     "tag": "water=well&softener=no&plumbing=pex&shutoff_extra=wall",
+     "tag": "water=well&softener=no&plumbing=pex&shutoff_extra=wall&flowsmart=no",
      "nodes": 1,
-     "bytes": 15552
+     "bytes": 15504
     },
     {
      "file": "pipes_supply__water-well_and_softener-yes_and_plumbing-cpvc.glb",
-     "tag": "water=well&softener=yes&plumbing=cpvc",
+     "tag": "water=well&softener=yes&plumbing=cpvc&flowsmart=no",
      "nodes": 8,
-     "bytes": 91684
+     "bytes": 91392
     },
     {
      "file": "pipes_supply__water-well_and_softener-yes_and_plumbing-galvanized.glb",
-     "tag": "water=well&softener=yes&plumbing=galvanized",
+     "tag": "water=well&softener=yes&plumbing=galvanized&flowsmart=no",
      "nodes": 8,
-     "bytes": 127940
+     "bytes": 128240
     },
     {
      "file": "pipes_supply__water-well_and_softener-yes_and_plumbing-pex.glb",
-     "tag": "water=well&softener=yes&plumbing=pex",
+     "tag": "water=well&softener=yes&plumbing=pex&flowsmart=no",
      "nodes": 5,
-     "bytes": 72504
+     "bytes": 72564
     },
     {
      "file": "pipes_supply__softener-yes_and_plumbing-cpvc_and_water-city_filter.glb",
@@ -1025,6 +1025,78 @@
      "tag": "softener=yes&plumbing=galvanized&water=well",
      "nodes": 1,
      "bytes": 9384
+    },
+    {
+     "file": "pipes_supply__water-well_and_softener-no_and_flowsmart-yes_and_plumbing-cpvc.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=cpvc",
+     "nodes": 8,
+     "bytes": 84532
+    },
+    {
+     "file": "pipes_supply__water-well_and_softener-no_and_flowsmart-yes_and_plumbing-galvanized.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=galvanized",
+     "nodes": 8,
+     "bytes": 119004
+    },
+    {
+     "file": "pipes_supply__water-well_and_softener-no_and_flowsmart-yes_and_plumbing-pex.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=pex",
+     "nodes": 4,
+     "bytes": 57744
+    },
+    {
+     "file": "pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-cpvc.glb",
+     "tag": "water=well&softener=yes&flowsmart=yes&plumbing=cpvc",
+     "nodes": 8,
+     "bytes": 91736
+    },
+    {
+     "file": "pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-galvanized.glb",
+     "tag": "water=well&softener=yes&flowsmart=yes&plumbing=galvanized",
+     "nodes": 8,
+     "bytes": 128052
+    },
+    {
+     "file": "pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-pex.glb",
+     "tag": "water=well&softener=yes&flowsmart=yes&plumbing=pex",
+     "nodes": 5,
+     "bytes": 72588
+    },
+    {
+     "file": "pipes_supply__water__0e275bac.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=cpvc&shutoff_extra=wall",
+     "nodes": 1,
+     "bytes": 11792
+    },
+    {
+     "file": "pipes_supply__water__187e0823.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=pex&shutoff_extra=attic|none",
+     "nodes": 1,
+     "bytes": 15556
+    },
+    {
+     "file": "pipes_supply__water__61423136.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=galvanized&shutoff_extra=attic|none",
+     "nodes": 1,
+     "bytes": 19608
+    },
+    {
+     "file": "pipes_supply__water__916e9bf5.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=cpvc&shutoff_extra=attic|none",
+     "nodes": 1,
+     "bytes": 11792
+    },
+    {
+     "file": "pipes_supply__water__94c7e8e2.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=galvanized&shutoff_extra=wall",
+     "nodes": 1,
+     "bytes": 19612
+    },
+    {
+     "file": "pipes_supply__water__d6ef86a2.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=pex&shutoff_extra=wall",
+     "nodes": 1,
+     "bytes": 15560
     }
    ]
   },
@@ -1937,7 +2009,7 @@
      "file": "slab_pipes_supply__water-city_filter_and_flowsmart-yes.glb",
      "tag": "water=city_filter&flowsmart=yes",
      "nodes": 6,
-     "bytes": 55132
+     "bytes": 55096
     },
     {
      "file": "slab_pipes_supply__water-city_filter_and_plumbing-copper.glb",
@@ -2031,27 +2103,27 @@
     },
     {
      "file": "slab_pipes_supply__water-well_and_softener-no_and_plumbing-copper.glb",
-     "tag": "water=well&softener=no&plumbing=copper",
+     "tag": "water=well&softener=no&plumbing=copper&flowsmart=no",
      "nodes": 9,
-     "bytes": 80112
+     "bytes": 80240
     },
     {
      "file": "slab_pipes_supply__water-well_and_softener-no_and_plumbing-pex+attic_repipe+pex_branch.glb",
-     "tag": "water=well&softener=no&plumbing=pex|attic_repipe|pex_branch",
+     "tag": "water=well&softener=no&plumbing=pex|attic_repipe|pex_branch&flowsmart=no",
      "nodes": 4,
-     "bytes": 68072
+     "bytes": 68028
     },
     {
      "file": "slab_pipes_supply__water-well_and_softener-yes_and_plumbing-copper.glb",
-     "tag": "water=well&softener=yes&plumbing=copper",
+     "tag": "water=well&softener=yes&plumbing=copper&flowsmart=no",
      "nodes": 8,
-     "bytes": 72000
+     "bytes": 72128
     },
     {
      "file": "slab_pipes_supply__water-well_and_softener-yes_and_plumbing-pex+attic_repipe+pex_branch.glb",
-     "tag": "water=well&softener=yes&plumbing=pex|attic_repipe|pex_branch",
+     "tag": "water=well&softener=yes&plumbing=pex|attic_repipe|pex_branch&flowsmart=no",
      "nodes": 5,
-     "bytes": 72456
+     "bytes": 72460
     },
     {
      "file": "slab_pipes_supply__plumbing-pex_and_water-well_and_water_heater-attic_electric_tank.glb",
@@ -2142,6 +2214,36 @@
      "tag": "water=city_filter&plumbing=pex|pex_branch&softener=no|yes",
      "nodes": 2,
      "bytes": 21392
+    },
+    {
+     "file": "slab_pipes_supply__water-well_and_softener-no_and_flowsmart-yes_and_plumbing-copper.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=copper",
+     "nodes": 9,
+     "bytes": 80320
+    },
+    {
+     "file": "slab_pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-copper.glb",
+     "tag": "water=well&softener=yes&flowsmart=yes&plumbing=copper",
+     "nodes": 9,
+     "bytes": 80304
+    },
+    {
+     "file": "slab_pipes_supply__water__02f41b66.glb",
+     "tag": "water=well&softener=no&flowsmart=yes&plumbing=pex|attic_repipe|pex_branch",
+     "nodes": 4,
+     "bytes": 68168
+    },
+    {
+     "file": "slab_pipes_supply__water__0b25bcce.glb",
+     "tag": "water=well&softener=yes&flowsmart=yes&plumbing=pex|attic_repipe|pex_branch",
+     "nodes": 5,
+     "bytes": 72584
+    },
+    {
+     "file": "slab_pipes_supply__water__bf426e39.glb",
+     "tag": "water=well&softener=yes&flowsmart=yes&plumbing=attic_repipe|pex|pex_branch",
+     "nodes": 1,
+     "bytes": 11132
     }
    ]
   },
