@@ -927,7 +927,9 @@
   "whs_spd_nipple_section": "Cut open. The three leads run up the nipple's bore into the box.",
   "tmv_recirc_pump": "Recirculation pump after the mixing valve. It pushes 125 F water round the house loop, never tank temperature. Flow arrow down, motor shaft level.",
   "tmv_recirc_unions": "Union ends on the recirculation pump. It comes out without cutting pipe.",
-  "tmv_recirc_pipe": "Pipe from the mixing valve's outlet down to the recirculation pump. 125 F water."
+  "tmv_recirc_pipe": "Pipe from the mixing valve down through the recirculation pump to the house hot line. 125 F water.",
+  "mixed_drop": "The drop from the mixing valve down to the house hot line. 125 F water.",
+  "tmv_recirc_board": "Pump board. 3/4 in plywood on a 2x4 post on the platform. The pump and its pipe are strapped to it, not hung on the pipe."
  },
  "_prefix": {
   "breaker_": "Branch breaker. Feeds one circuit. It trips on an overload or a short. An arc fault or GFCI breaker also has a test button.",

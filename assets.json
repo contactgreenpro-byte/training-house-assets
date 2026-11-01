@@ -1,7 +1,7 @@
 {
- "published": "2026-11-01T03:41:29",
- "house": "r100a4l",
- "note": "r100a4l: a recirculation pump after the mixing valve's mixed outlet (add on recirc_pump, with the valve only; the attic hot drop starts in the pump's lower union when it is in)",
+ "published": "2026-11-01T05:49:37",
+ "house": "r100a4m",
+ "note": "r100a4m: the mixing valve on top of the water heater (hot straight up into it, cold down from a tee on the cold line, mixed forward and down), the recirculation pump strapped to a pump board on a 2x4 post",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "be7247016a",
+   "v": "3b73f56a74",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -268,16 +268,16 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "196ffe0bed",
-   "bytes": 221902
+   "v": "381448fc14",
+   "bytes": 222792
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "dd2e79b26a",
-   "bytes": 118814
+   "v": "6bb0fcdfe7",
+   "bytes": 119356
   },
   "kitchen_sink.glb": {
    "v": "5cbcc760bd",
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "16573e96e6",
-   "bytes": 106002
+   "v": "bd59fe5db0",
+   "bytes": 106260
   },
   "pipes.json": {
    "v": "32158dbd5c",
@@ -564,7 +564,7 @@
    "bytes": 36388
   },
   "pipes_groups.json": {
-   "v": "67523f4265",
+   "v": "366a1f38bd",
    "bytes": 99978
   },
   "pipes_hvac__common.glb": {
@@ -1304,8 +1304,8 @@
    "bytes": 12896
   },
   "pipes_supply__water_heater__ccb79a87.glb": {
-   "v": "b009099ce1",
-   "bytes": 25660
+   "v": "a0187c2adc",
+   "bytes": 22632
   },
   "pipes_supply__water_heater__d9ba3d83.glb": {
    "v": "3dc9a61e04",
@@ -1320,8 +1320,8 @@
    "bytes": 18484
   },
   "pipes_supply__water_heater__e94b438d.glb": {
-   "v": "6c50d1a8db",
-   "bytes": 52360
+   "v": "7ab22de5c5",
+   "bytes": 42896
   },
   "pipes_supply__water_heater__eb76e280.glb": {
    "v": "b0c03dd31c",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "02ecc96aa2",
-   "bytes": 191439
+   "v": "7f6ac634cd",
+   "bytes": 192231
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -2260,12 +2260,12 @@
    "bytes": 365104
   },
   "thermostatic_mixing_valve.glb": {
-   "v": "0e38ab0684",
-   "bytes": 685976
+   "v": "436340f169",
+   "bytes": 687044
   },
   "thermostatic_mixing_valve_pex.glb": {
-   "v": "311ce9786a",
-   "bytes": 980280
+   "v": "a378ac431c",
+   "bytes": 905992
   },
   "toilet.glb": {
    "v": "7e5945a9bc",

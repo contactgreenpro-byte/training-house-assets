@@ -4887,6 +4887,13 @@
    },
    "tmv_recirc_pipe": {
     "work": "mix"
+   },
+   "mixed_drop": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "tmv_recirc_board": {
+    "work": "mix"
    }
   },
   "thermostatic_mixing_valve_pex.glb": {
@@ -5010,6 +5017,31 @@
    },
    "tmv_recirc_pipe": {
     "work": "mix"
+   },
+   "mixed_line": {
+    "work": "mix"
+   },
+   "mixed_drop": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "tmv_recirc_board": {
+    "work": "mix"
+   },
+   "cold_crimp_90_c": {
+    "work": "mix"
+   },
+   "cold_crimp_90_d": {
+    "work": "mix",
+    "look": "section"
+   },
+   "cold_tube_e": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "cold_tube_f": {
+    "work": "mix",
+    "look": "cut"
    }
   },
   "air_quality_monitor.glb": {

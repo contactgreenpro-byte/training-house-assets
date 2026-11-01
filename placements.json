@@ -3876,7 +3876,8 @@
     "ctx_house_hot_drop",
     "tmv_recirc_pump",
     "tmv_recirc_unions",
-    "tmv_recirc_pipe"
+    "tmv_recirc_pipe",
+    "tmv_recirc_board"
    ],
    "states": [
     "element_failed",
@@ -3903,15 +3904,18 @@
      "tmv_fiber_washer_mix"
     ]
    },
-   "note": "Round 89 (Jake: anti-scald / thermostatic mixing valve, definitely). Watts LFMMVM1-CPVC on either attic tank (the nipples are the same). The house hot starts in the valve's mixed outlet coupling when mixing_valve=yes (pipe_supply_hot_wh_attic_tmv); the cold tee sleeves over the whole cold riser. Galvanized gets no valve: a written recommendation only (thermostatic_mixing_valve/HANDOFF.md). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's).",
+   "note": "Round 89 (Jake: anti-scald / thermostatic mixing valve, definitely). Watts LFMMVM1-CPVC on either attic tank (the nipples are the same). The house hot starts in the valve's mixed outlet coupling when mixing_valve=yes (pipe_supply_hot_wh_attic_tmv); the cold tee sleeves over the whole cold riser. Galvanized gets no valve: a written recommendation only (thermostatic_mixing_valve/HANDOFF.md). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's). Round 105c (Jake 2026-11-01, on the stills): the valve sits ON TOP of the heater on the hot outlet (hot straight up into H, the cold down into C from a tee on the cold line, the mixed forward and down to the same coupling); the pump on the drop is strapped to a plywood pump board on a 2x4 post, not hung on the pipe.",
    "addon": {
     "recirc_pump": {
      "show": [
       "tmv_recirc_pump",
       "tmv_recirc_unions",
-      "tmv_recirc_pipe"
+      "tmv_recirc_pipe",
+      "tmv_recirc_board"
      ],
-     "hide": []
+     "hide": [
+      "mixed_drop"
+     ]
     }
    }
   },
@@ -3933,7 +3937,8 @@
     "ctx_house_hot_drop",
     "tmv_recirc_pump",
     "tmv_recirc_unions",
-    "tmv_recirc_pipe"
+    "tmv_recirc_pipe",
+    "tmv_recirc_board"
    ],
    "states": [
     "element_failed",
@@ -3946,13 +3951,11 @@
    "section_set": {
     "pairs": {
      "tmv_body": "tmv_body_section",
-     "hot_crimp_90_lo": "crimp_joint_section"
+     "cold_crimp_90_d": "crimp_joint_section"
     },
     "also_hide": [
      "tmv_bonnet",
      "tmv_unions",
-     "hot_tube_drop",
-     "hot_tube_in",
      "tmv_cap",
      "tmv_bonnet_oring",
      "tmv_seat_cold",
@@ -3960,18 +3963,23 @@
      "tmv_funnel",
      "tmv_filter_washer_hot",
      "tmv_filter_washer_cold",
-     "tmv_fiber_washer_mix"
+     "tmv_fiber_washer_mix",
+     "cold_tube_e",
+     "cold_tube_f"
     ]
    },
-   "note": "Round 89 (Jake 2026-09-23: the PEX variant, highest quality, real fittings and joints). Watts LFMMVM1-PEX with its own 18 in stainless connector off the hot nipple (the house's hot connector steps aside, mixing_valve=no on it); the house PEX cold riser is cut at the valve's crimp tee (pipe_supply_cold_riser_tmv_lo/hi__pex) and the house hot starts on the coupling (pipe_supply_hot_wh_attic_tmv__pex). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's).",
+   "note": "Round 89 (Jake 2026-09-23: the PEX variant, highest quality, real fittings and joints). Watts LFMMVM1-PEX with its own 18 in stainless connector off the hot nipple (the house's hot connector steps aside, mixing_valve=no on it); the house PEX cold riser is cut at the valve's crimp tee (pipe_supply_cold_riser_tmv_lo/hi__pex) and the house hot starts on the coupling (pipe_supply_hot_wh_attic_tmv__pex). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's). Round 105c (Jake 2026-11-01, on the stills): the valve sits ON TOP of the heater on the hot outlet (hot straight up into H, the cold down into C from a tee on the cold line, the mixed forward and down to the same coupling); the pump on the drop is strapped to a plywood pump board on a 2x4 post, not hung on the pipe.",
    "addon": {
     "recirc_pump": {
      "show": [
       "tmv_recirc_pump",
       "tmv_recirc_unions",
-      "tmv_recirc_pipe"
+      "tmv_recirc_pipe",
+      "tmv_recirc_board"
      ],
-     "hide": []
+     "hide": [
+      "mixed_drop"
+     ]
     }
    }
   },
