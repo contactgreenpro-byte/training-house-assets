@@ -408,6 +408,7 @@
   const placedColliders = [];
   async function reconfigure() {
     await bootDone;     // round 60: you can be let in before the pipes and placements.json have arrived, and this needs both
+    addonGuard();     // round 105: a layout that cannot have the mixing valve (a tankless) switches it off before its pipes are chosen
     await loadPipeParts();     // round 99 (speed lever 1): the pipe parts this layout needs and does not have yet, before anything is taken down
     for (const c of [...equip.children]) equip.remove(c);
     for (const o of placedColliders) { const i = colliders.indexOf(o); if (i >= 0) colliders.splice(i, 1); }
@@ -423,6 +424,7 @@
     status.textContent = 'placing what is in reach'; await placeNearest(6);
     status.textContent = 'ready: ' + Object.keys(sockets).length + ' sockets, ' + equip.children.length + ' placed, ' + PEND.length + ' load as you go';
     pumpsOnByDefault();
+    if (window.__drawAddons) window.__drawAddons();     // round 105
   }
   // Round 23 (Jake: 'we should have one cutaway, and that's what we see. Clicking more shouldn't remove more parts unless it's very
   // specifically told ... make a very good list of what's actually removable in the app and what isn't'): interactions.json IS that
@@ -734,6 +736,7 @@
     try { INFO = await J_if; } catch (e) { INFO = { packs: {} }; }
     try { CHECKS = (await J_ch).packs || {}; } catch (e) { CHECKS = {}; }
     try { const pj = await J_pa; PARTS = pj.parts || {}; PART_PREFIX = Object.entries(pj._prefix || {}); } catch (e) { PARTS = {}; PART_PREFIX = []; }     // round 87: the card a tapped part shows     // round 39: what it is, how it works, what we check     // cache busted like the models: a stale placements file hid a new key for a whole test (round 19)
+    addonGuard(); if (window.__drawAddons) window.__drawAddons();     // round 105: placements are in, so the add ons list can say what fits
     queuePlacements(placements.placements.filter(wants));
     status.textContent = 'placing what is in reach'; holdStep = HOLD_STEP_DURING_BOOT; try { await placeNearest(6); } finally { holdStep = false; }
     pumpsOnByDefault();
@@ -4468,6 +4471,11 @@
     try { return ((placements && placements.placements) || []).some(pl => pl.model && (pl.addon && pl.addon[k] ? wants(pl) : (String(pl.config || '').indexOf(k + '=') >= 0 && wants(pl)))); }
     finally { CONFIG[k] = was; }
   }
+  // round 105 (Jake 2026-11-01: the mixing valve goes on tank water heaters only, never a tankless): an add on in this set is offered in the
+  // list only where switching it on would place something in this layout, and a layout that cannot have it switches it off (the list is
+  // drawn again after every layout change, window.__drawAddons)
+  const ADDON_WHERE_PLACED = new Set(['mixing_valve']);
+  function addonGuard() { for (const k of ADDON_WHERE_PLACED) if (CONFIG[k] === 'yes' && !addonFits(k)) CONFIG[k] = 'no'; }
   const ADDONS = [
     ['reverse_osmosis', 'Reverse osmosis under the kitchen sink'],
     ['soft_start', 'Soft start on the condenser'],
@@ -4484,7 +4492,7 @@
     ['hammer_arrestors', 'Water hammer arrestors at the washer box'],
     ['scale_inhibitor', 'Scale inhibitor at the water heater'],
     // round 89 integration: the add on models built 2026-09-23
-    ['mixing_valve', 'Thermostatic mixing valve at the attic water heater'],
+    ['mixing_valve', 'Thermostatic mixing valve at the attic tank water heater (tank heaters only)'],
     ['surge_wh', 'Surge protector on the attic electric water heater'],
     ['iaq_monitor', 'Air quality monitor on the hall wall'],
     ['media_cabinet', 'Media air cleaner under the furnace (80%)'],
@@ -4507,6 +4515,7 @@
     const draw = () => {
       host.innerHTML = '';
       for (const [k, lab] of ADDONS) {
+        if (ADDON_WHERE_PLACED.has(k) && CONFIG[k] !== 'yes' && !addonFits(k)) continue;     // round 105
         const row = document.createElement('div'); row.className = 'addon';
         const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = lab; row.appendChild(nm);
         const b = document.createElement('button'); const on = CONFIG[k] === 'yes';
@@ -4518,7 +4527,7 @@
         row.appendChild(b); host.appendChild(row);
       }
     };
-    draw();
+    draw(); window.__drawAddons = draw;     // round 105: drawn again after a layout change
   })();
   // Round 60, "What can I do here" (Jake: "it's not very conducive to someone being like, what's capable with this app?"). One tap
   // and every unit within 9 m in front of you wears its name for six seconds. A tap on a name is a click on that unit: it takes

@@ -3878,10 +3878,10 @@
    "states": [
     "element_failed",
     "shuttle_stuck",
-    "packets_hot",
-    "packets_cold",
-    "packets_mixed",
-    "packets_scald"
+    "packets_hot_pivot",
+    "packets_cold_pivot",
+    "packets_mixed_pivot",
+    "packets_scald_pivot"
    ],
    "section_set": {
     "pairs": {
@@ -3889,10 +3889,18 @@
     },
     "also_hide": [
      "tmv_bonnet",
-     "tmv_unions"
+     "tmv_unions",
+     "tmv_cap",
+     "tmv_bonnet_oring",
+     "tmv_seat_cold",
+     "tmv_seat_hot",
+     "tmv_funnel",
+     "tmv_filter_washer_hot",
+     "tmv_filter_washer_cold",
+     "tmv_fiber_washer_mix"
     ]
    },
-   "note": "Round 89 (Jake: anti-scald / thermostatic mixing valve, definitely). Watts LFMMVM1-CPVC on either attic tank (the nipples are the same). The house hot starts in the valve's mixed outlet coupling when mixing_valve=yes (pipe_supply_hot_wh_attic_tmv); the cold tee sleeves over the whole cold riser. Galvanized gets no valve: a written recommendation only (thermostatic_mixing_valve/HANDOFF.md)."
+   "note": "Round 89 (Jake: anti-scald / thermostatic mixing valve, definitely). Watts LFMMVM1-CPVC on either attic tank (the nipples are the same). The house hot starts in the valve's mixed outlet coupling when mixing_valve=yes (pipe_supply_hot_wh_attic_tmv); the cold tee sleeves over the whole cold riser. Galvanized gets no valve: a written recommendation only (thermostatic_mixing_valve/HANDOFF.md). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless."
   },
   {
    "socket": "sock_wh_attic",
@@ -3914,10 +3922,10 @@
    "states": [
     "element_failed",
     "shuttle_stuck",
-    "packets_hot",
-    "packets_cold",
-    "packets_mixed",
-    "packets_scald"
+    "packets_hot_pivot",
+    "packets_cold_pivot",
+    "packets_mixed_pivot",
+    "packets_scald_pivot"
    ],
    "section_set": {
     "pairs": {
@@ -3928,10 +3936,18 @@
      "tmv_bonnet",
      "tmv_unions",
      "hot_tube_drop",
-     "hot_tube_in"
+     "hot_tube_in",
+     "tmv_cap",
+     "tmv_bonnet_oring",
+     "tmv_seat_cold",
+     "tmv_seat_hot",
+     "tmv_funnel",
+     "tmv_filter_washer_hot",
+     "tmv_filter_washer_cold",
+     "tmv_fiber_washer_mix"
     ]
    },
-   "note": "Round 89 (Jake 2026-09-23: the PEX variant, highest quality, real fittings and joints). Watts LFMMVM1-PEX with its own 18 in stainless connector off the hot nipple (the house's hot connector steps aside, mixing_valve=no on it); the house PEX cold riser is cut at the valve's crimp tee (pipe_supply_cold_riser_tmv_lo/hi__pex) and the house hot starts on the coupling (pipe_supply_hot_wh_attic_tmv__pex)."
+   "note": "Round 89 (Jake 2026-09-23: the PEX variant, highest quality, real fittings and joints). Watts LFMMVM1-PEX with its own 18 in stainless connector off the hot nipple (the house's hot connector steps aside, mixing_valve=no on it); the house PEX cold riser is cut at the valve's crimp tee (pipe_supply_cold_riser_tmv_lo/hi__pex) and the house hot starts on the coupling (pipe_supply_hot_wh_attic_tmv__pex). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless."
   },
   {
    "socket": "sock_stat_hall",

@@ -692,21 +692,21 @@
    ]
   },
   "thermostatic_mixing_valve": {
-   "what": "A thermostatic mixing valve on the water heater's hot outlet. The tank can be kept hot so you never run out while the valve tempers the water down to around 120 before it reaches the taps, so nobody gets scalded.",
-   "how": "Hot from the tank and cold from the supply meet in the valve. A wax element slides a shuttle between the two seats so the water leaving is held at the set temperature, even with the tank turned up. Unions let it come out without cutting pipe.",
+   "what": "A thermostatic mixing valve on the water heater's hot outlet. The tank can be kept hot so you never run out while the valve tempers the water down to 125 before it reaches the taps, so nobody gets scalded.",
+   "how": "Hot from the tank and cold from the supply meet in the valve. A wax element slides a shuttle between the two seats so the water leaving is held at the set temperature, even with the tank turned up. Union nuts behind its push to connect ends let it come out without cutting pipe.",
    "checks": [
     "Thermostatic mixing valve on the hot outlet: present and holding temper at the tap",
-    "Temperature setting: 120 at the tap, the tank can run hotter",
+    "Temperature setting: 125 at the tap, the tank can run hotter",
     "Anti scald protection: a toilet flush cannot send a scald to the shower",
     "Piping at the valve: H the hot inlet, C the cold inlet, M the mixed outlet, the cold check in"
    ]
   },
   "thermostatic_mixing_valve_pex": {
    "what": "A thermostatic mixing valve on the water heater's hot outlet, piped in PEX. The same anti scald protection, fed through an 18 inch stainless connector off the tank.",
-   "how": "Same valve: hot and cold meet, the wax element holds the mixed temperature. On PEX it is fed through the connector off the tank (no PEX in the first 18 inches off a water heater), with crimp fittings and copper rings on every joint.",
+   "how": "Same valve: hot and cold meet, the wax element holds the mixed temperature. On PEX it is fed through the connector off the tank (no PEX in the first 18 inches off a water heater), with crimp fittings and copper rings on its joints and the tube pushed straight into the valve's three ends.",
    "checks": [
     "Thermostatic mixing valve on the hot outlet: present and holding temper at the tap",
-    "Temperature setting: 120 at the tap, the tank can run hotter",
+    "Temperature setting: 125 at the tap, the tank can run hotter",
     "Anti scald protection: a toilet flush cannot send a scald to the shower",
     "Piping at the valve: H the hot inlet, C the cold inlet, M the mixed outlet, the cold check in",
     "Crimp joints: the ring 3/16 inch back from the tube end, crimped square"

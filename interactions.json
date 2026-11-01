@@ -4870,6 +4870,14 @@
    },
    "tmv_stem": {
     "work": "set_temp"
+   },
+   "cold_line_tee_side": {
+    "work": "mix",
+    "look": "cut"
+   },
+   "cold_line_valve_side": {
+    "work": "mix",
+    "look": "cut"
    }
   },
   "thermostatic_mixing_valve_pex.glb": {
@@ -4978,6 +4986,12 @@
    },
    "tmv_stem": {
     "work": "set_temp"
+   },
+   "hot_connector_flex": {
+    "work": "mix"
+   },
+   "hot_connector_nut": {
+    "work": "mix"
    }
   },
   "air_quality_monitor.glb": {

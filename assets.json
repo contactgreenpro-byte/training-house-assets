@@ -1,7 +1,7 @@
 {
- "published": "2026-10-31T12:47:44",
- "house": "r100a4i",
- "note": "r100a4i: check valve in the FlowSmart yard box, FlowSmart after a well's pressure tank, expansion tank switch on the tank heaters",
+ "published": "2026-11-01T01:37:44",
+ "house": "r100a4j",
+ "note": "r100a4j: the mixing valve we install (push to connect ends behind union nuts, blue ribbed cap, C and H with blue and red dots, M arrow down), set to 125 F, offered on tank heaters only",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -32,8 +32,8 @@
    "bytes": 684072
   },
   "checklists.json": {
-   "v": "25aaf18a6a",
-   "bytes": 58414
+   "v": "f644409599",
+   "bytes": 58499
   },
   "clamp_meter.glb": {
    "v": "5262a30852",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "52aea5253f",
+   "v": "2cfa04bdf3",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -268,16 +268,16 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "2deb7e16b3",
-   "bytes": 220037
+   "v": "4f4441dd54",
+   "bytes": 220780
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "e06f06b2ad",
-   "bytes": 118247
+   "v": "4f9840a7ea",
+   "bytes": 118504
   },
   "kitchen_sink.glb": {
    "v": "5cbcc760bd",
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "e8402ddf9b",
-   "bytes": 105409
+   "v": "24f230fe40",
+   "bytes": 105624
   },
   "pipes.json": {
    "v": "32158dbd5c",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "eb557da9c3",
-   "bytes": 189509
+   "v": "2c44cae54e",
+   "bytes": 190429
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -2260,12 +2260,12 @@
    "bytes": 365104
   },
   "thermostatic_mixing_valve.glb": {
-   "v": "ca0ebe8c26",
-   "bytes": 432996
+   "v": "4c58dee1ab",
+   "bytes": 568636
   },
   "thermostatic_mixing_valve_pex.glb": {
-   "v": "5ee1168cb1",
-   "bytes": 747036
+   "v": "fdce3d2b30",
+   "bytes": 855920
   },
   "toilet.glb": {
    "v": "7e5945a9bc",
@@ -2276,8 +2276,8 @@
    "bytes": 1108804
   },
   "walk.js": {
-   "v": "a91ffa1e84",
-   "bytes": 446746
+   "v": "b9b7ad7b9c",
+   "bytes": 447836
   },
   "washer.glb": {
    "v": "7e04f19827",

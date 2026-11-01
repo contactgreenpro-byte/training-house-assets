@@ -2905,43 +2905,43 @@
    "clips": {
     "mix": "Hot and cold in, tempered out",
     "cap_off": "Take the cap off",
-    "set_temp": "Set the temperature",
+    "set_temp": "Set the temperature (125 F)",
     "scald": "Failed element: scald"
    },
    "hotspots": {
     "tmv_body": [
-     "Mixing valve at the heater. The tank can store water hot enough to kill bacteria, and every tap still gets 120 F or less."
+     "Mixing valve at the heater. The tank can store water hot enough to kill bacteria, and every tap still gets 125 F or less."
     ],
     "tmv_marks": [
-     "Read the marks: hot to H, cold to C, M goes to the house. A valve piped hot to C sends cold to the taps and scalds on a cold tank."
+     "Read the marks: hot to H (the red dot), cold to C (the blue dot), M and its arrow go to the house. A valve piped hot to C sends cold to the taps and scalds on a cold tank."
     ],
     "cold_check": [
      "Cold teed off the supply with a check, arrow toward the valve. No check and hot creeps back into the cold lines."
     ],
     "tmv_cap": [
-     "Setting: run the nearest tap two minutes, read it with a thermometer, adjust under the cap, lock the cap back down."
+     "Setting: 125 F at the nearest tap. Run it two minutes, read it with a thermometer, lift the blue cap and turn it (counterclockwise is hotter), push it back down."
     ],
     "mixed_coupling": [
-     "Test it: tap temperature steady near the set point with the tank at 140. Tap as hot as the tank means the element has failed."
+     "Test it: tap temperature steady at 125 with the tank at 140. Tap as hot as the tank means the element has failed."
     ],
     "tmv_unions": [
-     "Unions both inlets and the outlet: shut the water off, open the unions, and the valve comes out to clean the screens or swap the cartridge."
+     "Push to connect on all three ports, a union nut behind each: shut the water off, open the nuts, and the valve comes out to clean the screens or swap the cartridge. Push the yellow collar in to free a pipe."
     ]
    },
    "labels": {
-    "tmv_body": "Thermostatic mixing valve, 3/4 in, at the heater. Hot in one side, cold in the other, tempered water out the bottom to the house",
-    "tmv_marks": "Cast marks: H is the hot inlet, C the cold inlet, M and the arrow the mixed outlet. Piped backwards, it cannot work",
-    "tmv_bonnet": "Bonnet with the setting scale, 80 to 120 F",
-    "tmv_cap": "Locking adjustment cap. Loosen the screw on top and lift it off to reach the stem",
-    "tmv_stem": "Adjusting stem: counterclockwise is hotter, clockwise is cooler. Set it by the thermometer at the nearest tap, not by the marks",
-    "tmv_unions": "Union ends: the valve comes out without cutting pipe. Filter washers and checks sit behind them",
+    "tmv_body": "Thermostatic mixing valve, 3/4 in brass, push to connect, at the heater. Hot in one side, cold in the other, 125 F water out the bottom to the house",
+    "tmv_marks": "Cast marks: H and the red dot the hot inlet, C and the blue dot the cold inlet, M and the arrow the mixed outlet. Piped backwards, it cannot work",
+    "tmv_bonnet": "Bonnet with the setting scale under the cap, 80 to 130 F, set to 125",
+    "tmv_cap": "Blue adjustment cap: loosen the screw in its top, lift it and turn it. Counterclockwise is hotter",
+    "tmv_stem": "Adjusting stem: counterclockwise is hotter, clockwise is cooler. Set it by the thermometer at the nearest tap, not by the marks: 125 F",
+    "tmv_unions": "Push to connect ends behind union nuts: push the yellow collar in to free a pipe, open the nuts and the valve comes out without cutting pipe. Filter washers and checks sit behind them",
     "tmv_internals": "Seats, springs, the check valves in both inlets and the filter washers",
     "tmv_element": "Wax thermostat: it swells in hotter water and moves the shuttle toward the hot seat",
     "tmv_shuttle": "Shuttle between the hot seat and the cold seat: it throttles both at once to hold the set temperature",
     "tmv_body_section": "Valve cut open: the shuttle between its two seats, the wax element under it, the inlet checks",
     "element_failed": "Failed element: split, wax gone. It no longer swells, so nothing pushes the shuttle off the hot seat",
     "shuttle_stuck": "Shuttle jammed up on the cold seat: the hot is wide open and the cold is shut",
-    "hot_line": "3/4 in CPVC hot from the heater's hot outlet, over the tank top and down into the HOT port",
+    "hot_line": "3/4 in CPVC hot from the heater's hot outlet, over the tank top and down into the HOT push end",
     "cold_tee": "Tee on the cold supply above the heater's shutoff: the cold for the mixing valve",
     "cold_line": "3/4 in CPVC cold from the tee around to the COLD port",
     "cold_check": "Spring check on the cold feed, arrow toward the valve: hot cannot push back into the cold line",
@@ -2949,7 +2949,7 @@
     "mixed_coupling": "Where the house hot line picks up the tempered water",
     "packets_hot": "Hot from the tank",
     "packets_cold": "Cold from the supply",
-    "packets_mixed": "Tempered water to the taps",
+    "packets_mixed": "125 F water to the taps",
     "packets_scald": "Tank temperature going straight to the taps"
    }
   },
@@ -2958,27 +2958,27 @@
    "clips": {
     "mix": "Hot and cold in, tempered out",
     "cap_off": "Take the cap off",
-    "set_temp": "Set the temperature",
+    "set_temp": "Set the temperature (125 F)",
     "scald": "Failed element: scald"
    },
    "hotspots": {
     "tmv_body": [
-     "Mixing valve at the heater. The tank can store water hot enough to kill bacteria, and every tap still gets 120 F or less."
+     "Mixing valve at the heater. The tank can store water hot enough to kill bacteria, and every tap still gets 125 F or less."
     ],
     "tmv_marks": [
-     "Read the marks: hot to H, cold to C, M goes to the house. A valve piped hot to C sends cold to the taps and scalds on a cold tank."
+     "Read the marks: hot to H (the red dot), cold to C (the blue dot), M and its arrow go to the house. A valve piped hot to C sends cold to the taps and scalds on a cold tank."
     ],
     "cold_check": [
      "Cold teed off the supply with a check, arrow toward the valve. No check and hot creeps back into the cold lines."
     ],
     "tmv_cap": [
-     "Setting: run the nearest tap two minutes, read it with a thermometer, adjust under the cap, lock the cap back down."
+     "Setting: 125 F at the nearest tap. Run it two minutes, read it with a thermometer, lift the blue cap and turn it (counterclockwise is hotter), push it back down."
     ],
     "mixed_coupling": [
-     "Test it: tap temperature steady near the set point with the tank at 140. Tap as hot as the tank means the element has failed."
+     "Test it: tap temperature steady at 125 with the tank at 140. Tap as hot as the tank means the element has failed."
     ],
     "tmv_unions": [
-     "Unions both inlets and the outlet: shut the water off, open the unions, and the valve comes out to clean the screens or swap the cartridge."
+     "Push to connect on all three ports, a union nut behind each: shut the water off, open the nuts, and the valve comes out to clean the screens or swap the cartridge. Push the yellow collar in to free a pipe."
     ],
     "hot_connector": [
      "Stainless connector off the hot outlet, then PEX: the first 18 in off a water heater is metal."
@@ -2988,12 +2988,12 @@
     ]
    },
    "labels": {
-    "tmv_body": "Thermostatic mixing valve, 3/4 in, at the heater. Hot in one side, cold in the other, tempered water out the bottom to the house",
-    "tmv_marks": "Cast marks: H is the hot inlet, C the cold inlet, M and the arrow the mixed outlet. Piped backwards, it cannot work",
-    "tmv_bonnet": "Bonnet with the setting scale, 80 to 120 F",
-    "tmv_cap": "Locking adjustment cap. Loosen the screw on top and lift it off to reach the stem",
-    "tmv_stem": "Adjusting stem: counterclockwise is hotter, clockwise is cooler. Set it by the thermometer at the nearest tap, not by the marks",
-    "tmv_unions": "Union ends with PEX crimp tails: the valve comes out without cutting tube. Filter washers and checks sit behind them",
+    "tmv_body": "Thermostatic mixing valve, 3/4 in brass, push to connect, at the heater. Hot in one side, cold in the other, 125 F water out the bottom to the house",
+    "tmv_marks": "Cast marks: H and the red dot the hot inlet, C and the blue dot the cold inlet, M and the arrow the mixed outlet. Piped backwards, it cannot work",
+    "tmv_bonnet": "Bonnet with the setting scale under the cap, 80 to 130 F, set to 125",
+    "tmv_cap": "Blue adjustment cap: loosen the screw in its top, lift it and turn it. Counterclockwise is hotter",
+    "tmv_stem": "Adjusting stem: counterclockwise is hotter, clockwise is cooler. Set it by the thermometer at the nearest tap, not by the marks: 125 F",
+    "tmv_unions": "Push to connect ends behind union nuts, the PEX pushed straight in: push the yellow collar in to free the tube, open the nuts and the valve comes out without cutting tube. Filter washers and checks sit behind them",
     "tmv_internals": "Seats, springs, the check valves in both inlets and the filter washers",
     "tmv_element": "Wax thermostat: it swells in hotter water and moves the shuttle toward the hot seat",
     "tmv_shuttle": "Shuttle between the hot seat and the cold seat: it throttles both at once to hold the set temperature",
@@ -3005,21 +3005,21 @@
     "mixed_coupling": "Crimp coupling where the house hot line picks up the tempered water",
     "packets_hot": "Hot from the tank",
     "packets_cold": "Cold from the supply",
-    "packets_mixed": "Tempered water to the taps",
+    "packets_mixed": "125 F water to the taps",
     "packets_scald": "Tank temperature going straight to the taps",
     "hot_connector": "18 in corrugated stainless water heater connector, FIP nut on the hot nipple, PEX barb on the far end. No PEX in the first 18 in off a water heater",
     "hot_tube_top": "Red PEX-B from the connector to the first crimp 90, a copper crimp ring at each end",
     "hot_crimp_90_hi": "Brass crimp 90: the turn is too tight to bend the tube (minimum bend about 5 in on 3/4)",
     "hot_tube_drop": "Red PEX-B down in front of the tank",
-    "hot_crimp_90_lo": "Brass crimp 90 into the HOT tail",
-    "hot_tube_in": "Red PEX-B into the valve's hot tail",
+    "hot_crimp_90_lo": "Brass crimp 90 toward the HOT port",
+    "hot_tube_in": "Red PEX-B pushed into the valve's hot push end (no ring there)",
     "cold_tube_a": "Blue PEX-B from the tee to the check",
     "cold_tube_b": "Blue PEX-B out to the front",
     "cold_crimp_90_a": "Brass crimp 90",
     "cold_tube_c": "Blue PEX-B across the front, held in a tube talon",
-    "cold_crimp_90_b": "Brass crimp 90 into the COLD tail",
-    "cold_tube_d": "Blue PEX-B into the valve's cold tail",
-    "mixed_tube": "Red PEX-B, tempered water down off the outlet tail",
+    "cold_crimp_90_b": "Brass crimp 90 toward the COLD port",
+    "cold_tube_d": "Blue PEX-B pushed into the valve's cold push end (no ring there)",
+    "mixed_tube": "Red PEX-B, 125 F water down out of the outlet's push end",
     "pex_supports": "2x4 stakes toe nailed to the platform with nail on tube talons: the valve and its tube are carried, not hanging on the fittings",
     "crimp_joint_section": "Crimp joints cut open: the tube over the barb ribs, butted to the shoulder, the copper ring 3/16 in back from the tube end, crimped down"
    }
