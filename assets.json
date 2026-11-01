@@ -1,7 +1,7 @@
 {
- "published": "2026-11-01T01:37:44",
- "house": "r100a4j",
- "note": "r100a4j: the mixing valve we install (push to connect ends behind union nuts, blue ribbed cap, C and H with blue and red dots, M arrow down), set to 125 F, offered on tank heaters only",
+ "published": "2026-11-01T02:01:12",
+ "house": "r100a4k",
+ "note": "r100a4k: the tank heaters' data plates dated March 2024 (electric Q0324 31902, gas Q0324 25847; Jake 2026-11-01: no house heater newer than about 2024), plate only, spliced into the live r99a heaters",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -72,8 +72,8 @@
    "bytes": 683672
   },
   "electric_tank_water_heater.glb": {
-   "v": "0220a6ee3f",
-   "bytes": 1540820
+   "v": "0f050f1fd9",
+   "bytes": 1540556
   },
   "electric_tankless_water_heater.glb": {
    "v": "f8bc9afdbd",
@@ -108,8 +108,8 @@
    "bytes": 1229536
   },
   "gas_tank_water_heater.glb": {
-   "v": "4d44bd76dd",
-   "bytes": 1900588
+   "v": "a8ae250967",
+   "bytes": 1900408
   },
   "gas_tankless_water_heater_condensing.glb": {
    "v": "da0ff9b3d7",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "2cfa04bdf3",
+   "v": "d4ad118045",
    "bytes": 41060
   },
   "induct_purifier.glb": {
