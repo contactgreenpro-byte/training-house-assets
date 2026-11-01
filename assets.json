@@ -1,7 +1,7 @@
 {
- "published": "2026-11-01T05:49:37",
- "house": "r100a4m",
- "note": "r100a4m: the mixing valve on top of the water heater (hot straight up into it, cold down from a tee on the cold line, mixed forward and down), the recirculation pump strapped to a pump board on a 2x4 post",
+ "published": "2026-11-01T07:32:16",
+ "house": "r100a4n",
+ "note": "r100a4n: the mixing valve set to 120 F at the taps with the tank at 145 F (the scale's red tick and the stem's pointer on 120; the labels, cards and checklists say 120 and 145; Jake's approved video scripts 2026-11-01)",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -32,7 +32,7 @@
    "bytes": 684072
   },
   "checklists.json": {
-   "v": "8501b6fb48",
+   "v": "b80ae54f04",
    "bytes": 58701
   },
   "clamp_meter.glb": {
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "3b73f56a74",
+   "v": "2bc1074aee",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -268,7 +268,7 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "381448fc14",
+   "v": "7f4c234e9b",
    "bytes": 222792
   },
   "inter-latin.woff2": {
@@ -320,7 +320,7 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "bd59fe5db0",
+   "v": "03c60936ca",
    "bytes": 106260
   },
   "pipes.json": {
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "7f6ac634cd",
-   "bytes": 192231
+   "v": "5576cc7528",
+   "bytes": 192423
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -2260,12 +2260,12 @@
    "bytes": 365104
   },
   "thermostatic_mixing_valve.glb": {
-   "v": "436340f169",
-   "bytes": 687044
+   "v": "f12e7503ee",
+   "bytes": 687288
   },
   "thermostatic_mixing_valve_pex.glb": {
-   "v": "a378ac431c",
-   "bytes": 905992
+   "v": "3350366df7",
+   "bytes": 918060
   },
   "toilet.glb": {
    "v": "7e5945a9bc",
