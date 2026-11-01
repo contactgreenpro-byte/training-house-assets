@@ -698,7 +698,8 @@
     "Thermostatic mixing valve on the hot outlet: present and holding temper at the tap",
     "Temperature setting: 125 at the tap, the tank can run hotter",
     "Anti scald protection: a toilet flush cannot send a scald to the shower",
-    "Piping at the valve: H the hot inlet, C the cold inlet, M the mixed outlet, the cold check in"
+    "Piping at the valve: H the hot inlet, C the cold inlet, M the mixed outlet, the cold check in",
+    "Recirculation pump, if there is one: after the mixing valve, so the loop carries 125 F water"
    ]
   },
   "thermostatic_mixing_valve_pex": {
@@ -709,7 +710,8 @@
     "Temperature setting: 125 at the tap, the tank can run hotter",
     "Anti scald protection: a toilet flush cannot send a scald to the shower",
     "Piping at the valve: H the hot inlet, C the cold inlet, M the mixed outlet, the cold check in",
-    "Crimp joints: the ring 3/16 inch back from the tube end, crimped square"
+    "Crimp joints: the ring 3/16 inch back from the tube end, crimped square",
+    "Recirculation pump, if there is one: after the mixing valve, so the loop carries 125 F water"
    ]
   },
   "air_quality_monitor": {

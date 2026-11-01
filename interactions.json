@@ -4878,6 +4878,15 @@
    "cold_line_valve_side": {
     "work": "mix",
     "look": "cut"
+   },
+   "tmv_recirc_pump": {
+    "work": "mix"
+   },
+   "tmv_recirc_unions": {
+    "work": "mix"
+   },
+   "tmv_recirc_pipe": {
+    "work": "mix"
    }
   },
   "thermostatic_mixing_valve_pex.glb": {
@@ -4991,6 +5000,15 @@
     "work": "mix"
    },
    "hot_connector_nut": {
+    "work": "mix"
+   },
+   "tmv_recirc_pump": {
+    "work": "mix"
+   },
+   "tmv_recirc_unions": {
+    "work": "mix"
+   },
+   "tmv_recirc_pipe": {
     "work": "mix"
    }
   },

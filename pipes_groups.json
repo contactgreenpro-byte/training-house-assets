@@ -501,8 +501,8 @@
     {
      "file": "pipes_supply__water_heater__ccb79a87.glb",
      "tag": "water_heater=attic_gas_tank|attic_electric_tank&plumbing=cpvc&mixing_valve=yes",
-     "nodes": 3,
-     "bytes": 22632
+     "nodes": 4,
+     "bytes": 25660
     },
     {
      "file": "pipes_supply__water_heater__351c022b.glb",
@@ -555,8 +555,8 @@
     {
      "file": "pipes_supply__water_heater__e94b438d.glb",
      "tag": "water_heater=attic_gas_tank|attic_electric_tank&plumbing=pex&mixing_valve=yes",
-     "nodes": 4,
-     "bytes": 42896
+     "nodes": 5,
+     "bytes": 52360
     },
     {
      "file": "pipes_supply__water_heater__8e60832d.glb",

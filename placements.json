@@ -3873,7 +3873,10 @@
    "hide": [
     "tmv_context",
     "ctx_house_cold",
-    "ctx_house_hot_drop"
+    "ctx_house_hot_drop",
+    "tmv_recirc_pump",
+    "tmv_recirc_unions",
+    "tmv_recirc_pipe"
    ],
    "states": [
     "element_failed",
@@ -3900,7 +3903,17 @@
      "tmv_fiber_washer_mix"
     ]
    },
-   "note": "Round 89 (Jake: anti-scald / thermostatic mixing valve, definitely). Watts LFMMVM1-CPVC on either attic tank (the nipples are the same). The house hot starts in the valve's mixed outlet coupling when mixing_valve=yes (pipe_supply_hot_wh_attic_tmv); the cold tee sleeves over the whole cold riser. Galvanized gets no valve: a written recommendation only (thermostatic_mixing_valve/HANDOFF.md). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless."
+   "note": "Round 89 (Jake: anti-scald / thermostatic mixing valve, definitely). Watts LFMMVM1-CPVC on either attic tank (the nipples are the same). The house hot starts in the valve's mixed outlet coupling when mixing_valve=yes (pipe_supply_hot_wh_attic_tmv); the cold tee sleeves over the whole cold riser. Galvanized gets no valve: a written recommendation only (thermostatic_mixing_valve/HANDOFF.md). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's).",
+   "addon": {
+    "recirc_pump": {
+     "show": [
+      "tmv_recirc_pump",
+      "tmv_recirc_unions",
+      "tmv_recirc_pipe"
+     ],
+     "hide": []
+    }
+   }
   },
   {
    "socket": "sock_wh_attic",
@@ -3917,7 +3930,10 @@
    "hide": [
     "tmv_context",
     "ctx_house_cold",
-    "ctx_house_hot_drop"
+    "ctx_house_hot_drop",
+    "tmv_recirc_pump",
+    "tmv_recirc_unions",
+    "tmv_recirc_pipe"
    ],
    "states": [
     "element_failed",
@@ -3947,7 +3963,17 @@
      "tmv_fiber_washer_mix"
     ]
    },
-   "note": "Round 89 (Jake 2026-09-23: the PEX variant, highest quality, real fittings and joints). Watts LFMMVM1-PEX with its own 18 in stainless connector off the hot nipple (the house's hot connector steps aside, mixing_valve=no on it); the house PEX cold riser is cut at the valve's crimp tee (pipe_supply_cold_riser_tmv_lo/hi__pex) and the house hot starts on the coupling (pipe_supply_hot_wh_attic_tmv__pex). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless."
+   "note": "Round 89 (Jake 2026-09-23: the PEX variant, highest quality, real fittings and joints). Watts LFMMVM1-PEX with its own 18 in stainless connector off the hot nipple (the house's hot connector steps aside, mixing_valve=no on it); the house PEX cold riser is cut at the valve's crimp tee (pipe_supply_cold_riser_tmv_lo/hi__pex) and the house hot starts on the coupling (pipe_supply_hot_wh_attic_tmv__pex). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's).",
+   "addon": {
+    "recirc_pump": {
+     "show": [
+      "tmv_recirc_pump",
+      "tmv_recirc_unions",
+      "tmv_recirc_pipe"
+     ],
+     "hide": []
+    }
+   }
   },
   {
    "socket": "sock_stat_hall",

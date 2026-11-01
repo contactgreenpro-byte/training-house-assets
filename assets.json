@@ -1,7 +1,7 @@
 {
- "published": "2026-11-01T02:01:12",
- "house": "r100a4k",
- "note": "r100a4k: the tank heaters' data plates dated March 2024 (electric Q0324 31902, gas Q0324 25847; Jake 2026-11-01: no house heater newer than about 2024), plate only, spliced into the live r99a heaters",
+ "published": "2026-11-01T03:41:29",
+ "house": "r100a4l",
+ "note": "r100a4l: a recirculation pump after the mixing valve's mixed outlet (add on recirc_pump, with the valve only; the attic hot drop starts in the pump's lower union when it is in)",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -32,8 +32,8 @@
    "bytes": 684072
   },
   "checklists.json": {
-   "v": "f644409599",
-   "bytes": 58499
+   "v": "8501b6fb48",
+   "bytes": 58701
   },
   "clamp_meter.glb": {
    "v": "5262a30852",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "d4ad118045",
+   "v": "be7247016a",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -268,16 +268,16 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "4f4441dd54",
-   "bytes": 220780
+   "v": "196ffe0bed",
+   "bytes": 221902
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "4f9840a7ea",
-   "bytes": 118504
+   "v": "dd2e79b26a",
+   "bytes": 118814
   },
   "kitchen_sink.glb": {
    "v": "5cbcc760bd",
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "24f230fe40",
-   "bytes": 105624
+   "v": "16573e96e6",
+   "bytes": 106002
   },
   "pipes.json": {
    "v": "32158dbd5c",
@@ -564,7 +564,7 @@
    "bytes": 36388
   },
   "pipes_groups.json": {
-   "v": "366a1f38bd",
+   "v": "67523f4265",
    "bytes": 99978
   },
   "pipes_hvac__common.glb": {
@@ -1304,8 +1304,8 @@
    "bytes": 12896
   },
   "pipes_supply__water_heater__ccb79a87.glb": {
-   "v": "a0187c2adc",
-   "bytes": 22632
+   "v": "b009099ce1",
+   "bytes": 25660
   },
   "pipes_supply__water_heater__d9ba3d83.glb": {
    "v": "3dc9a61e04",
@@ -1320,8 +1320,8 @@
    "bytes": 18484
   },
   "pipes_supply__water_heater__e94b438d.glb": {
-   "v": "7ab22de5c5",
-   "bytes": 42896
+   "v": "6c50d1a8db",
+   "bytes": 52360
   },
   "pipes_supply__water_heater__eb76e280.glb": {
    "v": "b0c03dd31c",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "2c44cae54e",
-   "bytes": 190429
+   "v": "02ecc96aa2",
+   "bytes": 191439
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -2260,12 +2260,12 @@
    "bytes": 365104
   },
   "thermostatic_mixing_valve.glb": {
-   "v": "4c58dee1ab",
-   "bytes": 568636
+   "v": "0e38ab0684",
+   "bytes": 685976
   },
   "thermostatic_mixing_valve_pex.glb": {
-   "v": "fdce3d2b30",
-   "bytes": 855920
+   "v": "311ce9786a",
+   "bytes": 980280
   },
   "toilet.glb": {
    "v": "7e5945a9bc",
@@ -2276,8 +2276,8 @@
    "bytes": 1108804
   },
   "walk.js": {
-   "v": "b9b7ad7b9c",
-   "bytes": 447836
+   "v": "07f57deef2",
+   "bytes": 448345
   },
   "washer.glb": {
    "v": "7e04f19827",

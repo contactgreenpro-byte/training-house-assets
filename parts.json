@@ -924,7 +924,10 @@
   "whs_cover_screw_bottom": "Cover screw. 6-32 into the box's ear.",
   "whs_spd_locknut": "Locknut on the device's nipple, inside the box. Backed off, it drops to the box floor.",
   "whs_soot_box": "Soot on the box floor round the nipple. The device has failed, replace it.",
-  "whs_spd_nipple_section": "Cut open. The three leads run up the nipple's bore into the box."
+  "whs_spd_nipple_section": "Cut open. The three leads run up the nipple's bore into the box.",
+  "tmv_recirc_pump": "Recirculation pump after the mixing valve. It pushes 125 F water round the house loop, never tank temperature. Flow arrow down, motor shaft level.",
+  "tmv_recirc_unions": "Union ends on the recirculation pump. It comes out without cutting pipe.",
+  "tmv_recirc_pipe": "Pipe from the mixing valve's outlet down to the recirculation pump. 125 F water."
  },
  "_prefix": {
   "breaker_": "Branch breaker. Feeds one circuit. It trips on an overload or a short. An arc fault or GFCI breaker also has a test button.",

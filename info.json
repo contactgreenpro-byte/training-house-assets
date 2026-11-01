@@ -2926,6 +2926,9 @@
     ],
     "tmv_unions": [
      "Push to connect on all three ports, a union nut behind each: shut the water off, open the nuts, and the valve comes out to clean the screens or swap the cartridge. Push the yellow collar in to free a pipe."
+    ],
+    "tmv_recirc_pump": [
+     "The pump goes after the mixing valve, never before it: it moves tempered water, so the loop can never carry tank temperature to the taps. Arrow down toward the house, motor shaft level."
     ]
    },
    "labels": {
@@ -2950,7 +2953,10 @@
     "packets_hot": "Hot from the tank",
     "packets_cold": "Cold from the supply",
     "packets_mixed": "125 F water to the taps",
-    "packets_scald": "Tank temperature going straight to the taps"
+    "packets_scald": "Tank temperature going straight to the taps",
+    "tmv_recirc_pump": "Recirculation pump after the mixing valve: it pushes 125 F water round the house, never tank temperature. Flow arrow down, motor shaft level",
+    "tmv_recirc_unions": "Union ends on the pump: it comes out without cutting pipe",
+    "tmv_recirc_pipe": "125 F water from the mixing valve down to the pump"
    }
   },
   "thermostatic_mixing_valve_pex": {
@@ -2985,6 +2991,9 @@
     ],
     "hot_crimp_90_lo": [
      "Check every crimp with the go / no go gauge: ring square, 1/8 to 1/4 in back from the tube end, no gap at the shoulder."
+    ],
+    "tmv_recirc_pump": [
+     "The pump goes after the mixing valve, never before it: it moves tempered water, so the loop can never carry tank temperature to the taps. Arrow down toward the house, motor shaft level."
     ]
    },
    "labels": {
@@ -3021,7 +3030,10 @@
     "cold_tube_d": "Blue PEX-B pushed into the valve's cold push end (no ring there)",
     "mixed_tube": "Red PEX-B, 125 F water down out of the outlet's push end",
     "pex_supports": "2x4 stakes toe nailed to the platform with nail on tube talons: the valve and its tube are carried, not hanging on the fittings",
-    "crimp_joint_section": "Crimp joints cut open: the tube over the barb ribs, butted to the shoulder, the copper ring 3/16 in back from the tube end, crimped down"
+    "crimp_joint_section": "Crimp joints cut open: the tube over the barb ribs, butted to the shoulder, the copper ring 3/16 in back from the tube end, crimped down",
+    "tmv_recirc_pump": "Recirculation pump after the mixing valve: it pushes 125 F water round the house, never tank temperature. Flow arrow down, motor shaft level",
+    "tmv_recirc_unions": "Union ends on the pump: it comes out without cutting pipe",
+    "tmv_recirc_pipe": "125 F water from the mixing valve down to the pump"
    }
   },
   "air_quality_monitor": {

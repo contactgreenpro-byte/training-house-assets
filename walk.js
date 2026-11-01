@@ -185,7 +185,7 @@
     // round 89 integration (Jake 2026-09-23 build list): the new add on models, all off, and the commercial lot across the street
     mixing_valve: 'no', surge_wh: 'no', iaq_monitor: 'no', media_cabinet: 'no', purifier: 'no', erv: 'no', sludgehammer: 'no', freeze_cover: 'no', vacuum_breaker: 'no', commercial_lot: 'no',
     bidet: 'no', co_detector: 'no', uv_light: 'no', dehumidifier: 'no', fresh_air: 'no', hammer_arrestors: 'no', scale_inhibitor: 'no',
-    flowsmart: 'yes', irrigation: 'no', leak_sensor: 'no' };     // round 104 (Jake 2026-10-31): the YoLink FlowSmart in its yard box, the irrigation tee before it, its leak sensor; round 104b: the FlowSmart is on by default, everywhere (no more Moen Flo)     // round 89 (Jake 2026-09-23): parts the models already carry, now add ons, all off     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
+    flowsmart: 'yes', irrigation: 'no', leak_sensor: 'no', recirc_pump: 'no' };     // round 105b: the recirculation pump after the mixing valve     // round 104 (Jake 2026-10-31): the YoLink FlowSmart in its yard box, the irrigation tee before it, its leak sensor; round 104b: the FlowSmart is on by default, everywhere (no more Moen Flo)     // round 89 (Jake 2026-09-23): parts the models already carry, now add ons, all off     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
   // The septic plant, the tank, the sewer and the water service are all BURIED, so the ground gets its own switch.
   const GROUND = ['floor_terrain', 'floor_lot', 'floor_street', 'floor_patch_lawn', 'trim_riser_collar', 'site_mow_stripes', 'site_beds', 'site_shrubs', 'floor_driveway', 'floor_walkway', 'floor_crawl', 'soil', 'grass', 'backfill', 'fix_slab_house', 'fix_slab_garage', 'fix_leaveout_tub'];     // 2026-09-25: the slab too, so the drains and lines under it show
   let groundOn = true;
@@ -218,8 +218,8 @@
   // offered in a house; foundationSet() is the change that takes the layout to the other house, anything that does not fit there falling
   // back to that house's default.
   const FOUNDATION_ONLY = { plumbing: { cpvc: 'crawl', galvanized: 'crawl', copper: 'slab', attic_repipe: 'slab', pex_branch: 'slab' }, water_heater: { attic_gas_tank: 'crawl', attic_electric_tank: 'crawl', garage_gas_tank: 'slab' },
-    sump: { yes: 'crawl' }, shutoff_extra: { wall: 'crawl', attic: 'crawl' }, mixing_valve: { yes: 'crawl' }, surge_wh: { yes: 'crawl' } };
-  const FOUNDATION_DEFAULT = { slab: { plumbing: 'pex', water_heater: 'closet_gas_tank', sump: 'no', shutoff_extra: 'none', mixing_valve: 'no', surge_wh: 'no' },
+    sump: { yes: 'crawl' }, shutoff_extra: { wall: 'crawl', attic: 'crawl' }, mixing_valve: { yes: 'crawl' }, surge_wh: { yes: 'crawl' }, recirc_pump: { yes: 'crawl' } };
+  const FOUNDATION_DEFAULT = { slab: { plumbing: 'pex', water_heater: 'closet_gas_tank', sump: 'no', shutoff_extra: 'none', mixing_valve: 'no', surge_wh: 'no', recirc_pump: 'no' },
     crawl: { plumbing: 'cpvc', water_heater: 'attic_gas_tank' } };
   function fits(k, v, f) { const t = FOUNDATION_ONLY[k] && FOUNDATION_ONLY[k][v]; return !t || t === (f || CONFIG.foundation); }
   function foundationSet(f) { const out = {}; for (const k in CONFIG) if (!fits(k, CONFIG[k], f)) out[k] = (FOUNDATION_DEFAULT[f] || {})[k]; out.foundation = f; return out; }
@@ -4452,10 +4452,10 @@
   const ADDON_NAME = { reverse_osmosis: 'reverse osmosis system', soft_start: 'soft start', surge_condenser: 'surge protector', surge_panel: 'whole house surge protector', softener: 'water softener', filter: 'spray pump filter', expansion_tank: 'thermal expansion tank',
     bidet: 'bidet seat', co_detector: 'CO detector', uv_light: 'UV coil light', dehumidifier: 'whole home dehumidifier', fresh_air: 'fresh air duct', hammer_arrestors: 'water hammer arrestors', scale_inhibitor: 'scale inhibitor',
     mixing_valve: 'thermostatic mixing valve', surge_wh: 'water heater surge protector', iaq_monitor: 'air quality monitor', media_cabinet: 'media air cleaner', purifier: 'in duct air purifier', erv: 'ERV', sludgehammer: 'SludgeHammer', freeze_cover: 'hose bib freeze cover', vacuum_breaker: 'hose bib vacuum breaker',
-    flowsmart: 'YoLink FlowSmart', irrigation: 'irrigation tee', leak_sensor: 'leak sensor' };     // round 104
+    flowsmart: 'YoLink FlowSmart', irrigation: 'irrigation tee', leak_sensor: 'leak sensor', recirc_pump: 'recirculation pump' };     // round 104
   const UNIT_ADDONS = [[/condenser/, ['soft_start', 'surge_condenser']], [/electric_panel/, ['surge_panel']], [/kitchen_sink/, ['reverse_osmosis']], [/spray_pump_filter|septic_lee|aquaklear/, ['filter']], [/water_softener/, ['softener']],
     // round 89: the new add ons, offered on the unit they go on (addonFits keeps the offer to layouts where it would actually be placed)
-    [/gas_tank_water_heater|electric_tank_water_heater|thermostatic_mixing_valve/, ['mixing_valve']], [/electric_tank_water_heater|wh_surge_protector/, ['surge_wh']],
+    [/gas_tank_water_heater|electric_tank_water_heater|thermostatic_mixing_valve/, ['mixing_valve']], [/^thermostatic_mixing_valve/, ['recirc_pump']], [/electric_tank_water_heater|wh_surge_protector/, ['surge_wh']],
     [/^thermostat_|air_quality_monitor/, ['iaq_monitor']], [/hvac_furnace_std80|media_air_cleaner|induct_purifier/, ['media_cabinet', 'purifier']],
     [/hvac_furnace|hvac_air_handler|^erv/, ['erv']], [/septic_tank_risers|pump_tank_trash|sludgehammer/, ['sludgehammer']],
     [/^flowsmart/, ['irrigation', 'leak_sensor']],     // round 104: offered on the FlowSmart itself
@@ -4474,7 +4474,7 @@
   // round 105 (Jake 2026-11-01: the mixing valve goes on tank water heaters only, never a tankless): an add on in this set is offered in the
   // list only where switching it on would place something in this layout, and a layout that cannot have it switches it off (the list is
   // drawn again after every layout change, window.__drawAddons)
-  const ADDON_WHERE_PLACED = new Set(['mixing_valve']);
+  const ADDON_WHERE_PLACED = new Set(['mixing_valve', 'recirc_pump']);     // round 105b: the pump only with the valve in
   function addonGuard() { for (const k of ADDON_WHERE_PLACED) if (CONFIG[k] === 'yes' && !addonFits(k)) CONFIG[k] = 'no'; }
   const ADDONS = [
     ['reverse_osmosis', 'Reverse osmosis under the kitchen sink'],
@@ -4509,6 +4509,8 @@
     // round 104c (Jake 2026-10-31): the check valve in the FlowSmart's box closes the system, so the water heater needs its expansion tank;
     // the tank heaters have carried it as an add on block since round 46, but only a link could switch it on
     ['expansion_tank', 'Thermal expansion tank on the water heater (a check valve closes the system)'],
+    // round 105b (Jake 2026-11-01): the recirculation pump goes after the mixing valve, so it pushes mixed water round the house
+    ['recirc_pump', 'Recirculation pump after the mixing valve (with the mixing valve in)'],
   ];
   (() => {
     const host = document.getElementById('addons'); if (!host) return;
