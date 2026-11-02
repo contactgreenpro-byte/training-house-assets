@@ -1,7 +1,7 @@
 {
- "published": "2026-11-01T07:32:16",
- "house": "r100a4n",
- "note": "r100a4n: the mixing valve set to 120 F at the taps with the tank at 145 F (the scale's red tick and the stem's pointer on 120; the labels, cards and checklists say 120 and 145; Jake's approved video scripts 2026-11-01)",
+ "published": "2026-11-01T18:19:47",
+ "house": "r100a4o",
+ "note": "r100a4o: hot water recirculation. The crossover (add on recirc_pump): the pump after M with its dial timer, cord and outlet, a thermostatic crossover valve with four braided connectors under the hall bath sink (recirc_loop.glb). The dedicated return (add on recirc_return): pipe_supply_recirc_return_tank, ball valve, aquastat, pump, check and tee at the heater, to C and to the heater's cold inlet through a balancing valve. Clips recirc_flow, xover_close, wait_far_tap, cold_tap_warm, timer_set, return_flow, creep, balance, aquastat_off",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "2bc1074aee",
+   "v": "1223e91cd4",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -268,16 +268,16 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "7f4c234e9b",
-   "bytes": 222792
+   "v": "6c3bca9b1b",
+   "bytes": 231977
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "6bb0fcdfe7",
-   "bytes": 119356
+   "v": "31305f25d8",
+   "bytes": 123304
   },
   "kitchen_sink.glb": {
    "v": "5cbcc760bd",
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "03c60936ca",
-   "bytes": 106260
+   "v": "f5cb684e82",
+   "bytes": 109687
   },
   "pipes.json": {
    "v": "32158dbd5c",
@@ -564,8 +564,8 @@
    "bytes": 36388
   },
   "pipes_groups.json": {
-   "v": "366a1f38bd",
-   "bytes": 99978
+   "v": "13b947a7ed",
+   "bytes": 100422
   },
   "pipes_hvac__common.glb": {
    "v": "f2bb3860a1",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "5576cc7528",
-   "bytes": 192423
+   "v": "f45abc1be9",
+   "bytes": 203822
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -2260,12 +2260,12 @@
    "bytes": 365104
   },
   "thermostatic_mixing_valve.glb": {
-   "v": "f12e7503ee",
-   "bytes": 687288
+   "v": "efb8b431ad",
+   "bytes": 1220712
   },
   "thermostatic_mixing_valve_pex.glb": {
-   "v": "3350366df7",
-   "bytes": 918060
+   "v": "9a465c9a94",
+   "bytes": 1616968
   },
   "toilet.glb": {
    "v": "7e5945a9bc",
@@ -2276,8 +2276,8 @@
    "bytes": 1108804
   },
   "walk.js": {
-   "v": "07f57deef2",
-   "bytes": 448345
+   "v": "3a0d967a46",
+   "bytes": 450076
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -2486,6 +2486,22 @@
   "slab_pipes_supply__water__bf426e39.glb": {
    "v": "75801f69d8",
    "bytes": 11132
+  },
+  "pipes_supply__recirc_return__cpvc.glb": {
+   "v": "734da5fd37",
+   "bytes": 47828
+  },
+  "pipes_supply__recirc_return__pex.glb": {
+   "v": "50be355b3f",
+   "bytes": 57476
+  },
+  "recirc_loop.glb": {
+   "v": "e08e9ab1a8",
+   "bytes": 376608
+  },
+  "recirc_loop_pex.glb": {
+   "v": "5de4094712",
+   "bytes": 376300
   }
  },
  "menu_art": {

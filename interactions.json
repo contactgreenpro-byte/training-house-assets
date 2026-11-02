@@ -4880,20 +4880,104 @@
     "look": "cut"
    },
    "tmv_recirc_pump": {
-    "work": "mix"
+    "work": "recirc_flow"
    },
    "tmv_recirc_unions": {
-    "work": "mix"
+    "work": "recirc_flow"
    },
    "tmv_recirc_pipe": {
-    "work": "mix"
+    "work": "recirc_flow"
    },
    "mixed_drop": {
     "work": "mix",
     "look": "cut"
    },
    "tmv_recirc_board": {
-    "work": "mix"
+    "work": "recirc_flow"
+   },
+   "tmv_recirc_cord": {
+    "work": "recirc_flow"
+   },
+   "tmv_recirc_outlet": {
+    "work": "recirc_flow"
+   },
+   "tmv_recirc_timer": {
+    "work": "timer_set"
+   },
+   "tmv_recirc_timer_am": {
+    "work": "timer_set"
+   },
+   "tmv_recirc_timer_pm": {
+    "work": "timer_set"
+   },
+   "tmv_recirc_timer_am_on": {
+    "work": "timer_set"
+   },
+   "tmv_recirc_timer_pm_on": {
+    "work": "timer_set"
+   },
+   "rr_pump": {
+    "work": "return_flow"
+   },
+   "rr_unions": {
+    "work": "return_flow"
+   },
+   "rr_check": {
+    "work": "return_flow"
+   },
+   "rr_tee": {
+    "work": "return_flow"
+   },
+   "rr_ball_valve": {
+    "work": "return_flow"
+   },
+   "rr_board": {
+    "work": "return_flow"
+   },
+   "rr_cord": {
+    "work": "return_flow"
+   },
+   "rr_outlet": {
+    "work": "return_flow"
+   },
+   "rr_timer": {
+    "work": "return_flow"
+   },
+   "rr_pipe": {
+    "work": "return_flow",
+    "look": "cut"
+   },
+   "rr_c_tee": {
+    "work": "return_flow",
+    "look": "cut"
+   },
+   "rr_cold_tee": {
+    "work": "return_flow",
+    "look": "cut"
+   },
+   "rr_cold_line": {
+    "work": "return_flow",
+    "look": "cut"
+   },
+   "rr_balance": {
+    "work": "balance",
+    "look": "clip:creep"
+   },
+   "rr_balance_handle": {
+    "work": "balance",
+    "look": "clip:creep"
+   },
+   "rr_aquastat": {
+    "work": "aquastat_off"
+   },
+   "rr_aquastat_light": {
+    "work": "aquastat_off"
+   },
+   "rr_aquastat_light_off": {
+    "work": "aquastat_off"
+   },
+   "rr_aquastat_wire": {
+    "work": "aquastat_off"
    }
   },
   "thermostatic_mixing_valve_pex.glb": {
@@ -5010,13 +5094,13 @@
     "work": "mix"
    },
    "tmv_recirc_pump": {
-    "work": "mix"
+    "work": "recirc_flow"
    },
    "tmv_recirc_unions": {
-    "work": "mix"
+    "work": "recirc_flow"
    },
    "tmv_recirc_pipe": {
-    "work": "mix"
+    "work": "recirc_flow"
    },
    "mixed_line": {
     "work": "mix"
@@ -5026,7 +5110,7 @@
     "look": "cut"
    },
    "tmv_recirc_board": {
-    "work": "mix"
+    "work": "recirc_flow"
    },
    "cold_crimp_90_c": {
     "work": "mix"
@@ -5042,6 +5126,90 @@
    "cold_tube_f": {
     "work": "mix",
     "look": "cut"
+   },
+   "tmv_recirc_cord": {
+    "work": "recirc_flow"
+   },
+   "tmv_recirc_outlet": {
+    "work": "recirc_flow"
+   },
+   "tmv_recirc_timer": {
+    "work": "timer_set"
+   },
+   "tmv_recirc_timer_am": {
+    "work": "timer_set"
+   },
+   "tmv_recirc_timer_pm": {
+    "work": "timer_set"
+   },
+   "tmv_recirc_timer_am_on": {
+    "work": "timer_set"
+   },
+   "tmv_recirc_timer_pm_on": {
+    "work": "timer_set"
+   },
+   "rr_pump": {
+    "work": "return_flow"
+   },
+   "rr_unions": {
+    "work": "return_flow"
+   },
+   "rr_check": {
+    "work": "return_flow"
+   },
+   "rr_tee": {
+    "work": "return_flow"
+   },
+   "rr_ball_valve": {
+    "work": "return_flow"
+   },
+   "rr_board": {
+    "work": "return_flow"
+   },
+   "rr_cord": {
+    "work": "return_flow"
+   },
+   "rr_outlet": {
+    "work": "return_flow"
+   },
+   "rr_timer": {
+    "work": "return_flow"
+   },
+   "rr_pipe": {
+    "work": "return_flow",
+    "look": "cut"
+   },
+   "rr_c_tee": {
+    "work": "return_flow",
+    "look": "cut"
+   },
+   "rr_cold_tee": {
+    "work": "return_flow",
+    "look": "cut"
+   },
+   "rr_cold_line": {
+    "work": "return_flow",
+    "look": "cut"
+   },
+   "rr_balance": {
+    "work": "balance",
+    "look": "clip:creep"
+   },
+   "rr_balance_handle": {
+    "work": "balance",
+    "look": "clip:creep"
+   },
+   "rr_aquastat": {
+    "work": "aquastat_off"
+   },
+   "rr_aquastat_light": {
+    "work": "aquastat_off"
+   },
+   "rr_aquastat_light_off": {
+    "work": "aquastat_off"
+   },
+   "rr_aquastat_wire": {
+    "work": "aquastat_off"
    }
   },
   "air_quality_monitor.glb": {
@@ -6598,6 +6766,42 @@
    },
    "coupling_out": {
     "look": "section"
+   }
+  },
+  "recirc_loop.glb": {
+   "xover_valve": {
+    "work": "recirc_flow",
+    "look": "section"
+   },
+   "xover_valve_section": {
+    "work": "xover_close"
+   },
+   "xover_poppet": {
+    "work": "xover_close"
+   },
+   "xover_element": {
+    "work": "xover_close"
+   },
+   "xover_hoses": {
+    "work": "cold_tap_warm"
+   }
+  },
+  "recirc_loop_pex.glb": {
+   "xover_valve": {
+    "work": "recirc_flow",
+    "look": "section"
+   },
+   "xover_valve_section": {
+    "work": "xover_close"
+   },
+   "xover_poppet": {
+    "work": "xover_close"
+   },
+   "xover_element": {
+    "work": "xover_close"
+   },
+   "xover_hoses": {
+    "work": "cold_tap_warm"
    }
   }
  }

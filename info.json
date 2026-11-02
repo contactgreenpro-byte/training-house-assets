@@ -2906,7 +2906,13 @@
     "mix": "Hot and cold in, tempered out",
     "cap_off": "Take the cap off",
     "set_temp": "Set the temperature (120 F)",
-    "scald": "Failed element: scald"
+    "scald": "Failed element: scald",
+    "recirc_flow": "Run the loop (crossover)",
+    "timer_set": "Set the timer windows",
+    "return_flow": "Run the loop (dedicated return)",
+    "creep": "Balancing valve shut: the outlet creeps hot",
+    "balance": "Balancing valve a little open: back to 120",
+    "aquastat_off": "Loop up to temperature: the aquastat stops the pump"
    },
    "hotspots": {
     "tmv_body": [
@@ -2929,6 +2935,15 @@
     ],
     "tmv_recirc_pump": [
      "The pump goes after the mixing valve, never before it: it moves tempered water, so the loop can never carry tank temperature to the taps. Arrow down toward the house, motor shaft level."
+    ],
+    "tmv_recirc_timer": [
+     "Set the windows with the homeowner around their mornings and evenings, then leave the switch on TIMER. Never on ON: running all day can use more energy than it saves, and it keeps warm water in the cold line at the far sink."
+    ],
+    "rr_aquastat": [
+     "On a dedicated return the pump gets a temperature control as well as a timer: set 5 to 10 F below the mixed outlet, about 110 to 115, it stops the pump once the loop is warm."
+    ],
+    "rr_balance": [
+     "Return to both: to the mixing valve's C port and, through this valve, to the heater's cold inlet. All of it into C and the outlet creeps hot when nothing is open; just enough back to the heater holds it at 120."
     ]
    },
    "labels": {
@@ -2958,7 +2973,33 @@
     "tmv_recirc_unions": "Union ends on the pump: it comes out without cutting pipe",
     "tmv_recirc_pipe": "120 F water from the mixing valve down through the pump to the house hot line",
     "mixed_drop": "120 F water down in front of the tank to the house hot line",
-    "tmv_recirc_board": "Pump board: 3/4 in plywood on a 2x4 post on the platform. The pump and its pipe are strapped to it, not hung on the pipe"
+    "tmv_recirc_board": "Pump board: 3/4 in plywood on a 2x4 post on the platform. The pump and its pipe are strapped to it, not hung on the pipe",
+    "tmv_recirc_timer": "Dial timer on the pump: 24 hours round the dial, a push tab every half hour. Tabs pushed in are ON. Set it with the homeowner: 30 minutes before the first shower, 15 after the last. The switch stays on TIMER, never ON",
+    "tmv_recirc_timer_am": "Timer tabs: the morning window, 5:30 to 7:30",
+    "tmv_recirc_timer_pm": "Timer tabs: the evening window, 6:00 to 9:00",
+    "tmv_recirc_timer_am_on": "Timer tabs pushed in: the morning window",
+    "tmv_recirc_timer_pm_on": "Timer tabs pushed in: the evening window",
+    "tmv_recirc_cord": "The pump's cord to the outlet on the post, routed clear of the flue",
+    "tmv_recirc_outlet": "Outlet for the pump, on the pump board's post",
+    "rr_ball_valve": "Ball valve on the return: shut it to take the pump out",
+    "rr_aquastat": "Aquastat strapped on the return just before the pump, set about 112 F: 5 to 10 below the mixed outlet. It stops the pump once the loop is warm, so the loop cannot creep toward tank temperature",
+    "rr_aquastat_light": "Aquastat lamp: lit while it calls for the pump",
+    "rr_aquastat_light_off": "Aquastat lamp out: the loop is up to temperature, the pump is stopped",
+    "rr_aquastat_wire": "Aquastat wire to the pump",
+    "rr_pump": "Pump on the return, arrow up toward the heater, motor shaft level. On a dedicated return the pump goes on the return, run by its timer and the aquastat",
+    "rr_unions": "Union ends on the return pump: it comes out without cutting pipe",
+    "rr_timer": "The return pump's timer, its windows set around the house's mornings and evenings",
+    "rr_cord": "The return pump's cord to its outlet",
+    "rr_outlet": "Outlet for the return pump, on its board's post",
+    "rr_board": "Pump board for the return: 3/4 in plywood on a 2x4 post, the riser and pump strapped to it",
+    "rr_check": "Spring check on the return, arrow toward the heater: the water only moves back to the heater",
+    "rr_tee": "Return tee: one branch to the mixing valve's C port, one to the heater's cold inlet",
+    "rr_c_tee": "The return joins the mixing valve's cold line here, past its check valve, so return water cannot back into the cold supply",
+    "rr_cold_line": "The mixing valve's cold line past its check, into C (the return comes in at the tee)",
+    "rr_cold_tee": "The return's second branch joins the heater's cold supply here",
+    "rr_balance": "Balancing valve on the branch to the heater's cold inlet, a little open. Shut, all the return goes to C and the taps creep hot; a little open sends just enough back to the heater",
+    "rr_balance_handle": "Balancing valve hand wheel: a little open",
+    "rr_pipe": "Return piping at the heater: up through the pump and check to the tee, then to C and to the heater's cold inlet"
    }
   },
   "thermostatic_mixing_valve_pex": {
@@ -2967,7 +3008,13 @@
     "mix": "Hot and cold in, tempered out",
     "cap_off": "Take the cap off",
     "set_temp": "Set the temperature (120 F)",
-    "scald": "Failed element: scald"
+    "scald": "Failed element: scald",
+    "recirc_flow": "Run the loop (crossover)",
+    "timer_set": "Set the timer windows",
+    "return_flow": "Run the loop (dedicated return)",
+    "creep": "Balancing valve shut: the outlet creeps hot",
+    "balance": "Balancing valve a little open: back to 120",
+    "aquastat_off": "Loop up to temperature: the aquastat stops the pump"
    },
    "hotspots": {
     "tmv_body": [
@@ -2996,6 +3043,15 @@
     ],
     "tmv_recirc_pump": [
      "The pump goes after the mixing valve, never before it: it moves tempered water, so the loop can never carry tank temperature to the taps. Arrow down toward the house, motor shaft level."
+    ],
+    "tmv_recirc_timer": [
+     "Set the windows with the homeowner around their mornings and evenings, then leave the switch on TIMER. Never on ON: running all day can use more energy than it saves, and it keeps warm water in the cold line at the far sink."
+    ],
+    "rr_aquastat": [
+     "On a dedicated return the pump gets a temperature control as well as a timer: set 5 to 10 F below the mixed outlet, about 110 to 115, it stops the pump once the loop is warm."
+    ],
+    "rr_balance": [
+     "Return to both: to the mixing valve's C port and, through this valve, to the heater's cold inlet. All of it into C and the outlet creeps hot when nothing is open; just enough back to the heater holds it at 120."
     ]
    },
    "labels": {
@@ -3042,7 +3098,33 @@
     "cold_tube_e": "Blue PEX-B over the valve",
     "cold_crimp_90_d": "Brass crimp 90, down into the valve",
     "cold_tube_f": "Blue PEX-B down into the valve's C port",
-    "mixed_line": "Copper out of the valve's M port, forward over the tank and down, then a brass transition to red PEX: no PEX in the first 18 in"
+    "mixed_line": "Copper out of the valve's M port, forward over the tank and down, then a brass transition to red PEX: no PEX in the first 18 in",
+    "tmv_recirc_timer": "Dial timer on the pump: 24 hours round the dial, a push tab every half hour. Tabs pushed in are ON. Set it with the homeowner: 30 minutes before the first shower, 15 after the last. The switch stays on TIMER, never ON",
+    "tmv_recirc_timer_am": "Timer tabs: the morning window, 5:30 to 7:30",
+    "tmv_recirc_timer_pm": "Timer tabs: the evening window, 6:00 to 9:00",
+    "tmv_recirc_timer_am_on": "Timer tabs pushed in: the morning window",
+    "tmv_recirc_timer_pm_on": "Timer tabs pushed in: the evening window",
+    "tmv_recirc_cord": "The pump's cord to the outlet on the post, routed clear of the flue",
+    "tmv_recirc_outlet": "Outlet for the pump, on the pump board's post",
+    "rr_ball_valve": "Ball valve on the return: shut it to take the pump out",
+    "rr_aquastat": "Aquastat strapped on the return just before the pump, set about 112 F: 5 to 10 below the mixed outlet. It stops the pump once the loop is warm, so the loop cannot creep toward tank temperature",
+    "rr_aquastat_light": "Aquastat lamp: lit while it calls for the pump",
+    "rr_aquastat_light_off": "Aquastat lamp out: the loop is up to temperature, the pump is stopped",
+    "rr_aquastat_wire": "Aquastat wire to the pump",
+    "rr_pump": "Pump on the return, arrow up toward the heater, motor shaft level. On a dedicated return the pump goes on the return, run by its timer and the aquastat",
+    "rr_unions": "Union ends on the return pump: it comes out without cutting pipe",
+    "rr_timer": "The return pump's timer, its windows set around the house's mornings and evenings",
+    "rr_cord": "The return pump's cord to its outlet",
+    "rr_outlet": "Outlet for the return pump, on its board's post",
+    "rr_board": "Pump board for the return: 3/4 in plywood on a 2x4 post, the riser and pump strapped to it",
+    "rr_check": "Spring check on the return, arrow toward the heater: the water only moves back to the heater",
+    "rr_tee": "Return tee: one branch to the mixing valve's C port, one to the heater's cold inlet",
+    "rr_c_tee": "The return joins the mixing valve's cold line here, past its check valve, so return water cannot back into the cold supply",
+    "rr_cold_line": "The mixing valve's cold line past its check, into C (the return comes in at the tee)",
+    "rr_cold_tee": "The return's second branch: a crimp cross in place of the mixing valve's cold tee, to the heater's cold inlet up the riser",
+    "rr_balance": "Balancing valve on the branch to the heater's cold inlet, a little open. Shut, all the return goes to C and the taps creep hot; a little open sends just enough back to the heater",
+    "rr_balance_handle": "Balancing valve hand wheel: a little open",
+    "rr_pipe": "Return piping at the heater: up through the pump and check to the tee, then to C and to the heater's cold inlet"
    }
   },
   "air_quality_monitor": {
@@ -3702,6 +3784,29 @@
     "valve_ball": "Ball. A quarter turn shuts the water off",
     "meter_turbine": "Meter rotor. The water turns it and the FlowSmart counts the gallons",
     "pcb": "Control board: the meter, the radio and the valve"
+   }
+  },
+  "recirc_loop": {
+   "name": "Hot water recirculation (far sink)",
+   "clips": {
+    "recirc_flow": "Run the loop",
+    "xover_close": "Warm water at the valve: it closes",
+    "wait_far_tap": "No pump: the wait at the far tap",
+    "cold_tap_warm": "The cold tap at this sink: warm first, then cold",
+    "return_flow": "Run the loop (dedicated return)",
+    "aquastat_off": "Loop up to temperature: the pump stops"
+   },
+   "labels": {
+    "xover_valve": "Thermostatic crossover valve under the far sink: it ties the hot line to the cold. The pump pushes the cooled hot water through it and home in the cold line; when warm water reaches it, it closes by itself",
+    "xover_valve_section": "The crossover valve cut open: the hot side, the cold side, the cross passage between them",
+    "xover_element": "Its wax element: it swells as the water warms and pushes the poppet shut",
+    "xover_poppet": "Its poppet: open, the loop runs; shut, the loop stops",
+    "xover_hoses": "Four short braided connectors: hot stop to Hot In, cold stop to Cold In, Hot Out and Cold Out up to the faucet"
+   },
+   "hotspots": {
+    "xover_valve": [
+     "Our normal job: no return line, so a crossover valve under the sink farthest from the heater by pipe run. The trade off: the cold tap there runs warm for a few seconds at first. Tell the homeowner."
+    ]
    }
   }
  }

@@ -1097,6 +1097,18 @@
      "tag": "water=well&softener=no&flowsmart=yes&plumbing=pex&shutoff_extra=wall",
      "nodes": 1,
      "bytes": 15560
+    },
+    {
+     "file": "pipes_supply__recirc_return__cpvc.glb",
+     "tag": "water_heater=attic_electric_tank|attic_gas_tank&plumbing=cpvc&mixing_valve=yes&recirc_return=yes",
+     "nodes": 10,
+     "bytes": 47828
+    },
+    {
+     "file": "pipes_supply__recirc_return__pex.glb",
+     "tag": "water_heater=attic_electric_tank|attic_gas_tank&plumbing=pex&mixing_valve=yes&recirc_return=yes",
+     "nodes": 10,
+     "bytes": 57476
     }
    ]
   },

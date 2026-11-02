@@ -193,7 +193,59 @@
     },
     "also_hide": [],
     "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13): one plane through the drain's axis, the front half off, cut faces in the house orange (each section carries cut_open [0,-1,0] in the model frame, [0,0,1] in glTF). One click swaps every pair; elevation does the same and clips the cabinet and doors at the plane as it does the kitchen sink's. The stopper, the pivot rod and the wall bend stay whole (working parts)."
-   }
+   },
+   "config": "recirc_pump=no"
+  },
+  {
+   "socket": "sock_vanity_hall_bath",
+   "file": "floor1",
+   "pack": "bath_vanity",
+   "model": "bath_vanity.glb",
+   "yaw": 180,
+   "hide": [
+    "wall",
+    "floor",
+    "wall_stub",
+    "stopper_gunk",
+    "aerator_scale",
+    "faucet_base_drip",
+    "stop_hot_esc",
+    "stop_cold_esc",
+    "supply_hot_hose",
+    "supply_cold_hose",
+    "supply_hot_nut_faucet",
+    "supply_cold_nut_faucet",
+    "supply_hot_nut_stop",
+    "supply_cold_nut_stop"
+   ],
+   "note": "Replaces fix_sink_hall_bath. Round 17 (Jake: no mirror, fake looking sink, doors missing trim, a flat plane under the bowl, the trap not matching the wall stub): the model's back plane (0.30) lands ON the wall face, its own mirror shows, its PVC wall stub is hidden because the house drain starts at the trap arm's end inside the trap adapter hub, and the fault states the hide patterns do not catch are listed. bowl_water is collapsed into the drain until the faucet runs, so it shows. Round 106: this twin stands in with recirc_pump=yes: the crossover valve's four braided connectors (recirc_loop.glb xover_hoses) replace the vanity's own supply hoses.",
+   "replaces": [
+    "fix_sink_hall_bath"
+   ],
+   "offset": [
+    0,
+    -0.3,
+    0
+   ],
+   "show": [
+    "bowl_water"
+   ],
+   "section_set": {
+    "pairs": {
+     "vanity_top": "vanity_top_section",
+     "popup_drain": "popup_drain_section",
+     "tailpiece": "tailpiece_section",
+     "j_bend": "j_bend_section",
+     "j_nut_in": "j_nut_in_section",
+     "j_washer_in": "j_washer_in_section",
+     "trap_water": "trap_water_section",
+     "trap_water_top": "trap_water_top_section",
+     "bowl_water": "bowl_water_section"
+    },
+    "also_hide": [],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13): one plane through the drain's axis, the front half off, cut faces in the house orange (each section carries cut_open [0,-1,0] in the model frame, [0,0,1] in glTF). One click swaps every pair; elevation does the same and clips the cabinet and doors at the plane as it does the kitchen sink's. The stopper, the pivot rod and the wall bend stay whole (working parts)."
+   },
+   "config": "water_heater=attic_gas_tank|attic_electric_tank&mixing_valve=yes&recirc_pump=yes"
   },
   {
    "socket": "sock_vanity_master_bath",
@@ -3877,7 +3929,33 @@
     "tmv_recirc_pump",
     "tmv_recirc_unions",
     "tmv_recirc_pipe",
-    "tmv_recirc_board"
+    "tmv_recirc_board",
+    "tmv_recirc_timer",
+    "tmv_recirc_timer_am",
+    "tmv_recirc_timer_pm",
+    "tmv_recirc_timer_am_on",
+    "tmv_recirc_timer_pm_on",
+    "tmv_recirc_outlet",
+    "tmv_recirc_cord",
+    "rr_aquastat",
+    "rr_aquastat_light",
+    "rr_aquastat_light_off",
+    "rr_aquastat_wire",
+    "rr_balance",
+    "rr_balance_handle",
+    "rr_ball_valve",
+    "rr_board",
+    "rr_c_tee",
+    "rr_check",
+    "rr_cold_line",
+    "rr_cold_tee",
+    "rr_cord",
+    "rr_outlet",
+    "rr_pipe",
+    "rr_pump",
+    "rr_tee",
+    "rr_timer",
+    "rr_unions"
    ],
    "states": [
     "element_failed",
@@ -3885,7 +3963,21 @@
     "packets_hot_pivot",
     "packets_cold_pivot",
     "packets_mixed_pivot",
-    "packets_scald_pivot"
+    "packets_scald_pivot",
+    "packets_rf_riser_pivot",
+    "packets_rf_heater_pivot",
+    "packets_rf_c_pivot",
+    "packets_rr_up_pivot",
+    "packets_rr_a_pivot",
+    "packets_rr_b_pivot",
+    "packets_rr_b_few_pivot",
+    "packets_creep_pivot",
+    "packets_aq_up_pivot",
+    "packets_aq_a_pivot",
+    "packets_aq_b_pivot",
+    "rr_aquastat_light_off",
+    "tmv_recirc_timer_am_on",
+    "tmv_recirc_timer_pm_on"
    ],
    "section_set": {
     "pairs": {
@@ -3904,17 +3996,47 @@
      "tmv_fiber_washer_mix"
     ]
    },
-   "note": "Round 89 (Jake: anti-scald / thermostatic mixing valve, definitely). Watts LFMMVM1-CPVC on either attic tank (the nipples are the same). The house hot starts in the valve's mixed outlet coupling when mixing_valve=yes (pipe_supply_hot_wh_attic_tmv); the cold tee sleeves over the whole cold riser. Galvanized gets no valve: a written recommendation only (thermostatic_mixing_valve/HANDOFF.md). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's). Round 105c (Jake 2026-11-01, on the stills): the valve sits ON TOP of the heater on the hot outlet (hot straight up into H, the cold down into C from a tee on the cold line, the mixed forward and down to the same coupling); the pump on the drop is strapped to a plywood pump board on a 2x4 post, not hung on the pipe. Round 105d (Jake 2026-11-01, the approved video scripts): 120 F at the taps, the tank at 145 F.",
+   "note": "Round 89 (Jake: anti-scald / thermostatic mixing valve, definitely). Watts LFMMVM1-CPVC on either attic tank (the nipples are the same). The house hot starts in the valve's mixed outlet coupling when mixing_valve=yes (pipe_supply_hot_wh_attic_tmv); the cold tee sleeves over the whole cold riser. Galvanized gets no valve: a written recommendation only (thermostatic_mixing_valve/HANDOFF.md). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's). Round 105c (Jake 2026-11-01, on the stills): the valve sits ON TOP of the heater on the hot outlet (hot straight up into H, the cold down into C from a tee on the cold line, the mixed forward and down to the same coupling); the pump on the drop is strapped to a plywood pump board on a 2x4 post, not hung on the pipe. Round 105d (Jake 2026-11-01, the approved video scripts): 120 F at the taps, the tank at 145 F. Round 106 (Jake 2026-11-01, hot water recirculation): the crossover is our normal job (add on recirc_pump): the pump after M on the mixed drop (arrow down, away from the heater, motor shaft level) with its dial timer (tmv_recirc_timer) and cord to an outlet on the post; a thermostatic crossover valve under the hall bath sink, the lavatory farthest from the heater by hot pipe run (recirc_loop.glb). A house that already has a return line: add on recirc_return: the pump moves to the return (rr_pump, arrow up toward the heater) with a ball valve, a strap on aquastat set about 112 F, a spring check and a tee; one branch to the C line past cold_check (rr_c_tee), one to the heater's cold inlet through a balancing valve (rr_balance), Resideo AMX, Caleffi, Watts. The two never together.",
    "addon": {
     "recirc_pump": {
      "show": [
       "tmv_recirc_pump",
       "tmv_recirc_unions",
       "tmv_recirc_pipe",
-      "tmv_recirc_board"
+      "tmv_recirc_board",
+      "tmv_recirc_timer",
+      "tmv_recirc_timer_am",
+      "tmv_recirc_timer_pm",
+      "tmv_recirc_outlet",
+      "tmv_recirc_cord"
      ],
      "hide": [
       "mixed_drop"
+     ]
+    },
+    "recirc_return": {
+     "show": [
+      "rr_aquastat",
+      "rr_aquastat_light",
+      "rr_aquastat_wire",
+      "rr_balance",
+      "rr_balance_handle",
+      "rr_ball_valve",
+      "rr_board",
+      "rr_c_tee",
+      "rr_check",
+      "rr_cold_line",
+      "rr_cold_tee",
+      "rr_cord",
+      "rr_outlet",
+      "rr_pipe",
+      "rr_pump",
+      "rr_tee",
+      "rr_timer",
+      "rr_unions"
+     ],
+     "hide": [
+      "cold_line_valve_side"
      ]
     }
    }
@@ -3938,7 +4060,32 @@
     "tmv_recirc_pump",
     "tmv_recirc_unions",
     "tmv_recirc_pipe",
-    "tmv_recirc_board"
+    "tmv_recirc_board",
+    "tmv_recirc_timer",
+    "tmv_recirc_timer_am",
+    "tmv_recirc_timer_pm",
+    "tmv_recirc_timer_am_on",
+    "tmv_recirc_timer_pm_on",
+    "tmv_recirc_outlet",
+    "tmv_recirc_cord",
+    "rr_aquastat",
+    "rr_aquastat_light",
+    "rr_aquastat_light_off",
+    "rr_aquastat_wire",
+    "rr_balance",
+    "rr_balance_handle",
+    "rr_ball_valve",
+    "rr_board",
+    "rr_c_tee",
+    "rr_check",
+    "rr_cold_tee",
+    "rr_cord",
+    "rr_outlet",
+    "rr_pipe",
+    "rr_pump",
+    "rr_tee",
+    "rr_timer",
+    "rr_unions"
    ],
    "states": [
     "element_failed",
@@ -3946,7 +4093,21 @@
     "packets_hot_pivot",
     "packets_cold_pivot",
     "packets_mixed_pivot",
-    "packets_scald_pivot"
+    "packets_scald_pivot",
+    "packets_rf_riser_pivot",
+    "packets_rf_heater_pivot",
+    "packets_rf_c_pivot",
+    "packets_rr_up_pivot",
+    "packets_rr_a_pivot",
+    "packets_rr_b_pivot",
+    "packets_rr_b_few_pivot",
+    "packets_creep_pivot",
+    "packets_aq_up_pivot",
+    "packets_aq_a_pivot",
+    "packets_aq_b_pivot",
+    "rr_aquastat_light_off",
+    "tmv_recirc_timer_am_on",
+    "tmv_recirc_timer_pm_on"
    ],
    "section_set": {
     "pairs": {
@@ -3968,17 +4129,47 @@
      "cold_tube_f"
     ]
    },
-   "note": "Round 89 (Jake 2026-09-23: the PEX variant, highest quality, real fittings and joints). Watts LFMMVM1-PEX with its own 18 in stainless connector off the hot nipple (the house's hot connector steps aside, mixing_valve=no on it); the house PEX cold riser is cut at the valve's crimp tee (pipe_supply_cold_riser_tmv_lo/hi__pex) and the house hot starts on the coupling (pipe_supply_hot_wh_attic_tmv__pex). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's). Round 105c (Jake 2026-11-01, on the stills): the valve sits ON TOP of the heater on the hot outlet (hot straight up into H, the cold down into C from a tee on the cold line, the mixed forward and down to the same coupling); the pump on the drop is strapped to a plywood pump board on a 2x4 post, not hung on the pipe. Round 105d (Jake 2026-11-01, the approved video scripts): 120 F at the taps, the tank at 145 F.",
+   "note": "Round 89 (Jake 2026-09-23: the PEX variant, highest quality, real fittings and joints). Watts LFMMVM1-PEX with its own 18 in stainless connector off the hot nipple (the house's hot connector steps aside, mixing_valve=no on it); the house PEX cold riser is cut at the valve's crimp tee (pipe_supply_cold_riser_tmv_lo/hi__pex) and the house hot starts on the coupling (pipe_supply_hot_wh_attic_tmv__pex). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's). Round 105c (Jake 2026-11-01, on the stills): the valve sits ON TOP of the heater on the hot outlet (hot straight up into H, the cold down into C from a tee on the cold line, the mixed forward and down to the same coupling); the pump on the drop is strapped to a plywood pump board on a 2x4 post, not hung on the pipe. Round 105d (Jake 2026-11-01, the approved video scripts): 120 F at the taps, the tank at 145 F. Round 106 (Jake 2026-11-01, hot water recirculation): the crossover is our normal job (add on recirc_pump): the pump after M on the mixed drop (arrow down, away from the heater, motor shaft level) with its dial timer (tmv_recirc_timer) and cord to an outlet on the post; a thermostatic crossover valve under the hall bath sink, the lavatory farthest from the heater by hot pipe run (recirc_loop.glb). A house that already has a return line: add on recirc_return: the pump moves to the return (rr_pump, arrow up toward the heater) with a ball valve, a strap on aquastat set about 112 F, a spring check and a tee; one branch to the C line past cold_check (rr_c_tee), one to the heater's cold inlet through a balancing valve (rr_balance), Resideo AMX, Caleffi, Watts. The two never together.",
    "addon": {
     "recirc_pump": {
      "show": [
       "tmv_recirc_pump",
       "tmv_recirc_unions",
       "tmv_recirc_pipe",
-      "tmv_recirc_board"
+      "tmv_recirc_board",
+      "tmv_recirc_timer",
+      "tmv_recirc_timer_am",
+      "tmv_recirc_timer_pm",
+      "tmv_recirc_outlet",
+      "tmv_recirc_cord"
      ],
      "hide": [
       "mixed_drop"
+     ]
+    },
+    "recirc_return": {
+     "show": [
+      "rr_aquastat",
+      "rr_aquastat_light",
+      "rr_aquastat_wire",
+      "rr_balance",
+      "rr_balance_handle",
+      "rr_ball_valve",
+      "rr_board",
+      "rr_c_tee",
+      "rr_check",
+      "rr_cold_tee",
+      "rr_cord",
+      "rr_outlet",
+      "rr_pipe",
+      "rr_pump",
+      "rr_tee",
+      "rr_timer",
+      "rr_unions"
+     ],
+     "hide": [
+      "cold_crimp_90_c",
+      "cold_tee"
      ]
     }
    }
@@ -5460,6 +5651,148 @@
     "leak_sensor_logo"
    ],
    "note": "Round 104: the YoLink leak sensor (sold separately: add on leak_sensor, off by default), a puck on the floor of the garage by the north wall, east of whichever heater stands there (clear of the gas tank's stand, the hybrid and the tankless lines). It talks to the FlowSmart straight over LoRa (lora_signal on the FlowSmart). show: the hide pattern 'leak' would swallow every part."
+  },
+  {
+   "socket": "sock_vanity_hall_bath",
+   "file": "floor1",
+   "pack": "recirc_loop",
+   "model": "recirc_loop.glb",
+   "yaw": 180,
+   "offset": [
+    0,
+    -0.3,
+    0
+   ],
+   "config": "water_heater=attic_gas_tank|attic_electric_tank&plumbing=cpvc&mixing_valve=yes&recirc_pump=yes",
+   "hide": [
+    "packets_ret_hot_pivot",
+    "packets_ret_back_pivot",
+    "packets_aq_hot_pivot",
+    "packets_aq_back_pivot"
+   ],
+   "states": [
+    "packets_loop_hot_pivot",
+    "packets_loop_cold_pivot",
+    "packets_xc_hot_pivot",
+    "packets_xc_cold_pivot",
+    "packets_wf_blue_pivot",
+    "packets_wf_red_pivot",
+    "packets_ct_warm_pivot",
+    "packets_ct_cold_pivot"
+   ],
+   "section_set": {
+    "pairs": {
+     "xover_valve": "xover_valve_section"
+    },
+    "also_hide": []
+   },
+   "note": "Round 106 (Jake 2026-11-01): the crossover at the lavatory farthest from the attic heater by hot pipe run (the hall bath: 7.3 m from where the attic drop meets the crawl trunk, the master bath's 4.1 m; the kitchen sink is farther, 10.9 m, but not a lavatory). The valve between the stops, four braided connectors; the packet trains run the live hot and cold lines."
+  },
+  {
+   "socket": "sock_vanity_hall_bath",
+   "file": "floor1",
+   "pack": "recirc_loop",
+   "model": "recirc_loop.glb",
+   "yaw": 180,
+   "offset": [
+    0,
+    -0.3,
+    0
+   ],
+   "config": "water_heater=attic_gas_tank|attic_electric_tank&plumbing=cpvc&mixing_valve=yes&recirc_return=yes",
+   "hide": [
+    "xover_valve",
+    "xover_valve_section",
+    "xover_element",
+    "xover_poppet",
+    "xover_hoses",
+    "packets_loop_hot_pivot",
+    "packets_loop_cold_pivot",
+    "packets_xc_hot_pivot",
+    "packets_xc_cold_pivot",
+    "packets_wf_blue_pivot",
+    "packets_wf_red_pivot",
+    "packets_ct_warm_pivot",
+    "packets_ct_cold_pivot"
+   ],
+   "states": [
+    "packets_ret_hot_pivot",
+    "packets_ret_back_pivot",
+    "packets_aq_hot_pivot",
+    "packets_aq_back_pivot"
+   ],
+   "note": "Round 106 (Jake 2026-11-01): the dedicated return's packets (pipe_supply_recirc_return_tank). No crossover valve here."
+  },
+  {
+   "socket": "sock_vanity_hall_bath",
+   "file": "floor1",
+   "pack": "recirc_loop",
+   "model": "recirc_loop_pex.glb",
+   "yaw": 180,
+   "offset": [
+    0,
+    -0.3,
+    0
+   ],
+   "config": "water_heater=attic_gas_tank|attic_electric_tank&plumbing=pex&mixing_valve=yes&recirc_pump=yes",
+   "hide": [
+    "packets_ret_hot_pivot",
+    "packets_ret_back_pivot",
+    "packets_aq_hot_pivot",
+    "packets_aq_back_pivot"
+   ],
+   "states": [
+    "packets_loop_hot_pivot",
+    "packets_loop_cold_pivot",
+    "packets_xc_hot_pivot",
+    "packets_xc_cold_pivot",
+    "packets_wf_blue_pivot",
+    "packets_wf_red_pivot",
+    "packets_ct_warm_pivot",
+    "packets_ct_cold_pivot"
+   ],
+   "section_set": {
+    "pairs": {
+     "xover_valve": "xover_valve_section"
+    },
+    "also_hide": []
+   },
+   "note": "Round 106 (Jake 2026-11-01): the crossover at the lavatory farthest from the attic heater by hot pipe run (the hall bath: 7.3 m from where the attic drop meets the crawl trunk, the master bath's 4.1 m; the kitchen sink is farther, 10.9 m, but not a lavatory). The valve between the stops, four braided connectors; the packet trains run the live hot and cold lines."
+  },
+  {
+   "socket": "sock_vanity_hall_bath",
+   "file": "floor1",
+   "pack": "recirc_loop",
+   "model": "recirc_loop_pex.glb",
+   "yaw": 180,
+   "offset": [
+    0,
+    -0.3,
+    0
+   ],
+   "config": "water_heater=attic_gas_tank|attic_electric_tank&plumbing=pex&mixing_valve=yes&recirc_return=yes",
+   "hide": [
+    "xover_valve",
+    "xover_valve_section",
+    "xover_element",
+    "xover_poppet",
+    "xover_hoses",
+    "packets_loop_hot_pivot",
+    "packets_loop_cold_pivot",
+    "packets_xc_hot_pivot",
+    "packets_xc_cold_pivot",
+    "packets_wf_blue_pivot",
+    "packets_wf_red_pivot",
+    "packets_ct_warm_pivot",
+    "packets_ct_cold_pivot"
+   ],
+   "states": [
+    "packets_ret_hot_pivot",
+    "packets_ret_back_pivot",
+    "packets_aq_hot_pivot",
+    "packets_aq_back_pivot"
+   ],
+   "note": "Round 106 (Jake 2026-11-01): the dedicated return's packets (pipe_supply_recirc_return_tank). No crossover valve here."
   }
  ],
  "hide_patterns": [
