@@ -1166,7 +1166,7 @@
   }
   // mode (round 20): 'look' reaches the machine switches and the control clips only; 'remove' the clips that take something off;
   // 'work' the switches and the clips that run something; undefined is the old anything goes
-  const CLIP_REMOVE = /^(?!aquastat_off$)(?:.*off$|(?!flowsmart_).*open$|.*pull|.*lift$|.*door|.*lid|.*cover|.*panel|.*deadfront)/, CLIP_WORK = /run$|_on$|fire|flush|spray|aerate|pump|sprayer|cycle|backwash|service|bib|test|high_water|turn$|auto$|hoa|^sense$|^ventilate$|^purify$|^airflow$|^mix$|^surge$|^flow$|_block$|take_up$|rumble$|^anode_years$|^sediment_build$|^flowsmart_flow$|^recirc_flow$|^return_flow$|^xover_close$|^timer_set$|^creep$|^balance$|^wait_far_tap$|^cold_tap_warm$|^aquastat_off$/;     // round 104: flowsmart_open opens a valve, it is not a Take off; flowsmart_flow is a Run
+  const CLIP_REMOVE = /^(?!aquastat_off$)(?:.*off$|(?!flowsmart_).*open$|.*pull|.*lift$|.*door|.*lid|.*cover|.*panel|.*deadfront)/, CLIP_WORK = /run$|_on$|fire|flush|spray|aerate|pump|sprayer|cycle|backwash|service|bib|test|high_water|turn$|auto$|hoa|^sense$|^ventilate$|^purify$|^airflow$|^mix$|^surge$|^flow$|_block$|take_up$|rumble$|^anode_years$|^sediment_build$|^flowsmart_flow$|^recirc_flow$|^return_flow$|^xover_close$|^timer_set$|^creep$|^balance$|^wait_far_tap$|^cold_tap_warm$|^aquastat_off$|^media_flow$|^blower_starved$/;     // round 104: flowsmart_open opens a valve, it is not a Take off; flowsmart_flow is a Run
   // round 89: the fault states the new models carry (a cracked lid, a loose cover, a dead light). They are findings, not a cover to
   // take off or a thing to run, so the Work and Remove tools pass them by (lid_cracked used to answer a click on the lid) and the
   // panel lists them by name.
@@ -4504,7 +4504,7 @@
     ['mixing_valve', 'Thermostatic mixing valve at the attic tank water heater (tank heaters only)'],
     ['surge_wh', 'Surge protector on the attic electric water heater'],
     ['iaq_monitor', 'Air quality monitor on the hall wall'],
-    ['media_cabinet', 'Media air cleaner under the furnace (80%)'],
+    ['media_cabinet', 'Media filter cabinet: under the 80% furnace, or on the attic air handler\'s return'],     // round 107
     ['purifier', 'In duct purifier on the furnace plenum (80%)'],
     ['erv', 'ERV in the attic'],
     ['sludgehammer', 'SludgeHammer in the septic tank (gravity or trash tank)'],

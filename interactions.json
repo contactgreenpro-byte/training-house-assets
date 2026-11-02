@@ -6803,6 +6803,61 @@
    "xover_hoses": {
     "work": "cold_tap_warm"
    }
+  },
+  "media_air_cleaner_ah.glb": {
+   "media_air_clean_up": {
+    "work": "media_flow"
+   },
+   "media_air_dusty_in": {
+    "work": "media_flow"
+   },
+   "media_air_dusty_up": {
+    "work": "media_flow"
+   },
+   "ah_media_transition_in": {
+    "work": "airflow"
+   },
+   "ah_media_transition": {
+    "work": "airflow"
+   },
+   "ah_media_test_port": {
+    "work": "media_flow"
+   },
+   "ah_media_test_port_in": {
+    "work": "media_flow"
+   },
+   "ah_media_cabinet": {
+    "work": "cutaway",
+    "look": "section"
+   },
+   "ah_media_cabinet_section": {
+    "work": "cutaway"
+   },
+   "ah_media_door": {
+    "look": "clip:door_open",
+    "work": "door_clearance"
+   },
+   "ah_media_filter_frame": {
+    "look": "clip:media_pull",
+    "work": "filter_unfold"
+   },
+   "ah_media_filter": {
+    "look": "clip:media_pull",
+    "work": "media_dirty"
+   },
+   "media_loaded": {
+    "look": "clip:media_pull",
+    "work": "media_dirty"
+   },
+   "ah_media_arrow": {
+    "work": "cabinet_in"
+   },
+   "ah_media_tape": {
+    "work": "cabinet_in"
+   },
+   "ah_media_supports": {
+    "look": "aside"
+   }
   }
  }
 }

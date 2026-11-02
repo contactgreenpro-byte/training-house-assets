@@ -1,7 +1,7 @@
 {
- "published": "2026-11-01T18:19:47",
- "house": "r100a4o",
- "note": "r100a4o: hot water recirculation. The crossover (add on recirc_pump): the pump after M with its dial timer, cord and outlet, a thermostatic crossover valve with four braided connectors under the hall bath sink (recirc_loop.glb). The dedicated return (add on recirc_return): pipe_supply_recirc_return_tank, ball valve, aquastat, pump, check and tee at the heater, to C and to the heater's cold inlet through a balancing valve. Clips recirc_flow, xover_close, wait_far_tap, cold_tap_warm, timer_set, return_flow, creep, balance, aquastat_off",
+ "published": "2026-11-02T10:00:42",
+ "house": "r100a4p",
+ "note": "r100a4p: media filter cabinets. The attic air handler gets a 20 x 25 class media cabinet with a 5 in deep pleat filter on its return end, ahead of the coil (media_air_cleaner_ah.glb, add on media_cabinet=yes on all six attic layouts, both houses): door on top with 24 in clear, foil tape on the seams, test ports, the unit's own 1 in filter and base out, the house return box swapped for a shorter twin. Clips filter_unfold, media_flow, cabinet_in, door_clearance; blower_starved on both attic air handlers. The furnace cabinet unchanged",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -168,12 +168,12 @@
    "bytes": 3176796
   },
   "hvac_air_handler_rheem_rh2ty36_house.glb": {
-   "v": "adc934942c",
-   "bytes": 2375804
+   "v": "ee4dbd8a6a",
+   "bytes": 2395192
   },
   "hvac_air_handler_rheem_rh2vy36_house.glb": {
-   "v": "152c6c9173",
-   "bytes": 2434032
+   "v": "a51317e803",
+   "bytes": 2453484
   },
   "hvac_air_handler_upflow.glb": {
    "v": "10e8e1edba",
@@ -260,7 +260,7 @@
    "bytes": 904320
   },
   "index.html": {
-   "v": "1223e91cd4",
+   "v": "a4e1333d1e",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -268,16 +268,16 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "6c3bca9b1b",
-   "bytes": 231977
+   "v": "fcde51afaf",
+   "bytes": 235021
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "31305f25d8",
-   "bytes": 123304
+   "v": "b577a48150",
+   "bytes": 124452
   },
   "kitchen_sink.glb": {
    "v": "5cbcc760bd",
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "f5cb684e82",
-   "bytes": 109687
+   "v": "92c95be093",
+   "bytes": 111608
   },
   "pipes.json": {
    "v": "32158dbd5c",
@@ -564,7 +564,7 @@
    "bytes": 36388
   },
   "pipes_groups.json": {
-   "v": "13b947a7ed",
+   "v": "3a0b58de29",
    "bytes": 100422
   },
   "pipes_hvac__common.glb": {
@@ -652,8 +652,8 @@
    "bytes": 17680
   },
   "pipes_hvac__hvac__a340dde3.glb": {
-   "v": "eefdd7da80",
-   "bytes": 111780
+   "v": "2a25fca7a4",
+   "bytes": 112672
   },
   "pipes_hvac__hvac__d128c58d.glb": {
    "v": "48209a5a87",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "f45abc1be9",
-   "bytes": 203822
+   "v": "8c3ab6c616",
+   "bytes": 206399
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -1820,8 +1820,8 @@
    "bytes": 17112
   },
   "slab_pipes_hvac__hvac__a340dde3.glb": {
-   "v": "66b191b82c",
-   "bytes": 111812
+   "v": "ef6e6d8d3a",
+   "bytes": 112720
   },
   "slab_pipes_hvac__hvac__d128c58d.glb": {
    "v": "78509ef7a9",
@@ -2276,8 +2276,8 @@
    "bytes": 1108804
   },
   "walk.js": {
-   "v": "3a0d967a46",
-   "bytes": 450076
+   "v": "8c02275b60",
+   "bytes": 450164
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -2502,6 +2502,10 @@
   "recirc_loop_pex.glb": {
    "v": "5de4094712",
    "bytes": 376300
+  },
+  "media_air_cleaner_ah.glb": {
+   "v": "53519316c8",
+   "bytes": 347116
   }
  },
  "menu_art": {

@@ -1463,6 +1463,16 @@
       "fresh_air_duct"
      ],
      "hide": []
+    },
+    "media_cabinet": {
+     "show": [],
+     "hide": [
+      "filter",
+      "filter_door",
+      "filter_base",
+      "filter_dirty",
+      "filter_out"
+     ]
     }
    },
    "note": "Round 94: the exact Rheem RH2TY air handler laid horizontal over the hall closet where the old one lay: left side down (horizontal left, the drip pan moved to that side, the field conversion), supply north onto the house plenum, doors west onto the service platform, the RXHF filter base on its return end. The overflow pan, rails, UV lamp and dehumidifier are the old install's, in the same places. The shipped low voltage pigtails are off: the house cable lands inside the knockout (round 20).",
@@ -1526,6 +1536,16 @@
       "fresh_air_duct"
      ],
      "hide": []
+    },
+    "media_cabinet": {
+     "show": [],
+     "hide": [
+      "filter",
+      "filter_door",
+      "filter_base",
+      "filter_dirty",
+      "filter_out"
+     ]
     }
    },
    "note": "Round 94: the exact Rheem RH2VY (ECM, EcoNet board) air handler laid horizontal over the hall closet where the old one lay: left side down (horizontal left, the drip pan moved to that side, the field conversion), supply north onto the house plenum, doors west onto the service platform, the RXHF filter base on its return end. The overflow pan, rails, UV lamp and dehumidifier are the old install's, in the same places. The shipped low voltage pigtails are off: the house cable lands inside the knockout (round 20).",
@@ -4233,6 +4253,42 @@
     }
    },
    "note": "Round 89 (Jake: media air cleaner cabinet, yes). AprilAire 2210 class laid flat in the furnace's return platform; the furnace's own 1 in filter, its door and base, and the furnace's return air packets go while it is in (the furnace placement's media_cabinet add on block): two filters in series starve the blower, and the cabinet's airflow clip tells the return story."
+  },
+  {
+   "socket": "sock_ahu_attic",
+   "file": "attic",
+   "pack": "media_air_cleaner_ah",
+   "model": "media_air_cleaner_ah.glb",
+   "title": "Media filter cabinet, 5 in deep pleat, 20 x 25",
+   "yaw": -90,
+   "offset": [
+    0.04451,
+    0.24354,
+    0.32425
+   ],
+   "config": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&media_cabinet=yes",
+   "states": [
+    "media_loaded",
+    "media_air_dusty_in",
+    "media_air_dusty_up",
+    "media_air_clean_up",
+    "ah_media_arrow_lit",
+    "ah_media_specks",
+    "ah_media_tape_run",
+    "ah_media_clearance",
+    "ah_unfold_thin_pivot",
+    "ah_unfold_deep_pivot"
+   ],
+   "section_set": {
+    "pairs": {
+     "ah_media_cabinet": "ah_media_cabinet_section"
+    },
+    "also_hide": [
+     "ah_media_arrow"
+    ],
+    "note": "Round 107: the west half of the housing goes (the platform side), so the deep pleats' zigzag shows; the arrow label on that wall goes with it."
+   },
+   "note": "Round 107 (Jake 2026-11-02: a media cabinet at the attic air handler too; brand does not matter; MERV 11 standard, 13 offered; check at 4 months, replace at 8 or 12; one filter only). A 20 x 25 class cabinet with a 5 in deep pleat filter (19 pleats, about 30 sq ft) on the air handler's own rails in its return end, ahead of the coil, where the 1 in filter base was (the air handler placements' media_cabinet add on block takes the filter, its door and its base out). Placed in the air handler's own frame (same socket, yaw and offset). Door on top with 24 in clear under the roof: a side door would face the platform, but the condensate cleanout tee stands in the filter's path there. Transitions to the unit (under the UV lamp head) and from the house return box, whose shorter twin duct_return_ahu_box_media shows with the cabinet (the full box steps out). Foil tape on every seam, two test ports (before and after the filter). Clips: airflow, media_flow, media_dirty, cutaway, door_open, media_pull, door_clearance, cabinet_in, filter_unfold; blower_starved is on the air handler (its wheel, coil and 1 in filter). Built by hvac_air_cleaning/scripts/build_ah_media.py."
   },
   {
    "socket": "sock_ahu_closet_hall",

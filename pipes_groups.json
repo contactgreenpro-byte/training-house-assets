@@ -1524,8 +1524,8 @@
     {
      "file": "pipes_hvac__hvac__a340dde3.glb",
      "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15",
-     "nodes": 22,
-     "bytes": 111780
+     "nodes": 23,
+     "bytes": 112672
     },
     {
      "file": "pipes_hvac__hvac__d128c58d.glb",
@@ -2689,8 +2689,8 @@
     {
      "file": "slab_pipes_hvac__hvac__a340dde3.glb",
      "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15",
-     "nodes": 22,
-     "bytes": 111812
+     "nodes": 23,
+     "bytes": 112720
     },
     {
      "file": "slab_pipes_hvac__hvac__d128c58d.glb",

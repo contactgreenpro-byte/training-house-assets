@@ -609,7 +609,8 @@
   "hvac_air_handler": {
    "name": "Indoor Air Handler and Coil",
    "clips": {
-    "run": "Call for air: blower runs"
+    "run": "Call for air: blower runs",
+    "blower_starved": "Choked 1 in filter: the blower starves, the coil ices"
    },
    "hotspots": {
     "blower_wheel": [
@@ -3807,6 +3808,58 @@
     "xover_valve": [
      "Our normal job: no return line, so a crossover valve under the sink farthest from the heater by pipe run. The trade off: the cold tap there runs warm for a few seconds at first. Tell the homeowner."
     ]
+   }
+  },
+  "media_air_cleaner_ah": {
+   "name": "Media Filter Cabinet (attic air handler)",
+   "clips": {
+    "airflow": "Airflow",
+    "media_flow": "Air through the deep pleats",
+    "media_dirty": "Media dirty",
+    "cutaway": "Cutaway",
+    "door_open": "Door open",
+    "media_pull": "Media pull",
+    "door_clearance": "Pull the filter: 24 in clear",
+    "cabinet_in": "Put the cabinet in and seal it",
+    "filter_unfold": "Unfold both filters: 6 vs 30 sq ft"
+   },
+   "hotspots": {
+    "ah_media_filter": [
+     "White or light grey on the inlet (south) side. Check it at 4 months, replace it at 8 or 12 depending on how dirty it is. MERV 11 is our standard, 13 when the static allows it."
+    ],
+    "media_loaded": [
+     "Grey and caked on the inlet side. Replace it, write the date on the card, and read the static pressure after."
+    ],
+    "ah_media_tape": [
+     "Every seam taped or sealed with mastic. A gap lets attic air around the filter and into the coil."
+    ],
+    "ah_media_door": [
+     "Door seated and latched. 24 in clear over it so the filter can come straight up."
+    ],
+    "ah_media_arrow": [
+     "Arrow with the airflow, toward the air handler."
+    ],
+    "ah_media_test_port": [
+     "Test ports before and after the filter: static pressure before the job and after, total at or under the unit's rating."
+    ]
+   },
+   "labels": {
+    "ah_media_cabinet": "Media filter cabinet, 20 x 25 class, 5 in deep pleat, on the return end of the air handler ahead of the coil",
+    "ah_media_cabinet_section": "Cabinet cut open from the platform side: the deep pleats' zigzag between the two openings",
+    "ah_media_door": "Door on top: two latches, the label says MERV 11 standard, MERV 13 offered, check at 4 months, replace at 8 or 12",
+    "ah_media_filter": "Deep pleat filter, 20 x 25 x 5: 19 pleats 4.6 in deep, about 30 sq ft of media",
+    "ah_media_filter_frame": "Filter cards top and bottom and the blue combs that keep the pleats apart",
+    "ah_media_transition": "Transition to the air handler's return, foil taped, a test port after the filter",
+    "ah_media_transition_in": "Transition from the house return box, foil taped, a test port before the filter",
+    "ah_media_arrow": "Airflow arrow on the platform side: toward the air handler",
+    "ah_media_test_port": "Test port after the filter (rubber plug)",
+    "ah_media_test_port_in": "Test port before the filter (rubber plug)",
+    "ah_media_tape": "Foil tape on every seam",
+    "ah_media_supports": "A 2 x 4 on edge with a pad under the south edge; the rails carry the rest",
+    "media_loaded": "Loaded media: grey and caked on the inlet side. Past due",
+    "media_air_dusty_in": "Return air in from the ceiling grille, dust and all",
+    "media_air_dusty_up": "Spread over five times the media, the air creeps through the pleats",
+    "media_air_clean_up": "Filtered air out into the coil and blower"
    }
   }
  }
