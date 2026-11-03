@@ -335,6 +335,22 @@
    },
    "inner_tank": {
     "look": "section"
+   },
+   "scale_inhibitor": {
+    "work": "dose_flow",
+    "look": "section"
+   },
+   "scale_inhibitor_section": {
+    "work": "dose_flow"
+   },
+   "scale_inhibitor_crystals": {
+    "work": "cartridge_spent"
+   },
+   "cartridge_spent": {
+    "work": "cartridge_spent"
+   },
+   "element_scaled": {
+    "work": "element_scaled"
    }
   },
   "electric_tankless_water_heater.glb": {
@@ -425,6 +441,19 @@
    },
    "turbine_rotor": {
     "work": "heat_on"
+   },
+   "scale_inhibitor": {
+    "work": "dose_flow",
+    "look": "section"
+   },
+   "scale_inhibitor_section": {
+    "work": "dose_flow"
+   },
+   "scale_inhibitor_crystals": {
+    "work": "cartridge_spent"
+   },
+   "cartridge_spent": {
+    "work": "cartridge_spent"
    }
   },
   "flo_shutoff.glb": {
@@ -615,6 +644,22 @@
    },
    "inner_tank": {
     "look": "section"
+   },
+   "scale_inhibitor": {
+    "work": "dose_flow",
+    "look": "section"
+   },
+   "scale_inhibitor_section": {
+    "work": "dose_flow"
+   },
+   "scale_inhibitor_crystals": {
+    "work": "cartridge_spent"
+   },
+   "cartridge_spent": {
+    "work": "cartridge_spent"
+   },
+   "tank_scale_bottom": {
+    "work": "tank_scale_bottom"
    }
   },
   "gas_tankless_water_heater_condensing.glb": {
@@ -700,6 +745,25 @@
    },
    "recirc_return_stub": {
     "look": "cut"
+   },
+   "scale_inhibitor": {
+    "work": "dose_flow",
+    "look": "section"
+   },
+   "scale_inhibitor_section": {
+    "work": "dose_flow"
+   },
+   "scale_inhibitor_crystals": {
+    "work": "cartridge_spent"
+   },
+   "cartridge_spent": {
+    "work": "cartridge_spent"
+   },
+   "hx_scale": {
+    "work": "hx_scale"
+   },
+   "primary_heat_exchanger_section": {
+    "work": "hx_scale"
    }
   },
   "hvac_air_handler_horizontal.glb": {
@@ -1493,6 +1557,19 @@
    },
    "filter_slot_trim": {
     "look": "clip:filter_out"
+   },
+   "scale_inhibitor": {
+    "work": "dose_flow",
+    "look": "section"
+   },
+   "scale_inhibitor_section": {
+    "work": "dose_flow"
+   },
+   "scale_inhibitor_crystals": {
+    "work": "cartridge_spent"
+   },
+   "cartridge_spent": {
+    "work": "cartridge_spent"
    }
   },
   "kitchen_sink.glb": {
@@ -5877,6 +5954,25 @@
    },
    "recirc_return_stub": {
     "look": "cut"
+   },
+   "scale_inhibitor": {
+    "work": "dose_flow",
+    "look": "section"
+   },
+   "scale_inhibitor_section": {
+    "work": "dose_flow"
+   },
+   "scale_inhibitor_crystals": {
+    "work": "cartridge_spent"
+   },
+   "cartridge_spent": {
+    "work": "cartridge_spent"
+   },
+   "hx_scale": {
+    "work": "hx_scale"
+   },
+   "primary_heat_exchanger_section": {
+    "work": "hx_scale"
    }
   },
   "pump_tank_train.glb": {

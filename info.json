@@ -426,7 +426,10 @@
   },
   "electric_tankless_water_heater": {
    "name": "Electric Tankless Water Heater",
-   "clips": {},
+   "clips": {
+    "cartridge_spent": "Cartridge used up",
+    "dose_flow": "Water through the scale inhibitor"
+   },
    "hotspots": {
     "cold_stub": [
      "Plain copper straight into the unit: no shutoff and no flush port, so it cannot be descaled without cutting pipe."
@@ -450,20 +453,28 @@
      "Read the cable gauge and the breakers in the panel against the plate: an 18 kW unit wants two 40 A double-poles on 8 AWG."
     ],
     "scale_inhibitor": [
-     "Cartridge past its date or bypassed: it is not treating anything."
+     "Cartridge past its date or bypassed: it is not treating anything.",
+     "Look at the crystals: at 6 months, if they are mostly gone, the cartridge gets changed. Write the date on the housing."
     ],
     "surge_protector": [
      "Indicator dark or the unit tripped: the protector has done its job once and is finished."
     ],
     "junction_box": [
      "Feed comes straight from the panel with nothing on it. One power blink can take out the control board."
+    ],
+    "cartridge_spent": [
+     "Crystals used up: it is not treating anything. Change the cartridge and write the date on it."
     ]
    },
    "labels": {}
   },
   "electric_tank_water_heater": {
    "name": "Electric Tank Water Heater",
-   "clips": {},
+   "clips": {
+    "cartridge_spent": "Cartridge used up",
+    "dose_flow": "Water through the scale inhibitor",
+    "element_scaled": "Scale crust on the lower element"
+   },
    "hotspots": {
     "inner_tank": [
      "Leak from the tank shell. Not repairable: replace the unit."
@@ -498,13 +509,26 @@
     "drain_pan": [
      "Pan fitting with no drain line: the pan can only hold what it holds.",
      "Upper floor or attic: a leak sensor in the pan is the only warning they will get."
+    ],
+    "scale_inhibitor": [
+     "Look at the crystals: at 6 months, if they are mostly gone, the cartridge gets changed. Write the date on the housing."
+    ],
+    "cartridge_spent": [
+     "Crystals used up: it is not treating anything. Change the cartridge and write the date on it."
+    ],
+    "element_scaled": [
+     "Element crusted white: it runs hot under the scale until it burns out. Flush, and treat the water."
     ]
    },
    "labels": {}
   },
   "gas_tankless_water_heater": {
    "name": "Gas Tankless Water Heater",
-   "clips": {},
+   "clips": {
+    "cartridge_spent": "Cartridge used up",
+    "dose_flow": "Water through the scale inhibitor",
+    "hx_scale": "Scale inside the exchanger tubes"
+   },
    "hotspots": {
     "cold_stub": [
      "Plain pipe straight into the unit: it cannot be flushed without cutting copper, so it never gets flushed."
@@ -538,20 +562,31 @@
      "Upper floor or attic: a leak sensor in the pan is the only warning they will get."
     ],
     "scale_inhibitor": [
-     "Cartridge past its date or bypassed: it is not treating anything."
+     "Cartridge past its date or bypassed: it is not treating anything.",
+     "Look at the crystals: at 6 months, if they are mostly gone, the cartridge gets changed. Write the date on the housing."
     ],
     "surge_protector": [
      "Indicator dark or the unit tripped: the protector has done its job once and is finished."
     ],
     "receptacle": [
      "Control board on a bare receptacle. One power blink can take it out."
+    ],
+    "cartridge_spent": [
+     "Crystals used up: it is not treating anything. Change the cartridge and write the date on it."
+    ],
+    "hx_scale": [
+     "Scale lining the tubes: flow drops and it throws codes. Descale it and set a schedule."
     ]
    },
    "labels": {}
   },
   "gas_tank_water_heater": {
    "name": "Gas Tank Water Heater",
-   "clips": {},
+   "clips": {
+    "cartridge_spent": "Cartridge used up",
+    "dose_flow": "Water through the scale inhibitor",
+    "tank_scale_bottom": "Limestone on the tank bottom"
+   },
    "hotspots": {
     "inner_tank": [
      "Leak from the tank shell. Not repairable: replace the unit."
@@ -602,6 +637,15 @@
     "air_intake": [
      "Screen packed with lint and dust: the burner is starving for air. Vacuum the screen.",
      "Sealed closet with no combustion air opening: the burner needs air from somewhere."
+    ],
+    "scale_inhibitor": [
+     "Look at the crystals: at 6 months, if they are mostly gone, the cartridge gets changed. Write the date on the housing."
+    ],
+    "cartridge_spent": [
+     "Crystals used up: it is not treating anything. Change the cartridge and write the date on it."
+    ],
+    "tank_scale_bottom": [
+     "Limestone on the bottom over the burner: the flame heats rock before water. Flush it every year."
     ]
    },
    "labels": {}
@@ -2669,7 +2713,20 @@
    "name": "Condenser Surge Protector"
   },
   "hybrid_water_heater": {
-   "name": "Heat Pump Water Heater"
+   "name": "Heat Pump Water Heater",
+   "clips": {
+    "cartridge_spent": "Cartridge used up",
+    "dose_flow": "Water through the scale inhibitor"
+   },
+   "hotspots": {
+    "scale_inhibitor": [
+     "Look at the crystals: at 6 months, if they are mostly gone, the cartridge gets changed. Write the date on the housing."
+    ],
+    "cartridge_spent": [
+     "Crystals used up: it is not treating anything. Change the cartridge and write the date on it."
+    ]
+   },
+   "labels": {}
   },
   "sweet_air": {
    "name": "Hose Bib (frost free)"

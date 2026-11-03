@@ -262,7 +262,7 @@
   "run_capacitor": "Run capacitor. Stores a charge that helps the motor start and run smoothly. Weak or bulged, the motor hums and will not start.",
   "safety_leads": "Safety switch leads. Two wires from the condensate pump's float switch to the furnace. If the reservoir overfills the switch opens and the furnace stops calling for heat instead of flooding the closet.",
   "salt_bed": "Salt. Keep the tank at least a third full. A hard crust with a hollow under it is a salt bridge.",
-  "scale_inhibitor": "Scale inhibitor. A cartridge on the cold water line that keeps minerals from forming scale in the water heater.",
+  "scale_inhibitor": "Scale inhibitor. A cartridge on the cold line into the water heater: slow dissolving polyphosphate crystals in a clear bowl. The water picks up a tiny dose, so scale stays small and leaves with the hot water. It slows scale; it does not take the hardness out.",
   "screen": "Screen. Catches grit.",
   "scum_layer": "Scum. The layer of grease and light solids on top. The baffles hold it back from the outlet.",
   "seat": "Seat.",
@@ -977,7 +977,17 @@
   "ah_media_clearance": "24 inches clear over the door, so the filter can slide out.",
   "ah_media_specks": "Dust caught on the pleats.",
   "ah_unfold_thin": "A 1 in 20 x 25 filter pulled flat: about 6 sq ft of media.",
-  "ah_unfold_deep": "A 5 in deep pleat 20 x 25 pulled flat: about 30 sq ft of media."
+  "ah_unfold_deep": "A 5 in deep pleat 20 x 25 pulled flat: about 30 sq ft of media.",
+  "scale_inhibitor_crystals": "Polyphosphate crystals. A food grade mineral salt that dissolves slowly. They get used up, so the cartridge is changed about every 6 months.",
+  "scale_inhibitor_section": "Scale inhibitor cut open. The water comes in, washes over the crystals in the bowl, and leaves with a few parts per million of phosphate.",
+  "cartridge_spent": "Spent cartridge. The crystals are down to a thin layer, so it is not treating the water any more. Change it.",
+  "dose_flow": "Water through the cartridge. It picks up a tiny dose, a few parts per million, on its way into the heater.",
+  "scale_inhibitor_loop": "The cold line through the scale inhibitor: after the shutoff, a short way back from the heater, with room under the bowl to unscrew it.",
+  "cold_supply_line_si": "Cold supply line. Brings cold water into the heater.",
+  "element_scaled": "Scaled lower element. Limestone crusts on the hottest metal in the tank. The element runs hotter under it until it burns out.",
+  "tank_scale_bottom": "Limestone on the tank bottom. Over the burner is the hottest spot in a gas tank, so the scale forms there first: the flame heats rock before it heats water.",
+  "hx_scale": "Scale inside the exchanger tubes. The water passages narrow, the flow drops and the unit throws codes. Descale it on a schedule.",
+  "primary_heat_exchanger_section": "Heat exchanger cut open: the water tubes running through the fins."
  },
  "_prefix": {
   "breaker_": "Branch breaker. Feeds one circuit. It trips on an overload or a short. An arc fault or GFCI breaker also has a test button.",
@@ -1102,6 +1112,8 @@
   "sub_wall_anchor_": "Wall anchor. The plastic sleeve in the drywall the plate's screw goes into; it stays when the plate comes off.",
   "battery_aa_": "AA battery. Keeps the programmable stat's clock and program, and runs it when there is no C wire. A blank screen is often these.",
   "ah_media_tape_": "Foil tape on the seam. No air sneaks around the filter.",
-  "ah_media_speck_": "Dust caught on the pleats."
+  "ah_media_speck_": "Dust caught on the pleats.",
+  "dose_packet_": "Water through the cartridge. It picks up a tiny dose, a few parts per million, on its way into the heater.",
+  "dose_speck_": "A speck of phosphate picked up from the crystals."
  }
 }

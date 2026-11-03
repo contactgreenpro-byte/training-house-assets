@@ -1,7 +1,7 @@
 {
- "published": "2026-11-02T10:00:42",
- "house": "r100a4p",
- "note": "r100a4p: media filter cabinets. The attic air handler gets a 20 x 25 class media cabinet with a 5 in deep pleat filter on its return end, ahead of the coil (media_air_cleaner_ah.glb, add on media_cabinet=yes on all six attic layouts, both houses): door on top with 24 in clear, foil tape on the seams, test ports, the unit's own 1 in filter and base out, the house return box swapped for a shorter twin. Clips filter_unfold, media_flow, cabinet_in, door_clearance; blower_starved on both attic air handlers. The furnace cabinet unchanged",
+ "published": "2026-11-03T01:22:55",
+ "house": "r100a4q",
+ "note": "r100a4q: the scale inhibitor on every water heater (Jake 2026-11-03, FieldWise topic 14). An in-line cartridge, no brand: head with a flow arrow and a blank date label, clear bowl of white polyphosphate crystals, unions both sides, on the cold line after the shutoff with room under the bowl (scale_inhibitor_rig: scale_inhibitor, scale_inhibitor_crystals, scale_inhibitor_section, cartridge_spent, dose_flow). Attic tanks in-line on the house cold run (past the C port tee with the mixing valve); closet and slab garage tanks, the hybrid and both tanklesses on their own scale_inhibitor_loop (hybrid: cold_supply_line_si). Add on scale_inhibitor on every heater placement, new on both gas tanklesses and the hybrid. Clips cartridge_spent, dose_flow, element_scaled (electric tank), tank_scale_bottom (gas tank), hx_scale (gas tanklesses, primary_heat_exchanger_section). Every other mesh as published",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -72,12 +72,12 @@
    "bytes": 683672
   },
   "electric_tank_water_heater.glb": {
-   "v": "0f050f1fd9",
-   "bytes": 1540556
+   "v": "0a3b2c5586",
+   "bytes": 1884496
   },
   "electric_tankless_water_heater.glb": {
-   "v": "f8bc9afdbd",
-   "bytes": 960708
+   "v": "8ce343c5da",
+   "bytes": 1112864
   },
   "erv.glb": {
    "v": "0015128202",
@@ -108,16 +108,16 @@
    "bytes": 1229536
   },
   "gas_tank_water_heater.glb": {
-   "v": "a8ae250967",
-   "bytes": 1900408
+   "v": "a9b2e33466",
+   "bytes": 2173156
   },
   "gas_tankless_water_heater_condensing.glb": {
-   "v": "da0ff9b3d7",
-   "bytes": 1186288
+   "v": "901200cdc7",
+   "bytes": 1521916
   },
   "gas_tankless_water_heater_noncondensing.glb": {
-   "v": "4bd6339d6a",
-   "bytes": 1044912
+   "v": "aa6e8a39b0",
+   "bytes": 1362352
   },
   "gloves.glb": {
    "v": "349fa3cb70",
@@ -252,15 +252,15 @@
    "bytes": 144456
   },
   "hybrid_water_heater.glb": {
-   "v": "ee0c53fc40",
-   "bytes": 910480
+   "v": "8c298ea23e",
+   "bytes": 1114984
   },
   "hybrid_water_heater_slab.glb": {
-   "v": "7ab5ea1544",
-   "bytes": 904320
+   "v": "af8a1e3ae7",
+   "bytes": 1108340
   },
   "index.html": {
-   "v": "a4e1333d1e",
+   "v": "6923ec8075",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -268,16 +268,16 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "fcde51afaf",
-   "bytes": 235021
+   "v": "aa9dfbba45",
+   "bytes": 237592
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "b577a48150",
-   "bytes": 124452
+   "v": "d25bf6ba60",
+   "bytes": 126506
   },
   "kitchen_sink.glb": {
    "v": "5cbcc760bd",
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "92c95be093",
-   "bytes": 111608
+   "v": "4d39c833a8",
+   "bytes": 113398
   },
   "pipes.json": {
    "v": "32158dbd5c",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "8c3ab6c616",
-   "bytes": 206399
+   "v": "d58cb95479",
+   "bytes": 212781
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -2276,8 +2276,8 @@
    "bytes": 1108804
   },
   "walk.js": {
-   "v": "8c02275b60",
-   "bytes": 450164
+   "v": "59562a6b63",
+   "bytes": 450221
   },
   "washer.glb": {
    "v": "7e04f19827",
