@@ -226,7 +226,8 @@ export function preloadModel(url) {
   return _models.get(url);
 }
 export async function loadCatalog(base) {
-  const r = await fetch(new URL('engine/catalog.json', base), { cache: 'no-cache' });
+  // a plain string, not a URL object: the Base44 editor preview wraps fetch and breaks on URL objects
+  const r = await fetch(new URL('engine/catalog.json', base).href, { cache: 'no-cache' });
   if (!r.ok) throw new Error('catalog ' + r.status);
   return r.json();
 }
