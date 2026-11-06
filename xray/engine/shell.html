@@ -39,7 +39,7 @@ try {
 window.addEventListener('message', async e => {
   if (e.origin !== origin || !e.data || e.data.type !== 'xray-start' || !engine) return;
   try { const r = await engine.start({ photo: e.data.photo, analysis: e.data.analysis, model: e.data.model, insetTop: e.data.insetTop }); tell('started', r); }
-  catch (err) { tell('error', String(err && err.message || err)); }
+  catch (err) { tell('error', String(err && (err.stack || err.message) || err).slice(0, 900)); }
 });
 parent.postMessage({ type: 'xray-ready' }, origin);
 </script>
