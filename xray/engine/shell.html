@@ -34,7 +34,7 @@ try {
 } catch (e) {
   const el = document.getElementById('err'); el.style.display = 'block';
   el.textContent = 'The X-ray could not start on this device. Your photo is safe; try again later.';
-  tell('error', String(e && e.message || e));
+  tell('error', String(e && (e.stack || e.message) || e).slice(0, 900));
 }
 window.addEventListener('message', async e => {
   if (e.origin !== origin || !e.data || e.data.type !== 'xray-start' || !engine) return;
