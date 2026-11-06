@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Pipes X-Ray</title>
+<!-- X-Ray My Home shell. A host page (Home Portal's /xray) fetches this file, replaces __XRAY_BASE__ with the
+     folder the engine is served from, and mounts it as a same-origin blob frame, the way House.jsx mounts the
+     training house. The photo then travels by postMessage inside the portal's own origin: no new link to it.
+     Messages in:  {type:'xray-start', photo: Blob|url, analysis, model?}
+     Messages out: {type:'xray-ready'} then {type:'xray-event', event, data} for state, choice, fit, tap, timing. -->
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
+            "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"}}
+</script>
+<style>
+html,body{margin:0;height:100%;background:#0b1419;overflow:hidden}
+#xr{position:fixed;inset:0}
+#err{position:fixed;inset:auto 16px 40% 16px;color:#eaf6fa;font:15px/1.4 system-ui,sans-serif;text-align:center;display:none}
+</style>
+</head>
+<body>
+<div id="xr"></div>
+<div id="err"></div>
+<script type="module">
+const BASE = '__XRAY_BASE__'.startsWith('__') ? new URL('../', location.href).href : '__XRAY_BASE__';
+const origin = location.origin;
+const tell = (event, data) => parent.postMessage({ type: 'xray-event', event, data }, origin);
+let engine = null;
+try {
+  const { createXray } = await import(BASE + 'engine/xray.js');
+  engine = await createXray(document.getElementById('xr'), { base: BASE, onEvent: tell });
+  window.xray = engine;
+} catch (e) {
+  const el = document.getElementById('err'); el.style.display = 'block';
+  el.textContent = 'The X-ray could not start on this device. Your photo is safe; try again later.';
+  tell('error', String(e && e.message || e));
+}
+window.addEventListener('message', async e => {
+  if (e.origin !== origin || !e.data || e.data.type !== 'xray-start' || !engine) return;
+  try { const r = await engine.start({ photo: e.data.photo, analysis: e.data.analysis, model: e.data.model, insetTop: e.data.insetTop }); tell('started', r); }
+  catch (err) { tell('error', String(err && err.message || err)); }
+});
+parent.postMessage({ type: 'xray-ready' }, origin);
+</script>
+</body>
+</html>
