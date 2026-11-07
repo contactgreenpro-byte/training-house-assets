@@ -301,8 +301,10 @@ export async function createXray(container, opts = {}) {
   // explore: a normal 3D view of the whole canvas. A tween blends the two.
   const cam = { overlay: null, explore: null, k: 0 };
   function poseCamera(pose) {
-    const H = S.entry.body_size.height; const e = THREE.MathUtils.degToRad(pose.elev);
-    const tgt = new THREE.Vector3(0, H * 0.5, 0);
+    const B = S.entry.body_size, H = B.height; const e = THREE.MathUtils.degToRad(pose.elev);
+    // the body can sit off the origin (a disposal hangs under its sink): y0 is its bottom, x and z its centre
+    const tgt = new THREE.Vector3(B.x || 0, (B.y0 || 0) + H * 0.5, B.z || 0);
+    if (S.root) tgt.applyAxisAngle(new THREE.Vector3(0, 1, 0), S.root.rotation.y);
     const pos = tgt.clone().add(new THREE.Vector3(0, Math.sin(e), Math.cos(e)).multiplyScalar(pose.d));
     return { pos, tgt };
   }
@@ -346,11 +348,12 @@ export async function createXray(container, opts = {}) {
     if (S.root) scene.remove(S.root);
     const root = gltf.scene.clone(true);           // the cache keeps the pristine copy
     S.entry = entry; S.key = keyName; S.root = root; scene.add(root);
+    root.rotation.y = frontRad();
     S.named = new Map(); S.meshes = []; S.rest = new Map();
     const hide = (catalog.hide_always || []).concat(entry.hide || []).map(p => new RegExp(p));
     root.traverse(o => {
       const n = nameOf(o); if (n) S.named.set(n, o);
-      if (hide.some(r => r.test(n))) { o.visible = false; o.userData.xrOff = true; }
+      if (hide.some(r => r.test(n))) { o.visible = false; o.userData.xrOff = true; o.userData.xrHidden = true; }
       if (o.isMesh) { o.userData.orig = o.material; S.meshes.push(o); }
       S.rest.set(o, { p: o.position.clone(), q: o.quaternion.clone(), s: o.scale.clone(), w: o.morphTargetInfluences ? o.morphTargetInfluences.slice() : null });
     });
@@ -360,7 +363,7 @@ export async function createXray(container, opts = {}) {
     S.mixer.addEventListener('finished', e => onClipDone(e.action));
     const H = entry.body_size.height;
     S.water = [];
-    for (const n of entry.water || []) { const o = S.named.get(n); if (o && o.isMesh) S.water.push(o); }
+    for (const n of entry.water || []) under(n).forEach(m => S.water.push(m));   // a water body can be several meshes
     const wm = waterMaterial(0.26, 1.34, 0.5), wmCut = waterMaterial(0.26, 1.34, 0.82);
     S.waterMat = wm; S.waterMatCut = wmCut;
     S.ghost = ghostMaterial(0x0b4f66, 0x7fe3ff, 0.9);
@@ -373,6 +376,8 @@ export async function createXray(container, opts = {}) {
   }
   // parts drawn only in 3D, not over the photo (a furnace photo seldom shows the coil, plenum and piping around it)
   function overlayParts(onPhoto) { for (const n of (S.entry.overlay_hide || [])) { const o = S.named.get(n); if (o && !o.userData.xrOff) o.visible = !onPhoto; } }
+  // models built facing another way say so (catalog front_deg); every turn of the root adds it
+  const frontRad = () => THREE.MathUtils.degToRad((S.entry && S.entry.front_deg) || 0);
   const under = n => { const o = S.named.get(n); const out = []; if (o) o.traverse(m => { if (m.isMesh) out.push(m); }); return out; };
   const isOff = o => { for (let p = o; p; p = p.parent) if (p.userData.xrOff) return true; return false; };
 
@@ -386,12 +391,13 @@ export async function createXray(container, opts = {}) {
     const water = new Set(S.water);
     const secs = E.sections || {}; const secOf = new Set(Object.values(secs)); const solids = new Set(Object.keys(secs));
     const secHide = new Set(E.section_hide || []);
+    // visibility by part name, so a part made of several meshes (the toilet's bowl, the furnace's doors) swaps
+    // whole: sections only in cutaway; their solids and the section_hide parts out in cutaway. A part the
+    // catalog hides stays hidden.
+    const cut = v === 'cutaway';
+    for (const n of secOf) { const o = S.named.get(n); if (o) { o.visible = cut; o.userData.xrOff = !cut; o.traverse(m => { if (m.isMesh) { m.visible = cut; m.userData.xrOff = !cut; } }); } }
+    for (const n of new Set([...solids, ...secHide])) { const o = S.named.get(n); if (o && !o.userData.xrHidden) o.visible = !cut; }
     for (const m of S.meshes) {
-      const n = nameOf(m);
-      // visibility: sections only in cutaway; their solids and section_hide parts hidden in cutaway
-      if (secOf.has(n)) { m.visible = v === 'cutaway'; m.userData.xrOff = v !== 'cutaway'; }
-      // a part can be a group of meshes (the furnace's doors): look up the parents too
-      else if (solids.has(n) || secHide.has(n) || inSet(m, secHide)) { if (!isOffAbove(m)) m.visible = v !== 'cutaway'; }
       if (v === 'scan') { m.material = S.ghostAll; continue; }
       if (v === 'solid') { m.material = m.userData.orig; continue; }
       if (v === 'xray') {
@@ -611,17 +617,18 @@ export async function createXray(container, opts = {}) {
     const { w, h } = S.photoSize;
     const vfov = w >= h ? THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(PHONE_LONG_FOV / 2)) * h / w)) : PHONE_LONG_FOV;
     const pose = { yaw: yawFor(A), elev: ELEV_DEG[A.camera_height] != null ? ELEV_DEG[A.camera_height] : 6, d: 3, shiftX: 0, shiftY: 0, vfov, widen: 1 };
-    S.root.rotation.y = pose.yaw; S.root.scale.set(1, 1, 1); S.root.updateMatrixWorld(true);
+    S.root.rotation.y = pose.yaw + frontRad(); S.root.scale.set(1, 1, 1); S.root.updateMatrixWorld(true);
     // fit the body's projected height to the box height (size goes as 1/distance), then centre it on the box
     const E = S.entry; const B = E.body_size, H = B.height; const pts = [];
     if (B.width) {
       // a cabinet (furnace): the eight corners of its box, centred on the origin like the tanks
-      const hw = B.width / 2, hd = (B.depth || B.width) / 2, z0 = B.z || 0;
-      for (const x of [-hw, hw]) for (const z of [z0 - hd, z0 + hd]) pts.push(new THREE.Vector3(x, 0, z), new THREE.Vector3(x, H, z));
+      const hw = B.width / 2, hd = (B.depth || B.width) / 2, x0 = B.x || 0, z0 = B.z || 0, y0 = B.y0 || 0;
+      for (const x of [x0 - hw, x0 + hw]) for (const z of [z0 - hd, z0 + hd]) pts.push(new THREE.Vector3(x, y0, z), new THREE.Vector3(x, y0 + H, z));
     } else {
-      const r = B.diameter / 2;
-      for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; pts.push(new THREE.Vector3(Math.cos(a) * r, 0, Math.sin(a) * r), new THREE.Vector3(Math.cos(a) * r, H, Math.sin(a) * r)); }
+      const r = B.diameter / 2, x0 = B.x || 0, z0 = B.z || 0, y0 = B.y0 || 0;
+      for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; pts.push(new THREE.Vector3(x0 + Math.cos(a) * r, y0, z0 + Math.sin(a) * r), new THREE.Vector3(x0 + Math.cos(a) * r, y0 + H, z0 + Math.sin(a) * r)); }
     }
+    pts.forEach(p => p.applyMatrix4(S.root.matrixWorld));   // the box turns with the model
     const proj = () => {
       const { pos, tgt } = poseCamera(pose); const c = new THREE.PerspectiveCamera(pose.vfov, w / h, 0.01, 100); c.position.copy(pos); c.lookAt(tgt); c.updateMatrixWorld(); c.updateProjectionMatrix();
       let x0 = 1, y0 = 1, x1 = 0, y1 = 0; for (const p of pts) { const v = p.clone().project(c); const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
@@ -733,7 +740,7 @@ export async function createXray(container, opts = {}) {
     if (!S.pose) return;
     const slider = (label, min, max, step, get, set) => { const l = el('label'); const s = el('input'); s.type = 'range'; s.min = min; s.max = max; s.step = step; s.value = get();
       s.addEventListener('input', () => { set(+s.value); applyCamera(); scheduleRefit(); }); l.append(el('span', null, label), s); dbg.append(l); };
-    slider('turn', -180, 180, 1, () => Math.round(THREE.MathUtils.radToDeg(S.pose.yaw)), v => { S.pose.yaw = THREE.MathUtils.degToRad(v); S.root.rotation.y = S.pose.yaw; S.root.updateMatrixWorld(true); });
+    slider('turn', -180, 180, 1, () => Math.round(THREE.MathUtils.radToDeg(S.pose.yaw)), v => { S.pose.yaw = THREE.MathUtils.degToRad(v); S.root.rotation.y = S.pose.yaw + frontRad(); S.root.updateMatrixWorld(true); });
     slider('tilt', -20, 50, 1, () => S.pose.elev, v => { S.pose.elev = v; });
     slider('size', 50, 200, 1, () => Math.round(300 / S.pose.d), v => { S.pose.d = 300 / v; });
     const row = el('div');
@@ -818,7 +825,10 @@ export async function createXray(container, opts = {}) {
   function enterExplore(instant) {
     const from = S.overlay && S.pose ? overlayState() : null;
     S.overlay = false; overlayParts(false); S.cmp != null && toggleCompare();
-    const box = new THREE.Box3(); S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o)) box.expandByObject(o); });
+    // frame the whole model, or only the parts a model names (a mini split's wall unit, not its long line runs)
+    const box = new THREE.Box3(); const only = S.entry.frame_parts && new Set(S.entry.frame_parts.flatMap(n => under(n)));
+    S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o) && (!only || only.has(o))) box.expandByObject(o); });
+    if (box.isEmpty()) S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o)) box.expandByObject(o); });
     const tgt = box.getCenter(new THREE.Vector3()); const size = box.getSize(new THREE.Vector3());
     const cw = container.clientWidth, ch = container.clientHeight; const clearH = Math.max(100, ch - (bar.offsetHeight || 0) - 40 - (S.insetTop || 0));
     const vf = THREE.MathUtils.degToRad(EXPLORE_FOV) * clearH / ch; const hf = 2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(EXPLORE_FOV) / 2) * cw / ch);
@@ -834,7 +844,7 @@ export async function createXray(container, opts = {}) {
   function backToPhoto() {
     if (!S.photoSize || !S.pose) return;
     S.overlay = true; overlayParts(true); orbit.enabled = false; S.tween = null; photo.style.opacity = 1; dim.style.opacity = 0.5;
-    S.root.rotation.y = S.pose.yaw; applyCamera(); syncBar(); emit('state', 'xray'); S.mode = 'xray';
+    S.root.rotation.y = S.pose.yaw + frontRad(); applyCamera(); syncBar(); emit('state', 'xray'); S.mode = 'xray';
   }
 
   // ---------------------------------------------------------------- frame loop
@@ -864,7 +874,7 @@ export async function createXray(container, opts = {}) {
     measureFit: search => measureFit(!!search),
     refitFromBox: search => { if (!S.A || !S.A.box) return null; S.pose = initialPose(S.A); const f = measureFit(!!search); applyCamera(); renderDebug(); return f; },
     setAlign: on => { S.align = !!on; orbit.enabled = !S.align && !S.overlay; renderDebug(); },
-    getPose: () => S.pose && { ...S.pose }, setPose: p => { Object.assign(S.pose, p); S.root.rotation.y = S.pose.yaw; applyCamera(); },
+    getPose: () => S.pose && { ...S.pose }, setPose: p => { Object.assign(S.pose, p); S.root.rotation.y = S.pose.yaw + frontRad(); applyCamera(); },
     debug: () => ({ choice: S.choice, analysis: S.A, fit: S.fit, pose: S.pose && { ...S.pose }, timing: { ...timing }, view: S.view, mode: S.mode, found: [...S.found] }),
     // where a part's centre is on screen (CSS px in the engine's container), for scripted taps
     screenOf: n => { const o = S.named.get(n); if (!o) return null; const c = new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3()).project(camera);

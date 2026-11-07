@@ -15,7 +15,6 @@
     "^tank_scale_bottom$",
     "^element_buried$",
     "^element_scaled$",
-    "^drain_pan$",
     "^thermal_expansion_tank$",
     "^scale_inhibitor_loop$",
     "^qa_",
@@ -28,7 +27,8 @@
         "^gas_riser$",
         "^gas_drip_tee$",
         "^gas_flex_connector$",
-        "^gas_shutoff_valve$"
+        "^gas_shutoff_valve$",
+        "^drain_pan$"
       ],
       "title": "Gas water heater",
       "typical": "a typical gas tank water heater",
@@ -503,7 +503,10 @@
         "cold_": "cold_water_inlet",
         "hot_": "hot_water_outlet",
         "anode": "anode_rod"
-      }
+      },
+      "hide": [
+        "^drain_pan$"
+      ]
     },
     "gas_furnace": {
       "file": "models/gas_furnace.glb",
@@ -811,6 +814,2264 @@
         "air_return_up_2",
         "air_return_up_3"
       ]
+    },
+    "ac_condenser": {
+      "file": "models/ac_condenser.glb",
+      "title": "Air conditioner outdoor unit",
+      "typical": "a typical air conditioner outdoor unit",
+      "hide": [
+        "^disconnect_scorch$",
+        "^capacitor_bulged$",
+        "^contactor_pitted$",
+        "^coil_dirty$",
+        "^grip_"
+      ],
+      "match": {
+        "category": [
+          "hvac_condenser"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "body": [
+        "base_pan",
+        "cabinet_posts",
+        "louver_front",
+        "louver_back",
+        "louver_left",
+        "louver_right",
+        "corner_louver_front_left",
+        "corner_louver_front_right",
+        "corner_louver_back_right",
+        "control_panel_cover",
+        "top_cap"
+      ],
+      "body_size": {
+        "width": 0.862,
+        "depth": 0.862,
+        "height": 0.635,
+        "x": 0,
+        "z": 0,
+        "y0": 0
+      },
+      "front_deg": 0,
+      "fit": {
+        "middle_max": 1
+      },
+      "front_marker": {
+        "part": "rheem_badge",
+        "say": "the brand badge"
+      },
+      "shell": [
+        "cabinet_posts",
+        "louver_front",
+        "louver_back",
+        "louver_left",
+        "louver_right",
+        "corner_louver_front_left",
+        "corner_louver_front_right",
+        "corner_louver_back_right",
+        "control_panel_cover",
+        "top_cap",
+        "fan_grille",
+        "data_plate",
+        "warning_label",
+        "rheem_badge",
+        "disconnect_cover"
+      ],
+      "sections": {
+        "cabinet_posts": "cabinet_posts_section",
+        "louver_front": "louver_front_section",
+        "louver_right": "louver_right_section",
+        "condenser_coil": "condenser_coil_section",
+        "fan_grille": "fan_grille_section",
+        "orifice_ring": "orifice_ring_section",
+        "top_cap": "top_cap_section"
+      },
+      "section_hide": [
+        "corner_louver_front_right",
+        "control_panel_cover"
+      ],
+      "heat": {
+        "clip": "fan_run",
+        "loop": "fan_run_loop",
+        "also": [],
+        "say": "Inside your home, the refrigerant soaks up heat from the air. It is pumped out here, where the compressor squeezes it so it gets hotter than the outdoor air. The big fan pulls air in through the coil on the sides and blows that heat out the top. Then the refrigerant goes back inside to pick up more."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it cools"
+        },
+        {
+          "key": "coil",
+          "label": "Keep the coil clear",
+          "loop": "fan_run_loop",
+          "highlight": [
+            "condenser_coil"
+          ],
+          "say": "The coil wraps around the sides of the unit, and air has to pass through it freely. Keep plants, grass clippings and leaves about two feet away. A dirty or blocked coil makes the unit work harder and cool less."
+        },
+        {
+          "key": "disconnect",
+          "label": "The power disconnect",
+          "clip": "disconnect_pull",
+          "highlight": [
+            "disconnect",
+            "disconnect_pullout"
+          ],
+          "say": "The box on the wall near the unit is the power disconnect. Pulling out the block inside cuts the power to the outdoor unit, so it can be worked on safely. Technicians use it before they open the panel."
+        },
+        {
+          "key": "capacitor",
+          "label": "The capacitor",
+          "highlight": [
+            "capacitor"
+          ],
+          "say": "The capacitor gives the compressor and the fan motor a strong push to get started. It is one of the parts that wears out most often, especially after hot summers. If the fan will not spin or the unit just hums, it is one of the first things a technician checks. It holds a charge, so it is a job for a technician."
+        }
+      ],
+      "cards": {
+        "base_pan": [
+          "Base pan",
+          "The metal floor of the unit. The compressor and coil sit on it."
+        ],
+        "cabinet_posts": [
+          "Cabinet frame",
+          "The corner posts that hold the unit's sides and top together."
+        ],
+        "louver_front": [
+          "Coil guard",
+          "The slotted side panels. They protect the coil and let air pass through."
+        ],
+        "control_panel_cover": [
+          "Service panel",
+          "Covers the electrical parts in the corner. Only a technician should open it."
+        ],
+        "data_plate": [
+          "Data label",
+          "Lists the model, size and age of the unit."
+        ],
+        "compressor": [
+          "Compressor",
+          "The heart of the system. It pumps the refrigerant around and squeezes it so it can give off its heat outdoors."
+        ],
+        "condenser_coil": [
+          "Outdoor coil",
+          "Rows of thin metal fins around copper tubing. The heat from your home leaves through here. Keep it clean and clear."
+        ],
+        "fan": [
+          "Fan",
+          "Pulls outdoor air through the coil and blows the heat out the top."
+        ],
+        "fan_motor": [
+          "Fan motor",
+          "Turns the fan. If the fan stops, the unit cannot get rid of its heat."
+        ],
+        "fan_grille": [
+          "Fan guard",
+          "The grille on top that keeps hands and debris out of the fan."
+        ],
+        "top_cap": [
+          "Top cover",
+          "The top of the cabinet. The fan and its guard sit in it."
+        ],
+        "orifice_ring": [
+          "Fan shroud",
+          "The ring around the fan that helps it pull air through the coil."
+        ],
+        "capacitor": [
+          "Capacitor",
+          "Gives the compressor and fan motor a strong push to start. A common part to wear out. It holds a charge, so leave it to a technician."
+        ],
+        "contactor": [
+          "Contactor",
+          "A switch the thermostat controls. It turns the compressor and fan on and off."
+        ],
+        "control_box": [
+          "Control box",
+          "Holds the electrical parts that start and run the unit."
+        ],
+        "service_valves": [
+          "Service valves",
+          "Where the copper lines from the house connect. Technicians check the refrigerant here."
+        ],
+        "refrigerant_lines": [
+          "Refrigerant lines",
+          "Copper tubing that carries the refrigerant between the compressor, the coil and the house."
+        ],
+        "disconnect": [
+          "Power disconnect",
+          "A box on the wall near the unit. Pulling out the block inside cuts the power to the unit for service."
+        ],
+        "disconnect_pullout": [
+          "Disconnect pullout",
+          "The removable block inside the disconnect. Out means the unit has no power."
+        ],
+        "whip": [
+          "Power cable",
+          "The flexible conduit that brings power from the disconnect to the unit."
+        ],
+        "pad": [
+          "Pad",
+          "The flat base the unit sits on. It keeps the unit level and up off the ground."
+        ],
+        "heat_stream": [
+          "Warm air out",
+          "The heat taken out of your home leaves here, blown up and away by the fan. Keep a few feet clear above the unit."
+        ]
+      },
+      "card_prefix": {
+        "louver_": "louver_front",
+        "corner_louver": "louver_front",
+        "fan_motor": "fan_motor"
+      },
+      "overlay_hide": [
+        "pad",
+        "whip",
+        "disconnect_kit"
+      ]
+    },
+    "air_handler": {
+      "file": "models/air_handler.glb",
+      "title": "Air handler",
+      "typical": "a typical air handler",
+      "hide": [
+        "^aux_pan_rust$",
+        "^dehumidifier$",
+        "^fresh_air_duct$",
+        "^uv_light$",
+        "^filter_dirty$",
+        "^filter_out$",
+        "^blower_wheel_dirty$",
+        "^coil_dust$",
+        "^coil_frozen$",
+        "^pan_water$",
+        "^grip_"
+      ],
+      "match": {
+        "category": [
+          "air_handler"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "lying_horizontal",
+          "unknown"
+        ]
+      },
+      "body": [
+        "cabinet",
+        "blower_door",
+        "coil_door"
+      ],
+      "body_size": {
+        "width": 0.565,
+        "depth": 1.081,
+        "height": 0.448,
+        "x": -0.0075,
+        "z": -0.5405,
+        "y0": -0.224
+      },
+      "front_deg": 90,
+      "fit": {
+        "middle_max": 1
+      },
+      "front_marker": {
+        "part": "coil_door",
+        "say": "the two access doors"
+      },
+      "shell": [
+        "cabinet",
+        "blower_door",
+        "coil_door",
+        "insulation",
+        "data_plate",
+        "filter_base",
+        "filter_door"
+      ],
+      "sections": {
+        "cabinet": "cabinet_section",
+        "insulation": "insulation_section"
+      },
+      "section_hide": [
+        "blower_door",
+        "coil_door"
+      ],
+      "heat": {
+        "clip": "fan_run",
+        "loop": "fan_run_loop",
+        "also": [],
+        "say": "The blower pulls your home's air in through the filter and across the cooling coil, then pushes it out into the ducts. In summer the coil is cold, so the air leaves cooler and drier. This one lies on its side, a common way to fit an air handler in an attic."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it moves air"
+        },
+        {
+          "key": "electric_heat",
+          "label": "Electric heat",
+          "clip": "heat_run",
+          "loop": "heat_run_loop",
+          "highlight": [
+            "heater_elements"
+          ],
+          "say": "For heat, wire coils at the air outlet glow hot, a lot like a toaster, and the blower pushes your air across them. With a heat pump they help out on the coldest days. They work well but cost more to run than a heat pump."
+        },
+        {
+          "key": "filter",
+          "label": "The filter",
+          "clip": "filter_pull",
+          "highlight": [
+            "filter"
+          ],
+          "say": "The filter catches dust before it reaches the blower and the coil. A clogged filter starves the system of air, so it runs longer, and the coil can even freeze over. Check it every month or two."
+        },
+        {
+          "key": "coil",
+          "label": "Cooling coil",
+          "highlight": [
+            "evap_coil"
+          ],
+          "say": "The coil gets cold when the air conditioning runs and pulls heat and moisture out of the air. The water drips into a pan under it and leaves through a drain line. Keeping the filter clean keeps the coil clean too."
+        }
+      ],
+      "cards": {
+        "cabinet": [
+          "Cabinet",
+          "The metal box of the air handler. The filter, coil, blower and heat strips are all inside."
+        ],
+        "blower_door": [
+          "Blower door",
+          "Covers the blower, the controls and the electric heat. Only a technician should open it."
+        ],
+        "coil_door": [
+          "Coil door",
+          "Covers the cooling coil."
+        ],
+        "data_plate": [
+          "Data label",
+          "Lists the model, size and age of the unit."
+        ],
+        "insulation": [
+          "Insulation",
+          "Lines the cabinet so the cold air inside does not sweat on the outside."
+        ],
+        "supply_flanges": [
+          "Supply outlet",
+          "Where the conditioned air leaves the unit for your ducts."
+        ],
+        "connections": [
+          "Pipe connections",
+          "Where the drain lines and the copper refrigerant lines hook up to the unit."
+        ],
+        "blower_housing": [
+          "Blower",
+          "The fan that moves your home's air through the filter, the coil and the ducts."
+        ],
+        "blower_wheel": [
+          "Blower wheel",
+          "Spins to move the air. Dust on its blades cuts the airflow."
+        ],
+        "blower_motor": [
+          "Blower motor",
+          "Turns the blower wheel. It runs for cooling, for heat and for fan only."
+        ],
+        "control_board": [
+          "Control board",
+          "Runs the blower and the heat when the thermostat asks."
+        ],
+        "transformer_24v": [
+          "Transformer",
+          "Turns house power down to the low voltage the thermostat uses."
+        ],
+        "evap_coil": [
+          "Cooling coil",
+          "Gets cold when the air conditioning runs. It pulls heat and moisture out of the air going by."
+        ],
+        "txv_body": [
+          "Expansion valve",
+          "Meters the refrigerant into the cooling coil."
+        ],
+        "distributor": [
+          "Distributor",
+          "Splits the refrigerant evenly into the coil's many small tubes."
+        ],
+        "distributor_feeders": [
+          "Distributor tubes",
+          "Small tubes that feed refrigerant to each part of the coil."
+        ],
+        "liquid_line_in": [
+          "Liquid line",
+          "The smaller copper line. It brings refrigerant in from the outdoor unit."
+        ],
+        "suction_header": [
+          "Suction line",
+          "The larger copper line. It carries the refrigerant, and the heat it picked up, back outside."
+        ],
+        "refrigerant_sensor": [
+          "Refrigerant sensor",
+          "Watches for a refrigerant leak and turns the blower on to clear it."
+        ],
+        "heater_kit": [
+          "Heat strips",
+          "Electric heating coils at the air outlet. They warm the air like a toaster."
+        ],
+        "heater_elements": [
+          "Heat strips",
+          "Electric heating coils at the air outlet. They warm the air like a toaster."
+        ],
+        "heater_breaker": [
+          "Heat breaker",
+          "Turns the power to the heat strips on and off, and trips if something goes wrong."
+        ],
+        "heater_limit_1": [
+          "Limit switch",
+          "A safety switch that shuts the heat strips off if they get too hot, often from a clogged filter."
+        ],
+        "sequencer_1": [
+          "Sequencer",
+          "Turns the heat strips on one at a time, so they do not all draw power at once."
+        ],
+        "filter": [
+          "Air filter",
+          "Catches dust before it reaches the blower and coil. Check it every month or two."
+        ],
+        "filter_base": [
+          "Filter rack",
+          "Holds the air filter where your home's air comes back in."
+        ],
+        "filter_door": [
+          "Filter door",
+          "Opens to change the filter."
+        ],
+        "aux_pan": [
+          "Safety pan",
+          "A pan under the unit that catches water if the drain backs up."
+        ],
+        "rails": [
+          "Platform rails",
+          "Hold the unit up off the attic floor."
+        ],
+        "supply_air": [
+          "Moving air",
+          "Your home's air on its way out to the vents."
+        ],
+        "supply_air_heat": [
+          "Warm air",
+          "Your home's air, warmed by the heat strips, on its way to the vents."
+        ]
+      },
+      "card_prefix": {
+        "heater_limit": "heater_limit_1",
+        "sequencer": "sequencer_1",
+        "txv": "txv_body",
+        "heat_glow": "heater_elements"
+      },
+      "overlay_hide": [
+        "aux_pan",
+        "rails",
+        "filter_base",
+        "filter",
+        "filter_door"
+      ]
+    },
+    "electric_tankless_water_heater": {
+      "file": "models/electric_tankless_water_heater.glb",
+      "title": "Electric tankless water heater",
+      "typical": "a typical electric tankless water heater",
+      "hide": [
+        "^display_fault$",
+        "^inlet_screen_fouled$",
+        "^element_scale$",
+        "^cold_no_valve$",
+        "^hot_no_valve$"
+      ],
+      "match": {
+        "category": [
+          "water_heater_tankless"
+        ],
+        "subtype": [
+          "electric"
+        ],
+        "orientation": [
+          "wall_hung",
+          "upright",
+          "unknown"
+        ]
+      },
+      "body": [
+        "chassis",
+        "front_cover",
+        "bottom_plate"
+      ],
+      "body_size": {
+        "width": 0.368,
+        "depth": 0.109,
+        "height": 0.464,
+        "x": 0,
+        "z": -0.236,
+        "y0": 1.08
+      },
+      "front_deg": 0,
+      "fit": {
+        "middle_max": 1
+      },
+      "front_marker": {
+        "part": "front_cover",
+        "say": "the front cover with its display"
+      },
+      "shell": [
+        "chassis",
+        "chassis_hollow",
+        "front_cover",
+        "bottom_plate",
+        "data_plate"
+      ],
+      "section_hide": [
+        "front_cover"
+      ],
+      "overlay_hide": [
+        "surge_protector"
+      ],
+      "heat": {
+        "clip": "heat_on",
+        "loop": "heat_on_loop",
+        "say": "Open a hot tap and a flow sensor feels the water moving. The control board turns on the heating elements, and the water warms as it passes through the heating chambers. It heats only while water flows, so there is no tank to keep hot."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it heats"
+        },
+        {
+          "key": "scale",
+          "label": "Hard water",
+          "highlight": [
+            "heating_chambers",
+            "heating_elements",
+            "cold_service_port",
+            "hot_service_port"
+          ],
+          "say": "In hard water, minerals can coat the inside of the heating chambers. Scale makes the elements run hotter and wear out sooner. Where the water is hard, a technician can flush the heater through its service ports."
+        },
+        {
+          "key": "screen",
+          "label": "The inlet screen",
+          "highlight": [
+            "inlet_filter_screen"
+          ],
+          "say": "A small screen catches grit where cold water comes in. If your hot water flow drops off, a clogged screen is a common cause. It is a quick rinse."
+        },
+        {
+          "key": "power",
+          "label": "The power it needs",
+          "highlight": [
+            "junction_box",
+            "power_feeds",
+            "terminal_block"
+          ],
+          "say": "Heating water the moment you need it takes a lot of electricity. A whole house electric tankless heater often needs heavy wires and two or more large breakers, so your electrical panel has to have room for it."
+        }
+      ],
+      "cards": {
+        "front_cover": [
+          "Front cover",
+          "Covers the heating parts and live wiring. Only a trained person should take it off."
+        ],
+        "chassis": [
+          "Cabinet",
+          "The case that holds the heating chambers and controls."
+        ],
+        "display_ok": [
+          "Display",
+          "Shows the set temperature. If something is wrong, it shows an error code you can read to your technician."
+        ],
+        "status_led": [
+          "Status light",
+          "Lights up while the heater is heating."
+        ],
+        "data_plate": [
+          "Data label",
+          "Lists the model, power rating and age of the heater."
+        ],
+        "wall_bracket": [
+          "Wall bracket",
+          "Holds the heater on the wall."
+        ],
+        "heating_chambers": [
+          "Heating chambers",
+          "Your water flows through these and warms up on the way through."
+        ],
+        "heating_elements": [
+          "Heating elements",
+          "Electric coils that heat the water as it passes, like a kettle. They turn on in steps to match how much hot water you use."
+        ],
+        "thermal_cutoffs": [
+          "Safety cutoffs",
+          "Shut the power off if the chambers ever get too hot."
+        ],
+        "control_board": [
+          "Control board",
+          "The heater's brain. It reads the sensors and sets how much power goes to the elements."
+        ],
+        "heatsink": [
+          "Heat sink",
+          "Metal fins that keep the control board's power parts cool."
+        ],
+        "flow_sensor": [
+          "Flow sensor",
+          "Feels water moving when you open a hot tap and tells the heater to start."
+        ],
+        "temperature_sensors": [
+          "Temperature sensors",
+          "Tell the control board how warm the water is going in and coming out."
+        ],
+        "junction_box": [
+          "Power connection",
+          "Where your home's electric lines connect to the heater."
+        ],
+        "power_feeds": [
+          "Power cables",
+          "Heavy cables that carry the large current the elements need."
+        ],
+        "terminal_block": [
+          "Terminal block",
+          "Where the power cables connect inside the heater."
+        ],
+        "surge_protector": [
+          "Surge protector",
+          "Guards the control board against power surges from storms and the grid."
+        ],
+        "cold_isolation_valve": [
+          "Cold service valve",
+          "Shuts the cold water off to the heater for service."
+        ],
+        "hot_isolation_valve": [
+          "Hot service valve",
+          "Shuts off the hot side for service."
+        ],
+        "cold_service_port": [
+          "Service port",
+          "A side port your technician uses to flush the heater."
+        ],
+        "hot_service_port": [
+          "Service port",
+          "A side port your technician uses to flush the heater."
+        ],
+        "inlet_filter_screen": [
+          "Inlet screen",
+          "A small screen where cold water enters. It catches grit and needs a rinse now and then."
+        ],
+        "cold_supply_line": [
+          "Cold water in",
+          "Where cold water from your home's supply comes in."
+        ],
+        "hot_supply_line": [
+          "Hot water out",
+          "Where hot water leaves for your sinks, showers and appliances."
+        ],
+        "internal_water_lines": [
+          "Water tubes",
+          "Carry your water through the heater."
+        ]
+      },
+      "card_prefix": {
+        "cold_drop": "cold_supply_line",
+        "cold_stub": "cold_supply_line",
+        "cold_no_inhibitor": "cold_supply_line",
+        "hot_drop": "hot_supply_line",
+        "hot_stub": "hot_supply_line",
+        "element_glow": "heating_elements",
+        "turbine": "flow_sensor",
+        "status_led": "status_led"
+      }
+    },
+    "gas_tankless_water_heater": {
+      "file": "models/gas_tankless_water_heater.glb",
+      "title": "Gas tankless water heater",
+      "typical": "a typical gas tankless water heater",
+      "hide": [
+        "^display_fault$",
+        "^inlet_screen_fouled$"
+      ],
+      "match": {
+        "category": [
+          "water_heater_tankless"
+        ],
+        "subtype": [
+          "gas",
+          "unknown"
+        ],
+        "orientation": [
+          "wall_hung",
+          "upright",
+          "unknown"
+        ]
+      },
+      "body": [
+        "chassis",
+        "front_cover",
+        "bottom_plate"
+      ],
+      "body_size": {
+        "width": 0.47,
+        "depth": 0.356,
+        "height": 0.726,
+        "x": 0,
+        "z": -0.112,
+        "y0": 0.9
+      },
+      "front_deg": 0,
+      "fit": {
+        "middle_max": 1
+      },
+      "front_marker": {
+        "part": "front_cover",
+        "say": "the front cover with its display"
+      },
+      "shell": [
+        "chassis",
+        "chassis_hollow",
+        "front_cover",
+        "bottom_plate",
+        "data_plate"
+      ],
+      "section_hide": [
+        "front_cover"
+      ],
+      "overlay_hide": [
+        "recirc_pump",
+        "recirc_timer",
+        "recirc_check",
+        "recirc_valve",
+        "recirc_return",
+        "recirc_return_line",
+        "recirc_return_stub",
+        "recirc_cord",
+        "recirc_packets",
+        "surge_protector"
+      ],
+      "heat": {
+        "clip": "fire_up",
+        "loop": "fire_up_loop",
+        "say": "Open a hot tap and water starts flowing through the heater. A fan mixes gas with air and the burner lights. The flame heats coiled tubes with your water running through them, so it comes out hot. There is no tank: it heats only while you use it."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it heats"
+        },
+        {
+          "key": "scale",
+          "label": "Scale and flushing",
+          "clip": "hx_scale",
+          "highlight": [
+            "hx_scale",
+            "cold_isolation_valve",
+            "hot_isolation_valve"
+          ],
+          "say": "Hard water leaves a mineral crust inside the heat exchanger, like the crust in a kettle. Scale slows the heat and can make the heater shut down with an error. A yearly flush through the service valves washes it out."
+        },
+        {
+          "key": "condensate",
+          "label": "The condensate drain",
+          "highlight": [
+            "secondary_heat_exchanger",
+            "condensate_trap",
+            "condensate_line"
+          ],
+          "say": "This heater uses a second heat exchanger to pull extra heat out of its exhaust. That cools the exhaust so much that water forms, a little like dew. A trap and a drain line carry the water away, so keep that line clear."
+        },
+        {
+          "key": "recirc",
+          "label": "Recirculation",
+          "clip": "recirc_run",
+          "loop": "recirc_run_loop",
+          "highlight": [
+            "recirc_pump",
+            "recirc_return"
+          ],
+          "say": "Some homes add a small pump that keeps hot water moving through the pipes. Cooled water comes back to the heater on a return line and is heated again, so hot water reaches the far taps sooner. A timer runs it only when you need it."
+        },
+        {
+          "key": "screen",
+          "label": "The inlet screen",
+          "highlight": [
+            "inlet_filter_screen"
+          ],
+          "say": "A small screen catches grit where cold water comes in. If your hot water flow drops off, a clogged screen is a common cause. It gets rinsed during a flush."
+        }
+      ],
+      "cards": {
+        "front_cover": [
+          "Front cover",
+          "The metal cover over the works. Only a trained technician should take it off."
+        ],
+        "chassis": [
+          "Cabinet",
+          "The metal case that holds the burner, heat exchangers and controls."
+        ],
+        "display_ok": [
+          "Display",
+          "Shows the water temperature. If something is wrong, it shows an error code you can read to your technician."
+        ],
+        "data_plate": [
+          "Data label",
+          "Lists the model, gas type, size and age of the heater."
+        ],
+        "burner": [
+          "Burner",
+          "Gas and air burn here. The flame turns up or down to match how much hot water you are using."
+        ],
+        "burner_flame": [
+          "Flame",
+          "Burns only while hot water is flowing."
+        ],
+        "fan_with_venturi": [
+          "Combustion fan",
+          "Pulls in air, mixes it with the right amount of gas and pushes the exhaust out the vent."
+        ],
+        "ignition_unit": [
+          "Igniter",
+          "Makes the spark that lights the burner."
+        ],
+        "modulating_gas_valve": [
+          "Gas valve",
+          "Opens a little or a lot so the flame matches the hot water you need."
+        ],
+        "gas_shutoff_valve": [
+          "Gas shutoff",
+          "The valve that turns gas off to the heater."
+        ],
+        "gas_drip_leg": [
+          "Drip leg",
+          "A short capped pipe that catches dirt and moisture before they reach the gas valve."
+        ],
+        "gas_supply_line": [
+          "Gas line",
+          "Brings natural gas or propane to the heater."
+        ],
+        "primary_heat_exchanger": [
+          "Main heat exchanger",
+          "Coiled tubes your water runs through. The flame heats the tubes, and the tubes heat the water."
+        ],
+        "secondary_heat_exchanger": [
+          "Second heat exchanger",
+          "Catches leftover heat from the exhaust to warm the incoming water. This is what makes the heater so efficient."
+        ],
+        "hx_scale": [
+          "Scale",
+          "A hard mineral crust from hard water. It builds up inside the heat exchanger and slows the heat. A yearly flush keeps it away."
+        ],
+        "condensate_trap": [
+          "Condensate trap",
+          "Collects the water that forms in the exhaust and keeps exhaust gas from escaping out the drain."
+        ],
+        "condensate_line": [
+          "Condensate drain line",
+          "Carries that water away to a drain. Keep it clear and free of kinks."
+        ],
+        "exhaust_vent": [
+          "Exhaust vent",
+          "Carries the exhaust outside. The exhaust leaves so cool that plastic pipe can be used."
+        ],
+        "intake_vent": [
+          "Air intake",
+          "Brings in air for the burner."
+        ],
+        "air_inlet_filter": [
+          "Air intake screen",
+          "Keeps dust and debris out of the burner's air. Your technician cleans it during service."
+        ],
+        "pc_board": [
+          "Control board",
+          "The heater's brain. It watches the sensors and sets the flame."
+        ],
+        "power_cord": [
+          "Power cord",
+          "A gas tankless heater still needs electricity to run its fan, igniter and controls."
+        ],
+        "surge_protector": [
+          "Surge protector",
+          "Guards the control board against power surges from storms and the grid."
+        ],
+        "pressure_relief_valve": [
+          "Pressure relief valve",
+          "Opens by itself if the water pressure ever gets too high. An important safety part."
+        ],
+        "prv_discharge": [
+          "Relief drain pipe",
+          "Carries water from the relief valve safely down toward the floor if it ever opens."
+        ],
+        "cold_isolation_valve": [
+          "Cold service valve",
+          "Shuts the cold water off to the heater and has a port your technician uses to flush it."
+        ],
+        "hot_isolation_valve": [
+          "Hot service valve",
+          "Shuts off the hot side and has a port used for flushing."
+        ],
+        "cold_supply_line": [
+          "Cold water in",
+          "Where cold water from your home's supply comes in."
+        ],
+        "hot_supply_line": [
+          "Hot water out",
+          "Where hot water leaves for your sinks, showers and appliances."
+        ],
+        "inlet_filter_screen": [
+          "Inlet screen",
+          "A small screen where cold water enters. It catches grit and needs a rinse now and then."
+        ],
+        "temperature_sensors": [
+          "Temperature sensors",
+          "Tell the control board how warm the water is going in and coming out."
+        ],
+        "recirc_pump": [
+          "Recirculation pump",
+          "Keeps hot water moving through your pipes so it reaches the far taps sooner."
+        ],
+        "recirc_timer": [
+          "Pump timer",
+          "Runs the pump only at the times you use hot water most, to save energy."
+        ],
+        "recirc_check": [
+          "Check valve",
+          "Lets water flow one way only, so the loop never runs backward."
+        ],
+        "recirc_return": [
+          "Return line",
+          "Brings cooled water back from the far end of your pipes to be heated again."
+        ]
+      },
+      "card_prefix": {
+        "cold_stub": "cold_supply_line",
+        "hot_stub": "hot_supply_line",
+        "gas_stub": "gas_supply_line",
+        "recirc_return": "recirc_return",
+        "recirc_cord": "recirc_pump",
+        "fan_motor": "fan_with_venturi"
+      }
+    },
+    "hybrid_water_heater": {
+      "file": "models/hybrid_water_heater.glb",
+      "title": "Hybrid water heater",
+      "typical": "a typical hybrid heat pump water heater",
+      "hide": [
+        "^cold_supply_line_si$",
+        "^pan_drain_line$"
+      ],
+      "match": {
+        "category": [
+          "water_heater_hybrid",
+          "water_heater_tank"
+        ],
+        "subtype": [
+          "hybrid",
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright"
+        ]
+      },
+      "body": [
+        "outer_jacket",
+        "hp_band",
+        "hp_housing",
+        "hp_top",
+        "bottom_base"
+      ],
+      "body_size": {
+        "diameter": 0.578,
+        "height": 1.568,
+        "x": 0,
+        "z": 0,
+        "y0": 0.457
+      },
+      "front_deg": 0,
+      "front_marker": {
+        "part": "upper_access_panel",
+        "say": "the two access panels"
+      },
+      "shell": [
+        "outer_jacket",
+        "tank_top_cover",
+        "bottom_base",
+        "hp_band",
+        "hp_housing",
+        "hp_top",
+        "hp_front_panel",
+        "upper_access_panel",
+        "lower_access_panel",
+        "upper_panel_reveal",
+        "lower_panel_reveal",
+        "data_plate",
+        "anode_access_cover",
+        "air_inlet_grille",
+        "air_outlet_grille"
+      ],
+      "section_hide": [
+        "hp_housing",
+        "hp_top",
+        "hp_front_panel",
+        "upper_access_panel",
+        "lower_access_panel",
+        "upper_panel_screws",
+        "lower_panel_screws",
+        "anode_access_cover"
+      ],
+      "overlay_hide": [
+        "stand",
+        "exhaust_duct"
+      ],
+      "heat": {
+        "clip": "fan_run",
+        "loop": "fan_run_loop",
+        "say": "A fan pulls warm air from the room across a cold coil. A compressor, like the one in your refrigerator, moves that heat into the water in the tank. Cooler, drier air blows back out. Electric elements help out when you use a lot of hot water at once."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it heats"
+        },
+        {
+          "key": "filter",
+          "label": "The air filter",
+          "clip": "filter_out",
+          "highlight": [
+            "air_filter"
+          ],
+          "say": "The air filter keeps dust off the cold coil. A dirty filter makes the heat pump work harder and lean on the slower electric elements. Check it and rinse it every few months."
+        },
+        {
+          "key": "anode",
+          "label": "The anode rod",
+          "clip": "anode_cover_off",
+          "highlight": [
+            "anode_rod"
+          ],
+          "say": "Like any steel tank, this one has a sacrificial anode rod. Over the years it slowly gets eaten away so your tank does not rust. Your technician can check it from the top."
+        },
+        {
+          "key": "condensate",
+          "label": "The condensate drain",
+          "clip": "fan_run",
+          "loop": "fan_run_loop",
+          "highlight": [
+            "evaporator_coil",
+            "condensate_drain"
+          ],
+          "say": "The cold coil pulls water out of the air, like a glass of ice water sweating on a summer day. That water runs out a drain line. Keep the line clear so it does not back up and spill."
+        }
+      ],
+      "cards": {
+        "outer_jacket": [
+          "Outer jacket",
+          "The metal skin around the tank. Insulation underneath keeps the hot water hot."
+        ],
+        "bottom_base": [
+          "Base",
+          "The bottom of the tank."
+        ],
+        "data_plate": [
+          "Data label",
+          "Lists the model, size and age of the heater."
+        ],
+        "hp_housing": [
+          "Heat pump",
+          "The top section. It pulls heat out of the room air and puts it into the water."
+        ],
+        "hp_top": [
+          "Top cover",
+          "The lid of the heat pump section. Air goes in through the grille here."
+        ],
+        "hp_front_panel": [
+          "Front panel",
+          "Covers the heat pump's controls and parts."
+        ],
+        "air_inlet_grille": [
+          "Air inlet",
+          "Warm room air is drawn in here. Keep the space around the heater open so it can breathe."
+        ],
+        "air_outlet_grille": [
+          "Air outlet",
+          "Cooler, drier air blows out here. The room near the heater can feel a little cooler."
+        ],
+        "air_filter": [
+          "Air filter",
+          "Keeps dust off the cold coil. Rinse it every few months."
+        ],
+        "compressor": [
+          "Compressor",
+          "The heart of the heat pump. It moves heat from the air into the water, like a refrigerator in reverse."
+        ],
+        "evaporator_coil": [
+          "Cold coil",
+          "Gets cold so it can soak up heat from the room air passing over it."
+        ],
+        "fan": [
+          "Fan",
+          "Pulls room air through the filter and across the cold coil."
+        ],
+        "fan_motor": [
+          "Fan motor",
+          "Spins the fan."
+        ],
+        "condensate_drain": [
+          "Condensate drain",
+          "Carries away the water the cold coil pulls out of the air. Keep it clear."
+        ],
+        "electrical_junction_box": [
+          "Power connection",
+          "Where your home's electric line connects to the heater."
+        ],
+        "duct_collar": [
+          "Duct collar",
+          "Where an air duct can attach, for installs that bring air in from, or send it to, another space."
+        ],
+        "anode_rod": [
+          "Anode rod",
+          "A sacrificial metal rod. It slowly corrodes so the steel tank does not. It wears out over the years."
+        ],
+        "anode_access_cover": [
+          "Anode cover",
+          "A cap on top over the anode rod, so it can be checked and replaced."
+        ],
+        "upper_heating_element": [
+          "Upper heating element",
+          "A backup electric element. It helps heat the top of the tank when demand is high."
+        ],
+        "lower_heating_element": [
+          "Lower heating element",
+          "A backup electric element near the bottom of the tank."
+        ],
+        "upper_thermostat": [
+          "Upper thermostat",
+          "Senses the water temperature and controls the upper element."
+        ],
+        "lower_thermostat": [
+          "Lower thermostat",
+          "Controls the lower element."
+        ],
+        "upper_access_panel": [
+          "Access panel",
+          "A cover over the upper element and thermostat. Only a trained person should open it: there is live electricity behind it."
+        ],
+        "lower_access_panel": [
+          "Access panel",
+          "A cover over the lower element and thermostat. Only a trained person should open it: there is live electricity behind it."
+        ],
+        "tp_relief_valve": [
+          "Safety relief valve",
+          "Opens by itself if the tank ever gets too hot or the pressure too high. An important safety part."
+        ],
+        "tp_discharge_connection": [
+          "Relief drain pipe",
+          "Carries water from the relief valve safely down toward the floor if it ever opens."
+        ],
+        "drain_valve": [
+          "Drain valve",
+          "Used to flush sediment out of the bottom of the tank."
+        ],
+        "cold_supply_line": [
+          "Cold water in",
+          "Where cold water from your home's supply comes in."
+        ],
+        "hot_supply_line": [
+          "Hot water out",
+          "Where hot water leaves for your sinks, showers and appliances."
+        ],
+        "cold_shutoff_valve": [
+          "Cold shutoff",
+          "Turns the water off to the heater for service."
+        ],
+        "hot_shutoff_valve": [
+          "Hot shutoff",
+          "Closes the hot side for service."
+        ],
+        "expansion_tank": [
+          "Expansion tank",
+          "Gives the water room to grow as it heats, so pressure does not spike in the tank and pipes."
+        ],
+        "stand": [
+          "Stand",
+          "Raises the heater off the floor."
+        ]
+      },
+      "card_prefix": {
+        "upper_panel": "upper_access_panel",
+        "lower_panel": "lower_access_panel",
+        "upper_element_pocket": "upper_heating_element",
+        "lower_element_pocket": "lower_heating_element",
+        "tank_top_cover": "outer_jacket",
+        "hp_band": "hp_housing",
+        "filter_slot_trim": "air_filter",
+        "expansion_": "expansion_tank"
+      }
+    },
+    "mini_split": {
+      "file": "models/mini_split.glb",
+      "title": "Ductless mini split",
+      "typical": "a typical ductless mini split",
+      "hide": [
+        "^cabinet$",
+        "^fan$",
+        "^fan_grille$",
+        "^outdoor_coil$",
+        "^back_vents$",
+        "^block_labels$",
+        "^feet$",
+        "^foot_pads$",
+        "^pad$",
+        "^disconnect$",
+        "^whip$",
+        "^whip_conductors$",
+        "^feed_conduit$",
+        "^elec_cover$",
+        "^valve_cover$",
+        "^service_valve_liquid$",
+        "^service_valve_suction$",
+        "^flare_nut_liquid$",
+        "^flare_nut_suction$",
+        "^power_block$",
+        "^terminal_block$",
+        "^ground_lug$",
+        "^cable_bushing$",
+        "^cable_conductors$",
+        "^lineset$",
+        "^lineset_cover$",
+        "^lineset_tape$",
+        "^wall_sleeve$",
+        "^sleeve_putty$"
+      ],
+      "match": {
+        "category": [
+          "mini_split"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "wall_hung",
+          "unknown"
+        ]
+      },
+      "body": [
+        "front_panel",
+        "chassis",
+        "intake_grille"
+      ],
+      "body_size": {
+        "width": 0.855,
+        "depth": 0.213,
+        "height": 0.295,
+        "x": -2.3505,
+        "z": -0.2985,
+        "y0": 2.002
+      },
+      "front_deg": 180,
+      "fit": {
+        "middle_max": 1
+      },
+      "front_marker": {
+        "part": "display",
+        "say": "the display lights"
+      },
+      "shell": [
+        "front_panel",
+        "chassis",
+        "intake_grille",
+        "control_cover",
+        "cabinet",
+        "fan_grille",
+        "valve_cover",
+        "elec_cover"
+      ],
+      "section_hide": [
+        "front_panel",
+        "control_cover",
+        "cabinet",
+        "fan_grille",
+        "valve_cover",
+        "elec_cover",
+        "lineset_cover"
+      ],
+      "heat": {
+        "clip": "run",
+        "loop": "run_loop",
+        "also": [],
+        "say": "The indoor unit pulls room air in through the top, through the filters and across a cold coil. A long fan wheel blows the cooled air back out the bottom, and the vane steers it. Copper lines carry the heat through the wall to the outdoor unit, which blows it outside. Most can also run in reverse to heat in winter."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "filters",
+          "label": "The filters",
+          "clip": "front_open",
+          "highlight": [
+            "filter_left",
+            "filter_right"
+          ],
+          "say": "Lift the front panel and two mesh filters slide out. Rinse them in the sink and let them dry before they go back. Many makers suggest every few weeks when it runs a lot. Clogged filters cut the airflow and make the unit work harder."
+        },
+        {
+          "key": "wheel",
+          "label": "The blower wheel",
+          "clip": "wheel_mold",
+          "highlight": [
+            "blower_wheel_mold",
+            "coil_matted"
+          ],
+          "say": "The long fan wheel and the coil sit in cool, damp air, so dust and mold can build up on them. That can cause a musty smell and weaker airflow. A technician can take the unit apart and deep clean them."
+        },
+        {
+          "key": "drain",
+          "label": "The drain",
+          "clip": "drain_slow",
+          "highlight": [
+            "drain_stain"
+          ],
+          "say": "The coil pulls water out of the air. It drips into a tray and runs out through a drain line that goes through the wall with the copper lines. If that line clogs or does not slope downhill, water can drip from the unit and stain the wall."
+        }
+      ],
+      "cards": {
+        "front_panel": [
+          "Front panel",
+          "Lifts up so you can reach the filters."
+        ],
+        "chassis": [
+          "Indoor unit",
+          "The body of the indoor unit. The coil, fan and controls are inside."
+        ],
+        "intake_grille": [
+          "Air intake",
+          "Room air comes in through the top here."
+        ],
+        "filter_left": [
+          "Filters",
+          "Two mesh screens that catch dust. Slide them out and rinse them every few weeks when it runs a lot."
+        ],
+        "coil": [
+          "Indoor coil",
+          "Gets cold when cooling, and hot when heating. Your room air passes through it."
+        ],
+        "blower_wheel": [
+          "Blower wheel",
+          "A long fan wheel that blows the air back into the room. Dust and mold on it cut the airflow."
+        ],
+        "blower_wheel_mold": [
+          "Dirty blower wheel",
+          "Dust and mold on the fan wheel. A deep cleaning brings back the airflow."
+        ],
+        "blower_motor": [
+          "Blower motor",
+          "Turns the fan wheel."
+        ],
+        "vane": [
+          "Air vane",
+          "Swings up and down to steer the air into the room."
+        ],
+        "louvres": [
+          "Side louvers",
+          "Steer the air left and right."
+        ],
+        "outlet_throat": [
+          "Air outlet",
+          "Where the conditioned air leaves the unit."
+        ],
+        "display": [
+          "Display",
+          "Lights that show the unit is on and its mode. Some flash a code when something needs attention."
+        ],
+        "board": [
+          "Control board",
+          "The unit's brain. It reads the remote and runs the fan and the outdoor unit."
+        ],
+        "control_cover": [
+          "Control cover",
+          "Covers the control board."
+        ],
+        "drain_stain": [
+          "Water stain",
+          "Water dripping from the unit, often from a clogged or badly sloped drain line."
+        ],
+        "back_plate": [
+          "Mounting plate",
+          "A metal plate on the wall that the indoor unit hangs on."
+        ],
+        "air_packets": [
+          "Moving air",
+          "Room air on its way back out, cooled or warmed."
+        ]
+      },
+      "card_prefix": {
+        "filter_": "filter_left"
+      },
+      "overlay_hide": [],
+      "frame_parts": [
+        "front_panel",
+        "chassis",
+        "intake_grille"
+      ]
+    },
+    "garbage_disposal": {
+      "file": "models/garbage_disposal.glb",
+      "title": "Garbage disposal",
+      "typical": "a typical garbage disposal under a kitchen sink",
+      "hide": [
+        "^grip_",
+        "^flowpath_disposal$",
+        "^cord_scorched$",
+        "^disposal_leak$",
+        "^flange_weep$",
+        "^grind_ring_rust$",
+        "^jam_debris$",
+        "^mount_gap$",
+        "^splash_guard_torn$",
+        "^strainer_leak$",
+        "^trap_leak$",
+        "^trap_metal_corroded$",
+        "_corroded$",
+        "^cabinet_damage$",
+        "^stop_crust$",
+        "^faucet_base_puddle$",
+        "^faucet_loose_gap$",
+        "^aerator_scale$",
+        "^bowl_water_standing$",
+        "^RO_ADDON$",
+        "^ro_",
+        "^faucet_ball$",
+        "^faucet_handle_ball$",
+        "^ball_valve$",
+        "^faucet_cartridge$",
+        "^faucet_handle$",
+        "^cartridge$",
+        "^diverter$",
+        "^faucet_tubes$",
+        "^faucet_stream$",
+        "^sprayer$",
+        "^spray_stream$",
+        "^sink_castiron$",
+        "^sink_undermount$",
+        "^counter_undermount$",
+        "^deck_covers$",
+        "^dw_hose_branch$",
+        "^dw_hose_low$",
+        "^strainer_left$",
+        "^tailpiece_left$",
+        "^floor$",
+        "^wall$",
+        "^wall_switch$"
+      ],
+      "match": {
+        "category": [
+          "garbage_disposal"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "disposal_body",
+        "mount_lower_ring",
+        "disposal_mount"
+      ],
+      "body_size": {
+        "diameter": 0.173,
+        "height": 0.295,
+        "x": -0.205,
+        "z": -0.285,
+        "y0": 0.413
+      },
+      "shell": [
+        "disposal_body",
+        "disposal_mount",
+        "mount_lower_ring",
+        "cabinet",
+        "door_left",
+        "door_right"
+      ],
+      "ghost_also": [
+        "grind_chamber"
+      ],
+      "sections": {
+        "disposal_body": "disposal_section",
+        "disposal_mount": "disposal_mount_section",
+        "mount_lower_ring": "mount_lower_ring_section",
+        "splash_guard": "splash_guard_section",
+        "grind_chamber": "grind_chamber_section",
+        "stator": "stator_section",
+        "discharge_tube": "discharge_tube_section",
+        "discharge_90": "discharge_90_section"
+      },
+      "section_hide": [
+        "door_left",
+        "door_right"
+      ],
+      "water": [
+        "trap_water",
+        "bowl_film",
+        "throat_stream",
+        "drain_chamber_stream",
+        "pulldown_stream"
+      ],
+      "overlay_hide": [
+        "cabinet",
+        "door_left",
+        "door_right",
+        "counter",
+        "backsplash",
+        "dishwasher",
+        "receptacle",
+        "sink",
+        "soap_dispenser",
+        "deck_plug_ro",
+        "faucet_pulldown",
+        "faucet_spout_pulldown",
+        "faucet_handle_pulldown",
+        "pulldown_head",
+        "pulldown_hose",
+        "disc_cartridge",
+        "pulldown_stream",
+        "bowl_film",
+        "stop_hot",
+        "stop_cold",
+        "stop_hot_handle",
+        "stop_cold_handle",
+        "supply_hot",
+        "supply_cold",
+        "dw_supply",
+        "dw_supply_bore",
+        "dw_supply_grommet",
+        "dw_drain_bore",
+        "dw_drain_grommet",
+        "dw_hose",
+        "dw_hose_clamp",
+        "dw_hose_strap",
+        "disposal_cord",
+        "strainer_right",
+        "tailpiece_right",
+        "waste_arm",
+        "waste_tee",
+        "p_trap",
+        "trap_water"
+      ],
+      "heat": {
+        "clip": "disposal_run",
+        "loop": "disposal_run_loop",
+        "say": "Food drops onto a spinning plate at the bottom of the grind chamber. The plate flings it against a rough ring around the edge, which shreds it into tiny bits. Water carries the bits out the side and down the drain. There are no blades inside."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it grinds"
+        },
+        {
+          "key": "water",
+          "label": "Run cold water",
+          "clip": "faucet_run",
+          "loop": "faucet_run_loop",
+          "highlight": [
+            "faucet_spout_pulldown",
+            "splash_guard",
+            "grind_chamber"
+          ],
+          "say": "Run cold water before, during and for a few seconds after grinding. The water carries the bits all the way down the drain. Cold water keeps any grease firm so it gets chopped up instead of coating the pipes."
+        },
+        {
+          "key": "keep_out",
+          "label": "What to keep out",
+          "highlight": [
+            "turntable",
+            "grind_chamber",
+            "p_trap"
+          ],
+          "say": "Keep grease, oil, bones, corn husks, celery strings, onion skins, coffee grounds, eggshells, pasta and rice out of the disposal. They tangle, swell or settle and can clog the drain. Small soft scraps with plenty of water are what it is made for."
+        },
+        {
+          "key": "jam",
+          "label": "If it hums or stops",
+          "highlight": [
+            "jam_hex",
+            "reset_button"
+          ],
+          "say": "If it hums but does not spin, switch it off first. A hex key in the socket on the bottom turns the motor by hand to free a jam. If it shut itself off, wait a few minutes and press the red reset button on the bottom. Never reach inside."
+        },
+        {
+          "key": "dishwasher",
+          "label": "Dishwasher drain",
+          "highlight": [
+            "dw_hose",
+            "dw_hose_clamp",
+            "dw_hose_strap"
+          ],
+          "say": "The dishwasher often drains into the side of the disposal. Its hose loops up high under the counter so dirty sink water cannot run back into the dishwasher. When a new disposal goes in, a small plug inside that inlet has to be knocked out first, or the dishwasher cannot drain."
+        }
+      ],
+      "cards": {
+        "disposal_body": [
+          "Disposal",
+          "The motor and grind chamber in one housing, hanging under the sink drain."
+        ],
+        "disposal_mount": [
+          "Sink flange and mount",
+          "The ring in the sink's drain hole and the mount under it that holds the disposal up. A slow drip here usually means the seal under the sink flange needs redoing."
+        ],
+        "mount_lower_ring": [
+          "Mounting ring",
+          "Twists to lock the disposal onto the mount. Turning it the other way lets the disposal come down."
+        ],
+        "splash_guard": [
+          "Splash guard",
+          "The rubber flaps in the sink opening. They keep food and spoons from flying out and are easy to replace when torn."
+        ],
+        "grind_chamber": [
+          "Grind chamber",
+          "Where the food is ground. The rough ring around the edge does the shredding."
+        ],
+        "turntable": [
+          "Spinning plate",
+          "Spins fast and throws food against the grind ring. The small lugs on it swing freely. They are not blades."
+        ],
+        "motor": [
+          "Motor",
+          "The electric motor under the grind chamber that spins the plate."
+        ],
+        "shaft_seal": [
+          "Shaft seal",
+          "Keeps water out of the motor. When it wears out, the disposal can leak from the bottom, which usually means it is time for a new one."
+        ],
+        "reset_button": [
+          "Reset button",
+          "The red button on the bottom. The motor shuts itself off if it overheats or jams. Wait a few minutes, then press it."
+        ],
+        "jam_hex": [
+          "Hex key socket",
+          "A socket in the middle of the bottom. With the power off, a hex key here turns the motor by hand to free a jam."
+        ],
+        "discharge_elbow": [
+          "Discharge outlet",
+          "Where the ground food and water leave the disposal, through a bent pipe into the drain."
+        ],
+        "disposal_cord": [
+          "Power cord",
+          "Plugs into the outlet under the sink. Many homes switch that outlet with a wall switch by the sink."
+        ],
+        "receptacle": [
+          "Outlet",
+          "The disposal plugs in here. It is often controlled by a wall switch."
+        ],
+        "dw_hose": [
+          "Dishwasher drain hose",
+          "Carries the dishwasher's drain water into the disposal. The high loop under the counter keeps sink water out of the dishwasher."
+        ],
+        "dw_supply": [
+          "Dishwasher water line",
+          "A braided hose that brings hot water to the dishwasher from the shutoff under the sink."
+        ],
+        "waste_arm": [
+          "Drain arm",
+          "Carries water from the disposal over to the main drain."
+        ],
+        "waste_tee": [
+          "Drain tee",
+          "Where the disposal's drain and the other sink bowl's drain join together."
+        ],
+        "p_trap": [
+          "P-trap",
+          "The curved pipe under the sink. It holds a little water that blocks sewer gas, and catches things before they go down the wall. Its slip nuts loosen so it can come off to clear a clog."
+        ],
+        "trap_water": [
+          "Trap water",
+          "The water that always sits in the trap. It is a seal that stops sewer gas from coming up the drain."
+        ],
+        "strainer_basket": [
+          "Strainer basket",
+          "The basket in the other sink bowl. It catches scraps and plugs the drain."
+        ],
+        "strainer_right": [
+          "Sink strainer",
+          "The drain fitting in the other sink bowl, sealed to the sink with gaskets and a big nut underneath."
+        ],
+        "tailpiece_right": [
+          "Tailpiece",
+          "The short straight pipe under the strainer that drops down to the drain tee."
+        ],
+        "stop_hot": [
+          "Hot water shutoff",
+          "Turns the hot water off to the faucet and, here, the dishwasher too."
+        ],
+        "stop_cold": [
+          "Cold water shutoff",
+          "Turns the cold water off to the faucet. Good to know where it is before you ever need it."
+        ],
+        "supply_hot": [
+          "Hot supply line",
+          "The flexible hose from the hot shutoff up to the faucet."
+        ],
+        "supply_cold": [
+          "Cold supply line",
+          "The flexible hose from the cold shutoff up to the faucet."
+        ],
+        "sink": [
+          "Sink",
+          "A double bowl sink. The disposal hangs under one bowl."
+        ],
+        "faucet_pulldown": [
+          "Faucet",
+          "A pull down kitchen faucet. Run its cold water whenever the disposal is on."
+        ],
+        "cabinet": [
+          "Sink cabinet",
+          "The cabinet under the sink. A quick look inside now and then catches small leaks early."
+        ],
+        "dishwasher": [
+          "Dishwasher",
+          "Its drain hose usually connects to the disposal or to the sink drain."
+        ]
+      },
+      "card_prefix": {
+        "discharge_": "discharge_elbow",
+        "flange_bolts": "discharge_elbow",
+        "dw_hose": "dw_hose",
+        "dw_drain": "dw_hose",
+        "dw_supply": "dw_supply",
+        "stop_hot": "stop_hot",
+        "stop_cold": "stop_cold",
+        "faucet_": "faucet_pulldown",
+        "pulldown_": "faucet_pulldown",
+        "handle_": "faucet_pulldown",
+        "disc_cartridge": "faucet_pulldown",
+        "strainer_": "strainer_right",
+        "j_": "p_trap",
+        "waste_tee": "waste_tee",
+        "waste_arm": "waste_arm"
+      }
+    },
+    "toilet": {
+      "file": "models/toilet.glb",
+      "title": "Toilet",
+      "typical": "a typical two piece toilet",
+      "hide": [
+        "^grip_",
+        "^bidet_seat$",
+        "^ballcock$",
+        "^angle_stop_multiturn$",
+        "^supply_line_old$",
+        "^base_gap$",
+        "^base_stain$",
+        "^bolts_seep$",
+        "^bowl_water_dyed$",
+        "^chain_broken$",
+        "^chain_loose$",
+        "^flange_broken$",
+        "^flapper_bad$",
+        "^handle_loose$",
+        "^leak_stream$",
+        "^lid_crack$",
+        "^overflow_stream$",
+        "^seat_scaled$",
+        "^soft_floor$",
+        "^stop_crust$",
+        "^tank_water_high$",
+        "^closet_bend$",
+        "^floor$",
+        "^slab$",
+        "^slab_cut$",
+        "^wall$",
+        "^tp_holder$"
+      ],
+      "match": {
+        "category": [
+          "toilet"
+        ],
+        "subtype": [
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "bowl",
+        "tank_shell",
+        "tank_lid",
+        "seat",
+        "seat_lid"
+      ],
+      "body_size": {
+        "width": 0.488,
+        "depth": 0.753,
+        "height": 0.794,
+        "x": 0,
+        "z": -0.239,
+        "y0": 0
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "shell": [
+        "bowl",
+        "tank_shell",
+        "tank_lid",
+        "seat",
+        "seat_lid"
+      ],
+      "sections": {
+        "bowl": "bowl_section",
+        "tank_shell": "tank_section",
+        "tank_lid": "tank_lid_section",
+        "seat": "seat_section",
+        "bowl_water": "water_half",
+        "tank_water": "tank_water_half",
+        "trap_flow": "trap_flow_half",
+        "rim_flow": "rim_flow_half",
+        "flange": "flange_section",
+        "wax_ring": "wax_ring_section",
+        "spud_gasket": "spud_gasket_section"
+      },
+      "section_hide": [
+        "seat_lid",
+        "hinge_pin",
+        "hinge_post_right",
+        "hinge_cap_right",
+        "seat_bolt_right",
+        "seat_nut_right",
+        "tank_bolt_right",
+        "tank_bolt_seal_right",
+        "tank_nut_right",
+        "tank_nut_washer_right",
+        "bolt_cap_right",
+        "bolt_cap_base_right",
+        "closet_washer_right",
+        "closet_nut_right",
+        "closet_bolt_right"
+      ],
+      "water": [
+        "bowl_water",
+        "water_half",
+        "tank_water",
+        "tank_water_half",
+        "trap_flow",
+        "trap_flow_half",
+        "rim_flow",
+        "rim_flow_half"
+      ],
+      "heat": {
+        "clip": "flush",
+        "say": "Push the handle and the chain lifts the flapper at the bottom of the tank. The tank's water rushes down into the bowl, and the bowl empties through the curved trap like a siphon. The flapper drops shut, and the fill valve refills the tank until the float reaches the set line."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it flushes"
+        },
+        {
+          "key": "running",
+          "label": "Running toilet",
+          "clip": "trickle",
+          "highlight": [
+            "flapper",
+            "tank_water",
+            "float_cup"
+          ],
+          "say": "If the flapper no longer seals, tank water slowly slips into the bowl. The level drops until the fill valve turns on by itself to top it up, which is the hiss you may hear at night. A worn flapper is the usual cause and an easy part to replace. A few drops of food coloring in the tank tell you: color in the bowl without a flush means a leak."
+        },
+        {
+          "key": "weak",
+          "label": "Weak flush",
+          "clip": "flush_weak",
+          "highlight": [
+            "chain",
+            "flapper",
+            "trip_lever"
+          ],
+          "say": "If the chain has too much slack, the handle cannot lift the flapper all the way. It drops shut early and the bowl gets only part of the tank. A chain with just a little slack fixes it. A tank water level set too low gives a weak flush too."
+        },
+        {
+          "key": "fill",
+          "label": "Fill valve and float",
+          "clip": "flapper_cycle",
+          "highlight": [
+            "fill_valve",
+            "float_cup",
+            "refill_tube"
+          ],
+          "say": "After a flush the fill valve opens and refills the tank. The float rides up with the water and shuts the valve at the set line. The small refill tube tops up the bowl at the same time, through the overflow tube."
+        },
+        {
+          "key": "shutoff",
+          "label": "The shutoff",
+          "clip": "stops_off",
+          "highlight": [
+            "angle_stop",
+            "supply_line"
+          ],
+          "say": "The small valve on the wall behind the toilet turns its water off. Turn it off before working in the tank, or if the bowl is about to overflow. An old or kinked supply line is worth replacing before it leaks."
+        }
+      ],
+      "cards": {
+        "bowl": [
+          "Bowl",
+          "The china bowl. A curved trap is molded inside it, out of sight, and carries everything to the drain in the floor."
+        ],
+        "bowl_water": [
+          "Bowl water",
+          "The water that sits in the bowl seals the drain so sewer gas cannot come up into the room."
+        ],
+        "trap_flow": [
+          "Trapway",
+          "The curved channel inside the bowl. During a flush water fills it and pulls the bowl empty, like a siphon."
+        ],
+        "seat": [
+          "Seat",
+          "Bolted to the bowl through two holes at the back."
+        ],
+        "seat_lid": [
+          "Lid",
+          "The cover over the seat and bowl, hinged with the seat."
+        ],
+        "seat_hinges": [
+          "Seat hinges",
+          "Hold the seat and lid on. If the seat shifts side to side, the nuts under the bowl need a snug turn."
+        ],
+        "tank_shell": [
+          "Tank",
+          "Holds the water for the next flush, usually about 1.3 to 1.6 gallons in newer toilets."
+        ],
+        "tank_lid": [
+          "Tank lid",
+          "Heavy china that cracks if dropped. Set it down on a towel when you take it off."
+        ],
+        "tank_water": [
+          "Tank water",
+          "Clean water from your supply line, the same water as your sink. It waits here for the next flush."
+        ],
+        "handle": [
+          "Flush handle",
+          "Turns the trip lever inside the tank."
+        ],
+        "trip_lever": [
+          "Trip lever",
+          "The arm inside the tank that lifts the chain when you push the handle."
+        ],
+        "chain": [
+          "Lift chain",
+          "Connects the trip lever to the flapper. It needs just a little slack: too tight and the flapper leaks, too loose and the flush is weak."
+        ],
+        "flapper": [
+          "Flapper",
+          "The rubber seal at the bottom of the tank. It lifts to flush and drops to seal. It wears out over the years and is the most common cause of a running toilet."
+        ],
+        "flush_valve": [
+          "Flush valve and overflow tube",
+          "The opening the flapper seals, with a tall tube beside it. If the tank ever overfills, water spills down the tube into the bowl instead of onto the floor."
+        ],
+        "fill_valve": [
+          "Fill valve",
+          "Refills the tank after every flush and shuts off when the float reaches the set line."
+        ],
+        "refill_tube": [
+          "Refill tube",
+          "A small tube that tops up the bowl water during the refill, through the overflow tube."
+        ],
+        "float_cup": [
+          "Float",
+          "Rides up with the water and tells the fill valve when to stop. Raising or lowering it sets the tank's water level."
+        ],
+        "tank_bolts": [
+          "Tank bolts",
+          "Hold the tank to the bowl, each with a rubber washer to keep water in."
+        ],
+        "spud_gasket": [
+          "Tank to bowl gasket",
+          "The big rubber seal between the tank and the bowl. An old one can leak where the two meet."
+        ],
+        "angle_stop": [
+          "Shutoff valve",
+          "Turns the water off to the toilet. Good to know where it is before you ever need it."
+        ],
+        "supply_line": [
+          "Supply line",
+          "The short hose that carries water from the shutoff up to the fill valve."
+        ],
+        "wax_ring": [
+          "Wax ring",
+          "Seals the toilet to the drain in the floor. A toilet that rocks can break this seal, so water or odor may show at the base."
+        ],
+        "flange": [
+          "Floor flange",
+          "The ring on the drain pipe in the floor. The toilet bolts down to it."
+        ],
+        "bolt_caps": [
+          "Floor bolts",
+          "Two bolts hold the toilet to the flange, hidden under small caps at the base."
+        ]
+      },
+      "card_prefix": {
+        "hinge_": "seat_hinges",
+        "seat_bolt": "seat_hinges",
+        "seat_nut": "seat_hinges",
+        "handle_nut": "handle",
+        "flush_locknut": "flush_valve",
+        "flush_valve": "flush_valve",
+        "fill_locknut": "fill_valve",
+        "stop_stub": "angle_stop",
+        "closet_bolt": "bolt_caps"
+      }
+    },
+    "water_softener": {
+      "file": "models/water_softener.glb",
+      "title": "Water softener",
+      "typical": "a typical two tank water softener",
+      "hide": [
+        "^water_softener_inlet$",
+        "^water_softener_outlet$",
+        "^water_softener_tank$"
+      ],
+      "match": {
+        "category": [
+          "water_softener"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 180,
+      "body": [
+        "resin_tank",
+        "valve_head",
+        "brine_tank",
+        "brine_lid"
+      ],
+      "body_size": {
+        "width": 0.812,
+        "depth": 0.478,
+        "height": 1.572,
+        "x": -0.273,
+        "z": 0,
+        "y0": 0
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "shell": [
+        "resin_tank",
+        "brine_tank",
+        "brine_lid",
+        "control_cover"
+      ],
+      "ghost_also": [
+        "salt_bed",
+        "brine_well"
+      ],
+      "sections": {
+        "resin_tank": "resin_tank_section",
+        "brine_tank": "brine_tank_section"
+      },
+      "section_hide": [
+        "brine_lid",
+        "control_cover",
+        "display_service",
+        "display_regen"
+      ],
+      "water": [
+        "brine_water"
+      ],
+      "overlay_hide": [
+        "inlet_stub",
+        "outlet_stub",
+        "drain_line",
+        "drain_stub",
+        "power_cord",
+        "wall_transformer",
+        "receptacle",
+        "cover_plate"
+      ],
+      "heat": {
+        "clip": "service",
+        "loop": "service_loop",
+        "say": "Hard water comes in at the valve on top and flows down through a bed of tiny resin beads. The beads grab the hardness minerals, calcium and magnesium, and trade them for a little sodium. Soft water rises up the center tube and goes on to your home."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it softens"
+        },
+        {
+          "key": "regen",
+          "label": "Regeneration",
+          "clip": "regen",
+          "loop": "regen_loop",
+          "highlight": [
+            "valve_head",
+            "resin_tank",
+            "brine_line",
+            "drain_line"
+          ],
+          "say": "After enough gallons the beads are full and need a wash, usually in the middle of the night. The valve runs water backward through the tank, draws salty brine from the brine tank to clean the beads, rinses them and sends the waste water down the drain. Here you see the backwash step."
+        },
+        {
+          "key": "salt_bridge",
+          "label": "Salt bridge",
+          "clip": "salt_bridge",
+          "highlight": [
+            "salt_bridge",
+            "salt_bed",
+            "brine_tank"
+          ],
+          "say": "Salt can form a hard crust with an empty space under it, called a salt bridge. The tank looks full, but no salt reaches the water, so the softener stops softening. Push a broom handle down through the salt to break it up, and keep the salt above half full."
+        },
+        {
+          "key": "bypass",
+          "label": "The bypass",
+          "clip": "bypass",
+          "highlight": [
+            "bypass_valve",
+            "bypass_lever_in",
+            "bypass_lever_out"
+          ],
+          "say": "The bypass valve sends water around the softener, handy when it needs work. While it is on bypass your home gets hard water. If your water seems hard again, check that the bypass was not left turned."
+        },
+        {
+          "key": "control",
+          "label": "The control",
+          "clip": "cover_off",
+          "highlight": [
+            "control_cover",
+            "control_board",
+            "display_service"
+          ],
+          "say": "The control keeps the time of day and your water's hardness setting, and counts the gallons used. After a long power outage, check that the clock is right so regeneration still happens at night."
+        }
+      ],
+      "cards": {
+        "resin_tank": [
+          "Resin tank",
+          "The tall tank. It is filled with tiny resin beads that pull hardness minerals out of the water as it passes through."
+        ],
+        "valve_head": [
+          "Control valve",
+          "The valve on top of the resin tank. It steers water through the tank, and runs the cleaning cycle when the beads are full."
+        ],
+        "control_cover": [
+          "Control and display",
+          "Shows the time and status. The time of day, your water's hardness and the cleaning time are set here."
+        ],
+        "control_board": [
+          "Timer board",
+          "The small circuit board under the cover. It keeps the clock and decides when to regenerate."
+        ],
+        "display_service": [
+          "Display",
+          "Shows the time of day when the softener is working normally, and the cycle step while it cleans itself."
+        ],
+        "meter_dome": [
+          "Water meter",
+          "Counts the gallons that go through, so the softener cleans itself after real use instead of on a fixed calendar."
+        ],
+        "bypass_valve": [
+          "Bypass valve",
+          "Sends water around the softener when it needs work. Left on bypass, your home gets hard water."
+        ],
+        "inlet_stub": [
+          "Hard water in",
+          "Where water from your home's main line comes into the softener."
+        ],
+        "outlet_stub": [
+          "Soft water out",
+          "Where softened water leaves for the rest of your home."
+        ],
+        "drain_line": [
+          "Drain line",
+          "A small tube that carries the rinse water from each cleaning cycle to a drain."
+        ],
+        "drain_stub": [
+          "Drain",
+          "The drain line should end above the drain with a gap of air, so dirty water can never be pulled back into the softener."
+        ],
+        "brine_tank": [
+          "Brine tank",
+          "The shorter tank. It holds the salt and the salty water, called brine, used to clean the resin beads."
+        ],
+        "brine_lid": [
+          "Brine tank lid",
+          "Lift it to check the salt. A look about once a month is a good habit."
+        ],
+        "salt_bed": [
+          "Salt",
+          "Softener salt slowly dissolves into the water below it to make brine. Keep it above half full and below the top."
+        ],
+        "salt_bridge": [
+          "Salt bridge",
+          "A hard crust of salt with an empty space under it. The tank looks full, but the softener cannot make brine. Break it up with a broom handle."
+        ],
+        "salt_grid": [
+          "Salt grid",
+          "A platform a few inches up. The salt sits on it and the brine forms underneath."
+        ],
+        "brine_water": [
+          "Brine",
+          "Salty water at the bottom of the tank. The valve draws it up to clean the resin beads."
+        ],
+        "brine_well": [
+          "Brine well",
+          "A slotted tube that keeps salt away from the float and the brine line."
+        ],
+        "brine_float": [
+          "Safety float",
+          "Shuts off the refill if anything goes wrong, so the brine tank cannot overflow."
+        ],
+        "brine_line": [
+          "Brine line",
+          "The small tube between the two tanks. Brine is drawn up through it, and fresh water goes back down it to refill."
+        ],
+        "wall_transformer": [
+          "Power adapter",
+          "Plugs into a wall outlet and turns house power into low voltage for the control."
+        ],
+        "power_cord": [
+          "Power cord",
+          "Carries low voltage power from the adapter to the control."
+        ],
+        "receptacle": [
+          "Wall outlet",
+          "Where the softener's power adapter plugs in."
+        ]
+      },
+      "card_prefix": {
+        "bypass_lever": "bypass_valve",
+        "display_": "display_service",
+        "cover_plate": "receptacle"
+      }
     }
   },
   "typical_only": {
@@ -828,6 +3089,55 @@
         "unknown": "gas_furnace",
         "electric": "gas_furnace",
         "hybrid": "gas_furnace"
+      }
+    },
+    "hvac_condenser": {
+      "fallback_model": {
+        "electric": "ac_condenser",
+        "unknown": "ac_condenser"
+      }
+    },
+    "air_handler": {
+      "fallback_model": {
+        "electric": "air_handler",
+        "unknown": "air_handler"
+      }
+    },
+    "water_heater_tankless": {
+      "fallback_model": {
+        "electric": "electric_tankless_water_heater",
+        "unknown": "electric_tankless_water_heater",
+        "gas": "gas_tankless_water_heater"
+      }
+    },
+    "water_heater_hybrid": {
+      "fallback_model": {
+        "hybrid": "hybrid_water_heater",
+        "electric": "hybrid_water_heater",
+        "unknown": "hybrid_water_heater"
+      }
+    },
+    "mini_split": {
+      "fallback_model": {
+        "electric": "mini_split",
+        "unknown": "mini_split"
+      }
+    },
+    "garbage_disposal": {
+      "fallback_model": {
+        "electric": "garbage_disposal",
+        "unknown": "garbage_disposal"
+      }
+    },
+    "toilet": {
+      "fallback_model": {
+        "unknown": "toilet"
+      }
+    },
+    "water_softener": {
+      "fallback_model": {
+        "electric": "water_softener",
+        "unknown": "water_softener"
       }
     }
   }
