@@ -69,9 +69,13 @@ export function pickModel(catalog, A) {
   const typ = (catalog.typical_only || {})[A.category];
   if (!sameCat.length && !typ) return { mode: 'none', reason: 'not_supported' };
   const sub = A.confidence.subtype === 'low' ? 'unknown' : A.subtype;
+  // GROUND PHOTOS (Jake, 2026-11-07: "someone takes a picture of the ground and it sees a cap"): a buried unit with an
+  // "anchor" is lined up on what shows above ground (septic lids, a well cap, a yard box lid) and drawn under it
+  const anchored = sameCat.find(([, m]) => m.anchor);
+  if (anchored && A.box && A.box.w > 0 && A.box.h > 0 && A.units_count <= 4) return { mode: 'overlay', key: anchored[0], reason: 'anchored' };
   // typical_only: a buried unit (septic tank, well) shows only lids in a photo, so it is never drawn over one
-  // a toilet or sink (match subtype only 'unknown') never matches exactly yet: tried 2026-11-07, the toilet drawing
-  // passed the fit check while visibly off (front on vs a turned toilet, tank too low). Typical until that is fixed.
+  // a toilet or sink (match subtype only 'unknown') never matches exactly yet: tried twice on 2026-11-07 with the toilet
+  // drawing, the reader's facing and box were too loose to line it up. Typical until real photos are tried.
   const exact = sameCat.find(([, m]) => !m.typical_only && sub !== 'unknown' && m.match.subtype.includes(sub) && m.match.orientation.includes(A.orientation));
   if (exact && A.confidence.orientation !== 'low' && A.box && A.full_unit_visible && A.obstruction !== 'mostly' && A.units_count <= 3)
     return { mode: 'overlay', key: exact[0], reason: 'matched' };
@@ -90,7 +94,8 @@ export function pickModel(catalog, A) {
 export function yawFor(A) {
   if (!A) return 0;
   const f = A.facing;
-  if ((f === 'toward_camera' || f === 'toward_camera_left' || f === 'toward_camera_right') && A.front_marker_offset != null && A.confidence.facing !== 'low')
+  // the marker (a gas knob, an access panel) only counts when it was seen: a toilet has none, and its offset comes back 0
+  if ((f === 'toward_camera' || f === 'toward_camera_left' || f === 'toward_camera_right') && A.front_marker_seen !== false && A.front_marker_offset != null && A.confidence.facing !== 'low')
     return Math.asin(Math.max(-0.95, Math.min(0.95, A.front_marker_offset)));
   return THREE.MathUtils.degToRad(FACING_DEG[f] != null ? FACING_DEG[f] : 0);
 }
@@ -354,7 +359,8 @@ export async function createXray(container, opts = {}) {
     S.entry = entry; S.key = keyName; S.root = root; scene.add(root);
     root.rotation.y = frontRad();
     S.named = new Map(); S.meshes = []; S.rest = new Map();
-    const hide = (catalog.hide_always || []).concat(entry.hide || []).map(p => new RegExp(p));
+    // keep: hide_always rules this model opts out of (the expansion tank X-ray shows the tank every heater hides)
+    const hide = (catalog.hide_always || []).filter(p => !(entry.keep || []).includes(p)).concat(entry.hide || []).map(p => new RegExp(p));
     root.traverse(o => {
       const n = nameOf(o); if (n) S.named.set(n, o);
       if (hide.some(r => r.test(n))) { o.visible = false; o.userData.xrOff = true; o.userData.xrHidden = true; }
@@ -379,7 +385,10 @@ export async function createXray(container, opts = {}) {
     return entry;
   }
   // parts drawn only in 3D, not over the photo (a furnace photo seldom shows the coil, plenum and piping around it)
-  function overlayParts(onPhoto) { for (const n of (S.entry.overlay_hide || [])) { const o = S.named.get(n); if (o && !o.userData.xrOff) o.visible = !onPhoto; } }
+  function overlayParts(onPhoto) { for (const n of (S.entry.overlay_hide || [])) { const o = S.named.get(n); if (o && !o.userData.xrOff) o.visible = !onPhoto; }
+    // over a ground photo the X-ray is drawn see-through, so the lids they photographed still show as the reference
+    renderer.domElement.style.opacity = onPhoto && S.choice && S.choice.reason === 'anchored' ? '0.72' : '';
+  }
   // models built facing another way say so (catalog front_deg); every turn of the root adds it
   const frontRad = () => THREE.MathUtils.degToRad((S.entry && S.entry.front_deg) || 0);
   const under = n => { const o = S.named.get(n); const out = []; if (o) o.traverse(m => { if (m.isMesh) out.push(m); }); return out; };
@@ -635,10 +644,17 @@ export async function createXray(container, opts = {}) {
   function initialPose(A) {
     const { w, h } = S.photoSize;
     const vfov = w >= h ? THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(PHONE_LONG_FOV / 2)) * h / w)) : PHONE_LONG_FOV;
+    const E = S.entry; const B = E.body_size, H = B.height; const pts = [];
     const pose = { yaw: yawFor(A), elev: ELEV_DEG[A.camera_height] != null ? ELEV_DEG[A.camera_height] : 6, d: 3, shiftX: 0, shiftY: 0, vfov, widen: 1 };
+    if (E.anchor) {
+      // a photo of lids on the ground is taken looking down at them, more steeply than any appliance photo
+      pose.elev = A.camera_height === 'looking_up' ? 12 : A.camera_height === 'level' ? 32 : 55;
+      // a long run of lids (a septic tank's two) lies across the picture unless the box is taller than wide
+      const long = B.width && B.width > 1.6 * (B.depth || B.width);
+      pose.yaw = long && A.box.h * h > A.box.w * w * 1.15 ? Math.PI / 2 : 0;
+    }
     S.root.rotation.y = pose.yaw + frontRad(); S.root.scale.set(1, 1, 1); S.root.updateMatrixWorld(true);
     // fit the body's projected height to the box height (size goes as 1/distance), then centre it on the box
-    const E = S.entry; const B = E.body_size, H = B.height; const pts = [];
     if (B.width) {
       // a cabinet (furnace): the eight corners of its box, centred on the origin like the tanks
       const hw = B.width / 2, hd = (B.depth || B.width) / 2, x0 = B.x || 0, z0 = B.z || 0, y0 = B.y0 || 0;
@@ -653,7 +669,8 @@ export async function createXray(container, opts = {}) {
       let x0 = 1, y0 = 1, x1 = 0, y1 = 0; for (const p of pts) { const v = p.clone().project(c); const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
       return { x0, y0, x1, y1 };
     };
-    for (let i = 0; i < 6; i++) { const p = proj(); pose.d *= (p.y1 - p.y0) / A.box.h; }
+    // flat lids seen from above: their width is the steady measure (their height in the picture depends on the angle)
+    for (let i = 0; i < 6; i++) { const p = proj(); pose.d *= E.anchor ? (p.x1 - p.x0) / A.box.w : (p.y1 - p.y0) / A.box.h; }
     const p = proj();
     pose.shiftX = (A.box.x + A.box.w / 2) - (p.x0 + p.x1) / 2; pose.shiftY = (A.box.y + A.box.h / 2) - (p.y0 + p.y1) / 2;
     return pose;
@@ -798,13 +815,16 @@ export async function createXray(container, opts = {}) {
     let overlay = choice.mode === 'overlay' && S.photoSize && A && A.box;
     if (overlay) {
       S.pose = initialPose(A); S.overlay = true; overlayParts(true); layout();
-      const f = measureFit(true); mark('fit_done');
+      // lids on the ground have no outline to check against: the anchor is the lid box itself
+      const f = choice.reason === 'anchored' ? (S.fit = { good: true, anchored: true }) : measureFit(true); mark('fit_done');
       if (!f.good) { S.root.scale.set(1, 1, 1); overlayParts(false); overlay = false; S.choice = choice = { ...choice, mode: 'typical', reason: 'poor_fit' }; emit('choice', choice); }
     }
     wait.style.display = 'none';
     if (overlay) {
       S.overlay = true; orbit.enabled = false; applyCamera();
-      setNote(`Lined up with your photo. This shows how ${typical} works inside. It is not a scan of yours.`);
+      setNote(choice.reason === 'anchored'
+        ? `Lined up on the ${S.entry.anchor} in your photo. Underground is ${typical}: yours may sit at a different angle or depth. It is not a scan of yours.`
+        : `Lined up with your photo. This shows how ${typical} works inside. It is not a scan of yours.`);
       await runScan(); mark('reveal');
       dim.style.opacity = 0.5; setView('xray'); fadeInterior(700); startHeat();
       bar.style.visibility = ''; syncBar();

@@ -3383,7 +3383,8 @@
         "riser_": "riser_aeration",
         "lid_aeration_": "lid_aeration",
         "lid_clarifier_": "lid_clarifier"
-      }
+      },
+      "anchor": "lids"
     },
     "aerobic_septic_spray": {
       "file": "models/aerobic_septic_spray.glb",
@@ -3709,7 +3710,8 @@
         "spray_head": "spray_head0",
         "head_stem": "spray_head0",
         "stream": "spray_head0"
-      }
+      },
+      "anchor": "lids"
     },
     "bath_sink": {
       "file": "models/bath_sink.glb",
@@ -5050,7 +5052,8 @@
         "gate_wedge": "gate_valve",
         "flex_conduit": "disconnect",
         "discharge_grommet": "discharge_run"
-      }
+      },
+      "anchor": "lid"
     },
     "media_filter": {
       "file": "models/media_filter.glb",
@@ -5950,7 +5953,8 @@
         "spray_head": "spray_head0",
         "head_stem": "spray_head0",
         "chlor_tablets": "chlor_tablets"
-      }
+      },
+      "anchor": "lid"
     },
     "septic_tank": {
       "file": "models/septic_tank.glb",
@@ -6162,7 +6166,11 @@
       },
       "card_prefix": {
         "riser_": "riser_inlet"
-      }
+      },
+      "anchor": "lids",
+      "ghost_also": [
+        "scum_normal"
+      ]
     },
     "shower": {
       "file": "models/shower.glb",
@@ -6725,7 +6733,8 @@
         "pvc_nipple_irrigation": "irrigation_tee",
         "rubber_pad": "lid",
         "face_text": "housing"
-      }
+      },
+      "anchor": "box lid"
     },
     "sump_pump": {
       "file": "models/sump_pump.glb",
@@ -7362,7 +7371,8 @@
         "union_": "unions",
         "bib_hose": "hose_bib",
         "bib_stream": "hose_bib"
-      }
+      },
+      "anchor": "box lid"
     },
     "well_pump": {
       "file": "models/well_pump.glb",
@@ -7581,6 +7591,1708 @@
         "well_cap_bolt": "well_cap_bolts",
         "jbox_cover": "jbox_cover",
         "pitless_slide": "pitless_slide"
+      },
+      "anchor": "well cap"
+    },
+    "electrical_panel": {
+      "file": "models/electrical_panel.glb",
+      "title": "Breaker panel",
+      "typical": "a typical breaker panel",
+      "hide": [
+        "^grip_"
+      ],
+      "match": {
+        "category": [
+          "electrical_panel"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "wall_hung",
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "deadfront"
+      ],
+      "body_size": {
+        "width": 0.428,
+        "depth": 0.125,
+        "height": 0.822,
+        "x": 0,
+        "z": -0.0325,
+        "y0": 0.97
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "frame_parts": [
+        "deadfront",
+        "panel_can"
+      ],
+      "overlay_hide": [
+        "service_entrance_cable",
+        "romex_ahu_jacket",
+        "romex_bath_jacket",
+        "romex_bed2_jacket",
+        "romex_bed3_jacket",
+        "romex_dining_jacket",
+        "romex_dishwasher_jacket",
+        "romex_disposal_jacket",
+        "romex_exterior_jacket",
+        "romex_fridge_jacket",
+        "romex_garage_jacket",
+        "romex_gdo_jacket",
+        "romex_hvac_jacket",
+        "romex_kitchen_a_jacket",
+        "romex_kitchen_b_jacket",
+        "romex_laundry_jacket",
+        "romex_lights_1_jacket",
+        "romex_lights_2_jacket",
+        "romex_living_jacket",
+        "romex_master_jacket",
+        "romex_septic_jacket",
+        "romex_smoke_jacket",
+        "romex_softener_jacket",
+        "romex_washer_jacket",
+        "romex_wh_jacket"
+      ],
+      "shell": [
+        "deadfront"
+      ],
+      "ghost_also": [
+        "panel_can"
+      ],
+      "section_hide": [
+        "deadfront"
+      ],
+      "heat": {
+        "clip": "panel_door_open",
+        "say": "Power from the utility comes in at the top and passes through the main breaker. Two metal bars carry it down the middle, and each breaker clips onto them and feeds one circuit in the house. If a circuit draws too much, its breaker shuts it off before the wires can overheat."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "tripped",
+          "label": "A tripped breaker",
+          "clip": "breaker_lights_1",
+          "highlight": [
+            "breaker_lights_1_handle"
+          ],
+          "frame": [
+            "breaker_lights_1",
+            "breaker_bath",
+            "breaker_septic"
+          ],
+          "say": "When a breaker trips, its handle moves away from on, and it often stops in the middle where it is easy to miss. To reset it, push the handle firmly all the way to off, then back to on. If it trips again right away or keeps tripping, leave it off and call a licensed electrician, because something on that circuit needs a look."
+        },
+        {
+          "key": "test",
+          "label": "GFCI and AFCI breakers",
+          "clip": "breaker_bath",
+          "highlight": [
+            "breaker_bath_test_button",
+            "breaker_bath_handle"
+          ],
+          "frame": [
+            "breaker_bath",
+            "breaker_master",
+            "breaker_bed3"
+          ],
+          "say": "Breakers with a small TEST button add extra protection. A GFCI breaker shuts off when current leaks out where it should not, such as through water or a person, and guards bathrooms, kitchens, garages and outdoor outlets. An AFCI breaker shuts off when it senses sparking in a loose or damaged wire, and guards bedrooms and living areas. Press TEST about once a month: it should trip, then reset it, off and back on."
+        },
+        {
+          "key": "main",
+          "label": "The main breaker",
+          "highlight": [
+            "main_breaker",
+            "main_breaker_handle"
+          ],
+          "frame": [
+            "main_breaker",
+            "main_lug_a",
+            "main_lug_b"
+          ],
+          "say": "The large breaker at the top is the main. Switching it off cuts power to every circuit in the house at once, which is good to know in an emergency. The wires coming in above it stay live even with the main off, which is one reason only a licensed electrician works inside the panel."
+        },
+        {
+          "key": "labels",
+          "label": "Label your breakers",
+          "clip": "panel_door_open",
+          "highlight": [
+            "circuit_directory"
+          ],
+          "frame": [
+            "panel_door"
+          ],
+          "say": "The card inside the door lists what each breaker feeds. A clear, up to date list saves time when something goes dead, and matters most in an emergency. If yours is blank or out of date, a helper and a few minutes switching one breaker at a time will tell you what each one runs."
+        }
+      ],
+      "cards": {
+        "panel_door": [
+          "Panel door",
+          "The outer door you open to reach the breaker handles and the circuit list."
+        ],
+        "circuit_directory": [
+          "Circuit list",
+          "Lists what each breaker feeds. Keep it filled in and up to date."
+        ],
+        "panel_rating_label": [
+          "Rating label",
+          "Shows the panel's maker, model and amp rating, often 200 amps. An electrician reads it before adding circuits."
+        ],
+        "deadfront": [
+          "Inner cover",
+          "The metal cover the breaker handles poke through, often called the dead front. It keeps fingers away from live parts, and only a licensed electrician should take it off."
+        ],
+        "warning_label": [
+          "Warning label",
+          "A reminder that live parts sit behind the inner cover."
+        ],
+        "main_breaker": [
+          "Main breaker",
+          "Shuts off every circuit in the house at once. The wires feeding it from above stay live even when it is off."
+        ],
+        "main_lug_a": [
+          "Main lugs",
+          "Where the utility's incoming wires bolt on above the main breaker. They are always live."
+        ],
+        "service_entrance_cable": [
+          "Service cable",
+          "The large cable from the meter that brings the utility's power into the panel. It is always live."
+        ],
+        "main_neutral_lug": [
+          "Main neutral",
+          "Where the utility's neutral wire lands. It ties into the neutral bars."
+        ],
+        "hot_bus_bars": [
+          "Bus bars",
+          "Two metal bars down the middle that carry power from the main. Each breaker clips onto them."
+        ],
+        "bus_insulator": [
+          "Insulator",
+          "The plastic base that holds the bus bars apart from the metal box."
+        ],
+        "neutral_bars": [
+          "Neutral bars",
+          "The white wires from the circuits land here, giving each circuit its return path."
+        ],
+        "ground_bar": [
+          "Ground bar",
+          "Bare and green ground wires land here. They give stray current a safe path so a breaker can trip."
+        ],
+        "grounding_electrode_conductor": [
+          "Grounding wire",
+          "A heavy bare copper wire that runs to a ground rod or other grounding point, tying the system to the earth."
+        ],
+        "bonding_screw": [
+          "Bonding screw",
+          "Ties the neutral to the metal box. It belongs in the main panel only, something an electrician checks."
+        ],
+        "panel_can": [
+          "Panel box",
+          "The metal box set in the wall that holds everything. The circuit cables enter through its top."
+        ],
+        "romex_lights_1_jacket": [
+          "Circuit cable",
+          "Each cable feeds one circuit. Black carries power, white is the neutral, bare copper is the ground, and a red wire joins in on 240 volt circuits."
+        ],
+        "romex_wh_white_tape": [
+          "Marked white wire",
+          "On a 240 volt circuit with no neutral, the white wire carries power, so it is marked with tape to say so."
+        ],
+        "breaker_lights_1": [
+          "Breaker",
+          "Feeds one circuit and shuts it off if it draws too much. A tripped one often rests in the middle: push it to off, then on."
+        ],
+        "breaker_bath": [
+          "GFCI or AFCI breaker",
+          "A breaker with a TEST button. It also trips on current leaking out (GFCI) or on sparking in a wire (AFCI). Press TEST once a month, then reset it."
+        ],
+        "breaker_wh": [
+          "Two pole breaker",
+          "A double wide breaker for a 240 volt appliance like the water heater, the outdoor unit or the air handler. Both halves turn off together."
+        ]
+      },
+      "card_prefix": {
+        "directory_": "circuit_directory",
+        "panel_rating": "panel_rating_label",
+        "warning_label": "warning_label",
+        "main_breaker": "main_breaker",
+        "main_lug": "main_lug_a",
+        "se_conductor": "service_entrance_cable",
+        "main_neutral_lug": "main_neutral_lug",
+        "neutral_bar": "neutral_bars",
+        "ground_bar": "ground_bar",
+        "grounding_electrode": "grounding_electrode_conductor",
+        "bonding_screw": "bonding_screw",
+        "romex_": "romex_lights_1_jacket",
+        "breaker_": "breaker_lights_1",
+        "breaker_wh": "breaker_wh",
+        "breaker_hvac": "breaker_wh",
+        "breaker_ahu": "breaker_wh",
+        "breaker_bath": "breaker_bath",
+        "breaker_bed2": "breaker_bath",
+        "breaker_bed3": "breaker_bath",
+        "breaker_dining": "breaker_bath",
+        "breaker_exterior": "breaker_bath",
+        "breaker_garage": "breaker_bath",
+        "breaker_kitchen_b": "breaker_bath",
+        "breaker_living": "breaker_bath",
+        "breaker_master": "breaker_bath"
+      }
+    },
+    "expansion_tank": {
+      "file": "models/expansion_tank.glb",
+      "title": "Expansion tank",
+      "typical": "a typical thermal expansion tank on a water heater",
+      "keep": [
+        "^thermal_expansion_tank$",
+        "^take_up_",
+        "^exp_tank_waterlogged$",
+        "^waterlogged_spike_"
+      ],
+      "hide": [
+        "^gas_riser$",
+        "^gas_drip_tee$",
+        "^gas_flex_connector$",
+        "^gas_shutoff_valve$",
+        "^drain_pan$"
+      ],
+      "match": {
+        "category": [
+          "expansion_tank"
+        ],
+        "subtype": [
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "exp_tank_shell_front",
+        "exp_tank_shell_rear"
+      ],
+      "body_size": {
+        "diameter": 0.19,
+        "height": 0.2,
+        "x": -0.42,
+        "z": 0,
+        "y0": 1.18
+      },
+      "front_marker": {
+        "part": "exp_tank_label",
+        "say": "the tank label"
+      },
+      "frame_parts": [
+        "exp_tank_shell_front",
+        "exp_tank_shell_rear",
+        "exp_tank_air_valve",
+        "exp_tank_strap",
+        "exp_tank_piping"
+      ],
+      "shell": [
+        "exp_tank_shell_front",
+        "exp_tank_shell_rear"
+      ],
+      "ghost_also": [
+        "outer_jacket",
+        "top_cover",
+        "bottom_base",
+        "data_plate",
+        "anode_access_cover",
+        "burner_access_door",
+        "air_intake",
+        "insulation",
+        "inner_tank"
+      ],
+      "sections": {
+        "exp_tank_shell_front": "exp_tank_section",
+        "outer_jacket": "outer_jacket_section",
+        "insulation": "insulation_section",
+        "inner_tank": "inner_tank_section",
+        "water_volume": "water_volume_section",
+        "air_intake": "air_intake_section",
+        "combustion_chamber": "combustion_chamber_section"
+      },
+      "section_hide": [
+        "exp_tank_label",
+        "top_cover",
+        "burner_access_door",
+        "inner_door"
+      ],
+      "water": [
+        "water_volume",
+        "water_volume_section"
+      ],
+      "overlay_hide": [
+        "COMBUSTION",
+        "CONDITIONS",
+        "CORROSION_PROTECTION",
+        "EXTERIOR",
+        "INSULATION",
+        "PRESSURE_VESSEL",
+        "SAFETY",
+        "SERVICE",
+        "VENTING",
+        "WATER_PATH",
+        "hot_supply_line"
+      ],
+      "heat": {
+        "clip": "expansion_take_up",
+        "loop": "expansion_take_up_loop",
+        "also": [],
+        "say": "When the heater warms the water, the water grows a little, around half a gallon in a typical 50 gallon tank. That extra water is pushed back up the cold line and into the expansion tank. Inside, it presses on a rubber diaphragm and squeezes a cushion of air, so the pressure in the pipes stays steady. When you use hot water, the air pushes it back out."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "closed",
+          "label": "Why it is needed",
+          "highlight": [
+            "cold_supply_line",
+            "exp_tank_piping"
+          ],
+          "frame": [
+            "cold_supply_line",
+            "exp_tank_piping",
+            "exp_tank_shell_front",
+            "exp_tank_shell_rear"
+          ],
+          "say": "Many homes have a check valve, a backflow preventer or a pressure reducing valve where the water comes in. These keep water from flowing back toward the street, which also means the extra water from heating has nowhere to go. Without an expansion tank, the pressure in the pipes climbs every time the heater runs. That strains faucets, toilet fill valves and the heater itself, and can make the relief valve drip."
+        },
+        {
+          "key": "air",
+          "label": "The air charge",
+          "highlight": [
+            "exp_tank_air_valve",
+            "exp_tank_air_chamber"
+          ],
+          "frame": [
+            "exp_tank_shell_front",
+            "exp_tank_shell_rear",
+            "exp_tank_air_valve"
+          ],
+          "say": "The air side comes filled from the factory, often to about 40 psi. To work well, the air charge should match the water pressure in the home. A technician checks it with a tire gauge at the air valve, with the water pressure taken off the tank, and adds or lets out air as needed."
+        },
+        {
+          "key": "waterlogged",
+          "label": "Waterlogged tank",
+          "clip": "waterlogged",
+          "loop": "waterlogged_loop",
+          "highlight": [
+            "exp_tank_waterlogged",
+            "tp_relief_valve",
+            "tp_discharge_connection"
+          ],
+          "frame": [
+            "exp_tank_shell_front",
+            "exp_tank_shell_rear",
+            "tp_relief_valve",
+            "tp_discharge_connection"
+          ],
+          "say": "Over the years the air can slowly leak out, or the diaphragm can tear. Then the tank fills with water and can no longer take up the extra, so the pressure jumps each time the heater runs. A common sign is the relief valve on the heater dripping. A simple check is to tap the tank: the air side should sound hollow, while a waterlogged tank sounds dull all over and feels heavy."
+        },
+        {
+          "key": "check",
+          "label": "What a technician checks",
+          "highlight": [
+            "exp_tank_air_valve",
+            "exp_tank_strap",
+            "exp_tank_piping",
+            "exp_tank_label"
+          ],
+          "say": "A technician checks the home's water pressure first, then the tank's air charge. A quick press on the air valve tells a lot: air should come out, and water means the diaphragm has failed and the tank needs replacing. They also make sure the tank is well supported, since a tank full of water is heavy, and look for rust or drips at the connection. Many tanks last about 5 to 10 years."
+        }
+      ],
+      "cards": {
+        "exp_tank_shell_front": [
+          "Expansion tank",
+          "A small steel tank on the cold line. It gives the water room to grow as it heats, so the pressure in the pipes stays steady."
+        ],
+        "exp_tank_water_chamber": [
+          "Water side",
+          "The part of the tank open to the cold line. Extra water from heating flows in here, and back out when hot water is used."
+        ],
+        "exp_tank_diaphragm": [
+          "Diaphragm",
+          "A rubber sheet that keeps the water and the air apart. If it tears, the air is lost and the tank waterlogs."
+        ],
+        "exp_tank_air_chamber": [
+          "Air cushion",
+          "Air sealed in at the factory. It squeezes as extra water comes in and pushes it back out later, like a spring."
+        ],
+        "exp_tank_air_valve": [
+          "Air valve",
+          "A tire style valve on the end of the tank. A technician checks and sets the air charge here. Water coming out of it means the diaphragm has failed."
+        ],
+        "exp_tank_label": [
+          "Tank label",
+          "Shows the tank's size, its highest safe pressure and the air charge it came set to."
+        ],
+        "exp_tank_piping": [
+          "Tank connection",
+          "A short pipe that tees the tank into the cold water line, so expanding water can reach it."
+        ],
+        "exp_tank_strap": [
+          "Support strap",
+          "Holds the tank steady. Full of water a tank is heavy, so it is best not to let it hang on the pipe alone."
+        ],
+        "exp_tank_waterlogged": [
+          "Waterlogged tank",
+          "Water where the air cushion should be. The tank can no longer take up the extra water, so the pressure jumps when the heater runs."
+        ],
+        "take_up_slug_0": [
+          "Expanding water",
+          "Extra water pushed out of the heater as it warms. It flows back up the cold line and into the expansion tank."
+        ],
+        "waterlogged_spike_0": [
+          "Relief valve drip",
+          "When the pressure gets too high, the relief valve lets a little water out through its drain pipe. A drip here can mean the expansion tank has lost its air."
+        ],
+        "cold_supply_line": [
+          "Cold water line",
+          "Brings cold water from the home's supply into the heater. The expansion tank tees into this line."
+        ],
+        "hot_supply_line": [
+          "Hot water line",
+          "Carries hot water from the heater to the sinks, showers and appliances."
+        ],
+        "cold_water_inlet": [
+          "Cold water in",
+          "Where cold water enters the heater. As the water heats and grows, some of it backs up out of here toward the expansion tank."
+        ],
+        "dip_tube": [
+          "Dip tube",
+          "A plastic tube that carries new cold water down to the bottom of the tank, so it does not mix with the hot water on top."
+        ],
+        "tp_relief_valve": [
+          "Safety relief valve",
+          "Opens by itself if the tank gets too hot or the pressure too high. If it drips after the heater runs, the expansion tank is one of the first things to check."
+        ],
+        "tp_discharge_connection": [
+          "Relief valve drain pipe",
+          "Carries water from the relief valve down toward the floor or a drain, so it cannot spray on anyone."
+        ],
+        "water_volume": [
+          "Water in the heater",
+          "Usually 40 or 50 gallons. As it heats it takes up a little more room, and that extra has to go somewhere."
+        ],
+        "inner_tank": [
+          "Steel tank",
+          "The heater's tank. Pressure that swings up every time the water heats is hard on it over the years, and the expansion tank helps keep that in check."
+        ],
+        "outer_jacket": [
+          "Water heater",
+          "The heater the expansion tank serves. Warming the water is what makes it expand in the first place."
+        ],
+        "gas_control_valve": [
+          "Gas control and thermostat",
+          "The knob on the front. It sets the water temperature and turns the burner on when the tank cools down."
+        ],
+        "burner": [
+          "Burner",
+          "Gas burns here, under the tank, like a stove burner turned upside down."
+        ],
+        "drain_valve": [
+          "Drain valve",
+          "Used to flush sediment out of the bottom of the tank."
+        ]
+      },
+      "card_prefix": {
+        "exp_tank_shell": "exp_tank_shell_front",
+        "exp_tank": "exp_tank_shell_front",
+        "take_up_slug": "take_up_slug_0",
+        "waterlogged_spike": "waterlogged_spike_0",
+        "gas_manifold": "gas_control_valve",
+        "inner_door": "burner"
+      }
+    },
+    "outdoor_faucet": {
+      "file": "models/outdoor_faucet.glb",
+      "title": "Outdoor faucet",
+      "typical": "a typical outdoor faucet with a freeze cover and a vacuum breaker",
+      "match": {
+        "category": [
+          "outdoor_faucet"
+        ],
+        "subtype": [
+          "unknown"
+        ],
+        "orientation": [
+          "wall_hung",
+          "unknown"
+        ]
+      },
+      "keep": [
+        "^ctx_"
+      ],
+      "hide": [
+        "^grip_",
+        "^vb_story_bucket_slab$",
+        "^vb_hose_slab_packets$",
+        "^vb_story_hose_tube_slab$"
+      ],
+      "front_deg": 180,
+      "body": [
+        "ctx_bib",
+        "vb_body",
+        "vb_cap"
+      ],
+      "body_size": {
+        "width": 0.079,
+        "depth": 0.138,
+        "height": 0.137,
+        "x": 0.0015,
+        "z": -0.067,
+        "y0": -0.107
+      },
+      "frame_parts": [
+        "ctx_bib",
+        "ctx_block",
+        "cover_shell",
+        "cover_gasket",
+        "cover_hook",
+        "vb_body",
+        "vb_cap"
+      ],
+      "shell": [
+        "cover_shell",
+        "cover_gasket",
+        "vb_adapter",
+        "vb_lower_body",
+        "vb_cap"
+      ],
+      "ghost_also": [
+        "cover_foam"
+      ],
+      "sections": {
+        "cover_shell": "cover_shell_section",
+        "vb_body": "vb_body_section"
+      },
+      "section_hide": [
+        "cover_foam",
+        "cover_gasket",
+        "vb_cap",
+        "vb_hose_thread"
+      ],
+      "overlay_hide": [
+        "ctx_wall",
+        "ctx_bed"
+      ],
+      "heat": {
+        "clip": "cold_block",
+        "loop": "cold_block_loop",
+        "also": [],
+        "say": "Water left in an outdoor faucet can freeze in a hard cold snap, swell and split the pipe. A foam cover pressed tight to the wall keeps the cold wind off and holds in a little warmth that travels out along the pipe from the house. Unhook the hose before a freeze, then put the cover on."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it protects"
+        },
+        {
+          "key": "backflow",
+          "label": "The vacuum breaker",
+          "clip": "backflow_block",
+          "loop": "backflow_block_loop",
+          "highlight": [
+            "vb_check_disc",
+            "vb_spring",
+            "vb_cap"
+          ],
+          "frame": [
+            "ctx_bib",
+            "vb_body",
+            "vb_story_bucket",
+            "vb_story_hose_tube"
+          ],
+          "say": "The small fitting on the faucet is a vacuum breaker. If the water pressure drops while a hose lies in a bucket, a pool or a sprayer, that water could be pulled back into your pipes. Inside, a spring shuts a rubber disc and lets air in, so the hose drains out its end instead of back into the house."
+        },
+        {
+          "key": "drain",
+          "label": "Draining it for winter",
+          "clip": "vb_drain",
+          "highlight": [
+            "vb_cap"
+          ],
+          "say": "Before a freeze, take the hose off and let the vacuum breaker drain. The black ring at the bottom moves to let the last of the water run out, so nothing is left inside to freeze. Then the cover can go on."
+        },
+        {
+          "key": "leak",
+          "label": "A dripping breaker",
+          "clip": "vb_leak",
+          "loop": "vb_leak_loop",
+          "highlight": [
+            "vb_cap",
+            "vb_vent_drip"
+          ],
+          "say": "A short spurt from the vent when you turn the water on or off is normal. Water that keeps spitting out while the hose runs usually means the rubber disc or seal inside is worn. A technician can repair or replace it."
+        },
+        {
+          "key": "loose",
+          "label": "A loose cover",
+          "clip": "cover_loose",
+          "highlight": [
+            "cover_gasket_gap",
+            "cover_loop",
+            "cover_hook"
+          ],
+          "say": "The cover only works when its foam edge sits flat against the wall. If the cord slips, the cover tips and cold air gets in through the gap. Pull the cord snug on its hook so the cover is pressed tight to the wall again."
+        }
+      ],
+      "cards": {
+        "ctx_bib": [
+          "Outdoor faucet",
+          "Brings water from the house out to the yard. Its handle turns the water on and off."
+        ],
+        "ctx_block": [
+          "Mounting block",
+          "A flat block on the wall that the faucet is fastened to. It gives the cover a smooth place to seal."
+        ],
+        "ctx_wall": [
+          "House wall",
+          "The outside wall the faucet comes through. The water pipe runs inside it."
+        ],
+        "cover_shell": [
+          "Freeze cover",
+          "A hard dome that goes over the faucet for the winter. It keeps the cold wind off the faucet."
+        ],
+        "cover_foam": [
+          "Foam lining",
+          "Foam inside the dome that helps hold in the little bit of warmth coming from the house."
+        ],
+        "cover_gasket": [
+          "Foam seal",
+          "The soft edge that presses against the wall so cold air cannot sneak in around the cover."
+        ],
+        "cover_loop": [
+          "Cord loop",
+          "Goes around the faucet behind the handle. Pulling it tight draws the cover against the wall."
+        ],
+        "cover_hook": [
+          "Cord hook",
+          "Holds the cord tight at the end of the cover so the cover stays pressed to the wall."
+        ],
+        "cover_gasket_gap": [
+          "Gap at the wall",
+          "This cover has slipped and cold air gets in through the gap. Pull the cord snug again."
+        ],
+        "cover_cutaway": [
+          "Cover cut open",
+          "The cover cut in half, to show the foam and the faucet inside."
+        ],
+        "warm_band": [
+          "Warmth from the house",
+          "A little heat travels out along the pipe from inside the house. The cover keeps it around the faucet."
+        ],
+        "cold_packet_00": [
+          "Cold air",
+          "Freezing air outside. The cover keeps it from reaching the faucet."
+        ],
+        "vb_adapter": [
+          "Vacuum breaker",
+          "Screws onto the faucet's hose thread. It stops hose water from being pulled back into your pipes."
+        ],
+        "vb_lower_body": [
+          "Breaker body",
+          "The brass body that holds the working parts. Your hose screws onto its bottom."
+        ],
+        "vb_gasket_washer": [
+          "Rubber washer",
+          "Seals the vacuum breaker to the faucet so it does not leak at the top."
+        ],
+        "vb_cap": [
+          "Drain ring",
+          "The black ring at the bottom. It covers the air vents and lets the breaker drain for winter."
+        ],
+        "vb_check_disc": [
+          "Rubber disc",
+          "Opens when water flows out to the hose and shuts when the pressure drops, so water cannot flow back."
+        ],
+        "vb_spring": [
+          "Spring",
+          "Pushes the disc shut the moment the water pressure falls."
+        ],
+        "vb_set_screw": [
+          "Set screw",
+          "Its head snaps off when the breaker is put on, so the breaker cannot be unscrewed by mistake."
+        ],
+        "vb_hose_thread": [
+          "Hose thread",
+          "Where your garden hose screws on."
+        ],
+        "vb_vent_drip": [
+          "Leak at the vent",
+          "Water spitting from the vent while the hose runs. It usually means the disc or seal inside is worn."
+        ],
+        "vb_story_bucket": [
+          "Bucket of water",
+          "A hose left in a bucket, pool or sprayer is how dirty water can get pulled back. The breaker stops it."
+        ],
+        "vb_story_hose_tube": [
+          "Garden hose",
+          "When the pressure drops, the water in the hose drains out its end instead of back into the house."
+        ],
+        "vb_air_in_0": [
+          "Air let in",
+          "When the pressure drops, the breaker lets air in through its vents instead of pulling water back."
+        ],
+        "vb_hose_packets": [
+          "Water leaving the hose",
+          "The hose empties out its far end, away from your pipes."
+        ]
+      },
+      "card_prefix": {
+        "cold_packet_": "cold_packet_00",
+        "vb_air_": "vb_air_in_0",
+        "vb_drip": "vb_vent_drip",
+        "vb_story_coupling": "vb_story_hose_tube",
+        "vb_story_hose_washer": "vb_story_hose_tube",
+        "vb_body": "vb_lower_body"
+      }
+    },
+    "package_unit": {
+      "file": "models/package_unit.glb",
+      "title": "Gas package unit",
+      "typical": "a typical gas package unit",
+      "match": {
+        "category": [
+          "package_unit"
+        ],
+        "subtype": [
+          "gas",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "hide": [
+        "^blower_wheel_dirty$",
+        "^evap_dust$",
+        "^filter_dirty$",
+        "^outdoor_coil_dirty$",
+        "^flue_corroded$",
+        "^heatex_soot$",
+        "^hx_hole$",
+        "^disconnect_scorch$",
+        "^duct_gap$",
+        "^duct_rotted$",
+        "^condensate_pool$",
+        "^soft_start$",
+        "^ground$",
+        "^house_wall$",
+        "^feed_conduit$",
+        "^thermostat_wire$",
+        "^grip_"
+      ],
+      "front_deg": 0,
+      "body": [
+        "cabinet",
+        "coil_grille",
+        "lower_panels",
+        "fan_grille",
+        "filter_panel_cover",
+        "blower_panel_cover",
+        "compressor_panel_cover",
+        "control_panel_cover",
+        "burner_panel_cover",
+        "hoods"
+      ],
+      "body_size": {
+        "width": 1.226,
+        "depth": 1.311,
+        "height": 0.913,
+        "x": 0,
+        "z": 0.3255,
+        "y0": 0.1
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "frame_parts": [
+        "CABINET",
+        "GAS",
+        "INDOOR",
+        "OUTDOOR",
+        "pad"
+      ],
+      "shell": [
+        "cabinet",
+        "coil_grille",
+        "lower_panels",
+        "fan_grille",
+        "filter_panel_cover",
+        "blower_panel_cover",
+        "compressor_panel_cover",
+        "control_panel_cover",
+        "burner_panel_cover",
+        "hoods",
+        "data_plate"
+      ],
+      "ghost_also": [
+        "blower_housing"
+      ],
+      "section_hide": [
+        "filter_panel_cover",
+        "blower_panel_cover",
+        "compressor_panel_cover",
+        "control_panel_cover",
+        "burner_panel_cover",
+        "lower_panels",
+        "data_plate"
+      ],
+      "overlay_hide": [
+        "pad",
+        "disconnect",
+        "whip",
+        "duct_connection"
+      ],
+      "heat": {
+        "clip": "run",
+        "loop": "run",
+        "also": [],
+        "say": "A package unit keeps the cooling and the heating in one cabinet outside, with ducts running through the wall to your rooms. In summer, the compressor and the outdoor coil carry heat out of your home while the blower pushes house air across a cold indoor coil. In winter, gas burners heat a metal heat exchanger and the blower carries that warmth into the ducts."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "filter",
+          "label": "The air filter",
+          "swap": {
+            "filter": "filter_dirty"
+          },
+          "highlight": [
+            "filter_dirty",
+            "filter_panel_cover"
+          ],
+          "say": "House air comes back through the return duct and passes through a filter before it is heated or cooled. In this unit the filter sits behind a panel on the side. A clogged filter starves the unit of air, so check it every month or two and change it when it looks gray. Some homes have the filter at a grille inside the house instead."
+        },
+        {
+          "key": "coil",
+          "label": "Keep the coil clear",
+          "loop": "run",
+          "swap": {
+            "outdoor_coil": "outdoor_coil_dirty"
+          },
+          "highlight": [
+            "outdoor_coil_dirty",
+            "coil_grille"
+          ],
+          "say": "The outdoor coil sits behind the grille at the corner of the unit. Air has to pass through it freely to carry the heat away. Keep plants, grass clippings and leaves about two feet away, and keep the top clear for the fan. A dirty coil makes the unit work harder and cool less."
+        },
+        {
+          "key": "gas",
+          "label": "The gas heat",
+          "loop": "run",
+          "highlight": [
+            "burner_assembly",
+            "heat_exchanger",
+            "inducer",
+            "gas_valve",
+            "igniter"
+          ],
+          "say": "When the heat comes on, a small fan called the inducer starts first to clear the vent. Then a spark lights the gas at the burners, and the flames heat the inside of the heat exchanger. House air passes over the outside of it, so the exhaust never mixes with the air you breathe. A yearly check looks for rust, soot and cracks."
+        },
+        {
+          "key": "drain",
+          "label": "The condensate drain",
+          "show": [
+            "condensate_pool"
+          ],
+          "highlight": [
+            "condensate_stub",
+            "condensate_drain",
+            "condensate_pool"
+          ],
+          "say": "In summer the indoor coil pulls water out of the air. It drips into a pan and leaves through a small pipe with a trap at the front of the unit. If the line clogs with algae or dirt, water can back up and pool around the pad. Keep the end of the line open and clear."
+        }
+      ],
+      "cards": {
+        "cabinet": [
+          "Cabinet",
+          "The metal case that holds the whole system, cooling and gas heat together, outside the house."
+        ],
+        "coil_grille": [
+          "Coil guard",
+          "The louvered panels in front of the outdoor coil. They protect the coil and let air pass through."
+        ],
+        "fan_grille": [
+          "Fan guard",
+          "The grille on top. The outdoor fan blows the heat out through here, so keep it clear."
+        ],
+        "filter_panel_cover": [
+          "Filter panel",
+          "The side panel the filter slides in behind. It comes off for a filter change."
+        ],
+        "blower_panel_cover": [
+          "Blower panel",
+          "Covers the blower that moves air through your ducts. A technician opens it for service."
+        ],
+        "burner_panel_cover": [
+          "Burner panel",
+          "Covers the gas burners and the controls for the heat. A job for a technician."
+        ],
+        "compressor_panel_cover": [
+          "Compressor panel",
+          "Covers the compressor and its electrical parts. Only a technician should open it."
+        ],
+        "control_panel_cover": [
+          "Control panel",
+          "Covers the control board and wiring that run the unit."
+        ],
+        "data_plate": [
+          "Data label",
+          "Lists the model, size and age of the unit. Handy to have when you call for service."
+        ],
+        "hoods": [
+          "Vent hoods",
+          "Let in air for the burners and let the exhaust out. Keep them clear of plants and nests."
+        ],
+        "burner_assembly": [
+          "Gas burners",
+          "Where the gas burns when the heat is on."
+        ],
+        "flames": [
+          "Flames",
+          "The burning gas. They heat the inside of the heat exchanger."
+        ],
+        "gas_valve": [
+          "Gas valve",
+          "Opens to send gas to the burners when the heat is called for, and shuts it off when it is not."
+        ],
+        "igniter": [
+          "Igniter",
+          "Makes a spark that lights the gas."
+        ],
+        "heat_exchanger": [
+          "Heat exchanger",
+          "Metal tubes the flames heat from the inside. House air passes over the outside and warms up."
+        ],
+        "inducer": [
+          "Inducer fan",
+          "A small fan that pulls the exhaust through the heat exchanger and pushes it out the vent hood."
+        ],
+        "pressure_switch": [
+          "Pressure switch",
+          "A safety switch that checks the inducer is moving the exhaust before the gas can come on."
+        ],
+        "limit_switches": [
+          "Safety limits",
+          "Shut the burners off if the unit gets too hot, for example from a clogged filter."
+        ],
+        "blower_housing": [
+          "Blower housing",
+          "The curved case around the blower wheel that aims the air into the supply duct."
+        ],
+        "blower_wheel": [
+          "Blower wheel",
+          "Spins to move house air across the coil or heat exchanger and out to your rooms."
+        ],
+        "blower_motor": [
+          "Blower motor",
+          "Turns the blower wheel."
+        ],
+        "evap_coil": [
+          "Indoor coil",
+          "Gets cold in summer and cools the house air passing through it. It also pulls water out of the air."
+        ],
+        "filter": [
+          "Air filter",
+          "Catches dust before the air is heated or cooled. Check it every month or two."
+        ],
+        "filter_rack": [
+          "Filter rack",
+          "Holds the filter in place in the return air path."
+        ],
+        "control_board": [
+          "Control board",
+          "The unit's brain. It follows the thermostat and starts each part in the right order."
+        ],
+        "compressor": [
+          "Compressor",
+          "The heart of the cooling. It pumps the refrigerant and squeezes it so it can give off its heat outside."
+        ],
+        "outdoor_coil": [
+          "Outdoor coil",
+          "Thin metal fins around copper tubing. The heat from your home leaves through here. Keep it clean and clear."
+        ],
+        "fan": [
+          "Outdoor fan",
+          "Pulls outdoor air through the coil and blows the heat out the top."
+        ],
+        "condensate_stub": [
+          "Drain pipe",
+          "Carries water from the indoor coil's pan out the front of the unit."
+        ],
+        "condensate_drain": [
+          "Condensate drain line",
+          "The small pipe and trap that lead the water away from the unit. Keep its end open."
+        ],
+        "condensate_pool": [
+          "Water at the pad",
+          "Water pooling here can mean the drain line is clogged."
+        ],
+        "gas_pipe": [
+          "Gas line",
+          "Brings gas to the unit. It has a shutoff valve near the unit."
+        ],
+        "drip_leg": [
+          "Drip leg",
+          "A short capped pipe on the gas line that catches dirt and moisture before they reach the gas valve."
+        ],
+        "disconnect": [
+          "Power disconnect",
+          "The box on the wall near the unit. It cuts the power to the unit for service."
+        ],
+        "duct_connection": [
+          "Ducts",
+          "Carry air between the unit and the house, through the wall. One brings air back, one sends it out."
+        ]
+      },
+      "card_prefix": {
+        "lower_panels": "cabinet",
+        "filter_dirty": "filter",
+        "outdoor_coil_dirty": "outdoor_coil",
+        "blower_wheel_dirty": "blower_wheel",
+        "return_flange": "duct_connection",
+        "supply_flange": "duct_connection",
+        "whip": "disconnect",
+        "fan_motor": "fan"
+      }
+    },
+    "surge_outlet": {
+      "file": "models/surge_outlet.glb",
+      "title": "Surge protecting outlet",
+      "typical": "a typical surge protecting outlet",
+      "hide": [
+        "^grip_"
+      ],
+      "match": {
+        "category": [
+          "surge_outlet"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "wall_hung",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "plate",
+        "face"
+      ],
+      "body_size": {
+        "width": 0.07,
+        "depth": 0.007,
+        "height": 0.114,
+        "x": 0,
+        "z": 0.0035,
+        "y0": -0.057
+      },
+      "frame_parts": [
+        "plate",
+        "gang_box"
+      ],
+      "overlay_hide": [
+        "stud",
+        "wall_patch",
+        "box_nails",
+        "cable_staple",
+        "nm_cable"
+      ],
+      "shell": [
+        "plate",
+        "face",
+        "base",
+        "back_cover"
+      ],
+      "ghost_also": [
+        "wall_patch",
+        "gang_box"
+      ],
+      "sections": {
+        "face": "face_section",
+        "base": "base_section",
+        "back_cover": "back_cover_section",
+        "plate": "plate_section",
+        "gang_box": "gang_box_section",
+        "wall_patch": "wall_patch_section",
+        "pcb": "pcb_section",
+        "mov_1": "mov_1_section",
+        "mov_2": "mov_2_section",
+        "buzzer": "buzzer_section",
+        "component_shield": "shield_section"
+      },
+      "section_hide": [
+        "plate_screw_top",
+        "plate_screw_bottom"
+      ],
+      "heat": {
+        "clip": "surge",
+        "loop": "surge_loop",
+        "say": "Most of the time it simply passes power to whatever is plugged in. When a sudden spike comes down the wires, small parts inside called MOVs open a quick path and send the extra toward the ground wire. What is plugged in sees a much smaller bump instead of the full spike."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it protects"
+        },
+        {
+          "key": "used_up",
+          "label": "When protection runs out",
+          "clip": "protection_lost",
+          "loop": "protection_lost_loop",
+          "highlight": [
+            "led_dark",
+            "mov_1_burnt",
+            "thermal_fuse_blown"
+          ],
+          "say": "Each surge wears the protection parts a little, and a big one can use them up at once. A small fuse inside then opens, the light on the face goes dark and an alarm beeps. Depending on the model, the outlet may keep giving power with no protection, or shut off. It has no parts to repair, so a new one goes in."
+        },
+        {
+          "key": "mute",
+          "label": "Silencing the alarm",
+          "clip": "alarm_mute",
+          "highlight": [
+            "mute_screw"
+          ],
+          "frame": [
+            "face"
+          ],
+          "say": "A small recessed control on the face turns the beeping off. Silencing it does not bring the protection back. It only stops the noise until the outlet is replaced."
+        },
+        {
+          "key": "wiring",
+          "label": "Behind the plate",
+          "highlight": [
+            "wire_black",
+            "wire_white",
+            "wire_bare",
+            "screw_ground"
+          ],
+          "frame": [
+            "gang_box"
+          ],
+          "say": "In the wall box, the black, white and bare copper wires land on screws on the sides. The ground wire matters most here, since it is the path the surge is sent down. Replacing an outlet is work for a licensed electrician, with the breaker off."
+        }
+      ],
+      "cards": {
+        "face": [
+          "Outlet face",
+          "Where you plug in. It also carries the protected light and the alarm mute."
+        ],
+        "led_lit": [
+          "Protected light",
+          "Lit means the surge protection is working."
+        ],
+        "led_dark": [
+          "Light out",
+          "A dark light means the protection is used up, or the outlet has no power."
+        ],
+        "mute_screw": [
+          "Alarm mute",
+          "Turns off the beeping once protection is lost. It does not restore protection."
+        ],
+        "buzzer": [
+          "Alarm",
+          "Beeps when the protection parts are used up, so you know to replace the outlet."
+        ],
+        "mov_1": [
+          "Surge parts",
+          "Small discs called MOVs. They pass almost nothing at normal voltage and open up during a spike to steer it away."
+        ],
+        "mov_1_burnt": [
+          "Spent surge part",
+          "After a big surge, or many over the years, this part is worn out and can no longer protect."
+        ],
+        "thermal_fuse": [
+          "Thermal fuse",
+          "Opens if the surge parts overheat as they wear out, which takes them out of the circuit safely."
+        ],
+        "thermal_fuse_blown": [
+          "Blown fuse",
+          "The fuse has opened, so the protection is gone and the alarm and dark light say so."
+        ],
+        "pcb": [
+          "Circuit board",
+          "Holds the surge parts, the light and the alarm, and links them to the outlet's contacts."
+        ],
+        "surge_bolt": [
+          "Surge",
+          "A brief spike of extra voltage, from lightning nearby or the power company switching lines."
+        ],
+        "contact_line": [
+          "Hot contacts",
+          "Brass strips behind the narrower slots. They carry the power."
+        ],
+        "contact_neutral": [
+          "Neutral contacts",
+          "Strips behind the wider slots. They carry the current back."
+        ],
+        "contact_ground": [
+          "Ground contacts",
+          "Behind the round hole. They connect a plug's ground pin to the ground wire."
+        ],
+        "screw_line_top": [
+          "Brass screws",
+          "Where the black hot wire lands."
+        ],
+        "screw_neutral_top": [
+          "Silver screws",
+          "Where the white neutral wire lands."
+        ],
+        "screw_ground": [
+          "Green screw",
+          "Where the bare copper ground wire lands."
+        ],
+        "strap": [
+          "Mounting strap",
+          "The metal frame that screws the outlet to the wall box."
+        ],
+        "base": [
+          "Outlet body",
+          "The plastic body that holds the contacts and the surge parts."
+        ],
+        "back_cover": [
+          "Back cover",
+          "Closes the back of the outlet over the surge parts."
+        ],
+        "strip_gauge": [
+          "Strip gauge",
+          "A mark that shows how much insulation to strip off a wire before it is connected."
+        ],
+        "plate": [
+          "Wall plate",
+          "The cover around the outlet. It keeps fingers away from the wiring behind it."
+        ],
+        "gang_box": [
+          "Wall box",
+          "The box in the wall that holds the outlet and its wire connections."
+        ],
+        "nm_cable": [
+          "House cable",
+          "The cable that brings power from the breaker panel to this outlet."
+        ],
+        "wire_black": [
+          "Black wire",
+          "The hot wire that brings power."
+        ],
+        "wire_white": [
+          "White wire",
+          "The neutral, which carries current back to the panel."
+        ],
+        "wire_bare": [
+          "Ground wire",
+          "Bare copper. It gives a surge, or a fault, a safe path away."
+        ],
+        "stud": [
+          "Wall stud",
+          "The wood framing the wall box is nailed to."
+        ]
+      },
+      "card_prefix": {
+        "mute_": "mute_screw",
+        "alarm_": "buzzer",
+        "mov_": "mov_1",
+        "fuse_tape": "thermal_fuse",
+        "lead_": "pcb",
+        "surge_bolt": "surge_bolt",
+        "screw_line": "screw_line_top",
+        "screw_neutral": "screw_neutral_top",
+        "mount_screw": "strap",
+        "plate_screw": "plate",
+        "box_nails": "gang_box",
+        "cable_staple": "nm_cable"
+      }
+    },
+    "thermostat": {
+      "file": "models/thermostat.glb",
+      "title": "Thermostat",
+      "typical": "a typical programmable thermostat",
+      "hide": [
+        "^grip_"
+      ],
+      "match": {
+        "category": [
+          "thermostat"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "wall_hung",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "head_shell"
+      ],
+      "body_size": {
+        "width": 0.104,
+        "depth": 0.031,
+        "height": 0.104,
+        "x": 0,
+        "z": 0.0155,
+        "y0": -0.052
+      },
+      "frame_parts": [
+        "head",
+        "sub_plate"
+      ],
+      "overlay_hide": [
+        "cable_jacket",
+        "sub_anchors"
+      ],
+      "shell": [
+        "head_shell"
+      ],
+      "section_hide": [
+        "head_shell"
+      ],
+      "heat": {
+        "say": "It measures the room's temperature and compares it to the number you set. When the room drifts too far, it closes a switch on a small low voltage wire to call for heating or cooling, and the system starts. When the room reaches your setting, it lets go and the system stops."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "batteries",
+          "label": "Batteries",
+          "clip": "head_off",
+          "highlight": [
+            "battery_aa_1",
+            "battery_aa_2"
+          ],
+          "frame": [
+            "head",
+            "sub_plate"
+          ],
+          "say": "This kind keeps its settings and screen running on two AA batteries tucked in the back of the face. If the screen fades or goes blank, pull the face gently straight off the wall plate, put in fresh batteries and press it back on. Many people simply change them once a year."
+        },
+        {
+          "key": "wires",
+          "label": "The wires",
+          "clip": "head_off",
+          "highlight": [
+            "cable_red",
+            "cable_white",
+            "cable_green",
+            "cable_yellow",
+            "cable_blue"
+          ],
+          "frame": [
+            "sub_plate"
+          ],
+          "say": "Behind the face, thin colored wires run to the furnace or air handler. Red brings low voltage power, white calls for heat, yellow for cooling and green for the fan. The blue one here is the C wire, the common, which gives the thermostat steady power. Colors are a habit rather than a rule, so a technician goes by the letters on the plate."
+        },
+        {
+          "key": "settings",
+          "label": "Settings",
+          "highlight": [
+            "head_ctl_mode",
+            "head_ctl_fan",
+            "head_ctl_up",
+            "head_ctl_down",
+            "head_ctl_menu"
+          ],
+          "frame": [
+            "head"
+          ],
+          "say": "Mode picks heat, cool or off. Fan on Auto runs the blower only while heating or cooling, and On runs it all the time. A schedule that sets back a few degrees while you sleep or are away saves energy without giving up comfort."
+        }
+      ],
+      "cards": {
+        "head_shell": [
+          "Thermostat face",
+          "The part you see on the wall. It holds the screen, buttons, batteries and temperature sensor, and it unplugs from the wall plate."
+        ],
+        "head_lcd": [
+          "Screen",
+          "Shows the room temperature, your setting, the mode and the fan."
+        ],
+        "head_digit_now_0_a": [
+          "Room temperature",
+          "The large numbers show the temperature the thermostat reads right now."
+        ],
+        "head_digit_set_0_a": [
+          "Set temperature",
+          "The number you have asked for. The system runs until the room reaches it."
+        ],
+        "head_ctl_up": [
+          "Up and down",
+          "Raise or lower the set temperature."
+        ],
+        "head_ctl_mode": [
+          "Mode button",
+          "Switches between heat, cool and off."
+        ],
+        "head_ctl_fan": [
+          "Fan button",
+          "Auto runs the blower only with heating or cooling. On runs it all the time."
+        ],
+        "head_ctl_menu": [
+          "Menu button",
+          "Opens the clock and schedule settings."
+        ],
+        "battery_aa_1": [
+          "Batteries",
+          "Two AA batteries keep it running. Fresh ones once a year is a good habit."
+        ],
+        "head_battery_tray": [
+          "Battery holder",
+          "Holds the batteries in the back of the face, reached by pulling the face off the wall plate."
+        ],
+        "head_contacts": [
+          "Face contacts",
+          "Meet the pins on the wall plate when the face is pressed on, so no wires go to the face itself."
+        ],
+        "sub_plate": [
+          "Wall plate",
+          "Screwed to the wall. The wires land on it, and the face clips on in front."
+        ],
+        "sub_pins": [
+          "Connector pins",
+          "Carry the signals from the wall plate's terminals to the face."
+        ],
+        "sub_term_r": [
+          "Wire terminals",
+          "Each wire lands under a lettered terminal: R power, C common, W heat, Y cooling, G fan, and others for heat pumps and extra stages."
+        ],
+        "sub_slider_r_rc": [
+          "R and RC jumper",
+          "Joins the two power terminals when one transformer runs both heating and cooling."
+        ],
+        "cable_red": [
+          "Red wire",
+          "Usually R, the 24 volt power from the system's transformer."
+        ],
+        "cable_white": [
+          "White wire",
+          "Usually W, which calls for heat."
+        ],
+        "cable_green": [
+          "Green wire",
+          "Usually G, which turns on the blower fan."
+        ],
+        "cable_yellow": [
+          "Yellow wire",
+          "Usually Y, which calls for cooling."
+        ],
+        "cable_blue": [
+          "Blue wire",
+          "Here it is the C wire, the common, which completes the circuit so the thermostat has steady power."
+        ],
+        "cable_jacket": [
+          "Thermostat cable",
+          "The thin cable inside the wall that carries the wires to the furnace or air handler. It is low voltage."
+        ],
+        "sub_mount_screw_1": [
+          "Mounting screws",
+          "Hold the wall plate to the wall."
+        ],
+        "sub_wall_anchor_1": [
+          "Wall anchors",
+          "Plastic anchors that give the screws a firm grip in drywall."
+        ]
+      },
+      "card_prefix": {
+        "head_lcd_key_mode": "head_ctl_mode",
+        "head_lcd_key_fan": "head_ctl_fan",
+        "head_lcd_key_menu": "head_ctl_menu",
+        "head_lcd": "head_lcd",
+        "head_digit_now": "head_digit_now_0_a",
+        "head_digit_set": "head_digit_set_0_a",
+        "head_ctl_down": "head_ctl_up",
+        "battery_aa": "battery_aa_1",
+        "head_battery": "head_battery_tray",
+        "sub_term_": "sub_term_r",
+        "sub_letter_": "sub_term_r",
+        "cable_red": "cable_red",
+        "cable_white": "cable_white",
+        "cable_green": "cable_green",
+        "cable_yellow": "cable_yellow",
+        "cable_blue": "cable_blue",
+        "sub_mount_screw": "sub_mount_screw_1",
+        "sub_wall_anchor": "sub_wall_anchor_1"
+      }
+    },
+    "washer_box": {
+      "file": "models/washer_box.glb",
+      "title": "Washer valve box",
+      "typical": "a typical washing machine valve box",
+      "match": {
+        "category": [
+          "washer_box"
+        ],
+        "subtype": [
+          "unknown"
+        ],
+        "orientation": [
+          "wall_hung",
+          "unknown"
+        ]
+      },
+      "hide": [
+        "^grip_"
+      ],
+      "front_deg": 0,
+      "body": [
+        "box_shell"
+      ],
+      "body_size": {
+        "width": 0.26,
+        "depth": 0.097,
+        "height": 0.236,
+        "x": 0,
+        "z": -0.0405,
+        "y0": 1.097
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "shell": [
+        "box_shell",
+        "hammer_arrestor_hot",
+        "hammer_arrestor_cold"
+      ],
+      "sections": {
+        "hammer_arrestor_hot": "hammer_arrestor_section"
+      },
+      "section_hide": [],
+      "water": [
+        "hammer_water"
+      ],
+      "overlay_hide": [
+        "supply_hot_pushfit",
+        "supply_cold_pushfit"
+      ],
+      "heat": {
+        "clip": "hammer_hit",
+        "loop": "hammer_hit_loop",
+        "also": [],
+        "say": "Two valves in the wall feed hot and cold water to the washer through its hoses. The washer snaps its own water valves shut many times a load, and the moving water slams to a stop. That knock is called water hammer. The small arrestors beside the valves hold a cushion of air behind a piston that soaks up the shock."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "valves",
+          "label": "Turning the water off",
+          "clip": "valves_off",
+          "highlight": [
+            "handle_hot",
+            "handle_cold"
+          ],
+          "say": "Turning both handles off stops the water to the washer. It is a good habit when you leave home for a few days, and the first thing to do if a hose starts to leak. If a valve is stiff or drips at the handle, have it looked at before it fails."
+        },
+        {
+          "key": "hoses",
+          "label": "Washer hoses",
+          "highlight": [
+            "valve_hot",
+            "valve_cold"
+          ],
+          "say": "The washer's hoses screw onto these valves and stay under full water pressure all the time, even when the washer is off. A hose that bursts can put a lot of water on the floor fast. Check them for bulges, cracks or rust at the ends, and replace them about every five years. Braided steel hoses hold up better than plain rubber."
+        },
+        {
+          "key": "drain",
+          "label": "The drain",
+          "highlight": [
+            "drain_bore",
+            "drain_collar"
+          ],
+          "say": "The washer's drain hose hooks into this opening and empties into the drain pipe below. Keep the hose pushed in and held so it cannot pop out when the washer pumps. If water backs up here, the drain line may be clogged with lint."
+        }
+      ],
+      "cards": {
+        "box_shell": [
+          "Valve box",
+          "A plastic box set into the wall that keeps the washer's valves and drain neatly in one place."
+        ],
+        "valve_hot": [
+          "Hot water valve",
+          "The washer's hot water hose screws on here. Its handle shuts off the hot water."
+        ],
+        "valve_cold": [
+          "Cold water valve",
+          "The washer's cold water hose screws on here. Its handle shuts off the cold water."
+        ],
+        "handle_hot": [
+          "Hot valve handle",
+          "Turn it to shut off the hot water to the washer."
+        ],
+        "handle_cold": [
+          "Cold valve handle",
+          "Turn it to shut off the cold water to the washer."
+        ],
+        "supply_hot_pushfit": [
+          "Hot water line",
+          "The pipe in the wall that brings hot water up to the valve."
+        ],
+        "supply_cold_pushfit": [
+          "Cold water line",
+          "The pipe in the wall that brings cold water up to the valve."
+        ],
+        "hammer_arrestor_hot": [
+          "Water hammer arrestor",
+          "A small capped chamber that soaks up the knock when the washer shuts its water off fast."
+        ],
+        "hammer_arrestor_cold": [
+          "Water hammer arrestor",
+          "A small capped chamber on the cold side that soaks up the knock when the water stops fast."
+        ],
+        "hammer_air_cushion": [
+          "Air cushion",
+          "Trapped air that squeezes like a spring when the water slams to a stop."
+        ],
+        "hammer_piston": [
+          "Piston",
+          "Keeps the water and the air apart. It slides up when a surge hits, then settles back."
+        ],
+        "hammer_water": [
+          "Water",
+          "When the flow stops suddenly, water pushes into the arrestor instead of banging the pipes."
+        ],
+        "drain_bore": [
+          "Drain opening",
+          "The washer's drain hose hooks in here and empties into the drain pipe."
+        ],
+        "drain_collar": [
+          "Drain fitting",
+          "Joins the box to the drain pipe in the wall."
+        ]
+      },
+      "card_prefix": {
+        "hammer_arrestor": "hammer_arrestor_hot"
       }
     }
   },
@@ -7738,6 +9450,45 @@
       "fallback_model": {
         "electric": "well_pump",
         "unknown": "well_pump"
+      }
+    },
+    "electrical_panel": {
+      "fallback_model": {
+        "electric": "electrical_panel",
+        "unknown": "electrical_panel"
+      }
+    },
+    "expansion_tank": {
+      "fallback_model": {
+        "unknown": "expansion_tank"
+      }
+    },
+    "outdoor_faucet": {
+      "fallback_model": {
+        "unknown": "outdoor_faucet"
+      }
+    },
+    "package_unit": {
+      "fallback_model": {
+        "gas": "package_unit",
+        "unknown": "package_unit"
+      }
+    },
+    "surge_outlet": {
+      "fallback_model": {
+        "electric": "surge_outlet",
+        "unknown": "surge_outlet"
+      }
+    },
+    "thermostat": {
+      "fallback_model": {
+        "electric": "thermostat",
+        "unknown": "thermostat"
+      }
+    },
+    "washer_box": {
+      "fallback_model": {
+        "unknown": "washer_box"
       }
     }
   }
