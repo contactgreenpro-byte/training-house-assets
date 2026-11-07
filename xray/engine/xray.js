@@ -371,6 +371,8 @@ export async function createXray(container, opts = {}) {
     root.updateMatrixWorld(true);
     return entry;
   }
+  // parts drawn only in 3D, not over the photo (a furnace photo seldom shows the coil, plenum and piping around it)
+  function overlayParts(onPhoto) { for (const n of (S.entry.overlay_hide || [])) { const o = S.named.get(n); if (o && !o.userData.xrOff) o.visible = !onPhoto; } }
   const under = n => { const o = S.named.get(n); const out = []; if (o) o.traverse(m => { if (m.isMesh) out.push(m); }); return out; };
   const isOff = o => { for (let p = o; p; p = p.parent) if (p.userData.xrOff) return true; return false; };
 
@@ -388,7 +390,8 @@ export async function createXray(container, opts = {}) {
       const n = nameOf(m);
       // visibility: sections only in cutaway; their solids and section_hide parts hidden in cutaway
       if (secOf.has(n)) { m.visible = v === 'cutaway'; m.userData.xrOff = v !== 'cutaway'; }
-      else if (solids.has(n) || secHide.has(n)) { if (!isOffAbove(m)) m.visible = v !== 'cutaway'; }
+      // a part can be a group of meshes (the furnace's doors): look up the parents too
+      else if (solids.has(n) || secHide.has(n) || inSet(m, secHide)) { if (!isOffAbove(m)) m.visible = v !== 'cutaway'; }
       if (v === 'scan') { m.material = S.ghostAll; continue; }
       if (v === 'solid') { m.material = m.userData.orig; continue; }
       if (v === 'xray') {
@@ -402,6 +405,7 @@ export async function createXray(container, opts = {}) {
     updateFlowVisibility();
     if (keepHl && v !== 'scan') highlight(keepHl.highlight);
   }
+  function inSet(m, set) { for (let p = m.parent; p && p !== S.root; p = p.parent) if (set.has(nameOf(p))) return true; return false; }
   function isOffAbove(m) { for (let p = m.parent; p; p = p.parent) if (p.userData.xrOff) return true; return false; }
 
   // interior parts fade in when the X-ray first opens (cloned materials, swapped back when done)
@@ -474,11 +478,15 @@ export async function createXray(container, opts = {}) {
     const name = action.getClip().name;
     const H = S.entry.heat || {};
     if (S.heatOn && name === H.clip && H.loop) play(H.loop, true);
+    // a lesson can carry on in a loop after its opening clip (a furnace's fan starting, then running)
+    const L = S.lesson && (S.entry.lessons || []).find(l => l.key === S.lesson);
+    if (L && name === L.clip && L.loop) play(L.loop, true);
   }
   function startHeat() {
     clearHighlight(); S.lesson = null; resetPose(); S.heatOn = true; S.heatT = 0;
     const H = S.entry.heat || {};
     if (H.clip) { if (!play(H.clip, false) && H.loop) play(H.loop, true); }
+    (H.also || []).forEach(n => play(n, true));   // loops that run alongside, e.g. a furnace's blower
     S.glow.forEach(o => o.scale.set(1, 1, 1));
     updateFlowVisibility(); sayText(H.say); syncLessons('heat');
   }
@@ -500,9 +508,11 @@ export async function createXray(container, opts = {}) {
   function startLesson(L) {
     clearHighlight();
     if (L.key === 'heat') { startHeat(); return; }
+    // a lesson about a part kept off the photo (the furnace's coil) is shown in 3D
+    if (S.overlay && (L.highlight || []).some(n => { for (let o = S.named.get(n); o; o = o.parent) if ((S.entry.overlay_hide || []).includes(nameOf(o))) return true; return false; })) enterExplore();
     resetPose(); S.heatOn = false; S.lesson = L.key; S.glow.forEach(o => o.scale.set(0.001, 0.001, 0.001));
     if (S.view === 'solid') setView('xray');
-    play(L.clip, false); highlight(L.highlight); updateFlowVisibility(); sayText(L.say); syncLessons(L.key);
+    if (!play(L.clip, false) && L.loop) play(L.loop, true); highlight(L.highlight); updateFlowVisibility(); sayText(L.say); syncLessons(L.key);
     emit('lesson', L.key);
   }
 
@@ -584,7 +594,9 @@ export async function createXray(container, opts = {}) {
     // the overlay needs the tank's shape found in the photo: outline on edges, BOTH long sides on vertical edges,
     // the top or the bottom on a horizontal edge, and no strong vertical line through the middle
     const e4 = r.edges4;
-    const good = info.n > 20 && r.edge >= FIT_EDGE_MIN && e4.sidesMin >= FIT_SIDE_EDGE_MIN && e4.capMax >= FIT_CAP_MIN && r.middleV <= FIT_MIDDLE_MAX && r.shape >= FIT_GOOD;
+    // a cabinet has door seams down its face, so a model can relax the middle rule (catalog fit.middle_max)
+    const middleMax = (S.entry.fit && S.entry.fit.middle_max != null) ? S.entry.fit.middle_max : FIT_MIDDLE_MAX;
+    const good = info.n > 20 && r.edge >= FIT_EDGE_MIN && e4.sidesMin >= FIT_SIDE_EDGE_MIN && e4.capMax >= FIT_CAP_MIN && r.middleV <= middleMax && r.shape >= FIT_GOOD;
     const r3 = v => v == null ? null : +v.toFixed(3);
     S.fit = { shape: +r.shape.toFixed(3), middleV: +r.middleV.toFixed(3), edge: +r.edge.toFixed(3), iou: r.iou == null ? null : +r.iou.toFixed(3), combined: +r.combined.toFixed(3), fgOk: S._fg.ok,
       sides: { left: r3(sc.left), right: r3(sc.right), top: r3(sc.top), bottom: r3(sc.bottom), weakest: r3(sc.weakest) },
@@ -601,8 +613,15 @@ export async function createXray(container, opts = {}) {
     const pose = { yaw: yawFor(A), elev: ELEV_DEG[A.camera_height] != null ? ELEV_DEG[A.camera_height] : 6, d: 3, shiftX: 0, shiftY: 0, vfov, widen: 1 };
     S.root.rotation.y = pose.yaw; S.root.scale.set(1, 1, 1); S.root.updateMatrixWorld(true);
     // fit the body's projected height to the box height (size goes as 1/distance), then centre it on the box
-    const E = S.entry; const r = E.body_size.diameter / 2, H = E.body_size.height; const pts = [];
-    for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; pts.push(new THREE.Vector3(Math.cos(a) * r, 0, Math.sin(a) * r), new THREE.Vector3(Math.cos(a) * r, H, Math.sin(a) * r)); }
+    const E = S.entry; const B = E.body_size, H = B.height; const pts = [];
+    if (B.width) {
+      // a cabinet (furnace): the eight corners of its box, centred on the origin like the tanks
+      const hw = B.width / 2, hd = (B.depth || B.width) / 2, z0 = B.z || 0;
+      for (const x of [-hw, hw]) for (const z of [z0 - hd, z0 + hd]) pts.push(new THREE.Vector3(x, 0, z), new THREE.Vector3(x, H, z));
+    } else {
+      const r = B.diameter / 2;
+      for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; pts.push(new THREE.Vector3(Math.cos(a) * r, 0, Math.sin(a) * r), new THREE.Vector3(Math.cos(a) * r, H, Math.sin(a) * r)); }
+    }
     const proj = () => {
       const { pos, tgt } = poseCamera(pose); const c = new THREE.PerspectiveCamera(pose.vfov, w / h, 0.01, 100); c.position.copy(pos); c.lookAt(tgt); c.updateMatrixWorld(); c.updateProjectionMatrix();
       let x0 = 1, y0 = 1, x1 = 0, y1 = 0; for (const p of pts) { const v = p.clone().project(c); const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
@@ -745,21 +764,21 @@ export async function createXray(container, opts = {}) {
     const A = normalizeAnalysis(analysis); S.A = A;
     let choice = model ? { mode: A && A.box ? 'overlay' : 'typical', key: model, reason: 'host_chose' } : pickModel(catalog, A);
     S.choice = choice; emit('choice', choice);
-    if (choice.mode === 'none') { S.mode = 'none'; wait.style.display = 'none'; setNote('We can’t X-ray this one yet. Right now the X-ray works on tank water heaters.'); emit('state', 'none'); return { ok: false, choice }; }
+    if (choice.mode === 'none') { S.mode = 'none'; wait.style.display = 'none'; setNote('We can’t X-ray this one yet. Right now the X-ray works on tank water heaters and gas furnaces.'); emit('state', 'none'); return { ok: false, choice }; }
     await Promise.all([loadPhoto(src).then(() => mark('photo_ready')), loadModel(choice.key)]);
     mark('model_ready');
     buildLessons(); updateFound(); syncBar(); layout();
     const typical = S.entry.typical;
     let overlay = choice.mode === 'overlay' && S.photoSize && A && A.box;
     if (overlay) {
-      S.pose = initialPose(A); S.overlay = true; layout();
+      S.pose = initialPose(A); S.overlay = true; overlayParts(true); layout();
       const f = measureFit(true); mark('fit_done');
-      if (!f.good) { S.root.scale.set(1, 1, 1); overlay = false; S.choice = choice = { ...choice, mode: 'typical', reason: 'poor_fit' }; emit('choice', choice); }
+      if (!f.good) { S.root.scale.set(1, 1, 1); overlayParts(false); overlay = false; S.choice = choice = { ...choice, mode: 'typical', reason: 'poor_fit' }; emit('choice', choice); }
     }
     wait.style.display = 'none';
     if (overlay) {
       S.overlay = true; orbit.enabled = false; applyCamera();
-      setNote(`Lined up with your photo. This shows how ${typical} works inside. It is not a scan of your heater.`);
+      setNote(`Lined up with your photo. This shows how ${typical} works inside. It is not a scan of yours.`);
       await runScan(); mark('reveal');
       dim.style.opacity = 0.5; setView('xray'); fadeInterior(700); startHeat();
       bar.style.visibility = ''; syncBar();
@@ -798,7 +817,7 @@ export async function createXray(container, opts = {}) {
 
   function enterExplore(instant) {
     const from = S.overlay && S.pose ? overlayState() : null;
-    S.overlay = false; S.cmp != null && toggleCompare();
+    S.overlay = false; overlayParts(false); S.cmp != null && toggleCompare();
     const box = new THREE.Box3(); S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o)) box.expandByObject(o); });
     const tgt = box.getCenter(new THREE.Vector3()); const size = box.getSize(new THREE.Vector3());
     const cw = container.clientWidth, ch = container.clientHeight; const clearH = Math.max(100, ch - (bar.offsetHeight || 0) - 40 - (S.insetTop || 0));
@@ -814,7 +833,7 @@ export async function createXray(container, opts = {}) {
   }
   function backToPhoto() {
     if (!S.photoSize || !S.pose) return;
-    S.overlay = true; orbit.enabled = false; S.tween = null; photo.style.opacity = 1; dim.style.opacity = 0.5;
+    S.overlay = true; overlayParts(true); orbit.enabled = false; S.tween = null; photo.style.opacity = 1; dim.style.opacity = 0.5;
     S.root.rotation.y = S.pose.yaw; applyCamera(); syncBar(); emit('state', 'xray'); S.mode = 'xray';
   }
 

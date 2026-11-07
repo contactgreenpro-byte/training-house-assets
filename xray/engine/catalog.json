@@ -1,103 +1,834 @@
 {
-  "version": "2026-11-06a",
-  "about": "One entry per X-ray model. Coordinates are three.js (y up, metres). Every model stands on the floor at the origin with its front toward +z. 'body' is the tank body used for photo fitting (pipes, vents and extras left out). 'match' says which photo analyses a model may be drawn over; anything else gets the typical (generic) experience or none.",
-  "hide_always": ["^CUTTERS$", "^cutout_", "_section$", "^waterlogged_spike_", "^rumble_", "^take_up_", "^exp_tank_waterlogged$", "^dose_", "^scale_inhibitor", "^cartridge_spent$", "^tank_scale_bottom$", "^element_buried$", "^element_scaled$", "^drain_pan$", "^thermal_expansion_tank$", "^scale_inhibitor_loop$", "^qa_", "^ctx_"],
+  "version": "2026-11-07a",
+  "about": "One entry per X-ray model. Coordinates are three.js (y up, metres). Every model stands on the floor at the origin with its front toward +z. 'body' is the tank body or the furnace cabinet used for photo fitting (pipes, vents and extras left out). 'match' says which photo analyses a model may be drawn over; anything else gets the typical (generic) experience or none.",
+  "hide_always": [
+    "^CUTTERS$",
+    "^cutout_",
+    "_section$",
+    "^waterlogged_spike_",
+    "^rumble_",
+    "^take_up_",
+    "^exp_tank_waterlogged$",
+    "^dose_",
+    "^scale_inhibitor",
+    "^cartridge_spent$",
+    "^tank_scale_bottom$",
+    "^element_buried$",
+    "^element_scaled$",
+    "^drain_pan$",
+    "^thermal_expansion_tank$",
+    "^scale_inhibitor_loop$",
+    "^qa_",
+    "^ctx_"
+  ],
   "models": {
     "gas_tank_water_heater": {
       "file": "models/gas_tank_water_heater.glb",
-      "hide": ["^gas_riser$", "^gas_drip_tee$", "^gas_flex_connector$", "^gas_shutoff_valve$"],
+      "hide": [
+        "^gas_riser$",
+        "^gas_drip_tee$",
+        "^gas_flex_connector$",
+        "^gas_shutoff_valve$"
+      ],
       "title": "Gas water heater",
       "typical": "a typical gas tank water heater",
-      "match": { "category": ["water_heater_tank"], "subtype": ["gas", "unknown"], "orientation": ["upright"] },
-      "body": ["outer_jacket", "top_cover", "bottom_base"],
-      "body_size": { "diameter": 0.52, "height": 1.47 },
-      "front_marker": { "part": "gas_control_valve", "say": "the gas control knob" },
-      "shell": ["outer_jacket", "top_cover", "bottom_base", "data_plate", "anode_access_cover", "burner_access_door", "air_intake", "insulation"],
-      "ghost_also": ["inner_tank"],
-      "sections": { "outer_jacket": "outer_jacket_section", "insulation": "insulation_section", "inner_tank": "inner_tank_section", "water_volume": "water_volume_section", "air_intake": "air_intake_section", "combustion_chamber": "combustion_chamber_section", "flue": "flue_section" },
-      "section_hide": ["top_cover", "burner_access_door", "inner_door"],
-      "water": ["water_volume", "water_volume_section"],
-      "flow": { "cold": [[-0.1, 2.0, 0], [-0.1, 1.47, 0], [-0.1, 0.38, 0]], "hot": [[0.0, 0.42, 0.12], [0.06, 0.9, 0.08], [0.1, 1.3, 0], [0.1, 1.47, 0], [0.1, 2.0, 0]] },
-      "heat": { "clip": "fire_up", "loop": "fire_up_loop", "say": "The burner lights under the tank. Heat rises through the flue in the middle and warms the water around it." },
+      "match": {
+        "category": [
+          "water_heater_tank"
+        ],
+        "subtype": [
+          "gas",
+          "unknown"
+        ],
+        "orientation": [
+          "upright"
+        ]
+      },
+      "body": [
+        "outer_jacket",
+        "top_cover",
+        "bottom_base"
+      ],
+      "body_size": {
+        "diameter": 0.52,
+        "height": 1.47
+      },
+      "front_marker": {
+        "part": "gas_control_valve",
+        "say": "the gas control knob"
+      },
+      "shell": [
+        "outer_jacket",
+        "top_cover",
+        "bottom_base",
+        "data_plate",
+        "anode_access_cover",
+        "burner_access_door",
+        "air_intake",
+        "insulation"
+      ],
+      "ghost_also": [
+        "inner_tank"
+      ],
+      "sections": {
+        "outer_jacket": "outer_jacket_section",
+        "insulation": "insulation_section",
+        "inner_tank": "inner_tank_section",
+        "water_volume": "water_volume_section",
+        "air_intake": "air_intake_section",
+        "combustion_chamber": "combustion_chamber_section",
+        "flue": "flue_section"
+      },
+      "section_hide": [
+        "top_cover",
+        "burner_access_door",
+        "inner_door"
+      ],
+      "water": [
+        "water_volume",
+        "water_volume_section"
+      ],
+      "flow": {
+        "cold": [
+          [
+            -0.1,
+            2.0,
+            0
+          ],
+          [
+            -0.1,
+            1.47,
+            0
+          ],
+          [
+            -0.1,
+            0.38,
+            0
+          ]
+        ],
+        "hot": [
+          [
+            0.0,
+            0.42,
+            0.12
+          ],
+          [
+            0.06,
+            0.9,
+            0.08
+          ],
+          [
+            0.1,
+            1.3,
+            0
+          ],
+          [
+            0.1,
+            1.47,
+            0
+          ],
+          [
+            0.1,
+            2.0,
+            0
+          ]
+        ]
+      },
+      "heat": {
+        "clip": "fire_up",
+        "loop": "fire_up_loop",
+        "say": "The burner lights under the tank. Heat rises through the flue in the middle and warms the water around it."
+      },
       "lessons": [
-        { "key": "heat", "label": "How it heats" },
-        { "key": "anode", "label": "The anode rod", "clip": "anode_years", "highlight": ["anode_rod", "anode_rod_bare", "anode_rod_pitted"], "say": "The anode rod is a sacrificial metal rod. Over the years it slowly gets eaten away so your tank does not rust." },
-        { "key": "sediment", "label": "Sediment", "clip": "sediment_build", "highlight": ["sediment"], "say": "Minerals in the water settle at the bottom of the tank as sediment. Too much makes the heater rumble and work harder." }
+        {
+          "key": "heat",
+          "label": "How it heats"
+        },
+        {
+          "key": "anode",
+          "label": "The anode rod",
+          "clip": "anode_years",
+          "highlight": [
+            "anode_rod",
+            "anode_rod_bare",
+            "anode_rod_pitted"
+          ],
+          "say": "The anode rod is a sacrificial metal rod. Over the years it slowly gets eaten away so your tank does not rust."
+        },
+        {
+          "key": "sediment",
+          "label": "Sediment",
+          "clip": "sediment_build",
+          "highlight": [
+            "sediment"
+          ],
+          "say": "Minerals in the water settle at the bottom of the tank as sediment. Too much makes the heater rumble and work harder."
+        }
       ],
       "cards": {
-        "outer_jacket": ["Outer jacket", "The painted metal skin you see in your home. It protects the foam insulation underneath."],
-        "insulation": ["Insulation", "A layer of foam that keeps the hot water hot, like a thermos."],
-        "inner_tank": ["Steel tank", "The glass-lined steel tank that holds the water, usually 40 or 50 gallons."],
-        "water_volume": ["Water", "Hot water rises to the top where it leaves for your faucets. Cold water sinks to the bottom."],
-        "dip_tube": ["Dip tube", "A plastic tube that carries new cold water down to the bottom of the tank, so it does not mix with the hot water on top."],
-        "anode_rod": ["Anode rod", "A sacrificial metal rod. It slowly corrodes so the steel tank does not. It wears out over the years."],
-        "burner": ["Burner", "Gas burns here, under the tank, like a stove burner turned upside down."],
-        "burner_flame": ["Flame", "A healthy flame is blue and steady."],
-        "pilot_assembly": ["Pilot", "A small flame that lights the burner whenever the water needs heat."],
-        "gas_control_valve": ["Gas control and thermostat", "The knob on the front. It sets the water temperature and turns the burner on when the tank cools down."],
-        "flue": ["Flue", "A pipe up the middle of the tank. Hot exhaust from the burner passes through it and warms the water on the way."],
-        "flue_baffle": ["Flue baffle", "A twisted metal strip in the flue. It slows the hot exhaust down so more heat goes into the water."],
-        "draft_hood": ["Draft hood", "The cone on top where exhaust leaves the heater and heads up the vent."],
-        "vent_pipe": ["Vent pipe", "Carries the burner's exhaust safely outside."],
-        "combustion_chamber": ["Burner chamber", "The space under the tank where the burner fires."],
-        "tp_relief_valve": ["Safety relief valve", "Opens by itself if the tank ever gets too hot or the pressure too high. An important safety part."],
-        "drain_valve": ["Drain valve", "Used to flush sediment out of the bottom of the tank."],
-        "cold_water_inlet": ["Cold water in", "Where cold water from your home's supply comes in."],
-        "hot_water_outlet": ["Hot water out", "Where hot water leaves for your sinks, showers and appliances."],
-        "sediment": ["Sediment", "Minerals that settle at the bottom of the tank over time."],
-        "air_intake": ["Air intake", "The burner breathes in air here. Keep it clear of boxes and lint."],
-        "data_plate": ["Data label", "Lists the model, size and age of the heater."],
-        "gas_shutoff_valve": ["Gas shutoff", "The valve that turns gas off to the heater."]
+        "outer_jacket": [
+          "Outer jacket",
+          "The painted metal skin you see in your home. It protects the foam insulation underneath."
+        ],
+        "insulation": [
+          "Insulation",
+          "A layer of foam that keeps the hot water hot, like a thermos."
+        ],
+        "inner_tank": [
+          "Steel tank",
+          "The glass-lined steel tank that holds the water, usually 40 or 50 gallons."
+        ],
+        "water_volume": [
+          "Water",
+          "Hot water rises to the top where it leaves for your faucets. Cold water sinks to the bottom."
+        ],
+        "dip_tube": [
+          "Dip tube",
+          "A plastic tube that carries new cold water down to the bottom of the tank, so it does not mix with the hot water on top."
+        ],
+        "anode_rod": [
+          "Anode rod",
+          "A sacrificial metal rod. It slowly corrodes so the steel tank does not. It wears out over the years."
+        ],
+        "burner": [
+          "Burner",
+          "Gas burns here, under the tank, like a stove burner turned upside down."
+        ],
+        "burner_flame": [
+          "Flame",
+          "A healthy flame is blue and steady."
+        ],
+        "pilot_assembly": [
+          "Pilot",
+          "A small flame that lights the burner whenever the water needs heat."
+        ],
+        "gas_control_valve": [
+          "Gas control and thermostat",
+          "The knob on the front. It sets the water temperature and turns the burner on when the tank cools down."
+        ],
+        "flue": [
+          "Flue",
+          "A pipe up the middle of the tank. Hot exhaust from the burner passes through it and warms the water on the way."
+        ],
+        "flue_baffle": [
+          "Flue baffle",
+          "A twisted metal strip in the flue. It slows the hot exhaust down so more heat goes into the water."
+        ],
+        "draft_hood": [
+          "Draft hood",
+          "The cone on top where exhaust leaves the heater and heads up the vent."
+        ],
+        "vent_pipe": [
+          "Vent pipe",
+          "Carries the burner's exhaust safely outside."
+        ],
+        "combustion_chamber": [
+          "Burner chamber",
+          "The space under the tank where the burner fires."
+        ],
+        "tp_relief_valve": [
+          "Safety relief valve",
+          "Opens by itself if the tank ever gets too hot or the pressure too high. An important safety part."
+        ],
+        "drain_valve": [
+          "Drain valve",
+          "Used to flush sediment out of the bottom of the tank."
+        ],
+        "cold_water_inlet": [
+          "Cold water in",
+          "Where cold water from your home's supply comes in."
+        ],
+        "hot_water_outlet": [
+          "Hot water out",
+          "Where hot water leaves for your sinks, showers and appliances."
+        ],
+        "sediment": [
+          "Sediment",
+          "Minerals that settle at the bottom of the tank over time."
+        ],
+        "air_intake": [
+          "Air intake",
+          "The burner breathes in air here. Keep it clear of boxes and lint."
+        ],
+        "data_plate": [
+          "Data label",
+          "Lists the model, size and age of the heater."
+        ],
+        "gas_shutoff_valve": [
+          "Gas shutoff",
+          "The valve that turns gas off to the heater."
+        ]
       },
-      "card_prefix": { "air_hot": "flue", "gas_manifold": "gas_control_valve", "pilot": "pilot_assembly", "inner_door": "burner", "cold_": "cold_water_inlet", "hot_": "hot_water_outlet", "anode": "anode_rod" }
+      "card_prefix": {
+        "air_hot": "flue",
+        "gas_manifold": "gas_control_valve",
+        "pilot": "pilot_assembly",
+        "inner_door": "burner",
+        "cold_": "cold_water_inlet",
+        "hot_": "hot_water_outlet",
+        "anode": "anode_rod"
+      }
     },
     "electric_tank_water_heater": {
       "file": "models/electric_tank_water_heater.glb",
       "title": "Electric water heater",
       "typical": "a typical electric tank water heater",
-      "match": { "category": ["water_heater_tank"], "subtype": ["electric", "unknown"], "orientation": ["upright"] },
-      "body": ["outer_jacket", "top_cover", "bottom_base"],
-      "body_size": { "diameter": 0.514, "height": 1.47 },
-      "front_marker": { "part": "upper_access_panel", "say": "the two access panels" },
-      "shell": ["outer_jacket", "top_cover", "bottom_base", "data_plate", "anode_access_cover", "upper_access_panel", "lower_access_panel", "insulation", "upper_stat_cover", "lower_stat_cover", "electrical_junction_box"],
-      "ghost_also": ["inner_tank"],
-      "sections": { "outer_jacket": "outer_jacket_section", "insulation": "insulation_section", "inner_tank": "inner_tank_section", "water_volume": "water_volume_section" },
-      "section_hide": ["top_cover", "upper_access_panel", "lower_access_panel", "upper_stat_cover", "lower_stat_cover"],
-      "water": ["water_volume", "water_volume_section"],
-      "flow": { "cold": [[-0.1, 2.0, 0], [-0.1, 1.47, 0], [-0.1, 0.38, 0]], "hot": [[0.0, 0.4, 0.1], [0.05, 0.9, 0.06], [0.1, 1.3, 0], [0.1, 1.47, 0], [0.1, 2.0, 0]] },
-      "heat": { "glow": ["lower_element_glow"], "say": "Electric heating elements reach into the water, like the coil in a kettle. The lower one does most of the work." },
+      "match": {
+        "category": [
+          "water_heater_tank"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright"
+        ]
+      },
+      "body": [
+        "outer_jacket",
+        "top_cover",
+        "bottom_base"
+      ],
+      "body_size": {
+        "diameter": 0.514,
+        "height": 1.47
+      },
+      "front_marker": {
+        "part": "upper_access_panel",
+        "say": "the two access panels"
+      },
+      "shell": [
+        "outer_jacket",
+        "top_cover",
+        "bottom_base",
+        "data_plate",
+        "anode_access_cover",
+        "upper_access_panel",
+        "lower_access_panel",
+        "insulation",
+        "upper_stat_cover",
+        "lower_stat_cover",
+        "electrical_junction_box"
+      ],
+      "ghost_also": [
+        "inner_tank"
+      ],
+      "sections": {
+        "outer_jacket": "outer_jacket_section",
+        "insulation": "insulation_section",
+        "inner_tank": "inner_tank_section",
+        "water_volume": "water_volume_section"
+      },
+      "section_hide": [
+        "top_cover",
+        "upper_access_panel",
+        "lower_access_panel",
+        "upper_stat_cover",
+        "lower_stat_cover"
+      ],
+      "water": [
+        "water_volume",
+        "water_volume_section"
+      ],
+      "flow": {
+        "cold": [
+          [
+            -0.1,
+            2.0,
+            0
+          ],
+          [
+            -0.1,
+            1.47,
+            0
+          ],
+          [
+            -0.1,
+            0.38,
+            0
+          ]
+        ],
+        "hot": [
+          [
+            0.0,
+            0.4,
+            0.1
+          ],
+          [
+            0.05,
+            0.9,
+            0.06
+          ],
+          [
+            0.1,
+            1.3,
+            0
+          ],
+          [
+            0.1,
+            1.47,
+            0
+          ],
+          [
+            0.1,
+            2.0,
+            0
+          ]
+        ]
+      },
+      "heat": {
+        "glow": [
+          "lower_element_glow"
+        ],
+        "say": "Electric heating elements reach into the water, like the coil in a kettle. The lower one does most of the work."
+      },
       "lessons": [
-        { "key": "heat", "label": "How it heats" },
-        { "key": "anode", "label": "The anode rod", "clip": "anode_years", "highlight": ["anode_rod", "anode_rod_bare", "anode_rod_pitted"], "say": "The anode rod is a sacrificial metal rod. Over the years it slowly gets eaten away so your tank does not rust." },
-        { "key": "sediment", "label": "Sediment", "clip": "sediment_build", "highlight": ["sediment"], "say": "Minerals in the water settle at the bottom of the tank as sediment. It can bury the lower heating element and make it fail early." }
+        {
+          "key": "heat",
+          "label": "How it heats"
+        },
+        {
+          "key": "anode",
+          "label": "The anode rod",
+          "clip": "anode_years",
+          "highlight": [
+            "anode_rod",
+            "anode_rod_bare",
+            "anode_rod_pitted"
+          ],
+          "say": "The anode rod is a sacrificial metal rod. Over the years it slowly gets eaten away so your tank does not rust."
+        },
+        {
+          "key": "sediment",
+          "label": "Sediment",
+          "clip": "sediment_build",
+          "highlight": [
+            "sediment"
+          ],
+          "say": "Minerals in the water settle at the bottom of the tank as sediment. It can bury the lower heating element and make it fail early."
+        }
       ],
       "cards": {
-        "outer_jacket": ["Outer jacket", "The painted metal skin you see in your home. It protects the foam insulation underneath."],
-        "insulation": ["Insulation", "A layer of foam that keeps the hot water hot, like a thermos."],
-        "inner_tank": ["Steel tank", "The glass-lined steel tank that holds the water, usually 40 or 50 gallons."],
-        "water_volume": ["Water", "Hot water rises to the top where it leaves for your faucets. Cold water sinks to the bottom."],
-        "dip_tube": ["Dip tube", "A plastic tube that carries new cold water down to the bottom of the tank, so it does not mix with the hot water on top."],
-        "anode_rod": ["Anode rod", "A sacrificial metal rod. It slowly corrodes so the steel tank does not. It wears out over the years."],
-        "upper_heating_element": ["Upper heating element", "Heats the top of the tank first so you get hot water sooner."],
-        "lower_heating_element": ["Lower heating element", "Does most of the heating, like the coil in a kettle."],
-        "lower_element_glow": ["Lower heating element", "Does most of the heating, like the coil in a kettle."],
-        "upper_thermostat": ["Upper thermostat", "Senses the water temperature and decides when the elements turn on."],
-        "lower_thermostat": ["Lower thermostat", "Controls the lower heating element."],
-        "high_limit_control": ["High limit switch", "A safety switch that shuts the power off if the water ever gets too hot."],
-        "electrical_junction_box": ["Power connection", "Where your home's electric line connects to the heater."],
-        "tp_relief_valve": ["Safety relief valve", "Opens by itself if the tank ever gets too hot or the pressure too high. An important safety part."],
-        "drain_valve": ["Drain valve", "Used to flush sediment out of the bottom of the tank."],
-        "cold_water_inlet": ["Cold water in", "Where cold water from your home's supply comes in."],
-        "hot_water_outlet": ["Hot water out", "Where hot water leaves for your sinks, showers and appliances."],
-        "sediment": ["Sediment", "Minerals that settle at the bottom of the tank over time."],
-        "data_plate": ["Data label", "Lists the model, size and age of the heater."],
-        "upper_access_panel": ["Access panel", "A cover over the upper thermostat and element. Only a trained person should open it: there is live electricity behind it."],
-        "lower_access_panel": ["Access panel", "A cover over the lower thermostat and element. Only a trained person should open it: there is live electricity behind it."]
+        "outer_jacket": [
+          "Outer jacket",
+          "The painted metal skin you see in your home. It protects the foam insulation underneath."
+        ],
+        "insulation": [
+          "Insulation",
+          "A layer of foam that keeps the hot water hot, like a thermos."
+        ],
+        "inner_tank": [
+          "Steel tank",
+          "The glass-lined steel tank that holds the water, usually 40 or 50 gallons."
+        ],
+        "water_volume": [
+          "Water",
+          "Hot water rises to the top where it leaves for your faucets. Cold water sinks to the bottom."
+        ],
+        "dip_tube": [
+          "Dip tube",
+          "A plastic tube that carries new cold water down to the bottom of the tank, so it does not mix with the hot water on top."
+        ],
+        "anode_rod": [
+          "Anode rod",
+          "A sacrificial metal rod. It slowly corrodes so the steel tank does not. It wears out over the years."
+        ],
+        "upper_heating_element": [
+          "Upper heating element",
+          "Heats the top of the tank first so you get hot water sooner."
+        ],
+        "lower_heating_element": [
+          "Lower heating element",
+          "Does most of the heating, like the coil in a kettle."
+        ],
+        "lower_element_glow": [
+          "Lower heating element",
+          "Does most of the heating, like the coil in a kettle."
+        ],
+        "upper_thermostat": [
+          "Upper thermostat",
+          "Senses the water temperature and decides when the elements turn on."
+        ],
+        "lower_thermostat": [
+          "Lower thermostat",
+          "Controls the lower heating element."
+        ],
+        "high_limit_control": [
+          "High limit switch",
+          "A safety switch that shuts the power off if the water ever gets too hot."
+        ],
+        "electrical_junction_box": [
+          "Power connection",
+          "Where your home's electric line connects to the heater."
+        ],
+        "tp_relief_valve": [
+          "Safety relief valve",
+          "Opens by itself if the tank ever gets too hot or the pressure too high. An important safety part."
+        ],
+        "drain_valve": [
+          "Drain valve",
+          "Used to flush sediment out of the bottom of the tank."
+        ],
+        "cold_water_inlet": [
+          "Cold water in",
+          "Where cold water from your home's supply comes in."
+        ],
+        "hot_water_outlet": [
+          "Hot water out",
+          "Where hot water leaves for your sinks, showers and appliances."
+        ],
+        "sediment": [
+          "Sediment",
+          "Minerals that settle at the bottom of the tank over time."
+        ],
+        "data_plate": [
+          "Data label",
+          "Lists the model, size and age of the heater."
+        ],
+        "upper_access_panel": [
+          "Access panel",
+          "A cover over the upper thermostat and element. Only a trained person should open it: there is live electricity behind it."
+        ],
+        "lower_access_panel": [
+          "Access panel",
+          "A cover over the lower thermostat and element. Only a trained person should open it: there is live electricity behind it."
+        ]
       },
-      "card_prefix": { "upper_stat": "upper_thermostat", "lower_stat": "lower_thermostat", "upper_well": "upper_heating_element", "lower_well": "lower_heating_element", "cold_": "cold_water_inlet", "hot_": "hot_water_outlet", "anode": "anode_rod" }
+      "card_prefix": {
+        "upper_stat": "upper_thermostat",
+        "lower_stat": "lower_thermostat",
+        "upper_well": "upper_heating_element",
+        "lower_well": "lower_heating_element",
+        "cold_": "cold_water_inlet",
+        "hot_": "hot_water_outlet",
+        "anode": "anode_rod"
+      }
+    },
+    "gas_furnace": {
+      "file": "models/gas_furnace.glb",
+      "title": "Gas furnace",
+      "typical": "a typical gas furnace",
+      "hide": [
+        "^co_detector$",
+        "^lineset",
+        "^thermostat_line$",
+        "^whip$",
+        "^service_switch_box$",
+        "^erv_pigtails$",
+        "^uv_light$",
+        "^filter_out$",
+        "^acid_stain$",
+        "^blower_wheel_dirty$",
+        "^coil_dust$",
+        "^filter_dirty$",
+        "^flue_corroded$",
+        "^heatex_rust$",
+        "^heatex_soot$",
+        "^hx_crack$",
+        "^hx_hole$",
+        "^igniter_crack$",
+        "^pan_water$"
+      ],
+      "match": {
+        "category": [
+          "furnace"
+        ],
+        "subtype": [
+          "gas",
+          "unknown"
+        ],
+        "orientation": [
+          "upright"
+        ]
+      },
+      "body": [
+        "cabinet",
+        "cabinet_side_left",
+        "cabinet_side_right",
+        "blower_door",
+        "burner_door"
+      ],
+      "body_size": {
+        "width": 0.356,
+        "depth": 0.711,
+        "height": 0.864,
+        "z": 0
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "front_marker": {
+        "part": "burner_door",
+        "say": "the front doors"
+      },
+      "shell": [
+        "cabinet",
+        "cabinet_side_left",
+        "cabinet_side_right",
+        "blower_door",
+        "burner_door",
+        "coil_box",
+        "coil_door",
+        "coil_adapter",
+        "supply_plenum",
+        "filter_base",
+        "filter_door",
+        "return_platform",
+        "data_plate",
+        "door_switch"
+      ],
+      "section_hide": [
+        "blower_door",
+        "burner_door",
+        "coil_door",
+        "cabinet_side_right"
+      ],
+      "heat": {
+        "clip": "fire_up",
+        "loop": "fire_up_loop",
+        "also": [
+          "fan_run_loop"
+        ],
+        "say": "The thermostat calls for heat. A small fan clears the burner box, the igniter glows and the burners light. The flames heat the metal heat exchanger, and the big blower pushes your home's air across it and out the vents, warm. The fire and the air you breathe never touch."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it heats"
+        },
+        {
+          "key": "cool",
+          "label": "Air conditioning",
+          "clip": "fan_run",
+          "loop": "fan_run_loop",
+          "highlight": [
+            "evap_coil"
+          ],
+          "say": "In summer the same blower pushes air through the cold coil on top. The coil pulls heat and moisture out of the air, and the water drips into a pan and drains away."
+        },
+        {
+          "key": "filter",
+          "label": "The filter",
+          "clip": "filter_pull",
+          "highlight": [
+            "filter"
+          ],
+          "say": "The filter catches dust before it reaches the blower and the coil. A clogged filter starves the system of air, so it runs longer and wears out sooner. Check it every month or two."
+        },
+        {
+          "key": "hx",
+          "label": "Heat exchanger",
+          "highlight": [
+            "heat_exchanger"
+          ],
+          "say": "The heat exchanger keeps the flames and their exhaust apart from the air you breathe. Your technician checks it for cracks, because a crack could let exhaust into the airflow."
+        }
+      ],
+      "cards": {
+        "cabinet": [
+          "Cabinet",
+          "The metal box of the furnace. Everything that heats and moves your air is inside."
+        ],
+        "blower_door": [
+          "Blower door",
+          "The lower front door. It covers the blower and the control board. The furnace shuts off when it is open."
+        ],
+        "burner_door": [
+          "Burner door",
+          "The upper front door, over the burners. Keep it on: the burners need it closed to get their air right."
+        ],
+        "door_switch": [
+          "Door switch",
+          "A safety switch. It cuts the power when the blower door comes off."
+        ],
+        "data_plate": [
+          "Data label",
+          "Lists the model, size and age of the furnace."
+        ],
+        "gas_valve": [
+          "Gas valve",
+          "Opens to send gas to the burners when the thermostat calls for heat."
+        ],
+        "gas_pipe": [
+          "Gas line",
+          "Brings natural gas or propane to the furnace."
+        ],
+        "drip_leg": [
+          "Drip leg",
+          "A short capped pipe that catches dirt and moisture before they reach the gas valve."
+        ],
+        "burner_assembly": [
+          "Burners",
+          "Where the gas burns, in a row of small burners."
+        ],
+        "flames": [
+          "Flames",
+          "Healthy flames are blue and steady."
+        ],
+        "igniter": [
+          "Igniter",
+          "Glows red hot to light the gas. It replaced the old standing pilot light."
+        ],
+        "igniter_glow": [
+          "Igniter",
+          "Glows red hot to light the gas. It replaced the old standing pilot light."
+        ],
+        "flame_sensor": [
+          "Flame sensor",
+          "Proves the flame lit. If it does not see a flame, it shuts the gas off. A dirty one is a common no-heat call."
+        ],
+        "heat_exchanger": [
+          "Heat exchanger",
+          "Metal tubes the flames heat from inside. Your air warms on the outside of them and never touches the fire."
+        ],
+        "inducer": [
+          "Draft inducer",
+          "A small fan that pulls the exhaust through the heat exchanger and pushes it up the vent."
+        ],
+        "pressure_switch": [
+          "Pressure switch",
+          "Checks that the draft inducer is moving the exhaust before the burners can light."
+        ],
+        "limit_switches": [
+          "Limit switches",
+          "Safety switches that shut the burners off if the furnace gets too hot, often from a clogged filter."
+        ],
+        "flue": [
+          "Vent pipe",
+          "Carries the exhaust safely outside."
+        ],
+        "blower_wheel": [
+          "Blower",
+          "The big fan that moves your home's air through the furnace, the coil and the ducts."
+        ],
+        "blower_housing": [
+          "Blower",
+          "The big fan that moves your home's air through the furnace, the coil and the ducts."
+        ],
+        "blower_motor": [
+          "Blower motor",
+          "Turns the blower. It runs for heat, for cooling and for fan only."
+        ],
+        "control_board": [
+          "Control board",
+          "The furnace's brain. It runs every step in order and flashes a code light when something is wrong."
+        ],
+        "furnace_wiring": [
+          "Wiring",
+          "Carries power and the thermostat's signals."
+        ],
+        "filter": [
+          "Air filter",
+          "Catches dust before it reaches the blower and coil. Check it every month or two."
+        ],
+        "filter_door": [
+          "Filter door",
+          "Opens to change the filter."
+        ],
+        "filter_base": [
+          "Filter rack",
+          "Holds the air filter where the return air comes in."
+        ],
+        "return_platform": [
+          "Return platform",
+          "The box the furnace stands on. Your home's air comes back through it."
+        ],
+        "coil_box": [
+          "Coil cabinet",
+          "Holds the air conditioning coil, on top of the furnace."
+        ],
+        "coil_door": [
+          "Coil cabinet",
+          "Holds the air conditioning coil, on top of the furnace."
+        ],
+        "coil_adapter": [
+          "Coil adapter",
+          "Joins the narrower furnace to the wider coil cabinet."
+        ],
+        "evap_coil": [
+          "Cooling coil",
+          "Gets cold when the air conditioner runs. It pulls heat and moisture out of the air going by."
+        ],
+        "txv": [
+          "Expansion valve",
+          "Meters the refrigerant into the cooling coil."
+        ],
+        "rds_sensor": [
+          "Refrigerant sensor",
+          "Watches for a refrigerant leak and turns the blower on to clear it."
+        ],
+        "drain_cap_aux": [
+          "Condensate drain",
+          "Where the water the coil pulls out of the air drains away."
+        ],
+        "supply_plenum": [
+          "Supply plenum",
+          "The box on top where the warm or cool air leaves for your ducts."
+        ],
+        "warm_air": [
+          "Warm air",
+          "Your home's air, warmed by the heat exchanger, on its way to the vents."
+        ],
+        "cool_air": [
+          "Moving air",
+          "Your home's air on its way through the coil and out to the vents."
+        ],
+        "return_air": [
+          "Return air",
+          "Air coming back from your home to be heated or cooled again."
+        ]
+      },
+      "card_prefix": {
+        "air_hot": "warm_air",
+        "air_warm": "warm_air",
+        "air_cool": "cool_air",
+        "air_return": "return_air",
+        "inducer": "inducer",
+        "txv": "txv",
+        "cabinet_side": "cabinet",
+        "blower_wheel": "blower_wheel"
+      },
+      "overlay_hide": [
+        "coil_box",
+        "coil_door",
+        "coil_adapter",
+        "COIL",
+        "supply_plenum",
+        "flue",
+        "gas_pipe",
+        "drip_leg",
+        "return_platform",
+        "filter_base",
+        "filter",
+        "filter_door",
+        "air_return_0",
+        "air_return_1",
+        "air_return_2",
+        "air_return_3",
+        "air_return_up_0",
+        "air_return_up_1",
+        "air_return_up_2",
+        "air_return_up_3"
+      ]
     }
   },
   "typical_only": {
-    "water_heater_tank": { "fallback_model": { "gas": "gas_tank_water_heater", "electric": "electric_tank_water_heater", "unknown": "gas_tank_water_heater", "hybrid": "electric_tank_water_heater" } }
+    "water_heater_tank": {
+      "fallback_model": {
+        "gas": "gas_tank_water_heater",
+        "electric": "electric_tank_water_heater",
+        "unknown": "gas_tank_water_heater",
+        "hybrid": "electric_tank_water_heater"
+      }
+    },
+    "furnace": {
+      "fallback_model": {
+        "gas": "gas_furnace",
+        "unknown": "gas_furnace",
+        "electric": "gas_furnace",
+        "hybrid": "gas_furnace"
+      }
+    }
   }
 }
