@@ -1026,6 +1026,15 @@
         "pad",
         "whip",
         "disconnect_kit"
+      ],
+      "stage": [
+        {
+          "type": "floor"
+        },
+        {
+          "type": "wall",
+          "x": -1.25
+        }
       ]
     },
     "air_handler": {
@@ -1502,7 +1511,16 @@
         "element_glow": "heating_elements",
         "turbine": "flow_sensor",
         "status_led": "status_led"
-      }
+      },
+      "stage": [
+        {
+          "type": "floor"
+        },
+        {
+          "type": "wall",
+          "z": -0.291
+        }
+      ]
     },
     "gas_tankless_water_heater": {
       "file": "models/gas_tankless_water_heater.glb",
@@ -1769,7 +1787,16 @@
         "recirc_return": "recirc_return",
         "recirc_cord": "recirc_pump",
         "fan_motor": "fan_with_venturi"
-      }
+      },
+      "stage": [
+        {
+          "type": "floor"
+        },
+        {
+          "type": "wall",
+          "z": -0.291
+        }
+      ]
     },
     "hybrid_water_heater": {
       "file": "models/hybrid_water_heater.glb",
@@ -2235,6 +2262,12 @@
         "front_panel",
         "chassis",
         "intake_grille"
+      ],
+      "stage": [
+        {
+          "type": "wall",
+          "z": -0.03
+        }
       ]
     },
     "garbage_disposal": {
@@ -2579,7 +2612,15 @@
         "j_": "p_trap",
         "waste_tee": "waste_tee",
         "waste_arm": "waste_arm"
-      }
+      },
+      "stage": [
+        {
+          "type": "floor"
+        },
+        {
+          "type": "wall"
+        }
+      ]
     },
     "toilet": {
       "file": "models/toilet.glb",
@@ -2859,7 +2900,15 @@
         "fill_locknut": "fill_valve",
         "stop_stub": "angle_stop",
         "closet_bolt": "bolt_caps"
-      }
+      },
+      "stage": [
+        {
+          "type": "floor"
+        },
+        {
+          "type": "wall"
+        }
+      ]
     },
     "water_softener": {
       "file": "models/water_softener.glb",
@@ -3089,7 +3138,16 @@
         "bypass_lever": "bypass_valve",
         "display_": "display_service",
         "cover_plate": "receptacle"
-      }
+      },
+      "stage": [
+        {
+          "type": "floor"
+        },
+        {
+          "type": "wall",
+          "z": 0.23
+        }
+      ]
     },
     "aerobic_septic": {
       "file": "models/aerobic_septic.glb",
@@ -3988,7 +4046,15 @@
         "stop_hot": "stop_hot",
         "stop_cold": "stop_cold",
         "trap_water": "trap_water"
-      }
+      },
+      "stage": [
+        {
+          "type": "floor"
+        },
+        {
+          "type": "wall"
+        }
+      ]
     },
     "condensate_pump": {
       "file": "models/condensate_pump.glb",
@@ -4198,7 +4264,17 @@
         "power_cord": "power_cord",
         "safety_": "safety_leads",
         "water_full": "reservoir_water"
-      }
+      },
+      "stage": [
+        {
+          "type": "floor",
+          "y": 0.61
+        },
+        {
+          "type": "wall",
+          "x": -0.457
+        }
+      ]
     },
     "erv": {
       "file": "models/erv.glb",
@@ -4467,6 +4543,12 @@
         "port_exhaust_out",
         "port_stale_in",
         "port_supply_out"
+      ],
+      "stage": [
+        {
+          "type": "ceiling",
+          "y": 2.86
+        }
       ]
     },
     "heat_pump": {
@@ -4767,6 +4849,15 @@
         "lineset_insulation",
         "lineset_wall_plate",
         "thermostat_wire"
+      ],
+      "stage": [
+        {
+          "type": "floor"
+        },
+        {
+          "type": "wall",
+          "z": -0.621
+        }
       ]
     },
     "lift_station": {
@@ -5469,7 +5560,37 @@
         "tmv_filter_washer": "tmv_filter_washer_hot",
         "tmv_recirc_timer": "tmv_recirc_timer",
         "cold_line_": "cold_line"
-      }
+      },
+      "with": [
+        {
+          "file": "models/gas_tank_water_heater.glb",
+          "rot_deg": 180,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "hide": [
+            "^cold_supply_line$",
+            "^hot_supply_line$",
+            "^thermal_expansion_tank$",
+            "^vent_",
+            "^draft_hood",
+            "^flue_connector",
+            "^gas_(riser|drip_tee|flex_connector|shutoff_valve|control|valve)",
+            "^drain_pan$",
+            "^tp_discharge"
+          ]
+        }
+      ],
+      "frame_box": [
+        -0.3,
+        0.9,
+        -0.3,
+        0.3,
+        1.5,
+        0.3
+      ]
     },
     "pressure_tank": {
       "file": "models/pressure_tank.glb",
@@ -5697,7 +5818,16 @@
         "switch_cover": "switch_cover",
         "nm_staples": "nm_cable",
         "wire_stub": "nm_cable"
-      }
+      },
+      "stage": [
+        {
+          "type": "floor"
+        },
+        {
+          "type": "wall",
+          "z": 0.25
+        }
+      ]
     },
     "septic_pump_tank": {
       "file": "models/septic_pump_tank.glb",
@@ -6958,7 +7088,13 @@
       },
       "card_prefix": {
         "alarm_light": "alarm_light"
-      }
+      },
+      "stage": [
+        {
+          "type": "ground",
+          "y": 0
+        }
+      ]
     },
     "surge_protector": {
       "file": "models/surge_protector.glb",
@@ -7105,7 +7241,13 @@
       "card_prefix": {
         "lead_black": "lead_black_a",
         "spd_breaker": "spd_breaker"
-      }
+      },
+      "stage": [
+        {
+          "type": "wall",
+          "z": 0
+        }
+      ]
     },
     "water_filter": {
       "file": "models/water_filter.glb",
@@ -7372,7 +7514,17 @@
         "bib_hose": "hose_bib",
         "bib_stream": "hose_bib"
       },
-      "anchor": "box lid"
+      "anchor": "box lid",
+      "stage": [
+        {
+          "type": "ground",
+          "y": 0
+        },
+        {
+          "type": "wall",
+          "z": -1.1
+        }
+      ]
     },
     "well_pump": {
       "file": "models/well_pump.glb",
@@ -7413,9 +7565,11 @@
         "middle_max": 1
       },
       "frame_parts": [
-        "casing",
         "well_cap",
-        "pump"
+        "jbox",
+        "pitless_adapter",
+        "service_stub",
+        "wire_stub"
       ],
       "shell": [
         "casing",
@@ -7459,7 +7613,12 @@
           "highlight": [
             "check_valve"
           ],
-          "say": "The check valve above the pump lets water go up but not back down. If it leaks, water drains back into the well between uses. The pressure slowly drops while nobody is using water, and the pump turns on by itself. A technician can confirm it by watching the pressure gauge with every tap off."
+          "say": "The check valve above the pump lets water go up but not back down. If it leaks, water drains back into the well between uses. The pressure slowly drops while nobody is using water, and the pump turns on by itself. A technician can confirm it by watching the pressure gauge with every tap off.",
+          "frame": [
+            "check_valve",
+            "pump",
+            "torque_arrestor"
+          ]
         },
         {
           "key": "cap",
@@ -7472,7 +7631,11 @@
             "well_cap",
             "well_seal_cracked"
           ],
-          "say": "The cap keeps rain, bugs and small animals out of your water. A cracked seal or a loose cap can let them in. Keep the cap bolted down, the casing standing a little above the ground, and the soil sloping away from it."
+          "say": "The cap keeps rain, bugs and small animals out of your water. A cracked seal or a loose cap can let them in. Keep the cap bolted down, the casing standing a little above the ground, and the soil sloping away from it.",
+          "frame": [
+            "well_cap",
+            "jbox"
+          ]
         },
         {
           "key": "down",
@@ -7482,7 +7645,13 @@
             "pump_cable",
             "cable_tape"
           ],
-          "say": "The pump's wire runs down beside the drop pipe, taped to it every few feet. Each time the pump starts it gives a small twist. The rubber torque arrestor keeps the pump centered so it does not rub the casing."
+          "say": "The pump's wire runs down beside the drop pipe, taped to it every few feet. Each time the pump starts it gives a small twist. The rubber torque arrestor keeps the pump centered so it does not rub the casing.",
+          "frame": [
+            "pump",
+            "torque_arrestor",
+            "check_valve",
+            "drop_pipe"
+          ]
         }
       ],
       "cards": {
@@ -7691,7 +7860,8 @@
             "breaker_bath",
             "breaker_septic"
           ],
-          "say": "When a breaker trips, its handle moves away from on, and it often stops in the middle where it is easy to miss. To reset it, push the handle firmly all the way to off, then back to on. If it trips again right away or keeps tripping, leave it off and call a licensed electrician, because something on that circuit needs a look."
+          "say": "When a breaker trips, its handle moves away from on, and it often stops in the middle where it is easy to miss. To reset it, push the handle firmly all the way to off, then back to on. If it trips again right away or keeps tripping, leave it off and call a licensed electrician, because something on that circuit needs a look.",
+          "clip_stop": 0.5
         },
         {
           "key": "test",
@@ -7847,7 +8017,12 @@
         "breaker_kitchen_b": "breaker_bath",
         "breaker_living": "breaker_bath",
         "breaker_master": "breaker_bath"
-      }
+      },
+      "stage": [
+        {
+          "type": "wall"
+        }
+      ]
     },
     "expansion_tank": {
       "file": "models/expansion_tank.glb",
@@ -8363,7 +8538,13 @@
         "vb_story_coupling": "vb_story_hose_tube",
         "vb_story_hose_washer": "vb_story_hose_tube",
         "vb_body": "vb_lower_body"
-      }
+      },
+      "stage": [
+        {
+          "type": "wall",
+          "z": 0.031
+        }
+      ]
     },
     "package_unit": {
       "file": "models/package_unit.glb",
@@ -8666,6 +8847,10 @@
         "duct_connection": [
           "Ducts",
           "Carry air between the unit and the house, through the wall. One brings air back, one sends it out."
+        ],
+        "pad": [
+          "Pad",
+          "The unit sits on a level pad that keeps it off the dirt and lets water drain away. A pad that sinks or tilts can strain the pipes and the drain."
         ]
       },
       "card_prefix": {
@@ -8677,7 +8862,16 @@
         "supply_flange": "duct_connection",
         "whip": "disconnect",
         "fan_motor": "fan"
-      }
+      },
+      "stage": [
+        {
+          "type": "floor"
+        },
+        {
+          "type": "wall",
+          "z": -0.62
+        }
+      ]
     },
     "surge_outlet": {
       "file": "models/surge_outlet.glb",
@@ -8926,7 +9120,8 @@
         "plate_screw": "plate",
         "box_nails": "gang_box",
         "cable_staple": "nm_cable"
-      }
+      },
+      "stage": "none"
     },
     "thermostat": {
       "file": "models/thermostat.glb",
@@ -9141,7 +9336,13 @@
         "cable_blue": "cable_blue",
         "sub_mount_screw": "sub_mount_screw_1",
         "sub_wall_anchor": "sub_wall_anchor_1"
-      }
+      },
+      "stage": [
+        {
+          "type": "wall",
+          "z": 0
+        }
+      ]
     },
     "washer_box": {
       "file": "models/washer_box.glb",
@@ -9293,7 +9494,8 @@
       },
       "card_prefix": {
         "hammer_arrestor": "hammer_arrestor_hot"
-      }
+      },
+      "stage": "none"
     }
   },
   "typical_only": {

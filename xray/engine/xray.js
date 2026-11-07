@@ -379,13 +379,81 @@ export async function createXray(container, opts = {}) {
     S.ghost = ghostMaterial(0x0b4f66, 0x7fe3ff, 0.9);
     S.ghostInner = ghostMaterial(0x082f3d, 0x56c7ea, 0.45);
     S.ghostAll = ghostMaterial(0x0b4f66, 0x9af0ff, 1.0);
+    // with: other models drawn faint around this one, so it does not float (the mixing valve sits on a heater).
+    // [{file, rot_deg, offset:[x,y,z], hide:[regex]}]. Children of the root, so they turn with it; never tapped
+    // (no cards), never framed or swapped (xrOff), hidden over a photo (the real thing is in the photo).
+    S.ctx = [];
+    for (const w of entry.with || []) {
+      const g = (await preloadModel(new URL(w.file, base).href)).scene.clone(true);
+      const wh = (catalog.hide_always || []).concat(w.hide || []).map(p => new RegExp(p));
+      g.rotation.y = THREE.MathUtils.degToRad(w.rot_deg || 0); if (w.offset) g.position.fromArray(w.offset);
+      g.traverse(o => {
+        o.userData.xrOff = true;
+        if (wh.some(r => r.test(nameOf(o)))) o.visible = false;
+        if (o.isMesh) { const m = (Array.isArray(o.material) ? o.material[0] : o.material).clone(); m.transparent = true; m.opacity = 0.28; m.depthWrite = false; o.material = m; o.renderOrder = -1; }
+      });
+      root.add(g); S.ctx.push(g);
+    }
     S.cardCount = Object.keys(entry.cards).filter(k => S.named.has(k) && !S.named.get(k).userData.xrOff).length;
-    buildFlow(); buildGlow();
+    buildFlow(); buildGlow(); buildStage();
     root.updateMatrixWorld(true);
     return entry;
   }
   // parts drawn only in 3D, not over the photo (a furnace photo seldom shows the coil, plenum and piping around it)
-  function overlayParts(onPhoto) { for (const n of (S.entry.overlay_hide || [])) { const o = S.named.get(n); if (o && !o.userData.xrOff) o.visible = !onPhoto; }
+  // ---------------------------------------------------------------- stage
+  // what the unit sits in, drawn faint so nothing floats (Jake, 2026-11-07: "anything not showing above the
+  // ground, any wires going in"): a floor under standing units, a ground line with see-through soil for buried
+  // ones, a wall behind wall units, a ceiling over hanging ones. entry.stage: "floor" | "ground" | "none" | a list of
+  // {type: floor|ground|wall|ceiling, y, z, x} in model space (before front_deg). Default: ground for an anchored
+  // unit, floor otherwise. Never drawn over a photo; never tapped or framed (it is not under S.root).
+  function fadeTex(rgb) {
+    const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d');
+    const gr = g.createRadialGradient(64, 64, 8, 64, 64, 64); gr.addColorStop(0, `rgba(${rgb},1)`); gr.addColorStop(0.7, `rgba(${rgb},0.6)`); gr.addColorStop(1, `rgba(${rgb},0)`);
+    g.fillStyle = gr; g.fillRect(0, 0, 128, 128); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+  }
+  function buildStage() {
+    if (S.stage) { scene.remove(S.stage); S.stage.traverse(o => { o.geometry && o.geometry.dispose(); o.material && o.material.dispose(); }); }
+    S.stage = null;
+    const E = S.entry; let spec = E.stage || (E.anchor ? 'ground' : 'floor');
+    if (spec === 'none') return;
+    if (typeof spec === 'string') spec = [{ type: spec }];
+    const ry = S.root.rotation.y; S.root.rotation.y = 0; S.root.updateMatrixWorld(true);
+    const box = new THREE.Box3(); const only = E.frame_parts && new Set(E.frame_parts.flatMap(n => under(n)));
+    S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o) && (!only || only.has(o))) box.expandByObject(o); });
+    S.root.rotation.y = ry; S.root.updateMatrixWorld(true);
+    if (box.isEmpty()) return;
+    const c = box.getCenter(new THREE.Vector3()), z = box.getSize(new THREE.Vector3());
+    const span = Math.max(z.x, z.z, 0.4) * 2.2;
+    const G = new THREE.Group(); G.rotation.y = ry;
+    const mat = (rgb, op) => new THREE.MeshBasicMaterial({ map: fadeTex(rgb), transparent: true, opacity: op, depthWrite: false, side: THREE.DoubleSide });
+    for (const st of spec) {
+      if (st.type === 'floor' || st.type === 'ground') {
+        const y = st.y != null ? st.y : (st.type === 'ground' ? 0 : Math.min(0, box.min.y));
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(span, span), st.type === 'ground' ? mat('96,140,62', 0.55) : mat('150,165,178', 0.35));
+        m.rotation.x = -Math.PI / 2; m.position.set(c.x, y, c.z); G.add(m);
+        if (st.type === 'ground' && box.min.y < y - 0.05) {
+          // the soil under the grass: a faint box down past the deepest part, so buried parts read as underground
+          const d = y - box.min.y + 0.25, sx = Math.max(z.x * 1.25, 0.6), sz = Math.max(z.z * 1.25, 0.6);
+          const soil = new THREE.Mesh(new THREE.BoxGeometry(sx, d, sz), new THREE.MeshBasicMaterial({ color: 0x7a5a36, transparent: true, opacity: 0.1, depthWrite: false }));
+          soil.position.set(c.x, y - d / 2, c.z); G.add(soil);
+          const edge = new THREE.LineSegments(new THREE.EdgesGeometry(soil.geometry), new THREE.LineBasicMaterial({ color: 0x9a7448, transparent: true, opacity: 0.35 }));
+          edge.position.copy(soil.position); G.add(edge);
+        }
+      } else if (st.type === 'wall') {
+        const h = Math.max(z.y * 1.6, 0.6), w = st.x != null ? Math.max(z.z, 0.4) * 2 : Math.max(z.x, 0.4) * 2;
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat('190,182,165', 0.4));
+        if (st.x != null) { m.rotation.y = Math.PI / 2; m.position.set(st.x, c.y, c.z); } else m.position.set(c.x, c.y, st.z != null ? st.z : box.min.z);
+        G.add(m);
+      } else if (st.type === 'ceiling') {
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(span, span), mat('190,182,165', 0.35));
+        m.rotation.x = Math.PI / 2; m.position.set(c.x, st.y != null ? st.y : box.max.y, c.z); G.add(m);
+      }
+    }
+    G.renderOrder = -1; G.visible = !S.overlay; scene.add(G); S.stage = G;
+  }
+  function overlayParts(onPhoto) {
+    if (S.stage) S.stage.visible = !onPhoto;
+    for (const g of S.ctx || []) g.visible = !onPhoto; for (const n of (S.entry.overlay_hide || [])) { const o = S.named.get(n); if (o && !o.userData.xrOff) o.visible = !onPhoto; }
     // over a ground photo the X-ray is drawn see-through, so the lids they photographed still show as the reference
     renderer.domElement.style.opacity = onPhoto && S.choice && S.choice.reason === 'anchored' ? '0.72' : '';
   }
@@ -516,7 +584,7 @@ export async function createXray(container, opts = {}) {
     for (const [good] of swap) { const o = S.named.get(good); if (o && o.visible) { vis(o, false); o.userData.xrHidden = true; S.swapped.push(o); } }   // xrHidden: Cut open leaves it off
   }
   function startHeat() {
-    clearHighlight(); showParts(null); reframe(null); S.lesson = null; resetPose(); S.heatOn = true; S.heatT = 0;
+    clearHighlight(); showParts(null); reframe(null); S.clipStop = null; S.lesson = null; resetPose(); S.heatOn = true; S.heatT = 0;
     const H = S.entry.heat || {};
     if (H.clip) { if (!play(H.clip, false) && H.loop) play(H.loop, true); }
     (H.also || []).forEach(n => play(n, true));   // loops that run alongside, e.g. a furnace's blower
@@ -546,7 +614,10 @@ export async function createXray(container, opts = {}) {
     resetPose(); S.heatOn = false; S.lesson = L.key; S.glow.forEach(o => o.scale.set(0.001, 0.001, 0.001));
     if (S.view === 'solid') setView('xray');
     showParts(L); reframe(L.frame || null);
-    if (!play(L.clip, false) && L.loop) play(L.loop, true); highlight(L.highlight); updateFlowVisibility(); sayText(L.say); syncLessons(L.key);
+    S.clipStop = null;
+    const act = play(L.clip, false); if (!act && L.loop) play(L.loop, true);
+    if (act && L.clip_stop > 0 && L.clip_stop < 1) S.clipStop = { a: act, t: act.getClip().duration * L.clip_stop };
+    highlight(L.highlight); updateFlowVisibility(); sayText(L.say); syncLessons(L.key);
     emit('lesson', L.key);
   }
 
@@ -868,6 +939,9 @@ export async function createXray(container, opts = {}) {
     const box = new THREE.Box3(); const only = names && new Set(names.flatMap(n => under(n)));
     S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o) && (!only || only.has(o))) box.expandByObject(o); });
     if (box.isEmpty()) S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o)) box.expandByObject(o); });
+    // frame_box: [x0, y0, z0, x1, y1, z1] in model space added to the default framing (the heater under a mixing valve)
+    const fb = S.entry.frame_box;
+    if (fb && names === S.entry.frame_parts) { const ry = S.root.rotation.y; for (const x of [fb[0], fb[3]]) for (const y of [fb[1], fb[4]]) for (const z of [fb[2], fb[5]]) box.expandByPoint(new THREE.Vector3(x, y, z).applyAxisAngle(new THREE.Vector3(0, 1, 0), ry)); }
     const tgt = box.getCenter(new THREE.Vector3()); const size = box.getSize(new THREE.Vector3());
     const cw = container.clientWidth, ch = container.clientHeight; const clearH = Math.max(100, ch - (bar.offsetHeight || 0) - 40 - (S.insetTop || 0));
     const vf = THREE.MathUtils.degToRad(EXPLORE_FOV) * clearH / ch; const hf = 2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(EXPLORE_FOV) / 2) * cw / ch);
@@ -910,9 +984,13 @@ export async function createXray(container, opts = {}) {
     if (!alive) return; raf = requestAnimationFrame(frame);
     const dt = Math.min(0.05, clock.getDelta()); const run = S.playing ? dt * S.speed : 0;
     if (S.mixer) S.mixer.update(run);
+    // a lesson can stop its clip partway (a tripped breaker rests in the middle, not at off)
+    if (S.clipStop && S.clipStop.a.time >= S.clipStop.t) { S.clipStop.a.time = S.clipStop.t; S.clipStop.a.paused = true; S.clipStop = null; }
     S._t = (S._t || 0) + run;
     if (S.heatOn) S.heatT = Math.min(1, S.heatT + run / 7);
-    for (const m of [S.waterMat, S.waterMatCut]) if (m) { m.uniforms.uHeat.value = S.heatOn ? 0.15 + 0.85 * S.heatT : 0.15; m.uniforms.uTime.value = S._t; }
+    // only water that is being heated warms up (a toilet's or a sump's water stays cool): water_heats in the catalog
+    const warms = S.entry && S.entry.water_heats != null ? S.entry.water_heats : /water_heater|mixing_valve|expansion_tank/.test(S.key || '');
+    for (const m of [S.waterMat, S.waterMatCut]) if (m) { m.uniforms.uHeat.value = !warms ? -0.4 : S.heatOn ? 0.15 + 0.85 * S.heatT : 0.15; m.uniforms.uTime.value = S._t; }
     for (const g of [S.ghost, S.ghostInner, S.ghostAll]) if (g) g.uniforms.uTime.value = S._t;
     S.glow.forEach(o => o.traverse(m => { if (m.isMesh && m.material.emissiveIntensity != null) m.material.emissiveIntensity = 1.4 + 0.8 * Math.sin(S._t * 3); }));
     stepFlow(S._t); stepFade();
@@ -933,7 +1011,7 @@ export async function createXray(container, opts = {}) {
     setAlign: on => { S.align = !!on; orbit.enabled = !S.align && !S.overlay; renderDebug(); },
     getPose: () => S.pose && { ...S.pose }, setPose: p => { Object.assign(S.pose, p); S.root.rotation.y = S.pose.yaw + frontRad(); applyCamera(); },
     visibleParts: () => { const out = []; S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o)) { const b = new THREE.Box3().setFromObject(o); const z = b.getSize(new THREE.Vector3()); out.push([nameOf(o) || nameOf(o.parent), +z.x.toFixed(2), +z.y.toFixed(2), +z.z.toFixed(2)]); } }); return out; },
-    debug: () => ({ choice: S.choice, analysis: S.A, fit: S.fit, pose: S.pose && { ...S.pose }, timing: { ...timing }, view: S.view, mode: S.mode, found: [...S.found], cam: camera.position.toArray(), orbit: S.orbit || null, explore: S.ex || null }),
+    debug: () => ({ choice: S.choice, analysis: S.A, fit: S.fit, pose: S.pose && { ...S.pose }, timing: { ...timing }, view: S.view, mode: S.mode, found: [...S.found], cam: camera.position.toArray(), ctx: (S.ctx || []).map(g => { let n = 0, v = 0; g.traverse(o => { if (o.isMesh) { n++; let on = true; for (let p = o; p; p = p.parent) if (!p.visible) on = false; if (on) v++; } }); const b = new THREE.Box3().setFromObject(g); return { n, v, min: b.min.toArray().map(x => +x.toFixed(2)), max: b.max.toArray().map(x => +x.toFixed(2)) }; }), orbit: S.orbit || null, explore: S.ex || null }),
     // where a part's centre is on screen (CSS px in the engine's container), for scripted taps
     screenOf: n => { const o = S.named.get(n); if (!o) return null; const c = new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3()).project(camera);
       const r = renderer.domElement.getBoundingClientRect(); return [r.left + (c.x + 1) / 2 * r.width, r.top + (1 - c.y) / 2 * r.height]; },
