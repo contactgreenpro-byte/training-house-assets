@@ -769,7 +769,8 @@ export async function createXray(container, opts = {}) {
       if (S.photoSize && A && A.box) await runScan(true); // scan the photo first so the moment still feels like an X-ray
       const why = choice.reason === 'orientation_not_modelled' ? 'We do not have a 3D model for this kind of install yet, ' :
         choice.reason === 'poor_fit' ? 'We could not line this up with your photo, ' : 'We could not match yours exactly, ';
-      setNote(`${why}so this is ${typical} in 3D. It is not a scan of yours.`);
+      // picked from the X-Ray menu with no photo: nothing to apologise for
+      setNote(!S.photoSize && choice.reason === 'host_chose' ? `This is ${typical} in 3D. Spin it, cut it open, and tap any part to see what it does.` : `${why}so this is ${typical} in 3D. It is not a scan of yours.`);
       enterExplore(true); setView('xray'); fadeInterior(700); startHeat(); mark('reveal');
       bar.style.visibility = ''; syncBar();
     }
