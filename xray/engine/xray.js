@@ -23,6 +23,7 @@ export const FIT_GOOD = 0.5;           // overall shape score
 export const FIT_EDGE_MIN = 0.4;       // share of the outline on a photo edge
 export const FIT_SIDE_EDGE_MIN = 0.4;  // the weaker long side on a vertical edge (0.5 failed a dim but correct attic fit)
 export const FIT_CAP_MIN = 0.4;        // the top or bottom on a horizontal edge
+export const FIT_ASPECT_MAX = 1.5;     // the model's outline no more than this much wider (for its height) than the reader's box
 export const FIT_MIDDLE_MAX = 0.08;    // vertical edges through the middle (pipes, posts, a side of the real tank)
 
 export function normalizeAnalysis(raw) {
@@ -56,6 +57,8 @@ export function normalizeAnalysis(raw) {
     photo_quality: String(a.photo_quality || 'good'),
     confidence: { category: lvl(conf.category), subtype: lvl(conf.subtype), orientation: lvl(conf.orientation), facing: lvl(conf.facing) },
     label: a.label || '',
+    // what a ground photo shows above a buried unit: only a lid or an open hole can carry the tank under it
+    ground_anchor: pick(a.ground_anchor, ['lid', 'open_hole', 'control_panel', 'pipe_or_stub', 'none'], null),
   };
 }
 
@@ -72,7 +75,9 @@ export function pickModel(catalog, A) {
   // GROUND PHOTOS (Jake, 2026-11-07: "someone takes a picture of the ground and it sees a cap"): a buried unit with an
   // "anchor" is lined up on what shows above ground (septic lids, a well cap, a yard box lid) and drawn under it
   const anchored = sameCat.find(([, m]) => m.anchor);
-  if (anchored && A.box && A.box.w > 0 && A.box.h > 0 && A.units_count <= 4) return { mode: 'overlay', key: anchored[0], reason: 'anchored' };
+  // (job photos 2026-11-07: a control panel on the wall or a pipe stub got a tank drawn under it: never anchor on those)
+  const onLid = !A.ground_anchor || A.ground_anchor === 'lid' || A.ground_anchor === 'open_hole';
+  if (anchored && onLid && A.box && A.box.w > 0 && A.box.h > 0 && A.units_count <= 4) return { mode: 'overlay', key: anchored[0], reason: 'anchored' };
   // typical_only: a buried unit (septic tank, well) shows only lids in a photo, so it is never drawn over one
   // a toilet or sink (match subtype only 'unknown') never matches exactly yet: tried twice on 2026-11-07 with the toilet
   // drawing, the reader's facing and box were too loose to line it up. Typical until real photos are tried.
@@ -82,7 +87,8 @@ export function pickModel(catalog, A) {
   const key = (typ && typ.fallback_model && (typ.fallback_model[sub] || typ.fallback_model.unknown)) || (sameCat[0] && sameCat[0][0]);
   if (!key) return { mode: 'none', reason: 'not_supported' };
   let reason = 'no_box';
-  if (!exact && sameCat.length && sameCat.every(([, m]) => m.typical_only)) reason = 'buried';
+  if (anchored && !onLid) reason = 'no_lid_seen';
+  else if (!exact && sameCat.length && sameCat.every(([, m]) => m.typical_only)) reason = 'buried';
   else if (!exact) reason = A.orientation !== 'upright' ? 'orientation_not_modelled' : 'type_unsure';
   else if (A.confidence.orientation === 'low') reason = 'orientation_unsure';
   else if (!A.full_unit_visible) reason = 'not_fully_visible';
@@ -649,11 +655,11 @@ export async function createXray(container, opts = {}) {
 
   // ---------------------------------------------------------------- fit check
   function boxPx(pd) { const b = S.A.box; return { x0: Math.round(b.x * pd.w), y0: Math.round(b.y * pd.h), x1: Math.round((b.x + b.w) * pd.w), y1: Math.round((b.y + b.h) * pd.h) }; }
-  function renderSilhouette(w, h) {
+  function renderSilhouette(w, h, all) {
     const rt = new THREE.WebGLRenderTarget(w, h);
     const keep = new Map(); const body = new Set(); S.entry.body.forEach(n => under(n).forEach(m => body.add(m)));
     const white = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
-    for (const m of S.meshes) { keep.set(m, [m.visible, m.material]); m.visible = body.has(m); m.material = white; }
+    for (const m of S.meshes) { keep.set(m, [m.visible, m.material]); m.visible = all ? m.visible && !/^ctx_|^qa_/.test(m.name) : body.has(m); m.material = white; }
     const hidden = []; S.particles.forEach(p => { if (p.mesh.visible) { hidden.push(p.mesh); p.mesh.visible = false; } });
     const save = { fov: camera.fov, aspect: camera.aspect, view: camera.view ? { ...camera.view } : null, pos: camera.position.clone(), q: camera.quaternion.clone() };
     const { pos, tgt } = poseCamera(S.pose);
@@ -671,6 +677,16 @@ export async function createXray(container, opts = {}) {
     if (save.view && save.view.enabled) camera.setViewOffset(save.view.fullWidth, save.view.fullHeight, save.view.offsetX, save.view.offsetY, save.view.width, save.view.height); else camera.clearViewOffset();
     camera.updateProjectionMatrix();
     return sil;
+  }
+  // a lid photo taken close up blows the tank under it past the photo (job photos 2026-11-07): when the drawn unit
+  // fills most of the picture, show it in 3D instead. Not 'runs off both sides': the inlet and outlet pipes do that
+  // on a good wide shot too (they run on to the house and the field).
+  function anchorFit() {
+    const pd = S.pd; const sil = renderSilhouette(pd.w, pd.h, true); const info = FIT.silhouetteInfo(sil, pd.w, pd.h); const b = info.box;
+    const across = b.x0 <= 1 && b.x1 >= pd.w - 2, tall = b.y0 <= 1 && b.y1 >= pd.h - 2, fill = info.n / (pd.w * pd.h);
+    const tooClose = info.n > 20 && fill > 0.45;
+    S.fit = { good: info.n > 20 && !tooClose, anchored: true, tooClose, fill: +fill.toFixed(3), across, tall };
+    emit('fit', S.fit); return S.fit;
   }
   function measureFit(search) {
     const t0 = performance.now();
@@ -701,7 +717,9 @@ export async function createXray(container, opts = {}) {
     const e4 = r.edges4;
     // a cabinet has door seams down its face, so a model can relax the middle rule (catalog fit.middle_max)
     const middleMax = (S.entry.fit && S.entry.fit.middle_max != null) ? S.entry.fit.middle_max : FIT_MIDDLE_MAX;
-    const good = info.n > 20 && r.edge >= FIT_EDGE_MIN && e4.sidesMin >= FIT_SIDE_EDGE_MIN && e4.capMax >= FIT_CAP_MIN && r.middleV <= middleMax && r.shape >= FIT_GOOD;
+    const good = info.n > 20 && r.edge >= FIT_EDGE_MIN && e4.sidesMin >= FIT_SIDE_EDGE_MIN && e4.capMax >= FIT_CAP_MIN && r.middleV <= middleMax && r.shape >= FIT_GOOD
+      // job photos 2026-11-07: a square condenser over a side-fan mini split scored on edges while far wider than the unit
+      && aspectRatio <= FIT_ASPECT_MAX;
     const r3 = v => v == null ? null : +v.toFixed(3);
     S.fit = { shape: +r.shape.toFixed(3), middleV: +r.middleV.toFixed(3), edge: +r.edge.toFixed(3), iou: r.iou == null ? null : +r.iou.toFixed(3), combined: +r.combined.toFixed(3), fgOk: S._fg.ok,
       sides: { left: r3(sc.left), right: r3(sc.right), top: r3(sc.top), bottom: r3(sc.bottom), weakest: r3(sc.weakest) },
@@ -887,8 +905,8 @@ export async function createXray(container, opts = {}) {
     if (overlay) {
       S.pose = initialPose(A); S.overlay = true; overlayParts(true); layout();
       // lids on the ground have no outline to check against: the anchor is the lid box itself
-      const f = choice.reason === 'anchored' ? (S.fit = { good: true, anchored: true }) : measureFit(true); mark('fit_done');
-      if (!f.good) { S.root.scale.set(1, 1, 1); overlayParts(false); overlay = false; S.choice = choice = { ...choice, mode: 'typical', reason: 'poor_fit' }; emit('choice', choice); }
+      const f = choice.reason === 'anchored' ? anchorFit() : measureFit(true); mark('fit_done');
+      if (!f.good) { S.root.scale.set(1, 1, 1); overlayParts(false); overlay = false; S.choice = choice = { ...choice, mode: 'typical', reason: f.tooClose ? 'too_close' : 'poor_fit' }; emit('choice', choice); }
     }
     wait.style.display = 'none';
     if (overlay) {
@@ -905,6 +923,8 @@ export async function createXray(container, opts = {}) {
       if (S.photoSize && A && A.box) await runScan(true); // scan the photo first so the moment still feels like an X-ray
       const why = choice.reason === 'orientation_not_modelled' ? 'We do not have a 3D model for this kind of install yet, ' :
         choice.reason === 'poor_fit' ? 'We could not line this up with your photo, ' :
+        choice.reason === 'too_close' ? 'Your photo is too close to fit the whole thing under it, ' :
+        choice.reason === 'no_lid_seen' ? 'We need a lid in the photo to line this up, ' :
         choice.reason === 'buried' ? 'Most of it is underground, ' : 'We could not match yours exactly, ';
       // picked from the X-Ray menu with no photo: nothing to apologise for
       setNote(!S.photoSize && choice.reason === 'host_chose' ? `This is ${typical} in 3D. Spin it, cut it open, and tap any part to see what it does.` : `${why}so this is ${typical} in 3D. It is not a scan of yours.`);
