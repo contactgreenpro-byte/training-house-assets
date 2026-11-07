@@ -76,8 +76,7 @@
         "inner_tank": "inner_tank_section",
         "water_volume": "water_volume_section",
         "air_intake": "air_intake_section",
-        "combustion_chamber": "combustion_chamber_section",
-        "flue": "flue_section"
+        "combustion_chamber": "combustion_chamber_section"
       },
       "section_hide": [
         "top_cover",
@@ -253,10 +252,6 @@
         "data_plate": [
           "Data label",
           "Lists the model, size and age of the heater."
-        ],
-        "gas_shutoff_valve": [
-          "Gas shutoff",
-          "The valve that turns gas off to the heater."
         ]
       },
       "card_prefix": {
@@ -623,9 +618,13 @@
           "key": "hx",
           "label": "Heat exchanger",
           "highlight": [
-            "heat_exchanger"
+            "heat_exchanger",
+            "hx_crack"
           ],
-          "say": "The heat exchanger keeps the flames and their exhaust apart from the air you breathe. Your technician checks it for cracks, because a crack could let exhaust into the airflow."
+          "say": "The heat exchanger keeps the flames and their exhaust apart from the air you breathe. Your technician checks it for cracks, because a crack could let exhaust into the airflow.",
+          "show": [
+            "hx_crack"
+          ]
         }
       ],
       "cards": {
@@ -768,18 +767,6 @@
         "supply_plenum": [
           "Supply plenum",
           "The box on top where the warm or cool air leaves for your ducts."
-        ],
-        "warm_air": [
-          "Warm air",
-          "Your home's air, warmed by the heat exchanger, on its way to the vents."
-        ],
-        "cool_air": [
-          "Moving air",
-          "Your home's air on its way through the coil and out to the vents."
-        ],
-        "return_air": [
-          "Return air",
-          "Air coming back from your home to be heated or cooled again."
         ]
       },
       "card_prefix": {
@@ -914,9 +901,12 @@
           "label": "Keep the coil clear",
           "loop": "fan_run_loop",
           "highlight": [
-            "condenser_coil"
+            "coil_dirty"
           ],
-          "say": "The coil wraps around the sides of the unit, and air has to pass through it freely. Keep plants, grass clippings and leaves about two feet away. A dirty or blocked coil makes the unit work harder and cool less."
+          "say": "The coil wraps around the sides of the unit, and air has to pass through it freely. Keep plants, grass clippings and leaves about two feet away. A dirty or blocked coil makes the unit work harder and cool less.",
+          "swap": {
+            "condenser_coil": "coil_dirty"
+          }
         },
         {
           "key": "disconnect",
@@ -1134,7 +1124,22 @@
           "highlight": [
             "filter"
           ],
-          "say": "The filter catches dust before it reaches the blower and the coil. A clogged filter starves the system of air, so it runs longer, and the coil can even freeze over. Check it every month or two."
+          "say": "The filter catches dust before it reaches the blower and the coil. Slide it out the way it went in, and match the arrow on the new one to the airflow. Check it every month or two."
+        },
+        {
+          "key": "starved",
+          "label": "Clogged filter",
+          "clip": "blower_starved",
+          "loop": "blower_starved_loop",
+          "show": [
+            "filter_dirty",
+            "coil_frozen"
+          ],
+          "highlight": [
+            "filter_dirty",
+            "coil_frozen"
+          ],
+          "say": "When the filter clogs, the blower cannot pull enough air across the cooling coil. The coil gets so cold that it can ice over, and the house stops cooling. Turn the system off, let the ice melt, and put in a clean filter. If it keeps freezing, call us."
         },
         {
           "key": "coil",
@@ -1358,11 +1363,14 @@
           "label": "Hard water",
           "highlight": [
             "heating_chambers",
-            "heating_elements",
+            "element_scale",
             "cold_service_port",
             "hot_service_port"
           ],
-          "say": "In hard water, minerals can coat the inside of the heating chambers. Scale makes the elements run hotter and wear out sooner. Where the water is hard, a technician can flush the heater through its service ports."
+          "say": "In hard water, minerals can coat the inside of the heating chambers. Scale makes the elements run hotter and wear out sooner. Where the water is hard, a technician can flush the heater through its service ports.",
+          "show": [
+            "element_scale"
+          ]
         },
         {
           "key": "screen",
@@ -2414,9 +2422,13 @@
           "label": "If it hums or stops",
           "highlight": [
             "jam_hex",
-            "reset_button"
+            "reset_button",
+            "jam_debris"
           ],
-          "say": "If it hums but does not spin, switch it off first. A hex key in the socket on the bottom turns the motor by hand to free a jam. If it shut itself off, wait a few minutes and press the red reset button on the bottom. Never reach inside."
+          "say": "If it hums but does not spin, switch it off first. A hex key in the socket on the bottom turns the motor by hand to free a jam. If it shut itself off, wait a few minutes and press the red reset button on the bottom. Never reach inside.",
+          "show": [
+            "jam_debris"
+          ]
         },
         {
           "key": "dishwasher",
@@ -2694,22 +2706,28 @@
           "label": "Running toilet",
           "clip": "trickle",
           "highlight": [
-            "flapper",
+            "flapper_bad",
             "tank_water",
             "float_cup"
           ],
-          "say": "If the flapper no longer seals, tank water slowly slips into the bowl. The level drops until the fill valve turns on by itself to top it up, which is the hiss you may hear at night. A worn flapper is the usual cause and an easy part to replace. A few drops of food coloring in the tank tell you: color in the bowl without a flush means a leak."
+          "say": "If the flapper no longer seals, tank water slowly slips into the bowl. The level drops until the fill valve turns on by itself to top it up, which is the hiss you may hear at night. A worn flapper is the usual cause and an easy part to replace. A few drops of food coloring in the tank tell you: color in the bowl without a flush means a leak.",
+          "swap": {
+            "flapper": "flapper_bad"
+          }
         },
         {
           "key": "weak",
           "label": "Weak flush",
           "clip": "flush_weak",
           "highlight": [
-            "chain",
+            "chain_loose",
             "flapper",
             "trip_lever"
           ],
-          "say": "If the chain has too much slack, the handle cannot lift the flapper all the way. It drops shut early and the bowl gets only part of the tank. A chain with just a little slack fixes it. A tank water level set too low gives a weak flush too."
+          "say": "If the chain has too much slack, the handle cannot lift the flapper all the way. It drops shut early and the bowl gets only part of the tank. A chain with just a little slack fixes it. A tank water level set too low gives a weak flush too.",
+          "swap": {
+            "chain": "chain_loose"
+          }
         },
         {
           "key": "fill",
@@ -3072,6 +3090,4498 @@
         "display_": "display_service",
         "cover_plate": "receptacle"
       }
+    },
+    "aerobic_septic": {
+      "file": "models/aerobic_septic.glb",
+      "title": "Aerobic septic system",
+      "typical": "a typical aerobic septic system",
+      "typical_only": true,
+      "hide": [
+        "^grass$",
+        "^grass_section$",
+        "^soil$",
+        "^soil_section$",
+        "^lid_aeration_cracked$",
+        "^lid_clarifier_cracked$",
+        "^pump_filter_dirty$",
+        "^alarm_lit$",
+        "^water_gray$",
+        "^water_gray_section$",
+        "^sludge_blanket$",
+        "^scum_layer$",
+        "^cleanout_backflow_cap$"
+      ],
+      "match": {
+        "category": [
+          "aerobic_septic"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "lid_aeration",
+        "lid_clarifier",
+        "riser_aeration",
+        "riser_clarifier",
+        "air_pump",
+        "pump_pad"
+      ],
+      "body_size": {
+        "width": 3.555,
+        "depth": 0.666,
+        "height": 0.297,
+        "x": 0.118,
+        "z": 0,
+        "y0": 0
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "shell": [
+        "tank",
+        "riser_aeration",
+        "riser_clarifier",
+        "lid_aeration",
+        "lid_clarifier",
+        "air_pump",
+        "pump_cover"
+      ],
+      "ghost_also": [
+        "chlorinator"
+      ],
+      "sections": {
+        "tank": "tank_section",
+        "baffle": "baffle_section",
+        "diffuser": "diffuser_section",
+        "water": "water_section",
+        "water_clarifier": "water_clarifier_section"
+      },
+      "section_hide": [],
+      "water": [
+        "water",
+        "water_section",
+        "water_clarifier",
+        "water_clarifier_section"
+      ],
+      "overlay_hide": [
+        "sewer_line",
+        "cleanout",
+        "cleanout_plug",
+        "power_cord"
+      ],
+      "heat": {
+        "clip": "aerate",
+        "loop": "aerate",
+        "say": "Wastewater from the house flows into the air chamber. The air pump in the yard blows air down to the bottom, where it bubbles up and keeps the water mixing, so helpful bacteria can break the waste down. The water then passes under a wall into the settling side, where leftover bits sink, and the clear water leaves past the chlorine tablets to the spray or drip field."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "chlorine",
+          "label": "Chlorine tablets",
+          "clip": "chlorinator_pull",
+          "highlight": [
+            "chlorinator",
+            "chlor_tablets"
+          ],
+          "say": "The water passes the chlorine tablets on its way out, which kills germs before it reaches the yard. Check the tablets about once a month and add more when they run low. Use only tablets made for septic chlorinators, never pool tablets."
+        },
+        {
+          "key": "air_filter",
+          "label": "Air pump filter",
+          "clip": "filter_cover_off",
+          "show": [
+            "pump_filter_dirty"
+          ],
+          "highlight": [
+            "pump_filter_dirty",
+            "pump_filter_cover"
+          ],
+          "say": "The air pump should run all day and night. It breathes through a small filter under the cover on top, and a dirty filter starves the tank of air. A filter like this one needs a rinse or a new one. Keep the pump plugged in, and call if it ever goes quiet."
+        },
+        {
+          "key": "alarm",
+          "label": "The alarm",
+          "clip": "high_water",
+          "show": [
+            "alarm_lit"
+          ],
+          "highlight": [
+            "float_switch",
+            "alarm_lit"
+          ],
+          "say": "A float in the tank rises if the water gets too high, and that turns on the alarm light on the air pump. It usually means something needs service, like a clog or a pump problem. Cut back on water use and call for service. The tank can hold some extra water until help arrives."
+        },
+        {
+          "key": "pumping",
+          "label": "Pumping",
+          "clip": "lid_aeration_off",
+          "show": [
+            "sludge_blanket",
+            "scum_layer"
+          ],
+          "highlight": [
+            "sludge_blanket",
+            "scum_layer"
+          ],
+          "say": "Over time, solids the bacteria cannot break down settle on the bottom, and a scum layer floats on top. A service technician checks these and has the tank pumped when they build up. Keeping wipes, grease and harsh cleaners out of the drains helps the bacteria and stretches the time between pumpings."
+        }
+      ],
+      "cards": {
+        "tank": [
+          "Treatment tank",
+          "A buried tank with two sides: an air chamber where bacteria break the waste down, and a settling side where the water clears."
+        ],
+        "water": [
+          "Air chamber",
+          "Wastewater is mixed with air here all the time. The air feeds helpful bacteria that break the waste down."
+        ],
+        "water_clarifier": [
+          "Settling side",
+          "Calm water where leftover bits sink, so only clear water leaves the tank."
+        ],
+        "baffle": [
+          "Divider wall",
+          "Separates the air chamber from the settling side. Water passes underneath it."
+        ],
+        "bubbles": [
+          "Air bubbles",
+          "Air from the pump rises through the water. It keeps the bacteria alive and the water mixing."
+        ],
+        "diffuser": [
+          "Air diffuser",
+          "A drilled pipe on the bottom of the air chamber. Air from the pump comes out of it as bubbles."
+        ],
+        "air_line": [
+          "Air line",
+          "Carries air from the pump down to the diffuser at the bottom of the tank."
+        ],
+        "airlift": [
+          "Return lift",
+          "A small pipe that uses air to lift floating bits from the settling side back into the air chamber to be treated again."
+        ],
+        "float_switch": [
+          "Alarm float",
+          "Floats on the water in the tank. If the water rises too high, it tips up and turns on the alarm."
+        ],
+        "float_cable": [
+          "Float cable",
+          "Connects the alarm float to the alarm on the air pump."
+        ],
+        "inlet": [
+          "Inlet",
+          "Where wastewater from the house enters the tank."
+        ],
+        "outlet": [
+          "Outlet",
+          "Where clear, treated water leaves the tank and heads to the chlorinator and the field."
+        ],
+        "chlorinator": [
+          "Chlorinator",
+          "A tube that holds chlorine tablets. Treated water flows past them and is cleaned of germs before it reaches the yard."
+        ],
+        "chlor_tablets": [
+          "Chlorine tablets",
+          "Slowly dissolve to kill germs. Check them about once a month, and use only tablets made for septic chlorinators."
+        ],
+        "chlorinator_cap": [
+          "Chlorinator cap",
+          "The cap at ground level. Lift it off to check and add tablets."
+        ],
+        "chlor_feed_tube": [
+          "Tablet tube",
+          "Holds the stack of tablets. Pull it up to see how many are left."
+        ],
+        "lid_aeration": [
+          "Air chamber lid",
+          "Opens over the air chamber for service. Keep it screwed down so children and pets stay safe."
+        ],
+        "lid_clarifier": [
+          "Settling side lid",
+          "Opens over the settling side for service. Keep it screwed down, and never reach or climb into a tank."
+        ],
+        "riser_aeration": [
+          "Riser",
+          "A tube that brings the tank opening up to the ground, so the tank can be checked and pumped without digging."
+        ],
+        "air_pump": [
+          "Air pump",
+          "Sits in the yard and pumps air into the tank all day and night. If it stops, the bacteria stop working, so keep it plugged in."
+        ],
+        "pump_cover": [
+          "Pump cover",
+          "Keeps weather off the pump's working parts."
+        ],
+        "pump_internals": [
+          "Pump inside",
+          "A small motor and rubber diaphragms that push air. They wear over the years and can be rebuilt or replaced."
+        ],
+        "pump_filter": [
+          "Air filter",
+          "Cleans the air the pump breathes in. Rinse or replace it when it looks dirty."
+        ],
+        "pump_filter_dirty": [
+          "Dirty filter",
+          "A clogged filter like this one chokes the pump, so the tank gets less air."
+        ],
+        "pump_filter_cover": [
+          "Filter cover",
+          "Lifts off the top of the pump to reach the air filter."
+        ],
+        "alarm_lit": [
+          "Alarm light",
+          "Comes on when the water in the tank is too high. Cut back on water use and call for service."
+        ],
+        "pump_pad": [
+          "Pump pad",
+          "A small base that keeps the air pump level and up off the wet ground."
+        ],
+        "pump_hose": [
+          "Pump hose",
+          "Connects the air pump to the buried air line."
+        ],
+        "air_line_ground": [
+          "Buried air line",
+          "Carries air underground from the pump to the tank."
+        ],
+        "power_cord": [
+          "Power cord",
+          "Brings power to the air pump. The pump needs power all the time to keep the system working."
+        ],
+        "sludge_blanket": [
+          "Sludge",
+          "Solids the bacteria cannot break down settle here. A technician checks the depth and has the tank pumped when it builds up."
+        ],
+        "scum_layer": [
+          "Scum layer",
+          "Grease and light bits floating on top. It is removed when the tank is pumped."
+        ],
+        "sewer_line": [
+          "Sewer line",
+          "Carries everything from the house drains to the tank."
+        ],
+        "cleanout": [
+          "Cleanout",
+          "A pipe up to the ground between the house and the tank. A plumber uses it to clear a clog in the sewer line."
+        ],
+        "cleanout_plug": [
+          "Cleanout cap",
+          "The screw cap on top of the cleanout. Keep it on tight."
+        ]
+      },
+      "card_prefix": {
+        "riser_": "riser_aeration",
+        "lid_aeration_": "lid_aeration",
+        "lid_clarifier_": "lid_clarifier"
+      }
+    },
+    "aerobic_septic_spray": {
+      "file": "models/aerobic_septic_spray.glb",
+      "title": "Aerobic septic with spray field",
+      "typical": "a typical aerobic septic system with a spray field",
+      "typical_only": true,
+      "hide": [
+        "^grip_",
+        "^grass$",
+        "^soil$",
+        "^soil_front$",
+        "^backfill$",
+        "^lid_buried$",
+        "^lid_cracked$",
+        "^diffuser_clogged$",
+        "^blower_air_filter_dirty$",
+        "^chlor_pool_tablets$",
+        "^cord_chafed$",
+        "^discharge_leak$",
+        "^float_tangled$",
+        "^intake_fouled$",
+        "^spray_pattern$",
+        "^spray_overlap$"
+      ],
+      "match": {
+        "category": [
+          "aerobic_septic"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 180,
+      "body": [
+        "lid_inlet",
+        "lid_aer",
+        "lid_pump",
+        "riser_inlet",
+        "riser_aer",
+        "riser_pump",
+        "blower"
+      ],
+      "body_size": {
+        "width": 3.032,
+        "depth": 2.245,
+        "height": 0.274,
+        "x": 0.006,
+        "z": 0.608,
+        "y0": 0
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "frame_parts": [
+        "TANK",
+        "AERATION",
+        "PUMP"
+      ],
+      "shell": [
+        "tank",
+        "riser_inlet",
+        "riser_aer",
+        "riser_pump",
+        "lid_inlet",
+        "lid_aer",
+        "lid_pump"
+      ],
+      "ghost_also": [
+        "chlor_feed_tube"
+      ],
+      "sections": {
+        "tank": "tank_section",
+        "lid_aer": "lid_aer_section",
+        "lid_inlet": "lid_inlet_section",
+        "lid_pump": "lid_pump_section",
+        "riser_aer": "riser_aer_section",
+        "riser_inlet": "riser_inlet_section",
+        "riser_pump": "riser_pump_section",
+        "bolts_aer": "bolts_aer_section",
+        "bolts_inlet": "bolts_inlet_section",
+        "bolts_pump": "bolts_pump_section",
+        "chlor_feed_tube": "chlor_feed_tube_section",
+        "chlor_tee_drop": "chlor_tee_drop_section",
+        "inlet": "inlet_section",
+        "inlet_boot": "inlet_boot_section",
+        "scum_inlet": "scum_inlet_section",
+        "sludge": "sludge_section",
+        "transfer": "transfer_section",
+        "water_aer": "water_aer_section",
+        "water_clar": "water_clar_section",
+        "water_inlet": "water_inlet_section",
+        "water_pump": "water_pump_section",
+        "bubbles": "bubbles_section"
+      },
+      "section_hide": [],
+      "water": [
+        "water_inlet",
+        "water_inlet_section",
+        "water_aer",
+        "water_aer_section",
+        "water_clar",
+        "water_clar_section",
+        "water_pump",
+        "water_pump_section"
+      ],
+      "overlay_hide": [
+        "inlet_stub",
+        "spray_line",
+        "blower_receptacle",
+        "surge_device",
+        "blower_cord"
+      ],
+      "heat": {
+        "clip": "aerate",
+        "loop": "aerate",
+        "also": [
+          "pump_run"
+        ],
+        "say": "Wastewater from the house first settles in the trash chamber, where solids sink and grease floats. In the middle chamber, air from the air pump bubbles up through the water so helpful bacteria can break the waste down. The water settles again, passes the chlorine tablets and collects in the pump chamber. When it fills, a float turns on the pump, which sends the water out to sprinkler heads in the yard."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "chlorine",
+          "label": "Chlorine tablets",
+          "clip": "chlorinator_pull",
+          "highlight": [
+            "chlor_feed_tube",
+            "chlor_tablets",
+            "chlor_tee_drop"
+          ],
+          "say": "On its way to the pump chamber, the water passes the chlorine tablets, which kill germs before it is sprayed in the yard. Check the tablets about once a month and add more when they run low. Use only tablets made for septic chlorinators, never pool tablets."
+        },
+        {
+          "key": "air_filter",
+          "label": "Air pump filter",
+          "clip": "blower_air_filter_off",
+          "show": [
+            "blower_air_filter_dirty"
+          ],
+          "highlight": [
+            "blower_air_filter_dirty",
+            "blower"
+          ],
+          "say": "The air pump should run all day and night. Without air, the bacteria stop working and the water leaving the tank is poorly treated and smelly. The pump breathes through a small filter under a cover, and a dirty one like this needs a rinse or a new one. Keep the pump plugged in, and call if it goes quiet."
+        },
+        {
+          "key": "pump",
+          "label": "Pump and float",
+          "clip": "float_test",
+          "highlight": [
+            "float_onoff",
+            "pump"
+          ],
+          "say": "As the pump chamber fills, the float rises and tips, and that turns the pump on. When the water drops, the float hangs back down and the pump shuts off. If the pump ever fails, the water keeps rising and the system's alarm lets you know. Cut back on water use and call for service."
+        },
+        {
+          "key": "pumping",
+          "label": "Pumping",
+          "clip": "lids_off",
+          "highlight": [
+            "sludge",
+            "scum_inlet"
+          ],
+          "say": "The trash chamber collects what the bacteria cannot break down, as sludge on the bottom and scum on top. A service technician checks these and has the tank pumped when they build up. Keeping wipes, grease and harsh cleaners out of the drains helps the bacteria and stretches the time between pumpings."
+        }
+      ],
+      "cards": {
+        "tank": [
+          "Treatment tank",
+          "A buried tank split into chambers: one to settle the trash out, one to treat with air, one to settle again, and one for the pump."
+        ],
+        "water_inlet": [
+          "Trash chamber",
+          "The first chamber. Solids sink and grease floats here, so they do not reach the air chamber."
+        ],
+        "water_aer": [
+          "Air chamber",
+          "Air is bubbled through the water here all the time. It feeds helpful bacteria that break the waste down."
+        ],
+        "water_clar": [
+          "Settling chamber",
+          "Calm water where leftover bits sink, so only clearer water moves on."
+        ],
+        "water_pump": [
+          "Pump chamber",
+          "Holds the treated water until there is enough to spray. Then the pump sends it out to the yard."
+        ],
+        "scum_inlet": [
+          "Scum layer",
+          "Grease and light bits floating in the trash chamber. They are removed when the tank is pumped."
+        ],
+        "sludge": [
+          "Sludge",
+          "Solids that settle on the bottom of the trash chamber. A technician checks the depth and has it pumped when it builds up."
+        ],
+        "inlet": [
+          "Inlet",
+          "Where wastewater from the house drops into the trash chamber."
+        ],
+        "inlet_boot": [
+          "Pipe seal",
+          "A rubber boot where the sewer pipe passes through the tank wall. It keeps ground water out and wastewater in."
+        ],
+        "inlet_stub": [
+          "Sewer line",
+          "Carries everything from the house drains to the tank."
+        ],
+        "lid_inlet": [
+          "Trash chamber lid",
+          "Opens over the trash chamber for checking and pumping."
+        ],
+        "lid_aer": [
+          "Air chamber lid",
+          "Opens over the air chamber for service."
+        ],
+        "lid_pump": [
+          "Pump chamber lid",
+          "Opens over the pump chamber, where the pump, float and chlorinator are reached."
+        ],
+        "riser_aer": [
+          "Riser",
+          "A tube that brings a tank opening up to the ground, so the tank can be checked and pumped without digging."
+        ],
+        "bolts_aer": [
+          "Lid screws",
+          "Hold each lid down so children and pets stay safe. Keep them in, and never reach or climb into a tank."
+        ],
+        "blower": [
+          "Air pump",
+          "Sits beside the tank and pumps air into it all day and night. If it stops, the bacteria stop working, so keep it plugged in."
+        ],
+        "blower_air_filter": [
+          "Air filter",
+          "Cleans the air the pump breathes in. Rinse or replace it when it looks dirty."
+        ],
+        "blower_air_filter_cover": [
+          "Filter cover",
+          "Opens to reach the air pump's filter."
+        ],
+        "blower_air_filter_dirty": [
+          "Dirty filter",
+          "A clogged filter like this one chokes the pump, so the tank gets less air."
+        ],
+        "air_line": [
+          "Air line",
+          "Carries air from the pump to the tank."
+        ],
+        "aeration_pipe": [
+          "Air drop",
+          "Carries air down to the bottom of the air chamber, where it comes out as bubbles."
+        ],
+        "bubbles": [
+          "Air bubbles",
+          "Air rising through the water. It keeps the bacteria alive and the water mixing."
+        ],
+        "blower_cord": [
+          "Power cord",
+          "Brings power to the air pump. The pump needs power all the time."
+        ],
+        "blower_receptacle": [
+          "Outdoor outlet",
+          "The weatherproof outlet on a post where the air pump plugs in."
+        ],
+        "surge_device": [
+          "Surge protector",
+          "Plugs in at the outlet and helps protect the air pump from power surges and lightning."
+        ],
+        "transfer": [
+          "Transfer pipe",
+          "Carries clear water from the settling chamber toward the pump chamber, past the chlorine tablets."
+        ],
+        "chlor_feed_tube": [
+          "Chlorinator",
+          "A tube that holds chlorine tablets. Pull it up from the lid to see how many are left."
+        ],
+        "chlor_tablets": [
+          "Chlorine tablets",
+          "Slowly dissolve to kill germs in the water before it is sprayed. Use only tablets made for septic chlorinators."
+        ],
+        "chlor_tee_drop": [
+          "Chlorinator tee",
+          "The fitting where water flows past the bottom of the tablets on its way to the pump chamber."
+        ],
+        "pump": [
+          "Spray pump",
+          "Sits at the bottom of the pump chamber and pushes the treated water out to the sprinkler heads."
+        ],
+        "float_onoff": [
+          "Pump float",
+          "Rises with the water. When it tips up, the pump turns on, and when it hangs down, the pump shuts off."
+        ],
+        "discharge_upper": [
+          "Pump pipe",
+          "Carries water from the pump out of the tank to the spray line."
+        ],
+        "union_nut": [
+          "Union",
+          "A threaded joint in the pump pipe, so a technician can lift the pump out for service."
+        ],
+        "spray_line": [
+          "Spray line",
+          "A buried pipe that carries treated water from the pump out to the sprinkler heads."
+        ],
+        "spray_head0": [
+          "Sprinkler head",
+          "Pops up and sprays treated water over the lawn, where grass and soil finish the job. Keep the heads clear of tall grass and do not drive over them."
+        ]
+      },
+      "card_prefix": {
+        "riser_": "riser_aer",
+        "bolts_": "bolts_aer",
+        "discharge_": "discharge_upper",
+        "union_": "union_nut",
+        "spray_head": "spray_head0",
+        "head_stem": "spray_head0",
+        "stream": "spray_head0"
+      }
+    },
+    "bath_sink": {
+      "file": "models/bath_sink.glb",
+      "title": "Bathroom sink",
+      "typical": "a typical bathroom sink and vanity",
+      "hide": [
+        "^grip_",
+        "^flowpath_vanity$",
+        "^cabinet_damage$",
+        "^trap_leak$",
+        "^stopper_gunk$",
+        "^aerator_scale$",
+        "^faucet_base_drip$",
+        "^stop_seep$",
+        "^supply_corroded$",
+        "^s_trap$",
+        "^floor$",
+        "^wall$"
+      ],
+      "match": {
+        "category": [
+          "sink"
+        ],
+        "subtype": [
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "cabinet",
+        "vanity_top",
+        "door_left",
+        "door_right"
+      ],
+      "body_size": {
+        "width": 0.788,
+        "depth": 0.579,
+        "height": 1.0,
+        "x": 0,
+        "z": -0.0235,
+        "y0": 0
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "shell": [
+        "cabinet",
+        "door_left",
+        "door_right",
+        "vanity_top"
+      ],
+      "ghost_also": [
+        "faucet"
+      ],
+      "sections": {
+        "vanity_top": "vanity_top_section",
+        "bowl_water": "bowl_water_section",
+        "popup_drain": "popup_drain_section",
+        "tailpiece": "tailpiece_section",
+        "j_bend": "j_bend_section",
+        "j_nut_in": "j_nut_in_section",
+        "j_washer_in": "j_washer_in_section",
+        "trap_water": "trap_water_section",
+        "trap_water_top": "trap_water_top_section"
+      },
+      "section_hide": [
+        "door_left",
+        "door_right"
+      ],
+      "overlay_hide": [
+        "mirror"
+      ],
+      "water": [
+        "bowl_water",
+        "bowl_water_section",
+        "trap_water",
+        "trap_water_section",
+        "trap_water_top",
+        "trap_water_top_section",
+        "water_stream"
+      ],
+      "heat": {
+        "clip": "hot_on",
+        "say": "Hot and cold come out of the wall through two small shutoff valves, then up flexible lines to the faucet. Each handle turns a cartridge that lets its water through. Used water runs down the drain, through the U shaped trap under the sink, and into the drain pipe in the wall."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "trap",
+          "label": "The P trap",
+          "clip": "doors_open",
+          "highlight": [
+            "j_bend",
+            "trap_water",
+            "p_trap_arm",
+            "j_nut_in",
+            "j_nut_out"
+          ],
+          "say": "The U shaped bend under the sink always holds a little water. That water is a seal that keeps sewer gas out of the room. Rings, earrings and caps that go down the drain usually stop here, and the nuts on each end unscrew by hand so it can come off."
+        },
+        {
+          "key": "popup",
+          "label": "Pop up drain",
+          "clip": "popup_lift",
+          "highlight": [
+            "lift_rod",
+            "clevis_strap",
+            "pivot_rod",
+            "stopper",
+            "popup_drain"
+          ],
+          "say": "The knob behind the faucet moves a rod under the sink, which tips a lever into the drain and moves the stopper. Pull the knob up to close the drain, push it down to open it. Hair and soap build up on the stopper over time and slow the sink. Lifting the stopper out and cleaning it often fixes a slow drain."
+        },
+        {
+          "key": "stops",
+          "label": "Shutoff valves",
+          "clip": "stops_off",
+          "highlight": [
+            "stop_hot_handle",
+            "stop_cold_handle",
+            "supply_hot",
+            "supply_cold"
+          ],
+          "say": "The two small valves on the wall under the sink turn off the hot and cold to this faucet only. Turn them off before working on the faucet, or if a supply line leaks. Valves that sit unused for years can stick or drip, so turning them now and then is worth it."
+        }
+      ],
+      "cards": {
+        "vanity_top": [
+          "Countertop and bowl",
+          "The top with the sink bowl molded in. The caulk where it meets the wall keeps splashes out of the cabinet."
+        ],
+        "cabinet": [
+          "Vanity cabinet",
+          "Holds up the top and hides the plumbing. A soft or stained cabinet floor often means a slow leak above it."
+        ],
+        "door_left": [
+          "Cabinet doors",
+          "Open them to reach the trap, the drain linkage and the shutoff valves."
+        ],
+        "mirror": [
+          "Mirror",
+          "Hangs on the wall above the vanity."
+        ],
+        "bowl_water": [
+          "Water in the bowl",
+          "Water from the faucet on its way down the drain."
+        ],
+        "faucet": [
+          "Faucet",
+          "Brings hot and cold together and pours from the spout. It is held to the top by nuts underneath."
+        ],
+        "handle_hot": [
+          "Hot handle",
+          "Turns the hot cartridge on and off."
+        ],
+        "handle_cold": [
+          "Cold handle",
+          "Turns the cold cartridge on and off."
+        ],
+        "cartridge_hot": [
+          "Hot cartridge",
+          "Opens and closes the hot water inside the faucet. A drip from the spout usually means a worn cartridge, and it can be replaced on its own."
+        ],
+        "cartridge_cold": [
+          "Cold cartridge",
+          "Opens and closes the cold water inside the faucet. A drip from the spout usually means a worn cartridge, and it can be replaced on its own."
+        ],
+        "bonnet_hot": [
+          "Cartridge nut",
+          "Holds the cartridge down in the faucet body, under the handle."
+        ],
+        "aerator": [
+          "Aerator",
+          "The small screen at the tip of the spout. It mixes air into the stream. Hard water and grit clog it, so unscrewing and rinsing it often fixes weak flow."
+        ],
+        "faucet_tubes": [
+          "Faucet inlets",
+          "Where the supply lines connect under the faucet."
+        ],
+        "mount_nut_hot": [
+          "Mounting nuts",
+          "Hold the faucet tight to the countertop. A faucet that wobbles needs these snugged up."
+        ],
+        "stopper": [
+          "Stopper",
+          "Moves up to let water drain and down to hold it in the bowl. Hair and soap collect on it."
+        ],
+        "lift_rod": [
+          "Lift rod",
+          "The knob behind the faucet. Pull it up to close the drain, push it down to open it."
+        ],
+        "clevis_strap": [
+          "Clevis strap",
+          "A metal strap with holes that joins the lift rod to the pivot rod. Moving the rod to another hole adjusts how far the stopper opens."
+        ],
+        "spring_clip": [
+          "Spring clip",
+          "Holds the pivot rod in the clevis strap's hole."
+        ],
+        "pivot_rod": [
+          "Pivot rod",
+          "A rod that goes into the side of the drain and pushes the stopper up and down."
+        ],
+        "pivot_nut": [
+          "Pivot nut",
+          "Seals the spot where the pivot rod enters the drain. A drip here is common and a snug turn often stops it."
+        ],
+        "popup_drain": [
+          "Drain body",
+          "The drain fitting in the bottom of the bowl that the stopper sits in."
+        ],
+        "tailpiece": [
+          "Tailpiece",
+          "The straight pipe from the drain body down to the trap."
+        ],
+        "j_bend": [
+          "P trap",
+          "The U shaped bend under the sink. It holds water that keeps sewer gas out, and it is where dropped rings usually stop."
+        ],
+        "trap_water": [
+          "Trap water",
+          "The water that always sits in the trap. If a sink is not used for months it can dry out and let sewer smell in; running the water refills it."
+        ],
+        "j_nut_in": [
+          "Slip nuts",
+          "Hand tight nuts with washers inside that seal each end of the trap. They let the trap come off without tools."
+        ],
+        "p_trap_arm": [
+          "Trap arm",
+          "The pipe from the trap back to the drain in the wall."
+        ],
+        "wall_stub": [
+          "Drain in the wall",
+          "Where the sink drain joins the house drain pipe."
+        ],
+        "drain_escutcheon": [
+          "Drain cover plate",
+          "A trim ring that covers the hole where the drain pipe comes out of the wall."
+        ],
+        "stop_hot": [
+          "Hot shutoff valve",
+          "Turns off hot water to this faucet only. Turn the handle clockwise to close it."
+        ],
+        "stop_cold": [
+          "Cold shutoff valve",
+          "Turns off cold water to this faucet only. Turn the handle clockwise to close it."
+        ],
+        "supply_hot": [
+          "Hot supply line",
+          "The flexible hose from the shutoff valve up to the faucet. Many last years, but a bulging, kinked or rusty one is worth replacing before it leaks."
+        ],
+        "supply_cold": [
+          "Cold supply line",
+          "The flexible hose from the shutoff valve up to the faucet. Many last years, but a bulging, kinked or rusty one is worth replacing before it leaks."
+        ]
+      },
+      "card_prefix": {
+        "door_": "door_left",
+        "bonnet_": "bonnet_hot",
+        "mount_nut": "mount_nut_hot",
+        "handle_screw_hot": "handle_hot",
+        "handle_screw_cold": "handle_cold",
+        "j_nut": "j_nut_in",
+        "j_washer": "j_nut_in",
+        "p_trap_arm_washer": "p_trap_arm",
+        "pivot_seal": "pivot_nut",
+        "stop_hot": "stop_hot",
+        "stop_cold": "stop_cold",
+        "trap_water": "trap_water"
+      }
+    },
+    "condensate_pump": {
+      "file": "models/condensate_pump.glb",
+      "title": "Condensate pump",
+      "typical": "a typical condensate pump",
+      "hide": [
+        "^grip_",
+        "^float_stuck$",
+        "^puddle$",
+        "^water_full$"
+      ],
+      "match": {
+        "category": [
+          "condensate_pump"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": -90,
+      "body": [
+        "reservoir",
+        "lid"
+      ],
+      "body_size": {
+        "width": 0.132,
+        "depth": 0.28,
+        "height": 0.182,
+        "x": -0.315,
+        "z": -0.42,
+        "y0": 0.61
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "frame_parts": [
+        "reservoir",
+        "lid",
+        "check_valve",
+        "inlet_hose_end",
+        "discharge_clamp"
+      ],
+      "shell": [
+        "reservoir",
+        "lid"
+      ],
+      "section_hide": [
+        "lid",
+        "reservoir"
+      ],
+      "water": [
+        "reservoir_water",
+        "water_rise",
+        "water_full"
+      ],
+      "overlay_hide": [
+        "discharge_tube",
+        "discharge_stub",
+        "tube_clips",
+        "inlet_hose",
+        "inlet_clamp",
+        "power_cord",
+        "receptacle",
+        "safety_leads"
+      ],
+      "heat": {
+        "clip": "pump_run",
+        "loop": "pump_run_loop",
+        "also": [],
+        "say": "When your air conditioner or furnace runs, it makes water. The water runs down a hose into this small tank. As it rises, a float turns the pump on, and the pump pushes the water up the tube to a drain. A check valve keeps it from running back down."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "float",
+          "label": "Stuck float",
+          "clip": "float_stuck",
+          "show": [
+            "float_stuck",
+            "puddle",
+            "water_full"
+          ],
+          "highlight": [
+            "float_stuck",
+            "float_safety"
+          ],
+          "say": "Slime and algae can stick the float, so the pump never turns on. The water keeps rising. A second float can shut the cooling off before it spills, if it is wired in. If not, the tank overflows. A puddle or a water stain by the pump is a sign it needs a look."
+        },
+        {
+          "key": "clean",
+          "label": "Keeping it clean",
+          "clip": "lid_off",
+          "highlight": [
+            "reservoir",
+            "float"
+          ],
+          "say": "Slime builds up in the tank over time. About once a year, with the pump unplugged, the lid lifts off so the tank and float can be rinsed clean. A clean tank keeps the float moving freely."
+        },
+        {
+          "key": "line",
+          "label": "The drain tube",
+          "loop": "pump_run_loop",
+          "highlight": [
+            "check_valve",
+            "discharge_tube_run"
+          ],
+          "say": "The tube carries the water away, often up a wall and across the ceiling. If it kinks or clogs, or the check valve sticks, the pump runs but the water cannot leave. A pump that runs a long time without the water dropping is worth a check."
+        }
+      ],
+      "cards": {
+        "reservoir": [
+          "Tank",
+          "A small tank that collects the water from your cooling coil or furnace."
+        ],
+        "lid": [
+          "Pump lid",
+          "Holds the motor, pump and floats. It lifts off for cleaning."
+        ],
+        "float": [
+          "Float",
+          "Rises with the water and turns the pump on, then drops and turns it off."
+        ],
+        "float_safety": [
+          "Safety float",
+          "Sits higher than the main float. If the water gets too high, it can shut the cooling off before the tank spills."
+        ],
+        "float_stuck": [
+          "Stuck float",
+          "A float held down by slime or algae. The pump never starts and the water keeps rising."
+        ],
+        "impeller": [
+          "Pump",
+          "A small spinning wheel that pushes the water up the tube."
+        ],
+        "motor_fan": [
+          "Motor fan",
+          "Keeps the small motor cool while it runs."
+        ],
+        "check_valve": [
+          "Check valve",
+          "Lets water out to the tube and keeps it from running back into the tank."
+        ],
+        "discharge_tube": [
+          "Drain tube",
+          "Carries the water away to a drain. Keep it free of kinks."
+        ],
+        "discharge_clamp": [
+          "Tube clamp",
+          "Holds the drain tube on the check valve."
+        ],
+        "tube_clips": [
+          "Tube clips",
+          "Hold the drain tube against the wall along its run."
+        ],
+        "discharge_stub": [
+          "Tube end",
+          "Where the drain tube leaves the room for the drain."
+        ],
+        "inlet_hose": [
+          "Inlet hose",
+          "Brings the water from the cooling coil drain into the tank."
+        ],
+        "inlet_clamp": [
+          "Hose clamp",
+          "Holds the inlet hose on the drain fitting."
+        ],
+        "power_cord": [
+          "Power cord",
+          "Plugs into a nearby outlet. The pump needs power to work."
+        ],
+        "receptacle": [
+          "Wall outlet",
+          "Where the pump plugs in."
+        ],
+        "safety_leads": [
+          "Safety switch wires",
+          "Connect the safety float to the cooling controls, so a full tank can turn the cooling off."
+        ],
+        "reservoir_water": [
+          "Water",
+          "Water from the coil, waiting for the float to rise."
+        ],
+        "water_rise": [
+          "Water rising",
+          "As the water rises, it lifts the float until the pump starts."
+        ],
+        "puddle": [
+          "Overflow",
+          "Water that spilled out of a full tank."
+        ],
+        "flow_packets": [
+          "Water on its way",
+          "Water pushed up the tube to the drain."
+        ]
+      },
+      "card_prefix": {
+        "discharge_tube": "discharge_tube",
+        "inlet_hose": "inlet_hose",
+        "power_cord": "power_cord",
+        "safety_": "safety_leads",
+        "water_full": "reservoir_water"
+      }
+    },
+    "erv": {
+      "file": "models/erv.glb",
+      "title": "Fresh air exchanger (ERV)",
+      "typical": "a typical fresh air exchanger, also called an ERV",
+      "hide": [
+        "^core_clogged$",
+        "^filters_dirty$",
+        "^grip_"
+      ],
+      "match": {
+        "category": [
+          "erv"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "ceiling_hung",
+          "wall_hung",
+          "upright",
+          "unknown"
+        ]
+      },
+      "body": [
+        "cabinet",
+        "door"
+      ],
+      "body_size": {
+        "width": 0.572,
+        "depth": 0.507,
+        "height": 0.324,
+        "x": -5.92,
+        "z": -0.5215,
+        "y0": 0.542
+      },
+      "front_deg": 0,
+      "fit": {
+        "middle_max": 1
+      },
+      "shell": [
+        "cabinet",
+        "door",
+        "electrical_drawer"
+      ],
+      "ghost_also": [
+        "blower_housings"
+      ],
+      "section_hide": [
+        "cabinet",
+        "door"
+      ],
+      "heat": {
+        "clip": "ventilate",
+        "loop": "ventilate_loop",
+        "also": [],
+        "say": "One fan pulls stale air out of your home and sends it outside. A second fan brings the same amount of fresh outdoor air in. Both streams pass through the core, where the outgoing air hands its heat or coolness and some moisture to the incoming air, without the two ever mixing. You get fresh air without throwing away much of what you paid to heat or cool."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it breathes"
+        },
+        {
+          "key": "core",
+          "label": "Filters and core",
+          "clip": "core_pull",
+          "highlight": [
+            "core",
+            "core_filters"
+          ],
+          "say": "Open the door and the core slides out. Filters on the core catch dust and pollen before they reach it. Many makers suggest checking the filters every few months and washing or replacing them. Follow the manual for cleaning the core itself."
+        },
+        {
+          "key": "dirty",
+          "label": "Clogged filters",
+          "clip": "core_dirty",
+          "show": [
+            "core_clogged",
+            "filters_dirty"
+          ],
+          "highlight": [
+            "core_clogged",
+            "filters_dirty"
+          ],
+          "say": "Dusty filters and a dirty core choke the airflow. The unit still runs but moves much less fresh air, and the house can feel stuffy. Clean filters bring it back."
+        },
+        {
+          "key": "fans",
+          "label": "Two fans",
+          "loop": "ventilate_loop",
+          "highlight": [
+            "blower_supply_wheel",
+            "blower_exhaust_wheel"
+          ],
+          "say": "There are two fans, one for each stream of air. They move about the same amount, so the house is not pushed or pulled out of balance. If one stops, the unit can no longer trade air the right way."
+        }
+      ],
+      "cards": {
+        "cabinet": [
+          "Cabinet",
+          "The insulated box that holds the core, the fans and the controls."
+        ],
+        "door": [
+          "Access door",
+          "Opens so the filters and core can come out for cleaning."
+        ],
+        "core": [
+          "Core",
+          "Thin layers that let the outgoing air warm or cool the incoming air, and pass along some moisture, without the air mixing."
+        ],
+        "core_filters": [
+          "Filters",
+          "Catch dust and pollen before the air reaches the core. Check them every few months."
+        ],
+        "core_clogged": [
+          "Dirty core",
+          "Dust built up in the core. Air moves slowly through it."
+        ],
+        "filters_dirty": [
+          "Clogged filters",
+          "Filters full of dust. They choke the airflow until they are cleaned or replaced."
+        ],
+        "blower_supply_wheel": [
+          "Fresh air fan",
+          "Brings fresh outdoor air in and sends it to your home."
+        ],
+        "blower_exhaust_wheel": [
+          "Stale air fan",
+          "Pulls stale air from your home and sends it outside."
+        ],
+        "blower_housings": [
+          "Fan housings",
+          "The shells around the two fans that guide the air."
+        ],
+        "electrical_drawer": [
+          "Electrical box",
+          "Holds the unit's controls and wiring. Leave it to a technician."
+        ],
+        "terminal_block": [
+          "Wiring terminals",
+          "Where the control wires connect to the unit."
+        ],
+        "control_button": [
+          "Button",
+          "A button on the unit, often used to switch it on or reset it."
+        ],
+        "control_led": [
+          "Light",
+          "Shows the unit has power. Some blink a code when something needs attention."
+        ],
+        "port_fresh_in": [
+          "Fresh air in",
+          "The collar where fresh outdoor air enters the unit."
+        ],
+        "port_exhaust_out": [
+          "Stale air out",
+          "The collar where stale air leaves the unit on its way outside."
+        ],
+        "port_stale_in": [
+          "Stale air in",
+          "The collar where stale air from your home enters the unit."
+        ],
+        "port_supply_out": [
+          "Fresh air out",
+          "The collar where fresh air leaves the unit on its way into your home."
+        ],
+        "duct_fresh_in": [
+          "Fresh air duct",
+          "Brings outdoor air from the hood on the wall to the unit."
+        ],
+        "duct_exhaust_out": [
+          "Exhaust duct",
+          "Carries stale air from the unit up and out through the roof."
+        ],
+        "duct_stale_in": [
+          "Stale air duct",
+          "Brings stale air from a grille in the house to the unit."
+        ],
+        "duct_supply_out": [
+          "Fresh air supply duct",
+          "Carries fresh air from the unit to your home's duct system."
+        ],
+        "supply_takeoff": [
+          "Fresh air connection",
+          "Where the fresh air joins your home's ducts, so it is spread to the rooms."
+        ],
+        "grille_stale": [
+          "Stale air grille",
+          "A grille in the ceiling where stale air is pulled out of the house. Keep it dusted."
+        ],
+        "hood_intake": [
+          "Fresh air hood",
+          "Where outdoor air comes in. Keep it clear of leaves, nests and lint."
+        ],
+        "hood_exhaust": [
+          "Exhaust hood",
+          "Where stale air leaves the house."
+        ],
+        "hangers": [
+          "Hangers",
+          "Hold the unit up from the framing above."
+        ],
+        "wall_control": [
+          "Wall control",
+          "Turns the unit on and sets how much it runs."
+        ],
+        "control_cable": [
+          "Control wire",
+          "Connects the wall control to the unit."
+        ],
+        "interlock_cable": [
+          "Air handler link",
+          "A thin wire to the air handler, so the home's blower can run along with it and spread the fresh air."
+        ],
+        "power_cord": [
+          "Power cord",
+          "Plugs the unit into its outlet."
+        ],
+        "receptacle": [
+          "Outlet",
+          "The outlet the unit plugs into."
+        ],
+        "feed_cable": [
+          "Power feed",
+          "Brings power to the unit's outlet."
+        ],
+        "fresh_packet_00": [
+          "Fresh air",
+          "Outdoor air on its way in, warmed or cooled by the core first."
+        ],
+        "stale_packet_00": [
+          "Stale air",
+          "Indoor air on its way out of the house."
+        ]
+      },
+      "card_prefix": {
+        "fresh_packet_": "fresh_packet_00",
+        "stale_packet_": "stale_packet_00",
+        "interlock_cable": "interlock_cable",
+        "receptacle_strut": "receptacle"
+      },
+      "overlay_hide": [
+        "duct_fresh_in",
+        "duct_exhaust_out",
+        "duct_stale_in",
+        "duct_supply_out",
+        "supply_takeoff",
+        "grille_stale",
+        "hood_intake",
+        "hood_exhaust",
+        "hangers",
+        "wall_control",
+        "control_cable",
+        "interlock_cable",
+        "interlock_cable_ahu",
+        "feed_cable",
+        "receptacle",
+        "receptacle_strut"
+      ],
+      "frame_parts": [
+        "cabinet",
+        "door",
+        "port_fresh_in",
+        "port_exhaust_out",
+        "port_stale_in",
+        "port_supply_out"
+      ]
+    },
+    "heat_pump": {
+      "file": "models/heat_pump.glb",
+      "title": "Heat pump outdoor unit",
+      "typical": "a typical heat pump outdoor unit",
+      "hide": [
+        "^capacitor_bulged$",
+        "^contactor_pitted$",
+        "^coil_dirty$",
+        "^disconnect_scorch$",
+        "^lineset_insulation_rotted$",
+        "^hole_",
+        "^top_hole$",
+        "^control_box_hollow$",
+        "^stat_spare_",
+        "^grip_"
+      ],
+      "match": {
+        "category": [
+          "hvac_condenser"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "body": [
+        "base_pan",
+        "louver_front",
+        "louver_back",
+        "louver_left",
+        "louver_right",
+        "control_panel_cover",
+        "service_pocket",
+        "top_band",
+        "top_cap"
+      ],
+      "body_size": {
+        "width": 0.898,
+        "depth": 0.906,
+        "height": 0.924,
+        "x": 0.001,
+        "z": 0.629,
+        "y0": 0.08
+      },
+      "front_deg": 0,
+      "fit": {
+        "middle_max": 1
+      },
+      "shell": [
+        "louver_front",
+        "louver_back",
+        "louver_left",
+        "louver_right",
+        "control_panel_cover",
+        "service_pocket",
+        "top_band",
+        "top_cap",
+        "fan_grille",
+        "data_plate",
+        "warning_label",
+        "disconnect_cover"
+      ],
+      "ghost_also": [
+        "sound_jacket"
+      ],
+      "section_hide": [
+        "louver_front",
+        "louver_right",
+        "control_panel_cover",
+        "service_pocket",
+        "top_band",
+        "top_cap",
+        "fan_grille",
+        "data_plate",
+        "warning_label"
+      ],
+      "heat": {
+        "clip": "fan_run",
+        "loop": "fan_run_loop",
+        "also": [],
+        "say": "A heat pump moves heat instead of making it. In summer it carries heat out of your home, and the fan blows it out the top. In winter a valve inside flips the flow, so the outdoor coil pulls heat from the outdoor air, even cold air, and sends it inside. The same compressor and fan do both jobs."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it heats and cools"
+        },
+        {
+          "key": "defrost",
+          "label": "Defrost in winter",
+          "highlight": [
+            "reversing_valve",
+            "defrost_board"
+          ],
+          "say": "On cold, damp days frost builds up on the outdoor coil. Every so often the unit switches to defrost. The valve flips for a few minutes, the fan stops, and the coil warms up to melt the ice. You may hear a whoosh and see steam. That is normal. Ice that stays thick for hours is worth a call."
+        },
+        {
+          "key": "coil",
+          "label": "Keep the coil clear",
+          "loop": "fan_run_loop",
+          "show": [
+            "coil_dirty"
+          ],
+          "highlight": [
+            "coil_dirty"
+          ],
+          "say": "Air has to pass freely through the coil on the sides, summer and winter. Keep plants, leaves and grass clippings about two feet away, and keep the top clear. A dirty or blocked coil makes the unit work harder and heat and cool less."
+        },
+        {
+          "key": "capacitor",
+          "label": "The capacitor",
+          "clip": "panel_off",
+          "show": [
+            "capacitor_bulged"
+          ],
+          "highlight": [
+            "capacitor_bulged"
+          ],
+          "say": "The capacitor gives the compressor and the fan motor a strong push to start. It is one of the parts that wears out most often, and a worn one can swell on top like this. If the fan will not spin or the unit just hums, it is one of the first things a technician checks. It holds a charge, so it is a job for a technician."
+        },
+        {
+          "key": "inside",
+          "label": "The compressor",
+          "clip": "shell_off",
+          "highlight": [
+            "compressor",
+            "sound_jacket",
+            "crankcase_heater"
+          ],
+          "say": "With the sides off you can see the compressor, the pump that moves the refrigerant around. A padded jacket around it keeps it quieter. A small heater band keeps it warm in cold weather so it starts easily."
+        }
+      ],
+      "cards": {
+        "base_pan": [
+          "Base pan",
+          "The metal floor of the unit. The compressor and coil sit on it."
+        ],
+        "louver_front": [
+          "Coil guard",
+          "The slotted side panels. They protect the coil and let air pass through."
+        ],
+        "control_panel_cover": [
+          "Service panel",
+          "Covers the electrical parts in the corner. Only a technician should open it."
+        ],
+        "service_pocket": [
+          "Service corner",
+          "The lower corner panel. The copper lines and wires come in behind it."
+        ],
+        "data_plate": [
+          "Data label",
+          "Lists the model, size and age of the unit."
+        ],
+        "top_cap": [
+          "Top cover",
+          "The top of the cabinet. The fan and its guard sit in it."
+        ],
+        "fan_grille": [
+          "Fan guard",
+          "The grille on top that keeps hands and debris out of the fan."
+        ],
+        "fan": [
+          "Fan",
+          "Pulls outdoor air through the coil and blows it out the top."
+        ],
+        "fan_motor": [
+          "Fan motor",
+          "Turns the fan. If the fan stops, the unit cannot trade heat with the outdoor air."
+        ],
+        "compressor": [
+          "Compressor",
+          "The heart of the system. It pumps the refrigerant around, for heating and for cooling."
+        ],
+        "sound_jacket": [
+          "Sound jacket",
+          "A padded blanket around the compressor that keeps it quieter."
+        ],
+        "crankcase_heater": [
+          "Compressor heater",
+          "A small heater band that keeps the compressor warm in cold weather so it starts easily."
+        ],
+        "compressor_terminal_cover": [
+          "Compressor wiring",
+          "A cover over the spot where the power wires connect to the compressor."
+        ],
+        "condenser_coil": [
+          "Outdoor coil",
+          "Rows of thin metal fins around copper tubing. It gives off heat in summer and gathers heat in winter. Keep it clean and clear."
+        ],
+        "reversing_valve": [
+          "Reversing valve",
+          "Flips the direction the refrigerant flows. That is what lets the same unit heat or cool your home."
+        ],
+        "accumulator": [
+          "Accumulator",
+          "A tank that catches liquid refrigerant before it can reach the compressor. It protects the compressor, most of all when heating."
+        ],
+        "filter_drier": [
+          "Filter drier",
+          "A small canister that catches moisture and grit in the refrigerant."
+        ],
+        "pressure_switches": [
+          "Safety switches",
+          "Shut the unit off if the refrigerant pressure gets too high or too low."
+        ],
+        "refrigerant_lines": [
+          "Refrigerant lines",
+          "Copper tubing that carries the refrigerant between the compressor, the coil, the valve and the house."
+        ],
+        "service_valves": [
+          "Service valves",
+          "Where the copper lines from the house connect. Technicians check the refrigerant here."
+        ],
+        "capacitor": [
+          "Capacitor",
+          "Gives the compressor and fan motor a strong push to start. A common part to wear out. It holds a charge, so leave it to a technician."
+        ],
+        "capacitor_bulged": [
+          "Swollen capacitor",
+          "A worn capacitor can swell on top. The unit may hum and not start. A technician replaces it."
+        ],
+        "contactor": [
+          "Contactor",
+          "A switch the thermostat controls. It turns the compressor and fan on and off."
+        ],
+        "defrost_board": [
+          "Defrost control",
+          "A small circuit board that decides when the coil needs to defrost in winter, then runs the defrost."
+        ],
+        "control_box": [
+          "Control box",
+          "Holds the electrical parts that start and run the unit."
+        ],
+        "control_wiring": [
+          "Wiring",
+          "Wires that connect the controls to the compressor, the fan and the valve."
+        ],
+        "coil_dirty": [
+          "Dirty coil",
+          "Dirt, grass and leaves packed into the fins. Air cannot get through, so the unit works harder."
+        ],
+        "disconnect": [
+          "Power disconnect",
+          "A box on the wall near the unit. Pulling out the block inside cuts the power to the unit for service."
+        ],
+        "disconnect_pullout": [
+          "Disconnect pullout",
+          "The removable block inside the disconnect. Out means the unit has no power."
+        ],
+        "whip": [
+          "Power cable",
+          "The flexible conduit that brings power from the disconnect to the unit."
+        ],
+        "lineset": [
+          "Lines to the house",
+          "Two copper lines run between this unit and the indoor unit. The bigger one wears foam insulation. Cracked or missing foam is worth replacing."
+        ],
+        "lineset_wall_plate": [
+          "Wall cover",
+          "Covers the hole where the copper lines go through the wall."
+        ],
+        "thermostat_wire": [
+          "Thermostat wire",
+          "A thin wire that carries the thermostat's signals to the unit."
+        ],
+        "pad": [
+          "Pad",
+          "The flat base the unit sits on. It keeps the unit level and up off the ground."
+        ],
+        "heat_stream": [
+          "Air out",
+          "Air blown out the top. It is warm when the unit is cooling your home and cool when it is heating it. Keep a few feet clear above the unit."
+        ]
+      },
+      "card_prefix": {
+        "louver_": "louver_front",
+        "fan_motor": "fan_motor",
+        "cap_": "capacitor",
+        "comp_term_": "compressor_terminal_cover",
+        "fusite_plate": "compressor_terminal_cover",
+        "lineset_insulation": "lineset",
+        "feed_conduit": "whip"
+      },
+      "overlay_hide": [
+        "pad",
+        "whip",
+        "feed_conduit",
+        "disconnect",
+        "disconnect_cover",
+        "disconnect_pullout",
+        "lineset",
+        "lineset_insulation",
+        "lineset_wall_plate",
+        "thermostat_wire"
+      ]
+    },
+    "lift_station": {
+      "file": "models/lift_station.glb",
+      "title": "Sewer lift station",
+      "typical": "a typical sewer lift station with a grinder pump",
+      "typical_only": true,
+      "hide": [
+        "^grip_",
+        "^float_(on|off|alarm)_(dry|surface|wet)$",
+        "^water_(alarm|on|off)$",
+        "^alarm_lit$",
+        "^hoa_lever_(hand|off)$",
+        "^starter_knob_tripped$",
+        "^grease_mat$",
+        "^grass$",
+        "^soil$",
+        "^house_wall$"
+      ],
+      "match": {
+        "category": [
+          "lift_station"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "lid",
+        "vent"
+      ],
+      "body_size": {
+        "diameter": 0.69,
+        "height": 0.17,
+        "x": 0,
+        "z": 0,
+        "y0": 0
+      },
+      "frame_parts": [
+        "BASIN",
+        "PUMP"
+      ],
+      "overlay_hide": [
+        "conduit",
+        "control_panel",
+        "panel_door",
+        "disconnect",
+        "flex_conduit"
+      ],
+      "shell": [
+        "basin",
+        "riser",
+        "lid"
+      ],
+      "sections": {
+        "basin": "basin_section",
+        "riser": "riser_section",
+        "lid": "lid_section",
+        "inlet_grommet": "inlet_grommet_section",
+        "water_fill": "water_fill_section",
+        "soil": "soil_section",
+        "grass": "grass_section"
+      },
+      "water": [
+        "water_fill",
+        "water_fill_section",
+        "discharge_water"
+      ],
+      "heat": {
+        "clip": "pump_down",
+        "say": "Every drain in the house flows down to this basin. When the water lifts the middle float and tips it past its angle, the panel starts the grinder pump. It chops the waste fine and pushes it up a small pipe to the sewer. When the level drops and the bottom float tips back down, the pump stops."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "floats",
+          "label": "The floats",
+          "clip": "float_swing",
+          "highlight": [
+            "float_off",
+            "float_on",
+            "float_alarm"
+          ],
+          "say": "Three floats hang on cords at different heights. Each one rises with the water and only clicks its switch once it tips past its angle. The bottom one stops the pump, the middle one starts it, and the red one at the top sets off the high water alarm."
+        },
+        {
+          "key": "alarm",
+          "label": "If the alarm goes off",
+          "show": [
+            "alarm_lit"
+          ],
+          "highlight": [
+            "alarm_lit",
+            "float_alarm"
+          ],
+          "say": "The red light on the panel means the water rose to the top float, so the pump is not keeping up. Stop using water: hold the laundry, dishwasher, showers and flushing. Many panels also sound a buzzer with a silence switch, but the light stays on. Then call for service. The basin has some room left, which is your time to get help."
+        },
+        {
+          "key": "keep_out",
+          "label": "What to keep out",
+          "show": [
+            "grease_mat"
+          ],
+          "highlight": [
+            "grease_mat",
+            "pump",
+            "float_on"
+          ],
+          "say": "A grinder handles normal toilet and kitchen waste. Grease, wipes (even the flushable kind), paper towels and feminine products build up on the water, wrap the cutter and foul the floats. Keeping them out of every drain is the best thing you can do for it."
+        },
+        {
+          "key": "panel",
+          "label": "The control panel",
+          "clip": "panel_door_open",
+          "highlight": [
+            "hoa_switch",
+            "hoa_lever_auto",
+            "disconnect"
+          ],
+          "say": "The panel runs the pump from the floats. The switch inside normally sits on AUTO. There is live power in the box, so leave the inside to a technician. Keep the door latched and the station's breaker and disconnect switched on.",
+          "frame": [
+            "control_panel",
+            "panel_door",
+            "disconnect"
+          ]
+        }
+      ],
+      "cards": {
+        "basin": [
+          "Basin",
+          "A buried fiberglass tank that collects everything that drains from the house until the pump sends it on."
+        ],
+        "riser": [
+          "Riser",
+          "Extends the basin up to ground level so the cover sits at the surface."
+        ],
+        "lid": [
+          "Cover",
+          "Bolted down so no one can lift it or fall in. Keep it clear and never drive over it."
+        ],
+        "lid_bolts": [
+          "Cover bolts",
+          "Stainless bolts that hold the cover on. All of them should always be in."
+        ],
+        "vent": [
+          "Vent",
+          "Lets the basin breathe as the water rises and falls."
+        ],
+        "pump": [
+          "Grinder pump",
+          "Sits on the basin floor. A spinning cutter under it chops waste into a slurry so it can be pushed through a small pipe."
+        ],
+        "lift_chain": [
+          "Lift chain",
+          "Used to raise the pump out of the basin for service, so no one pulls it by its cord."
+        ],
+        "chain_hook": [
+          "Chain hook",
+          "Holds the top of the lift chain where it can be reached with the cover off."
+        ],
+        "discharge_riser": [
+          "Discharge pipe",
+          "Carries the ground waste up from the pump. It comes out with the pump."
+        ],
+        "discharge_water": [
+          "Water in the pipe",
+          "The check valve keeps this water held in the pipe between pump runs."
+        ],
+        "check_valve": [
+          "Check valve",
+          "Lets water go up and out, but stops what is in the outgoing pipe from draining back into the basin."
+        ],
+        "check_poppet": [
+          "Check valve flap",
+          "The spring loaded part inside the check valve that closes when the pump stops."
+        ],
+        "union_nut": [
+          "Union",
+          "A joint that unscrews by hand so the pump and its pipe can come out."
+        ],
+        "gate_valve": [
+          "Shutoff valve",
+          "Closes the outgoing pipe so a technician can work on the pump or check valve."
+        ],
+        "gate_handwheel": [
+          "Valve handle",
+          "Turns the shutoff valve. It should be left fully open."
+        ],
+        "discharge_run": [
+          "Outgoing pipe",
+          "Carries the pumped waste out through the basin wall."
+        ],
+        "force_main": [
+          "Force main",
+          "The small pressure pipe that takes the waste from the station to the sewer line or main."
+        ],
+        "sewer_line": [
+          "Sewer line from the house",
+          "Drains from the house flow downhill through this pipe into the basin."
+        ],
+        "cleanout": [
+          "Cleanout",
+          "A capped opening on the sewer line so a clog between the house and the basin can be cleared."
+        ],
+        "inflow": [
+          "Incoming water",
+          "Water arriving from the house drains."
+        ],
+        "inlet_grommet": [
+          "Inlet seal",
+          "A rubber seal where the sewer pipe enters the basin."
+        ],
+        "water_fill": [
+          "Basin water",
+          "Rises as the house drains and falls each time the pump runs."
+        ],
+        "float_off": [
+          "Off float",
+          "The lowest float. When the water drops and it tips back down, the pump stops."
+        ],
+        "float_on": [
+          "On float",
+          "The middle float. When the water lifts it past its angle, the pump starts."
+        ],
+        "float_alarm": [
+          "Alarm float",
+          "The red float at the top. If the water reaches it, the alarm light on the panel comes on."
+        ],
+        "float_weights": [
+          "Float cord weights",
+          "Small weights on the cords that keep each float at its set height."
+        ],
+        "cords": [
+          "Pump and float cords",
+          "Tied along the pipe and run to the panel through a conduit."
+        ],
+        "conduit": [
+          "Conduit",
+          "A pipe that protects the wires from the basin to the panel."
+        ],
+        "control_panel": [
+          "Control panel",
+          "Runs the pump from the floats and holds the alarm light. It is mounted where it can be seen."
+        ],
+        "panel_door": [
+          "Panel door",
+          "Keep it latched so rain stays out. Water inside the box is a common cause of panel trouble."
+        ],
+        "alarm_lit": [
+          "Alarm light",
+          "Lit means high water. Stop using water and call for service."
+        ],
+        "hoa_switch": [
+          "Off, hand, auto switch",
+          "Normally on AUTO so the floats run the pump. HAND is for a technician running it by hand."
+        ],
+        "hoa_lever_auto": [
+          "Switch on AUTO",
+          "The normal setting: the floats decide when the pump runs."
+        ],
+        "disconnect": [
+          "Disconnect",
+          "A shutoff near the station that cuts all power to it, for safe service."
+        ],
+        "motor_starter": [
+          "Motor protector",
+          "Shuts the pump off if it draws too much power. A technician checks why before resetting it."
+        ]
+      },
+      "card_prefix": {
+        "lid_bolt_": "lid_bolts",
+        "cords_": "cords",
+        "union_": "union_nut",
+        "gate_wedge": "gate_valve",
+        "flex_conduit": "disconnect",
+        "discharge_grommet": "discharge_run"
+      }
+    },
+    "media_filter": {
+      "file": "models/media_filter.glb",
+      "title": "Media filter cabinet",
+      "typical": "a typical media filter cabinet",
+      "hide": [
+        "^ah_unfold_",
+        "^grip_",
+        "^media_air_(clean|dusty)_"
+      ],
+      "match": {
+        "category": [
+          "media_filter"
+        ],
+        "subtype": [
+          "unknown"
+        ],
+        "orientation": [
+          "lying_horizontal",
+          "upright",
+          "unknown"
+        ]
+      },
+      "body": [
+        "ah_media_cabinet",
+        "ah_media_door"
+      ],
+      "body_size": {
+        "width": 0.72,
+        "depth": 0.209,
+        "height": 0.614,
+        "x": 0,
+        "z": 0.2016,
+        "y0": -0.222
+      },
+      "front_deg": 90,
+      "fit": {
+        "middle_max": 1
+      },
+      "shell": [
+        "ah_media_cabinet",
+        "ah_media_door"
+      ],
+      "ghost_also": [
+        "ah_media_transition",
+        "ah_media_transition_in",
+        "ah_media_tape"
+      ],
+      "section_hide": [
+        "ah_media_cabinet",
+        "ah_media_door"
+      ],
+      "heat": {
+        "clip": "media_flow",
+        "loop": "media_flow_loop",
+        "also": [],
+        "say": "Air coming back from your rooms passes through this cabinet on its way to the air handler. Inside, a thick pleated filter catches dust, pet hair and pollen. Because it is several inches deep, it has far more filter area than a thin filter, so it catches more and still lets the air through easily."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it filters"
+        },
+        {
+          "key": "change",
+          "label": "Changing the filter",
+          "clip": "media_pull",
+          "highlight": [
+            "ah_media_filter",
+            "ah_media_door"
+          ],
+          "say": "Open the door and the filter slides out. Slide the new one in with its arrow pointing the way the air moves. Many deep filters last about six to twelve months, sooner with pets or dusty work in the house. The label on the filter or the cabinet says what size to buy."
+        },
+        {
+          "key": "dirty",
+          "label": "A dirty filter",
+          "clip": "media_dirty",
+          "highlight": [
+            "media_loaded"
+          ],
+          "say": "A filter packed with dust holds the air back. The system runs longer, less air comes out the vents, and in summer the cooling coil can even ice over. If the filter looks gray all over, it is time for a new one."
+        },
+        {
+          "key": "clearance",
+          "label": "Room to reach it",
+          "clip": "door_clearance",
+          "highlight": [
+            "ah_media_clearance",
+            "ah_media_door"
+          ],
+          "say": "The filter comes out through the door, so it needs open room beside the cabinet. If boxes or framing block the door, the filter cannot be changed and it tends to get forgotten. Keep that space clear."
+        }
+      ],
+      "cards": {
+        "ah_media_cabinet": [
+          "Filter cabinet",
+          "The metal box that holds the deep filter between the return duct and the air handler."
+        ],
+        "ah_media_door": [
+          "Access door",
+          "Opens so the filter can slide out. Keep room clear in front of it."
+        ],
+        "ah_media_filter": [
+          "Media filter",
+          "A thick pleated filter, several inches deep. It catches dust, pet hair and pollen and lasts much longer than a thin filter."
+        ],
+        "ah_media_filter_frame": [
+          "Filter frame",
+          "Holds the pleats in shape and seals the filter against the cabinet."
+        ],
+        "media_loaded": [
+          "Dirty filter",
+          "A filter packed with dust. It holds the air back until it is replaced."
+        ],
+        "ah_media_transition": [
+          "Air handler side",
+          "Connects the cabinet to the air handler. Clean air leaves through here."
+        ],
+        "ah_media_transition_in": [
+          "Return air side",
+          "The duct bringing air back from your rooms connects here."
+        ],
+        "ah_media_tape": [
+          "Seal tape",
+          "Foil tape seals the joints so unfiltered air cannot sneak around the filter."
+        ],
+        "ah_media_supports": [
+          "Supports",
+          "Hold the cabinet up."
+        ],
+        "ah_media_test_port": [
+          "Test port",
+          "A small plugged hole. A technician measures the air pressure on each side of the filter to see how much it is holding the air back."
+        ],
+        "ah_media_arrow": [
+          "Airflow arrow",
+          "Shows which way the air moves, so a new filter goes in facing the right way."
+        ],
+        "ah_media_clearance": [
+          "Room to pull the filter",
+          "The open space the filter needs to slide out. Keep it clear."
+        ],
+        "ah_media_speck_00": [
+          "Dust",
+          "Dust, hair and pollen in the air. The filter catches it."
+        ]
+      },
+      "card_prefix": {
+        "ah_media_test_port": "ah_media_test_port",
+        "ah_media_speck_": "ah_media_speck_00",
+        "ah_media_tape_run": "ah_media_tape",
+        "ah_media_arrow": "ah_media_arrow"
+      },
+      "overlay_hide": [
+        "ah_media_supports"
+      ],
+      "frame_parts": [
+        "ah_media_cabinet",
+        "ah_media_door",
+        "ah_media_transition",
+        "ah_media_transition_in"
+      ]
+    },
+    "mixing_valve": {
+      "file": "models/mixing_valve.glb",
+      "title": "Mixing valve",
+      "typical": "a typical anti scald mixing valve on a water heater",
+      "match": {
+        "category": [
+          "mixing_valve"
+        ],
+        "subtype": [
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "hide": [
+        "^grip_",
+        "^rr_",
+        "^packets_(rr|aq|creep)",
+        "^mixed_drop$"
+      ],
+      "front_deg": -90,
+      "body": [
+        "tmv_body",
+        "tmv_unions",
+        "tmv_cap"
+      ],
+      "body_size": {
+        "width": 0.049,
+        "depth": 0.146,
+        "height": 0.159,
+        "x": -0.1,
+        "z": -0.031,
+        "y0": 1.561
+      },
+      "frame_parts": [
+        "tmv_valve",
+        "hot_line",
+        "cold_line",
+        "cold_tee",
+        "cold_check",
+        "mixed_line",
+        "tmv_recirc_pipe",
+        "tmv_recirc_pump",
+        "tmv_recirc_timer"
+      ],
+      "shell": [
+        "tmv_body",
+        "tmv_unions",
+        "tmv_bonnet",
+        "tmv_cap"
+      ],
+      "sections": {
+        "tmv_body": "tmv_body_section"
+      },
+      "section_hide": [
+        "tmv_unions",
+        "tmv_bonnet",
+        "tmv_bonnet_oring",
+        "tmv_cap",
+        "tmv_marks"
+      ],
+      "overlay_hide": [
+        "tmv_recirc_board",
+        "tmv_recirc_outlet",
+        "tmv_recirc_cord",
+        "tmv_recirc_pump",
+        "tmv_recirc_timer",
+        "tmv_recirc_unions"
+      ],
+      "heat": {
+        "clip": "mix",
+        "loop": "mix_loop",
+        "also": [],
+        "say": "Water leaves the tank hotter than you want at a tap. The mixing valve on top blends in just enough cold water so what reaches your faucets stays near 120 degrees. A heat sensing part inside moves a small shuttle to keep that balance, even when someone else turns on water."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it mixes"
+        },
+        {
+          "key": "why",
+          "label": "Why the tank runs hotter",
+          "clip": "set_temp",
+          "highlight": [
+            "tmv_cap",
+            "tmv_stem",
+            "tmv_marks"
+          ],
+          "say": "With the valve in place the tank can be kept around 145 degrees. That stores more usable hot water and helps keep germs from growing in the tank, while the valve keeps the taps at a safer 120. The setting is under the cap on top, and a technician checks it with a thermometer at a faucet."
+        },
+        {
+          "key": "scald",
+          "label": "When it wears out",
+          "clip": "scald",
+          "loop": "scald_loop",
+          "highlight": [
+            "element_failed",
+            "shuttle_stuck"
+          ],
+          "say": "If the heat sensing part wears out or the shuttle sticks, the valve stops mixing and tank hot water can come straight through. If the hot water at your taps suddenly feels hotter than usual, have the valve checked."
+        },
+        {
+          "key": "recirc",
+          "label": "Hot water faster",
+          "clip": "recirc_flow",
+          "loop": "recirc_flow_loop",
+          "show": [
+            "ctx_house_cold",
+            "ctx_house_hot_drop"
+          ],
+          "highlight": [
+            "tmv_recirc_pump"
+          ],
+          "say": "Some homes add a small pump right after the valve. It moves warm water out to the farthest sink, where a small valve lets it come back through the cold pipe to the heater. Hot water then reaches that faucet in seconds, instead of running down the drain while you wait."
+        },
+        {
+          "key": "timer",
+          "label": "The pump timer",
+          "clip": "timer_set",
+          "highlight": [
+            "tmv_recirc_timer"
+          ],
+          "say": "The timer runs the pump only at the times you usually want hot water, like mornings and evenings. Push in the tabs for those hours. Running it less saves power and keeps the tank from losing heat all day."
+        }
+      ],
+      "cards": {
+        "tmv_body": [
+          "Mixing valve",
+          "A brass valve that blends hot water from the tank with cold, so the water at your taps stays at a safe temperature."
+        ],
+        "tmv_cap": [
+          "Cap",
+          "Covers the setting. Lifting it lets a technician turn the temperature up or down."
+        ],
+        "tmv_stem": [
+          "Adjusting stem",
+          "Turned to set the temperature. A pointer reads against the scale under the cap."
+        ],
+        "tmv_marks": [
+          "Hot and cold marks",
+          "Show which side takes hot water from the tank, which takes cold, and where the mixed water leaves."
+        ],
+        "tmv_bonnet": [
+          "Bonnet",
+          "The top piece that holds the parts inside the valve. It comes off when the inside needs service."
+        ],
+        "tmv_element": [
+          "Heat sensing element",
+          "Grows and shrinks with the water temperature and moves the shuttle to let in more or less hot water."
+        ],
+        "tmv_shuttle": [
+          "Shuttle",
+          "A small sliding part between the hot and cold openings. Its position sets how much of each gets through."
+        ],
+        "tmv_seat_hot": [
+          "Valve seats",
+          "The openings the shuttle slides between. One side lets in hot water, the other cold."
+        ],
+        "tmv_check_module_hot": [
+          "Inlet checks",
+          "Small one way valves on the hot and cold inlets. They stop hot water from pushing into the cold pipe, or cold into the hot."
+        ],
+        "tmv_filter_washer_hot": [
+          "Inlet screens",
+          "Fine screens that catch grit before it can jam the shuttle."
+        ],
+        "tmv_return_spring": [
+          "Return spring",
+          "Pushes the shuttle back as the element cools, so the mix stays steady."
+        ],
+        "tmv_unions": [
+          "Union nuts",
+          "Join the valve to the pipes and let it come out for service without cutting pipe."
+        ],
+        "element_failed": [
+          "Worn element",
+          "A heat sensing element that no longer moves. The valve stops mixing and the water can run too hot."
+        ],
+        "shuttle_stuck": [
+          "Stuck shuttle",
+          "A shuttle jammed against the cold side, for example by scale or grit. Hot water from the tank comes straight through."
+        ],
+        "hot_line": [
+          "Hot from the tank",
+          "Carries hot water from the heater's outlet up into the valve."
+        ],
+        "cold_line": [
+          "Cold to the valve",
+          "Brings cold water to the valve so it can be blended in."
+        ],
+        "cold_tee": [
+          "Cold tee",
+          "Splits the house cold line, one way to the heater and one way to the mixing valve."
+        ],
+        "cold_check": [
+          "Check valve",
+          "Lets cold water flow to the valve one way only, so hot water cannot push back into the cold pipe."
+        ],
+        "mixed_line": [
+          "Mixed water out",
+          "Tempered water leaves the valve here on its way to the faucets."
+        ],
+        "mixed_coupling": [
+          "Coupling",
+          "Where the mixed water line joins the hot water pipe that runs to the house."
+        ],
+        "tmv_recirc_pump": [
+          "Recirculation pump",
+          "A small pump that keeps warm water moving out to the farthest faucet, so hot water arrives quickly."
+        ],
+        "tmv_recirc_timer": [
+          "Pump timer",
+          "A 24 hour dial with push in tabs. The pump runs only during the hours set."
+        ],
+        "tmv_recirc_pipe": [
+          "Mixed water pipe",
+          "Carries tempered water from the valve, through the pump, to the house."
+        ],
+        "tmv_recirc_unions": [
+          "Pump unions",
+          "Let the pump come out for service without cutting pipe."
+        ],
+        "tmv_recirc_board": [
+          "Pump board",
+          "A board the pump is strapped to, so its weight is not hanging on the pipe."
+        ],
+        "tmv_recirc_cord": [
+          "Power cord",
+          "Carries power from the outlet to the pump."
+        ],
+        "tmv_recirc_outlet": [
+          "Outlet",
+          "Where the pump plugs in."
+        ],
+        "ctx_house_cold": [
+          "Cold water line",
+          "The home's cold line. With a recirculation pump it also carries water back to the heater."
+        ],
+        "ctx_house_hot_drop": [
+          "Hot water to the house",
+          "The pipe that carries tempered water to the faucets."
+        ]
+      },
+      "card_prefix": {
+        "tmv_seat_": "tmv_seat_hot",
+        "tmv_check_module": "tmv_check_module_hot",
+        "tmv_filter_washer": "tmv_filter_washer_hot",
+        "tmv_recirc_timer": "tmv_recirc_timer",
+        "cold_line_": "cold_line"
+      }
+    },
+    "pressure_tank": {
+      "file": "models/pressure_tank.glb",
+      "title": "Well pressure tank",
+      "typical": "a typical well pressure tank",
+      "hide": [
+        "^grip_"
+      ],
+      "match": {
+        "category": [
+          "pressure_tank"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 180,
+      "body": [
+        "tank",
+        "base_ring"
+      ],
+      "body_size": {
+        "diameter": 0.392,
+        "height": 0.808,
+        "x": 0,
+        "z": 0,
+        "y0": 0
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "frame_parts": [
+        "tank",
+        "base_ring",
+        "tank_tee",
+        "pressure_switch",
+        "gauge",
+        "tank_air_valve"
+      ],
+      "shell": [
+        "tank",
+        "switch_cover",
+        "disconnect_cover"
+      ],
+      "sections": {
+        "tank": "tank_section"
+      },
+      "section_hide": [
+        "switch_cover",
+        "disconnect_cover"
+      ],
+      "water": [
+        "water_tank_body",
+        "tank_waterlogged_half"
+      ],
+      "overlay_hide": [
+        "outlet_stub",
+        "outlet_union",
+        "ball_valve",
+        "nm_cable",
+        "nm_staples",
+        "wire_stub",
+        "disconnect",
+        "disconnect_cover"
+      ],
+      "heat": {
+        "clip": "pump_cycle",
+        "loop": "pump_cycle_loop",
+        "also": [],
+        "say": "Inside the tank a rubber diaphragm keeps water apart from a cushion of air. The well pump fills the tank and squeezes the air, and the pressure rises until the switch turns the pump off. When you open a tap, the air pushes the water out, so the pump does not have to start for every glass of water. Open Cut open to see the inside."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "waterlogged",
+          "label": "Waterlogged tank",
+          "clip": "waterlogged",
+          "show": [
+            "tank_section"
+          ],
+          "highlight": [
+            "gauge",
+            "tank_air_valve"
+          ],
+          "say": "Over time the air cushion can leak away, or the diaphragm can tear. Then the tank fills with water and there is nothing left to push it out. The pump starts and stops every few seconds while water runs, and the gauge needle jumps. That is hard on the pump, so it is worth a call. A technician checks the air at the valve on top, with the tank drained, and sets it a little below the pressure where the pump turns on."
+        },
+        {
+          "key": "switch",
+          "label": "Pressure switch",
+          "clip": "cover_off",
+          "highlight": [
+            "pressure_switch",
+            "gauge"
+          ],
+          "say": "The pressure switch turns the pump on when the pressure drops to its low setting and off at its high setting, often 40 and 60. The gauge beside it shows where the pressure is. There is live power under the cover, so adjusting it is a job for a technician."
+        },
+        {
+          "key": "shutoff",
+          "label": "Shutoff and drain",
+          "clip": "ball_valve_close",
+          "highlight": [
+            "ball_valve",
+            "boiler_drain"
+          ],
+          "say": "The valve after the tank shuts off water to your home, handy if a pipe leaks. The small drain valve at the bottom empties the tank or gives a water sample for testing."
+        },
+        {
+          "key": "power",
+          "label": "Power to the pump",
+          "clip": "disconnect_toggle_off",
+          "highlight": [
+            "disconnect"
+          ],
+          "say": "The switch on the wall turns off power to the well pump. Turn it off if a pipe is leaking or water is running that will not stop, so the pump does not keep pumping."
+        }
+      ],
+      "cards": {
+        "tank": [
+          "Pressure tank",
+          "Holds a cushion of air above stored water, so the pump does not have to start every time you open a tap."
+        ],
+        "tank_label": [
+          "Tank label",
+          "Shows the tank's size and the air pressure it came set to."
+        ],
+        "tank_air_valve": [
+          "Air valve",
+          "A tire style valve on top. A technician checks and sets the air charge here with the tank drained."
+        ],
+        "base_ring": [
+          "Base",
+          "The stand the tank sits on, keeping it off the floor."
+        ],
+        "tank_tee": [
+          "Tank tee",
+          "The fitting under the tank that gathers the switch, gauge, drain and pipes in one place."
+        ],
+        "pressure_switch": [
+          "Pressure switch",
+          "Turns the well pump on when pressure drops low and off when it reaches the high setting."
+        ],
+        "switch_cover": [
+          "Switch cover",
+          "Keep it on. The switch under it carries live power."
+        ],
+        "gauge": [
+          "Pressure gauge",
+          "Shows the water pressure. It should climb slowly while the pump runs and fall slowly as you use water. A needle that jumps fast often means the tank has lost its air."
+        ],
+        "check_valve": [
+          "Check valve",
+          "Lets water from the well in and keeps it from flowing back toward the well."
+        ],
+        "inlet_stub": [
+          "From the well",
+          "The line from the well pump comes in here."
+        ],
+        "outlet_stub": [
+          "To your home",
+          "Water leaves the tank here for the rest of your home."
+        ],
+        "outlet_union": [
+          "Union",
+          "A fitting that comes apart, so the tank can be changed without cutting the pipe."
+        ],
+        "ball_valve": [
+          "Main shutoff",
+          "Turns off water from the tank to your home."
+        ],
+        "boiler_drain": [
+          "Drain valve",
+          "A hose valve at the bottom, used to drain the tank or take a water sample."
+        ],
+        "disconnect": [
+          "Pump power switch",
+          "Turns off power to the well pump. Turn it off before any work, or if a pipe is leaking."
+        ],
+        "nm_cable": [
+          "Pump wiring",
+          "Carries power from the wall switch to the pressure switch and on to the pump."
+        ],
+        "water_tank_body": [
+          "Stored water",
+          "Water held below the diaphragm, ready for your taps."
+        ],
+        "tank_air_section": [
+          "Air cushion",
+          "Squeezed air above the diaphragm. It pushes the water out when you open a tap."
+        ],
+        "tank_diaphragm_section": [
+          "Diaphragm",
+          "A rubber sheet that keeps the air and the water apart. If it tears, the air is lost and the tank waterlogs."
+        ],
+        "tank_waterlogged_half": [
+          "Waterlogged tank",
+          "Water where the air cushion should be. The pump starts and stops far too often."
+        ],
+        "flow_packets_in": [
+          "Water from the well",
+          "Water from the pump filling the tank."
+        ],
+        "flow_packets_out": [
+          "Water to your home",
+          "Water on its way to your taps."
+        ]
+      },
+      "card_prefix": {
+        "gauge": "gauge",
+        "tank_air_cap": "tank_air_valve",
+        "tank_air": "tank_air_section",
+        "tank_diaphragm": "tank_diaphragm_section",
+        "inlet_clamp": "inlet_stub",
+        "outlet_union": "outlet_union",
+        "ball_valve": "ball_valve",
+        "boiler_drain": "boiler_drain",
+        "disconnect": "disconnect",
+        "switch_cover": "switch_cover",
+        "nm_staples": "nm_cable",
+        "wire_stub": "nm_cable"
+      }
+    },
+    "septic_pump_tank": {
+      "file": "models/septic_pump_tank.glb",
+      "title": "Septic pump tank",
+      "typical": "a typical septic pump tank",
+      "typical_only": true,
+      "hide": [
+        "^grip_",
+        "^cord_chafed$",
+        "^float_tangled$",
+        "^discharge_leak$",
+        "^intake_fouled$",
+        "^lid_buried$",
+        "^lid_cracked$",
+        "^spray_overlap$",
+        "^spray_pattern$",
+        "^grass$",
+        "^soil_front$",
+        "^backfill$",
+        "^soil$"
+      ],
+      "match": {
+        "category": [
+          "septic_pump_tank"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "lid",
+        "riser"
+      ],
+      "body_size": {
+        "diameter": 0.726,
+        "height": 0.093,
+        "x": 0.05,
+        "z": 0.05,
+        "y0": 0
+      },
+      "frame_parts": [
+        "TANK",
+        "PUMP",
+        "CONTROLS"
+      ],
+      "overlay_hide": [],
+      "shell": [
+        "tank",
+        "seam",
+        "riser",
+        "riser_adapter",
+        "lid"
+      ],
+      "sections": {
+        "tank": "tank_section",
+        "seam": "seam_section",
+        "riser": "riser_section",
+        "riser_adapter": "riser_adapter_section",
+        "lid": "lid_section",
+        "lid_bolts": "lid_bolts_section",
+        "inlet": "inlet_section",
+        "inlet_gasket": "inlet_gasket_section",
+        "water": "water_section"
+      },
+      "water": [
+        "water",
+        "water_section"
+      ],
+      "heat": {
+        "clip": "pump_run",
+        "say": "Cleaned water from the treatment tank runs in through the chlorinator and collects here. When the level lifts the float and tips it past its angle, the pump switches on. It pushes the water out to the sprinkler heads in the yard until the level drops and the float hangs back down, which stops it."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "float",
+          "label": "The float",
+          "clip": "float_test",
+          "highlight": [
+            "float_onoff",
+            "float_cord"
+          ],
+          "say": "The float hangs on a cord tied to the pump's pipe. It rises with the water and only clicks its switch once it tips past its angle. Here one float does both jobs: tipped up, the pump runs. Hanging down, it stops. A float caught on the pipe or a cord is a common reason a pump will not start or will not stop."
+        },
+        {
+          "key": "high",
+          "label": "High water and the alarm",
+          "clip": "high_water",
+          "highlight": [
+            "water",
+            "float_onoff",
+            "pump"
+          ],
+          "say": "If the water keeps rising past the float, the pump is not moving it. Many systems have an alarm that sounds at the house when that happens. If yours goes off, cut back on water right away: hold the laundry, dishwasher and long showers, then call for service. The alarm gives you time, it does not mean anything has overflowed."
+        },
+        {
+          "key": "service",
+          "label": "Pump service",
+          "clip": "pump_pull",
+          "show": [
+            "intake_fouled"
+          ],
+          "highlight": [
+            "pump",
+            "union_nut",
+            "intake_fouled"
+          ],
+          "say": "A union on the pump's pipe lets the whole pump lift out through the riser without digging. A technician checks the intake screen at the bottom for buildup, tests the float and makes sure every splice is sealed and dry."
+        },
+        {
+          "key": "lid",
+          "label": "Keep the lid safe",
+          "clip": "lid_off",
+          "highlight": [
+            "lid",
+            "lid_bolts"
+          ],
+          "say": "The lid sits at ground level so the tank can be reached without a shovel. Its screws hold it down so a child cannot lift it. Keep every screw in, mow around it gently, and never drive over it. A cracked lid should be replaced."
+        }
+      ],
+      "cards": {
+        "tank": [
+          "Pump tank",
+          "A buried plastic tank that holds the cleaned water until there is enough to send out to the yard."
+        ],
+        "seam": [
+          "Tank seam",
+          "The tank comes in two halves, sealed at this band with a gasket and clips so ground water stays out."
+        ],
+        "riser": [
+          "Riser",
+          "A tube from the tank up to the surface, so the lid sits at ground level and the pump can be reached without digging."
+        ],
+        "riser_adapter": [
+          "Riser ring",
+          "Joins the riser to the top of the tank with a tight seal."
+        ],
+        "lid": [
+          "Lid",
+          "Screwed down so a child cannot lift it. Keep it clear and never drive over it."
+        ],
+        "lid_gasket": [
+          "Lid gasket",
+          "A seal built into the lid that keeps rain and surface water out of the tank."
+        ],
+        "lid_bolts": [
+          "Lid screws",
+          "Stainless screws that lock the lid down. Every one should be in and snug."
+        ],
+        "water": [
+          "Treated water",
+          "The water from the treatment tank, waiting to be pumped. Its normal level sits around the float."
+        ],
+        "inlet": [
+          "Inlet",
+          "Where water from the treatment tank comes in, turned down so it enters gently."
+        ],
+        "inlet_stub": [
+          "Inlet pipe",
+          "The pipe from the treatment tank, through the chlorinator, into this tank."
+        ],
+        "inlet_gasket": [
+          "Inlet seal",
+          "A rubber seal where the inlet pipe passes through the tank wall."
+        ],
+        "chlorinator": [
+          "Chlorinator",
+          "A tube in the line that holds chlorine tablets. Water flows past them and is disinfected before it is sprayed on the yard."
+        ],
+        "chlor_tablets": [
+          "Chlorine tablets",
+          "Slow dissolving tablets made for septic systems. Use septic tablets only, never pool tablets, and keep the tube filled."
+        ],
+        "pump": [
+          "Pump",
+          "Sits on the tank floor and pushes the water out to the sprinkler heads. Its screen sits a little off the bottom so it does not pick up settled solids."
+        ],
+        "discharge_lower": [
+          "Pump pipe",
+          "The pipe from the pump up to the union. It comes out with the pump when it is serviced."
+        ],
+        "discharge_upper": [
+          "Outlet pipe",
+          "Carries the water from the union out through the riser wall to the spray line."
+        ],
+        "discharge_90": [
+          "Elbow",
+          "Turns the pipe out through the riser wall toward the yard."
+        ],
+        "union": [
+          "Union",
+          "A joint that unscrews by hand so the pump can be lifted out without cutting pipe."
+        ],
+        "float_onoff": [
+          "Float switch",
+          "Rises with the water and switches the pump on when it tips past its angle, then off when it hangs back down."
+        ],
+        "float_cord": [
+          "Float tether",
+          "The cord that ties the float to the pump's pipe. Its length sets how far the water rises and falls between pump runs."
+        ],
+        "cords": [
+          "Pump and float cords",
+          "Tied neatly up the pipe and looped under the lid, so the pump can come up without undoing any wiring."
+        ],
+        "uf_cable": [
+          "Power cable",
+          "A buried cable that brings power out from the house. The breaker and outlet for the pump are at the house."
+        ],
+        "cord_grip": [
+          "Cable fitting",
+          "Where the power cable comes through the riser wall, sealed so water does not follow it in."
+        ],
+        "entry_sealant": [
+          "Seal",
+          "A bead of sealant around the cable where it enters the riser."
+        ],
+        "splice_hot_to_float_sleeve": [
+          "Sealed splices",
+          "Where the power cable joins the pump and float wires. Each joint is crimped and covered with sealed heat shrink to keep moisture out."
+        ],
+        "label_pump": [
+          "Cord labels",
+          "Each cord is labeled PUMP or FLOAT, so the next person in the riser knows which is which."
+        ],
+        "spray_line": [
+          "Spray line",
+          "A buried purple pipe that carries the water from the tank out to the sprinkler heads. Purple means it is not drinking water."
+        ],
+        "spray_head0": [
+          "Sprinkler head",
+          "Pops up while the pump runs and spreads the treated water over the lawn, then drops back flush with the ground."
+        ]
+      },
+      "card_prefix": {
+        "splice_": "splice_hot_to_float_sleeve",
+        "label_": "label_pump",
+        "uf_": "uf_cable",
+        "float_lead_": "cords",
+        "pump_hot": "cords",
+        "pump_common": "cords",
+        "pump_ground": "cords",
+        "cord_ends": "cords",
+        "spray_head": "spray_head0",
+        "head_stem": "spray_head0",
+        "chlor_tablets": "chlor_tablets"
+      }
+    },
+    "septic_tank": {
+      "file": "models/septic_tank.glb",
+      "title": "Septic tank",
+      "typical": "a typical concrete septic tank with risers",
+      "typical_only": true,
+      "hide": [
+        "^grass$",
+        "^grass_section$",
+        "^soil$",
+        "^soil_section$",
+        "^house_wall$",
+        "^cleanout_backflow_cap$",
+        "^effluent_filter$",
+        "^scum_heavy$",
+        "^scum_heavy_section$",
+        "^sludge_high$",
+        "^sludge_high_section$",
+        "^water_high$",
+        "^water_high_section$",
+        "^water_low$",
+        "^water_low_section$"
+      ],
+      "match": {
+        "category": [
+          "septic_tank"
+        ],
+        "subtype": [
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "lid_inlet",
+        "lid_outlet",
+        "riser_inlet",
+        "riser_outlet"
+      ],
+      "body_size": {
+        "width": 2.304,
+        "depth": 0.52,
+        "height": 0.034,
+        "x": 0,
+        "z": 0,
+        "y0": 0
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "shell": [
+        "tank",
+        "riser_inlet",
+        "riser_outlet",
+        "lid_inlet",
+        "lid_outlet"
+      ],
+      "sections": {
+        "tank": "tank_section",
+        "water": "water_section",
+        "scum_normal": "scum_normal_section",
+        "sludge_normal": "sludge_normal_section"
+      },
+      "section_hide": [],
+      "water": [
+        "water",
+        "water_section"
+      ],
+      "overlay_hide": [
+        "sewer_line",
+        "outlet_line",
+        "cleanout",
+        "cleanout_plug"
+      ],
+      "heat": {
+        "say": "Everything that goes down the drains in the house flows into the tank. Heavy solids sink to the bottom as sludge, and grease and light bits float to the top as scum. Bacteria in the tank slowly break some of the solids down. The tees at each end hold those layers back, so only the clearer water in the middle flows on to the drain field."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "tees",
+          "label": "The tees",
+          "clip": "lid_outlet_off",
+          "highlight": [
+            "inlet_tee",
+            "outlet_tee"
+          ],
+          "say": "The inlet tee points what comes from the house down into the tank, so it does not stir up the scum. The outlet tee takes water from the middle, below the scum and above the sludge. If a tee breaks or falls off, scum can drift out and clog the drain field, so a pumper checks both tees at every pumping."
+        },
+        {
+          "key": "pumping",
+          "label": "Pumping",
+          "clip": "lid_inlet_off",
+          "show": [
+            "sludge_high",
+            "scum_heavy"
+          ],
+          "highlight": [
+            "sludge_high",
+            "scum_heavy"
+          ],
+          "say": "Bacteria cannot break everything down, so the sludge and scum slowly build up. Here they have grown thick, close to the bottom of the outlet tee. Pumping removes them before they reach the field. Many homes need it every 3 to 5 years, depending on the tank size and how many people live there."
+        },
+        {
+          "key": "filter",
+          "label": "Effluent filter",
+          "clip": "lid_outlet_off",
+          "show": [
+            "effluent_filter"
+          ],
+          "highlight": [
+            "effluent_filter"
+          ],
+          "say": "Some tanks have a filter in the outlet tee. It catches small bits before they leave the tank and helps protect the drain field. Not every tank has one. When there is one, it is usually rinsed off at each pumping, and more often if the drains start to slow."
+        },
+        {
+          "key": "care",
+          "label": "Caring for it",
+          "highlight": [
+            "sewer_line",
+            "inlet_tee"
+          ],
+          "say": "Only toilet paper and body waste belong in the toilet. Wipes, even ones marked flushable, grease, paper towels and medicines build up in the tank or harm the bacteria. Spread laundry loads through the week, and keep cars and heavy equipment off the tank and the field."
+        }
+      ],
+      "cards": {
+        "tank": [
+          "Septic tank",
+          "A large buried concrete box that holds the wastewater from the house long enough for solids to settle out. It always stays full of water."
+        ],
+        "lid_inlet": [
+          "Inlet lid",
+          "The lid over the end where wastewater comes in from the house. Keep it screwed down so children and pets stay safe."
+        ],
+        "lid_outlet": [
+          "Outlet lid",
+          "The lid over the end where water leaves for the drain field. Keep it screwed down, and never reach or climb into a tank. The air inside is not safe to breathe."
+        ],
+        "riser_inlet": [
+          "Riser",
+          "A plastic tube that brings the tank opening up to the ground, so the tank can be checked and pumped without digging."
+        ],
+        "inlet_tee": [
+          "Inlet tee",
+          "A pipe fitting inside the tank where water from the house comes in. It points the flow downward so the scum on top is not stirred up."
+        ],
+        "outlet_tee": [
+          "Outlet tee",
+          "A pipe fitting at the far end. It draws water from the middle of the tank, so scum and sludge stay behind."
+        ],
+        "inlet_stub": [
+          "Inlet pipe",
+          "The short pipe through the tank wall where the sewer line from the house connects."
+        ],
+        "outlet_stub": [
+          "Outlet pipe",
+          "The short pipe through the tank wall where clear water leaves for the drain field."
+        ],
+        "outlet_seal": [
+          "Pipe seal",
+          "A rubber seal where the outlet pipe passes through the wall. It keeps ground water out and wastewater in."
+        ],
+        "effluent_filter": [
+          "Effluent filter",
+          "A slotted filter some tanks have inside the outlet tee. It catches small bits before they reach the field and needs a rinse from time to time."
+        ],
+        "water": [
+          "Liquid level",
+          "The tank always stays full up to the bottom of the outlet pipe. That is normal. Water standing higher than that means something past the tank is slow."
+        ],
+        "scum_normal": [
+          "Scum layer",
+          "Grease, oils and light bits that float on top. A pumper measures it to know when the tank needs pumping."
+        ],
+        "scum_heavy": [
+          "Thick scum",
+          "A scum layer this thick is close to the outlet. It is time to pump before it can drift out to the field."
+        ],
+        "sludge_normal": [
+          "Sludge",
+          "Heavy solids that settle on the bottom. Bacteria break some of it down, and the rest is pumped out every few years."
+        ],
+        "sludge_high": [
+          "Deep sludge",
+          "Sludge this deep leaves little room for settling, so solids can wash out to the field. It is time to pump."
+        ],
+        "sewer_line": [
+          "Sewer line",
+          "The pipe that carries everything from the house drains to the tank. It slopes downhill the whole way."
+        ],
+        "cleanout": [
+          "Cleanout",
+          "A pipe that comes up to the ground between the house and the tank. A plumber uses it to clear a clog in the sewer line."
+        ],
+        "cleanout_plug": [
+          "Cleanout cap",
+          "The screw cap on top of the cleanout. Keep it on tight so rain and dirt stay out."
+        ],
+        "outlet_line": [
+          "Line to the field",
+          "Carries the settled water from the tank out to the drain field, where the soil finishes cleaning it."
+        ]
+      },
+      "card_prefix": {
+        "riser_": "riser_inlet"
+      }
+    },
+    "shower": {
+      "file": "models/shower.glb",
+      "title": "Tub and shower valve",
+      "typical": "a typical tub and shower valve",
+      "hide": [
+        "^grip_",
+        "^flowpath_tub$",
+        "^drain_clog$",
+        "^caulk_split$",
+        "^grout_missing$",
+        "^head_scale$",
+        "^spout_drip$",
+        "^diverter_split$",
+        "^shower_curtain$",
+        "^curtain_rod$",
+        "^floor$",
+        "^joists$",
+        "^wall_outside$",
+        "^walls_paint$",
+        "^wall_right$",
+        "^glass_doors$",
+        "^door_glass$"
+      ],
+      "match": {
+        "category": [
+          "shower"
+        ],
+        "subtype": [
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": -90,
+      "body": [
+        "tub",
+        "tub_apron",
+        "wall_back",
+        "valve_wall"
+      ],
+      "body_size": {
+        "width": 1.564,
+        "depth": 0.782,
+        "height": 2.0,
+        "x": 0,
+        "z": -0.391,
+        "y0": 0
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "frame_parts": [
+        "valve_body",
+        "escutcheon",
+        "handle",
+        "spout",
+        "spout_drop",
+        "shower_riser",
+        "shower_arm",
+        "shower_head"
+      ],
+      "shell": [
+        "valve_wall",
+        "wall_back",
+        "tub",
+        "tub_apron",
+        "escutcheon"
+      ],
+      "ghost_also": [
+        "valve_body"
+      ],
+      "section_hide": [
+        "valve_wall",
+        "escutcheon",
+        "handle"
+      ],
+      "overlay_hide": [
+        "framing"
+      ],
+      "water": [
+        "shower_stream",
+        "spout_stream",
+        "trap_water"
+      ],
+      "heat": {
+        "clip": "shower_on",
+        "say": "Hot and cold pipes come up inside the wall to the valve. Turning the handle opens the cartridge, which mixes the two to the temperature you pick. The water drops down to the tub spout, or, with the diverter pulled up, climbs the pipe to the shower head."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "diverter",
+          "label": "Tub or shower",
+          "clip": "diverter_lift",
+          "highlight": [
+            "diverter_knob",
+            "spout",
+            "shower_riser",
+            "shower_head"
+          ],
+          "say": "With the tub running, pull up the knob on the spout and the water goes up to the shower head instead. If water still pours from the spout while the shower is on, the diverter inside the spout is worn. The fix is usually a new spout, not anything in the wall."
+        },
+        {
+          "key": "cartridge",
+          "label": "The cartridge",
+          "clip": "retainer_clip_off",
+          "highlight": [
+            "cartridge",
+            "retainer_clip",
+            "valve_body"
+          ],
+          "say": "The cartridge inside the valve body does the mixing. A shower that drips, a stiff handle, or water that will not get hot are the usual signs it is wearing out. A clip holds it in place. The water has to be off before it comes out, and a plumber can swap it without opening the wall.",
+          "frame": [
+            "valve_body",
+            "escutcheon",
+            "handle",
+            "riser_hot",
+            "riser_cold"
+          ]
+        },
+        {
+          "key": "stops",
+          "label": "Shutting it off",
+          "clip": "stop_cold_off",
+          "highlight": [
+            "stop_cold_plug",
+            "stop_hot_plug",
+            "riser_hot",
+            "riser_cold"
+          ],
+          "say": "Many valves have two small built in shutoffs on the valve body, one for hot and one for cold. With the handle and trim plate off, a screwdriver turns them to stop the water to just this shower. If your valve has none, the house main is the way to shut it off.",
+          "frame": [
+            "valve_body",
+            "escutcheon",
+            "handle",
+            "riser_hot",
+            "riser_cold"
+          ]
+        },
+        {
+          "key": "drain",
+          "label": "Tub drain",
+          "clip": "trip_lever",
+          "highlight": [
+            "trip_lever",
+            "trip_linkage",
+            "overflow_plate",
+            "waste_overflow",
+            "strainer"
+          ],
+          "say": "The lever on the round plate under the spout works a plug hidden inside the overflow pipe, which opens and closes the drain. The plate's openings also catch water before the tub can spill over. A slow tub drain is usually hair caught at the strainer or on the linkage.",
+          "frame": [
+            "waste_overflow",
+            "overflow_plate",
+            "trip_lever",
+            "strainer",
+            "p_trap",
+            "drain_tee"
+          ]
+        }
+      ],
+      "cards": {
+        "handle": [
+          "Handle",
+          "Turns the cartridge inside the valve. Further around means hotter water."
+        ],
+        "escutcheon": [
+          "Trim plate",
+          "Covers the hole in the wall around the valve. Its seal keeps shower spray out of the wall, so a loose or gapped plate is worth fixing."
+        ],
+        "valve_body": [
+          "Valve body",
+          "The brass body inside the wall. Hot and cold come in, mixed water goes out to the spout and the shower head. It rarely wears out itself."
+        ],
+        "cartridge": [
+          "Cartridge",
+          "The part that mixes hot and cold. Most valves today also balance pressure, so a toilet flush elsewhere does not turn the shower suddenly hot or cold. It is the part that usually wears."
+        ],
+        "retainer_clip": [
+          "Retainer clip",
+          "A small clip that holds the cartridge in the valve body."
+        ],
+        "stop_tube": [
+          "Stop tube and limit stop",
+          "Fits over the cartridge stem. The limit stop sets how far the handle can turn toward hot, which keeps the water from getting too hot. It can be adjusted."
+        ],
+        "plaster_ground": [
+          "Plaster guard",
+          "A plastic cap that protected the valve while the wall was built. It also shows how deep the valve sits behind the tile."
+        ],
+        "stop_cold_plug": [
+          "Cold shutoff",
+          "A built in stop on the valve body. A screwdriver turns it to shut off cold water to this shower only."
+        ],
+        "stop_hot_plug": [
+          "Hot shutoff",
+          "A built in stop on the valve body. A screwdriver turns it to shut off hot water to this shower only."
+        ],
+        "riser_hot": [
+          "Hot water pipe",
+          "Brings hot water up inside the wall to the valve, from the water heater."
+        ],
+        "riser_cold": [
+          "Cold water pipe",
+          "Brings cold water up inside the wall to the valve."
+        ],
+        "spout_drop": [
+          "Pipe to the spout",
+          "Carries mixed water from the bottom of the valve down to the tub spout."
+        ],
+        "shower_riser": [
+          "Pipe to the shower head",
+          "Carries mixed water from the top of the valve up to the shower arm."
+        ],
+        "shower_arm": [
+          "Shower arm",
+          "The bent pipe that comes out of the wall and holds the shower head. A small flange covers the hole."
+        ],
+        "shower_head": [
+          "Shower head",
+          "Spreads the water into spray. Hard water leaves mineral in the small holes; soaking the head in vinegar often clears weak or crooked spray."
+        ],
+        "spout": [
+          "Tub spout",
+          "Fills the tub. Many slide onto a pipe and are held by a small screw underneath, others screw on."
+        ],
+        "diverter_knob": [
+          "Diverter",
+          "Pull it up to send water to the shower head. It drops back down when the water is turned off."
+        ],
+        "overflow_plate": [
+          "Overflow plate",
+          "The round plate under the spout. It hides the overflow opening and holds the drain lever."
+        ],
+        "trip_lever": [
+          "Drain lever",
+          "Flip it to open or close the tub drain."
+        ],
+        "trip_linkage": [
+          "Drain linkage",
+          "Hangs inside the overflow pipe and moves the plug when you flip the lever. Hair can wrap around it and slow the drain."
+        ],
+        "waste_overflow": [
+          "Drain and overflow pipe",
+          "Joins the tub's bottom drain and its overflow opening into one pipe below the tub."
+        ],
+        "strainer": [
+          "Drain strainer",
+          "The grate in the tub floor. It catches hair, so clearing it now and then keeps water moving."
+        ],
+        "p_trap": [
+          "Trap",
+          "The U shaped bend under the tub. It holds a little water that keeps sewer gas out of the bathroom."
+        ],
+        "trap_water": [
+          "Trap water",
+          "The water that always sits in the trap and seals out sewer gas."
+        ],
+        "drain_line": [
+          "Drain line",
+          "Carries the tub's water away to the house drain."
+        ],
+        "tub": [
+          "Tub",
+          "The bathtub itself, sitting on the floor framing."
+        ],
+        "tub_apron": [
+          "Tub front",
+          "The finished front face of the tub."
+        ],
+        "valve_wall": [
+          "Valve wall",
+          "The tiled wall the valve sits behind. Keeping its grout and caulk sound keeps water out of the wall."
+        ],
+        "caulk": [
+          "Caulk",
+          "The flexible seal where the tub meets the walls. When it cracks or peels, water can get behind the tub, so it is worth redoing."
+        ],
+        "framing": [
+          "Wall studs",
+          "The wood framing the valve and pipes are fastened to inside the wall."
+        ]
+      },
+      "card_prefix": {
+        "riser_hot": "riser_hot"
+      }
+    },
+    "smart_shutoff": {
+      "file": "models/smart_shutoff.glb",
+      "title": "Smart water shutoff",
+      "typical": "a typical smart water shutoff in a yard box",
+      "typical_only": true,
+      "match": {
+        "category": [
+          "smart_shutoff"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "hide": [
+        "^grip_",
+        "^irrigation_tee$",
+        "^irrigation_line$",
+        "^pvc_nipple_irrigation$",
+        "^lora_flash_hub$",
+        "^lora_flash_sensor$"
+      ],
+      "front_deg": -90,
+      "body": [
+        "box_lid"
+      ],
+      "body_size": {
+        "width": 0.49,
+        "depth": 0.89,
+        "height": 0.028,
+        "x": 0,
+        "z": 0,
+        "y0": 0.005
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "frame_parts": [
+        "BOX",
+        "FLOWSMART",
+        "LINE"
+      ],
+      "shell": [
+        "box_lid",
+        "valve_box",
+        "valve_box_wall_e",
+        "housing",
+        "body",
+        "ball_valve",
+        "check_valve"
+      ],
+      "sections": {
+        "housing": "housing_section",
+        "body": "body_section",
+        "battery_cover": "battery_cover_section",
+        "coupling_in": "coupling_in_section",
+        "coupling_out": "coupling_out_section",
+        "adapter_in": "adapter_in_section",
+        "adapter_out": "adapter_out_section",
+        "ball_valve": "ball_valve_section",
+        "check_valve": "check_valve_section",
+        "pvc_straight": "pvc_straight_section"
+      },
+      "section_hide": [
+        "box_lid",
+        "valve_box_wall_e"
+      ],
+      "overlay_hide": [],
+      "heat": {
+        "clip": "flowsmart_flow",
+        "loop": "flowsmart_flow_loop",
+        "also": [],
+        "say": "Water from the meter passes a hand valve and a check valve, then runs through the smart shutoff. A small turbine inside measures the flow and the display counts the gallons. If it sees water running in a way that looks like a leak, it can close its own valve and send an alert to your phone."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "close",
+          "label": "Shutting off a leak",
+          "clip": "flowsmart_close",
+          "highlight": [
+            "valve_ball",
+            "motor",
+            "led"
+          ],
+          "say": "When a leak sensor gets wet, or the water use looks wrong, a small motor turns the ball inside a quarter turn and the water stops. The light blinks red and the check valve flap falls shut. Once the leak is fixed, the valve can be opened again from the app."
+        },
+        {
+          "key": "signal",
+          "label": "Talking to the hub",
+          "clip": "lora_signal",
+          "highlight": [
+            "housing",
+            "led"
+          ],
+          "say": "The shutoff talks by long range radio to a small hub inside your home, and the hub connects to your internet. A leak sensor near a water heater or washer can signal the shutoff to close, even from across the house."
+        },
+        {
+          "key": "manual",
+          "label": "The hand valve",
+          "clip": "manual_valve_close",
+          "highlight": [
+            "ball_valve",
+            "ball_valve_handle"
+          ],
+          "say": "Just before the smart shutoff sits a plain ball valve with a red handle. A quarter turn shuts the water off by hand, for repairs or if the smart valve cannot be reached. It is good to know where it is."
+        },
+        {
+          "key": "sprinklers",
+          "label": "Sprinklers",
+          "swap": {
+            "inlet_coupling": "irrigation_tee",
+            "pvc_nipple": "pvc_nipple_irrigation",
+            "valve_box_knockout": "irrigation_line"
+          },
+          "highlight": [
+            "irrigation_tee",
+            "irrigation_line"
+          ],
+          "say": "In a home with a sprinkler system, the sprinkler line tees off before both valves. That way closing the shutoff never stops the sprinklers, and sprinkler water does not pass through the smart shutoff at all."
+        }
+      ],
+      "cards": {
+        "box_lid": [
+          "Box lid",
+          "The lid you see in the lawn. Lift it to read the display or reach the valves."
+        ],
+        "valve_box": [
+          "Valve box",
+          "A plastic box set level with the ground. It keeps the valves reachable without digging."
+        ],
+        "valve_box_gravel": [
+          "Gravel floor",
+          "Small gravel under the box so water can drain away from the pipes."
+        ],
+        "valve_box_knockout": [
+          "Knockout plug",
+          "A plugged hole in the box wall. It can be opened if a sprinkler line is added later."
+        ],
+        "housing": [
+          "Smart shutoff",
+          "A valve with a flow meter and a radio built in. It watches the water going into your home and can turn it off by itself."
+        ],
+        "body": [
+          "Meter body",
+          "The metal body the water flows through. The valve ball and the flow turbine sit inside it."
+        ],
+        "lid": [
+          "Flip cover",
+          "A small hinged cover over the display and buttons. It keeps dirt off the face."
+        ],
+        "dial": [
+          "Display",
+          "Shows the gallons counted. You can also see the water use in the phone app."
+        ],
+        "manual_override": [
+          "Manual override",
+          "Lets the valve be turned by hand with a hex key if the motor or the battery cannot do it."
+        ],
+        "set_button": [
+          "Set button",
+          "Used when the shutoff is first set up with its hub."
+        ],
+        "led": [
+          "Status light",
+          "Blinks green when the valve opens and red when it closes or warns."
+        ],
+        "battery_cover": [
+          "Battery cover",
+          "The shutoff runs on batteries, with no wires to the house. The app shows when they are getting low."
+        ],
+        "battery": [
+          "Battery",
+          "Powers the motor, the meter and the radio."
+        ],
+        "motor": [
+          "Motor",
+          "A small motor that turns the valve ball a quarter turn to open or close."
+        ],
+        "pcb": [
+          "Circuit board",
+          "The brains of the shutoff. It counts the flow, decides when water use looks like a leak and talks to the hub."
+        ],
+        "valve_ball": [
+          "Valve ball",
+          "A ball with a hole through it. Lined up with the pipe, water flows. Turned a quarter turn, the water stops."
+        ],
+        "valve_stem": [
+          "Valve stem",
+          "Connects the motor to the valve ball."
+        ],
+        "meter_turbine": [
+          "Flow turbine",
+          "A small wheel that spins as water flows past. Its turns are counted to measure the gallons."
+        ],
+        "flow_arrow": [
+          "Flow arrow",
+          "Shows which way the water must flow. It points toward the house."
+        ],
+        "coupling_in": [
+          "Inlet nut",
+          "A threaded nut and tailpiece that join the shutoff to the pipe on the street side."
+        ],
+        "coupling_out": [
+          "Outlet nut",
+          "A threaded nut and tailpiece that join the shutoff to the pipe on the house side."
+        ],
+        "adapter_in": [
+          "Pipe adapter",
+          "Joins the plastic pipe to the threaded end of the shutoff."
+        ],
+        "adapter_out": [
+          "Pipe adapter",
+          "Joins the threaded end of the shutoff to the plastic pipe toward the house."
+        ],
+        "pvc_straight": [
+          "Straight pipe",
+          "A short straight run before the shutoff. The water needs it to flow smoothly so the meter reads right."
+        ],
+        "ball_valve": [
+          "Hand valve",
+          "A plain shutoff valve just before the smart one. It turns the water off by hand."
+        ],
+        "ball_valve_handle": [
+          "Hand valve handle",
+          "Turn it a quarter turn to shut the water off. In line with the pipe means open."
+        ],
+        "check_valve": [
+          "Check valve",
+          "Lets water flow toward the house only. A rubber flap inside falls shut if water tries to flow back."
+        ],
+        "check_valve_flap": [
+          "Check flap",
+          "Swings open with the flow and closes when the flow stops or tries to reverse."
+        ],
+        "inlet_coupling": [
+          "Coupling",
+          "Joins the line from the meter to the fittings in the box."
+        ],
+        "pvc_nipple": [
+          "Short pipe",
+          "A short piece of pipe between the coupling and the hand valve."
+        ],
+        "irrigation_tee": [
+          "Sprinkler tee",
+          "Splits off water for the sprinkler system before the shutoff valves."
+        ],
+        "irrigation_line": [
+          "Sprinkler line",
+          "Carries water to the sprinkler system. It is not shut off by the smart valve."
+        ]
+      },
+      "card_prefix": {
+        "valve_box_wall": "valve_box",
+        "dial_digit": "dial",
+        "led_": "led",
+        "valve_ball_manual": "ball_valve",
+        "check_valve_pin": "check_valve_flap",
+        "check_valve_arrow": "check_valve",
+        "pvc_nipple_irrigation": "irrigation_tee",
+        "rubber_pad": "lid",
+        "face_text": "housing"
+      }
+    },
+    "sump_pump": {
+      "file": "models/sump_pump.glb",
+      "title": "Sump pump",
+      "typical": "a typical sump pump in its pit",
+      "typical_only": true,
+      "hide": [
+        "^grip_",
+        "^basin_water_high$",
+        "^check_backflow$",
+        "^float_pump_stuck$",
+        "^lid_unsealed$",
+        "^rag$",
+        "^ext_cord$"
+      ],
+      "match": {
+        "category": [
+          "sump_pump"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 180,
+      "body": [
+        "basin",
+        "lid"
+      ],
+      "body_size": {
+        "diameter": 0.68,
+        "height": 0.8,
+        "x": 0.997,
+        "z": -1.427,
+        "y0": -1.625
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "frame_parts": [
+        "basin",
+        "lid",
+        "pump",
+        "check_valve",
+        "panel"
+      ],
+      "shell": [
+        "basin",
+        "lid"
+      ],
+      "section_hide": [
+        "lid",
+        "basin"
+      ],
+      "water": [
+        "basin_water",
+        "basin_water_high"
+      ],
+      "overlay_hide": [],
+      "heat": {
+        "clip": "run",
+        "loop": "run_loop",
+        "also": [],
+        "say": "Water from around the house drains into the pit. As it rises, a float lifts and turns the pump on. The pump pushes the water up the pipe, through a check valve, and away from the house. When the level drops, the float drops and the pump stops."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "float",
+          "label": "Stuck float",
+          "clip": "float_stuck",
+          "show": [
+            "float_pump_stuck",
+            "basin_water_high"
+          ],
+          "highlight": [
+            "float_pump_stuck",
+            "float_alarm",
+            "alarm_light"
+          ],
+          "say": "If the float hangs up on the pit wall, the cord or debris, the pump never starts and the water keeps rising. The higher alarm float sets off the alarm before the water gets too high. Now and then, check that the float moves freely."
+        },
+        {
+          "key": "check",
+          "label": "Check valve",
+          "clip": "check_failed",
+          "show": [
+            "check_backflow",
+            "basin_water_high"
+          ],
+          "highlight": [
+            "check_valve"
+          ],
+          "say": "The check valve holds the water in the pipe when the pump stops. If it fails, that water falls back into the pit and the pump runs again and again, which wears it out. The sound of water rushing back right after the pump stops is a clue."
+        },
+        {
+          "key": "alarm",
+          "label": "The alarm",
+          "clip": "alarm_test",
+          "highlight": [
+            "panel",
+            "alarm_light",
+            "float_alarm"
+          ],
+          "say": "The alarm float sits above the pump float, so it only rises if the pump falls behind. Most alarms have a test button. Press it now and then to make sure it lights and sounds."
+        },
+        {
+          "key": "rags",
+          "label": "Keep the pit clear",
+          "clip": "rags",
+          "show": [
+            "rag"
+          ],
+          "highlight": [
+            "rag",
+            "pump"
+          ],
+          "say": "Rags, wipes and other trash in the pit can get pulled into the pump or wrap around the float. Keep the lid on and nothing in the pit but water."
+        }
+      ],
+      "cards": {
+        "basin": [
+          "Sump pit",
+          "The basin set into the ground where the water collects."
+        ],
+        "lid": [
+          "Pit lid",
+          "Keeps trash, kids and pets out of the pit. Keep it on and sealed."
+        ],
+        "pump": [
+          "Sump pump",
+          "Sits at the bottom of the pit and pushes the water out and away from the house."
+        ],
+        "pump_plate": [
+          "Pump label",
+          "Shows the pump's size and model, handy when it needs replacing."
+        ],
+        "float_pump": [
+          "Pump float",
+          "Rises with the water and turns the pump on, then drops and turns it off."
+        ],
+        "float_pump_stuck": [
+          "Stuck float",
+          "A float caught on the wall, the cord or debris. The pump cannot start."
+        ],
+        "float_alarm": [
+          "Alarm float",
+          "Sits higher than the pump float. If the water reaches it, the alarm goes off."
+        ],
+        "discharge": [
+          "Discharge pipe",
+          "Carries the water from the pump out and away from the house."
+        ],
+        "check_valve": [
+          "Check valve",
+          "Keeps the water in the pipe from falling back into the pit when the pump stops."
+        ],
+        "check_backflow": [
+          "Water falling back",
+          "With a failed check valve, water runs back into the pit and the pump starts again."
+        ],
+        "ball_valve": [
+          "Shutoff valve",
+          "Closes the discharge pipe so the pump or check valve can be changed without a flood of water."
+        ],
+        "inlet": [
+          "Inlet",
+          "Where water from around the house drains into the pit."
+        ],
+        "vent": [
+          "Vent",
+          "Lets air in and out of the sealed pit as the water rises and falls."
+        ],
+        "lift_chain": [
+          "Lift chain",
+          "A handle for lifting the pump out of the pit for service."
+        ],
+        "cords": [
+          "Power cords",
+          "Power for the pump and the alarm float. Plug the pump straight into an outlet, not an extension cord."
+        ],
+        "panel": [
+          "Alarm panel",
+          "Watches the alarm float and lights and sounds if the water gets too high."
+        ],
+        "panel_feed": [
+          "Panel power",
+          "The power supply to the alarm panel."
+        ],
+        "alarm_light": [
+          "Alarm light",
+          "Lights up when the water is too high, or when you press the test button."
+        ],
+        "basin_water": [
+          "Water in the pit",
+          "Water collected from around the house, waiting for the float to rise."
+        ],
+        "basin_water_high": [
+          "High water",
+          "Water rising toward the top of the pit because the pump is not keeping up."
+        ],
+        "basin_silt": [
+          "Silt",
+          "Fine dirt that settles at the bottom of the pit. A lot of it can clog the pump."
+        ],
+        "rag": [
+          "Trash in the pit",
+          "Rags and wipes can clog the pump or tangle the float."
+        ],
+        "flow_packets": [
+          "Water on its way out",
+          "Water pushed up the pipe by the pump."
+        ]
+      },
+      "card_prefix": {
+        "alarm_light": "alarm_light"
+      }
+    },
+    "surge_protector": {
+      "file": "models/surge_protector.glb",
+      "title": "Whole house surge protector",
+      "typical": "a typical whole house surge protector inside a breaker panel",
+      "hide": [
+        "^grip_"
+      ],
+      "match": {
+        "category": [
+          "surge_protector"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "wall_hung",
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": 0,
+      "body": [
+        "spd_body"
+      ],
+      "body_size": {
+        "width": 0.1,
+        "depth": 0.063,
+        "height": 0.14,
+        "x": 0.095,
+        "z": -0.0655,
+        "y0": 1.004
+      },
+      "frame_parts": [
+        "SPD",
+        "spd_breaker"
+      ],
+      "overlay_hide": [
+        "lead_green",
+        "lead_white"
+      ],
+      "shell": [
+        "spd_body"
+      ],
+      "sections": {
+        "spd_body": "spd_body_section"
+      },
+      "section_hide": [
+        "label",
+        "leds_lit",
+        "leds_dark"
+      ],
+      "heat": {
+        "clip": "surge",
+        "loop": "surge_loop",
+        "say": "Most of the time it just sits there. When a sudden spike of voltage comes in on the power lines, from lightning nearby or the utility switching, the parts inside open a quick path and send the extra to ground. Your lights and appliances see a much smaller bump instead of the full spike."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it protects"
+        },
+        {
+          "key": "lights",
+          "label": "The status lights",
+          "highlight": [
+            "leds_lit",
+            "label"
+          ],
+          "say": "Two green lights on the front show it is working. Both lit means it is protecting the house. Take a look now and then, and after a big storm."
+        },
+        {
+          "key": "used_up",
+          "label": "When the lights go out",
+          "clip": "protection_lost",
+          "highlight": [
+            "leds_dark",
+            "spd_internals"
+          ],
+          "say": "Each surge it stops wears the parts inside a little, and a very large one can use them up at once. Then the lights go dark. Your power stays on, but the house is no longer protected. It has no parts to repair, so a new one goes in."
+        },
+        {
+          "key": "breaker",
+          "label": "Its own breaker",
+          "highlight": [
+            "spd_breaker",
+            "lead_black_a",
+            "lead_black_b"
+          ],
+          "say": "It is wired to its own breaker in the panel, and that breaker has to stay on for it to protect anything. If both lights are out, check that its breaker is on. If it has tripped, call an electrician rather than resetting it again and again."
+        }
+      ],
+      "cards": {
+        "spd_body": [
+          "Surge protector",
+          "Mounted in the breaker panel and wired to it, so it guards every circuit in the house from voltage spikes."
+        ],
+        "label": [
+          "Label",
+          "Shows the status lights and reads protected when both are lit. There is nothing inside a homeowner should service."
+        ],
+        "leds_lit": [
+          "Status lights",
+          "Both green lights on means it is protecting. If one or both are out, it needs a look."
+        ],
+        "leds_dark": [
+          "Lights out",
+          "Dark lights mean protection is used up or the device has lost power."
+        ],
+        "spd_internals": [
+          "Protection parts",
+          "Small discs inside that pass almost nothing at normal voltage and open up during a spike to send it to ground."
+        ],
+        "spd_internals_burnt": [
+          "Worn out parts",
+          "After a big surge, or many over the years, the parts inside are spent and can no longer protect."
+        ],
+        "hub": [
+          "Wire outlet",
+          "Where its four wires leave the case to reach the breaker and the panel's bars."
+        ],
+        "feet": [
+          "Mounting tabs",
+          "Screw it firmly inside the panel."
+        ],
+        "spd_breaker": [
+          "Its breaker",
+          "A two pole breaker that feeds the surge protector. It must be on for the device to work."
+        ],
+        "lead_black_a": [
+          "Power wires",
+          "The black wires connect it to its breaker, one to each side of the house's power."
+        ],
+        "lead_white": [
+          "Neutral wire",
+          "Connects to the panel's neutral bar."
+        ],
+        "lead_green": [
+          "Ground wire",
+          "Connects to the panel's ground bar. Surges are sent away through this path, so a short, tight connection matters."
+        ]
+      },
+      "card_prefix": {
+        "lead_black": "lead_black_a",
+        "spd_breaker": "spd_breaker"
+      }
+    },
+    "water_filter": {
+      "file": "models/water_filter.glb",
+      "title": "Whole house water filter",
+      "typical": "a typical buried whole house water filter",
+      "typical_only": true,
+      "match": {
+        "category": [
+          "water_filter"
+        ],
+        "subtype": [
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "hide": [
+        "^grip_",
+        "^carbon_loaded$",
+        "^carbon_loaded_band$",
+        "^particles$",
+        "^flow_arrows$",
+        "^box_water$",
+        "^filter_head_wet$",
+        "^soil$",
+        "^house_wall$"
+      ],
+      "front_deg": 0,
+      "body": [
+        "box_lid"
+      ],
+      "body_size": {
+        "width": 0.426,
+        "depth": 0.604,
+        "height": 0.064,
+        "x": 0,
+        "z": 0,
+        "y0": -0.027
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "frame_parts": [
+        "BOX",
+        "TANK"
+      ],
+      "shell": [
+        "valve_box",
+        "box_lid",
+        "tank"
+      ],
+      "ghost_also": [
+        "grass"
+      ],
+      "sections": {
+        "tank": "tank_section",
+        "carbon_media": "carbon_media_section",
+        "tank_water": "tank_water_section",
+        "riser_tube": "riser_tube_section",
+        "riser_water": "riser_water_section",
+        "diffuser_plate": "diffuser_plate_section",
+        "filter_head": "filter_head_section",
+        "filter_head_oring": "filter_head_oring_section",
+        "filter_head_riser_oring": "filter_head_riser_oring_section"
+      },
+      "section_hide": [
+        "box_lid",
+        "grass"
+      ],
+      "water": [
+        "tank_water",
+        "tank_water_section",
+        "riser_water",
+        "riser_water_section"
+      ],
+      "overlay_hide": [
+        "grass",
+        "city_line",
+        "house_line"
+      ],
+      "heat": {
+        "clip": "service",
+        "loop": "service_loop",
+        "also": [],
+        "say": "Water from the street comes into the box in the yard and across to the buried filter tank. It flows down through a deep bed of filter media that takes out chlorine and catches fine grit. Then it rises up the center tube, back through the box and on to your home."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it filters"
+        },
+        {
+          "key": "backwash",
+          "label": "Backflushing",
+          "clip": "backwash",
+          "loop": "backwash_loop",
+          "highlight": [
+            "carbon_media",
+            "riser_tube",
+            "hose_bib"
+          ],
+          "say": "Now and then the bed gets a cleaning. The valves in the box are set so water runs the other way, down the center tube and up through the bed. The bed lifts and lets go of the dirt it caught, which flows out the hose bib in the box until the water runs clear."
+        },
+        {
+          "key": "bypass",
+          "label": "The bypass",
+          "clip": "bypass",
+          "highlight": [
+            "v1_handle",
+            "v3_handle",
+            "v4_handle"
+          ],
+          "say": "Three valves in the box steer the water. In normal use the red and green valves are open and the blue one is shut. For bypass the blue valve opens first, then the red one shuts, and the green one stays open. Your home still has water, but it skips the filter until the valves are set back."
+        },
+        {
+          "key": "media",
+          "label": "Worn out media",
+          "show": [
+            "carbon_loaded"
+          ],
+          "highlight": [
+            "carbon_loaded"
+          ],
+          "say": "Over time the media fills with what it has caught, starting at the top of the bed. Backflushing helps, but after some years the media is spent and needs to be replaced. If the chlorine smell comes back, or the water pressure seems lower than it used to be, it is time for a check."
+        },
+        {
+          "key": "leaks",
+          "label": "Leaks",
+          "show": [
+            "box_water",
+            "filter_head_wet"
+          ],
+          "highlight": [
+            "unions",
+            "filter_head"
+          ],
+          "say": "Water standing in the box, or a soggy patch in the lawn over the tank, can point to a slow leak at a union or at the seal under the filter head. Rain can collect in a box too, so look again on a dry day. If the water is still there, give us a call."
+        }
+      ],
+      "cards": {
+        "box_lid": [
+          "Box lid",
+          "The green lid you see in the lawn. One bolt holds it down. Keep it on so dirt and mulch stay out of the box."
+        ],
+        "lid_bolt": [
+          "Lid bolt",
+          "Holds the lid shut so it stays put when it is stepped on or mowed over."
+        ],
+        "valve_box": [
+          "Valve box",
+          "A plastic box set level with the ground. It holds the valves and fittings so they can be reached without digging."
+        ],
+        "pea_gravel": [
+          "Gravel floor",
+          "A bed of small gravel under the box. It lets water drain away instead of standing around the pipes."
+        ],
+        "manifold": [
+          "Valve manifold",
+          "The set of pipes and valves in the box. It sends water through the filter, or around it when needed."
+        ],
+        "v1_handle": [
+          "Red valve",
+          "Lets street water into the filter. Open in normal use. It is shut for bypass."
+        ],
+        "v3_handle": [
+          "Blue valve",
+          "The bypass valve. Shut in normal use. When it is open, water can go around the filter."
+        ],
+        "v4_handle": [
+          "Green valve",
+          "Sends water on to your home. Open in normal use and in bypass."
+        ],
+        "hose_bib": [
+          "Hose bib",
+          "A small faucet in the box. During a backflush the dirty water comes out here."
+        ],
+        "bib_wheel": [
+          "Hose bib handle",
+          "Opens the hose bib. Leave it shut except during a backflush."
+        ],
+        "unions": [
+          "Unions",
+          "Fittings that unscrew, so the manifold can come apart for service without cutting pipe. A slow drip here can fill the box with water."
+        ],
+        "filter_adapters": [
+          "Adapters",
+          "Brass fittings that join the box's pipes to the flexible lines that run to the filter tank."
+        ],
+        "pex_jumpers": [
+          "Lines to the tank",
+          "Two flexible lines. One carries water to the filter head, the other brings filtered water back."
+        ],
+        "filter_head": [
+          "Filter head",
+          "The cap on top of the tank. It has an inlet and an outlet port, and seals to the tank with an o-ring."
+        ],
+        "filter_head_oring": [
+          "Head seals",
+          "Rubber o-rings that seal the head to the tank and to the center tube. A worn seal can leak."
+        ],
+        "filter_head_pex_adapter_in": [
+          "Water in",
+          "Where water from the box enters the filter head."
+        ],
+        "filter_head_pex_adapter_out": [
+          "Filtered water out",
+          "Where filtered water leaves the head to go back through the box to your home."
+        ],
+        "tank": [
+          "Filter tank",
+          "A tall tank buried beside the box. It holds the filter media and the water above it."
+        ],
+        "carbon_media": [
+          "Filter media",
+          "A deep bed of filter granules. As water passes down through it, chlorine is taken out and fine grit is caught."
+        ],
+        "carbon_loaded": [
+          "Spent media",
+          "Media that is full of what it has caught. Once most of the bed looks like this, it is time to replace it."
+        ],
+        "tank_water": [
+          "Water in the tank",
+          "Incoming water fills the space above the bed before it works its way down through the media."
+        ],
+        "riser_tube": [
+          "Center tube",
+          "Filtered water rises up this tube from the bottom of the tank to the head."
+        ],
+        "riser_water": [
+          "Filtered water",
+          "Clean water on its way up the center tube."
+        ],
+        "diffuser_plate": [
+          "Bottom screen",
+          "A slotted plate at the bottom of the tank. Water passes through it, the media stays in the tank."
+        ],
+        "city_line": [
+          "From the street",
+          "The water line from your meter. Street water reaches the filter here."
+        ],
+        "house_line": [
+          "To your home",
+          "The water line that carries filtered water to the house."
+        ],
+        "grass": [
+          "Ground level",
+          "Everything below this line is buried. Only the box lid shows in the yard."
+        ],
+        "box_water": [
+          "Water in the box",
+          "Water standing in the box. After rain this can be normal. If it stays on dry days, there may be a leak."
+        ],
+        "filter_head_wet": [
+          "Wet ground",
+          "A soggy patch around the filter head can mean its seal is leaking."
+        ]
+      },
+      "card_prefix": {
+        "filter_head_riser_oring": "filter_head_oring",
+        "carbon_loaded": "carbon_loaded",
+        "union_": "unions",
+        "bib_hose": "hose_bib",
+        "bib_stream": "hose_bib"
+      }
+    },
+    "well_pump": {
+      "file": "models/well_pump.glb",
+      "title": "Well pump",
+      "typical": "a typical submersible well pump in a drilled well",
+      "typical_only": true,
+      "hide": [
+        "^grip_",
+        "^well_seal_cracked$",
+        "^backflow_packets$"
+      ],
+      "match": {
+        "category": [
+          "well_head"
+        ],
+        "subtype": [
+          "electric",
+          "unknown"
+        ],
+        "orientation": [
+          "upright",
+          "unknown"
+        ]
+      },
+      "front_deg": -90,
+      "body": [
+        "well_cap",
+        "jbox"
+      ],
+      "body_size": {
+        "diameter": 0.212,
+        "height": 0.579,
+        "x": 0,
+        "z": -0.014,
+        "y0": 0
+      },
+      "fit": {
+        "middle_max": 1
+      },
+      "frame_parts": [
+        "casing",
+        "well_cap",
+        "pump"
+      ],
+      "shell": [
+        "casing",
+        "well_cap",
+        "jbox_cover",
+        "pitless_outer"
+      ],
+      "sections": {
+        "casing": "casing_section",
+        "well_cap": "well_cap_section",
+        "cap_seal": "cap_seal_section",
+        "pitless_outer": "pitless_outer_section",
+        "pitless_slide": "pitless_slide_section"
+      },
+      "section_hide": [
+        "jbox_cover"
+      ],
+      "water": [
+        "water_well_column_section"
+      ],
+      "overlay_hide": [],
+      "heat": {
+        "clip": "pump_run",
+        "loop": "pump_run_loop",
+        "also": [],
+        "say": "The pump sits down in the well, under the water. When the pressure switch in your home calls for water, it pushes water up the drop pipe. Near the top, the water turns through the side of the casing at the pitless adapter, below ground, and runs in a buried line to the pressure tank."
+      },
+      "lessons": [
+        {
+          "key": "heat",
+          "label": "How it works"
+        },
+        {
+          "key": "check",
+          "label": "Check valve",
+          "clip": "check_failed",
+          "loop": "check_failed_loop",
+          "show": [
+            "backflow_packets"
+          ],
+          "highlight": [
+            "check_valve"
+          ],
+          "say": "The check valve above the pump lets water go up but not back down. If it leaks, water drains back into the well between uses. The pressure slowly drops while nobody is using water, and the pump turns on by itself. A technician can confirm it by watching the pressure gauge with every tap off."
+        },
+        {
+          "key": "cap",
+          "label": "The well cap",
+          "clip": "well_seal_cracked",
+          "show": [
+            "well_seal_cracked"
+          ],
+          "highlight": [
+            "well_cap",
+            "well_seal_cracked"
+          ],
+          "say": "The cap keeps rain, bugs and small animals out of your water. A cracked seal or a loose cap can let them in. Keep the cap bolted down, the casing standing a little above the ground, and the soil sloping away from it."
+        },
+        {
+          "key": "down",
+          "label": "Down the well",
+          "highlight": [
+            "torque_arrestor",
+            "pump_cable",
+            "cable_tape"
+          ],
+          "say": "The pump's wire runs down beside the drop pipe, taped to it every few feet. Each time the pump starts it gives a small twist. The rubber torque arrestor keeps the pump centered so it does not rub the casing."
+        }
+      ],
+      "cards": {
+        "casing": [
+          "Well casing",
+          "The pipe that lines the well. It keeps dirt and surface water out of your water."
+        ],
+        "well_cap": [
+          "Well cap",
+          "Covers the top of the casing. It lets air in while keeping out rain, bugs and small animals."
+        ],
+        "well_cap_bolts": [
+          "Cap bolts",
+          "Hold the cap down tight so it cannot be knocked off or lifted."
+        ],
+        "cap_seal": [
+          "Cap seal",
+          "A gasket between the cap and the casing that closes the gap."
+        ],
+        "well_seal_cracked": [
+          "Cracked seal",
+          "A gap that can let bugs and surface water into the well. A new seal or cap fixes it."
+        ],
+        "cap_conduit": [
+          "Wire conduit",
+          "Carries the pump wire out of the cap to the junction box."
+        ],
+        "jbox": [
+          "Junction box",
+          "Where the pump wire from down the well joins the wire from your home."
+        ],
+        "jbox_cover": [
+          "Junction box cover",
+          "Keeps water out of the wire connections. Leave it on, there is power inside."
+        ],
+        "wire_splice": [
+          "Wire splice",
+          "The connection between the pump wire and the house wire, sealed against water."
+        ],
+        "wire_conduit": [
+          "Conduit",
+          "Protects the wire from your home where it comes up out of the ground."
+        ],
+        "wire_stub": [
+          "Power from the house",
+          "The buried wire that carries power out to the well."
+        ],
+        "pitless_outer": [
+          "Pitless adapter",
+          "A fitting through the side of the casing, below ground. Water turns here and heads to your home underground, safe from freezing."
+        ],
+        "pitless_slide": [
+          "Pitless slide",
+          "The half that holds the drop pipe. It slides up out of the casing, so the pump can be pulled without digging."
+        ],
+        "service_stub": [
+          "Water line to the house",
+          "The buried pipe that carries water from the well to the pressure tank."
+        ],
+        "drop_pipe": [
+          "Drop pipe",
+          "Carries water up from the pump to the top of the well."
+        ],
+        "check_valve": [
+          "Check valve",
+          "Lets water go up and stops it from draining back into the well when the pump stops."
+        ],
+        "torque_arrestor": [
+          "Torque arrestor",
+          "A rubber guide that keeps the pump centered in the casing when it starts with a twist."
+        ],
+        "pump": [
+          "Submersible pump",
+          "A long, slim pump and motor that sit under the water down in the well."
+        ],
+        "pump_plate": [
+          "Pump label",
+          "Shows the pump's size and voltage, which a technician needs when replacing it."
+        ],
+        "pump_cable": [
+          "Pump wire",
+          "Carries power down the well to the pump's motor."
+        ],
+        "cable_tape": [
+          "Cable tape",
+          "Holds the pump wire to the drop pipe every few feet so it cannot tangle or rub."
+        ],
+        "water_well_column": [
+          "Water in the well",
+          "Groundwater fills the casing up to its resting level. The pump sits well below it."
+        ],
+        "flow_packets_up": [
+          "Water on its way up",
+          "Water pushed up the drop pipe by the pump."
+        ],
+        "flow_packets_out": [
+          "Water to the house",
+          "Water leaving the well through the pitless adapter."
+        ],
+        "backflow_packets": [
+          "Water draining back",
+          "With a leaking check valve, water slips back down into the well between uses."
+        ]
+      },
+      "card_prefix": {
+        "well_cap_bolt": "well_cap_bolts",
+        "jbox_cover": "jbox_cover",
+        "pitless_slide": "pitless_slide"
+      }
     }
   },
   "typical_only": {
@@ -3106,7 +7616,7 @@
     "water_heater_tankless": {
       "fallback_model": {
         "electric": "electric_tankless_water_heater",
-        "unknown": "electric_tankless_water_heater",
+        "unknown": "gas_tankless_water_heater",
         "gas": "gas_tankless_water_heater"
       }
     },
@@ -3138,6 +7648,96 @@
       "fallback_model": {
         "electric": "water_softener",
         "unknown": "water_softener"
+      }
+    },
+    "aerobic_septic": {
+      "fallback_model": {
+        "electric": "aerobic_septic",
+        "unknown": "aerobic_septic"
+      }
+    },
+    "sink": {
+      "fallback_model": {
+        "unknown": "bath_sink"
+      }
+    },
+    "condensate_pump": {
+      "fallback_model": {
+        "electric": "condensate_pump",
+        "unknown": "condensate_pump"
+      }
+    },
+    "erv": {
+      "fallback_model": {
+        "electric": "erv",
+        "unknown": "erv"
+      }
+    },
+    "lift_station": {
+      "fallback_model": {
+        "electric": "lift_station",
+        "unknown": "lift_station"
+      }
+    },
+    "media_filter": {
+      "fallback_model": {
+        "unknown": "media_filter"
+      }
+    },
+    "mixing_valve": {
+      "fallback_model": {
+        "unknown": "mixing_valve"
+      }
+    },
+    "pressure_tank": {
+      "fallback_model": {
+        "electric": "pressure_tank",
+        "unknown": "pressure_tank"
+      }
+    },
+    "septic_pump_tank": {
+      "fallback_model": {
+        "electric": "septic_pump_tank",
+        "unknown": "septic_pump_tank"
+      }
+    },
+    "septic_tank": {
+      "fallback_model": {
+        "unknown": "septic_tank"
+      }
+    },
+    "shower": {
+      "fallback_model": {
+        "unknown": "shower"
+      }
+    },
+    "smart_shutoff": {
+      "fallback_model": {
+        "electric": "smart_shutoff",
+        "unknown": "smart_shutoff"
+      }
+    },
+    "sump_pump": {
+      "fallback_model": {
+        "electric": "sump_pump",
+        "unknown": "sump_pump"
+      }
+    },
+    "surge_protector": {
+      "fallback_model": {
+        "electric": "surge_protector",
+        "unknown": "surge_protector"
+      }
+    },
+    "water_filter": {
+      "fallback_model": {
+        "unknown": "water_filter"
+      }
+    },
+    "well_head": {
+      "fallback_model": {
+        "electric": "well_pump",
+        "unknown": "well_pump"
       }
     }
   }

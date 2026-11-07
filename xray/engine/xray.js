@@ -69,13 +69,17 @@ export function pickModel(catalog, A) {
   const typ = (catalog.typical_only || {})[A.category];
   if (!sameCat.length && !typ) return { mode: 'none', reason: 'not_supported' };
   const sub = A.confidence.subtype === 'low' ? 'unknown' : A.subtype;
-  const exact = sameCat.find(([, m]) => sub !== 'unknown' && m.match.subtype.includes(sub) && m.match.orientation.includes(A.orientation));
+  // typical_only: a buried unit (septic tank, well) shows only lids in a photo, so it is never drawn over one
+  // a toilet or sink (match subtype only 'unknown') never matches exactly yet: tried 2026-11-07, the toilet drawing
+  // passed the fit check while visibly off (front on vs a turned toilet, tank too low). Typical until that is fixed.
+  const exact = sameCat.find(([, m]) => !m.typical_only && sub !== 'unknown' && m.match.subtype.includes(sub) && m.match.orientation.includes(A.orientation));
   if (exact && A.confidence.orientation !== 'low' && A.box && A.full_unit_visible && A.obstruction !== 'mostly' && A.units_count <= 3)
     return { mode: 'overlay', key: exact[0], reason: 'matched' };
   const key = (typ && typ.fallback_model && (typ.fallback_model[sub] || typ.fallback_model.unknown)) || (sameCat[0] && sameCat[0][0]);
   if (!key) return { mode: 'none', reason: 'not_supported' };
   let reason = 'no_box';
-  if (!exact) reason = A.orientation !== 'upright' ? 'orientation_not_modelled' : 'type_unsure';
+  if (!exact && sameCat.length && sameCat.every(([, m]) => m.typical_only)) reason = 'buried';
+  else if (!exact) reason = A.orientation !== 'upright' ? 'orientation_not_modelled' : 'type_unsure';
   else if (A.confidence.orientation === 'low') reason = 'orientation_unsure';
   else if (!A.full_unit_visible) reason = 'not_fully_visible';
   else if (A.obstruction === 'mostly') reason = 'blocked';
@@ -488,8 +492,22 @@ export async function createXray(container, opts = {}) {
     const L = S.lesson && (S.entry.lessons || []).find(l => l.key === S.lesson);
     if (L && name === L.clip && L.loop) play(L.loop, true);
   }
+  // a lesson's "show": fault parts the catalog hides (a worn flapper, a clogged filter), shown only while it runs
+  // "swap": {good: bad} hides the good part and shows the fault part in its place (the toilet's flapper)
+  function showParts(L) {
+    const vis = (o, on) => o.traverse(m => { m.visible = on; m.userData.xrOff = !on; });
+    for (const o of S.shown || []) vis(o, false);
+    for (const o of S.swapped || []) { vis(o, true); o.userData.xrHidden = false; }
+    // put back what the current view wants (a section shown by a lesson stays when Cut open is on)
+    if ((S.shown || []).length && S.view) setView(S.view, { silent: true });
+    S.shown = []; S.swapped = [];
+    if (!L) return;
+    const swap = Object.entries(L.swap || {});
+    for (const n of (L.show || []).concat(swap.map(([, bad]) => bad))) { const o = S.named.get(n); if (o) { vis(o, true); S.shown.push(o); } }
+    for (const [good] of swap) { const o = S.named.get(good); if (o && o.visible) { vis(o, false); o.userData.xrHidden = true; S.swapped.push(o); } }   // xrHidden: Cut open leaves it off
+  }
   function startHeat() {
-    clearHighlight(); S.lesson = null; resetPose(); S.heatOn = true; S.heatT = 0;
+    clearHighlight(); showParts(null); reframe(null); S.lesson = null; resetPose(); S.heatOn = true; S.heatT = 0;
     const H = S.entry.heat || {};
     if (H.clip) { if (!play(H.clip, false) && H.loop) play(H.loop, true); }
     (H.also || []).forEach(n => play(n, true));   // loops that run alongside, e.g. a furnace's blower
@@ -518,6 +536,7 @@ export async function createXray(container, opts = {}) {
     if (S.overlay && (L.highlight || []).some(n => { for (let o = S.named.get(n); o; o = o.parent) if ((S.entry.overlay_hide || []).includes(nameOf(o))) return true; return false; })) enterExplore();
     resetPose(); S.heatOn = false; S.lesson = L.key; S.glow.forEach(o => o.scale.set(0.001, 0.001, 0.001));
     if (S.view === 'solid') setView('xray');
+    showParts(L); reframe(L.frame || null);
     if (!play(L.clip, false) && L.loop) play(L.loop, true); highlight(L.highlight); updateFlowVisibility(); sayText(L.say); syncLessons(L.key);
     emit('lesson', L.key);
   }
@@ -771,7 +790,7 @@ export async function createXray(container, opts = {}) {
     const A = normalizeAnalysis(analysis); S.A = A;
     let choice = model ? { mode: A && A.box ? 'overlay' : 'typical', key: model, reason: 'host_chose' } : pickModel(catalog, A);
     S.choice = choice; emit('choice', choice);
-    if (choice.mode === 'none') { S.mode = 'none'; wait.style.display = 'none'; setNote('We can’t X-ray this one yet. Right now the X-ray works on tank water heaters and gas furnaces.'); emit('state', 'none'); return { ok: false, choice }; }
+    if (choice.mode === 'none') { S.mode = 'none'; wait.style.display = 'none'; setNote('We can’t X-ray this one yet. Right now it works on the things listed on the X-Ray menu.'); emit('state', 'none'); return { ok: false, choice }; }
     await Promise.all([loadPhoto(src).then(() => mark('photo_ready')), loadModel(choice.key)]);
     mark('model_ready');
     buildLessons(); updateFound(); syncBar(); layout();
@@ -794,7 +813,8 @@ export async function createXray(container, opts = {}) {
       S.overlay = false; S.pose = S.pose || { yaw: A ? yawFor(A) : 0 };
       if (S.photoSize && A && A.box) await runScan(true); // scan the photo first so the moment still feels like an X-ray
       const why = choice.reason === 'orientation_not_modelled' ? 'We do not have a 3D model for this kind of install yet, ' :
-        choice.reason === 'poor_fit' ? 'We could not line this up with your photo, ' : 'We could not match yours exactly, ';
+        choice.reason === 'poor_fit' ? 'We could not line this up with your photo, ' :
+        choice.reason === 'buried' ? 'Most of it is underground, ' : 'We could not match yours exactly, ';
       // picked from the X-Ray menu with no photo: nothing to apologise for
       setNote(!S.photoSize && choice.reason === 'host_chose' ? `This is ${typical} in 3D. Spin it, cut it open, and tap any part to see what it does.` : `${why}so this is ${typical} in 3D. It is not a scan of yours.`);
       enterExplore(true); setView('xray'); fadeInterior(700); startHeat(); mark('reveal');
@@ -822,18 +842,35 @@ export async function createXray(container, opts = {}) {
     });
   }
 
-  function enterExplore(instant) {
-    const from = S.overlay && S.pose ? overlayState() : null;
-    S.overlay = false; overlayParts(false); S.cmp != null && toggleCompare();
-    // frame the whole model, or only the parts a model names (a mini split's wall unit, not its long line runs)
-    const box = new THREE.Box3(); const only = S.entry.frame_parts && new Set(S.entry.frame_parts.flatMap(n => under(n)));
+  // where the camera goes to frame the whole model, or only the parts named (a mini split's wall unit, not its long
+  // line runs; a lesson's own parts, like a lift station's control panel). dir keeps the current viewing angle.
+  function framing(names, dir) {
+    const box = new THREE.Box3(); const only = names && new Set(names.flatMap(n => under(n)));
     S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o) && (!only || only.has(o))) box.expandByObject(o); });
     if (box.isEmpty()) S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o)) box.expandByObject(o); });
     const tgt = box.getCenter(new THREE.Vector3()); const size = box.getSize(new THREE.Vector3());
     const cw = container.clientWidth, ch = container.clientHeight; const clearH = Math.max(100, ch - (bar.offsetHeight || 0) - 40 - (S.insetTop || 0));
     const vf = THREE.MathUtils.degToRad(EXPLORE_FOV) * clearH / ch; const hf = 2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(EXPLORE_FOV) / 2) * cw / ch);
-    const dist = Math.max((size.y * 0.55) / Math.tan(vf / 2), (Math.max(size.x, size.z) * 0.6) / Math.tan(hf / 2)) * 1.08;
-    const pos = tgt.clone().add(new THREE.Vector3(0.18, 0.14, 1).normalize().multiplyScalar(dist));
+    const dist = Math.max((size.y * 0.55) / Math.tan(vf / 2), (Math.max(size.x, size.z) * 0.6) / Math.tan(hf / 2), 0.25) * 1.08;
+    const d = dir && dir.lengthSq() > 1e-6 ? dir.clone().normalize() : new THREE.Vector3(0.18, 0.14, 1).normalize();
+    return { pos: tgt.clone().add(d.multiplyScalar(dist)), tgt, dist };
+  }
+  // a lesson with "frame" glides the camera to its parts; the next lesson without one glides back
+  function reframe(names) {
+    if (S.overlay || S.mode !== 'explore') return;
+    if (!names && !S.lessonFramed) return;
+    S.lessonFramed = !!names;
+    const from = exploreState();
+    const { pos, tgt, dist } = framing(names || S.entry.frame_parts, new THREE.Vector3().subVectors(camera.position, orbit.target));
+    orbit.set(pos, tgt); orbit.maxD = Math.max(orbit.maxD || 0, dist * 2.2); orbit.minD = Math.min(orbit.minD || dist, dist * 0.25);
+    const to = exploreState(); setCam(from);
+    S.tween = { from, to, start: performance.now(), ms: 900 };
+  }
+  function enterExplore(instant) {
+    const from = S.overlay && S.pose ? overlayState() : null;
+    S.overlay = false; overlayParts(false); S.cmp != null && toggleCompare();
+    const { pos, tgt, dist } = framing(S.entry.frame_parts);
+    S.lessonFramed = false;
     orbit.set(pos, tgt); orbit.maxD = dist * 2.2; orbit.minD = dist * 0.25;
     const to = exploreState();
     photo.style.opacity = 0; dim.style.opacity = 0;
@@ -875,7 +912,8 @@ export async function createXray(container, opts = {}) {
     refitFromBox: search => { if (!S.A || !S.A.box) return null; S.pose = initialPose(S.A); const f = measureFit(!!search); applyCamera(); renderDebug(); return f; },
     setAlign: on => { S.align = !!on; orbit.enabled = !S.align && !S.overlay; renderDebug(); },
     getPose: () => S.pose && { ...S.pose }, setPose: p => { Object.assign(S.pose, p); S.root.rotation.y = S.pose.yaw + frontRad(); applyCamera(); },
-    debug: () => ({ choice: S.choice, analysis: S.A, fit: S.fit, pose: S.pose && { ...S.pose }, timing: { ...timing }, view: S.view, mode: S.mode, found: [...S.found] }),
+    visibleParts: () => { const out = []; S.root.traverse(o => { if (o.isMesh && o.visible && !isOff(o)) { const b = new THREE.Box3().setFromObject(o); const z = b.getSize(new THREE.Vector3()); out.push([nameOf(o) || nameOf(o.parent), +z.x.toFixed(2), +z.y.toFixed(2), +z.z.toFixed(2)]); } }); return out; },
+    debug: () => ({ choice: S.choice, analysis: S.A, fit: S.fit, pose: S.pose && { ...S.pose }, timing: { ...timing }, view: S.view, mode: S.mode, found: [...S.found], cam: camera.position.toArray(), orbit: S.orbit || null, explore: S.ex || null }),
     // where a part's centre is on screen (CSS px in the engine's container), for scripted taps
     screenOf: n => { const o = S.named.get(n); if (!o) return null; const c = new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3()).project(camera);
       const r = renderer.domElement.getBoundingClientRect(); return [r.left + (c.x + 1) / 2 * r.width, r.top + (1 - c.y) / 2 * r.height]; },
