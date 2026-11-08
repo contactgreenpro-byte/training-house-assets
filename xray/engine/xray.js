@@ -23,6 +23,9 @@ export const FIT_GOOD = 0.5;           // overall shape score
 export const FIT_EDGE_MIN = 0.4;       // share of the outline on a photo edge
 export const FIT_SIDE_EDGE_MIN = 0.4;  // the weaker long side on a vertical edge (0.5 failed a dim but correct attic fit)
 export const FIT_CAP_MIN = 0.4;        // the top or bottom on a horizontal edge
+// job photos round 2: the whole body (not its outline, which the photo edges clip) against the reader's box. Condensers
+// were drawn up to 2.6 times wider than the unit and a lowboy tank at half its width, and all passed the outline checks.
+export const FIT_BODY_MIN = 0.67, FIT_BODY_MAX = 1.3;
 export const FIT_ASPECT_MAX = 1.5;     // the model's outline no more than this much wider (for its height) than the reader's box
 export const FIT_MIDDLE_MAX = 0.08;    // vertical edges through the middle (pipes, posts, a side of the real tank)
 
@@ -89,12 +92,46 @@ export function pickModel(catalog, A) {
   let reason = 'no_box';
   if (anchored && !onLid) reason = 'no_lid_seen';
   else if (!exact && sameCat.length && sameCat.every(([, m]) => m.typical_only)) reason = 'buried';
-  else if (!exact) reason = A.orientation !== 'upright' ? 'orientation_not_modelled' : 'type_unsure';
+  // job photos round 2: nine upright closet air handlers (the model lies on its side) were told "we could not match
+  // yours exactly". When no model of the kind stands the way the reader saw it, say so. A thermostat read 'upright'
+  // is still on its wall: models made for the wall do not count as standing the other way.
+  else if (!exact) {
+    const noneStandsSo = sameCat.length && sameCat.every(([, m]) => !m.match.orientation.includes(A.orientation))
+      && !(A.orientation === 'upright' && sameCat.some(([, m]) => m.match.orientation.includes('wall_hung')));
+    reason = A.orientation !== 'upright' || noneStandsSo ? 'orientation_not_modelled' : 'type_unsure';
+  }
   else if (A.confidence.orientation === 'low') reason = 'orientation_unsure';
   else if (!A.full_unit_visible) reason = 'not_fully_visible';
   else if (A.obstruction === 'mostly') reason = 'blocked';
   else if (A.units_count > 3) reason = 'too_many_units';
   return { mode: 'typical', key, reason };
+}
+
+// ------------------------------------------------------------------ septic: ask first
+// Jake, 2026-11-07: "Some like the septic we will need to ask questions before the xray will work because there is no
+// way to know whats in the ground." Lids in a photo cannot tell the kinds apart (job photos round 2: 0 aerobic answers
+// in 16 septic reads), so the kind comes from the homeowner's answers, or from the host when the home's system is
+// known, never from the reader. The photo is still used to line the drawing up on the lid. "Not sure" draws nothing.
+// model key -> the reader's category for it
+export const SEPTIC_MODELS = { septic_tank: 'septic_tank', septic_pump_tank: 'septic_pump_tank', aerobic_septic: 'aerobic_septic', aerobic_septic_spray: 'aerobic_septic', lift_station: 'lift_station' };
+// each answer goes on to the next question, or ends on a model ('=key') or 'not_sure'. The air pump is the one thing
+// only an aerobic unit has (a pump tank has a chlorinator too); in-tank aerators hum under a lid, so the question says so.
+export const SEPTIC_QUESTIONS = {
+  where: { lead: 'To show what is underground, we need to know which system you have.', q: 'Where does the waste water from your house go?',
+    a: [['A septic system in my yard', 'air'], ['The city sewer, through a pump in my yard', '=lift_station'], ['Not sure', 'not_sure']] },
+  air: { q: 'Is there an air pump that hums all the time, beside the tank or under one of its lids?',
+    pics: [['air_pump_dome.jpg', 'Round top on a pad'], ['air_pump_box.jpg', 'Square box'], ['air_pump_motor.jpg', 'Motor with cooling fins'], ['air_pump_cover.jpg', 'Under a vented cover']],
+    a: [['Yes', 'spray'], ['No', 'alarm'], ['Not sure', 'not_sure']] },
+  spray: { q: 'Do sprinkler heads in the yard spray the water from the system, often at night?',
+    a: [['Yes', '=aerobic_septic_spray'], ['No', '=aerobic_septic']] },
+  alarm: { q: 'Is there an alarm box or control panel on a post or on the house, or sprinkler heads that spray the water from the system?',
+    a: [['Yes', '=septic_pump_tank'], ['No', '=septic_tank']] },
+};
+export const SEPTIC_NOT_SURE = 'Ask your Happy Pipes tech which system you have. Until then we will not draw what is underground. You can look at each kind on the X-Ray menu.';
+// the answered (or host-named) septic kind, still lined up on the lid when the reader saw one
+export function septicChoice(catalog, A, kind) {
+  const c = A ? pickModel(catalog, { ...A, category: SEPTIC_MODELS[kind] }) : { mode: 'none' };
+  return c.mode === 'none' ? { mode: 'typical', key: kind, reason: 'host_chose', septic: kind } : { ...c, key: kind, septic: kind };
 }
 
 export function yawFor(A) {
@@ -222,6 +259,17 @@ const CSS = `
 .xr-dbg label{display:flex;justify-content:space-between;gap:6px;align-items:center;margin:3px 0}
 .xr-dbg input[type=range]{width:120px}
 .xr-dbg button{min-height:28px;font-size:12px;padding:0 8px;margin:3px 3px 0 0}
+.xr-ask{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:min(94%,460px);max-height:calc(100% - var(--xr-inset-top,0px) - 56px);overflow:auto;background:#f4fbfd;color:#0c2630;border-radius:14px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,.45);display:none;touch-action:pan-y}
+.xr-ask.on{display:block}
+.xr-ask .lead{margin:0 0 6px;font-size:13.5px;color:#3b5a66}
+.xr-ask h4{margin:0 0 10px;font:700 17px/1.3 system-ui}
+.xr-ask .pics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}
+.xr-ask figure{margin:0}
+.xr-ask img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block;background:#dfeff4}
+.xr-ask figcaption{font-size:12.5px;line-height:1.25;text-align:center;margin-top:3px;color:#3b5a66}
+.xr-ask .ans{display:flex;flex-direction:column;gap:8px}
+.xr-ask button{background:#1aa6c9;border-color:#1aa6c9;color:#03141b;min-height:46px;font-size:15px;line-height:1.2;border-radius:12px;padding:6px 14px}
+.xr-ask button.back{background:transparent;border-color:transparent;color:#1a6f86;min-height:36px}
 @media (prefers-reduced-motion:reduce){.xr-wait .bar i{animation:none}}
 `;
 function injectCSS(doc) { if (doc.getElementById('xr-css')) return; const s = doc.createElement('style'); s.id = 'xr-css'; s.textContent = CSS; doc.head.appendChild(s); }
@@ -273,7 +321,8 @@ export async function createXray(container, opts = {}) {
   const bar = el('div', 'xr-bar'); const rowL = el('div', 'xr-row'); const rowC = el('div', 'xr-row'); bar.append(say, rowL, rowC);
   const wait = el('div', 'xr-wait'); const waitT = el('div', null, 'Getting the X-ray ready'); const waitB = el('div', 'bar'); waitB.append(el('i')); wait.append(waitT, waitB);
   const dbg = el('div', 'xr-dbg');
-  container.append(photo, dim, renderer.domElement, scan, cmpLine, top, note, bar, card, wait, dbg);
+  const ask = el('div', 'xr-ask'); ask.setAttribute('role', 'dialog'); ask.setAttribute('aria-live', 'polite');
+  container.append(photo, dim, renderer.domElement, scan, cmpLine, top, note, bar, card, wait, ask, dbg);
   bar.style.visibility = 'hidden';
 
   // three
@@ -371,7 +420,9 @@ export async function createXray(container, opts = {}) {
       const n = nameOf(o); if (n) S.named.set(n, o);
       if (hide.some(r => r.test(n))) { o.visible = false; o.userData.xrOff = true; o.userData.xrHidden = true; }
       if (o.isMesh) { o.userData.orig = o.material; S.meshes.push(o); }
-      S.rest.set(o, { p: o.position.clone(), q: o.quaternion.clone(), s: o.scale.clone(), w: o.morphTargetInfluences ? o.morphTargetInfluences.slice() : null });
+      // not the root: its turn and width are the photo pose, and resetPose (every lesson, the heat clip right after
+      // the reveal) put it back face on and full width while the camera kept the pose (job photos round 2)
+      if (o !== root) S.rest.set(o, { p: o.position.clone(), q: o.quaternion.clone(), s: o.scale.clone(), w: o.morphTargetInfluences ? o.morphTargetInfluences.slice() : null });
     });
     S.mixer = new THREE.AnimationMixer(root); S.clips = {};
     // gltf.scene.clone keeps names, so the clips bind by name to the copy
@@ -717,11 +768,14 @@ export async function createXray(container, opts = {}) {
     const e4 = r.edges4;
     // a cabinet has door seams down its face, so a model can relax the middle rule (catalog fit.middle_max)
     const middleMax = (S.entry.fit && S.entry.fit.middle_max != null) ? S.entry.fit.middle_max : FIT_MIDDLE_MAX;
+    const pb = projectPts(bodyPts(), S.pose, pd.w, pd.h);
+    const body = { w: +((pb.x1 - pb.x0) / Math.max(0.001, S.A.box.w)).toFixed(3), h: +((pb.y1 - pb.y0) / Math.max(0.001, S.A.box.h)).toFixed(3) };
     const good = info.n > 20 && r.edge >= FIT_EDGE_MIN && e4.sidesMin >= FIT_SIDE_EDGE_MIN && e4.capMax >= FIT_CAP_MIN && r.middleV <= middleMax && r.shape >= FIT_GOOD
       // job photos 2026-11-07: a square condenser over a side-fan mini split scored on edges while far wider than the unit
-      && aspectRatio <= FIT_ASPECT_MAX;
+      && aspectRatio <= FIT_ASPECT_MAX
+      && body.w >= FIT_BODY_MIN && body.w <= FIT_BODY_MAX && body.h >= FIT_BODY_MIN && body.h <= FIT_BODY_MAX;
     const r3 = v => v == null ? null : +v.toFixed(3);
-    S.fit = { shape: +r.shape.toFixed(3), middleV: +r.middleV.toFixed(3), edge: +r.edge.toFixed(3), iou: r.iou == null ? null : +r.iou.toFixed(3), combined: +r.combined.toFixed(3), fgOk: S._fg.ok,
+    S.fit = { body, shape: +r.shape.toFixed(3), middleV: +r.middleV.toFixed(3), edge: +r.edge.toFixed(3), iou: r.iou == null ? null : +r.iou.toFixed(3), combined: +r.combined.toFixed(3), fgOk: S._fg.ok,
       sides: { left: r3(sc.left), right: r3(sc.right), top: r3(sc.top), bottom: r3(sc.bottom), weakest: r3(sc.weakest) },
       edges4: { left: r3(r.edges4.left), right: r3(r.edges4.right), top: r3(r.edges4.top), bottom: r3(r.edges4.bottom) },
       aspectRatio: +aspectRatio.toFixed(2), good, moved, ms: Math.round(performance.now() - t0) };
@@ -729,11 +783,32 @@ export async function createXray(container, opts = {}) {
     return S.fit;
   }
 
+  // the body's box corners in world space: they turn and widen with the model
+  function bodyPts() {
+    const B = S.entry.body_size, H = B.height; const pts = [];
+    if (B.width) {
+      // a cabinet (furnace): the eight corners of its box, centred on the origin like the tanks
+      const hw = B.width / 2, hd = (B.depth || B.width) / 2, x0 = B.x || 0, z0 = B.z || 0, y0 = B.y0 || 0;
+      for (const x of [x0 - hw, x0 + hw]) for (const z of [z0 - hd, z0 + hd]) pts.push(new THREE.Vector3(x, y0, z), new THREE.Vector3(x, y0 + H, z));
+    } else {
+      const r = B.diameter / 2, x0 = B.x || 0, z0 = B.z || 0, y0 = B.y0 || 0;
+      for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; pts.push(new THREE.Vector3(x0 + Math.cos(a) * r, y0, z0 + Math.sin(a) * r), new THREE.Vector3(x0 + Math.cos(a) * r, y0 + H, z0 + Math.sin(a) * r)); }
+    }
+    S.root.updateMatrixWorld(true);
+    pts.forEach(p => p.applyMatrix4(S.root.matrixWorld));
+    return pts;
+  }
+  // where those corners land in the photo (0 to 1 across and down, before the pose's shift), not clipped at its edges
+  function projectPts(pts, pose, w, h) {
+    const { pos, tgt } = poseCamera(pose); const c = new THREE.PerspectiveCamera(pose.vfov, w / h, 0.01, 100); c.position.copy(pos); c.lookAt(tgt); c.updateMatrixWorld(); c.updateProjectionMatrix();
+    let x0 = 1, y0 = 1, x1 = 0, y1 = 0; for (const p of pts) { const v = p.clone().project(c); const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+    return { x0, y0, x1, y1 };
+  }
   function applyWiden() { const k = (S.pose && S.pose.widen) || 1; S.root.scale.set(k, 1, k); S.root.updateMatrixWorld(true); }
   function initialPose(A) {
     const { w, h } = S.photoSize;
     const vfov = w >= h ? THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(PHONE_LONG_FOV / 2)) * h / w)) : PHONE_LONG_FOV;
-    const E = S.entry; const B = E.body_size, H = B.height; const pts = [];
+    const E = S.entry; const B = E.body_size;
     const pose = { yaw: yawFor(A), elev: ELEV_DEG[A.camera_height] != null ? ELEV_DEG[A.camera_height] : 6, d: 3, shiftX: 0, shiftY: 0, vfov, widen: 1 };
     if (E.anchor) {
       // a photo of lids on the ground is taken looking down at them, more steeply than any appliance photo
@@ -744,22 +819,25 @@ export async function createXray(container, opts = {}) {
     }
     S.root.rotation.y = pose.yaw + frontRad(); S.root.scale.set(1, 1, 1); S.root.updateMatrixWorld(true);
     // fit the body's projected height to the box height (size goes as 1/distance), then centre it on the box
-    if (B.width) {
-      // a cabinet (furnace): the eight corners of its box, centred on the origin like the tanks
-      const hw = B.width / 2, hd = (B.depth || B.width) / 2, x0 = B.x || 0, z0 = B.z || 0, y0 = B.y0 || 0;
-      for (const x of [x0 - hw, x0 + hw]) for (const z of [z0 - hd, z0 + hd]) pts.push(new THREE.Vector3(x, y0, z), new THREE.Vector3(x, y0 + H, z));
-    } else {
-      const r = B.diameter / 2, x0 = B.x || 0, z0 = B.z || 0, y0 = B.y0 || 0;
-      for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2; pts.push(new THREE.Vector3(x0 + Math.cos(a) * r, y0, z0 + Math.sin(a) * r), new THREE.Vector3(x0 + Math.cos(a) * r, y0 + H, z0 + Math.sin(a) * r)); }
+    let pts = bodyPts(); const proj = () => projectPts(pts, pose, w, h);
+    const sizeByHeight = () => { for (let i = 0; i < 6; i++) { const p = proj(); pose.d *= E.anchor ? (p.x1 - p.x0) / A.box.w : (p.y1 - p.y0) / A.box.h; } };
+    const mb = !E.anchor && B.width && E.fit && E.fit.match_box;
+    if (mb) {
+      // job photos round 2: fitted by height alone, the squat condenser model came up to 1 m from the camera and its
+      // near face spread up to 2.6 times wider than the unit. Most real cabinets are taller for their footprint:
+      // narrow the cabinet (the same as a taller one, once it is sized to the box) until the outline has the box's
+      // shape. Looking down more steeply was tried and drew a huge fan bowl over the photo. The size check still
+      // refuses what this cannot reach.
+      const want = (A.box.w * w) / (A.box.h * h);
+      const shapeNow = () => { sizeByHeight(); const p = proj(); return ((p.x1 - p.x0) * w) / Math.max(1e-6, (p.y1 - p.y0) * h); };
+      const [lo, hi] = mb.widen || [0.5, 1.15];
+      for (let i = 0; i < 4; i++) {
+        pose.widen = Math.max(lo, Math.min(hi, pose.widen * want / shapeNow()));
+        S.root.scale.set(pose.widen, 1, pose.widen); S.root.updateMatrixWorld(true); pts = bodyPts();
+      }
     }
-    pts.forEach(p => p.applyMatrix4(S.root.matrixWorld));   // the box turns with the model
-    const proj = () => {
-      const { pos, tgt } = poseCamera(pose); const c = new THREE.PerspectiveCamera(pose.vfov, w / h, 0.01, 100); c.position.copy(pos); c.lookAt(tgt); c.updateMatrixWorld(); c.updateProjectionMatrix();
-      let x0 = 1, y0 = 1, x1 = 0, y1 = 0; for (const p of pts) { const v = p.clone().project(c); const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
-      return { x0, y0, x1, y1 };
-    };
     // flat lids seen from above: their width is the steady measure (their height in the picture depends on the angle)
-    for (let i = 0; i < 6; i++) { const p = proj(); pose.d *= E.anchor ? (p.x1 - p.x0) / A.box.w : (p.y1 - p.y0) / A.box.h; }
+    sizeByHeight();
     const p = proj();
     pose.shiftX = (A.box.x + A.box.w / 2) - (p.x0 + p.x1) / 2; pose.shiftY = (A.box.y + A.box.h / 2) - (p.y0 + p.y1) / 2;
     return pose;
@@ -886,18 +964,66 @@ export async function createXray(container, opts = {}) {
     layout();
   }
 
+  // the septic questions over the photo; resolves to { kind: a model key or 'not_sure', answers: [[question, answer]] }
+  function askSeptic() {
+    return new Promise(res => {
+      const path = [];
+      const show = id => {
+        const Q = SEPTIC_QUESTIONS[id]; ask.innerHTML = '';
+        if (Q.lead && !path.length) ask.append(el('p', 'lead', Q.lead));
+        ask.append(el('h4', null, Q.q));
+        if (Q.pics) {
+          const g = el('div', 'pics');
+          for (const [f, cap] of Q.pics) { const fig = el('figure'); const im = el('img'); im.src = new URL('engine/pics/' + f, base).href; im.alt = cap; im.decoding = 'async'; fig.append(im, el('figcaption', null, cap)); g.append(fig); }
+          ask.append(g);
+        }
+        const row = el('div', 'ans');
+        for (const [label, next] of Q.a) {
+          const b = el('button', null, label);
+          b.onclick = () => {
+            path.push([id, label]); emit('ask', { question: id, answer: label });
+            if (next === 'not_sure' || next[0] === '=') { ask.classList.remove('on'); ask.innerHTML = ''; res({ kind: next === 'not_sure' ? next : next.slice(1), answers: path.slice() }); }
+            else show(next);
+          };
+          row.append(b);
+        }
+        if (path.length) { const back = el('button', 'back', 'Back'); back.onclick = () => show(path.pop()[0]); row.append(back); }
+        ask.append(row); ask.classList.add('on'); ask.scrollTop = 0;
+        const first = row.querySelector('button'); if (first) first.focus({ preventScroll: true });
+      };
+      show('where');
+    });
+  }
+
   // a host can keep a strip at the top for its own controls (Home Portal puts its back link there)
   function setInsets({ top = 0 } = {}) { S.insetTop = Math.max(0, +top || 0); container.style.setProperty('--xr-inset-top', S.insetTop + 'px'); layout(); }
-  async function start({ photo: src, analysis, model, insetTop } = {}) {
+  // septic: a saved answer for this home (a model key or 'not_sure') skips the questions; the host gets every answer
+  // as a 'septic_answer' event so it can save it
+  async function start({ photo: src, analysis, model, septic, insetTop } = {}) {
     if (insetTop != null) setInsets({ top: insetTop });
-    S.mode = 'loading'; wait.style.display = ''; waitT.textContent = 'Getting the X-ray ready'; bar.style.visibility = 'hidden'; card.classList.remove('on');
+    S.mode = 'loading'; wait.style.display = ''; waitT.textContent = 'Getting the X-ray ready'; bar.style.visibility = 'hidden'; card.classList.remove('on'); ask.classList.remove('on');
     setNote(''); sayText(''); S.found = new Set(); S.cmp = null; renderer.domElement.style.clipPath = ''; dim.style.clipPath = ''; cmpLine.style.display = 'none';
     S._edges = null; S.fit = null; S.align = false; S.lesson = null; S.heatOn = false;
     const A = normalizeAnalysis(analysis); S.A = A;
-    let choice = model ? { mode: A && A.box ? 'overlay' : 'typical', key: model, reason: 'host_chose' } : pickModel(catalog, A);
+    // a septic kind named by the host still lines up on the lid in the photo
+    let choice = model ? (A && SEPTIC_MODELS[model] ? septicChoice(catalog, A, model) : { mode: A && A.box ? 'overlay' : 'typical', key: model, reason: 'host_chose' }) : pickModel(catalog, A);
+    let photoReady = null;
+    if (!model && choice.mode !== 'none' && SEPTIC_MODELS[choice.key]) {
+      let kind = septic === 'not_sure' || SEPTIC_MODELS[septic] ? septic : null, answers = null;
+      if (!kind) {
+        photoReady = loadPhoto(src).then(() => mark('photo_ready')); await photoReady; layout();
+        S.mode = 'asking'; wait.style.display = 'none'; emit('state', 'asking');
+        ({ kind, answers } = await askSeptic());
+        S.mode = 'loading'; wait.style.display = '';
+      }
+      emit('septic_answer', { kind, answers });
+      choice = kind === 'not_sure' ? { mode: 'none', reason: 'septic_kind_unknown' } : septicChoice(catalog, A, kind);
+    }
     S.choice = choice; emit('choice', choice);
-    if (choice.mode === 'none') { S.mode = 'none'; wait.style.display = 'none'; setNote('We can’t X-ray this one yet. Right now it works on the things listed on the X-Ray menu.'); emit('state', 'none'); return { ok: false, choice }; }
-    await Promise.all([loadPhoto(src).then(() => mark('photo_ready')), loadModel(choice.key)]);
+    // not sure: say what to do in the panel, not in the small note line
+    if (choice.reason === 'septic_kind_unknown') { ask.innerHTML = ''; ask.append(el('h4', null, 'Which system do you have?'), el('p', 'lead', SEPTIC_NOT_SURE)); ask.classList.add('on'); }
+    if (choice.mode === 'none') { S.mode = 'none'; wait.style.display = 'none'; setNote(choice.reason === 'septic_kind_unknown' ? '' : 'We can’t X-ray this one yet. Right now it works on the things listed on the X-Ray menu.'); emit('state', 'none'); return { ok: false, choice }; }
+    await Promise.all([photoReady || loadPhoto(src).then(() => mark('photo_ready')), loadModel(choice.key)]);
     mark('model_ready');
     buildLessons(); updateFound(); syncBar(); layout();
     const typical = S.entry.typical;
@@ -906,7 +1032,7 @@ export async function createXray(container, opts = {}) {
       S.pose = initialPose(A); S.overlay = true; overlayParts(true); layout();
       // lids on the ground have no outline to check against: the anchor is the lid box itself
       const f = choice.reason === 'anchored' ? anchorFit() : measureFit(true); mark('fit_done');
-      if (!f.good) { S.root.scale.set(1, 1, 1); overlayParts(false); overlay = false; S.choice = choice = { ...choice, mode: 'typical', reason: f.tooClose ? 'too_close' : 'poor_fit' }; emit('choice', choice); }
+      if (!f.good) { S.root.scale.set(1, 1, 1); S.root.rotation.y = frontRad(); overlayParts(false); overlay = false; S.choice = choice = { ...choice, mode: 'typical', reason: f.tooClose ? 'too_close' : 'poor_fit' }; emit('choice', choice); }
     }
     wait.style.display = 'none';
     if (overlay) {

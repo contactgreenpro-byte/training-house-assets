@@ -7,7 +7,9 @@
 <!-- X-Ray My Home shell. A host page (Home Portal's /xray) fetches this file, replaces __XRAY_BASE__ with the
      folder the engine is served from, and mounts it as a same-origin blob frame, the way House.jsx mounts the
      training house. The photo then travels by postMessage inside the portal's own origin: no new link to it.
-     Messages in:  {type:'xray-start', photo: Blob|url, analysis, model?}
+     Messages in:  {type:'xray-start', photo: Blob|url, analysis, model?, septic?}
+     (septic: the home's saved answer, a septic model key or 'not_sure', so the septic questions are not asked again;
+     every answer comes back as the 'septic_answer' event for the host to save)
      Messages out: {type:'xray-ready'} then {type:'xray-event', event, data} for state, choice, fit, tap, timing. -->
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
@@ -38,7 +40,7 @@ try {
 }
 window.addEventListener('message', async e => {
   if (e.origin !== origin || !e.data || e.data.type !== 'xray-start' || !engine) return;
-  try { const r = await engine.start({ photo: e.data.photo, analysis: e.data.analysis, model: e.data.model, insetTop: e.data.insetTop }); tell('started', r); }
+  try { const r = await engine.start({ photo: e.data.photo, analysis: e.data.analysis, model: e.data.model, septic: e.data.septic, insetTop: e.data.insetTop }); tell('started', r); }
   catch (err) { tell('error', String(err && (err.stack || err.message) || err).slice(0, 900)); }
 });
 parent.postMessage({ type: 'xray-ready' }, origin);

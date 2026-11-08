@@ -849,7 +849,13 @@
       },
       "front_deg": 0,
       "fit": {
-        "middle_max": 1
+        "middle_max": 1,
+        "match_box": {
+          "widen": [
+            0.5,
+            1.15
+          ]
+        }
       },
       "front_marker": {
         "part": "rheem_badge",
@@ -4601,7 +4607,13 @@
       },
       "front_deg": 0,
       "fit": {
-        "middle_max": 1
+        "middle_max": 1,
+        "match_box": {
+          "widen": [
+            0.5,
+            1.15
+          ]
+        }
       },
       "shell": [
         "louver_front",
