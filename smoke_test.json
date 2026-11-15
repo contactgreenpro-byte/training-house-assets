@@ -1328,24 +1328,14 @@
      3.1607
     ],
     [
-     -3.33,
+     -3.39,
      9.8,
-     3.1616
+     3.1622
     ],
     [
-     -3.33,
+     -3.39,
      9.8,
-     3.3
-    ],
-    [
-     -3.5,
-     9.8,
-     3.3
-    ],
-    [
-     -3.5,
-     9.546,
-     3.3
+     3.1513
     ]
    ],
    "r": 0.0134,
@@ -1353,7 +1343,8 @@
    "config": "dehumidifier=yes&hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain",
    "dist0": 8.2507,
    "from": "house",
-   "stop": "unit"
+   "stop": "trap",
+   "trap": "dehumidifier trap"
   },
   {
    "run": "pipe_hvac_condensate_hp_drain_cleanout",
@@ -2187,6 +2178,21 @@
      -2.9074,
      10.23,
      3.185
+    ],
+    "dip_m": 0.075,
+    "litres": 0.069
+   },
+   "dehum_trap": {
+    "water": "trap_water_hvac_condensate_dehum",
+    "weir": [
+     -3.39,
+     9.8,
+     3.1513
+    ],
+    "weir_corner": [
+     -3.39,
+     9.8,
+     3.1622
     ],
     "dip_m": 0.075,
     "litres": 0.069

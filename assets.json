@@ -1,7 +1,7 @@
 {
- "published": "2026-11-15T12:10:34",
- "house": "r100a4s",
- "note": "r100a4s: the sure vent under the kitchen sink, the smoke test tool and eight smells to find, the condensate tie into the house drain",
+ "published": "2026-11-15T15:28:01",
+ "house": "r100a4t",
+ "note": "r100a4t: the softener's line rejoined at the old shut-off point, the condensate pump's tube lifted over the attic hot line, the return box at the media cabinet, the dehumidifier's drain with its own trap",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -260,7 +260,7 @@
    "bytes": 1108340
   },
   "index.html": {
-   "v": "b47d39c6e4",
+   "v": "ac1d3d48c3",
    "bytes": 43629
   },
   "induct_purifier.glb": {
@@ -564,8 +564,8 @@
    "bytes": 36388
   },
   "pipes_groups.json": {
-   "v": "d7335ba41b",
-   "bytes": 108474
+   "v": "6bf317e9bf",
+   "bytes": 111563
   },
   "pipes_hvac__common.glb": {
    "v": "f2bb3860a1",
@@ -628,8 +628,8 @@
    "bytes": 235328
   },
   "pipes_hvac__hvac-split_furnace_92+split_furnace_cond96+split_furnace_98.glb": {
-   "v": "6696ef48d7",
-   "bytes": 236172
+   "v": "856e12422f",
+   "bytes": 221384
   },
   "pipes_hvac__hvac-split_furnace_92.glb": {
    "v": "022016e3e8",
@@ -652,8 +652,8 @@
    "bytes": 17680
   },
   "pipes_hvac__hvac__a340dde3.glb": {
-   "v": "860e3c88e8",
-   "bytes": 75100
+   "v": "c58d67f7b6",
+   "bytes": 74300
   },
   "pipes_hvac__hvac__d128c58d.glb": {
    "v": "48209a5a87",
@@ -908,8 +908,8 @@
    "bytes": 19588
   },
   "pipes_supply__softener-yes_and_plumbing-pex.glb": {
-   "v": "f14a919f81",
-   "bytes": 178412
+   "v": "73618b583c",
+   "bytes": 140320
   },
   "pipes_supply__softener-yes_and_plumbing-pex_and_shutoff_extra-attic+none.glb": {
    "v": "e92c1456d7",
@@ -956,16 +956,16 @@
    "bytes": 15536
   },
   "pipes_supply__water-city_filter_and_softener-yes_and_plumbing-cpvc.glb": {
-   "v": "1c89cc36bc",
-   "bytes": 108736
+   "v": "d66b921d27",
+   "bytes": 87304
   },
   "pipes_supply__water-city_filter_and_softener-yes_and_plumbing-galvanized.glb": {
-   "v": "7388384d77",
-   "bytes": 183252
+   "v": "38cbe1bda0",
+   "bytes": 157900
   },
   "pipes_supply__water-city_filter_and_softener-yes_and_plumbing-pex.glb": {
-   "v": "912dfd38c4",
-   "bytes": 109232
+   "v": "c87871af5e",
+   "bytes": 76528
   },
   "pipes_supply__water-well.glb": {
    "v": "f9b0b59f2a",
@@ -1820,8 +1820,8 @@
    "bytes": 17112
   },
   "slab_pipes_hvac__hvac__a340dde3.glb": {
-   "v": "ef6e6d8d3a",
-   "bytes": 112720
+   "v": "331e17eee6",
+   "bytes": 111704
   },
   "slab_pipes_hvac__hvac__d128c58d.glb": {
    "v": "78509ef7a9",
@@ -2084,12 +2084,12 @@
    "bytes": 11648
   },
   "slab_pipes_supply__water-city_filter_and_softener-yes_and_plumbing-copper.glb": {
-   "v": "adf24ecaa8",
-   "bytes": 62704
+   "v": "2ce906f915",
+   "bytes": 40280
   },
   "slab_pipes_supply__water-city_filter_and_softener-yes_and_plumbing-pex+attic_repipe+pex_branch.glb": {
-   "v": "cf20581a3f",
-   "bytes": 73472
+   "v": "0859a7be7c",
+   "bytes": 56672
   },
   "slab_pipes_supply__water-well.glb": {
    "v": "62725820c3",
@@ -2432,16 +2432,16 @@
    "bytes": 57744
   },
   "pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-cpvc.glb": {
-   "v": "212ada26c2",
-   "bytes": 91736
+   "v": "92e4ef6ee1",
+   "bytes": 53864
   },
   "pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-galvanized.glb": {
-   "v": "70e0f57f01",
-   "bytes": 128052
+   "v": "a2928306ae",
+   "bytes": 90504
   },
   "pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-pex.glb": {
-   "v": "5de3747042",
-   "bytes": 72588
+   "v": "863a0a9fdc",
+   "bytes": 44928
   },
   "pipes_supply__water__0e275bac.glb": {
    "v": "1462e22087",
@@ -2472,16 +2472,16 @@
    "bytes": 80320
   },
   "slab_pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-copper.glb": {
-   "v": "2284634610",
-   "bytes": 80304
+   "v": "ad155bdb40",
+   "bytes": 48496
   },
   "slab_pipes_supply__water__02f41b66.glb": {
    "v": "b82f025f38",
    "bytes": 68168
   },
   "slab_pipes_supply__water__0b25bcce.glb": {
-   "v": "944362810c",
-   "bytes": 72584
+   "v": "fe7583051b",
+   "bytes": 29168
   },
   "slab_pipes_supply__water__bf426e39.glb": {
    "v": "75801f69d8",
@@ -2684,8 +2684,128 @@
    "bytes": 33646
   },
   "smoke_test.json": {
-   "v": "30fd3fd882",
-   "bytes": 35016
+   "v": "104caef5a4",
+   "bytes": 35200
+  },
+  "pipes_hvac__dehumidifier__0972e0cf__r4t.glb": {
+   "v": "710f0ec243",
+   "bytes": 73528
+  },
+  "pipes_hvac__hvac-split_furnace_92+split_furnace_cond96+split_furnace_98__r4t.glb": {
+   "v": "1deb504475",
+   "bytes": 13988
+  },
+  "pipes_hvac__hvac__e79be261.glb": {
+   "v": "4d00549707",
+   "bytes": 2668
+  },
+  "pipes_supply__softener-yes_and_plumbing-cpvc__r4t.glb": {
+   "v": "969ab3440e",
+   "bytes": 7368
+  },
+  "pipes_supply__softener-yes_and_plumbing-cpvc_and_water-well_and_flowsmart-no.glb": {
+   "v": "bf3ef33be2",
+   "bytes": 8036
+  },
+  "pipes_supply__softener-yes_and_plumbing-cpvc_and_water-well_and_flowsmart-yes.glb": {
+   "v": "e5a0940eb9",
+   "bytes": 8048
+  },
+  "pipes_supply__softener-yes_and_plumbing-galvanized__r4t.glb": {
+   "v": "b32d4eb8b3",
+   "bytes": 9344
+  },
+  "pipes_supply__softener-yes_and_plumbing-galvanized_and_water-well_and_flowsmart-no.glb": {
+   "v": "06ea886be9",
+   "bytes": 13152
+  },
+  "pipes_supply__softener-yes_and_plumbing-galvanized_and_water-well_and_flowsmart-yes.glb": {
+   "v": "05d6537ad1",
+   "bytes": 13164
+  },
+  "pipes_supply__softener-yes_and_plumbing-pex__r4t.glb": {
+   "v": "54e3b11598",
+   "bytes": 35268
+  },
+  "pipes_supply__water-city_filter_and_softener-yes_and_plumbing-cpvc__r4t.glb": {
+   "v": "d6e92f9a90",
+   "bytes": 17940
+  },
+  "pipes_supply__water-city_filter_and_softener-yes_and_plumbing-galvanized__r4t.glb": {
+   "v": "61549e0c2e",
+   "bytes": 25924
+  },
+  "pipes_supply__water-city_filter_and_softener-yes_and_plumbing-pex__r4t.glb": {
+   "v": "100f62792c",
+   "bytes": 23648
+  },
+  "pipes_supply__water-well_and_softener-yes_and_flowsmart-no_and_plumbing-cpvc.glb": {
+   "v": "4affacc187",
+   "bytes": 81508
+  },
+  "pipes_supply__water-well_and_softener-yes_and_flowsmart-no_and_plumbing-galvanized.glb": {
+   "v": "7d528d23b5",
+   "bytes": 114640
+  },
+  "pipes_supply__water-well_and_softener-yes_and_flowsmart-no_and_plumbing-pex.glb": {
+   "v": "6e69efc4ef",
+   "bytes": 63232
+  },
+  "pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-cpvc__r4t.glb": {
+   "v": "92718c9408",
+   "bytes": 28164
+  },
+  "pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-galvanized__r4t.glb": {
+   "v": "ed8eea3e02",
+   "bytes": 25048
+  },
+  "pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-pex__r4t.glb": {
+   "v": "62e55eba4c",
+   "bytes": 18820
+  },
+  "slab_pipes_hvac__hvac__e79be261.glb": {
+   "v": "4d00549707",
+   "bytes": 2668
+  },
+  "slab_pipes_supply__softener-yes_and_plumbing-copper__r4t.glb": {
+   "v": "7731c07c88",
+   "bytes": 21392
+  },
+  "slab_pipes_supply__softener-yes_and_plumbing-copper_and_water-well_and_flowsmart-no.glb": {
+   "v": "681ecc2816",
+   "bytes": 8032
+  },
+  "slab_pipes_supply__softener-yes_and_plumbing-copper_and_water-well_and_flowsmart-yes.glb": {
+   "v": "69edf5ab67",
+   "bytes": 8040
+  },
+  "slab_pipes_supply__softener-yes_and_plumbing-pex+attic_repipe+pex_branch__r4t.glb": {
+   "v": "115e72708e",
+   "bytes": 7392
+  },
+  "slab_pipes_supply__water-city_filter_and_softener-yes_and_plumbing-copper__r4t.glb": {
+   "v": "9272b3810b",
+   "bytes": 14500
+  },
+  "slab_pipes_supply__water-city_filter_and_softener-yes_and_plumbing-pex+attic_repipe+pex_branch__r4t.glb": {
+   "v": "71dd6530ce",
+   "bytes": 7332
+  },
+  "slab_pipes_supply__water-well_and_softener-yes_and_flowsmart-no_and_plumbing-copper.glb": {
+   "v": "bdc9100259",
+   "bytes": 62848
+  },
+  "slab_pipes_supply__water-well_and_softener-yes_and_flowsmart-yes_and_plumbing-copper__r4t.glb": {
+   "v": "2a1bc56af7",
+   "bytes": 15436
+  },
+  "slab_pipes_supply__water__0b25bcce__r4t.glb": {
+   "v": "c7dd128792",
+   "bytes": 35084
+  },
+  "slab_pipes_supply__water__50339bbb.glb": {
+   "v": "034fb0b725",
+   "bytes": 63252
   }
  },
  "menu_art": {
