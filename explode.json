@@ -323,6 +323,78 @@
    "why": "main board lifts out of the front shell, the jack sleeves and the dial wiper are on its back"
   }
  ],
+ "air_admittance_valve.glb": [
+  {
+   "part": "aav_cap",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 130,
+   "why": "Cap. It is sealed to the body at the factory: this view is for learning, a failed valve is replaced whole"
+  },
+  {
+   "part": "aav_guide",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 95,
+   "why": "Guide: the ring the membrane is fixed to, kept centred by the pin in the cap"
+  },
+  {
+   "part": "aav_membrane",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 73,
+   "why": "Membrane: the thin rubber disc that lifts to let air in and drops to hold sewer gas back"
+  },
+  {
+   "part": "aav_seat",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 57,
+   "why": "Seat: the rim the membrane seals on (moulded as the top of the cup in the body)"
+  },
+  {
+   "part": "aav_inlet_screen",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 45,
+   "why": "Screens in the air openings (moulded into the body)"
+  },
+  {
+   "part": "aav_body",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 45,
+   "why": "Valve body. It unscrews from the adapter by hand"
+  },
+  {
+   "part": "aav_thread_tape",
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "mm": 45,
+   "why": "Thread tape on the valve's threads"
+  }
+ ],
  "bath_vanity.glb": [
   {
    "part": "handle_screw_hot",

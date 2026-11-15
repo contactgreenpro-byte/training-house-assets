@@ -1,0 +1,2271 @@
+{
+ "note": "round 109: what the smoke test needs, written by build_pipes.py (scripts/pipes_smells.py) after the yard shift and the junction resolver",
+ "frame": "the same as drains.json beside it: house metres as Blender has them, [x, y, z], z up, the finished floor at z 0, +y into the house from the front door; real heights (after the yard shift)",
+ "house": "crawl",
+ "roof_vents": [
+  {
+   "name": "vent_dwv_hallbath_stack",
+   "top": [
+    -2.9258,
+    14.478,
+    5.126
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": null
+  },
+  {
+   "name": "vent_dwv_master_stack",
+   "top": [
+    0.0,
+    13.5,
+    4.1113
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": null
+  },
+  {
+   "name": "vent_dwv_kitchen",
+   "top": [
+    -6.752,
+    5.3,
+    3.7
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": "kitchen_vent=roof"
+  },
+  {
+   "name": "vent_dwv_laundry",
+   "top": [
+    1.06,
+    6.7004,
+    3.7333
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": "fault=none|belly|vent_hole_wall|standpipe_no_trap|condensate_trap_dry"
+  }
+ ],
+ "cleanouts": [
+  {
+   "name": "cleanout_dwv_yard_spray",
+   "config": "sewer=septic_spray|septic_overland_lee",
+   "sewer": "pipe_dwv_sewer_septic",
+   "top": [
+    -7.1997,
+    7.62,
+    -0.8938
+   ],
+   "r_in": 0.0496,
+   "depth": 0.435,
+   "axis_at": [
+    -7.191,
+    7.62,
+    -1.3287
+   ],
+   "riser_dir": [
+    -0.02,
+    0.0,
+    0.9998
+   ],
+   "downstream": [
+    -0.9998,
+    0.0,
+    -0.02
+   ],
+   "plug_at": [
+    -7.541,
+    7.62,
+    -1.3357
+   ],
+   "house_dist": 2.1899,
+   "sewer_r": 0.057
+  },
+  {
+   "name": "cleanout_dwv_yard_two_tank",
+   "config": "sewer=septic_spray_two_tank",
+   "sewer": "pipe_dwv_sewer_pumptank",
+   "top": [
+    -7.1992,
+    7.62,
+    -0.9184
+   ],
+   "r_in": 0.0496,
+   "depth": 0.327,
+   "axis_at": [
+    -7.1927,
+    7.62,
+    -1.2453
+   ],
+   "riser_dir": [
+    -0.02,
+    0.0,
+    0.9998
+   ],
+   "downstream": [
+    -0.9998,
+    0.0,
+    -0.02
+   ],
+   "plug_at": [
+    -7.5426,
+    7.62,
+    -1.2523
+   ],
+   "house_dist": 2.1564,
+   "sewer_r": 0.057
+  },
+  {
+   "name": "cleanout_dwv_yard_gravity",
+   "config": "sewer=septic_gravity",
+   "sewer": "pipe_dwv_sewer_gravity",
+   "top": [
+    -7.2,
+    7.62,
+    -0.8813
+   ],
+   "r_in": 0.0496,
+   "depth": 0.327,
+   "axis_at": [
+    -7.1961,
+    7.62,
+    -1.2083
+   ],
+   "riser_dir": [
+    -0.01174,
+    0.0,
+    0.99993
+   ],
+   "downstream": [
+    -0.99993,
+    0.0,
+    -0.01174
+   ],
+   "plug_at": [
+    -7.5461,
+    7.62,
+    -1.2124
+   ],
+   "house_dist": 2.1488,
+   "sewer_r": 0.057
+  },
+  {
+   "name": "cleanout_dwv_yard_overland",
+   "config": "sewer=septic_overland",
+   "sewer": "pipe_dwv_sewer_overland",
+   "top": [
+    -7.1995,
+    7.62,
+    -0.9065
+   ],
+   "r_in": 0.0496,
+   "depth": 0.6117,
+   "axis_at": [
+    -7.1872,
+    7.62,
+    -1.5181
+   ],
+   "riser_dir": [
+    -0.02,
+    0.0,
+    0.9998
+   ],
+   "downstream": [
+    -0.9998,
+    0.0,
+    -0.02
+   ],
+   "plug_at": [
+    -7.5372,
+    7.62,
+    -1.5251
+   ],
+   "house_dist": 2.2662,
+   "sewer_r": 0.057
+  },
+  {
+   "name": "cleanout_dwv_yard_overland_aquaklear",
+   "config": "sewer=septic_overland_aquaklear",
+   "sewer": "pipe_dwv_sewer_overland_aquaklear",
+   "top": [
+    -7.2007,
+    7.62,
+    -0.8442
+   ],
+   "r_in": 0.0496,
+   "depth": 0.435,
+   "axis_at": [
+    -7.192,
+    7.62,
+    -1.2791
+   ],
+   "riser_dir": [
+    -0.02,
+    0.0,
+    0.9998
+   ],
+   "downstream": [
+    -0.9998,
+    0.0,
+    -0.02
+   ],
+   "plug_at": [
+    -7.5419,
+    7.62,
+    -1.2861
+   ],
+   "house_dist": 2.17,
+   "sewer_r": 0.057
+  },
+  {
+   "name": "cleanout_dwv_yard_lift_pipe_dwv_sewer_lift",
+   "config": "sewer=city_lift",
+   "sewer": "pipe_dwv_sewer_lift",
+   "top": [
+    -7.1999,
+    7.62,
+    -0.8854
+   ],
+   "r_in": 0.0496,
+   "depth": 0.327,
+   "axis_at": [
+    -7.1941,
+    7.62,
+    -1.2123
+   ],
+   "riser_dir": [
+    -0.01764,
+    0.0,
+    0.99984
+   ],
+   "downstream": [
+    -0.99984,
+    0.0,
+    -0.01764
+   ],
+   "plug_at": [
+    -7.5441,
+    7.62,
+    -1.2185
+   ],
+   "house_dist": 2.1452,
+   "sewer_r": 0.057
+  },
+  {
+   "name": "cleanout_dwv_yard_lift_pipe_dwv_sewer_lift_duplex",
+   "config": "sewer=city_lift_duplex",
+   "sewer": "pipe_dwv_sewer_lift_duplex",
+   "top": [
+    -7.1999,
+    7.62,
+    -0.8866
+   ],
+   "r_in": 0.0496,
+   "depth": 0.327,
+   "axis_at": [
+    -7.1935,
+    7.62,
+    -1.2136
+   ],
+   "riser_dir": [
+    -0.01947,
+    0.0,
+    0.99981
+   ],
+   "downstream": [
+    -0.99981,
+    0.0,
+    -0.01947
+   ],
+   "plug_at": [
+    -7.5434,
+    7.62,
+    -1.2204
+   ],
+   "house_dist": 2.1441,
+   "sewer_r": 0.057
+  },
+  {
+   "name": "cleanout_dwv_yard_city_pipe_dwv_sewer_city",
+   "config": "sewer=city_gravity&fault=condensate_trap_dry|none|standpipe_no_trap|vent_hole_wall|vent_open_attic",
+   "sewer": "pipe_dwv_sewer_city",
+   "top": [
+    -7.2011,
+    7.62,
+    -0.8234
+   ],
+   "r_in": 0.0496,
+   "depth": 0.435,
+   "axis_at": [
+    -7.1924,
+    7.62,
+    -1.2582
+   ],
+   "riser_dir": [
+    -0.02,
+    0.0,
+    0.9998
+   ],
+   "downstream": [
+    -0.9998,
+    0.0,
+    -0.02
+   ],
+   "plug_at": [
+    -7.5424,
+    7.62,
+    -1.2652
+   ],
+   "house_dist": 2.1616,
+   "sewer_r": 0.057
+  },
+  {
+   "name": "cleanout_dwv_yard_city_pipe_dwv_sewer_city_belly",
+   "config": "sewer=city_gravity&fault=belly",
+   "sewer": "pipe_dwv_sewer_city_belly",
+   "top": [
+    -7.2011,
+    7.62,
+    -0.8234
+   ],
+   "r_in": 0.0496,
+   "depth": 0.435,
+   "axis_at": [
+    -7.1924,
+    7.62,
+    -1.2582
+   ],
+   "riser_dir": [
+    -0.02,
+    0.0,
+    0.9998
+   ],
+   "downstream": [
+    -0.9998,
+    0.0,
+    -0.02
+   ],
+   "plug_at": [
+    -7.5424,
+    7.62,
+    -1.2652
+   ],
+   "house_dist": 2.1616,
+   "sewer_r": 0.057
+  },
+  {
+   "name": "cleanout_dwv_yard_trash",
+   "config": "sewer=septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train",
+   "sewer": "pipe_dwv_sewer_trash",
+   "top": [
+    -7.1997,
+    7.62,
+    -0.8954
+   ],
+   "r_in": 0.0496,
+   "depth": 0.327,
+   "axis_at": [
+    -7.1928,
+    7.62,
+    -1.2223
+   ],
+   "riser_dir": [
+    -0.021,
+    0.0,
+    0.99978
+   ],
+   "downstream": [
+    -0.99978,
+    0.0,
+    -0.021
+   ],
+   "plug_at": [
+    -7.5427,
+    7.62,
+    -1.2297
+   ],
+   "house_dist": 2.1462,
+   "sewer_r": 0.057
+  }
+ ],
+ "fog_paths": [
+  {
+   "run": "pipe_dwv_sewer_septic",
+   "pts": [
+    [
+     -7.191,
+     7.62,
+     -1.3287
+    ],
+    [
+     -5.9295,
+     7.62,
+     -1.3035
+    ],
+    [
+     -5.45,
+     7.62,
+     -0.8239
+    ],
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_spray|septic_overland_lee",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_spray",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_sewer_septic",
+   "pts": [
+    [
+     -7.191,
+     7.62,
+     -1.3287
+    ],
+    [
+     -7.5409,
+     7.62,
+     -1.3357
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_spray|septic_overland_lee",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_spray",
+   "stop": "plug"
+  },
+  {
+   "run": "pipe_dwv_sewer_pumptank",
+   "pts": [
+    [
+     -7.1927,
+     7.62,
+     -1.2453
+    ],
+    [
+     -5.8444,
+     7.62,
+     -1.2184
+    ],
+    [
+     -5.45,
+     7.62,
+     -0.8239
+    ],
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_spray_two_tank",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_two_tank",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_sewer_pumptank",
+   "pts": [
+    [
+     -7.1927,
+     7.62,
+     -1.2453
+    ],
+    [
+     -7.5427,
+     7.62,
+     -1.2523
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_spray_two_tank",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_two_tank",
+   "stop": "plug"
+  },
+  {
+   "run": "pipe_dwv_sewer_gravity",
+   "pts": [
+    [
+     -7.1962,
+     7.62,
+     -1.2083
+    ],
+    [
+     -5.8182,
+     7.62,
+     -1.1921
+    ],
+    [
+     -5.45,
+     7.62,
+     -0.8239
+    ],
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_gravity",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_gravity",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_sewer_gravity",
+   "pts": [
+    [
+     -7.1962,
+     7.62,
+     -1.2083
+    ],
+    [
+     -7.5461,
+     7.62,
+     -1.2124
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_gravity",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_gravity",
+   "stop": "plug"
+  },
+  {
+   "run": "pipe_dwv_sewer_overland",
+   "pts": [
+    [
+     -7.1873,
+     7.62,
+     -1.5181
+    ],
+    [
+     -6.1229,
+     7.62,
+     -1.4968
+    ],
+    [
+     -5.45,
+     7.62,
+     -0.8239
+    ],
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_overland",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_overland",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_sewer_overland",
+   "pts": [
+    [
+     -7.1873,
+     7.62,
+     -1.5181
+    ],
+    [
+     -7.5372,
+     7.62,
+     -1.5251
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_overland",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_overland",
+   "stop": "plug"
+  },
+  {
+   "run": "pipe_dwv_sewer_overland_aquaklear",
+   "pts": [
+    [
+     -7.192,
+     7.62,
+     -1.2791
+    ],
+    [
+     -5.8789,
+     7.62,
+     -1.2529
+    ],
+    [
+     -5.45,
+     7.62,
+     -0.8239
+    ],
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_overland_aquaklear",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_overland_aquaklear",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_sewer_overland_aquaklear",
+   "pts": [
+    [
+     -7.192,
+     7.62,
+     -1.2791
+    ],
+    [
+     -7.542,
+     7.62,
+     -1.2861
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_overland_aquaklear",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_overland_aquaklear",
+   "stop": "plug"
+  },
+  {
+   "run": "pipe_dwv_sewer_lift",
+   "pts": [
+    [
+     -7.1942,
+     7.62,
+     -1.2123
+    ],
+    [
+     -5.8141,
+     7.62,
+     -1.188
+    ],
+    [
+     -5.45,
+     7.62,
+     -0.8239
+    ],
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=city_lift",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_lift_pipe_dwv_sewer_lift",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_sewer_lift",
+   "pts": [
+    [
+     -7.1942,
+     7.62,
+     -1.2123
+    ],
+    [
+     -7.5441,
+     7.62,
+     -1.2185
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=city_lift",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_lift_pipe_dwv_sewer_lift",
+   "stop": "plug"
+  },
+  {
+   "run": "pipe_dwv_sewer_lift_duplex",
+   "pts": [
+    [
+     -7.1935,
+     7.62,
+     -1.2136
+    ],
+    [
+     -5.8128,
+     7.62,
+     -1.1867
+    ],
+    [
+     -5.45,
+     7.62,
+     -0.8239
+    ],
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=city_lift_duplex",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_lift_pipe_dwv_sewer_lift_duplex",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_sewer_lift_duplex",
+   "pts": [
+    [
+     -7.1935,
+     7.62,
+     -1.2136
+    ],
+    [
+     -7.5435,
+     7.62,
+     -1.2204
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=city_lift_duplex",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_lift_pipe_dwv_sewer_lift_duplex",
+   "stop": "plug"
+  },
+  {
+   "run": "pipe_dwv_sewer_city",
+   "pts": [
+    [
+     -7.1925,
+     7.62,
+     -1.2582
+    ],
+    [
+     -5.8576,
+     7.62,
+     -1.2316
+    ],
+    [
+     -5.45,
+     7.62,
+     -0.8239
+    ],
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=city_gravity&fault=condensate_trap_dry|none|standpipe_no_trap|vent_hole_wall|vent_open_attic",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_city_pipe_dwv_sewer_city",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_sewer_city",
+   "pts": [
+    [
+     -7.1925,
+     7.62,
+     -1.2582
+    ],
+    [
+     -7.5424,
+     7.62,
+     -1.2652
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=city_gravity&fault=condensate_trap_dry|none|standpipe_no_trap|vent_hole_wall|vent_open_attic",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_city_pipe_dwv_sewer_city",
+   "stop": "plug"
+  },
+  {
+   "run": "pipe_dwv_sewer_city_belly",
+   "pts": [
+    [
+     -7.1925,
+     7.62,
+     -1.2582
+    ],
+    [
+     -5.8576,
+     7.62,
+     -1.2316
+    ],
+    [
+     -5.45,
+     7.62,
+     -0.8239
+    ],
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=city_gravity&fault=belly",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_city_pipe_dwv_sewer_city_belly",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_sewer_city_belly",
+   "pts": [
+    [
+     -7.1925,
+     7.62,
+     -1.2582
+    ],
+    [
+     -7.5424,
+     7.62,
+     -1.2652
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=city_gravity&fault=belly",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_city_pipe_dwv_sewer_city_belly",
+   "stop": "plug"
+  },
+  {
+   "run": "pipe_dwv_sewer_trash",
+   "pts": [
+    [
+     -7.1928,
+     7.62,
+     -1.2223
+    ],
+    [
+     -5.8195,
+     7.62,
+     -1.1935
+    ],
+    [
+     -5.45,
+     7.62,
+     -0.8239
+    ],
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_trash",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_sewer_trash",
+   "pts": [
+    [
+     -7.1928,
+     7.62,
+     -1.2223
+    ],
+    [
+     -7.5427,
+     7.62,
+     -1.2297
+    ]
+   ],
+   "r": 0.057,
+   "r_in": 0.0496,
+   "config": "sewer=septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train",
+   "dist0": 0.0,
+   "from": "cleanout",
+   "cleanout": "cleanout_dwv_yard_trash",
+   "stop": "plug"
+  },
+  {
+   "run": "pipe_dwv_building_drain_west",
+   "pts": [
+    [
+     -5.2,
+     7.62,
+     -0.8203
+    ],
+    [
+     -0.55,
+     7.62,
+     -0.7517
+    ],
+    [
+     -0.3,
+     7.87,
+     -0.7443
+    ]
+   ],
+   "r": 0.0445,
+   "r_in": 0.0387,
+   "config": null,
+   "dist0": 0.0,
+   "from": "house",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_kitchen",
+   "pts": [
+    [
+     -4.95,
+     7.62,
+     -0.8166
+    ],
+    [
+     -4.7,
+     7.37,
+     -0.8092
+    ],
+    [
+     -4.7,
+     6.301,
+     -0.787
+    ],
+    [
+     -6.752,
+     6.301,
+     -0.7443
+    ],
+    [
+     -6.752,
+     6.301,
+     0.367
+    ],
+    [
+     -6.651,
+     6.301,
+     0.369
+    ],
+    [
+     -6.3828,
+     6.301,
+     0.375
+    ]
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": "kitchen_vent=roof",
+   "dist0": 0.25,
+   "from": "house",
+   "stop": "trap",
+   "trap": "kitchen sink"
+  },
+  {
+   "run": "pipe_dwv_kitchen_aav",
+   "pts": [
+    [
+     -4.95,
+     7.62,
+     -0.8166
+    ],
+    [
+     -4.7,
+     7.37,
+     -0.8092
+    ],
+    [
+     -4.7,
+     6.301,
+     -0.787
+    ],
+    [
+     -6.752,
+     6.301,
+     -0.7443
+    ],
+    [
+     -6.752,
+     6.301,
+     0.3667
+    ],
+    [
+     -6.6933,
+     6.301,
+     0.368
+    ]
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": "kitchen_vent=aav",
+   "dist0": 0.25,
+   "from": "house",
+   "stop": null
+  },
+  {
+   "run": "pipe_hvac_condensate_hp_drain",
+   "pts": [
+    [
+     -3.0963,
+     7.62,
+     -0.7028
+    ],
+    [
+     -3.047,
+     7.62,
+     -0.652
+    ],
+    [
+     -3.047,
+     9.5,
+     -0.6324
+    ],
+    [
+     -3.047,
+     9.5,
+     3.1557
+    ],
+    [
+     -3.24,
+     9.5,
+     3.1577
+    ],
+    [
+     -3.24,
+     10.23,
+     3.165
+    ],
+    [
+     -3.24,
+     10.23,
+     3.09
+    ],
+    [
+     -3.13,
+     10.23,
+     3.09
+    ],
+    [
+     -3.13,
+     10.23,
+     3.1851
+    ],
+    [
+     -2.9074,
+     10.23,
+     3.1851
+    ]
+   ],
+   "r": 0.0134,
+   "r_in": 0.0109,
+   "config": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain&fault=condensate_trap_dry",
+   "dist0": 2.0187,
+   "from": "house",
+   "stop": "unit"
+  },
+  {
+   "run": "vent_dwv_kitchen",
+   "pts": [
+    [
+     -6.752,
+     6.301,
+     0.4063
+    ],
+    [
+     -6.752,
+     6.301,
+     0.62
+    ],
+    [
+     -6.752,
+     5.3,
+     0.62
+    ],
+    [
+     -6.752,
+     5.3,
+     3.7
+    ]
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": "kitchen_vent=roof",
+   "dist0": 4.8366,
+   "from": "house",
+   "stop": "roof"
+  },
+  {
+   "run": "pipe_dwv_kitchen_aav_stub",
+   "pts": [
+    [
+     -6.6853,
+     6.301,
+     0.3682
+    ],
+    [
+     -6.455,
+     6.301,
+     0.3734
+    ],
+    [
+     -6.3828,
+     6.301,
+     0.375
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": "kitchen_vent=aav",
+   "dist0": 4.8951,
+   "from": "house",
+   "stop": "trap",
+   "trap": "kitchen sink"
+  },
+  {
+   "run": "pipe_dwv_building_drain",
+   "pts": [
+    [
+     -0.3,
+     7.87,
+     -0.7443
+    ],
+    [
+     -0.3,
+     15.95,
+     -0.62
+    ]
+   ],
+   "r": 0.0445,
+   "r_in": 0.0387,
+   "config": null,
+   "dist0": 5.0041,
+   "from": "house",
+   "stop": "cleanout"
+  },
+  {
+   "run": "pipe_dwv_building_drain",
+   "pts": [
+    [
+     -0.3,
+     7.87,
+     -0.7443
+    ],
+    [
+     -0.3,
+     7.6,
+     -0.7485
+    ]
+   ],
+   "r": 0.0445,
+   "r_in": 0.0387,
+   "config": null,
+   "dist0": 5.0041,
+   "from": "house",
+   "stop": "cleanout"
+  },
+  {
+   "run": "vent_dwv_kitchen_aav",
+   "pts": [
+    [
+     -6.5244,
+     6.301,
+     0.3718
+    ],
+    [
+     -6.5244,
+     6.301,
+     0.5368
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": "kitchen_vent=aav",
+   "dist0": 5.056,
+   "from": "house",
+   "stop": "aav"
+  },
+  {
+   "run": "pipe_dwv_laundry",
+   "pts": [
+    [
+     -0.3,
+     8.28,
+     -0.738
+    ],
+    [
+     -0.08,
+     8.5,
+     -0.7315
+    ],
+    [
+     1.06,
+     8.5,
+     -0.7078
+    ],
+    [
+     1.06,
+     6.7004,
+     -0.6704
+    ],
+    [
+     1.06,
+     6.7004,
+     0.478
+    ],
+    [
+     0.902,
+     6.7004,
+     0.48
+    ]
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": "fault=none|belly|vent_open_attic|vent_hole_wall|condensate_trap_dry",
+   "dist0": 5.4142,
+   "from": "house",
+   "stop": "trap"
+  },
+  {
+   "run": "pipe_dwv_laundry_notrap",
+   "pts": [
+    [
+     -0.3,
+     8.28,
+     -0.738
+    ],
+    [
+     -0.08,
+     8.5,
+     -0.7315
+    ],
+    [
+     1.06,
+     8.5,
+     -0.7078
+    ],
+    [
+     1.06,
+     6.7004,
+     -0.6704
+    ],
+    [
+     1.06,
+     6.7004,
+     0.478
+    ],
+    [
+     0.9171,
+     6.7004,
+     0.4798
+    ],
+    [
+     0.762,
+     6.7004,
+     0.6349
+    ],
+    [
+     0.762,
+     6.7004,
+     1.0965
+    ]
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": "fault=standpipe_no_trap",
+   "dist0": 5.4142,
+   "from": "house",
+   "stop": "open"
+  },
+  {
+   "run": "pipe_hvac_condensate_dehum_drain",
+   "pts": [
+    [
+     -3.24,
+     9.8,
+     3.1607
+    ],
+    [
+     -3.33,
+     9.8,
+     3.1616
+    ],
+    [
+     -3.33,
+     9.8,
+     3.3
+    ],
+    [
+     -3.5,
+     9.8,
+     3.3
+    ],
+    [
+     -3.5,
+     9.546,
+     3.3
+    ]
+   ],
+   "r": 0.0134,
+   "r_in": 0.0109,
+   "config": "dehumidifier=yes&hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain",
+   "dist0": 8.2507,
+   "from": "house",
+   "stop": "unit"
+  },
+  {
+   "run": "pipe_hvac_condensate_hp_drain_cleanout",
+   "pts": [
+    [
+     -3.24,
+     9.96,
+     3.1623
+    ],
+    [
+     -3.24,
+     9.96,
+     3.25
+    ]
+   ],
+   "r": 0.0134,
+   "r_in": 0.0109,
+   "config": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain",
+   "dist0": 8.4108,
+   "from": "house",
+   "stop": "cap"
+  },
+  {
+   "run": "pipe_dwv_master_toilet",
+   "pts": [
+    [
+     -0.3,
+     12.0679,
+     -0.6797
+    ],
+    [
+     0.0662,
+     12.4355,
+     -0.6689
+    ],
+    [
+     2.5908,
+     12.4355,
+     -0.5656
+    ],
+    [
+     2.5908,
+     12.4355,
+     0.0
+    ]
+   ],
+   "r": 0.0445,
+   "r_in": 0.0387,
+   "config": null,
+   "dist0": 9.2025,
+   "from": "house",
+   "stop": "trap"
+  },
+  {
+   "run": "vent_dwv_master_stack",
+   "pts": [
+    [
+     -0.0993,
+     12.2693,
+     -0.6738
+    ],
+    [
+     0.0,
+     12.3687,
+     -0.5333
+    ],
+    [
+     0.0,
+     12.3687,
+     3.12
+    ],
+    [
+     0.0,
+     13.5,
+     3.12
+    ],
+    [
+     0.0,
+     13.5,
+     4.1113
+    ]
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": null,
+   "dist0": 9.4869,
+   "from": "house",
+   "stop": "roof"
+  },
+  {
+   "run": "vent_dwv_laundry",
+   "pts": [
+    [
+     1.06,
+     6.7004,
+     0.5189
+    ],
+    [
+     1.06,
+     6.7004,
+     3.7333
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": "fault=none|belly|vent_hole_wall|standpipe_no_trap|condensate_trap_dry",
+   "dist0": 9.814,
+   "from": "house",
+   "stop": "roof"
+  },
+  {
+   "run": "pipe_dwv_master_vanity",
+   "pts": [
+    [
+     -0.3,
+     12.7478,
+     -0.6693
+    ],
+    [
+     -0.17,
+     12.8778,
+     -0.666
+    ],
+    [
+     0.0,
+     12.8778,
+     -0.6643
+    ],
+    [
+     0.0,
+     12.8778,
+     0.4512
+    ],
+    [
+     0.0872,
+     12.8778,
+     0.4532
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": null,
+   "dist0": 9.8825,
+   "from": "house",
+   "stop": "trap"
+  },
+  {
+   "run": "pipe_dwv_hallbath_vanity",
+   "pts": [
+    [
+     -0.3,
+     13.6884,
+     -0.6548
+    ],
+    [
+     -0.4792,
+     13.8684,
+     -0.6356
+    ],
+    [
+     -3.048,
+     13.8684,
+     -0.54
+    ],
+    [
+     -3.048,
+     13.8684,
+     0.4512
+    ],
+    [
+     -2.9609,
+     13.8684,
+     0.4532
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": null,
+   "dist0": 10.8232,
+   "from": "house",
+   "stop": "trap"
+  },
+  {
+   "run": "pipe_dwv_hallbath_tub",
+   "pts": [
+    [
+     -0.3,
+     14.11,
+     -0.6483
+    ],
+    [
+     -0.48,
+     14.29,
+     -0.643
+    ],
+    [
+     -2.9258,
+     14.29,
+     -0.5921
+    ],
+    [
+     -2.9258,
+     14.7132,
+     -0.5833
+    ],
+    [
+     -2.9258,
+     14.7132,
+     -0.145
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": null,
+   "dist0": 11.2449,
+   "from": "house",
+   "stop": "trap"
+  },
+  {
+   "run": "vent_dwv_master_vanity",
+   "pts": [
+    [
+     0.0,
+     12.3687,
+     1.1
+    ],
+    [
+     0.0,
+     12.8778,
+     1.1
+    ],
+    [
+     0.0,
+     12.8778,
+     0.478
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": null,
+   "dist0": 11.3189,
+   "from": "house",
+   "stop": null
+  },
+  {
+   "run": "pipe_dwv_master_tub",
+   "pts": [
+    [
+     -0.3,
+     14.3592,
+     -0.6445
+    ],
+    [
+     -0.17,
+     14.4892,
+     -0.6406
+    ],
+    [
+     0.223,
+     14.4892,
+     -0.6325
+    ],
+    [
+     0.223,
+     14.4892,
+     -0.145
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": null,
+   "dist0": 11.4941,
+   "from": "house",
+   "stop": "trap"
+  },
+  {
+   "run": "vent_dwv_master_tub",
+   "pts": [
+    [
+     0.0,
+     12.3687,
+     2.1
+    ],
+    [
+     0.0,
+     14.4892,
+     2.1
+    ],
+    [
+     0.0,
+     14.4892,
+     0.283
+    ],
+    [
+     0.223,
+     14.4892,
+     0.06
+    ],
+    [
+     0.223,
+     14.4892,
+     -0.07
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": null,
+   "dist0": 12.3189,
+   "from": "house",
+   "stop": "trap"
+  },
+  {
+   "run": "pipe_dwv_hallbath_toilet",
+   "pts": [
+    [
+     -0.3,
+     15.4076,
+     -0.6283
+    ],
+    [
+     -0.5599,
+     15.6676,
+     -0.6189
+    ],
+    [
+     -1.6316,
+     15.6676,
+     -0.5967
+    ],
+    [
+     -1.6316,
+     15.6676,
+     -0.256
+    ],
+    [
+     -1.7526,
+     15.6676,
+     -0.135
+    ],
+    [
+     -1.7526,
+     15.6676,
+     0.0
+    ]
+   ],
+   "r": 0.0445,
+   "r_in": 0.0387,
+   "config": null,
+   "dist0": 12.5426,
+   "from": "house",
+   "stop": "trap"
+  },
+  {
+   "run": "vent_dwv_hallbath_toilet",
+   "pts": [
+    [
+     -1.3627,
+     15.6676,
+     -0.6022
+    ],
+    [
+     -1.3654,
+     15.6695,
+     -0.6003
+    ],
+    [
+     -1.3761,
+     15.6772,
+     -0.5924
+    ],
+    [
+     -1.3867,
+     15.6849,
+     -0.5845
+    ],
+    [
+     -1.3974,
+     15.6925,
+     -0.5766
+    ],
+    [
+     -1.4081,
+     15.7002,
+     -0.5687
+    ],
+    [
+     -1.4188,
+     15.7079,
+     -0.5608
+    ],
+    [
+     -1.4293,
+     15.7156,
+     -0.5528
+    ],
+    [
+     -1.438,
+     15.7244,
+     -0.5438
+    ],
+    [
+     -1.4442,
+     15.7343,
+     -0.5339
+    ],
+    [
+     -1.4476,
+     15.7448,
+     -0.5233
+    ],
+    [
+     -1.45,
+     15.7529,
+     -0.5151
+    ],
+    [
+     -1.45,
+     16.02,
+     -0.248
+    ],
+    [
+     -1.45,
+     16.02,
+     0.6
+    ],
+    [
+     -1.2192,
+     16.02,
+     0.6
+    ],
+    [
+     -1.2192,
+     16.02,
+     3.12
+    ],
+    [
+     -2.7,
+     16.02,
+     3.12
+    ],
+    [
+     -2.7,
+     14.478,
+     3.12
+    ],
+    [
+     -2.7,
+     14.478,
+     3.45
+    ],
+    [
+     -2.9258,
+     14.478,
+     3.45
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": null,
+   "dist0": 13.8007,
+   "from": "house",
+   "stop": null
+  },
+  {
+   "run": "vent_dwv_hallbath_vanity",
+   "pts": [
+    [
+     -3.048,
+     13.8684,
+     0.478
+    ],
+    [
+     -3.048,
+     13.8684,
+     3.12
+    ],
+    [
+     -3.048,
+     14.3559,
+     3.12
+    ],
+    [
+     -2.9258,
+     14.478,
+     3.12
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": null,
+   "dist0": 14.6397,
+   "from": "house",
+   "stop": null
+  },
+  {
+   "run": "vent_dwv_hallbath_stack",
+   "pts": [
+    [
+     -2.9258,
+     14.478,
+     3.12
+    ],
+    [
+     -2.9258,
+     14.478,
+     5.126
+    ]
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": null,
+   "dist0": 17.9419,
+   "from": "house",
+   "stop": "roof"
+  },
+  {
+   "run": "vent_dwv_hallbath_tub",
+   "pts": [
+    [
+     -2.9258,
+     14.478,
+     3.12
+    ],
+    [
+     -2.9258,
+     14.478,
+     0.2952
+    ],
+    [
+     -2.9258,
+     14.7132,
+     0.06
+    ],
+    [
+     -2.9258,
+     14.7132,
+     -0.07
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": null,
+   "dist0": 17.9419,
+   "from": "house",
+   "stop": "trap"
+  },
+  {
+   "run": "vent_dwv_sump",
+   "pts": [
+    [
+     -2.9258,
+     14.478,
+     3.28
+    ],
+    [
+     -2.785,
+     14.502,
+     3.28
+    ],
+    [
+     -2.785,
+     14.502,
+     -0.656
+    ],
+    [
+     -2.97,
+     14.55,
+     -0.66
+    ],
+    [
+     -2.97,
+     14.55,
+     -0.78
+    ]
+   ],
+   "r": 0.03,
+   "r_in": 0.0261,
+   "config": "sump=yes",
+   "dist0": 18.1019,
+   "from": "house",
+   "stop": "basin"
+  },
+  {
+   "run": "pipe_hvac_condensate_hp_drain",
+   "pts": [
+    [
+     -3.0963,
+     7.62,
+     -0.7028
+    ],
+    [
+     -3.047,
+     7.62,
+     -0.652
+    ],
+    [
+     -3.047,
+     9.5,
+     -0.6324
+    ],
+    [
+     -3.047,
+     9.5,
+     3.1557
+    ],
+    [
+     -3.24,
+     9.5,
+     3.1577
+    ],
+    [
+     -3.24,
+     10.23,
+     3.165
+    ],
+    [
+     -3.24,
+     10.23,
+     3.1541
+    ]
+   ],
+   "r": 0.0134,
+   "r_in": 0.0109,
+   "config": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain&fault=none|belly|vent_open_attic|vent_hole_wall|standpipe_no_trap",
+   "dist0": 2.0187,
+   "from": "house",
+   "stop": "trap",
+   "trap": "condensate trap"
+  },
+  {
+   "run": "vent_dwv_laundry",
+   "pts": [
+    [
+     1.06,
+     6.7004,
+     0.5189
+    ],
+    [
+     1.06,
+     6.700399999999999,
+     3.2348
+    ]
+   ],
+   "r": 0.024,
+   "r_in": 0.0209,
+   "config": "fault=vent_open_attic",
+   "dist0": 9.814,
+   "from": "house",
+   "stop": "fault"
+  }
+ ],
+ "faults": [
+  {
+   "key": "vent_open_attic",
+   "config": "fault=vent_open_attic",
+   "at": [
+    1.06,
+    6.700399999999999,
+    3.2348
+   ],
+   "dir": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "label": "Open vent pipe",
+   "run": "vent_dwv_laundry",
+   "dist": 12.53,
+   "where": "the attic over the laundry: the laundry vent has come out of its coupling under the roof, the piece above still hangs in the roof boot"
+  },
+  {
+   "key": "vent_hole_wall",
+   "config": "fault=vent_hole_wall",
+   "at": [
+    -3.024,
+    13.8684,
+    1.45
+   ],
+   "dir": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "label": "Hole in the pipe",
+   "run": "vent_dwv_hallbath_vanity",
+   "dist": 15.612,
+   "where": "the hall bath, inside the wall behind the vanity mirror: a mirror screw through the vanity's vent"
+  },
+  {
+   "key": "standpipe_no_trap",
+   "config": "fault=standpipe_no_trap",
+   "at": [
+    0.762,
+    6.700399999999999,
+    1.0965
+   ],
+   "dir": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "toward_room": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "label": "No P-trap",
+   "run": "pipe_dwv_laundry_notrap",
+   "dist": 10.638,
+   "where": "the laundry, at the washer box: the standpipe drops straight into the drain with no trap under it"
+  },
+  {
+   "key": "aav",
+   "config": "kitchen_vent=aav",
+   "at": [
+    -6.5244,
+    6.301,
+    0.5968
+   ],
+   "dir": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "label": "Bad sure vent",
+   "run": "vent_dwv_kitchen_aav",
+   "riser_top": [
+    -6.5244,
+    6.301,
+    0.5368
+   ],
+   "valve_intake_ports_over_riser_top_m": [
+    0.037,
+    0.046
+   ],
+   "valve_top_over_riser_top_m": 0.0825,
+   "dist": 5.221,
+   "where": "the kitchen, inside the sink base: the sure vent (air admittance valve) on the stub up off the trap arm"
+  },
+  {
+   "key": "condensate_trap_dry",
+   "config": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain&fault=condensate_trap_dry",
+   "at": [
+    -2.9074,
+    10.23,
+    3.185
+   ],
+   "dir": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "label": "Dry condensate trap",
+   "run": "pipe_hvac_condensate_hp_drain",
+   "dist": 9.183,
+   "trap_weir": [
+    -3.24,
+    10.23,
+    3.1541
+   ],
+   "trap_water": "trap_water_hvac_condensate_hp",
+   "where": "the attic air handler: its condensate trap is dry, so the blower pulls sewer gas up the condensate line into the cabinet and blows it out of every register"
+  }
+ ],
+ "built": {
+  "kitchen_aav": {
+   "tee": [
+    -6.5244,
+    6.301,
+    0.3718
+   ],
+   "riser_top": [
+    -6.5244,
+    6.301,
+    0.5368
+   ],
+   "arm_end": [
+    -6.455,
+    6.301,
+    0.3734
+   ],
+   "stub_end_in_bushing": [
+    -6.6853,
+    6.301,
+    0.3682
+   ],
+   "wall_bend": [
+    -6.752,
+    6.301,
+    0.3667
+   ],
+   "axis_toward_room": [
+    0.999747,
+    0.0,
+    0.0225
+   ],
+   "riser_top_over_arm_m": 0.165,
+   "stub": "pipe_dwv_kitchen_aav_stub",
+   "riser": "vent_dwv_kitchen_aav",
+   "drains": [
+    "pipe_dwv_kitchen_aav"
+   ]
+  },
+  "smells": {
+   "standpipe_no_trap": {
+    "run": "pipe_dwv_laundry_notrap",
+    "top": [
+     0.762,
+     6.700399999999999,
+     1.0965
+    ],
+    "bend": [
+     0.762,
+     6.7004,
+     0.6349
+    ],
+    "bend_2": [
+     0.9171,
+     6.7004,
+     0.4798
+    ]
+   },
+   "condensate_trap": {
+    "water": "trap_water_hvac_condensate_hp",
+    "weir": [
+     -3.24,
+     10.23,
+     3.1541
+    ],
+    "unit_port": [
+     -2.9074,
+     10.23,
+     3.185
+    ],
+    "dip_m": 0.075,
+    "litres": 0.069
+   },
+   "condensate_tie": {
+    "run": "pipe_hvac_condensate_hp_drain",
+    "wye_at": [
+     -3.1815,
+     7.62,
+     -0.7905
+    ],
+    "branch_dir": [
+     0.6966,
+     0.0,
+     0.71746
+    ],
+    "elbow_at": [
+     -3.047,
+     7.62,
+     -0.652
+    ],
+    "bushing_seat": [
+     -3.0963,
+     7.62,
+     -0.7028
+    ],
+    "south_leg_from": [
+     -3.047,
+     9.5,
+     -0.6324
+    ],
+    "fall": 0.010416666666666666
+   },
+   "vent_open_attic": {
+    "run": "vent_dwv_laundry",
+    "object": "vent_dwv_laundry.902",
+    "lower_end": [
+     1.06,
+     6.700399999999999,
+     3.2133
+    ],
+    "open_mouth": [
+     1.06,
+     6.700399999999999,
+     3.2348
+    ],
+    "upper_end": [
+     1.06,
+     6.700399999999999,
+     3.2948
+    ],
+    "top": [
+     1.06,
+     6.700399999999999,
+     3.7333
+    ],
+    "roof_z": 3.4333
+   },
+   "vent_hole_wall": {
+    "run": "vent_dwv_hallbath_vanity",
+    "object": "vent_dwv_hallbath_vanity.902",
+    "hole": [
+     -3.024,
+     13.8684,
+     1.45
+    ],
+    "hole_r": 0.004,
+    "screw": "hw_screw_mirror_hall_bath",
+    "screw_head": [
+     -2.9909,
+     13.8684,
+     1.45
+    ],
+    "screw_point": [
+     -3.0361,
+     13.8684,
+     1.45
+    ]
+   }
+  }
+ }
+}

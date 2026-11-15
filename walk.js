@@ -13,6 +13,8 @@
   // whose tag inConfig() accepts; the parts load under one Group per layer, so everything that walks `pipes` or toggles a layer is
   // unchanged. No manifest, or a layer missing from it: that layer is fetched whole, as before. pipeParts holds the file stems loaded.
   let PIPE_GROUPS = null, J_groups = null; const pipeParts = new Set();
+  // round 109: smoke_test.json for the house that is up (SMOKE), and its fetch in flight (J_smoke); see the smoke test section
+  let SMOKE = null, J_smoke = null;
   const MODEL_DIRS = ['../models/', './little/', './'];
   const status = document.getElementById('status'), loadEl = document.getElementById('load'), labelEl = document.getElementById('label');
   const view = document.getElementById('view');
@@ -185,6 +187,10 @@
     // round 89 integration (Jake 2026-09-23 build list): the new add on models, all off, and the commercial lot across the street
     mixing_valve: 'no', surge_wh: 'no', iaq_monitor: 'no', media_cabinet: 'no', purifier: 'no', erv: 'no', sludgehammer: 'no', freeze_cover: 'no', vacuum_breaker: 'no', commercial_lot: 'no',
     bidet: 'no', co_detector: 'no', uv_light: 'no', dehumidifier: 'no', fresh_air: 'no', hammer_arrestors: 'no', scale_inhibitor: 'no',
+    // round 109 (Jake 2026-11-12, the smoke test): the kitchen vent goes out through the roof, or stops under the sink at a sure vent
+    kitchen_vent: 'roof',
+    // round 109 (Jake's ruling the same day): the attic air handler's condensate line runs outside, or is tied into the house drain
+    condensate_tie: 'outside',
     flowsmart: 'yes', irrigation: 'no', leak_sensor: 'no', recirc_pump: 'no', recirc_return: 'no' };     // round 106: a dedicated return line, the pump on it     // round 105b: the recirculation pump after the mixing valve     // round 104 (Jake 2026-10-31): the YoLink FlowSmart in its yard box, the irrigation tee before it, its leak sensor; round 104b: the FlowSmart is on by default, everywhere (no more Moen Flo)     // round 89 (Jake 2026-09-23): parts the models already carry, now add ons, all off     // round 88 (Jake): the indoor pump basin, and a second Flo at the laundry wall or on the attic run     // round 45 (Jake): the add ons all start off
   // The septic plant, the tank, the sewer and the water service are all BURIED, so the ground gets its own switch.
   const GROUND = ['floor_terrain', 'floor_lot', 'floor_street', 'floor_patch_lawn', 'trim_riser_collar', 'site_mow_stripes', 'site_beds', 'site_shrubs', 'floor_driveway', 'floor_walkway', 'floor_crawl', 'soil', 'grass', 'backfill', 'fix_slab_house', 'fix_slab_garage', 'fix_leaveout_tub'];     // 2026-09-25: the slab too, so the drains and lines under it show
@@ -206,11 +212,32 @@
     sump: ['no', 'yes'],                         // round 88: the indoor pump basin under the hall bath (Jake: place the sump pump)
     // (round 104b, Jake 2026-10-31: no more Moen Flo, so no second Flo shutoff in the laundry wall or on the attic run: shutoff_extra stays 'none')
     commercial_lot: ['no', 'yes'],               // round 89: the storefront and its grease interceptor across the street, tapped into the city main
-    fault: ['none', 'belly']                     // round 29: the fault scenario: a belly in the city gravity lateral, standing water in it (Jake)
+    // round 109: where the kitchen sink's vent goes. roof: up the wall and out through the roof. aav: a sure vent (an air admittance
+    // valve) on a riser inside the sink base, and no kitchen pipe through the roof
+    kitchen_vent: ['roof', 'aav'],
+    // round 109: where the attic air handler's condensate goes. outside: out through the wall, as built. drain: tied into the building
+    // drain through a wye, which is what lets a dry condensate trap pull sewer gas into the unit. Offered only with an air handler
+    // layout that has the line (fits)
+    condensate_tie: ['outside', 'drain'],
+    // round 29: the fault scenario: a belly in the city gravity lateral, standing water in it (Jake). Round 109: the smells the smoke
+    // test finds, one at a time. Four are built into the pipes (the pipe layer tags its parts fault=<value>), four are staged by the
+    // page on the models already in the house (SMELL_PAGE below), and surprise picks one and does not name it until it is found.
+    fault: ['none', 'belly', 'vent_open_attic', 'vent_hole_wall', 'standpipe_no_trap', 'condensate_trap_dry', 'wax_ring', 'slip_joint', 'dry_trap', 'aav_stuck', 'surprise']
   };
+  // Round 109. What the PIPES read for fault. A smell the page stages itself is not a pipe layout: the pipe layer's tags (fault=none on
+  // the plain city lateral, fault=belly on the bellied one, fault=vent_open_attic on the cut vent) must read 'none' for it, or every
+  // part tagged fault=none would vanish with a wax ring staged. surprise reads as whatever it picked, and a smell this house cannot
+  // stage (smellOff says why) reads as none. smellNow() is the smell that is really staged; cfgVal() is what a layout tag is tested
+  // against (every other key is CONFIG's own value).
+  const SMELL_PIPE = ['vent_open_attic', 'vent_hole_wall', 'standpipe_no_trap', 'condensate_trap_dry'], SMELL_PAGE = ['wax_ring', 'slip_joint', 'dry_trap', 'aav_stuck'];
+  let smellPick = null, smellOff = '';
+  function smellNow() { if (smellOff) return 'none'; const f = CONFIG.fault; return f === 'surprise' ? (smellPick || 'none') : f; }
+  function cfgVal(k) { if (k !== 'fault') return CONFIG[k]; const f = smellNow(); return SMELL_PAGE.indexOf(f) >= 0 ? 'none' : f; }
   // a config value may list several layouts separated by a bar, for a run shared by two of them
   // a tag may join several clauses with & (a heater layout's PEX cold riser: water_heater=attic_gas_tank&plumbing=pex): all must hold
-  function inConfig(c) { if (!c) return true; return c.split(';').some(alt => alt.split('&').every(cl => { const i = cl.indexOf('='); return CONFIG[cl.slice(0, i)] !== undefined && cl.slice(i + 1).split('|').includes(CONFIG[cl.slice(0, i)]); })); }     // round 89: ; separates whole alternatives (the city main: a city sewer, or the commercial lot that taps it)
+  // (round 109: a clause is tested against cfgVal(), which is CONFIG's own value for every key but fault: see SMELL_PAGE above. over:
+  // values to test with instead of the layout's own, for asking what a tag WOULD say with one smell staged)
+  function inConfig(c, over) { if (!c) return true; return c.split(';').some(alt => alt.split('&').every(cl => { const i = cl.indexOf('='), k = cl.slice(0, i); return CONFIG[k] !== undefined && cl.slice(i + 1).split('|').includes(over && over[k] !== undefined ? over[k] : cfgVal(k)); })); }     // round 89: ; separates whole alternatives (the city main: a city sewer, or the commercial lot that taps it)
   function wants(pl) { if (!pl.model) return false; return inConfig(pl.config); }
   // 2026-09-25, the slab house. Some choices belong to one house only: the slab house has no attic heater (Jake: nothing in the attic
   // unless it is HVAC), no sump, no crawl trunk for the laundry wall Flo, no attic run for the attic Flo, and its supply is PEX or soft
@@ -218,11 +245,21 @@
   // offered in a house; foundationSet() is the change that takes the layout to the other house, anything that does not fit there falling
   // back to that house's default.
   const FOUNDATION_ONLY = { plumbing: { cpvc: 'crawl', galvanized: 'crawl', copper: 'slab', attic_repipe: 'slab', pex_branch: 'slab' }, water_heater: { attic_gas_tank: 'crawl', attic_electric_tank: 'crawl', garage_gas_tank: 'slab' },
-    sump: { yes: 'crawl' }, shutoff_extra: { wall: 'crawl', attic: 'crawl' }, mixing_valve: { yes: 'crawl' }, surge_wh: { yes: 'crawl' }, recirc_pump: { yes: 'crawl' }, recirc_return: { yes: 'crawl' } };
-  const FOUNDATION_DEFAULT = { slab: { plumbing: 'pex', water_heater: 'closet_gas_tank', sump: 'no', shutoff_extra: 'none', mixing_valve: 'no', surge_wh: 'no', recirc_pump: 'no', recirc_return: 'no' },
+    sump: { yes: 'crawl' }, shutoff_extra: { wall: 'crawl', attic: 'crawl' }, mixing_valve: { yes: 'crawl' }, surge_wh: { yes: 'crawl' }, recirc_pump: { yes: 'crawl' }, recirc_return: { yes: 'crawl' },
+    // round 109: the condensate tie into the drain is the crawl house's (the slab's line ends over the furnace closet's floor drain, an air gap)
+    // and so is the smell that needs it: the slab house's lists do not offer it, and a change of house takes it back to none
+    condensate_tie: { drain: 'crawl' }, fault: { condensate_trap_dry: 'crawl' } };
+  const FOUNDATION_DEFAULT = { slab: { plumbing: 'pex', water_heater: 'closet_gas_tank', sump: 'no', shutoff_extra: 'none', mixing_valve: 'no', surge_wh: 'no', recirc_pump: 'no', recirc_return: 'no', condensate_tie: 'outside' },
     crawl: { plumbing: 'cpvc', water_heater: 'attic_gas_tank' } };
-  function fits(k, v, f) { const t = FOUNDATION_ONLY[k] && FOUNDATION_ONLY[k][v]; return !t || t === (f || CONFIG.foundation); }
-  function foundationSet(f) { const out = {}; for (const k in CONFIG) if (!fits(k, CONFIG[k], f)) out[k] = (FOUNDATION_DEFAULT[f] || {})[k]; out.foundation = f; return out; }
+  // round 109: one choice belongs to a kind of equipment, not to a house: the condensate tie in exists only where an attic air handler's
+  // line was built to the drain (tieHvac). set: the picks being weighed on the House layout screen (the layout's own when not given).
+  function fits(k, v, f, set) {
+    const t = FOUNDATION_ONLY[k] && FOUNDATION_ONLY[k][v]; if (t && t !== (f || (set && set.foundation) || CONFIG.foundation)) return false;
+    if (k === 'condensate_tie' && v === 'drain') return tieHvac().indexOf((set || CONFIG).hvac) >= 0;
+    return true;
+  }
+  // (round 109: a value that does not fit the other house and has no default listed for it goes to the first value its list offers)
+  function foundationSet(f) { const out = {}; for (const k in CONFIG) if (!fits(k, CONFIG[k], f)) { const d = (FOUNDATION_DEFAULT[f] || {})[k]; out[k] = d !== undefined ? d : ((CONFIG_CHOICES[k] || []).find(v => fits(k, v, f)) || CONFIG[k]); } out.foundation = f; return out; }
   // The files each house loads. Both share the attic, the furniture (less two garage pieces) and every model; the slab house's own
   // files carry the prefix slab_ (the page's file map matches by name only, so they cannot live in a folder of their own).
   function setFiles() {
@@ -231,6 +268,8 @@
     HOUSE_REST = S ? ['house_furniture', 'slab_house_garagefurn', 'slab_house_framing'] : ['house_furniture', 'house_framing'];
     PIPE_FILES = ['pipes_supply', 'pipes_dwv', 'pipes_gas', 'pipes_hvac', 'pipes_alternates'].map(f => (S ? 'slab_' : '') + f);
     J_groups = jsonLater('./pipes_groups.json');     // round 99 (speed lever 1): asked for now, read in loadPipes(); the shim answers null where the site has none
+    // round 109: this house's smoke test map, asked for now and read in loadPipes() the same way (crawl: smoke_test.json, slab: slab_smoke_test.json)
+    J_smoke = jsonLater('./' + (S ? 'slab_' : '') + 'smoke_test.json');
     GRADE_Y = S ? -0.15 : -0.90;
   }
   // the house carries layout tags too now (the lawn patch over the yard holes this layout does not use)
@@ -253,6 +292,9 @@
   // close or in view, one at a time. loadAll() forces the rest (the self test and the layout audits want everything).
   let PEND = [], loadingOne = false, pendT = 0, holdStep = false;     // round 98 (speed lever 4): holdStep, see HOLD_STEP_DURING_BOOT
   const _pv = new T.Vector3();
+  // round 109: counted up each time the placed units are taken down (a layout change, a change of house). A placement begun before
+  // that, whose model arrives after it, belongs to a yard that is gone and is dropped (place()).
+  let placeEpoch = 0;
   function queuePlacements(todo) {
     PEND = [];
     for (const pl of todo) {
@@ -346,7 +388,10 @@
     const sock = sockets[pl.socket]; if (!sock) { console.warn('no socket', pl.socket); return; }
     // round 98 progress hook: the unit about to arrive (stage equipment), and below, the count once it stands
     window.__walkProgress = { stage: 'equipment', file: pl.model.replace(/^little\//, ''), filesDone: equip.children.length, filesTotal: equip.children.length + PEND.length + 1, bytesDone: 0, bytesTotal: 0 };
+    const epoch = placeEpoch;
     let g; try { g = await loadModel(pl.model.replace(/^little\//, '')); } catch (e) { console.warn(e.message); return; }
+    // (the layout was changed while the model was on its way: the new layout places its own)
+    if (epoch !== placeEpoch) return;
     const inst = g.scene.clone(true); stampParts(g, inst); inst.userData.elevGroup = pl.elevation_group || null; tuneMaterials(inst); inst.userData.model = pl.slab_of || pl.stands_for || pl.model;     /* round 94: a Rheem unit stands for the old stand in's model name (links, clicks, add ons) */ inst.userData.socket = pl.socket;     // 2026-09-22: the socket tells the hall bath toilet from the master's for the show link
     if (g.animations && g.animations.length) { const mixer = new T.AnimationMixer(inst); mixers.push(mixer); inst.userData.anim = { mixer, clips: g.animations.map(c => c.clone()), state: {} }; }
     // the shower's two streams belong to the valve AND the diverter (Jake: the diverter sends the water to the spout or the head),
@@ -354,9 +399,11 @@
     if (inst.userData.anim && /^shower\.glb$/.test(pl.model)) { for (const c of inst.userData.anim.clips) c.tracks = c.tracks.filter(t => !/^(shower_stream|spout_stream)\./.test(t.name)); inst.traverse(o => { if (o.isMesh && /^(shower_stream|spout_stream)$/.test(partName(o))) o.scale.setScalar(1); }); }
     // Round 45: a placement can carry add on lists, {key: {show: [...], hide: [...]}}. When that add on is switched on in the add ons
     // tab, its parts come out of the hide list and whatever it replaces (a deck cap over an unused hole) goes in.
+    // Round 109: a block may also belong to a LAYOUT, not an add on: its key is then a layout tag, "key=value" (the kitchen sink's parts
+    // for kitchen_vent=aav), tested the way every tag is. Such a block is never offered as an add on.
     const addOnShow = [], addOnHide = [];
     for (const [k, v] of Object.entries(pl.addon || {})) {
-      if (CONFIG[k] !== 'yes') continue;
+      if (k.indexOf('=') > 0 ? !inConfig(k) : CONFIG[k] !== 'yes') continue;
       for (const nm2 of (v.show || [])) addOnShow.push(nm2);
       for (const nm2 of (v.hide || [])) addOnHide.push(nm2);
     }
@@ -401,6 +448,8 @@
     inst.traverse(o => { if (!o.isMesh || !o.visible) return; const nn = nodeName(o);
       if (/^floor_/.test(nn) && !/_section$/.test(nn)) { floors.push(o); placedFloors.push(o); }
       if (/^roof_/.test(nn)) { overhead.push(o); placedFloors.push(o); } });
+    // round 109: the smell staged on this unit, if it is the one (the stain at a toilet's base, a tub trap gone dry, a sure vent stuck open)
+    smellOnPlace(inst);
   }
   const placedFloors = [];
   // round 90: the placed units' colliders are their own list. reconfigure() used to empty ALL colliders, and the house's col_ walls and
@@ -409,7 +458,11 @@
   async function reconfigure() {
     await bootDone;     // round 60: you can be let in before the pipes and placements.json have arrived, and this needs both
     addonGuard();     // round 105: a layout that cannot have the mixing valve (a tankless) switches it off before its pipes are chosen
+    // round 109: the smoke test is put away before the yard is taken down (its kit and plug stand in the yard), and the smell is settled
+    // before the pipes are chosen: a surprise is picked, a smell picked by name takes the layout where it can happen
+    smokeDown(true); smellGuard();
     await loadPipeParts();     // round 99 (speed lever 1): the pipe parts this layout needs and does not have yet, before anything is taken down
+    placeEpoch++;
     for (const c of [...equip.children]) equip.remove(c);
     for (const o of placedColliders) { const i = colliders.indexOf(o); if (i >= 0) colliders.splice(i, 1); }
     placedColliders.length = 0; mixers.length = 0;
@@ -425,6 +478,8 @@
     status.textContent = 'ready: ' + Object.keys(sockets).length + ' sockets, ' + equip.children.length + ' placed, ' + PEND.length + ' load as you go';
     pumpsOnByDefault();
     if (window.__drawAddons) window.__drawAddons();     // round 105
+    // round 109: say it plainly when the smell moved the layout, or cannot be staged in this house
+    smellSay();
   }
   // Round 23 (Jake: 'we should have one cutaway, and that's what we see. Clicking more shouldn't remove more parts unless it's very
   // specifically told ... make a very good list of what's actually removable in the app and what isn't'): interactions.json IS that
@@ -492,8 +547,8 @@
     if (m && ((INFO.packs && INFO.packs[m[1]]) || EXTRA_PACKS[m[1]] || /_/.test(m[1]))) t = plainPack(m[1]) + ': ' + plainPart(m[1], m[2]) + t.slice(m[0].length);
     else { const m1 = /^([a-z][a-z0-9]*(?:_[a-z0-9]+)+): /.exec(t); if (m1) t = plainPack(m1[1]) + ': ' + t.slice(m1[0].length); }
     t = t.replace(/\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b/g, id => plainId(id));                  // any name still left in it
-    t = capFirst(t.trim()); if (tail && !/[.!?]$/.test(t)) t += '.';
-    return t + tail;
+    t = capFirst(t.trim()); if (tail && t && !/[.!?]$/.test(t)) t += '.';
+    return t ? t + tail : tail.trim();
   }
   { const d = Object.getOwnPropertyDescriptor(Node.prototype, 'textContent');
     Object.defineProperty(labelEl, 'textContent', { configurable: true, get() { return d.get.call(this); }, set(v) { let f = v; try { f = friendly(v); } catch (e) { f = v; } d.set.call(this, f); } }); }
@@ -502,8 +557,12 @@
   // Round 87 (Jake: "when you click on it... what it is, how it works. Very simple. This is a capacitor"). parts.json: one short
   // card per part name, and a prefix table for families (breaker_*, romex_*). Exact name first, then the longest prefix that fits.
   let PARTS = {}, PART_PREFIX = [];
-  function partCard(nm) {
-    const n = String(nm || ''); if (!n) return null; if (PARTS[n]) return PARTS[n];
+  // (round 109: a name two units share, the furnace's blower_housing and the smoke test kit's, may carry a card of its own for one
+  // pack as "<pack>:<part>", read first)
+  function partCard(nm, pack) {
+    const n = String(nm || ''); if (!n) return null;
+    const pk = String(pack || '').replace(/^little\//, '').replace(/\.glb$/, ''); if (pk && PARTS[pk + ':' + n]) return PARTS[pk + ':' + n];
+    if (PARTS[n]) return PARTS[n];
     let best = null; for (const [p, t] of PART_PREFIX) if (n.startsWith(p) && (!best || p.length > best[0].length)) best = [p, t];
     return best ? best[1] : null;
   }
@@ -621,11 +680,11 @@
       acts.push([held && held.obj === inst ? 'Put the unit back' : 'Take the whole unit out', () => (held && held.obj === inst) ? putBack() : takeApart(o, true), 'unit']);     // round 31
       if (/attic_ladder/.test(inst.userData.model || '')) acts.push([ladderDown(inst) ? 'Climb the ladder' : 'Pull the ladder down', () => ladderDown(inst) ? ladderClimb(inst) : ladderAction(o, inst), 'Ladder']);
       acts.push(['Elevation', () => { const m = elevation(unitOf(o)); setTool('look'); return m; }, 'unit']);
-      if (drainStartFor(o)) acts.push(['Ride the drain as a ball', () => startBall(o), 'unit']);     // round 43
+      if (drainStartFor(o) && !NO_BALL.test(String((unitOf(o) || { userData: {} }).userData.model || ''))) acts.push(['Ride the drain as a ball', () => startBall(o), 'unit']);     // round 43
       // Round 46 (Jake: "my add ons should be specific when I actually click the component, like the gas water heater, it should have a
       // place for me to add the expansion tank"): the add ons that belong to THIS unit, offered on the unit itself.
       const addonKeys = [];
-      for (const k of Object.keys((inst.userData.pl && inst.userData.pl.addon) || {})) addonKeys.push(k);
+      for (const k of Object.keys((inst.userData.pl && inst.userData.pl.addon) || {})) if (k.indexOf('=') < 0) addonKeys.push(k);
       for (const [re_, keys] of UNIT_ADDONS) if (re_.test(inst.userData.model || '')) for (const k of keys) if (!addonKeys.includes(k) && (CONFIG[k] === 'yes' || addonFits(k))) addonKeys.push(k);
       for (const k of addonKeys) {
         const on = CONFIG[k] === 'yes'; const lab = (on ? 'Remove the ' : 'Add the ') + ADDON_NAME[k];
@@ -653,7 +712,7 @@
     // The close button sits in the title row now, so the panel can dock at the very top without a row of its own at the bottom.
     const xb = document.createElement('button'); xb.className = 'iclose'; xb.textContent = '×'; xb.title = 'close'; xb.onclick = () => { infoEl.style.display = 'none'; }; h.insertBefore(xb, h.firstChild);
     // Round 87: the part's own card, right under the title: its name, what it is, how it works. From parts.json; nothing when the part has none.
-    const card = partCard(nm); if (card) { const w = document.createElement('div'); w.className = 'iwhat'; const cm = /^([^.]{1,48})\.(?:\s+([\s\S]*))?$/.exec(card); const b = document.createElement('b'); b.textContent = cm ? cm[1] : plainId(nm); const p = document.createElement('span'); p.textContent = cm ? (cm[2] || '') : card; w.appendChild(b); w.appendChild(p); infoEl.appendChild(w); }
+    const card = partCard(nm, pack); if (card) { const w = document.createElement('div'); w.className = 'iwhat'; const cm = /^([^.]{1,48})\.(?:\s+([\s\S]*))?$/.exec(card); const b = document.createElement('b'); b.textContent = cm ? cm[1] : plainId(nm); const p = document.createElement('span'); p.textContent = cm ? (cm[2] || '') : card; w.appendChild(b); w.appendChild(p); infoEl.appendChild(w); }
     // Round 60 (Jake: "someone that built the app, like myself, I know where to go and what to do, but it's not very conducive to
     // someone being like, what's capable with this app? Can I see an elevation of something? Can I flush the toilet?"). Every unit
     // wears THE SAME verbs in THE SAME order: Use, Open, Cut away, Take apart, Elevation, About, and More for what is only on
@@ -745,6 +804,11 @@
   function pumpsOnByDefault() { let has = false; equip.children.forEach(u => { const A = u.userData.anim; if (A && A.clips.some(c => c.name === 'aerate')) has = true; }); if (has && !pumpOn) pumpSwitch(); }
   // ---------------------------------------------------------------- pipes
   async function loadPipes() {
+    // round 109: the smoke test's map of this house (cleanouts, roof vents, the smells built into the pipes, the fog's paths). It was
+    // asked for in setFiles() and is read here, before the pipe files are chosen, because a surprise smell is picked from what this
+    // house can stage and the pick decides which pipe parts the layout loads (smellGuard)
+    try { SMOKE = (await J_smoke) || null; } catch (e) { SMOKE = null; }
+    smellGuard();
     const want = await pipeFilesFor();     // round 99 (speed lever 1): each layer as its parts for this CONFIG, or whole
     prefetch(want.flatMap(w => w.files).map(s => './' + s + '.glb'));     // round 98 (speed lever 4): the pipe files download while the manifests round trip
     const J_pipes = jsonLater('./pipes.json'), J_drains = jsonLater('./' + (CONFIG.foundation === 'slab' ? 'slab_' : '') + 'drains.json'), J_wires = jsonLater('./wires.json');
@@ -916,6 +980,8 @@
     if (meter && leadLines.length) meterLeads();     // round 47: the leads stay in your hand as you move
     if (grabMarks.length) grabMarkFace();     // round 54: the rings turn to face you
     stepFlow(dt);
+    // round 109: the sure vent following the kitchen sink, and with the smoke test set out its kit, its fog and every plume
+    stepSmoke(dt);
     if ((lightT -= dt) <= 0) { lightT = 0.2; updateLights(); }     // which fixtures are nearest only changes as you walk, so five times a second is plenty
  camera.position.copy(pos); camera.rotation.set(0, 0, 0); camera.rotateY(yaw); camera.rotateX(pitch);
     renderer.render(scene, camera);
@@ -1166,11 +1232,12 @@
   }
   // mode (round 20): 'look' reaches the machine switches and the control clips only; 'remove' the clips that take something off;
   // 'work' the switches and the clips that run something; undefined is the old anything goes
-  const CLIP_REMOVE = /^(?!aquastat_off$)(?:.*off$|(?!flowsmart_).*open$|.*pull|.*lift$|.*door|.*lid|.*cover|.*panel|.*deadfront)/, CLIP_WORK = /run$|_on$|fire|flush|spray|aerate|pump|sprayer|cycle|backwash|service|bib|test|high_water|turn$|auto$|hoa|^sense$|^ventilate$|^purify$|^airflow$|^mix$|^surge$|^flow$|_block$|take_up$|rumble$|^anode_years$|^sediment_build$|^flowsmart_flow$|^recirc_flow$|^return_flow$|^xover_close$|^timer_set$|^creep$|^balance$|^wait_far_tap$|^cold_tap_warm$|^aquastat_off$|^media_flow$|^blower_starved$|^dose_flow$/;     // round 108: the scale inhibitor's dose     // round 104: flowsmart_open opens a valve, it is not a Take off; flowsmart_flow is a Run
+  // (round 109: the sure vent's air_in is a Run; its stuck_open is a fault state, not a thing that opens, so it is kept out of Remove)
+  const CLIP_REMOVE = /^(?!aquastat_off$|stuck_open$)(?:.*off$|(?!flowsmart_).*open$|.*pull|.*lift$|.*door|.*lid|.*cover|.*panel|.*deadfront)/, CLIP_WORK = /run$|_on$|fire|flush|spray|aerate|pump|sprayer|cycle|backwash|service|bib|test|high_water|turn$|auto$|hoa|^sense$|^ventilate$|^purify$|^airflow$|^mix$|^surge$|^flow$|_block$|take_up$|rumble$|^anode_years$|^sediment_build$|^flowsmart_flow$|^recirc_flow$|^return_flow$|^xover_close$|^timer_set$|^creep$|^balance$|^wait_far_tap$|^cold_tap_warm$|^aquastat_off$|^media_flow$|^blower_starved$|^dose_flow$|^air_in$/;     // round 108: the scale inhibitor's dose     // round 104: flowsmart_open opens a valve, it is not a Take off; flowsmart_flow is a Run
   // round 89: the fault states the new models carry (a cracked lid, a loose cover, a dead light). They are findings, not a cover to
   // take off or a thing to run, so the Work and Remove tools pass them by (lid_cracked used to answer a click on the lid) and the
   // panel lists them by name.
-  const CLIP_FAULT = /cracked|unrated|_loose$|_leak$|leak$|dirty|failed|_lost$|_poor$|^no_power$|^no_air$|clogged|corroded|broken|greased|carryover|_high$|^waterlogged$|^element_buried$|^scald$/;
+  const CLIP_FAULT = /cracked|unrated|_loose$|_leak$|leak$|dirty|failed|_lost$|_poor$|^no_power$|^no_air$|clogged|corroded|broken|greased|carryover|_high$|^waterlogged$|^element_buried$|^scald$|^stuck_open$|^gas_out$|^sleeve_blocking$|^fluid_empty$|^plug_leaking$/;
   function playClipFor(o, mode) {
     const inst = o.userData.inst; if (!inst || !inst.userData.anim) return null;
     if (mode === 'remove' && !/^little\/electric_panel/.test(o.userData.pack || '')) return playClipOnly(o, CLIP_REMOVE);
@@ -1184,8 +1251,9 @@
     // Hiblow on its own pad (the AquaSafe's compressor with its cover and guts, the AquaKlear's air_pump). Last round only
     // the blower answered, which left the AquaSafe yard with no way to turn its air on. Part names, not mesh labels: a
     // part with several materials loads as meshes called <mesh>021_1, which no label test matches.
+    // (round 109: the smoke test kit has a blower of its own, and it is not the septic air pump)
     { const lbl = partName(o) || '';
-      if (/^(blower|blower_pad|blower_internals|compressor|compressor_pad|air_pump|pump_pad|pump_cover|pump_internals)$/.test(lbl)) return pumpSwitch();
+      if (!/^smoke_test_kit/.test(String(o.userData.pack || '')) && /^(blower|blower_pad|blower_internals|compressor|compressor_pad|air_pump|pump_pad|pump_cover|pump_internals)$/.test(lbl)) return pumpSwitch();
       if (lbl === 'hoa_knob') return spraySwitch();
       // the head is the control, and anything drawn INSIDE the tank (the bed, its arrows, the centre tube, the water) is
       // the cycle too: clicked on its own it used to run that clip alone, outside the cycle
@@ -2890,6 +2958,8 @@
   function meterKeys() {
     let el = document.getElementById('meterkeys');
     document.body.classList.toggle('metering', !!meter);
+    // round 109: the smoke test's own thumb buttons live in the same corner, and step aside while a meter is in your hand
+    smokeKeys();
     if (!meter) { if (el) el.style.display = 'none'; return; }
     if (!el) { el = document.createElement('div'); el.id = 'meterkeys'; document.body.appendChild(el); }
     el.innerHTML = '';
@@ -3455,7 +3525,9 @@
   // the one mesh, if it is under 2.4 m across: the filter, the pump tank's pump is a part but the spray pump filter is a unit, the outlet.
   // Round 35 (Jake: "several of the take it out features are not taking the entire unit out; the spray filter should take the entire
   // unit out"): the small add ons have no part worth holding on its own, so Take it out on any of their parts is the whole unit.
-  const NO_CLIPS = { spray_pump_filter: /^filter_pull$/ };     // clips the panel never offers, by model
+  // (round 109: the smoke test's kit and plug are worked by tapping them in the test's order, never from the panel's Run and Open rows;
+  // and the three new models' own explode clips are left to the page's exploded view, which every unit already has under Take apart)
+  const NO_CLIPS = { spray_pump_filter: /^filter_pull$/, smoke_test_kit: /^(blower_run|fog_on|fluid_empty|explode)$/, test_plug: /^(plug_inflate|plug_out|plug_leaking|explode)$/, air_admittance_valve: /^explode$/ };     // clips the panel never offers, by model
   const WHOLE_UNITS = /^(spray_pump_filter|outlet_surge|hvac_surge|easystart|whole_house_spd|flo_shutoff|sweet_air|atu_blower_outlet|thermostat|water_filter)/;
   function wholeOnly(o) { const inst = o && (o.userData.inst || (o.parent === equip ? o : null)); return !!(inst && WHOLE_UNITS.test(inst.userData.model || '')); }
   // ---------------------------------------------------------------- exploded view (round 45)
@@ -3663,6 +3735,8 @@
     return best;
   }
   function downhillDir(R, s_) { const a = runPoint(R, s_ - 0.25), b = runPoint(R, s_ + 0.25); return b.y <= a.y + 0.001 ? 1 : -1; }
+  // round 109: units that stand at a drain's end and are not a way into it (the smoke test's kit and plug, the sure vent)
+  const NO_BALL = /^(smoke_test_kit|test_plug|air_admittance_valve)/;
   function drainStartFor(o) {
     const inst = o && (o.userData.inst || unitOf(o)); if (!inst || !Object.keys(DRAINS).length) return null;
     const bb = new T.Box3(); inst.traverse(m => { if (m.isMesh && m.visible) bb.expandByObject(m); }); if (bb.isEmpty()) return null;
@@ -4062,6 +4136,8 @@
     return { text: made ? '0.4' : 'OL', note: PAIR[1] + ' across TB1 ' + lo + ' and ' + hi + ': ' + (made ? 'CLOSED, it is tipped up in the water' : 'OPEN, it is hanging down. Lift it with the hook, or run water in, and it should close') };
   }
   function lookAction(o, hit) {
+    // round 109: with the smoke test set out, its kit, its plug and this yard's cleanout answer to the test, step by step
+    if (smoke) { const sm = smokeAct(o); if (sm !== undefined) return sm; }
     { const dc_ = duplexClick(o); if (dc_) return dc_; }
     const nm = partName(o) || o.userData.label || base(o.name), pk = o.userData.pack ? o.userData.pack + ': ' : '';
     if (o.userData.inst && /attic_ladder/.test(o.userData.inst.userData.model || '')) return pk + ladderAction(o, o.userData.inst);
@@ -4114,14 +4190,20 @@
     const REACH = 6; ray.far = (elev && elev.orbit) ? 80 : 15; pickNDC = null;
     // A click goes THROUGH the contents of a tank to the part under them, and through the tub's glass doors (round 17)
     const hits = ray.intersectObjects([...equip.children, ...pipes.children, ...doors, ...lids], true).filter(h => h.object.visible && !/^(water|bubbles|mix_arrows|airlift_spurt|scum|sludge|glass_doors)/.test(partName(h.object)));
-    if (held && (tool === 'apart' || held.view)) { const m = putBack(); if (!hits.length) return say(m); }     // round 30: with a part in your hands, the next click puts it back first; round 39: a viewed part too
+    // round 109: with the smoke test's fog showing at the leak, a tap on that fog (or on the part it comes out of) is the find
+    if (smoke) { const sm = smokeLeakTap(hits); if (sm !== undefined) { labelEl.textContent = sm; labelEl.style.display = 'block'; return; } }
+    if (held && (tool === 'apart' || held.view)) { const m = putBack(); if (!hits.length) { labelEl.textContent = m; labelEl.style.display = m ? 'block' : 'none'; return; } }     // round 30: with a part in your hands, the next click puts it back first; round 39: a viewed part too
     if (!hits.length) { labelEl.style.display = 'none'; return; }
     const o = hits[0].object; let dr = o; while (dr && !dr.userData.isDoor) dr = dr.parent;
     const say = t => { labelEl.textContent = t || ''; labelEl.style.display = t ? 'block' : 'none'; };
     if (!(elev && elev.orbit)) {
       // round 60, the working view: a click on a placed unit you are not standing at takes you in front of it and does nothing else
       const u0 = unitOf(o), isUnit = !!u0 && u0.parent === equip;
-      if (isUnit && !fly && !ball && !held && (tool === 'look' || hits[0].distance > REACH) && !nearUnit(u0)) {
+      // round 109: the smoke test's kit and its plug are worked from wherever you stand within reach (the plug lies a step from the
+      // kit, and a click on it used to turn you to face it and do nothing); from further off a click takes you to the kit
+      const smokeUnit = !!(smoke && isUnit && (u0 === smoke.kit || u0 === smoke.plug));
+      if (smokeUnit && hits[0].distance > REACH) return say(smokeGo());
+      if (isUnit && !smokeUnit && !fly && !ball && !held && (tool === 'look' || hits[0].distance > REACH) && !nearUnit(u0)) {
         const m = goToUnit(u0); if (m) { lastUnit = u0; return say(unitNameOf(u0) + ': ' + m + ' (click it again to work its parts; walking lets go)'); }
       }
       if (hits[0].distance > REACH) { labelEl.style.display = 'none'; return; }
@@ -4447,9 +4529,13 @@
   // layout picker: one select per config key, rebuilt equipment on change
   (() => {
     const host = document.getElementById('layout'); if (!host) return;
+    // round 109: the new values in plain words (the rest read well enough as they are named)
+    const WORDS = { 'kitchen_vent=roof': 'kitchen vent through the roof', 'kitchen_vent=aav': 'sure vent under the kitchen sink', 'condensate_tie=outside': 'condensate runs outside', 'condensate_tie=drain': 'condensate tied into the drain',
+      'fault=vent_open_attic': 'smell: open vent in the attic', 'fault=vent_hole_wall': 'smell: hole in a vent in the wall', 'fault=standpipe_no_trap': 'smell: standpipe with no trap', 'fault=condensate_trap_dry': 'smell: dry condensate trap',
+      'fault=wax_ring': 'smell: failed wax ring', 'fault=slip_joint': 'smell: leaking slip joint', 'fault=dry_trap': 'smell: dry trap', 'fault=aav_stuck': 'smell: bad sure vent', 'fault=surprise': 'smell: surprise me' };
     for (const [k, vals] of Object.entries(CONFIG_CHOICES)) {
       const sel = document.createElement('select'); sel.title = k;
-      for (const v of vals) { const o = document.createElement('option'); o.value = v; o.textContent = v.replace(/_/g, ' '); sel.appendChild(o); }
+      for (const v of vals) { const o = document.createElement('option'); o.value = v; o.textContent = WORDS[k + '=' + v] || v.replace(/_/g, ' '); sel.appendChild(o); }
       sel.value = CONFIG[k];
       sel.onchange = async () => { if (k === 'foundation') { await switchFoundation(sel.value); for (const s_ of host.querySelectorAll('select')) s_.value = CONFIG[s_.title]; return; } CONFIG[k] = sel.value; await reconfigure(); };     // 2026-09-25: a new house is a new set of files
       host.appendChild(sel);
@@ -4590,6 +4676,995 @@
   // Jake, after trying it: "what I don't like is three things you can work here, tap a name. I think it's pretty intuitive to just
   // tap... what can I do here also needs to come off. It needs to be intuitive." The button and its message are gone. The name
   // tags themselves are kept as walk.whatCanIDo() for a test or a lesson to call; nothing on the page calls it.
+  // ---------------------------------------------------------------- round 109: the smoke test (Jake 2026-11-12)
+  // Jake's video "Something Smells in My House" ends on the test that finds the smell: close the line off at the yard cleanout, toward
+  // the tank or the street, and pump fog into the drains and the vents with a fog machine and a blower. Fog out of the roof vents is
+  // normal. Fog anywhere inside the house is the leak, and that is where we make the repair. Here the test is a TOOL in the Toolbox.
+  // Picking it sets the kit out at this yard's cleanout and takes you there, and the job is done in a tech's order, each step a tap on
+  // the real part: the cleanout plug out, the test plug down the riser and blown up, the blower on the riser, the fog machine on. Then
+  // the fog fills the system along the pipes' own centrelines and comes out where it really would.
+  //
+  // What the page reads. smoke_test.json (the pipe build writes one per house beside drains.json): the yard cleanout of each sewer
+  // layout, the roof vents, the leak point of each smell that is built into the pipes, and every drain and vent centreline the fog
+  // fills with its distance from the cleanout (a trap arm ends at the trap weir: a wet trap stops fog). The kit and the plug are not
+  // placements: placements.json carries their packs and hide lists under "tools", and the tool stands them where the cleanout is.
+  // The smells the pipes do not carry are staged on the models already in the house (SMELL_AT), each leak point taken from the
+  // placed model's own node, each on the sewer side of the trap water. The words of every smell's card are in info.json ("smells").
+  // The kit's own names (smoke_test_kit/HANDOFF.md). They are tested by what they begin with, because the kit's layout may be built
+  // again: a tap on any blower_ part but its cord (the fan, its handle, the reducer under it) is the blower; a tap on the fog machine
+  // (its body, nozzle, base, the bucket or stool it stands on, the remote on the lawn) is the fog. The fluid cap, the tank and the
+  // fluid keep their own clicks (cap_off). Every place and direction is read off the placed model: its parts' own boxes, and the
+  // markers fog_nozzle_point and blower_inlet_point. The plug's hose ends at test_plug_hose_end_point, its chain at test_plug_ring,
+  // and test_plug_hose_valve is the valve the builder left for the far end of the hose.
+  const SMOKE_KIT = { kit: 'smoke_test_kit.glb', plug: 'test_plug.glb', blower: /^blower_(?!cord|inlet)/, fogger: /^fog_(?!fluid|puff)/, fogBody: /^fog_(machine|bucket|stand)/, cord: /cord|remote/, blowerSide: /^(blower_|air_packet_)/, bucket: /^fog_(bucket|stand)/, puff: /^fog_puff_/,
+    blowerClip: 'blower_run', fogClip: 'fog_on', inflate: 'plug_inflate', nozzle: 'fog_nozzle_point', inlet: 'blower_inlet_point', hoseEnd: 'test_plug_hose_end_point', chainEnd: 'test_plug_ring', hoseValve: 'test_plug_hose_valve' };
+  const SMOKE_OPEN_ROADS = false;
+  // the fog machine on its bucket, once the fog side stands on the lawn: false tips it by the least that puts its fog into the
+  // blower's open top; true aims its nozzle dead at the inlet's middle (34 degrees nose down at the lowest riser there is today)
+  const SMOKE_AIM_AT_INLET = false;
+  const SMOKE_RULE = 'Fog out of the roof vents is normal. Fog anywhere inside the house is the leak, and that is where we make the repair.';
+  // a smell staged by the page: the unit it is on (socket and model), the state parts that show it, the part the fog comes out at
+  const SMELL_AT = {
+    wax_ring: { socket: 'sock_toilet_hall_bath', model: /^toilet/, show: ['base_stain', 'base_gap'], at: 'base_gap', from: 'wax_ring' },
+    slip_joint: { socket: 'sock_vanity_hall_bath', model: /^bath_vanity/, show: ['trap_leak'], at: 'p_trap_arm_washer', cabinet: /^bath_vanity/ },
+    dry_trap: { socket: 'sock_tub_hall_bath', model: /^shower/, hide: ['trap_water'], at: 'strainer' },
+    aav_stuck: { socket: 'sock_kitchen_sink_kitchen', model: /^air_admittance_valve/, clips: ['stuck_open', 'gas_out'], at: 'aav_inlet_point', cabinet: /^kitchen_sink/ } };
+  // what a smell needs of the layout. The pipe layer's own tag on its fault says it where there is one (smellNeeds); these are the
+  // page's: a bad sure vent needs a sure vent, a dry condensate trap needs the air handler's condensate tied into the drain
+  const TIE_HVAC = ['heatpump_attic', 'electric_attic', 'electric_attic_ra15', 'heatpump_attic_rd18', 'heatpump_attic_rp14', 'heatpump_attic_rp15'];
+  const SMELL_NEEDS = { aav_stuck: { kitchen_vent: ['aav'] }, condensate_trap_dry: { foundation: ['crawl'], condensate_tie: ['drain'] } };
+  const NEED_WORDS = { kitchen_vent: 'the kitchen vent is a sure vent under the sink', condensate_tie: 'the condensate is tied into the house drain', hvac: 'the heating and cooling is the air handler in the attic' };
+  let smoke = null, smokeBusy = false, smellMoved = '';
+  const bl3 = q => new T.Vector3(q[0], q[2], -q[1]);
+  const _s1 = new T.Vector3(), _s2 = new T.Vector3(), _sOne = new T.Vector3(1, 1, 1), _sUp = new T.Vector3(0, 1, 0), _sX = new T.Vector3(1, 0, 0), _sSize = new T.Vector2();
+  const toward = (v, to, step) => v < to ? Math.min(to, v + step) : Math.max(to, v - step);
+  const ease3 = k => k * k * (3 - 2 * k);
+  // a list out of the map, whether the pipe build wrote it as a list or as an object keyed by name
+  function smokeList(v, keyName) { if (!v) return []; return Array.isArray(v) ? v : Object.keys(v).map(k => Object.assign({ [keyName]: k }, v[k])); }
+  // the pipe layer's entry for a smell: the one whose tag this layout would pass with that smell staged, else the first of that name
+  function smokeFault(key) { const all = smokeList(SMOKE && SMOKE.faults, 'key').filter(f => f.key === key); return all.find(f => inConfig(f.config, { fault: key })) || all[0] || null; }
+  function smokeCleanout() { return smokeList(SMOKE && SMOKE.cleanouts, 'sewer').find(c => c.config !== undefined && c.config !== null ? inConfig(c.config) : c.sewer === CONFIG.sewer) || null; }
+  // the hvac layouts that have the condensate line to the drain: read off the pipe layer's own tags when the map is in
+  function tieHvac() {
+    const got = new Set();
+    if (SMOKE) for (const e of smokeList(SMOKE.fog_paths, 'name').concat(smokeList(SMOKE.faults, 'key'))) {
+      const c = String(e.config || ''); if (c.indexOf('condensate_tie=drain') < 0) continue;
+      for (const cl of c.split(';')[0].split('&')) if (cl.indexOf('hvac=') === 0) for (const v of cl.slice(5).split('|')) got.add(v);
+    }
+    // (the heat pump's air handler first: it is the one in Jake's video, and the one a smell picked by name switches to)
+    return got.size ? TIE_HVAC.filter(v => got.has(v)).concat([...got].filter(v => TIE_HVAC.indexOf(v) < 0)) : TIE_HVAC;
+  }
+  function smellName(key) { const I = INFO.smells && INFO.smells[key]; return (I && I.name) || capFirst(pretty(key)); }
+  function smellNeeds(key) {
+    const need = {}; for (const [k, v] of Object.entries(SMELL_NEEDS[key] || {})) need[k] = v.slice();
+    if (key === 'condensate_trap_dry') need.hvac = tieHvac();
+    const f = smokeFault(key);
+    if (f && f.config) for (const cl of String(f.config).split(';')[0].split('&')) { const i = cl.indexOf('='), k = cl.slice(0, i); if (k !== 'fault' && CONFIG[k] !== undefined) need[k] = cl.slice(i + 1).split('|'); }
+    // (the first of a list is what a smell picked by name switches to: the page's own order of air handlers, not the pipe build's)
+    if (need.hvac) need.hvac = TIE_HVAC.filter(v => need.hvac.indexOf(v) >= 0).concat(need.hvac.filter(v => TIE_HVAC.indexOf(v) < 0));
+    return need;
+  }
+  // can this layout show the smell as it stands? (surprise only picks from these)
+  function smellCan(key) {
+    const need = smellNeeds(key); for (const k in need) if (need[k].indexOf(CONFIG[k]) < 0) return false;
+    if (SMELL_PIPE.indexOf(key) >= 0) return !!smokeFault(key);
+    const D = SMELL_AT[key]; if (!D) return false; if (!placements) return true;
+    return placements.placements.some(pl => pl.model && pl.socket === D.socket && D.model.test(String(pl.slab_of || pl.model)) && inConfig(pl.config, { fault: 'none' }));
+  }
+  // Settled before the pipes of a layout are chosen. surprise: one smell this layout can show, picked when the choice is made and kept
+  // until the choice changes. A smell picked by name takes the layout where it can happen (the bad sure vent brings the sure vent,
+  // the dry condensate trap brings the air handler with its condensate tied into the drain) and says so; one this house cannot stage
+  // at all is not staged, and smellOff says why.
+  // (and the condensate tie itself: asked for where the line is not built, it goes back to outside and says so)
+  let tieOff = '';
+  function smellGuard() {
+    smellGuard0(); tieOff = '';
+    if (CONFIG.condensate_tie === 'drain' && !fits('condensate_tie', 'drain')) {
+      CONFIG.condensate_tie = 'outside';
+      tieOff = 'The condensate can only be tied into the house drain in the crawl space house with an air handler in the attic. Here it runs outside.';
+      for (const s_ of document.querySelectorAll('#layout select')) if (CONFIG[s_.title] !== undefined) s_.value = CONFIG[s_.title];
+    }
+  }
+  function smellGuard0() {
+    smellOff = ''; smellMoved = '';
+    if (CONFIG.fault !== 'surprise') smellPick = null;
+    else if (!smellPick || !smellCan(smellPick)) { const pool = SMELL_PIPE.concat(SMELL_PAGE).filter(smellCan); smellPick = pool.length ? pool[Math.floor(Math.random() * pool.length)] : null; }
+    const key = CONFIG.fault;
+    if (SMELL_PIPE.indexOf(key) < 0 && SMELL_PAGE.indexOf(key) < 0) return;
+    const need = smellNeeds(key), moved = [];
+    // the house first: a smell that is built into the other house moves nothing here
+    if (need.foundation && need.foundation.indexOf(CONFIG.foundation) < 0) { smellOff = '{smell} cannot be staged in this house: it is built into the ' + (need.foundation[0] === 'slab' ? 'slab' : 'crawl space') + ' house only. No smell is staged.'; return; }
+    for (const k in need) {
+      if (need[k].indexOf(CONFIG[k]) >= 0) continue;
+      CONFIG[k] = need[k][0]; moved.push(NEED_WORDS[k] || (pretty(k) + ' is ' + pretty(need[k][0])));
+    }
+    if (SMELL_PIPE.indexOf(key) >= 0 && SMOKE && !smokeFault(key)) { smellOff = '{smell} is not built into this house\'s pipes yet, so no smell is staged.'; return; }
+    if (moved.length) { smellMoved = '{smell}: the layout changed so it can happen. Now ' + moved.join(', and ') + '.'; for (const s_ of document.querySelectorAll('#layout select')) if (CONFIG[s_.title] !== undefined) s_.value = CONFIG[s_.title]; }
+  }
+  // (the smell's name goes in when the line is read: at start up the line is made before info.json, which holds the name, has come)
+  function smellWords(t) { return t ? t.replace('{smell}', smellName(CONFIG.fault)) : ''; }
+  function smellSay() { const t = smellWords(smellOff || smellMoved) || tieOff; if (!t) return; labelEl.textContent = t; labelEl.style.display = 'block'; }
+  // every node of a part on a placed unit, as one world box (a marker with no mesh gives its own point)
+  function partBox(u, name) {
+    const b = new T.Box3(); u.updateMatrixWorld(true);
+    u.traverse(o => { if (nodeName(o) !== name && o.name !== name) return; if (o.isMesh) b.expandByObject(o); else if (!o.children.length) b.expandByPoint(o.getWorldPosition(new T.Vector3())); });
+    return b;
+  }
+  // The state a staged smell leaves on its unit, at the moment the unit is placed: the model's own fault parts shown (the stain and the
+  // gap at the toilet's base, the weeping slip joint), its trap water taken away, its fault clip run. A layout change places every
+  // unit again from its rest state, so nothing has to be undone.
+  function smellOnPlace(inst) {
+    const key = smellNow(), D = SMELL_AT[key]; if (!D) return;
+    const pl = inst.userData.pl || {}; if (pl.socket !== D.socket || !D.model.test(String(inst.userData.model || ''))) return;
+    const show = D.show || [], hide = D.hide || [];
+    inst.traverse(o => {
+      const n = nodeName(o);
+      if (show.indexOf(n) >= 0 && !o.userData.placeHidden) { o.visible = true; if (o.scale.x < 0.01 && o.scale.y < 0.01 && o.scale.z < 0.01) o.scale.setScalar(1); }
+      if (hide.indexOf(n) >= 0 || hide.indexOf(n.replace(/_section$/, '')) >= 0) { o.visible = false; o.userData.placeHidden = true; }
+    });
+    for (const c of D.clips || []) playNamed(inst, c, true);
+    inst.userData.smell = key;
+  }
+  // The sure vent works when the kitchen sink drains: water going down the trap arm pulls air in through the valve (air_in), and it
+  // drops shut when the water stops. Tied to the sink's own faucet and disposal clips; its own Run button still works on its own.
+  function syncSureVent() {
+    if (CONFIG.kitchen_vent !== 'aav') return;
+    let v = null, s = null;
+    for (const u of equip.children) { const m = String(u.userData.model || ''); if (/^air_admittance_valve/.test(m)) v = u; else if (/^kitchen_sink/.test(m)) s = u; }
+    if (!v || !s || !v.userData.anim || v.userData.smell || !v.userData.anim.clips.some(c => c.name === 'air_in')) return;
+    const on = waterOn && FIXTURES.some(f => f.socket === 'sock_kitchen_sink_kitchen' && fixtureOpen(s, f, true));
+    if (on === !!v.userData.ventAuto) return;
+    v.userData.ventAuto = on; playNamed(v, 'air_in', on);
+  }
+  // ---- the fog you can see: soft round sprites, no depth write, a fixed count per plume, born IN the opening
+  const PLUMES = []; let plumeMaterial = null;
+  function plumeMat() {
+    if (plumeMaterial) return plumeMaterial;
+    const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d');
+    const gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.4, 'rgba(255,255,255,0.5)'); gr.addColorStop(0.75, 'rgba(255,255,255,0.12)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
+    plumeMaterial = new T.ShaderMaterial({ uniforms: { uMap: { value: new T.CanvasTexture(c) }, uScale: { value: 500 }, uTint: { value: new T.Vector3(0.96, 0.97, 0.98) } }, transparent: true, depthWrite: false,
+      vertexShader: 'attribute float aSize; attribute float aAlpha; uniform float uScale; varying float vAlpha;\nvoid main() { vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_Position = projectionMatrix * mv; float d = max(0.05, -mv.z); gl_PointSize = min(380.0, aSize * uScale / d); vAlpha = aAlpha * smoothstep(0.12, 0.55, d); }',
+      fragmentShader: 'uniform sampler2D uMap; uniform vec3 uTint; varying float vAlpha;\nvoid main() { float a = texture2D(uMap, gl_PointCoord).a * vAlpha; if (a < 0.004) discard; gl_FragColor = vec4(uTint, a); }' });
+    return plumeMaterial;
+  }
+  // Indoors the same white fog was lost against a white cabinet front and a white wall. Fog in a room's light is a shade greyer than
+  // fog in the sun, so the leak and the wisps over a sink base's doors are drawn that shade: one more material, the same picture.
+  let plumeIndoor = null;
+  function plumeMatIn() {
+    if (plumeIndoor) return plumeIndoor;
+    const m = plumeMat();
+    plumeIndoor = new T.ShaderMaterial({ uniforms: { uMap: m.uniforms.uMap, uScale: m.uniforms.uScale, uTint: { value: new T.Vector3(0.64, 0.66, 0.70) } }, transparent: true, depthWrite: false, vertexShader: m.vertexShader, fragmentShader: m.fragmentShader });
+    return plumeIndoor;
+  }
+  function plumeMake(e) {
+    const n = Math.max(8, Math.round((e.max || 40) * (TOUCH ? 0.7 : 1)));
+    const geo = new T.BufferGeometry(), pos = new Float32Array(n * 3), size = new Float32Array(n), alpha = new Float32Array(n);
+    geo.setAttribute('position', new T.BufferAttribute(pos, 3)); geo.setAttribute('aSize', new T.BufferAttribute(size, 1)); geo.setAttribute('aAlpha', new T.BufferAttribute(alpha, 1));
+    const pts = new T.Points(geo, e.kind === 'leak' || e.kind === 'wisp' || e.kind === 'stray' ? plumeMatIn() : plumeMat()); pts.frustumCulled = false; pts.renderOrder = 6; scene.add(pts);
+    // two axes across the opening, for a birth place anywhere on its disc
+    const a1 = new T.Vector3().crossVectors(Math.abs(e.dir.y) < 0.9 ? _sUp : _sX, e.dir).normalize(), a2 = new T.Vector3().crossVectors(e.dir, a1).normalize();
+    const P = { e, n, pts, pos, size, alpha, a1, a2, age: new Float32Array(n).fill(1e3), life: new Float32Array(n).fill(1), vel: new Float32Array(n * 3), acc: 0 };
+    PLUMES.push(P); return P;
+  }
+  function plumeDrop(P) { const i = PLUMES.indexOf(P); if (i >= 0) PLUMES.splice(i, 1); scene.remove(P.pts); P.pts.geometry.dispose(); }
+  function plumeStep(P, dt, strength) {
+    const e = P.e; P.acc = Math.min(3, P.acc + e.rate * strength * dt);
+    for (let i = 0; i < P.n; i++) {
+      const j = i * 3;
+      if (P.age[i] >= P.life[i]) {
+        if (P.acc < 1) { P.alpha[i] = 0; P.size[i] = 0; continue; }
+        P.acc -= 1; P.age[i] = 0; P.life[i] = e.life * (0.75 + Math.random() * 0.5);
+        let x = e.at.x, y = e.at.y, z = e.at.z, dx = e.dir.x, dy = e.dir.y, dz = e.dir.z;
+        if (e.seg) { const u = Math.random(); x = e.seg[0].x + (e.seg[1].x - e.seg[0].x) * u; y = e.seg[0].y + (e.seg[1].y - e.seg[0].y) * u; z = e.seg[0].z + (e.seg[1].z - e.seg[0].z) * u; }
+        else if (e.rim) {
+          // on the edge of a box lying on the floor (the gap at a toilet's base), heading out from the middle ALONG THE FLOOR: the
+          // bowl overhangs the base, and fog that left heading up was drawn inside the china and never seen
+          const b = e.rim, w = b.max.x - b.min.x, d = b.max.z - b.min.z, u = Math.random() * 2 * (w + d);
+          if (u < w) { x = b.min.x + u; z = b.min.z; } else if (u < w + d) { x = b.max.x; z = b.min.z + (u - w); } else if (u < 2 * w + d) { x = b.max.x - (u - w - d); z = b.max.z; } else { x = b.min.x; z = b.max.z - (u - 2 * w - d); }
+          y = b.min.y + 0.01; const ox = x - e.from.x, oz = z - e.from.z, ol = Math.hypot(ox, oz) || 1; dx = ox / ol * 1.7; dy = 0.06; dz = oz / ol * 1.7;
+        } else { const a = Math.random() * 6.2832, rr = e.r * 0.8 * Math.sqrt(Math.random()), ca = Math.cos(a) * rr, sa = Math.sin(a) * rr; x += P.a1.x * ca + P.a2.x * sa; y += P.a1.y * ca + P.a2.y * sa; z += P.a1.z * ca + P.a2.z * sa; }
+        P.pos[j] = x; P.pos[j + 1] = y; P.pos[j + 2] = z;
+        P.vel[j] = dx * e.v0 + (Math.random() - 0.5) * e.spread; P.vel[j + 1] = dy * e.v0 + (Math.random() - 0.5) * e.spread * 0.5; P.vel[j + 2] = dz * e.v0 + (Math.random() - 0.5) * e.spread;
+      }
+      P.age[i] += dt; const k = Math.min(1, P.age[i] / P.life[i]), push = Math.exp(-e.drag * P.age[i]), w = Math.min(1, P.age[i] / 1.2);
+      // the push out of the opening dies away; the fog's own lift, and outdoors the wind, take over
+      P.pos[j] += (P.vel[j] * push + (e.wind ? e.wind.x * w : 0)) * dt; P.pos[j + 1] += (P.vel[j + 1] * push + e.rise * (1 - push * 0.6)) * dt; P.pos[j + 2] += (P.vel[j + 2] * push + (e.wind ? e.wind.z * w : 0)) * dt;
+      // under a roof deck or a ceiling close over the leak the fog stops rising and spreads out along it
+      if (e.top !== undefined && P.pos[j + 1] > e.top) { P.pos[j + 1] = e.top; const ox = P.pos[j] - e.at.x, oz = P.pos[j + 2] - e.at.z, ol = Math.hypot(ox, oz) || 1; P.pos[j] += ox / ol * 0.12 * dt; P.pos[j + 2] += oz / ol * 0.12 * dt; }
+      if (e.cab) {
+        // inside a sink base the fog cannot rise past the counter; with the doors open it rolls out of the front
+        const s = e.cab.n.x * P.pos[j] + e.cab.n.z * P.pos[j + 2] - e.cab.d;
+        if (s < 0) { if (P.pos[j + 1] > e.cab.ceil) P.pos[j + 1] = e.cab.ceil; P.pos[j] += e.cab.n.x * e.cab.push * dt; P.pos[j + 2] += e.cab.n.z * e.cab.push * dt; }
+      }
+      // a sway as it goes, each sprite on its own beat, so a plume is not a straight streak
+      const sway = e.sway || 0; if (sway) { const ph = P.life[i] * 37 + i; P.pos[j] += Math.sin(P.age[i] * 1.9 + ph) * sway * dt; P.pos[j + 2] += Math.cos(P.age[i] * 1.6 + ph * 1.3) * sway * dt; }
+      // full strength almost at once: the fog has to be seen IN the opening it comes out of, not a hand's width beyond it
+      P.size[i] = e.s0 + (e.s1 - e.s0) * Math.pow(k, 0.7); P.alpha[i] = e.peak * Math.min(1, P.age[i] / 0.07) * Math.pow(1 - k, 1.3);
+    }
+    const A = P.pts.geometry.attributes; A.position.needsUpdate = true; A.aSize.needsUpdate = true; A.aAlpha.needsUpdate = true;
+  }
+  // ---- the map: the fog's paths in this layout, and how far along them a point is from the cleanout
+  // (as the pipe build writes them: pts in fog order, r_in the bore, dist0 the metres at the first point measured from the cleanout
+  // itself (from: cleanout, and only this cleanout's own) or from where the house's drains begin (from: house: this cleanout's
+  // house_dist is added); stop says what ends it: roof, trap, plug, aav, open, cap, unit, fault, or nothing where it runs on)
+  function smokePaths(co) {
+    const out = [], mine = String((co && (co.name || co.object)) || ''), house = +(co && co.house_dist) || 0;
+    for (const p of smokeList(SMOKE && SMOKE.fog_paths, 'name')) {
+      if (!inConfig(p.config)) continue; const raw = p.pts || p.points || []; if (raw.length < 2) continue;
+      if (p.from === 'cleanout' && p.cleanout && mine && p.cleanout !== mine) continue;
+      const pts = raw.map(bl3), acc = [0]; for (let i = 1; i < pts.length; i++) acc.push(acc[i - 1] + pts[i].distanceTo(pts[i - 1]));
+      out.push({ name: p.run || p.name || '', pts, acc, stop: p.stop || null, r: +(p.r_in || p.r || p.radius) || 0.04, d0: (p.from === 'house' ? house : 0) + (+(p.dist0 !== undefined ? p.dist0 : p.dist) || 0) });
+    }
+    return out;
+  }
+  function smokeDist(S, at) {
+    let best = null;
+    for (const p of S.paths) for (let i = 1; i < p.pts.length; i++) {
+      const a = p.pts[i - 1], ab = _s1.subVectors(p.pts[i], a), L2 = ab.lengthSq(); if (L2 < 1e-10) continue;
+      const t = Math.max(0, Math.min(1, _s2.subVectors(at, a).dot(ab) / L2)), gap = _s2.copy(a).addScaledVector(ab, t).distanceTo(at);
+      if (!best || gap < best.gap) best = { gap, d: p.d0 + p.acc[i - 1] + Math.sqrt(L2) * t };
+    }
+    return best && best.gap < 1.5 ? best.d + best.gap : S.tee.distanceTo(at) * 1.3;
+  }
+  // the fog INSIDE the pipes, for a pipe that is cut open: one mesh along every path, narrower than its pipe, shown up to the front
+  function smokeTubes(paths) {
+    const pos = [], dist = [], idx = [], N = 6;
+    for (const p of paths) {
+      const base0 = pos.length / 3, r = p.r * 0.8, n = p.pts.length;
+      for (let i = 0; i < n; i++) {
+        const t = _s1.subVectors(p.pts[Math.min(n - 1, i + 1)], p.pts[Math.max(0, i - 1)]).normalize();
+        const n1 = new T.Vector3().crossVectors(Math.abs(t.y) < 0.9 ? _sUp : _sX, t).normalize(), n2 = new T.Vector3().crossVectors(t, n1);
+        for (let j = 0; j < N; j++) { const a = j / N * 6.2832, c = Math.cos(a) * r, s = Math.sin(a) * r; pos.push(p.pts[i].x + n1.x * c + n2.x * s, p.pts[i].y + n1.y * c + n2.y * s, p.pts[i].z + n1.z * c + n2.z * s); dist.push(p.d0 + p.acc[i]); }
+      }
+      for (let i = 0; i < n - 1; i++) for (let j = 0; j < N; j++) { const a = base0 + i * N + j, b = base0 + i * N + (j + 1) % N; idx.push(a, b, a + N, b, b + N, a + N); }
+    }
+    if (!idx.length) return null;
+    const geo = new T.BufferGeometry(); geo.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); geo.setAttribute('aDist', new T.Float32BufferAttribute(dist, 1)); geo.setIndex(idx);
+    const mat = new T.ShaderMaterial({ uniforms: { uFront: { value: 0 } }, transparent: true, depthWrite: false, side: T.DoubleSide,
+      vertexShader: 'attribute float aDist; varying float vDist;\nvoid main() { vDist = aDist; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+      fragmentShader: 'uniform float uFront; varying float vDist;\nvoid main() { if (vDist > uFront) discard; gl_FragColor = vec4(0.95, 0.96, 0.97, 0.5); }' });
+    const m = new T.Mesh(geo, mat); m.frustumCulled = false; m.renderOrder = 4; scene.add(m); return m;
+  }
+  // ---- the tool
+  const smokeSay = t => { labelEl.textContent = t; labelEl.style.display = t ? 'block' : 'none'; };
+  const smokeAway = () => /^city/.test(CONFIG.sewer) ? 'the street' : 'the tank';
+  function smokeRiserOpen(S) { return !S.coPlug || plugs.has(S.coPlug); }
+  // a unit the tool stands itself: the same place() every unit goes through, on a socket made where the cleanout is
+  async function smokeStand(key, p, q) {
+    const T0 = (placements && placements.tools && placements.tools.smoke_test) || {};
+    const pl0 = T0[key] || { model: SMOKE_KIT[key], pack: SMOKE_KIT[key].replace(/\.glb$/, '') };
+    const sk = new T.Object3D(); sk.name = 'sock_smoke_' + key; sk.matrixWorld.compose(p, q, _sOne); sockets[sk.name] = sk;
+    try { await place(Object.assign({}, pl0, { socket: sk.name, yaw: 0, offset: [0, 0, 0] })); } finally { delete sockets[sk.name]; }
+    const inst = equip.children.find(c => c.userData.pl && c.userData.pl.socket === sk.name) || null;
+    // What a clip brings up from nothing (the air packets, the fog puffs, the remote's lamp) rests at 0.001 scale in the model. Left
+    // like that they are specks that still count in the unit's box: the air packets reach 25 cm down the riser, under the lawn, and
+    // with them in the box there was no ground to stand on in front of the kit. They are put away the way a placement's states are
+    // (hidden, full size), and the clip that keys their scale shows them while it is open (clipReveal).
+    if (inst) for (const o of [...inst.children].concat(...inst.children.map(c => c.children))) if (o.scale.x < 0.01 && o.scale.y < 0.01 && o.scale.z < 0.01) { o.scale.setScalar(1); o.traverse(c => { c.visible = false; c.userData.softHidden = true; }); }
+    return inst;
+  }
+  // and takes away again: out of the scene and out of every table place() put it in
+  function unplace(inst) {
+    inst.traverse(o => { for (const A of [colliders, placedColliders, floors, placedFloors, overhead]) { const i = A.indexOf(o); if (i >= 0) A.splice(i, 1); } });
+    const A = inst.userData.anim; if (A) { A.mixer.stopAllAction(); const i = mixers.indexOf(A.mixer); if (i >= 0) mixers.splice(i, 1); }
+    equip.remove(inst); if (lastUnit === inst) lastUnit = null; if (atUnit === inst) atUnit = null;
+    if (bubble && bubble.inst === inst) { bubble.el.remove(); bubble = null; }
+    if (panelFor && panelFor.o && unitOf(panelFor.o) === inst) { infoEl.style.display = 'none'; panelFor = null; }
+  }
+  // a clear line between two points past everything solid, the units named left out
+  function smokeClear(a, b, skip) {
+    const d = new T.Vector3().subVectors(b, a), len = d.length(); if (len < 0.05) return true;
+    const rc = new T.Raycaster(a, d.divideScalar(len), 0, Math.max(0, len - 0.05));
+    return rc.intersectObjects(colliders.filter(o => !(skip && skip.indexOf(o.userData.inst) >= 0)), false).length === 0;
+  }
+  // Open lawn round a point: a test of one spot that says whether the lawn's own level is under it (a stoop, a pad or a step is
+  // higher) and no placed unit stands on it (the air pump on its pad, a condenser). skip: units that do not count (the kit itself).
+  function smokeOpen(near, skip) {
+    const boxes = [];
+    // (each part that stands out of the lawn, not the unit's whole box: a septic system's box is its buried tanks and lines, most
+    // of the yard, and with that shut there was no place left to set the kit out)
+    for (const u of equip.children) {
+      if (skip && skip.indexOf(u) >= 0) continue; const ub = workBox(u); if (ub.isEmpty() || ub.min.y > GRADE_Y + 0.6 || ub.max.y < GRADE_Y + 0.015 || ub.distanceToPoint(near) > 5) continue;
+      u.traverse(o => { if (!o.isMesh || !o.geometry || !shownInTree(o) || o.userData.isStream || isGround(o)) return; const b = new T.Box3().setFromObject(o); if (b.max.y > GRADE_Y + 0.015 && b.min.y < GRADE_Y + 0.6 && b.distanceToPoint(near) < 5) boxes.push(b); });
+    }
+    // (one answer per 4 cm cell is kept: siting the kit asks about the same lawn several thousand times)
+    const memo = new Map();
+    // The lawn's own mesh runs on under the house wall, so the ground alone called the first half metre inside the wall open lawn
+    // and the kit's cords were laid through the siding. A spot is also shut when something solid stands between the riser and it
+    // at shin height (the wall, the stoop), the units that do not count left out.
+    const solid = colliders.filter(o => !(skip && skip.indexOf(o.userData.inst) >= 0)), from = new T.Vector3(near.x, GRADE_Y + 0.4, near.z), way = new T.Vector3(), rc = new T.Raycaster();
+    const open = (x, z) => {
+      const key = Math.round(x * 25) * 100003 + Math.round(z * 25); let v = memo.get(key); if (v !== undefined) return v;
+      const g = floorBelow(x, z, GRADE_Y + 1.0); v = !(g === null || Math.abs(g - GRADE_Y) > 0.05);
+      if (v) for (const b of boxes) if (x > b.min.x - 0.08 && x < b.max.x + 0.08 && z > b.min.z - 0.08 && z < b.max.z + 0.08) { v = false; break; }
+      if (v) { way.set(x - from.x, 0, z - from.z); const len = way.length(); if (len > 0.15) { rc.set(from, way.divideScalar(len)); rc.far = len; if (rc.intersectObjects(solid, false).length) v = false; } }
+      memo.set(key, v); return v;
+    };
+    // is it open lawn all the way from one spot toward another, a hand's width at a time, until a test says you have arrived?
+    open.way = (x0, z0, x1, z1, arrived) => { const n = Math.max(2, Math.ceil(Math.hypot(x1 - x0, z1 - z0) / 0.1)); for (let i = 0; i <= n; i++) { const x = x0 + (x1 - x0) * i / n, z = z0 + (z1 - z0) * i / n; if (arrived && arrived(x, z)) return true; if (!open(x, z)) return false; } return true; };
+    return open;
+  }
+  // One way of turning the kit on the riser, for each of sixteen, and the best of them. fl: which way its fog machine lies from the
+  // riser in its own frame. A way is weighed by: every part of the kit on open lawn where it sits on the riser (this counts most),
+  // its cords on open lawn, a place beside the riser to set it out first (tried from the open side of the yard round), and the
+  // standing spot it leaves (smokeSpot's own score: broadside, on the side the sections open to).
+  function smokeSite(S, open, body, cords, fl, outY) {
+    const top = S.top, phi0 = Math.atan2(fl.x, fl.z), tried = []; let best = null;
+    // the open side of the yard: straight away from the middle of the house
+    roomAt(0, 0);
+    const hb = new T.Box3(); for (const k in unitRooms) hb.union(unitRooms[k]);
+    const away = hb.isEmpty() ? S.dh.clone() : new T.Vector3(top.x, 0, top.z).sub(hb.getCenter(new T.Vector3()).setY(0)).normalize(), aw = Math.atan2(away.x, away.z);
+    for (let i = 0; i < 16; i++) {
+      const a = i / 16 * 2 * Math.PI, th = a - phi0, c = Math.cos(th), sn = Math.sin(th);
+      const side = new T.Vector3(Math.sin(a), 0, Math.cos(a)), kitQ = new T.Quaternion().setFromAxisAngle(_sUp, th), kx = _sX.clone().applyQuaternion(kitQ);
+      // a point of the kit's own frame, out in the yard
+      const wx = (x, z) => x * c + z * sn, wz = (x, z) => -x * sn + z * c;
+      // (pad: room kept round the box, for the place it is set out: the bucket's edge stood inside the side of the stoop's steps)
+      const shut = (b, nx, nz, ox, oz, pad) => { let n = 0; pad = pad || 0; for (let ix = 0; ix < nx; ix++) for (let iz = 0; iz < nz; iz++) { const x = b.min.x - pad + (b.max.x - b.min.x + 2 * pad) * ix / (nx - 1), z = b.min.z - pad + (b.max.z - b.min.z + 2 * pad) * iz / (nz - 1); if (!open(top.x + wx(x, z) + ox, top.z + wz(x, z) + oz)) n++; } return n; };
+      const badSeat = shut(body, 4, 5, 0, 0), badCord = cords.isEmpty() ? 0 : shut(cords, 4, 3, 0, 0);
+      // Where it is set out first: of the sixteen ways round the riser that have room for it, the one with the most open lawn
+      // along it out to three metres (the open yard, not the strip between a pad and the house wall, where the first cut put it
+      // half hidden behind the air pump), leaning away from the middle of the house when two ways are as open as each other.
+      let out = null;
+      for (let j = 0; j < 16; j++) {
+        const b2 = aw + (j % 2 ? -1 : 1) * Math.ceil(j / 2) * Math.PI / 8, D = new T.Vector3(Math.sin(b2), 0, Math.cos(b2));
+        // far enough along that way that nothing of the kit is over the riser
+        let back = 0; for (const x of [body.min.x, body.max.x]) for (const z of [body.min.z, body.max.z]) back = Math.max(back, -(wx(x, z) * D.x + wz(x, z) * D.z));
+        if (shut(body, 6, 8, D.x * (back + 0.3), D.z * (back + 0.3), 0.1)) continue;
+        let lawn = 0; for (let r = 0.4; r < 3.01; r += 0.2) if (open(top.x + D.x * r, top.z + D.z * r)) lawn++;
+        const like = lawn + 1.5 * D.dot(away);
+        if (!out || like > out.like) out = { D, d: back + 0.3, like };
+      }
+      const D = out ? out.D : side, d = out ? out.d : 0.75, kitAt = top.clone(), kitOut = new T.Vector3(top.x + D.x * d, outY, top.z + D.z * d);
+      // is a spot under the kit, where it is set out or where it will sit on the riser?
+      const underKit = (x, z) => { for (const o of [kitOut, kitAt]) { const dx = x - o.x, dz = z - o.z, lx = dx * c - dz * sn, lz = dx * sn + dz * c; if (lx > body.min.x - 0.12 && lx < body.max.x + 0.12 && lz > body.min.z - 0.12 && lz < body.max.z + 0.12) return true; } return false; };
+      const C = { top, kit: S.kit, body, kitQ, kitAt, kitOut, shift: d, kx, side, underKit, yawK: th };
+      C.spot = smokeSpot(C, open);
+      C.score = (C.spot ? C.spot.score : -3) - 1.5 * badSeat - 0.1 * badCord - (out ? 0 : 2);
+      tried.push({ side: [+side.x.toFixed(2), +(-side.z).toFixed(2)], score: +C.score.toFixed(2), spot: C.spot ? +C.spot.score.toFixed(2) : null, badSeat, badCord, out: !!out });
+      if (!best || C.score > best.score) best = C;
+    }
+    best.tried = tried;
+    return best;
+  }
+  // The kit's two cords and the remote on its lead are stiff in the model and lie one way. In a tight yard that way is through the
+  // house wall or the stoop however the kit is turned (the city yard's cleanout stands in the corner of the two). Each is a
+  // flexible lead, so each is swung about its own machine end (its highest point) to the turn that leaves most of its run on open
+  // lawn, where the kit sits on the riser and where it is first set out, and out from under the kit; the least swing wins a tie.
+  // The lead is wrapped in a group that carries the swing, so the model's own node and its clips are left as they were built.
+  function smokeSwing(S, open) {
+    const kit = S.kit, leads = [], out = []; S.leads = [];
+    kit.traverse(o => { if (SMOKE_KIT.cord.test(o.name) && !(o.parent && SMOKE_KIT.cord.test(o.parent.name)) && o !== kit) leads.push(o); });
+    // measured with the kit on the riser; a spot where it is set out is the same spot moved by the way from one to the other
+    S.kit.matrix.compose(S.kitAt, S.kitQ, _sOne); S.kit.updateMatrixWorld(true);
+    const dx = S.kitOut.x - S.kitAt.x, dz = S.kitOut.z - S.kitAt.z;
+    // (a small part that rides on a lead, the lamp on the remote, goes with it and is not measured)
+    const mains = leads.filter(n => !leads.some(L => L !== n && n.name.indexOf(L.name + '_') === 0));
+    for (const n of mains) {
+      const P = n.parent, inv = new T.Matrix4().copy(P.matrixWorld).invert(), upL = _sUp.clone().transformDirection(inv), pts = [], m = new T.Matrix4(), v = new T.Vector3();
+      n.traverse(o => { if (!o.isMesh || !o.geometry || !o.geometry.attributes.position) return; const a = o.geometry.attributes.position, step = Math.max(1, Math.floor(a.count / 300)); m.multiplyMatrices(inv, o.matrixWorld);
+        for (let i = 0; i < a.count; i += step) pts.push(v.fromBufferAttribute(a, i).applyMatrix4(m).clone()); });
+      if (pts.length < 4) continue;
+      let pivot = pts[0], lo = Infinity; for (const q of pts) { const h = q.dot(upL); if (h > pivot.dot(upL)) pivot = q; if (h < lo) lo = h; }
+      // its run on the lawn, past the first hand's width from the machine
+      const run = pts.filter(q => q.dot(upL) < lo + 0.04 && q.distanceTo(pivot) > 0.3); if (run.length < 2) continue;
+      const pick = []; for (let i = 0; i < 14; i++) pick.push(run[Math.floor(i * (run.length - 1) / 13)]);
+      let best = null;
+      for (let k = 0; k < 16; k++) {
+        const ang = (k % 2 ? -1 : 1) * Math.ceil(k / 2) * Math.PI / 8, rot = new T.Quaternion().setFromAxisAngle(upL, ang); let shut = 0;
+        for (const q of pick) {
+          v.copy(q).sub(pivot).applyQuaternion(rot).add(pivot).applyMatrix4(P.matrixWorld);
+          if (!open(v.x, v.z) || S.underKit(v.x, v.z)) shut += 1;
+          if (!open(v.x + dx, v.z + dz) || S.underKit(v.x + dx, v.z + dz)) shut += 0.5;
+        }
+        const cost = shut + 0.02 * k; if (!best || cost < best.cost) best = { cost, ang, shut };
+      }
+      out.push([n.name, Math.round(T.MathUtils.radToDeg(best.ang)), best.shut]);
+      const g = new T.Group(); g.name = n.name + '_swing'; g.matrixAutoUpdate = false;
+      g.matrix.makeTranslation(pivot.x, pivot.y, pivot.z).multiply(new T.Matrix4().makeRotationAxis(upL, best.ang)).multiply(new T.Matrix4().makeTranslation(-pivot.x, -pivot.y, -pivot.z));
+      P.add(g); g.add(n); for (const r of leads) if (r !== n && r.name.indexOf(n.name + '_') === 0) g.add(r);
+      // (kept for smokeRig: its machine end, the height its run lies at and a spot of that run as swung, all in the kit's own frame)
+      S.leads.push({ g, m0: g.matrix.clone(), name: n.name, pivot: pivot.clone(), lo, mid: pick[7].clone().sub(pivot).applyQuaternion(new T.Quaternion().setFromAxisAngle(upL, best.ang)).add(pivot) });
+    }
+    S.kit.updateMatrixWorld(true);
+    return out;
+  }
+  // The kit on a riser of any height. It is built for a riser that stands 5 cm out of the lawn; the yards' risers stand from under
+  // the lawn to well over it, and seated whole by the riser's top the bucket stood in the turf or in the air. So the kit is two
+  // sides once it is on the riser:
+  //   the blower side (the blower, its reducer, the air packets in it) stays on the riser's top and leans with the riser;
+  //   the fog side (the bucket, the fog machine and its fluid parts, its cord, the remote) moves plumb, as one, until the bucket's
+  //   rim rests on the lawn, read under the bucket where it stands.
+  // The fog machine then no longer points into the blower's open top, so it is tilted on the bucket the way a person would aim it:
+  // nose down turns it on its front foot, nose up on its rear one, so the end that lifts comes off the bucket and nothing goes
+  // into it. Each lead keeps its machine end on its machine and its run on the lawn. The model's own puffs between the nozzle
+  // and the inlet follow the nozzle. All of it is measured here on the placed model, and all of it is nothing where the kit is
+  // first set out on the lawn (smokeKitPose brings it in as the kit goes onto the riser).
+  function smokeRig(S) {
+    const kit = S.kit; let R = null; S.rig = null;
+    kit.traverse(o => { if (!R && SMOKE_KIT.blower.test(o.name) && o.parent) R = o.parent; });
+    const nzl = kit.getObjectByName(SMOKE_KIT.nozzle), inl = kit.getObjectByName(SMOKE_KIT.inlet); if (!R || !nzl || !inl) return;
+    kit.matrix.compose(S.kitAt, S.kitQ, _sOne); kit.updateMatrixWorld(true);
+    const inv = new T.Matrix4().copy(R.matrixWorld).invert(), up = _sUp.clone().transformDirection(inv).normalize(), m = new T.Matrix4();
+    const toR = v => v.clone().applyMatrix4(inv), group = name => { const g = new T.Group(); g.name = name; g.matrixAutoUpdate = false; R.add(g); return g; };
+    // a sample of every vertex of some nodes, in the kit's own frame
+    const points = nodes => { const out = []; for (const n of nodes) n.traverse(o => { if (!o.isMesh || !o.geometry || !o.geometry.attributes.position) return; const a = o.geometry.attributes.position, step = Math.max(1, Math.floor(a.count / 400)); m.multiplyMatrices(inv, o.matrixWorld); for (let i = 0; i < a.count; i += step) out.push(new T.Vector3().fromBufferAttribute(a, i).applyMatrix4(m)); }); return out; };
+    // which side each of the kit's own nodes is on (the leads are already in their swing groups)
+    const kids = [...R.children], isLead = o => S.leads.some(L => L.g === o);
+    const blower = kids.filter(o => !isLead(o) && SMOKE_KIT.blowerSide.test(o.name)), puffs = kids.filter(o => SMOKE_KIT.puff.test(o.name)), bucket = kids.filter(o => SMOKE_KIT.bucket.test(o.name));
+    const machine = kids.filter(o => !isLead(o) && blower.indexOf(o) < 0 && puffs.indexOf(o) < 0 && bucket.indexOf(o) < 0);
+    const bp = points(bucket), mp = points(machine); if (!bp.length || !mp.length) return;
+    const n0 = toR(nzl.getWorldPosition(new T.Vector3())), i0 = toR(inl.getWorldPosition(new T.Vector3()));
+    // the way the machine's nose points, level: from the nozzle toward the blower's open top. A tilt turns about the level line across it.
+    const nose = i0.clone().sub(n0); nose.addScaledVector(up, -nose.dot(up)); if (nose.lengthSq() < 1e-6) return; nose.normalize();
+    const axis = new T.Vector3().crossVectors(nose, up).normalize();
+    // the nozzle's own aim: the marker's +Y (the builder's +Z), or the line to the inlet as built where the marker does not say
+    const built = i0.clone().sub(n0).normalize();
+    let aim = new T.Vector3(0, 1, 0).applyQuaternion(nzl.getWorldQuaternion(new T.Quaternion())).transformDirection(inv).normalize();
+    const aimBuilt = aim.angleTo(built); if (aimBuilt > 0.44) aim = built.clone();
+    // the bucket's rim, and the lawn under it where it stands
+    let hB = Infinity; const bc = new T.Vector3(); for (const q of bp) { hB = Math.min(hB, q.dot(up)); bc.add(q); } bc.multiplyScalar(1 / bp.length);
+    const rimW = bc.clone().addScaledVector(up, hB - bc.dot(up)).applyMatrix4(R.matrixWorld);
+    const lawnAt = (x, z) => { const g = floorBelow(x, z, S.top.y + 0.6); return g === null || Math.abs(g - S.lawnY) > 0.2 ? S.lawnY : g; };
+    const lift = lawnAt(rimW.x, rimW.z) - rimW.y;
+    // the machine's two feet on the bucket: of its lowest points, the one furthest toward the blower and the one furthest from it
+    let hM = Infinity; for (const q of mp) hM = Math.min(hM, q.dot(up));
+    let front = null, rear = null; for (const q of mp) { if (q.dot(up) > hM + 0.008) continue; const sN = q.dot(nose); if (!front || sN > front.dot(nose)) front = q; if (!rear || sN < rear.dot(nose)) rear = q; }
+    // how far the aim stands off the line from the nozzle to the inlet, once the fog side is moved and the machine turned by th about a foot
+    const off = (th, piv) => { const q = new T.Quaternion().setFromAxisAngle(axis, th), n1 = n0.clone().sub(piv).applyQuaternion(q).add(piv).addScaledVector(up, lift), a1 = aim.clone().applyQuaternion(q), t = i0.clone().sub(n1).normalize(); return Math.atan2(new T.Vector3().crossVectors(t, a1).dot(axis), t.dot(a1)); };
+    const solve = piv => { let lo = -0.7, hi = 0.7, elo = off(lo, piv); const ehi = off(hi, piv); if (elo * ehi > 0) return Math.abs(elo) < Math.abs(ehi) ? lo : hi; for (let i = 0; i < 30; i++) { const mid = (lo + hi) / 2, em = off(mid, piv); if (em * elo <= 0) hi = mid; else { lo = mid; elo = em; } } return (lo + hi) / 2; };
+    const off0 = off(0, front); let th = 0, piv = front, how = 'as built';
+    // aimed dead at the inlet's middle: the turn that brings the nozzle's line onto it
+    // (a turn about the axis is nose UP when it is positive: nose crossed with up is the axis)
+    const dead = () => { const tf = solve(front), tr = solve(rear); let t = tf, pv = front; if (!(tf <= 0 && !(tr >= 0 && Math.abs(tr) < Math.abs(tf))) && tr >= 0) { t = tr; pv = rear; } return [Math.max(-0.61, Math.min(0.61, t)), pv]; };
+    // The blower's open top, from the blower's own housing: its height, and its radius about the inlet marker at that height.
+    const hp = points(blower.filter(o => /housing/.test(o.name) && !/_section$/.test(o.name))); let hT = -Infinity; for (const q of hp) hT = Math.max(hT, q.dot(up));
+    const flat = (a, b) => { const d = a.clone().sub(b); d.addScaledVector(up, -d.dot(up)); return d.length(); };
+    // (the middle one of the distances of its top edge's points from the inlet's own line: a rim has an inside and an outside)
+    const ring = hp.filter(q => q.dot(up) > hT - 0.02).map(q => flat(q, i0)).sort((a, b) => a - b), rim = ring.length ? ring[ring.length >> 1] - 0.005 : Infinity;
+    // the bucket's top (it stands upside down: its bottom is up) and how wide that is
+    let hBt = -Infinity; for (const q of bp) hBt = Math.max(hBt, q.dot(up));
+    let rB = 0; for (const q of bp) if (q.dot(up) > hBt - 0.02) rB = Math.max(rB, flat(q, bc));
+    // does a tilt do: the fog's line lands in the middle three quarters of the open top, and nothing of the machine is in the
+    // blower's mouth or in the bucket (a thin sample of the machine's points is enough to tell)
+    const thin = mp.filter((q, i) => i % 3 === 0), does = (t, pv) => {
+      const q = new T.Quaternion().setFromAxisAngle(axis, t), move = v => v.clone().sub(pv).applyQuaternion(q).add(pv).addScaledVector(up, lift), n1 = move(n0), a1 = aim.clone().applyQuaternion(q);
+      const drop = n1.dot(up) - hT, fall = -a1.dot(up); if (drop > 0.002) { if (fall < 0.05) return false; if (flat(n1.clone().addScaledVector(a1, drop / fall), i0) > 0.75 * rim) return false; } else if (flat(n1, i0) > rim) return false;
+      for (const pnt of thin) { const w = move(pnt), h = w.dot(up); if (h < hT - 0.003 && flat(w, i0) < rim - 0.003) return false; if (h < hBt + lift - 0.005 && h > hBt + lift - 0.2 && flat(w, bc) < rB - 0.01) return false; }
+      return true; };
+    if (hp.length && isFinite(rim) && !SMOKE_AIM_AT_INLET) {
+      // the least tilt that does, nose down on the front foot or nose up on the rear one, half a degree at a time
+      let found = false;
+      for (let d = 0; d <= 70 && !found; d++) for (const [t, pv] of [[-d * Math.PI / 360, front], [d * Math.PI / 360, rear]]) { if (does(t, pv)) { th = t; piv = pv; found = true; how = d ? 'the least tilt that puts the fog into the open top' : 'as built'; break; } if (!d) break; }
+      if (!found) { [th, piv] = dead(); how = 'aimed at the inlet (no tilt to 35 degrees puts the fog in and clears the blower and the bucket)'; }
+    } else if (Math.abs(off0) > T.MathUtils.degToRad(3)) { [th, piv] = dead(); how = 'aimed at the inlet'; }
+    const offAfter = off(th, piv), deadTilt = dead()[0];
+    // the groups: nothing of the model is renamed or changed, its nodes are only hung under these
+    const gB = group('blower_side'), gF = group('fog_side'), gM = group('fog_machine_tilt'); gF.add(gM);
+    for (const o of blower) gB.add(o); for (const o of bucket) gF.add(o); for (const o of machine) gM.add(o);
+    const q1 = new T.Quaternion().setFromAxisAngle(axis, th), turned = v => v.clone().sub(piv).applyQuaternion(q1).add(piv);
+    for (const L of S.leads) {
+      const fogSide = !SMOKE_KIT.blowerSide.test(L.name); if (fogSide) gF.add(L.g);
+      // where its machine end goes (with the machine it is plugged into), and how far its run has to come up or down to lie on the lawn there
+      const dTop = fogSide ? turned(L.pivot).sub(L.pivot) : new T.Vector3(), span = Math.max(0.02, L.pivot.dot(up) - L.lo);
+      const midW = L.mid.clone().addScaledVector(up, L.lo - L.mid.dot(up)).applyMatrix4(R.matrixWorld), dG = lawnAt(midW.x, midW.z) - (midW.y + (fogSide ? lift : 0));
+      L.side = fogSide ? 'fog' : 'blower'; L.w = dTop.clone().addScaledVector(up, -dG).multiplyScalar(1 / span); L.c = up.clone().multiplyScalar(dG).addScaledVector(L.w, -L.lo);
+    }
+    // the model's own puffs of fog that hang between the nozzle and the inlet: each follows the nozzle by how near it is to it
+    const dN = turned(n0).addScaledVector(up, lift).sub(n0), hN = n0.dot(up), hI = i0.dot(up), pg = [];
+    for (const o of puffs) { const h = toR(o.getWorldPosition(new T.Vector3())).dot(up), w = hN > hI ? Math.max(0, Math.min(1, (h - hI) / (hN - hI))) : 0; if (w < 0.02) continue; const g = group(o.name + '_follow'); g.add(o); pg.push({ g, d: dN.clone().multiplyScalar(w), name: o.name }); }
+    S.rig = { up, gB, gF, gM, lift, th, axis, piv, o: toR(S.kitAt), qR: R.getWorldQuaternion(new T.Quaternion()), puffs: pg, off0, offAfter, aimBuilt, how, deadTilt,
+      names: { blower_side: blower.map(o => o.name), fog_side_bucket: bucket.map(o => o.name), fog_side_machine: machine.map(o => o.name), fog_side_leads: S.leads.filter(L => L.side === 'fog').map(L => L.name), blower_lead: S.leads.filter(L => L.side === 'blower').map(L => L.name), puffs_following_the_nozzle: pg.map(P => P.name) } };
+  }
+  // the box of a placed unit's showing parts in the unit's OWN frame, for the names a test keeps
+  function localBox(u, keep) {
+    u.updateMatrixWorld(true);
+    const b = new T.Box3(), inv = new T.Matrix4().copy(u.matrixWorld).invert(), m = new T.Matrix4(), v = new T.Vector3();
+    u.traverse(o => {
+      if (!o.isMesh || !shownInTree(o) || !keep(nodeName(o))) return; const g = o.geometry; if (!g.boundingBox) g.computeBoundingBox();
+      const bb = g.boundingBox; m.multiplyMatrices(inv, o.matrixWorld);
+      for (let i = 0; i < 8; i++) b.expandByPoint(v.set(i & 1 ? bb.max.x : bb.min.x, i & 2 ? bb.max.y : bb.min.y, i & 4 ? bb.max.z : bb.min.z).applyMatrix4(m));
+    });
+    return b;
+  }
+  // the plug as it goes down the riser: let down. It rests blown up tight in its model, and plug_inflate starts let down, so that
+  // clip is held on its first frame until the plug is seated
+  function smokePlugLetDown(S) {
+    const A = S.plug.userData.anim, c = A && A.clips.find(x => x.name === SMOKE_KIT.inflate); if (!c) return;
+    const act = A.mixer.clipAction(c); act.loop = T.LoopOnce; act.clampWhenFinished = true; act.reset(); act.play(); act.paused = true; act.time = 0; A.mixer.update(0);
+    A.state[c.name] = { open: false };
+  }
+  async function takeSmoke() {
+    if (smokeBusy) return 'Setting the smoke test out...';
+    if (smoke) return smokeDown();
+    await bootDone;
+    if (ball || elev || blown) return 'Finish what you are doing first, then set the smoke test out.';
+    if (!SMOKE) return 'The smoke test has no map of this house yet, so it cannot be set out here.';
+    const co = smokeCleanout(); if (!co) return 'This yard has no cleanout the smoke test can use.';
+    if (meter) meterDown(); if (pliers) pliersDown(); if (held) putBack();
+    smellCardShut();
+    smokeBusy = true;
+    // (a layout change while the set out waits for a model: the yard it was setting out in is gone, so it stops there)
+    const epoch = placeEpoch, gone = () => epoch !== placeEpoch;
+    try {
+      const top = bl3(co.top), depth = +co.depth || 0.45, ds = bl3(co.downstream || [-1, 0, 0]).normalize();
+      const dh = new T.Vector3(ds.x, 0, ds.z); if (dh.lengthSq() < 1e-4) dh.set(-1, 0, 0); dh.normalize();
+      // (the riser as built: its foot is where its own line meets the pipe's, and it stands about a degree off plumb. The kit is
+      // seated on its top along its own line)
+      const tee = co.axis_at ? bl3(co.axis_at) : top.clone().setY(top.y - depth);
+      const rd = co.riser_dir ? bl3(co.riser_dir).normalize() : _sUp.clone(); if (rd.y < 0) rd.negate();
+      const plugAt = co.plug_at ? bl3(co.plug_at) : tee.clone().addScaledVector(ds, 0.35);
+      // What stands in the yard near the riser may not have arrived yet (models load as you come near them): set out from inside the
+      // house, the kit was stood where the air pump's pad appeared a moment later. Everything this layout places within 8 m of the
+      // riser comes in first, so the open lawn is weighed against what is really there.
+      // (found afresh each time: the list changes under a loop while one of them is arriving)
+      for (;;) { const i = PEND.findIndex(e => e.p && e.p.distanceTo(top) < 8); if (i < 0) break; const e = PEND.splice(i, 1)[0]; await place(e.pl); if (gone()) return ''; }
+      pumpsOnByDefault();
+      const coPlug = pipeNode((co.plug || ((co.name || co.object) + '_plug')));
+      const S = { co, top, tee, ds, dh, plugAt, tilt: new T.Quaternion().setFromUnitVectors(_sUp, rd), coPlug: coPlug && coPlug.userData.plug_dir ? coPlug : null,
+        kit: null, plug: null, kitT: 0, kitTo: 0, kitMove: false, plugT: 0, plugTo: 0, plugMove: false, plugWait: 0, plugIn: false, blower: false, blowerRun: false, fogOn: false,
+        front: 0, far: 20, speed: 0.8, emit: null, paths: null, tube: null, leak: null, leakKey: null, found: false, said: {}, tightT: 0, hose: null, fluidEmpty: false, plugLeak: false };
+      S.plugWasOut = !!(S.coPlug && plugs.has(S.coPlug));
+      // The kit is stood on the riser first, square, and MEASURED in its own frame: the box of its parts, the box of its cords, and
+      // which way its fog machine lies from the riser. Nothing about its layout is typed here, so a kit that is built again still sits right.
+      const kit = S.kit = await smokeStand('kit', top, new T.Quaternion());
+      if (gone()) { if (kit) unplace(kit); return ''; }
+      if (!kit) return 'The smoke test kit is not in this pack yet.';
+      const body = localBox(kit, n => !SMOKE_KIT.cord.test(n)), cords = localBox(kit, n => SMOKE_KIT.cord.test(n)), fogB = localBox(kit, n => SMOKE_KIT.fogBody.test(n) && !SMOKE_KIT.cord.test(n));
+      const fl = fogB.isEmpty() ? new T.Vector3(0, 0, -1) : fogB.getCenter(new T.Vector3()).setY(0); if (fl.lengthSq() < 0.0025) fl.set(0, 0, -1); fl.normalize();
+      // What rests on the lawn in the model is its lowest part (the bucket, the cords: the kit is built for a riser 5 cm proud of
+      // the lawn). On the riser the kit is seated BY THE RISER'S TOP, whatever this yard's riser stands (the coordinator's call:
+      // S.proud against S.wants says how far the bucket floats or sinks, for the report); set out beside it, it stands on the lawn.
+      const low = Math.min(body.isEmpty() ? 0 : body.min.y, cords.isEmpty() ? 0 : cords.min.y);
+      const lawn0 = floorBelow(top.x + dh.x * 0.5, top.z + dh.z * 0.5, top.y + 0.6), lawnY = lawn0 === null || Math.abs(lawn0 - GRADE_Y) > 0.2 ? GRADE_Y : lawn0;
+      const kitAt = top.clone(); S.proud = top.y - lawnY; S.wants = -low;
+      // Which way the kit is turned on the riser. A yard cleanout is not out in the open: this one has the back stoop a foot to one
+      // side, the septic air pump's pad on another and the house wall behind. The first cut stood the whole kit inside the stoop;
+      // the second turned it the only way its footprint fitted, and from the one open side the bucket hid the fan. So each of eight
+      // ways is weighed whole (smokeSite): the kit on open lawn on the riser, its cords clear, a place to set it out first, and
+      // the view it leaves you.
+      const open = smokeOpen(top, [kit]), site = smokeSite(S, open, body, cords, fl, lawnY - low);
+      const side = site.side, kx = site.kx, yawK = site.yawK, kitQ = site.kitQ, underKit = site.underKit;
+      Object.assign(S, { side, kx, lawnY, kitQ, kitAt, kitOut: site.kitOut, body, shift: site.shift, underKit, spot: site.spot, tried: site.tried });
+      S.swing = smokeSwing(S, open);
+      smokeRig(S);
+      smokeKitPose(S);
+      // the plug is laid where you can see it from where you will be stood
+      const toYou = S.spot ? new T.Vector3(S.spot.px - top.x, 0, S.spot.pz - top.z).normalize() : kx.clone();
+      // where the plug lies before it goes in: open lawn a short reach from the riser, clear of the kit, on the side you stand and a
+      // little to one side of the riser so neither hides the other
+      // (the nearest reach that has room: round this riser, with the stoop, the pad and the kit's own two places, there was none at
+      // arm's length and the plug was laid inside the stoop)
+      let lie = null, reach = 0.45, liked = -Infinity;
+      for (const r of [0.45, 0.65, 0.85, 1.05]) for (let i = 0; i < 16; i++) {
+        const a = i / 16 * 2 * Math.PI, d = new T.Vector3(Math.sin(a), 0, Math.cos(a)), x = top.x + d.x * r, z = top.z + d.z * r;
+        // room for the whole plug and its hose, which lie along the line
+        if (!open(x, z) || !open(x + dh.x * 0.2, z + dh.z * 0.2) || !open(x - dh.x * 0.3, z - dh.z * 0.3) || underKit(x, z) || underKit(x - dh.x * 0.3, z - dh.z * 0.3)) continue;
+        // not where the cleanout's own plug is laid when it comes out (plugOff sets it down 26 cm along the page's +x)
+        if (Math.hypot(d.x * r - 0.26, d.z * r) < 0.3) continue;
+        const face = d.dot(toYou), like = (face > 0.9 ? 0.75 : face) - 0.4 * d.dot(side) - (r - 0.45) * 1.2; if (like > liked) { liked = like; lie = d; reach = r; }
+      }
+      if (!lie) lie = side.clone().negate();
+      S.lie = lie;
+      // the plug's poses: lying on the lawn along the line, nose down in the riser, seated in the pipe (its own +x is the way it is
+      // pushed; a line that falls gives it its pitch as well as its heading)
+      const basis = (x, y) => new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x, y, new T.Vector3().crossVectors(x, y)));
+      const upIn = _sUp.clone().addScaledVector(ds, -_sUp.dot(ds)).normalize();
+      S.way = { lawn: new T.Vector3(top.x + lie.x * reach, lawnY + 0.055, top.z + lie.z * reach), over: top.clone().add(new T.Vector3(0, 0.22, 0)), tee, at: plugAt,
+        qLawn: basis(dh, _sUp), qDown: basis(new T.Vector3(0, -1, 0), dh), qIn: basis(ds, upIn) };
+      S.plug = await smokeStand('plug', S.way.lawn, S.way.qLawn);
+      if (gone()) { unplace(S.kit); if (S.plug) unplace(S.plug); return ''; }
+      if (!S.plug) { unplace(S.kit); return 'The test plug is not in this pack yet, so the smoke test cannot be set out.'; }
+      smokePlugLetDown(S);
+      smoke = S; smokeGo(); smokeButtons(); smokeKeys();
+      return 'Smoke test set out at the yard cleanout. ' + smokeNext();
+    } finally { smokeBusy = false; }
+  }
+  // the smell's card goes with the tool (an About card hides the caption line, so the next thing said would not be seen)
+  function smellCardShut() { if (infoEl.querySelector('.smellcard')) { infoEl.style.display = 'none'; infoEl.innerHTML = ''; } }
+  function smokeDown(quiet) {
+    const S = smoke; if (!S) return quiet ? '' : 'The smoke test is not set out.';
+    smoke = null; smellCardShut();
+    smokeFogClear(S); smokeHose(S, false);
+    for (const u of [S.kit, S.plug]) if (u) unplace(u);
+    // the cleanout goes back the way it was found
+    if (S.coPlug && !S.plugWasOut && plugs.has(S.coPlug)) plugOff(S.coPlug);
+    smokeButtons(); smokeKeys();
+    return 'Smoke test put away: fog off, the test plug out, the cleanout plug back in.';
+  }
+  // The glide to the kit, the way goToUnit glides you to a unit, with the standing place worked out here: goToUnit keeps you in the
+  // unit's own room, and a yard cleanout beside the back stoop has its middle inside the stoop's room marker, so it found no place at
+  // all. You are stood on open lawn a step back from the riser, at kneeling height, looking at it with the whole kit in view: of the
+  // ways round the riser that are open and have a clear line, the one most broadside to the kit, leaning to the plug's side.
+  function smokeSpot(S, open) {
+    // what to look at: the middle of the kit's parts, half way between where it is set out and where it sits on the riser
+    const mid = S.body.getCenter(new T.Vector3()).applyQuaternion(S.kitQ), look = S.kitAt.clone().lerp(S.kitOut, 0.5).add(mid);
+    const span = Math.max(S.body.max.x - S.body.min.x, S.body.max.z - S.body.min.z) + S.shift, far = Math.max(1.3, Math.min(2.2, span * 0.75 + 0.6));
+    if (!open) open = smokeOpen(S.top, [S.kit, S.plug].filter(Boolean));
+    // does the kit, where it is first set out, stand between a place and the riser? (the line from one to the other, in plan,
+    // against the kit's own footprint there)
+    const qi = S.kitQ.clone().invert(), hv = new T.Vector3();
+    const hides = (px, pz) => { for (let t = 0.15; t < 0.92; t += 0.05) { hv.set(px + (S.top.x - px) * t - S.kitOut.x, 0, pz + (S.top.z - pz) * t - S.kitOut.z).applyQuaternion(qi); if (hv.x > S.body.min.x - 0.04 && hv.x < S.body.max.x + 0.04 && hv.z > S.body.min.z - 0.04 && hv.z < S.body.max.z + 0.04) return true; } return false; };
+    let best = null;
+    for (let i = 0; i < 16; i++) {
+      const a = i / 16 * 2 * Math.PI, w = _s1.set(Math.sin(a), 0, Math.cos(a));
+      // broadside to the kit shows the blower and the fog machine side by side (end on, one hides the other); its sections open
+      // toward its own +x, so that is the side to stand
+      // (the lean to +x only breaks a tie: at half the weight of broadside it stood you on a diagonal with the bucket in front of the blower)
+      const want = 0.9 * (1 - Math.abs(w.dot(S.side))) + 0.2 * w.dot(S.kx);
+      for (const dist of [far, far - 0.25, far + 0.35]) {
+        const px = look.x + w.x * dist, pz = look.z + w.z * dist;
+        // open lawn the whole way in to the kit, not only where you stand: the air pump on its pad stood between you and the riser
+        if (S.underKit(px, pz) || !open.way(px, pz, look.x, look.z, S.underKit)) continue;
+        const ground = floorBelow(px, pz, S.top.y + 1.2); if (ground === null) continue;
+        // (a clear line to the kit past everything solid but the kit itself: its fog machine is a collider, and hid it from two ways)
+        if (!smokeClear(new T.Vector3(px, ground + 1.05, pz), look, [S.kit, S.plug])) continue;
+        const score = want - Math.abs(dist - far) * 0.3 - (hides(px, pz) ? 1.5 : 0);
+        if (!best || score > best.score) best = { px, pz, ground, score, look };
+      }
+    }
+    return best;
+  }
+  function smokeGo() {
+    const S = smoke; if (!S || !S.kit) return '';
+    const best = S.spot || (S.spot = smokeSpot(S)), look = best && best.look;
+    if (!best) { const m = goToUnit(S.kit); return m ? 'Smoke test kit: ' + m : ''; }
+    const ey = 1.05, to = new T.Vector3(best.px, best.ground + ey, best.pz), dx = look.x - to.x, dz = look.z - to.z;
+    const wantYaw = Math.atan2(-dx, -dz), wantPitch = Math.max(-1.2, Math.min(1.2, Math.atan2(look.y - to.y, Math.hypot(dx, dz))));
+    let dy = (wantYaw - yaw) % (2 * Math.PI); if (dy > Math.PI) dy -= 2 * Math.PI; if (dy < -Math.PI) dy += 2 * Math.PI;
+    if (fly) { fly = false; document.getElementById('fly').classList.remove('on'); }
+    glide = { u: S.kit, from: pos.clone(), to, yaw0: yaw, yaw1: yaw + dy, pitch0: pitch, pitch1: wantPitch, t: 0, dur: Math.min(1.0, 0.35 + 0.08 * Math.hypot(to.x - pos.x, to.z - pos.z)), ey };
+    return 'Taking you to the smoke test kit at the yard cleanout.';
+  }
+  // what the tech does next, in a tech's order
+  function smokeNext() {
+    const S = smoke; if (!S) return '';
+    if (!smokeRiserOpen(S)) return 'Tap the cleanout plug to take it out.';
+    if (!S.plugIn) return S.blower ? 'There is no plug in the line. Tap the blower to lift it off the riser, then tap the test plug.' : 'Tap the test plug. It goes down the riser and closes the line toward ' + smokeAway() + '.';
+    if (!S.blower) return 'Tap the blower. It sets on the riser and starts.';
+    if (!S.fogOn) return 'Tap the fog machine to start the fog.';
+    if (S.found) return 'You found it. Pick Smoke test in the Toolbox again to put the kit away.';
+    return SMOKE_RULE + ' Walk the house and look.';
+  }
+  function smokePlug() {
+    const S = smoke; if (S.plugMove || S.kitMove) return 'Give it a second.';
+    if (!S.plugIn) {
+      if (!smokeRiserOpen(S)) return 'The cleanout plug is still in. Tap it to take it out first.';
+      if (S.kitT > 0.01) return 'The blower is on the riser. Tap the blower to lift it off, then the plug can go down.';
+      S.plugTo = 1; S.plugMove = true;
+      return 'Test plug going down the riser and into the line toward ' + smokeAway() + '.';
+    }
+    if (S.kitT > 0.01) return 'The blower is on the riser. Tap the blower to lift it off before you pull the plug.';
+    // out: the air is let out first, then it comes back up by its chain
+    if (S.plugLeak) playNamed(S.plug, 'plug_leaking', false);
+    playNamed(S.plug, SMOKE_KIT.inflate, false); smokeHose(S, false); S.plugIn = false; S.plugTo = 0; S.plugMove = true; S.plugWait = 1.3;
+    return 'Air out, and the test plug comes back up the riser by its chain.';
+  }
+  function smokeBlower() {
+    const S = smoke; if (S.kitMove || S.plugMove) return 'Give it a second.';
+    if (!S.blower) {
+      if (!smokeRiserOpen(S)) return 'The cleanout plug is still in. Tap it to take it out, then the blower can sit on the riser.';
+      S.blower = true; S.kitTo = 1; S.kitMove = true;
+      return S.plugIn ? 'Blower on the riser and running. It pushes air into the drains and up the vents. Now tap the fog machine.'
+        : 'Blower on the riser and running. But there is no plug in the line yet: the air is going down the line to ' + smokeAway() + '.';
+    }
+    if (S.fogOn) smokeFogSet(S, false);
+    playNamed(S.kit, SMOKE_KIT.blowerClip, false); S.blower = false; S.blowerRun = false; S.kitTo = 0; S.kitMove = true;
+    return 'Blower off and set beside the riser.';
+  }
+  function smokeFogger() {
+    const S = smoke;
+    if (S.fogOn) { smokeFogSet(S, false); return 'Fog machine off. The fog thins out and clears.'; }
+    if (!S.blower || S.kitT < 1) return 'Set the blower on the riser first. The fog machine only makes the fog. The blower is what pushes it through the pipes.';
+    // a hook for the fog machine's own fault (fluid_empty): staged only by a lesson, never by default
+    if (S.fluidEmpty) return 'The fog machine is running but nothing comes out: it is out of fog fluid. Fill it and try again.';
+    smokeFogSet(S, true);
+    return S.plugIn ? 'Fog on. It fills the drains and the vents from here, away from the plug. Give it half a minute, then go look.'
+      : 'Fog on, but there is no plug in the line. The fog takes the easy way, down the line to ' + smokeAway() + ', and never fills the house. Plug the line first.';
+  }
+  function smokeFogSet(S, on) {
+    S.fogOn = on; playNamed(S.kit, SMOKE_KIT.fogClip, on);
+    if (on && !S.emit) smokeFogMap(S);
+    smokeKeys();
+  }
+  // the first time the fog comes on: where it will come out in this layout, and how far each place is from the cleanout
+  function smokeFogMap(S) {
+    const paths = S.paths = smokePaths(S.co); S.emit = [];
+    for (const v of smokeList(SMOKE.roof_vents, 'name')) {
+      if (!inConfig(v.config)) continue;
+      const at = bl3(v.top), r = +(v.radius || v.r) || 0.04;
+      S.emit.push({ kind: 'roof', name: v.name || '', at, dir: _sUp.clone(), r, d: smokeDist(S, at), k: 0, rate: 12, life: 5.2, v0: 0.5, drag: 1.1, rise: 0.42, wind: new T.Vector3(0.3, 0, 0.1), spread: 0.16, sway: 0.12, s0: Math.max(0.11, r * 3.2), s1: 1.35, peak: 0.34, max: 46 });
+    }
+    const roofs = S.emit.map(e => e.d); S.far = roofs.length ? Math.max(8, Math.max.apply(null, roofs)) : 20;
+    // at the kit itself: the fog leaves the nozzle and is drawn into the blower, from the model's own two markers
+    const nz = S.kit.getObjectByName(SMOKE_KIT.nozzle), il = S.kit.getObjectByName(SMOKE_KIT.inlet);
+    if (nz && il) {
+      S.kit.updateMatrixWorld(true);
+      const a = nz.getWorldPosition(new T.Vector3()), b = il.getWorldPosition(new T.Vector3()), gap = Math.max(0.03, a.distanceTo(b));
+      S.emit.push({ kind: 'jet', always: true, name: 'nozzle', at: a, dir: b.clone().sub(a).normalize(), r: 0.008, d: 0, k: 0, rate: 26, life: 0.5, v0: gap / 0.32, drag: 0.4, rise: 0, wind: null, spread: 0.03, s0: 0.03, s1: 0.13, peak: 0.5, max: 18 });
+    }
+    // a believable pace: the far roof vent in 20 to 40 seconds
+    S.speed = S.far / Math.max(20, Math.min(40, S.far / 0.9));
+    const key = smellNow(); S.leakKey = SMELL_PIPE.indexOf(key) >= 0 || SMELL_PAGE.indexOf(key) >= 0 ? key : null;
+    // An open road the pipe build left in this layout that is not the staged smell (a dehumidifier's drain joins the condensate
+    // line past its trap, round109/dwv.md): the fog shows there too, because in that house it would. It has no card.
+    const f = SMELL_PIPE.indexOf(key) >= 0 ? smokeFault(key) : null, fAt = f && f.at ? bl3(f.at) : null;
+    // SWITCHED OFF (SMOKE_OPEN_ROADS): that layout is not settled, the line is to get a trap of its own, and until it does the
+    // page does not present it as a smell to find (the coordinator, with the round 109 house chain).
+    for (const p of paths) {
+      if (!SMOKE_OPEN_ROADS || (p.stop !== 'unit' && p.stop !== 'open')) continue; const end = p.pts[p.pts.length - 1]; if (fAt && end.distanceTo(fAt) < 0.3) continue;
+      S.emit.push({ kind: 'stray', name: p.name, at: end.clone(), dir: _sUp.clone(), r: p.r, d: p.d0 + p.acc[p.acc.length - 1], k: 0, rate: 12, life: 3, v0: 0.3, drag: 2, rise: 0.2, wind: null, spread: 0.06, sway: 0.05, s0: 0.06, s1: 0.45, peak: 0.4, max: 40 });
+    }
+    S.tube = smokeTubes(paths);
+  }
+  function smokeFogClear(S) {
+    if (S.emit) for (const e of S.emit) { if (e.P) plumeDrop(e.P); if (e.proxy) scene.remove(e.proxy); }
+    if (S.tube) { scene.remove(S.tube); S.tube.geometry.dispose(); S.tube.material.dispose(); }
+    S.emit = null; S.tube = null; S.leak = null; S.fogOn = false;
+  }
+  // Two faults of the kit itself, for a lesson to stage (never staged by default; walk.smoke.fault). fluid_empty: the fog machine
+  // runs dry, so it makes no fog, and its puffs are never shown (the clip cannot hide them itself). plug_leaking: the plug is not
+  // blown up tight, fog slips past it down the line, and the house fills at half the pace.
+  function smokeKitFault(name, on) {
+    const S = smoke; if (!S) return 'The smoke test is not set out.';
+    if (name === 'fluid_empty') { S.fluidEmpty = !!on; if (on && S.fogOn) smokeFogSet(S, false); playNamed(S.kit, 'fluid_empty', !!on); return on ? 'The fog machine is out of fluid.' : 'The fog machine is full again.'; }
+    if (name === 'plug_leaking') { S.plugLeak = !!on; if (S.plugIn) playNamed(S.plug, 'plug_leaking', !!on); return on ? 'The test plug is not blown up tight: fog is slipping past it.' : 'The test plug is tight again.'; }
+    return 'No such fault: ' + name;
+  }
+  // the room side face of a wall that stands on a leak's way out, within half a metre: a ray cast back at the leak from out in the room
+  function smokeFace(at, dir) {
+    const d = new T.Vector3(dir.x, 0, dir.z); if (d.lengthSq() < 0.25) return null; d.normalize();
+    const walls = []; house.traverse(o => { if (o.isMesh && o.visible && /^wall_/.test(o.name)) walls.push(o); });
+    const rc = new T.Raycaster(at.clone().addScaledVector(d, 0.5), d.clone().negate(), 0, 0.5), hit = rc.intersectObjects(walls, false)[0];
+    return hit ? hit.point.clone().addScaledVector(d, 0.012) : null;
+  }
+  // the unit a staged smell is on may not have arrived yet (models load as you come near): ask for it now
+  function smokeNeed(D) {
+    if (loadingOne) return; const i = PEND.findIndex(x => x.pl.socket === D.socket && D.model.test(String(x.pl.slab_of || x.pl.model || ''))); if (i < 0) return;
+    const x = PEND.splice(i, 1)[0]; loadingOne = true; place(x.pl).catch(() => { }).finally(() => { loadingOne = false; });
+  }
+  // the doors of the sink base a leak is inside, as the fog needs them: the front plane, the top the fog stops under, the gap over the doors
+  function smokeCabinet(u, at) {
+    const doors = partBox(u, 'door_left').union(partBox(u, 'door_right')); if (doors.isEmpty()) return null;
+    const c = doors.getCenter(new T.Vector3()), n = new T.Vector3(c.x - at.x, 0, c.z - at.z);
+    if (Math.abs(n.x) > Math.abs(n.z)) n.set(Math.sign(n.x), 0, 0); else n.set(0, 0, Math.sign(n.z) || 1);
+    const face = n.x ? (n.x > 0 ? doors.max.x : doors.min.x) : (n.z > 0 ? doors.max.z : doors.min.z), y = doors.max.y + 0.004;
+    const seg = n.x ? [new T.Vector3(face + n.x * 0.012, y, doors.min.z), new T.Vector3(face + n.x * 0.012, y, doors.max.z)] : [new T.Vector3(doors.min.x, y, face + n.z * 0.012), new T.Vector3(doors.max.x, y, face + n.z * 0.012)];
+    const open = () => { const A = u.userData.anim; return !!(A && A.state.doors_open && A.state.doors_open.open); };
+    return { n, d: n.x ? n.x * face : n.z * face, ceil: doors.max.y - 0.03, seg, open, push: 0 };
+  }
+  function smokeLeakTry(S) {
+    const key = S.leakKey; let e = null, wisp = null;
+    if (SMELL_PIPE.indexOf(key) >= 0) {
+      const f = smokeFault(key), p = f && (f.at || f.point || f.leak_point); if (!p) { S.leakKey = null; return; }
+      e = { at: bl3(p), dir: bl3(f.dir || [0, 0, 1]).normalize(), r: +(f.r_in || f.r) || 0.025 };
+      e.near = e.at.clone();
+      // A leak the pipe build puts INSIDE a wall (the screw through the vanity's vent) fogs the stud bay, and what the room sees is fog
+      // coming out of the wall's face there: the place the fog shows is moved out to the first wall face on the leak's own way out.
+      const face = smokeFace(e.at, e.dir); if (face) e.at = face;
+      // an opening that faces up inside a recess (the washer box's standpipe) spills toward the room
+      if (f.toward_room) e.dir.multiplyScalar(0.5).addScaledVector(bl3(f.toward_room).normalize(), 0.8).normalize();
+    } else {
+      const D = SMELL_AT[key], u = equip.children.find(c => c.userData.pl && c.userData.pl.socket === D.socket && D.model.test(String(c.userData.model || '')));
+      if (!u) { smokeNeed(D); return; }
+      const b = partBox(u, D.at); if (b.isEmpty()) { S.leakKey = null; console.warn('smoke test: ' + D.at + ' is not on ' + u.userData.model); return; }
+      const at = b.getCenter(new T.Vector3()); at.y = b.max.y;
+      e = { at, dir: _sUp.clone(), r: Math.max(0.012, Math.min(0.04, Math.max(b.max.x - b.min.x, b.max.z - b.min.z) / 2)), unit: u };
+      // a marker says which way out as well as where: its own +Y in the GLB (the builder's +Z), the way the gas leaves the sure vent's port
+      const mk = u.getObjectByName(D.at); if (mk && !mk.isMesh && !mk.children.length) { e.dir = new T.Vector3(0, 1, 0).applyQuaternion(mk.getWorldQuaternion(new T.Quaternion())).normalize(); e.marker = true; }
+      if (D.from) { const fb = partBox(u, D.from); if (!fb.isEmpty()) { e.rim = b; e.from = fb.getCenter(new T.Vector3()); e.near = e.from; e.at = b.getCenter(new T.Vector3()); e.at.y = b.min.y + 0.02; } }
+      if (D.cabinet) {
+        const cu = D.cabinet.test(String(u.userData.model || '')) ? u : equip.children.find(c => D.cabinet.test(String(c.userData.model || '')) && c.userData.pl && c.userData.pl.socket === D.socket);
+        const cab = cu && smokeCabinet(cu, at);
+        if (cab) { e.cab = cab; e.at = b.getCenter(new T.Vector3()); if (!e.marker) e.dir = cab.n.clone().multiplyScalar(0.6).add(new T.Vector3(0, 0.5, 0)).normalize();
+          wisp = { kind: 'wisp', seg: cab.seg, at: cab.seg[0], dir: cab.n.clone().multiplyScalar(0.5).add(new T.Vector3(0, 0.8, 0)).normalize(), r: 0.01, rate: 9, life: 2.4, v0: 0.14, drag: 2, rise: 0.24, wind: null, spread: 0.04, s0: 0.04, s1: 0.28, peak: 0.5, max: 26, k: 0, gate: () => !cab.open() }; }
+      }
+    }
+    Object.assign(e, { kind: 'leak', key, k: 0, rate: 16, life: 3.2, v0: 0.4, drag: 2.0, rise: 0.2, wind: null, spread: 0.07, sway: 0.05, s0: Math.max(0.05, e.r * 2.2), s1: 0.5, peak: 0.55, max: 54 });
+    e.d = smokeDist(S, e.near || e.at);
+    // something to tap where the fog is: a ball round the leak that is never drawn
+    // What stands over the leak: the fog stops under the first roof, ceiling or floor above it and spreads there (the cut attic vent
+    // ends 15 cm under the roof deck; its fog went up through the deck and showed above the roof at the vent that is cut)
+    { const over = []; house.traverse(o => { if (o.isMesh && o.visible && /^(roof_|ceil_|floor_)/.test(o.name)) over.push(o); });
+      const hit = new T.Raycaster(new T.Vector3(e.at.x, e.at.y + 0.02, e.at.z), _sUp, 0, 3).intersectObjects(over, false)[0]; if (hit) e.top = hit.point.y - 0.03; }
+    e.proxy = new T.Mesh(new T.SphereGeometry(0.3, 10, 8), new T.MeshBasicMaterial({ visible: false })); e.proxy.position.copy(e.at).addScaledVector(e.dir, 0.18);
+    // (the ball stays under it too, or the leak could be tapped from the other side)
+    if (e.top !== undefined && e.proxy.position.y > e.top - 0.1) e.proxy.position.y = Math.max(e.at.y, e.top - 0.1);
+    scene.add(e.proxy); e.proxy.updateMatrixWorld(true);
+    S.emit.push(e); S.leak = e;
+    if (wisp) { wisp.d = e.d + 1.5; S.emit.push(wisp); e.wisp = wisp; }
+  }
+  // a roof vent with something standing on it (the Sweet Air canister): the fog comes out of the top of that, not out of its middle
+  function smokeVentTop(e) {
+    for (const u of equip.children) {
+      if (!u.visible || u === (smoke && smoke.kit)) continue; const b = workBox(u); if (b.isEmpty()) continue;
+      if (e.at.x < b.min.x || e.at.x > b.max.x || e.at.z < b.min.z || e.at.z > b.max.z || b.max.y < e.at.y - 0.05 || b.min.y > e.at.y + 0.3 || b.max.x - b.min.x > 1) continue;
+      e.at.y = b.max.y + 0.01; e.r = Math.max(e.r, Math.min(b.max.x - b.min.x, b.max.z - b.min.z) * 0.4); e.s0 = Math.max(e.s0, e.r * 2); return;
+    }
+  }
+  function smokeKitPose(S) {
+    const k = ease3(S.kitT), p = _s1.copy(S.kitOut).lerp(S.kitAt, k); p.y += 0.16 * Math.sin(Math.PI * k);
+    // On the riser the kit is two sides (smokeRig): the blower leans with its riser about the riser's top, the fog side comes up or
+    // down plumb until the bucket's rim is on the lawn, the fog machine is tilted on its foot to aim into the blower again, the
+    // leads keep their machine ends and their runs on the lawn, the puffs follow the nozzle. Set out on the lawn (k 0) it is as built.
+    const G = S.rig;
+    if (G) {
+      const m = new T.Matrix4(), m2 = new T.Matrix4(), u = G.up, q = G.qR.clone().invert().multiply(new T.Quaternion().slerp(S.tilt, k)).multiply(G.qR);
+      G.gB.matrix.makeTranslation(G.o.x, G.o.y, G.o.z).multiply(m.makeRotationFromQuaternion(q)).multiply(m2.makeTranslation(-G.o.x, -G.o.y, -G.o.z));
+      G.gF.matrix.makeTranslation(u.x * G.lift * k, u.y * G.lift * k, u.z * G.lift * k);
+      G.gM.matrix.makeTranslation(G.piv.x, G.piv.y, G.piv.z).multiply(m.makeRotationAxis(G.axis, G.th * k)).multiply(m2.makeTranslation(-G.piv.x, -G.piv.y, -G.piv.z));
+      for (const P of G.puffs) P.g.matrix.makeTranslation(P.d.x * k, P.d.y * k, P.d.z * k);
+      // a lead: every point of it moved by how high it stands between its run (which goes to the lawn) and its machine end (which goes with its machine)
+      for (const L of S.leads) { if (!L.w) continue; const w = L.w, c = L.c; m.set(1 + k * w.x * u.x, k * w.x * u.y, k * w.x * u.z, k * c.x, k * w.y * u.x, 1 + k * w.y * u.y, k * w.y * u.z, k * c.y, k * w.z * u.x, k * w.z * u.y, 1 + k * w.z * u.z, k * c.z, 0, 0, 0, 1); L.g.matrix.copy(m).multiply(L.m0); }
+    }
+    // (a kit with no nozzle or inlet marker cannot be worked out as two sides: it is seated whole along the riser, as it was)
+    S.kit.matrix.compose(p, G ? S.kitQ : new T.Quaternion().slerp(S.tilt, k).multiply(S.kitQ), _sOne); S.kit.updateMatrixWorld(true);
+  }
+  function smokePlugPose(S) {
+    const u = S.plugT, W = S.way, p = _s1, q = new T.Quaternion();
+    if (u < 0.3) { const k = ease3(u / 0.3); p.copy(W.lawn).lerp(W.over, k); p.y += 0.1 * Math.sin(Math.PI * k); q.copy(W.qLawn).slerp(W.qDown, k); }
+    else if (u < 0.7) { p.copy(W.over).lerp(W.tee, (u - 0.3) / 0.4); q.copy(W.qDown); }
+    else { const k = ease3((u - 0.7) / 0.3); p.copy(W.tee).lerp(W.at, k); q.copy(W.qDown).slerp(W.qIn, Math.min(1, k * 1.6)); }
+    S.plug.matrix.compose(p, q, _sOne); S.plug.updateMatrixWorld(true);
+  }
+  // The plug's hose and its chain, drawn here because the depth differs by yard: from the plug's own hose end back along the pipe to
+  // the foot of the riser, up the riser, over the rim and down onto the lawn where the plug lay.
+  function smokeHose(S, on) {
+    if (S.hose) { for (const m of S.hose) { scene.remove(m); m.geometry.dispose(); } S.hose = null; }
+    if (S.valveHome) { const V = S.valveHome, n = V.node; S.valveHome = null; V.parent.add(n); n.matrixAutoUpdate = V.auto; n.matrix.copy(V.matrix); n.matrix.decompose(n.position, n.quaternion, n.scale); n.traverse(o => { o.visible = false; }); n.updateMatrixWorld(true); }
+    if (!on || !S.plug) return;
+    let end = null; S.plug.updateMatrixWorld(true); S.plug.traverse(o => { if (!end && o.name === SMOKE_KIT.hoseEnd) end = o.getWorldPosition(new T.Vector3()); });
+    if (!end) end = S.plugAt.clone().addScaledVector(S.ds, -0.3);
+    const foot = S.tee.clone().addScaledVector(S.ds, 0.03); foot.y += 0.03;
+    // it leaves the riser on the side the plug lay, hard against the pipe wall, so the blower's reducer can still seat on the rim
+    const rim = S.top.clone().addScaledVector(S.lie, 0.043); rim.y -= 0.012;
+    const outR = S.top.clone().addScaledVector(S.lie, 0.085); outR.y = Math.max(S.lawnY + 0.02, S.top.y - 0.02);
+    const lay = S.way.lawn.clone(); lay.y = S.lawnY + 0.01;
+    const mid = S.top.clone().addScaledVector(S.lie, 0.23); mid.y = S.lawnY + 0.012;
+    const riserMid = S.tee.clone().lerp(S.top, 0.55).addScaledVector(S.lie, 0.035);
+    const made = [];
+    const rb = partBox(S.plug, SMOKE_KIT.chainEnd), ring = rb.isEmpty() ? end.clone() : rb.getCenter(new T.Vector3());
+    const run = (from, shift, radius, color, metal) => {
+      const pts = [from, from.clone().lerp(foot, 0.6), foot, riserMid, rim, outR, mid, lay].map((p, i) => i ? p.clone().addScaledVector(S.dh, shift) : p.clone());
+      const curve = new T.CatmullRomCurve3(pts, false, 'centripetal');
+      return { curve, mesh: new T.Mesh(new T.TubeGeometry(curve, 56, radius, 6, false), new T.MeshStandardMaterial({ color, roughness: metal ? 0.45 : 0.85, metalness: metal ? 0.85 : 0 })) };
+    };
+    const hose = run(end, 0, 0.0032, 0x1c1c1e, false); scene.add(hose.mesh); made.push(hose.mesh);
+    // the valve the builder left for the far end of the hose: on the lawn end of the drawn hose, pointing on along it
+    const hv = S.plug.getObjectByName(SMOKE_KIT.hoseValve);
+    if (hv) {
+      const tEnd = hose.curve.getTangentAt(1).normalize(), upV = _sUp.clone().addScaledVector(tEnd, -_sUp.dot(tEnd)).normalize(), xV = tEnd.clone().negate();
+      S.valveHome = { node: hv, parent: hv.parent, matrix: hv.matrix.clone(), auto: hv.matrixAutoUpdate };
+      scene.attach(hv); hv.matrixAutoUpdate = true; hv.position.copy(hose.curve.getPointAt(1)); hv.scale.setScalar(1);
+      hv.quaternion.setFromRotationMatrix(new T.Matrix4().makeBasis(xV, upV, new T.Vector3().crossVectors(xV, upV))); hv.traverse(o => { o.visible = true; }); hv.updateMatrixWorld(true);
+    }
+    // the chain: links along a second line beside the hose, every other one turned a quarter
+    const ch = run(ring, 0.018, 0.001, 0x8a8f96, true), len = ch.curve.getLength(), nL = Math.min(260, Math.max(8, Math.floor(len / 0.017)));
+    const links = new T.InstancedMesh(new T.TorusGeometry(0.0062, 0.0014, 5, 10), ch.mesh.material, nL), M = new T.Matrix4(), q = new T.Quaternion(), q2 = new T.Quaternion(), z = new T.Vector3(0, 0, 1);
+    for (let i = 0; i < nL; i++) {
+      const u = (i + 0.5) / nL, p = ch.curve.getPointAt(u), t = ch.curve.getTangentAt(u);
+      // a torus lies in its own xy plane: stand its plane along the chain, then turn every other link a quarter round the chain
+      q.setFromUnitVectors(_sX, t); if (i % 2) q.multiply(q2.setFromAxisAngle(_sX, Math.PI / 2));
+      M.compose(p, q, _sOne); links.setMatrixAt(i, M);
+    }
+    ch.mesh.geometry.dispose(); links.instanceMatrix.needsUpdate = true; links.frustumCulled = false; scene.add(links); made.push(links);
+    S.hose = made;
+  }
+  // a tap, once the fog is showing at the leak: on the fog itself, or on the part it is coming out of
+  // (not through a wall: in one test the fog was found from the bedroom next door. What hides it is the house's own drawn walls,
+  // ceilings, floors and roof. Not the colliders: the house's collider boxes in the tub and the toilet as well, and a sink base is
+  // a collider too, so a leak at a toilet's base or inside a cabinet could not be seen from anywhere)
+  function smokeSeen(p, from) {
+    const a = from || camera.getWorldPosition(new T.Vector3()), d = new T.Vector3().subVectors(p, a), len = d.length(); if (len < 0.1) return true;
+    const walls = []; house.traverse(o => { if (o.isMesh && o.visible && /^(wall_|ceil_|floor_|roof_)/.test(o.name)) walls.push(o); });
+    const rc = new T.Raycaster(a, d.divideScalar(len), 0, Math.max(0, len - 0.08));
+    return rc.intersectObjects(walls, false).length === 0;
+  }
+  function smokeLeakTap(hits) {
+    const S = smoke, e = S && S.leak; if (!e || !e.on) return undefined;
+    const ph = ray.intersectObject(e.proxy, false)[0], h0 = hits[0];
+    const onFog = ph && ph.distance < 6 && (!h0 || ph.distance < h0.distance + 0.6) && smokeSeen(ph.point);
+    const onPart = h0 && h0.distance < 6 && h0.point.distanceTo(e.at) < 0.35 && smokeSeen(h0.point);
+    if (!onFog && !onPart) return undefined;
+    S.found = true; smellCard(e.key, true); smokeKeys();
+    return 'You found it: ' + smellName(e.key) + '.';
+  }
+  // a click on the kit, the plug or this yard's cleanout while the test is set out
+  function smokeAct(o) {
+    const S = smoke; if (!S) return undefined;
+    const u = unitOf(o), nm = partName(o) || '';
+    if (u === S.kit) { if (SMOKE_KIT.fogger.test(nm)) return smokeFogger(); if (SMOKE_KIT.blower.test(nm)) return smokeBlower(); return undefined; }
+    if (u === S.plug) return smokePlug();
+    if (o.userData.inst) return undefined;
+    const n = nodeName(o), base0 = String(S.co.name || S.co.object || '');
+    if (!base0 || n.indexOf(base0) !== 0) return undefined;
+    if (S.coPlug && /_plug$/.test(n)) {
+      if (plugs.has(S.coPlug) && (S.plugIn || S.plugMove || S.kitT > 0.01)) return 'The test is set up in this riser. Put the smoke test away before the cleanout plug goes back in.';
+      plugOff(S.coPlug);
+      return plugs.has(S.coPlug) ? 'Cleanout plug out. ' + smokeNext() : 'Cleanout plug back in.';
+    }
+    // the open riser itself: the plug goes down it
+    if (smokeRiserOpen(S) && !S.plugIn && S.kitT < 0.01) return smokePlug();
+    return undefined;
+  }
+  // the smell's card: what it is, why it smells, the repair (info.json "smells")
+  function smellCard(key, found) {
+    const I = (INFO.smells && INFO.smells[key]) || {}, esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    let h = '<div class="about smellcard"><h3>' + esc((found ? 'You found it: ' : '') + (I.name || capFirst(pretty(key)))) + '</h3>';
+    for (const [lab, t] of [['What it is', I.what], ['Why it smells', I.why], ['Where we find it', I.where], ['The repair', I.fix]]) if (t) h += '<p><b>' + lab + '.</b> ' + esc(t) + '</p>';
+    h += '<button id="about_close">close</button></div>';
+    infoEl.innerHTML = h; infoEl.style.display = 'block'; panelFor = null;
+    const cb = document.getElementById('about_close'); if (cb) cb.onclick = () => { infoEl.style.display = 'none'; };
+    return I.name || key;
+  }
+  // every frame: the sure vent, and with the test set out its moving parts, the fog's front and every plume
+  function stepSmoke(dt) {
+    syncSureVent();
+    const S = smoke; if (!S) return;
+    if (S.kitT !== S.kitTo) {
+      S.kitT = toward(S.kitT, S.kitTo, dt / 0.9); smokeKitPose(S);
+      if (S.kitT === S.kitTo) { S.kitMove = false; if (S.blower && S.kitTo === 1 && !S.blowerRun) { playNamed(S.kit, SMOKE_KIT.blowerClip, true); S.blowerRun = true; } }
+    }
+    if (S.plugWait > 0) S.plugWait -= dt;
+    else if (S.plugT !== S.plugTo) {
+      S.plugT = toward(S.plugT, S.plugTo, dt / 1.7); smokePlugPose(S);
+      if (S.plugT === S.plugTo) {
+        S.plugMove = false;
+        if (S.plugTo === 1) { S.plugIn = true; playNamed(S.plug, SMOKE_KIT.inflate, true); if (S.plugLeak) playNamed(S.plug, 'plug_leaking', true); smokeHose(S, true); smokeSay('Test plug in and blown up tight. The line toward ' + smokeAway() + ' is closed off. ' + smokeNext()); }
+        else smokeSay('Test plug out and back on the lawn.');
+      }
+    }
+    if (!S.emit) return;
+    const filling = S.fogOn && S.blower && S.plugIn && S.kitT >= 1;
+    // The front keeps the clock's time, not the frame's: the loop's own step is capped at a twentieth of a second, so on a slow phone
+    // (or a busy computer: the far vent took 41 s instead of 25 in one test) the fog crawled. A quarter second is the most one frame takes it.
+    const clock = performance.now(), real = Math.min(0.25, (clock - (S.clock || clock)) / 1000); S.clock = clock;
+    // (a plug that is not blown up tight lets half of it slip by down the line: the plug_leaking hook)
+    S.front = Math.max(0, Math.min(S.far + 6, S.front + (filling ? S.speed * (S.plugLeak ? 0.5 : 1) : -1.6 * S.speed) * real));
+    if (S.tube) S.tube.material.uniforms.uFront.value = S.front;
+    if (S.leakKey && !S.leak) smokeLeakTry(S);
+    plumeMat().uniforms.uScale.value = renderer.getDrawingBufferSize(_sSize).y * 0.5 / Math.tan(camera.fov * Math.PI / 360);
+    let roofOn = 0, roofs = 0, stray = 0;
+    for (const e of S.emit) {
+      const want = e.always ? (S.fogOn && S.blower && S.kitT >= 1) : (filling && S.front >= e.d && (!e.gate || e.gate()));
+      if (want && !e.P) { if (e.kind === 'roof') smokeVentTop(e); e.P = plumeMake(e); }
+      e.k = toward(e.k, want ? 1 : 0, dt / (want ? 2.5 : 1.2));
+      if (e.cab) e.cab.push = e.cab.open() ? 0.3 : 0;
+      if (e.P) plumeStep(e.P, dt, e.k);
+      if (e.kind === 'roof') { roofs++; if (e.k > 0.5) roofOn++; }
+      if (e.kind === 'leak') e.on = e.k > 0.3;
+      if (e.kind === 'stray' && e.k > 0.5) stray++;
+    }
+    if (stray && !S.said.stray) { S.said.stray = true; smokeSay('Fog is showing inside the house at a line that was not picked as the smell: in this layout a drain line has no trap between the sewer and its unit. Walk the house and look.'); }
+    if (roofOn && !S.said.rule) { S.said.rule = true; smokeSay(SMOKE_RULE + ' Walk the house and look.'); }
+    if (roofs && roofOn === roofs && !S.leakKey && !S.said.tight && !S.emit.some(e => e.kind === 'stray')) {
+      S.tightT += dt;
+      if (S.tightT > 6) { S.said.tight = true; smokeSay('Fog at every roof vent and none inside: this house is tight. ' + (smellWords(smellOff) || 'Pick a smell on the House layout screen and run the test again.')); }
+    }
+  }
+  // where to look for the staged smell: the pipe layer's own words for its fault, or the card's
+  function smokeHint() {
+    const S = smoke; if (!S || !S.leakKey) return '';
+    const f = smokeFault(S.leakKey), I = (INFO.smells && INFO.smells[S.leakKey]) || {};
+    return 'Hint: ' + (I.hint || (f && f.where) || 'follow the fog. It only shows inside the house at the leak.');
+  }
+  // the Toolbox button stays lit while the kit is out, and three thumb buttons sit over it: what next, back to the kit, put it away
+  function smokeButtons() { const b = document.getElementById('smokebtn'); if (b) b.classList.toggle('on', !!smoke); }
+  function smokeKeys() {
+    let el = document.getElementById('smokekeys');
+    document.body.classList.toggle('smoking', !!smoke);
+    if (!smoke || meter) { if (el) el.style.display = 'none'; return; }
+    if (!el) { el = document.createElement('div'); el.id = 'smokekeys'; document.body.appendChild(el); }
+    el.innerHTML = '';
+    const add = (k, lab, fn) => { const b = document.createElement('button'); b.dataset.k = k; b.textContent = lab; b.onclick = ev => { ev.stopPropagation(); const m = fn(); if (typeof m === 'string' && m) smokeSay(m); smokeKeys(); }; el.appendChild(b); };
+    // with the fog on and a smell staged that has not been found, the first button is where to look (it does not name the smell)
+    if (smoke.fogOn && smoke.leakKey && !smoke.found) add('hint', 'Hint', smokeHint); else add('next', 'What next', smokeNext);
+    add('kit', 'Back to the kit', smokeGo);
+    add('away', 'Put it away', () => smokeDown());
+    el.style.display = 'flex';
+  }
   // Round 60: the Toolbox. Jake: "we have the toolbox, so you can remove anything that's in the training house that's in the
   // toolbox". It is its own little menu over its own button, bottom right, and holds the three tools and nothing else. Picking
   // one closes it; so does a tap anywhere else.
@@ -4642,6 +5717,8 @@
   const mb = document.getElementById('meterbtn'); if (mb) mb.onclick = () => { labelEl.textContent = toolToggle('volts'); labelEl.style.display = 'block'; };
   const cb = document.getElementById('clampbtn'); if (cb) cb.onclick = () => { labelEl.textContent = toolToggle('amps'); labelEl.style.display = 'block'; };
   const gb = document.getElementById('grabbtn'); if (gb) gb.onclick = () => { takePliers().then(m => { labelEl.textContent = m; labelEl.style.display = 'block'; }); };
+  // round 109: the smoke test, the fourth tool. The same button sets the kit out at the yard cleanout and puts it away again.
+  const sb = document.getElementById('smokebtn'); if (sb) sb.onclick = () => { takeSmoke().then(m => { labelEl.textContent = m; labelEl.style.display = m ? 'block' : 'none'; }).catch(e => { labelEl.textContent = 'That did not work: ' + e.message; labelEl.style.display = 'block'; }); };
   for (const b of document.querySelectorAll('[data-go]')) b.onclick = () => goTo(b.dataset.go);
   for (const c of document.querySelectorAll('[data-layer]')) c.onchange = () => { const k = c.dataset.layer; if (k === 'equipment') equip.visible = c.checked; else if (layers[k]) layers[k].visible = c.checked; };
   addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); if (meterObj && !clampOn) meterPose(meterObj); });
@@ -4661,6 +5738,8 @@
       await loadPipes(); applyPipeConfig(); await loadPlacements(); chooseDoorSides(); status.textContent = 'ready: ' + Object.keys(sockets).length + ' sockets, ' + equip.children.length + ' models placed'; loadEl.style.display = 'none'; }
     catch (e) { status.textContent = 'error: ' + e.message; console.error(e); }
     bootFinished();
+    // round 109: a saved layout or a link that asked for a smell the layout had to be moved for (or that cannot be staged) says so now
+    smellSay();
   })();
   function ballRoll(steps, back) { if (!ball) return null; const kw = keys.KeyW, ks = keys.KeyS; keys.KeyW = !back; keys.KeyS = !!back; const seen = []; for (let i = 0; i < steps; i++) { ballStep(0.05); if (!seen.length || seen[seen.length - 1] !== ball.R.name) seen.push(ball.R.name); if (ball.done) break; } keys.KeyW = kw; keys.KeyS = ks; return { runs: seen, done: ball.done, at: camera.position.toArray().map(v => +v.toFixed(2)) }; }     // round 43: a test and demo helper
   // round 44: a snap the page can take itself. requestAnimationFrame does not fire while the preview pane is hidden, so a capture that
@@ -4682,7 +5761,9 @@
     await bootDone;
     if (f === CONFIG.foundation) return 'already the ' + f + ' house';
     if (ball) { try { endBall(); } catch (e) { } }
-    Object.assign(CONFIG, foundationSet(f)); setFiles();
+    // round 109: the smoke test's kit stands in the yard that is about to go
+    smokeDown(true);
+    Object.assign(CONFIG, foundationSet(f)); setFiles(); placeEpoch++;
     for (const grp of [house, pipes, equip]) for (const c of [...grp.children]) { grp.remove(c); c.traverse(o => { if (o.geometry) o.geometry.dispose(); }); }
     for (const A of [colliders, floors, overhead, doors, doorAnim, lids, flows, mixers, placedFloors, placedColliders, fixtures, garageDoor.nodes, plantSims]) A.length = 0;
     for (const O of [sockets, waypoints, houseByName, layers, roomBoxes]) for (const k of Object.keys(O)) delete O[k];
@@ -4715,5 +5796,16 @@
     setFov, pumpSwitch, spraySwitch, runClips, lidOff, nodeName, reveal, elevCorridor, inElevation: () => !!elev, orbit: () => elev && elev.orbit, setTool, tool: () => tool, removePart, workPart, unitOf,
     // round 60 verification: the working view's own pieces, and where you are standing and looking
     whatCanIDo, setEye, eyeWanted, eyeRange: [0.30, EYE], setTurn: v => { turnRate = Math.max(-4, Math.min(4, +v || 0)); }, setLookScale: v => { lookScale = Math.max(0.25, Math.min(4, +v || 1)); },
+    // round 109: the smoke test and the smells, for the House layout screen and for tests. state() is the tool as it stands; a fog
+    // place reads [kind, metres from the cleanout, how strongly it is fogging 0 to 1, where (Blender axes)]
+    smoke: { take: takeSmoke, down: smokeDown, next: smokeNext, go: smokeGo, act: smokeAct, hint: smokeHint, data: () => SMOKE,
+      state: () => { const S = smoke; if (!S) return null; return { cleanout: S.co.name || S.co.object || S.co.sewer || '', riserProud: +S.proud.toFixed(3), kitWants: +S.wants.toFixed(3), rig: S.rig ? { fogSideMoved: +S.rig.lift.toFixed(4), machineTiltDeg: +T.MathUtils.radToDeg(S.rig.th).toFixed(1), noseUp: S.rig.th > 0, onFoot: S.rig.piv === undefined ? null : (S.rig.th === 0 ? 'none' : (S.rig.th > 0 ? 'rear' : 'front')), aimOffBeforeDeg: +T.MathUtils.radToDeg(S.rig.off0).toFixed(1), aimOffAfterDeg: +T.MathUtils.radToDeg(S.rig.offAfter).toFixed(1), how: S.rig.how, tiltToAimDeadAtInletDeg: +T.MathUtils.radToDeg(S.rig.deadTilt).toFixed(1), markerAgainstBuiltLineDeg: +T.MathUtils.radToDeg(S.rig.aimBuilt).toFixed(1), names: S.rig.names } : null, riserOpen: smokeRiserOpen(S), plugIn: S.plugIn, plugT: +S.plugT.toFixed(2), blower: S.blower, onRiser: +S.kitT.toFixed(2), fogOn: S.fogOn,
+        front: +S.front.toFixed(2), far: +S.far.toFixed(2), speed: +S.speed.toFixed(3), leakKey: S.leakKey, found: S.found, hose: !!S.hose,
+        places: (S.emit || []).map(e => [e.kind, +e.d.toFixed(2), +e.k.toFixed(2), [e.at.x, -e.at.z, e.at.y].map(v => +v.toFixed(3)), e.name || e.key || '']), sprites: PLUMES.reduce((n, P) => n + P.n, 0) }; },
+      fault: smokeKitFault, names: SMOKE_KIT, kit: () => smoke && smoke.kit, plug: () => smoke && smoke.plug, leak: () => smoke && smoke.leak, seen: smokeSeen, get: k => smoke && smoke[k], open: smokeOpen, set: (k, v) => { if (smoke) smoke[k] = v; } },
+    smell: { now: smellNow, pick: () => smellPick, off: () => smellWords(smellOff), moved: () => smellWords(smellMoved), needs: smellNeeds, can: smellCan, card: smellCard, name: smellName, pipe: SMELL_PIPE, page: SMELL_PAGE, at: SMELL_AT },
+    inConfig, cfgVal, tieHvac, partBox, roomAt, floorBelow, clearLine, workBox,
+    // verification: the layout as it stands, and one call that changes several keys and waits for the yard to be rebuilt
+    layout: () => Object.assign({}, CONFIG), setLayout: async set => { Object.assign(CONFIG, set || {}); await reconfigure(); for (const s_ of document.querySelectorAll('#layout select')) if (CONFIG[s_.title] !== undefined) s_.value = CONFIG[s_.title]; return Object.assign({}, CONFIG); },
     goToUnit, nearUnit, gliding: () => !!glide, where: () => ({ pos: pos.toArray().map(v => +v.toFixed(3)), yaw: +yaw.toFixed(3), pitch: +pitch.toFixed(3), eye: +eye.toFixed(3), fly }), setFly: v => { fly = !!v; document.getElementById('fly').classList.toggle('on', fly); }, equip };
 })();

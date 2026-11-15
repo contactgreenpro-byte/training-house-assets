@@ -1118,8 +1118,8 @@
     {
      "file": "pipes_dwv__common.glb",
      "tag": null,
-     "nodes": 82,
-     "bytes": 1589148
+     "nodes": 60,
+     "bytes": 1183376
     },
     {
      "file": "pipes_dwv__sewer__2fe51efd.glb",
@@ -1132,12 +1132,6 @@
      "tag": "sewer=city_gravity&fault=belly",
      "nodes": 9,
      "bytes": 303988
-    },
-    {
-     "file": "pipes_dwv__sewer-city_gravity_and_fault-none.glb",
-     "tag": "sewer=city_gravity&fault=none",
-     "nodes": 8,
-     "bytes": 251384
     },
     {
      "file": "pipes_dwv__sewer-city_gravity+city_lift+city_lift_duplex_or_commercial_lot-yes.glb",
@@ -1306,6 +1300,78 @@
      "tag": "water_heater=garage_tankless",
      "nodes": 2,
      "bytes": 21936
+    },
+    {
+     "file": "pipes_dwv__fault-none+belly+vent_hole_wall+standpipe_no_trap+condensate_trap_dry.glb",
+     "tag": "fault=none|belly|vent_hole_wall|standpipe_no_trap|condensate_trap_dry",
+     "nodes": 1,
+     "bytes": 20652
+    },
+    {
+     "file": "pipes_dwv__fault-none+belly+vent_open_attic+standpipe_no_trap+condensate_trap_dry.glb",
+     "tag": "fault=none|belly|vent_open_attic|standpipe_no_trap|condensate_trap_dry",
+     "nodes": 1,
+     "bytes": 55136
+    },
+    {
+     "file": "pipes_dwv__fault-none+belly+vent_open_attic+vent_hole_wall+condensate_trap_dry.glb",
+     "tag": "fault=none|belly|vent_open_attic|vent_hole_wall|condensate_trap_dry",
+     "nodes": 8,
+     "bytes": 190800
+    },
+    {
+     "file": "pipes_dwv__fault-standpipe_no_trap.glb",
+     "tag": "fault=standpipe_no_trap",
+     "nodes": 5,
+     "bytes": 178608
+    },
+    {
+     "file": "pipes_dwv__fault-vent_hole_wall.glb",
+     "tag": "fault=vent_hole_wall",
+     "nodes": 2,
+     "bytes": 59984
+    },
+    {
+     "file": "pipes_dwv__fault-vent_open_attic.glb",
+     "tag": "fault=vent_open_attic",
+     "nodes": 1,
+     "bytes": 31776
+    },
+    {
+     "file": "pipes_dwv__hvac__8a89da3a.glb",
+     "tag": "hvac=split_furnace|split_furnace_92|split_furnace_cond96|split_furnace_98|gas_pack;condensate_tie=outside",
+     "nodes": 1,
+     "bytes": 41568
+    },
+    {
+     "file": "pipes_dwv__hvac__925191dc.glb",
+     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain",
+     "nodes": 3,
+     "bytes": 70228
+    },
+    {
+     "file": "pipes_dwv__kitchen_vent-aav.glb",
+     "tag": "kitchen_vent=aav",
+     "nodes": 13,
+     "bytes": 179808
+    },
+    {
+     "file": "pipes_dwv__kitchen_vent-roof.glb",
+     "tag": "kitchen_vent=roof",
+     "nodes": 11,
+     "bytes": 204420
+    },
+    {
+     "file": "pipes_dwv__sewer__046b9596.glb",
+     "tag": "sewer=city_gravity&fault=condensate_trap_dry|none|standpipe_no_trap|vent_hole_wall|vent_open_attic",
+     "nodes": 4,
+     "bytes": 108028
+    },
+    {
+     "file": "pipes_dwv__sewer__80200d54.glb",
+     "tag": "sewer=city_gravity&fault=none|vent_open_attic|vent_hole_wall|standpipe_no_trap|condensate_trap_dry",
+     "nodes": 4,
+     "bytes": 145096
     }
    ]
   },
@@ -1474,12 +1540,6 @@
      "bytes": 1463564
     },
     {
-     "file": "pipes_hvac__dehumidifier__182fe2b3.glb",
-     "tag": "dehumidifier=yes&hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15",
-     "nodes": 2,
-     "bytes": 50148
-    },
-    {
      "file": "pipes_hvac__erv__6586a84a.glb",
      "tag": "erv=yes&hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15",
      "nodes": 1,
@@ -1524,20 +1584,8 @@
     {
      "file": "pipes_hvac__hvac__a340dde3.glb",
      "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15",
-     "nodes": 23,
-     "bytes": 112672
-    },
-    {
-     "file": "pipes_hvac__hvac__d128c58d.glb",
-     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&dehumidifier=no",
-     "nodes": 1,
-     "bytes": 113712
-    },
-    {
-     "file": "pipes_hvac__hvac__5e17c43d.glb",
-     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&dehumidifier=yes",
-     "nodes": 1,
-     "bytes": 114760
+     "nodes": 19,
+     "bytes": 75100
     },
     {
      "file": "pipes_hvac__hvac-heatpump_attic.glb",
@@ -1646,6 +1694,60 @@
      "tag": "water=well",
      "nodes": 3,
      "bytes": 42392
+    },
+    {
+     "file": "pipes_hvac__dehumidifier__0972e0cf.glb",
+     "tag": "dehumidifier=yes&hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain",
+     "nodes": 2,
+     "bytes": 50216
+    },
+    {
+     "file": "pipes_hvac__dehumidifier__a947c6e5.glb",
+     "tag": "dehumidifier=yes&hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=outside",
+     "nodes": 2,
+     "bytes": 50196
+    },
+    {
+     "file": "pipes_hvac__hvac__0f610403.glb",
+     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain&dehumidifier=no",
+     "nodes": 1,
+     "bytes": 92024
+    },
+    {
+     "file": "pipes_hvac__hvac__3083fbe4.glb",
+     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&fault=none|belly|vent_open_attic|vent_hole_wall|standpipe_no_trap",
+     "nodes": 1,
+     "bytes": 13724
+    },
+    {
+     "file": "pipes_hvac__hvac__60366d37.glb",
+     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=outside&dehumidifier=no",
+     "nodes": 1,
+     "bytes": 113736
+    },
+    {
+     "file": "pipes_hvac__hvac__6fa31697.glb",
+     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=outside&dehumidifier=yes",
+     "nodes": 1,
+     "bytes": 114784
+    },
+    {
+     "file": "pipes_hvac__hvac__925191dc.glb",
+     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain",
+     "nodes": 4,
+     "bytes": 38228
+    },
+    {
+     "file": "pipes_hvac__hvac__ca4531c3.glb",
+     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=outside",
+     "nodes": 4,
+     "bytes": 38188
+    },
+    {
+     "file": "pipes_hvac__hvac__ece2603e.glb",
+     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&condensate_tie=drain&dehumidifier=yes",
+     "nodes": 1,
+     "bytes": 93136
     }
    ]
   },
@@ -2265,8 +2367,8 @@
     {
      "file": "slab_pipes_dwv__common.glb",
      "tag": null,
-     "nodes": 77,
-     "bytes": 1614028
+     "nodes": 64,
+     "bytes": 1355656
     },
     {
      "file": "slab_pipes_dwv__sewer__2fe51efd.glb",
@@ -2279,12 +2381,6 @@
      "tag": "sewer=city_gravity&fault=belly",
      "nodes": 10,
      "bytes": 276076
-    },
-    {
-     "file": "slab_pipes_dwv__sewer-city_gravity_and_fault-none.glb",
-     "tag": "sewer=city_gravity&fault=none",
-     "nodes": 9,
-     "bytes": 222144
     },
     {
      "file": "slab_pipes_dwv__sewer-city_gravity+city_lift+city_lift_duplex_or_commercial_lot-yes.glb",
@@ -2331,8 +2427,8 @@
     {
      "file": "slab_pipes_dwv__sewer__20c39a35.glb",
      "tag": "sewer=septic_gravity|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train|city_lift|city_lift_duplex",
-     "nodes": 10,
-     "bytes": 215052
+     "nodes": 4,
+     "bytes": 69120
     },
     {
      "file": "slab_pipes_dwv__sewer-septic_overland.glb",
@@ -2433,8 +2529,8 @@
     {
      "file": "slab_pipes_dwv__sewer__fafaa492.glb",
      "tag": "sewer=septic_spray|septic_overland_lee|septic_overland|septic_overland_aquaklear|city_gravity",
-     "nodes": 10,
-     "bytes": 214988
+     "nodes": 4,
+     "bytes": 69064
     },
     {
      "file": "slab_pipes_dwv__sewer__44c0ab5d.glb",
@@ -2471,6 +2567,114 @@
      "tag": "water_heater=garage_tankless",
      "nodes": 2,
      "bytes": 21928
+    },
+    {
+     "file": "slab_pipes_dwv__fault-none+belly+vent_hole_wall+standpipe_no_trap+condensate_trap_dry.glb",
+     "tag": "fault=none|belly|vent_hole_wall|standpipe_no_trap|condensate_trap_dry",
+     "nodes": 1,
+     "bytes": 20652
+    },
+    {
+     "file": "slab_pipes_dwv__fault-none+belly+vent_open_attic+standpipe_no_trap+condensate_trap_dry.glb",
+     "tag": "fault=none|belly|vent_open_attic|standpipe_no_trap|condensate_trap_dry",
+     "nodes": 1,
+     "bytes": 55136
+    },
+    {
+     "file": "slab_pipes_dwv__fault-none+belly+vent_open_attic+vent_hole_wall+condensate_trap_dry.glb",
+     "tag": "fault=none|belly|vent_open_attic|vent_hole_wall|condensate_trap_dry",
+     "nodes": 7,
+     "bytes": 188676
+    },
+    {
+     "file": "slab_pipes_dwv__fault-standpipe_no_trap.glb",
+     "tag": "fault=standpipe_no_trap",
+     "nodes": 4,
+     "bytes": 176384
+    },
+    {
+     "file": "slab_pipes_dwv__fault-vent_hole_wall.glb",
+     "tag": "fault=vent_hole_wall",
+     "nodes": 2,
+     "bytes": 59984
+    },
+    {
+     "file": "slab_pipes_dwv__fault-vent_open_attic.glb",
+     "tag": "fault=vent_open_attic",
+     "nodes": 1,
+     "bytes": 31776
+    },
+    {
+     "file": "slab_pipes_dwv__kitchen_vent-aav.glb",
+     "tag": "kitchen_vent=aav",
+     "nodes": 6,
+     "bytes": 45152
+    },
+    {
+     "file": "slab_pipes_dwv__kitchen_vent-roof.glb",
+     "tag": "kitchen_vent=roof",
+     "nodes": 4,
+     "bytes": 72052
+    },
+    {
+     "file": "slab_pipes_dwv__sewer__046b9596.glb",
+     "tag": "sewer=city_gravity&fault=condensate_trap_dry|none|standpipe_no_trap|vent_hole_wall|vent_open_attic",
+     "nodes": 5,
+     "bytes": 123512
+    },
+    {
+     "file": "slab_pipes_dwv__sewer__1cc0c8fd.glb",
+     "tag": "sewer=city_gravity|septic_overland|septic_overland_aquaklear|septic_overland_lee|septic_spray&kitchen_vent=roof",
+     "nodes": 2,
+     "bytes": 43800
+    },
+    {
+     "file": "slab_pipes_dwv__sewer__2693b871.glb",
+     "tag": "sewer=city_gravity|septic_overland|septic_overland_aquaklear|septic_overland_lee|septic_spray&kitchen_vent=aav",
+     "nodes": 2,
+     "bytes": 28824
+    },
+    {
+     "file": "slab_pipes_dwv__sewer__39d7f539.glb",
+     "tag": "sewer=septic_gravity|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train|city_lift|city_lift_duplex&kitchen_vent=aav",
+     "nodes": 4,
+     "bytes": 109096
+    },
+    {
+     "file": "slab_pipes_dwv__sewer__80200d54.glb",
+     "tag": "sewer=city_gravity&fault=none|vent_open_attic|vent_hole_wall|standpipe_no_trap|condensate_trap_dry",
+     "nodes": 4,
+     "bytes": 100424
+    },
+    {
+     "file": "slab_pipes_dwv__sewer__8edd5e9a.glb",
+     "tag": "sewer=city_lift|city_lift_duplex|septic_gravity|septic_overland_fiberglass_train|septic_spray_fiberglass_train|septic_spray_trash|septic_spray_two_tank&kitchen_vent=aav",
+     "nodes": 2,
+     "bytes": 28928
+    },
+    {
+     "file": "slab_pipes_dwv__sewer__9442971a.glb",
+     "tag": "sewer=city_lift|city_lift_duplex|septic_gravity|septic_overland_fiberglass_train|septic_spray_fiberglass_train|septic_spray_trash|septic_spray_two_tank&kitchen_vent=roof",
+     "nodes": 2,
+     "bytes": 43900
+    },
+    {
+     "file": "slab_pipes_dwv__sewer__acadec57.glb",
+     "tag": "sewer=septic_spray|septic_overland_lee|septic_overland|septic_overland_aquaklear|city_gravity&kitchen_vent=aav",
+     "nodes": 4,
+     "bytes": 109200
+    },
+    {
+     "file": "slab_pipes_dwv__sewer__ebde3d46.glb",
+     "tag": "sewer=septic_spray|septic_overland_lee|septic_overland|septic_overland_aquaklear|city_gravity&kitchen_vent=roof",
+     "nodes": 4,
+     "bytes": 105908
+    },
+    {
+     "file": "slab_pipes_dwv__sewer__f63ea71a.glb",
+     "tag": "sewer=septic_gravity|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train|city_lift|city_lift_duplex&kitchen_vent=roof",
+     "nodes": 4,
+     "bytes": 105856
     }
    ]
   },
@@ -2799,6 +3003,12 @@
      "tag": "water=well",
      "nodes": 3,
      "bytes": 41280
+    },
+    {
+     "file": "slab_pipes_hvac__hvac__3083fbe4.glb",
+     "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&fault=none|belly|vent_open_attic|vent_hole_wall|standpipe_no_trap",
+     "nodes": 1,
+     "bytes": 13724
     }
    ]
   },

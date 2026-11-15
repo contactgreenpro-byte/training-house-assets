@@ -6954,6 +6954,107 @@
    "ah_media_supports": {
     "look": "aside"
    }
+  },
+  "smoke_test_kit.glb": {
+   "blower_housing": {
+    "look": "control",
+    "work": "blower_run"
+   },
+   "blower_handle": {
+    "look": "control",
+    "work": "blower_run"
+   },
+   "blower_motor": {
+    "look": "control",
+    "work": "blower_run"
+   },
+   "blower_wheel": {
+    "look": "control",
+    "work": "blower_run"
+   },
+   "blower_foot": {
+    "look": "control",
+    "work": "blower_run"
+   },
+   "blower_reducer": {
+    "look": "control",
+    "work": "blower_run"
+   },
+   "fog_machine_body": {
+    "look": "control",
+    "work": "fog_on"
+   },
+   "fog_machine_base": {
+    "look": "control",
+    "work": "fog_on"
+   },
+   "fog_nozzle": {
+    "look": "control",
+    "work": "fog_on"
+   },
+   "fog_remote": {
+    "look": "control",
+    "work": "fog_on"
+   },
+   "fog_bucket": {
+    "look": "control",
+    "work": "fog_on"
+   },
+   "fog_fluid_cap": {
+    "look": "clip:cap_off"
+   }
+  },
+  "test_plug.glb": {
+   "test_plug_body": {
+    "look": "control",
+    "work": "plug_inflate"
+   },
+   "test_plug_hose": {
+    "look": "control"
+   },
+   "test_plug_chain": {
+    "look": "control"
+   },
+   "test_plug_ring": {
+    "look": "control"
+   },
+   "test_plug_eye": {
+    "look": "control"
+   },
+   "test_plug_valve": {
+    "look": "control"
+   }
+  },
+  "air_admittance_valve.glb": {
+   "aav_body": {
+    "look": "section",
+    "work": "air_in"
+   },
+   "aav_adapter": {
+    "look": "section"
+   },
+   "aav_cap": {
+    "look": "section",
+    "work": "air_in"
+   },
+   "aav_body_section": {
+    "work": "air_in"
+   },
+   "aav_membrane": {
+    "work": "air_in"
+   },
+   "aav_guide": {
+    "work": "air_in"
+   },
+   "aav_membrane_stuck": {
+    "work": "stuck_open"
+   },
+   "aav_grit": {
+    "work": "stuck_open"
+   },
+   "aav_sleeve": {
+    "work": "sleeve_blocking"
+   }
   }
  }
 }

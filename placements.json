@@ -75,7 +75,10 @@
     "wall",
     "wall_switch",
     "faucet_tubes",
-    "diverter"
+    "diverter",
+    "p_trap_arm_aav",
+    "drain_escutcheon_aav",
+    "p_trap_arm_aav_corroded"
    ],
    "keep_context": [
     "cabinet",
@@ -144,6 +147,17 @@
      ],
      "hide": [
       "deck_plug_ro"
+     ]
+    },
+    "kitchen_vent=aav": {
+     "show": [
+      "p_trap_arm_aav",
+      "drain_escutcheon_aav",
+      "p_trap_arm_aav_corroded"
+     ],
+     "hide": [
+      "p_trap_arm",
+      "p_trap_arm_corroded"
      ]
     }
    },
@@ -5964,6 +5978,48 @@
     "packets_aq_back_pivot"
    ],
    "note": "Round 106 (Jake 2026-11-01): the dedicated return's packets (pipe_supply_recirc_return_tank). No crossover valve here."
+  },
+  {
+   "socket": "sock_kitchen_sink_kitchen",
+   "file": "floor1",
+   "pack": "air_admittance_valve",
+   "model": "air_admittance_valve.glb",
+   "yaw": 180,
+   "offset": [
+    0.205,
+    -0.105,
+    0.5368
+   ],
+   "config": "kitchen_vent=aav",
+   "hide": [
+    "aav_context",
+    "aav_ctx_riser",
+    "aav_ctx_riser_section"
+   ],
+   "show": [
+    "aav_air_packets",
+    "aav_gas_packets"
+   ],
+   "states": [
+    "aav_membrane_stuck",
+    "aav_grit",
+    "aav_sleeve",
+    "aav_air_packets_pivot",
+    "aav_gas_packets_pivot"
+   ],
+   "section_set": {
+    "pairs": {
+     "aav_body": "aav_body_section",
+     "aav_adapter": "aav_adapter_section"
+    },
+    "also_hide": [
+     "aav_cap",
+     "aav_inlet_screen",
+     "aav_thread_tape"
+    ],
+    "note": "One click cuts a quarter wedge out of the valve and its adapter (open to the model's front, -y); the cap, the near screen and the tape come away so the membrane, the seat and the guide show whole."
+   },
+   "note": "Round 109 (Jake 2026-11-12): the sure vent (an air admittance valve) on its riser inside the kitchen sink base, in the kitchen_vent=aav layout, where the kitchen's roof vent is gone. Origin = the top end of the 1-1/2 in riser the pipe build stands there, front = the model's -y; the model's own display riser (aav_context) is hidden. States: the stuck membrane, the grit and the shipping sleeve rest at 0.001 scale and their clips bring them up, and so do the two packet pivots; the packet meshes themselves are shown, because the _packets hide pattern would keep them hidden under a pivot that is showing. Clips: air_in (with its _loop; the page runs it while the kitchen sink drains, walk.js syncSureVent), valve_off, stuck_open with gas_out (the staged smell fault=aav_stuck), sleeve_blocking (a second fault, not staged), explode (not offered: the page's own exploded view is)."
   }
  ],
  "hide_patterns": [
@@ -6040,5 +6096,44 @@
  "stream_note": "stream meshes are NOT hidden by pattern any more: the walk page hides them at load and shows them while a run / on clip is playing, so a faucet actually runs water",
  "flame_note": "flames, igniter_glow and burner_flame are NOT hidden by pattern any more: their builders rest them at scale 0.001 and the fire_up clip brings them up, so a click actually lights the burner (Jake 2026-09-11)",
  "reveal_note": "reveal: {trigger: [parts a click on toggles it], hide: [model parts that go away while open], show: [model parts shown while open, even ones the placement hides], bore: [model parts whose world box is cut out of every house mesh it overlaps while open]}. walk.js reveal().",
- "slab_note": "2026-09-25: entries tagged foundation=crawl or foundation=slab belong to one house only (tools/patch_placements_slab.py). The slab house carries its own tank variants (more cover, lids still at grade), its showers with the risers over the slab, its hybrid with the shorter duct and its two section attic ladder."
+ "slab_note": "2026-09-25: entries tagged foundation=crawl or foundation=slab belong to one house only (tools/patch_placements_slab.py). The slab house carries its own tank variants (more cover, lids still at grade), its showers with the risers over the slab, its hybrid with the shorter duct and its two section attic ladder.",
+ "tools": {
+  "_about": "Round 109 (Jake 2026-11-12). Things a TOOL stands in the yard, not placements: no socket, nothing in 'placements' names them. walk.js smokeStand() places each one through the same place() a placement goes through, on a socket it makes at the yard cleanout smoke_test.json gives for the sewer layout that is up. Keys are the ones a placement carries.",
+  "smoke_test": {
+   "kit": {
+    "model": "smoke_test_kit.glb",
+    "pack": "smoke_test_kit",
+    "file": "tool",
+    "states": [
+     "fog_fluid_dregs"
+    ],
+    "section_set": {
+     "pairs": {
+      "blower_housing": "blower_housing_section",
+      "fog_machine_body": "fog_machine_body_section",
+      "blower_reducer": "blower_reducer_section"
+     },
+     "also_hide": [],
+     "note": "One click on Cut away opens the fan, its reducer and the fog machine together (all cut toward the kit's +x)."
+    },
+    "note": "The smoke test kit: a 6 in inline fan stood on end on the cleanout riser in a rubber reducer, open top up; a fog machine leaned nose down on an upturned 5 gallon bucket, shooting down across into the fan's open top; the remote on the lawn. Origin = the top of the riser, lawn 5 cm below. Its air packets, fog puffs and the remote's lamp rest at 0.001 scale and their clips bring them up: walk.js smokeStand puts everything that rests at that scale away the way states are, so they need no list here; fog_fluid_dregs is the fluid_empty fault's part. Clips: blower_run and fog_on (with their _loop), cap_off, fluid_empty (a fault, never staged by default), explode. The tool works blower_run and fog_on in the test's order; the panel does not offer them (walk.js NO_CLIPS). The page reads the kit's layout off the placed model (its parts' boxes, fog_nozzle_point, blower_inlet_point), so a fog machine that is moved or held another way in a later build needs no change here."
+   },
+   "plug": {
+    "model": "test_plug.glb",
+    "pack": "test_plug",
+    "file": "tool",
+    "hide": [
+     "test_plug_hose_valve"
+    ],
+    "section_set": {
+     "pairs": {
+      "test_plug_body": "test_plug_body_section"
+     },
+     "also_hide": [],
+     "note": "The plug cut in half along the pipe."
+    },
+    "note": "The 4 in inflatable test plug. Origin = its centre, the pipe's axis along x, pushed toward +x. The tool lowers it down the riser to plug_at, turns it to the downstream vector and plays plug_inflate; its hose and chain are drawn by the page from test_plug_hose_end_point and test_plug_ring up the riser to the lawn, because the depth differs by yard. test_plug_hose_valve is the builder's spare for the far end of the hose and is hidden here. plug_leaking is a fault for a lesson (the plug not blown up tight), never staged by default."
+   }
+  }
+ }
 }

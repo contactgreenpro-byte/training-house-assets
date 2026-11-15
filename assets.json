@@ -1,15 +1,15 @@
 {
- "published": "2026-11-15T11:12:48",
- "house": "r100a4r",
- "note": "r100a4r: twelve rewired models (breaker panel, duplex lift station panel, Lee plants, top discharge condensers, attic air handlers), no wire through a wire or a part",
+ "published": "2026-11-15T12:10:34",
+ "house": "r100a4s",
+ "note": "r100a4s: the sure vent under the kitchen sink, the smoke test tool and eight smells to find, the condensate tie into the house drain",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
    "bytes": 349616
   },
   "app_shell.html": {
-   "v": "cb03499922",
-   "bytes": 90052
+   "v": "d35b6befdb",
+   "bytes": 92724
   },
   "asset-shim.js": {
    "v": "d5ae3a2ead",
@@ -48,8 +48,8 @@
    "bytes": 480120
   },
   "drains.json": {
-   "v": "08f256d349",
-   "bytes": 10714
+   "v": "a4624e89bf",
+   "bytes": 11702
   },
   "dryer.glb": {
    "v": "0c266ce22a",
@@ -84,8 +84,8 @@
    "bytes": 1084960
   },
   "explode.json": {
-   "v": "0348c3343d",
-   "bytes": 40167
+   "v": "134bb2e9e7",
+   "bytes": 41446
   },
   "flo_shutoff.glb": {
    "v": "00042bce4d",
@@ -260,28 +260,28 @@
    "bytes": 1108340
   },
   "index.html": {
-   "v": "8c7e0d92dd",
-   "bytes": 41060
+   "v": "b47d39c6e4",
+   "bytes": 43629
   },
   "induct_purifier.glb": {
    "v": "1a2cebb5af",
    "bytes": 335628
   },
   "info.json": {
-   "v": "aa9dfbba45",
-   "bytes": 237592
+   "v": "6cd4b42dfc",
+   "bytes": 247276
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "d25bf6ba60",
-   "bytes": 126506
+   "v": "c012dca2d9",
+   "bytes": 128386
   },
   "kitchen_sink.glb": {
-   "v": "5cbcc760bd",
-   "bytes": 1669272
+   "v": "3312d45bd8",
+   "bytes": 1681760
   },
   "lift_station_duplex.glb": {
    "v": "84c3cf60aa",
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "4d39c833a8",
-   "bytes": 113398
+   "v": "4c2b555fb2",
+   "bytes": 118302
   },
   "pipes.json": {
    "v": "32158dbd5c",
@@ -336,8 +336,8 @@
    "bytes": 61108
   },
   "pipes_dwv__common.glb": {
-   "v": "b8077f1dbf",
-   "bytes": 1589148
+   "v": "feb2c4de89",
+   "bytes": 1183376
   },
   "pipes_dwv__sewer-city_gravity+city_lift+city_lift_duplex_and_commercial_lot-no.glb": {
    "v": "06c5564e6d",
@@ -564,8 +564,8 @@
    "bytes": 36388
   },
   "pipes_groups.json": {
-   "v": "3a0b58de29",
-   "bytes": 100422
+   "v": "d7335ba41b",
+   "bytes": 108474
   },
   "pipes_hvac__common.glb": {
    "v": "f2bb3860a1",
@@ -652,8 +652,8 @@
    "bytes": 17680
   },
   "pipes_hvac__hvac__a340dde3.glb": {
-   "v": "2a25fca7a4",
-   "bytes": 112672
+   "v": "860e3c88e8",
+   "bytes": 75100
   },
   "pipes_hvac__hvac__d128c58d.glb": {
    "v": "48209a5a87",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "d58cb95479",
-   "bytes": 212781
+   "v": "e7bc57c6c4",
+   "bytes": 217787
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -1464,8 +1464,8 @@
    "bytes": 27304
   },
   "slab_drains.json": {
-   "v": "a122999e4a",
-   "bytes": 11548
+   "v": "ad7e26eba4",
+   "bytes": 13086
   },
   "slab_house_floor1.glb": {
    "v": "b145ea0ba6",
@@ -1496,8 +1496,8 @@
    "bytes": 61704
   },
   "slab_pipes_dwv__common.glb": {
-   "v": "a0cd4ee72c",
-   "bytes": 1614028
+   "v": "ef796b6a71",
+   "bytes": 1355656
   },
   "slab_pipes_dwv__sewer-city_gravity+city_lift+city_lift_duplex_and_commercial_lot-no.glb": {
    "v": "554750e3d0",
@@ -1580,8 +1580,8 @@
    "bytes": 6616
   },
   "slab_pipes_dwv__sewer__20c39a35.glb": {
-   "v": "181e95b2a8",
-   "bytes": 215052
+   "v": "07f19d3e5a",
+   "bytes": 69120
   },
   "slab_pipes_dwv__sewer__2fe51efd.glb": {
    "v": "c076726926",
@@ -1612,8 +1612,8 @@
    "bytes": 139864
   },
   "slab_pipes_dwv__sewer__fafaa492.glb": {
-   "v": "99c4a07f90",
-   "bytes": 214988
+   "v": "651974f30d",
+   "bytes": 69064
   },
   "slab_pipes_dwv__softener-yes.glb": {
    "v": "b286b267dc",
@@ -2276,8 +2276,8 @@
    "bytes": 1108804
   },
   "walk.js": {
-   "v": "59562a6b63",
-   "bytes": 450221
+   "v": "d160d5c4d8",
+   "bytes": 556031
   },
   "washer.glb": {
    "v": "7e04f19827",
@@ -2506,6 +2506,186 @@
   "media_air_cleaner_ah.glb": {
    "v": "53519316c8",
    "bytes": 347116
+  },
+  "air_admittance_valve.glb": {
+   "v": "505485bffc",
+   "bytes": 142592
+  },
+  "pipes_dwv__fault-none+belly+vent_hole_wall+standpipe_no_trap+condensate_trap_dry.glb": {
+   "v": "d8bc1bd9b3",
+   "bytes": 20652
+  },
+  "pipes_dwv__fault-none+belly+vent_open_attic+standpipe_no_trap+condensate_trap_dry.glb": {
+   "v": "93e44f7ba1",
+   "bytes": 55136
+  },
+  "pipes_dwv__fault-none+belly+vent_open_attic+vent_hole_wall+condensate_trap_dry.glb": {
+   "v": "a263480331",
+   "bytes": 190800
+  },
+  "pipes_dwv__fault-standpipe_no_trap.glb": {
+   "v": "9ed0904dd9",
+   "bytes": 178608
+  },
+  "pipes_dwv__fault-vent_hole_wall.glb": {
+   "v": "06e971908d",
+   "bytes": 59984
+  },
+  "pipes_dwv__fault-vent_open_attic.glb": {
+   "v": "b65c7107a5",
+   "bytes": 31776
+  },
+  "pipes_dwv__hvac__8a89da3a.glb": {
+   "v": "f5b3c0291a",
+   "bytes": 41568
+  },
+  "pipes_dwv__hvac__925191dc.glb": {
+   "v": "06a9cee37f",
+   "bytes": 70228
+  },
+  "pipes_dwv__kitchen_vent-aav.glb": {
+   "v": "8c0cd34d05",
+   "bytes": 179808
+  },
+  "pipes_dwv__kitchen_vent-roof.glb": {
+   "v": "5057a7d302",
+   "bytes": 204420
+  },
+  "pipes_dwv__sewer__046b9596.glb": {
+   "v": "3fdcd8b1ce",
+   "bytes": 108028
+  },
+  "pipes_dwv__sewer__80200d54.glb": {
+   "v": "983bb1aec5",
+   "bytes": 145096
+  },
+  "pipes_hvac__dehumidifier__0972e0cf.glb": {
+   "v": "f8cd409e1a",
+   "bytes": 50216
+  },
+  "pipes_hvac__dehumidifier__a947c6e5.glb": {
+   "v": "0391f61776",
+   "bytes": 50196
+  },
+  "pipes_hvac__hvac__0f610403.glb": {
+   "v": "6b1e628ac4",
+   "bytes": 92024
+  },
+  "pipes_hvac__hvac__3083fbe4.glb": {
+   "v": "ada7b39773",
+   "bytes": 13724
+  },
+  "pipes_hvac__hvac__60366d37.glb": {
+   "v": "2d3adc5e8d",
+   "bytes": 113736
+  },
+  "pipes_hvac__hvac__6fa31697.glb": {
+   "v": "95803306a3",
+   "bytes": 114784
+  },
+  "pipes_hvac__hvac__925191dc.glb": {
+   "v": "52555f046d",
+   "bytes": 38228
+  },
+  "pipes_hvac__hvac__ca4531c3.glb": {
+   "v": "12e358079e",
+   "bytes": 38188
+  },
+  "pipes_hvac__hvac__ece2603e.glb": {
+   "v": "a7c84bb2e4",
+   "bytes": 93136
+  },
+  "slab_pipes_dwv__fault-none+belly+vent_hole_wall+standpipe_no_trap+condensate_trap_dry.glb": {
+   "v": "d8bc1bd9b3",
+   "bytes": 20652
+  },
+  "slab_pipes_dwv__fault-none+belly+vent_open_attic+standpipe_no_trap+condensate_trap_dry.glb": {
+   "v": "93e44f7ba1",
+   "bytes": 55136
+  },
+  "slab_pipes_dwv__fault-none+belly+vent_open_attic+vent_hole_wall+condensate_trap_dry.glb": {
+   "v": "5a9cd574eb",
+   "bytes": 188676
+  },
+  "slab_pipes_dwv__fault-standpipe_no_trap.glb": {
+   "v": "580dbc4229",
+   "bytes": 176384
+  },
+  "slab_pipes_dwv__fault-vent_hole_wall.glb": {
+   "v": "06e971908d",
+   "bytes": 59984
+  },
+  "slab_pipes_dwv__fault-vent_open_attic.glb": {
+   "v": "b65c7107a5",
+   "bytes": 31776
+  },
+  "slab_pipes_dwv__kitchen_vent-aav.glb": {
+   "v": "ddf8b8e233",
+   "bytes": 45152
+  },
+  "slab_pipes_dwv__kitchen_vent-roof.glb": {
+   "v": "ee9695159e",
+   "bytes": 72052
+  },
+  "slab_pipes_dwv__sewer__046b9596.glb": {
+   "v": "eae1ba8ba9",
+   "bytes": 123512
+  },
+  "slab_pipes_dwv__sewer__1cc0c8fd.glb": {
+   "v": "bf59ce8b92",
+   "bytes": 43800
+  },
+  "slab_pipes_dwv__sewer__2693b871.glb": {
+   "v": "df7aededaf",
+   "bytes": 28824
+  },
+  "slab_pipes_dwv__sewer__39d7f539.glb": {
+   "v": "96a37bd36c",
+   "bytes": 109096
+  },
+  "slab_pipes_dwv__sewer__80200d54.glb": {
+   "v": "3192e3cb32",
+   "bytes": 100424
+  },
+  "slab_pipes_dwv__sewer__8edd5e9a.glb": {
+   "v": "328bd05cd2",
+   "bytes": 28928
+  },
+  "slab_pipes_dwv__sewer__9442971a.glb": {
+   "v": "0df4899891",
+   "bytes": 43900
+  },
+  "slab_pipes_dwv__sewer__acadec57.glb": {
+   "v": "573d1b1573",
+   "bytes": 109200
+  },
+  "slab_pipes_dwv__sewer__ebde3d46.glb": {
+   "v": "4f926bb573",
+   "bytes": 105908
+  },
+  "slab_pipes_dwv__sewer__f63ea71a.glb": {
+   "v": "19041d78ee",
+   "bytes": 105856
+  },
+  "slab_pipes_hvac__hvac__3083fbe4.glb": {
+   "v": "ada7b39773",
+   "bytes": 13724
+  },
+  "smoke_test_kit.glb": {
+   "v": "a793aa016b",
+   "bytes": 593652
+  },
+  "test_plug.glb": {
+   "v": "d0e72195fb",
+   "bytes": 194540
+  },
+  "slab_smoke_test.json": {
+   "v": "edd34b6e83",
+   "bytes": 33646
+  },
+  "smoke_test.json": {
+   "v": "30fd3fd882",
+   "bytes": 35016
   }
  },
  "menu_art": {

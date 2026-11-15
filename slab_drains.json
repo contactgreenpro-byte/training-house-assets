@@ -320,7 +320,7 @@
 ]
 ],
 "r": 0.03,
-"config": "sewer=septic_gravity|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train|city_lift|city_lift_duplex"
+"config": "sewer=septic_gravity|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train|city_lift|city_lift_duplex&kitchen_vent=roof"
 },
 "pipe_dwv_kitchen__quarter": {
 "pts": [
@@ -356,7 +356,95 @@
 ]
 ],
 "r": 0.03,
-"config": "sewer=septic_spray|septic_overland_lee|septic_overland|septic_overland_aquaklear|city_gravity"
+"config": "sewer=septic_spray|septic_overland_lee|septic_overland|septic_overland_aquaklear|city_gravity&kitchen_vent=roof"
+},
+"pipe_dwv_kitchen_aav_stub": {
+"pts": [
+[
+-6.455,
+6.301,
+0.3734
+],
+[
+-6.6853,
+6.301,
+0.3682
+]
+],
+"r": 0.024,
+"config": "kitchen_vent=aav"
+},
+"pipe_dwv_kitchen_aav": {
+"pts": [
+[
+-6.6933,
+6.301,
+0.368
+],
+[
+-6.752,
+6.301,
+0.3667
+],
+[
+-6.752,
+6.301,
+-0.4112
+],
+[
+-4.7,
+6.301,
+-0.4539
+],
+[
+-4.7,
+7.37,
+-0.4761
+],
+[
+-4.95,
+7.62,
+-0.4835
+]
+],
+"r": 0.03,
+"config": "sewer=septic_gravity|septic_spray_two_tank|septic_spray_trash|septic_spray_fiberglass_train|septic_overland_fiberglass_train|city_lift|city_lift_duplex&kitchen_vent=aav"
+},
+"pipe_dwv_kitchen_aav_quarter": {
+"pts": [
+[
+-6.6933,
+6.301,
+0.368
+],
+[
+-6.752,
+6.301,
+0.3667
+],
+[
+-6.752,
+6.301,
+-0.4576
+],
+[
+-4.7,
+6.301,
+-0.5003
+],
+[
+-4.7,
+7.37,
+-0.5225
+],
+[
+-4.95,
+7.62,
+-0.5298
+]
+],
+"r": 0.03,
+"config": "sewer=septic_spray|septic_overland_lee|septic_overland|septic_overland_aquaklear|city_gravity&kitchen_vent=aav"
 },
 "pipe_dwv_laundry_standpipe": {
 "pts": [
@@ -372,7 +460,7 @@
 ]
 ],
 "r": 0.03,
-"config": null
+"config": "fault=none|belly|vent_open_attic|vent_hole_wall|condensate_trap_dry"
 },
 "pipe_dwv_laundry": {
 "pts": [
@@ -408,7 +496,53 @@
 ]
 ],
 "r": 0.03,
-"config": null
+"config": "fault=none|belly|vent_open_attic|vent_hole_wall|condensate_trap_dry"
+},
+"pipe_dwv_laundry_notrap": {
+"pts": [
+[
+0.762,
+6.7004,
+1.0965
+],
+[
+0.762,
+6.7004,
+0.6191
+],
+[
+0.9011,
+6.7004,
+0.48
+],
+[
+1.06,
+6.7004,
+0.478
+],
+[
+1.06,
+6.7004,
+-0.3622
+],
+[
+1.06,
+8.5,
+-0.3996
+],
+[
+-0.08,
+8.5,
+-0.4233
+],
+[
+-0.3,
+8.28,
+-0.4298
+]
+],
+"r": 0.03,
+"config": "fault=standpipe_no_trap"
 },
 "pipe_dwv_floor_drain_furnace": {
 "pts": [
@@ -1115,7 +1249,7 @@
 ]
 ],
 "r": 0.057,
-"config": "sewer=city_gravity&fault=none"
+"config": "sewer=city_gravity&fault=none|vent_open_attic|vent_hole_wall|standpipe_no_trap|condensate_trap_dry"
 },
 "pipe_dwv_sewer_city_belly": {
 "pts": [

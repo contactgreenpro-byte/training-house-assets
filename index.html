@@ -57,7 +57,7 @@ html, body { margin: 0; height: 100%; background: #1c1f22; color: var(--text); f
 button { font-family: var(--font); }
 #view { position: absolute; inset: 0; }
 /* one icon helper: any of these with --ic set gets an 18 px icon */
-.hp-ic::before, #info .iverbs .itab::before, #info .iacts button::after, #info .iclose::before, #toolbox::before, #meterkeys button::before,
+.hp-ic::before, #info .iverbs .itab::before, #info .iacts button::after, #info .iclose::before, #toolbox::before, #meterkeys button::before, #smokekeys button::before,
 #hud summary::before, #hud .tabs button::before, #label::before, #about_close::before {
   content: ''; display: inline-block; flex: none; width: 18px; height: 18px; background: currentColor;
   -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat;
@@ -186,15 +186,20 @@ body.metering #label { left: calc(50% - 110px); }
 /* Round 60 (Jake: "We need the toolbox. We don't have the toolbox anymore. Somehow we lost that. I really like that."). It was the
    Tools tab of the Training House panel, and it went out of sight when that panel started minimized, opening on the keyboard help.
    This button is always there, bottom right, and opens the panel straight on the tools. */
-#toolbox, #meterkeys button { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 13px; border: 1px solid var(--line); border-radius: 999px;
+#toolbox, #meterkeys button, #smokekeys button { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 13px; border: 1px solid var(--line); border-radius: 999px;
   background: var(--glass); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: var(--text); font: 600 13px/1 var(--font); box-shadow: var(--shadow); cursor: pointer; }
 #toolbox { position: absolute; right: 16px; bottom: 16px; z-index: 9; }
 #toolbox::before { --ic: var(--i-wrench); color: var(--hp-amber); }
-#toolbox:hover, #meterkeys button:hover { background: var(--glass-strong); border-color: var(--line-hi); }
+#toolbox:hover, #meterkeys button:hover, #smokekeys button:hover { background: var(--glass-strong); border-color: var(--line-hi); }
 /* Round 60: the meter's thumb buttons, stacked up the right edge above Toolbox: in a row along the bottom they lay across the meter
    in your hand */
 #meterkeys { position: absolute; right: 16px; bottom: 70px; display: none; flex-direction: column; align-items: flex-end; gap: 8px; z-index: 6; }
 #meterkeys button:nth-child(1)::before { --ic: var(--i-zoom); } #meterkeys button:nth-child(2)::before { --ic: var(--i-dial); } #meterkeys button:nth-child(3)::before { --ic: var(--i-down); }
+/* Round 109: the smoke test's three thumb buttons, in the meter's corner and drawn the same way (walk.js smokeKeys): what next (or a
+   hint once the fog is on), back to the kit, put it away. They step aside while a meter is in your hand. */
+#smokekeys { position: absolute; right: 16px; bottom: 70px; display: none; flex-direction: column; align-items: flex-end; gap: 8px; z-index: 6; }
+#smokekeys [data-k="next"]::before { --ic: var(--i-help); } #smokekeys [data-k="hint"]::before { --ic: var(--i-eye); }
+#smokekeys [data-k="kit"]::before { --ic: var(--i-elev); } #smokekeys [data-k="away"]::before { --ic: var(--i-down); }
 /* Round 60 (Jake: "it should literally open its own toolbox over there to the side, and it should look like tools. Multimeter, the
    pliers, actual tools"). A drawer down the right edge; each tool is a PICTURE of the real model (walk.js renders them once from
    the same GLBs you pick up) with its name under it. The one in your hand is lit. */
@@ -205,6 +210,8 @@ body.metering #label { left: calc(50% - 110px); }
 #toolboxmenu button { display: flex; flex-direction: column; align-items: center; gap: 3px; background: var(--fill); border: 1px solid transparent; border-radius: 12px; padding: 8px 6px 9px;
   color: var(--text); font: 600 12px/1.2 var(--font); cursor: pointer; }
 #toolboxmenu button img { width: 84px; height: 64px; object-fit: contain; pointer-events: none; }
+/* round 109: until a tool's picture has been drawn its img has no src, and the browser drew an empty outlined box in its place */
+#toolboxmenu button img:not([src]) { visibility: hidden; }
 #toolboxmenu button:hover { background: var(--fill-hi); }
 #toolboxmenu button.on { border-color: var(--hp-amber); box-shadow: none; background: var(--hp-amber-soft); }
 /* round 47: the meter in your hand. Round 48 (Jake: "I want you to only read it on the meter"): walk.js keeps this box hidden and the
@@ -276,13 +283,25 @@ body.metering #label { left: calc(50% - 110px); }
   #label { bottom: 10px; max-width: min(520px, calc(100vw - 92px - 150px)); padding: 8px 14px 8px 38px; font-size: 13px; line-height: 1.4; }
   #label::before { left: 12px; top: 9px; width: 16px; height: 16px; }
   #toolbox { right: 12px; bottom: 12px; height: 44px; padding: 0 14px 0 12px; }
-  #meterkeys { right: 12px; bottom: 64px; gap: 6px; }
-  #meterkeys button { height: 38px; font-size: 12.5px; }
+  #meterkeys, #smokekeys { right: 12px; bottom: 64px; gap: 6px; }
+  #meterkeys button, #smokekeys button { height: 38px; font-size: 12.5px; }
   #toolboxmenu { padding-bottom: 68px; }
   #toolboxmenu button img { height: 52px; }
+  /* round 109: with the smoke test set out its captions are the lesson, so the name tag takes the whole strip between the rail and
+     the corner's buttons instead of sitting centred under them */
+  body.smoking #label { left: 100px; right: 176px; transform: none; max-width: none; }
+}
+/* Round 109: four tools. On a short screen the drawer is two by two, so the fourth is never off the bottom of a phone held sideways. */
+@media (max-height: 560px) {
+  #toolboxmenu { width: 236px; }
+  #toolboxmenu.open { display: grid; grid-template-columns: 1fr 1fr; align-content: center; }
+  #toolboxmenu .tbhead { grid-column: 1 / -1; }
 }
 @media (max-width: 720px) and (min-height: 481px) {
-  #info { left: 8px; right: 8px; top: 8px; width: auto; }
+  /* round 109: upright, the card starts under the name plate (it started at the top and the plate lay over its title: a smell's card read "Training House") */
+  #info { left: 8px; right: 8px; top: 84px; width: auto; max-height: calc(100vh - 96px); }
+  /* round 109: upright and narrow, the name tag was 95 px wide (100vw less 280). It takes the bottom left now, beside the corner's buttons. */
+  #label { left: 12px; right: 176px; transform: none; max-width: none; }
 }
 #hud .keys > .hp-mouse, #hud .keys > .hp-touch { margin: 0; padding: 0; border: 0; }
 #hud .keys > div > div:first-child { border-top: 0; }
@@ -307,7 +326,8 @@ body.metering #label { left: calc(50% - 110px); }
       <div><b>Tap a unit</b> across the room and you are taken in front of it. Tap it again to work its parts.</div>
       <div><b>Tap a part</b>: it opens, comes off, cuts open or works. The card along the top lists everything else it can do.</div>
       <div>The <b>?</b> over a unit you have worked with: what it is, how it works, what we check.</div>
-      <div><b>Toolbox</b>, bottom right: the multimeter, the clamp meter and the pliers.</div>
+      <div><b>Toolbox</b>, bottom right: the multimeter, the clamp meter, the pliers and the smoke test.</div>
+      <div><b>Smoke test</b>: it sets the kit out at the yard cleanout. Tap the cleanout plug, the test plug, the blower, then the fog machine. Fog at the roof vents is normal. Fog inside the house is the leak.</div>
       <div><b>The crawl</b>: take the door off at the back of the house, or lift the hatch in the master closet floor, then slide down to crawl. <b>The attic</b>: pull the ladder down in the garage and tap it.</div>
     </div>
     <div class="hp-mouse">
@@ -322,6 +342,7 @@ body.metering #label { left: calc(50% - 110px); }
       <div><b>Click a part</b>: it opens, comes off, cuts open or works. The panel on the right lists everything else it can do: run it, take it out, cut it, elevation.</div>
       <div><b>E</b>: elevation of what you are looking at. <b>E</b> or <b>Esc</b>: back.</div>
       <div><b>Multimeter</b>: click where the red lead goes, then where the black one goes, and it reads what is between them. <b>Clamp meter</b>: click a conductor. Clamp the whole cable and it reads zero, the way it really does.</div>
+      <div><b>Smoke test</b> (Toolbox): it sets the kit out at the yard cleanout and takes you there. Click the cleanout plug, the test plug, the blower, then the fog machine. Fog at the roof vents is normal. Fog inside the house is the leak: click it.</div>
       <div><b>Fly</b> on: <b>Space</b> up, <b>C</b> down.</div>
       <div>The attic: pull the ladder down in the garage and click it. The crawl: click the door in the foundation at the back of the house, it comes off, crouch to get in, then C again to crawl under the joists. Or lift the hatch lid in the master closet floor.</div>
     </div>
@@ -356,13 +377,13 @@ body.metering #label { left: calc(50% - 110px); }
 </div>
 <div id="label"></div>
 <div id="info"></div>
-<div id="toolboxmenu"><div class="tbhead">TOOLBOX</div><button id="meterbtn" data-model="multimeter.glb"><img alt=""><span>Multimeter</span></button><button id="clampbtn" data-model="clamp_meter.glb"><img alt=""><span>Clamp meter</span></button><button id="grabbtn" data-model="needle_nose.glb"><img alt=""><span>Pliers</span></button></div>
+<div id="toolboxmenu"><div class="tbhead">TOOLBOX</div><button id="meterbtn" data-model="multimeter.glb"><img alt=""><span>Multimeter</span></button><button id="clampbtn" data-model="clamp_meter.glb"><img alt=""><span>Clamp meter</span></button><button id="grabbtn" data-model="needle_nose.glb"><img alt=""><span>Pliers</span></button><button id="smokebtn" data-model="smoke_test_kit.glb"><img alt=""><span>Smoke test</span></button></div>
 <button id="toolbox">Toolbox</button>
 <div id="load"></div>
 <script src="three.min.js"></script>
 <script src="GLTFLoader.js"></script>
 <script src="meshopt_decoder.js"></script>
 <div id="flash"></div>
-<script src="walk.js?r100a4r"></script>
+<script src="walk.js?r100a4s"></script>
 </body>
 </html>

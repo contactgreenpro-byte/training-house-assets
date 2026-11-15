@@ -3918,6 +3918,182 @@
     "media_air_dusty_up": "Spread over five times the media, the air creeps through the pleats",
     "media_air_clean_up": "Filtered air out into the coil and blower"
    }
+  },
+  "smoke_test_kit": {
+   "name": "Smoke test kit",
+   "text": "A fog machine and a blower. The fog machine makes a thick white fog and shoots it down into the open top of the blower. The blower stands on the cleanout and pushes that fog through every drain and vent in the house. Where fog shows up inside, that is the leak.",
+   "labels": {
+    "blower_housing": "Blower. It pushes the fog into the pipes",
+    "blower_handle": "Blower handle",
+    "blower_motor": "Blower motor",
+    "blower_wheel": "Blower wheel",
+    "blower_foot": "Blower mounting foot",
+    "blower_cord": "Blower power cord",
+    "blower_reducer": "Rubber reducer. It seats the blower on the riser",
+    "fog_machine_body": "Fog machine",
+    "fog_machine_base": "Fog machine base",
+    "fog_machine_bracket": "Fog machine carry bracket",
+    "fog_machine_cord": "Fog machine power cord",
+    "fog_nozzle": "Fog nozzle, aimed down into the blower",
+    "fog_fluid_tank": "Fog fluid tank",
+    "fog_fluid": "Fog fluid",
+    "fog_fluid_cap": "Fluid cap",
+    "fog_fluid_dregs": "The last of the fluid",
+    "fog_heater_block": "Heater block",
+    "fog_pump": "Fluid pump",
+    "fog_tubing": "Fluid tubing",
+    "fog_control_board": "Fog machine control board",
+    "fog_remote": "Fog machine remote",
+    "fog_remote_lamp": "Ready lamp on the remote",
+    "fog_bucket": "Bucket the fog machine sits on"
+   },
+   "clips": {
+    "blower_run": "Blower running",
+    "fog_on": "Fog on",
+    "cap_off": "Fluid cap",
+    "fluid_empty": "Out of fog fluid",
+    "explode": "Taken apart"
+   },
+   "hotspots": {
+    "blower_housing": [
+     "Tap the blower to set it on the riser and start it. Tap it again to stop it and lift it off."
+    ],
+    "blower_reducer": [
+     "The reducer has to sit square on the riser, or the fog comes out round it and not down the pipe."
+    ],
+    "fog_machine_body": [
+     "Tap the fog machine to start the fog. It only makes the fog. The blower is what pushes it through the pipes."
+    ],
+    "fog_fluid_cap": [
+     "Water based fog fluid only. Check the level before you start: a dry machine makes no fog."
+    ]
+   }
+  },
+  "test_plug": {
+   "name": "Test plug",
+   "text": "A 4 inch inflatable test plug. It goes down the cleanout into the line and is blown up tight, so the fog cannot run off down the line to the tank or the street. The hose is how you blow it up. The chain is how you get it back.",
+   "labels": {
+    "test_plug_body": "Test plug",
+    "test_plug_eye": "Eye bolt for the chain",
+    "test_plug_valve": "Air fitting",
+    "test_plug_hose": "Inflation hose",
+    "test_plug_hose_valve": "Air valve on the end of the hose",
+    "test_plug_chain": "Retrieval chain",
+    "test_plug_ring": "Ring on the end of the chain"
+   },
+   "clips": {
+    "plug_inflate": "Blown up tight",
+    "plug_out": "Pulled out",
+    "plug_leaking": "Not blown up tight",
+    "explode": "Taken apart"
+   },
+   "hotspots": {
+    "test_plug_body": [
+     "Tap the plug to send it down the riser and blow it up. Tap it again to let the air out and pull it back."
+    ]
+   }
+  },
+  "air_admittance_valve": {
+   "name": "Sure vent",
+   "text": "A sure vent (an air admittance valve). It stands on a riser under the sink where a vent pipe could not be run to the roof. When water goes down the drain it lifts to let air in, so the trap is not sucked dry. Then it drops shut and holds the sewer gas in.",
+   "labels": {
+    "aav_body": "Sure vent body",
+    "aav_cap": "Cap",
+    "aav_adapter": "Threaded adapter on the riser",
+    "aav_membrane": "Membrane. It lifts to let air in",
+    "aav_membrane_stuck": "Membrane stuck open",
+    "aav_guide": "Guide ring the membrane rides on",
+    "aav_seat": "Seat the membrane seals on",
+    "aav_inlet_screen": "Screens over the air openings",
+    "aav_thread_tape": "Thread tape",
+    "aav_grit": "Grit holding the membrane off its seat",
+    "aav_sleeve": "Shipping sleeve, left on",
+    "aav_air_packets": "Air coming in",
+    "aav_gas_packets": "Sewer gas getting out"
+   },
+   "clips": {
+    "air_in": "Air in while the sink drains",
+    "valve_off": "Unscrew the valve",
+    "stuck_open": "Stuck open",
+    "gas_out": "Sewer gas getting out",
+    "sleeve_blocking": "Shipping sleeve left on",
+    "explode": "Taken apart"
+   },
+   "hotspots": {
+    "aav_body": [
+     "Run the kitchen faucet and watch it: the membrane lifts, air goes in, and it drops shut when the water stops."
+    ],
+    "aav_membrane_stuck": [
+     "Stuck open. It never seals, so sewer gas comes out right here under the sink. Unscrew it and put a new one on."
+    ]
+   }
+  }
+ },
+ "smells": {
+  "_about": "Round 109: the card a smell shows when the smoke test finds it (walk.js smellCard). name, what (what it is), why (why it smells), where (where we find it), fix (the repair), hint (said by the Hint button; it must not name the smell). The what and why lines follow Jake's video 'Something Smells in My House'; the fix lines are the page owner's wording for Jake to rule on.",
+  "dry_trap": {
+   "name": "Dry trap",
+   "what": "The P-trap under this tub has dried out. A P-trap is the little dip in the drain that holds water.",
+   "why": "That water is what stops sewer gas. Nobody uses the drain, the water evaporates, and the gas comes straight up.",
+   "where": "A tub, shower or floor drain that hardly gets used.",
+   "fix": "Run water to fill the trap again. If the drain never gets used, pour water in it every month.",
+   "hint": "Look in the bathroom that hardly gets used. Check every drain."
+  },
+  "condensate_trap_dry": {
+   "name": "Dry condensate trap",
+   "what": "The air handler's condensate line is tied into the house drain, and the trap on that line has dried out.",
+   "why": "All summer the coil drips water through that trap and keeps it wet. Switch over to heat, the water stops, and the trap dries out. The coil sits ahead of the blower, so sewer gas gets pulled into the unit and blown through the house.",
+   "where": "At the air handler or the furnace, when the smell only shows up with the heat on.",
+   "fix": "Fill the trap with water. To keep it from coming back, take the condensate off the sewer: run it outside, or to a drain through an air gap.",
+   "hint": "Go up to the air handler and follow its drain line."
+  },
+  "vent_open_attic": {
+   "name": "Open vent pipe",
+   "what": "A vent pipe that never got carried through the roof, or got cut and left open in the attic.",
+   "why": "Every vent pipe is supposed to end outside, above the roof. This one ends in the attic, so sewer gas pours out up there.",
+   "where": "In the attic, over a bathroom, the kitchen or the laundry.",
+   "fix": "Carry the pipe on up through the roof, with a boot and flashing where it goes through.",
+   "hint": "It may be over your head. Go up in the attic."
+  },
+  "vent_hole_wall": {
+   "name": "Hole in the pipe",
+   "what": "A hole in a drain or vent pipe inside the wall. One drill bit or one nail is all it takes, and you cannot see it.",
+   "why": "Sewer gas gets out of that hole, into the wall, and on into the room.",
+   "where": "Behind mounted mirrors and medicine cabinets, and where vents run up the wall behind a sink or a toilet.",
+   "fix": "Open the wall, cut out the bad piece and couple in new pipe. Then close the wall back up.",
+   "hint": "Look where something got hung on a wall with a pipe behind it."
+  },
+  "wax_ring": {
+   "name": "Failed wax ring",
+   "what": "Every toilet sits on a wax ring. That ring seals the toilet to the drain.",
+   "why": "When the ring fails, sewer gas gets out right at the base of the toilet, even if you never see a drop of water.",
+   "where": "At the base of a toilet that rocks, or has a stain on the floor round it.",
+   "fix": "Pull the toilet, check the flange, set a new wax ring and bolt the toilet down solid. A wax ring never reseals.",
+   "hint": "Check the toilets. Look low, at the floor."
+  },
+  "slip_joint": {
+   "name": "Leaking slip joint",
+   "what": "Under the sink the drain is held together with slip joints, with a washer in each one. This one is on the wall side of the trap.",
+   "why": "On the wall side the trap's water is not between you and the sewer, so gas gets past the washer and out into the cabinet.",
+   "where": "Inside the cabinet under a sink, where the trap arm goes into the wall.",
+   "fix": "Take the joint apart, put in a new washer with its taper toward the fitting, and snug the nut hand tight and a quarter.",
+   "hint": "Open the cabinets under the sinks."
+  },
+  "aav_stuck": {
+   "name": "Bad sure vent",
+   "what": "A sure vent (an air admittance valve) lets air into the drain when water runs. Then it is supposed to seal shut.",
+   "why": "This one is stuck open. It no longer seals, so sewer gas gets out right where it sits.",
+   "where": "Under a sink or in a wall, wherever a vent could not be run to the roof.",
+   "fix": "Unscrew the old valve and screw on a new one. It stands straight up, above the trap arm, where air can get to it.",
+   "hint": "Look under the kitchen sink."
+  },
+  "standpipe_no_trap": {
+   "name": "No P-trap",
+   "what": "The washing machine's standpipe runs straight down into the drain, with no P-trap under it.",
+   "why": "With no water seal, that open pipe behind the washer goes straight to the sewer, and the gas comes right up.",
+   "where": "In the laundry, behind the washer.",
+   "fix": "Cut a P-trap in below the standpipe so it holds water, and make sure it is vented.",
+   "hint": "Look behind the washer."
   }
  }
 }

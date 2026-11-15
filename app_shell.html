@@ -386,7 +386,7 @@
   // Which build is this phone running? Jake saw the stick on the right a day after the left hand version was published: a
   // tab left open keeps the old page, and nothing on screen said so. SHELL is bumped by hand with every change to this file;
   // the house version is read off the uploaded index.html's own walk.js tag.
-  var SHELL = '100a4h';
+  var SHELL = '109a';
   function showVersion(html) {
     var m = /<script src="walk\.js\?(r\w+)"/.exec(html || '');     // the tag itself: the page's comments mention walk.js?rNN too
     $('ver').textContent = 'app ' + SHELL + ' · house ' + (m ? m[1] : 'unknown') + ' · ' + (window.__HOUSE_SOURCE || 'files from the Assets page');
@@ -570,7 +570,9 @@
     softener: 'Water softener', filter: 'Spray pump filter', thermostat: 'Thermostat', plumbing: 'Supply pipe',
     sump: 'Sump pump in the crawl', shutoff_extra: 'Second shutoff valve',
     commercial_lot: 'Commercial lot across the street (grease interceptor)',
-    gas: 'Gas', fault: 'Fault to find', foundation: 'Foundation',
+    gas: 'Gas', fault: 'Fault or smell to find', foundation: 'Foundation',
+    // round 109 (Jake 2026-11-12, the smoke test): where the kitchen sink's vent goes, and where the air handler's condensate goes
+    kitchen_vent: 'Kitchen vent', condensate_tie: 'Condensate drain',
   };
   var VAL_LABEL = {
     attic_gas_tank: 'Gas tank in the attic', closet_gas_tank: 'Gas tank in a closet',
@@ -594,17 +596,26 @@
     none: 'None', belly: 'Belly in the sewer line',
     wall: 'In the laundry wall', attic: 'On the attic cold run',
     crawl: 'Crawl space', slab: 'Slab on grade', copper: 'Copper (type L soft)', attic_repipe: 'PEX repipe through the attic', pex_branch: 'PEX trunk and branch under the slab',
+    // round 109. A plain word like roof or drain could be a value of some other key one day, so these four carry their key
+    // (nice() reads "key=value" first). The smells the smoke test finds share the fault key with the belly, one staged at a time.
+    'kitchen_vent=roof': 'Through the roof', 'kitchen_vent=aav': 'Sure vent under the sink',
+    'condensate_tie=outside': 'Runs outside', 'condensate_tie=drain': 'Tied into the house drain',
+    vent_open_attic: 'Smell: open vent in the attic', vent_hole_wall: 'Smell: hole in a vent in the wall',
+    standpipe_no_trap: 'Smell: washer standpipe with no trap', condensate_trap_dry: 'Smell: dry condensate trap at the air handler',
+    wax_ring: 'Smell: failed wax ring at a toilet', slip_joint: 'Smell: leaking slip joint under a sink',
+    dry_trap: 'Smell: dry trap in a tub nobody uses', aav_stuck: 'Smell: bad sure vent under the kitchen sink',
+    surprise: 'Smell: surprise me',
   };
-  function nice(v) { return VAL_LABEL[v] || String(v).replace(/_/g, ' '); }
+  function nice(v, k) { return (k && VAL_LABEL[k + '=' + v]) || VAL_LABEL[v] || String(v).replace(/_/g, ' '); }
 
   // The details, folded away by subject (Jake: "a bunch of questions most people wouldn't care about until they get
   // there... only have like an HVAC section, as if they open HVAC"). Anything the walk page offers that is not listed
   // here lands in Other, so a layout added in a future round still shows up.
   var GROUPS = [
     { name: 'The house', keys: ['foundation'] },     // 2026-09-25: crawl space or slab on grade, two houses
-    { name: 'Heating and cooling', keys: ['hvac', 'thermostat'] },
+    { name: 'Heating and cooling', keys: ['hvac', 'thermostat', 'condensate_tie'] },
     { name: 'Water heater', keys: ['water_heater'] },
-    { name: 'Water and sewer', keys: ['sewer', 'water', 'softener', 'filter', 'shutoff_extra', 'sump', 'commercial_lot'] },
+    { name: 'Water and sewer', keys: ['sewer', 'kitchen_vent', 'water', 'softener', 'filter', 'shutoff_extra', 'sump', 'commercial_lot'] },
     { name: 'Piping and gas', keys: ['plumbing', 'gas'] },
     { name: 'Training', keys: ['fault'] },
   ];
@@ -629,7 +640,18 @@
   function valid(k, v) { var W = window.walk; return !!(W.CONFIG_CHOICES[k] && W.CONFIG_CHOICES[k].indexOf(v) >= 0); }
   // 2026-09-25, the slab house: some values belong to one house only (walk.js fits); the lists show what the picked house offers, and a
   // change of house takes anything that does not fit there back to that house's default
-  function fitsHouse(k, v) { var W = window.walk; return !W.fits || W.fits(k, v, picked.foundation || W.CONFIG.foundation); }
+  // (round 109: the picks go with it, because one choice hangs on another: the condensate tie in is only there with an attic air handler)
+  function fitsHouse(k, v) { var W = window.walk; return !W.fits || W.fits(k, v, picked.foundation || W.CONFIG.foundation, picked); }
+  // Round 109. A smell picked by name takes the layout where it can happen, here on the screen where it can be seen: the bad sure
+  // vent switches the kitchen vent to a sure vent, the dry condensate trap switches the condensate to the house drain and the heating
+  // and cooling to an air handler that has that line (walk.js smell.needs says what each one needs). And the other way: change one
+  // of those back and the smell that needed it is no longer staged. walk.js does the same for a link or a saved layout (smellGuard).
+  function smellFit(changed) {
+    var W = window.walk; if (!W.smell || !W.smell.needs || !picked.fault) return;
+    var need = W.smell.needs(picked.fault) || {}, k;
+    if (changed === 'fault') { for (k in need) if (k !== 'foundation' && need[k].indexOf(picked[k]) < 0 && valid(k, need[k][0])) picked[k] = need[k][0]; }
+    else for (k in need) if (need[k].indexOf(picked[k]) < 0) { picked.fault = 'none'; break; }
+  }
   function refitHouse() {
     var W = window.walk; if (!W.fits) return;
     // a value this house does not offer goes to the first it does (the walk page lists each house's own default first: PEX, the closet tank, no)
@@ -676,10 +698,11 @@
         var sel = document.createElement('select');
         sel.dataset.key = k;
         W.CONFIG_CHOICES[k].forEach(function (v) {
-          var o = document.createElement('option'); o.value = v; o.textContent = nice(v); sel.appendChild(o);
+          var o = document.createElement('option'); o.value = v; o.textContent = nice(v, k); sel.appendChild(o);
         });
         sel.value = picked[k];
-        sel.onchange = function () { picked[k] = sel.value; if (k === 'foundation') refitHouse(); markPreset(matchPreset()); summarize(); };
+        // (round 109: every change refits, not only the house's: a smell may move other picks, and a pick may take a choice away)
+        sel.onchange = function () { picked[k] = sel.value; smellFit(k); refitHouse(); markPreset(matchPreset()); summarize(); };
         lab.appendChild(sel);
         grid.appendChild(lab);
       });
@@ -712,7 +735,9 @@
         var v = picked[k], lab = (KEY_LABEL[k] || k.replace(/_/g, ' ')).toLowerCase();
         if (v === 'yes') return lab;
         if (v === 'no' || v === 'none') return 'no ' + lab;     // round 88: 'no second shutoff valve', not a bare None
-        return nice(v);
+        // round 109: "kitchen vent through the roof", "condensate drain runs outside": these two say what they are about
+        if (k === 'kitchen_vent' || k === 'condensate_tie') return lab + ' ' + nice(v, k).toLowerCase();
+        return nice(v, k);
       }).join(', ');
       d.querySelector('summary em').textContent = t;
     });

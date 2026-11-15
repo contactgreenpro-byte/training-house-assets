@@ -309,7 +309,59 @@
 ]
 ],
 "r": 0.03,
-"config": null
+"config": "kitchen_vent=roof"
+},
+"pipe_dwv_kitchen_aav_stub": {
+"pts": [
+[
+-6.455,
+6.301,
+0.3734
+],
+[
+-6.6853,
+6.301,
+0.3682
+]
+],
+"r": 0.024,
+"config": "kitchen_vent=aav"
+},
+"pipe_dwv_kitchen_aav": {
+"pts": [
+[
+-6.6933,
+6.301,
+0.368
+],
+[
+-6.752,
+6.301,
+0.3667
+],
+[
+-6.752,
+6.301,
+-0.7443
+],
+[
+-4.7,
+6.301,
+-0.787
+],
+[
+-4.7,
+7.37,
+-0.8092
+],
+[
+-4.95,
+7.62,
+-0.8166
+]
+],
+"r": 0.03,
+"config": "kitchen_vent=aav"
 },
 "pipe_dwv_laundry_standpipe": {
 "pts": [
@@ -325,7 +377,7 @@
 ]
 ],
 "r": 0.03,
-"config": null
+"config": "fault=none|belly|vent_open_attic|vent_hole_wall|condensate_trap_dry"
 },
 "pipe_dwv_laundry": {
 "pts": [
@@ -361,7 +413,53 @@
 ]
 ],
 "r": 0.03,
-"config": null
+"config": "fault=none|belly|vent_open_attic|vent_hole_wall|condensate_trap_dry"
+},
+"pipe_dwv_laundry_notrap": {
+"pts": [
+[
+0.762,
+6.7004,
+1.0965
+],
+[
+0.762,
+6.7004,
+0.6349
+],
+[
+0.9171,
+6.7004,
+0.4798
+],
+[
+1.06,
+6.7004,
+0.478
+],
+[
+1.06,
+6.7004,
+-0.6704
+],
+[
+1.06,
+8.5,
+-0.7078
+],
+[
+-0.08,
+8.5,
+-0.7315
+],
+[
+-0.3,
+8.28,
+-0.738
+]
+],
+"r": 0.03,
+"config": "fault=standpipe_no_trap"
 },
 "pipe_dwv_pan_drain_wh_closet": {
 "pts": [
@@ -1102,7 +1200,7 @@
 ]
 ],
 "r": 0.057,
-"config": "sewer=city_gravity&fault=none"
+"config": "sewer=city_gravity&fault=none|vent_open_attic|vent_hole_wall|standpipe_no_trap|condensate_trap_dry"
 },
 "pipe_dwv_sewer_city_belly": {
 "pts": [
