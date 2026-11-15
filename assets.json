@@ -1,7 +1,7 @@
 {
- "published": "2026-11-03T01:22:55",
- "house": "r100a4q",
- "note": "r100a4q: the scale inhibitor on every water heater (Jake 2026-11-03, FieldWise topic 14). An in-line cartridge, no brand: head with a flow arrow and a blank date label, clear bowl of white polyphosphate crystals, unions both sides, on the cold line after the shutoff with room under the bowl (scale_inhibitor_rig: scale_inhibitor, scale_inhibitor_crystals, scale_inhibitor_section, cartridge_spent, dose_flow). Attic tanks in-line on the house cold run (past the C port tee with the mixing valve); closet and slab garage tanks, the hybrid and both tanklesses on their own scale_inhibitor_loop (hybrid: cold_supply_line_si). Add on scale_inhibitor on every heater placement, new on both gas tanklesses and the hybrid. Clips cartridge_spent, dose_flow, element_scaled (electric tank), tank_scale_bottom (gas tank), hx_scale (gas tanklesses, primary_heat_exchanger_section). Every other mesh as published",
+ "published": "2026-11-15T11:12:48",
+ "house": "r100a4r",
+ "note": "r100a4r: twelve rewired models (breaker panel, duplex lift station panel, Lee plants, top discharge condensers, attic air handlers), no wire through a wire or a part",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -68,8 +68,8 @@
    "bytes": 355692
   },
   "electric_panel.glb": {
-   "v": "a590da5a6a",
-   "bytes": 683672
+   "v": "bc110f6b4c",
+   "bytes": 909808
   },
   "electric_tank_water_heater.glb": {
    "v": "0a3b2c5586",
@@ -168,12 +168,12 @@
    "bytes": 3176796
   },
   "hvac_air_handler_rheem_rh2ty36_house.glb": {
-   "v": "ee4dbd8a6a",
-   "bytes": 2395192
+   "v": "a000f4d50f",
+   "bytes": 2444404
   },
   "hvac_air_handler_rheem_rh2vy36_house.glb": {
-   "v": "a51317e803",
-   "bytes": 2453484
+   "v": "ff05260840",
+   "bytes": 2506232
   },
   "hvac_air_handler_upflow.glb": {
    "v": "10e8e1edba",
@@ -188,20 +188,20 @@
    "bytes": 5079704
   },
   "hvac_condenser_rheem_ra14ay36_house.glb": {
-   "v": "5275283771",
-   "bytes": 2396348
+   "v": "429ccf7653",
+   "bytes": 2465096
   },
   "hvac_condenser_rheem_ra15ay36_house.glb": {
-   "v": "8e1e5ed506",
-   "bytes": 2481548
+   "v": "3589030984",
+   "bytes": 2552176
   },
   "hvac_condenser_rheem_rp14ay36_house.glb": {
-   "v": "585773b96b",
-   "bytes": 3200844
+   "v": "fa088b66f8",
+   "bytes": 3320488
   },
   "hvac_condenser_rheem_rp15ay36_house.glb": {
-   "v": "77bdbd3c1b",
-   "bytes": 3286552
+   "v": "6698618d0a",
+   "bytes": 3405992
   },
   "hvac_condenser_side_discharge_rd16ay36_house.glb": {
    "v": "d255dbc602",
@@ -260,7 +260,7 @@
    "bytes": 1108340
   },
   "index.html": {
-   "v": "6923ec8075",
+   "v": "8c7e0d92dd",
    "bytes": 41060
   },
   "induct_purifier.glb": {
@@ -288,8 +288,8 @@
    "bytes": 934436
   },
   "lift_station_duplex_panel.glb": {
-   "v": "57085ffca4",
-   "bytes": 1204768
+   "v": "f2c1e33c1c",
+   "bytes": 1594020
   },
   "lift_station_duplex_slab.glb": {
    "v": "a78f9fbab3",
@@ -1420,20 +1420,20 @@
    "bytes": 301168
   },
   "septic_lee.glb": {
-   "v": "7554222bd5",
-   "bytes": 1416088
+   "v": "fd2c736141",
+   "bytes": 1469016
   },
   "septic_lee_overland.glb": {
-   "v": "cdcb14a782",
-   "bytes": 1296468
+   "v": "d0827142d1",
+   "bytes": 1341808
   },
   "septic_lee_trash.glb": {
-   "v": "7e0723ab9a",
-   "bytes": 1441708
+   "v": "e044705f04",
+   "bytes": 1492276
   },
   "septic_lee_trash_slab.glb": {
-   "v": "149e38a919",
-   "bytes": 1456900
+   "v": "a6422c317b",
+   "bytes": 1507360
   },
   "septic_tank_risers.glb": {
    "v": "d6d8714865",
