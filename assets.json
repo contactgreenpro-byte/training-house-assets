@@ -3799,5 +3799,61 @@
    "v": "698ca3b013",
    "bytes": 41115
   }
+ },
+ "homeowner_clips": {
+  "homeowner-clips/backflow__bf1_walkup.mp4": {
+   "v": "6985b10939",
+   "bytes": 22885320,
+   "topic": "backflow",
+   "shot": "bf1_walkup",
+   "seconds": 9.0,
+   "poster": "homeowner-clips/backflow__bf1_walkup_poster.jpg",
+   "poster_v": "3fbc30bcac"
+  },
+  "homeowner-clips/backflow__bf2_cap_to_valve.mp4": {
+   "v": "572411f015",
+   "bytes": 8283748,
+   "topic": "backflow",
+   "shot": "bf2_cap_to_valve",
+   "seconds": 10.0,
+   "poster": "homeowner-clips/backflow__bf2_cap_to_valve_poster.jpg",
+   "poster_v": "38f8a70788"
+  },
+  "homeowner-clips/backflow__bf3_cutaway_backup.mp4": {
+   "v": "8369d01738",
+   "bytes": 19389065,
+   "topic": "backflow",
+   "shot": "bf3_cutaway_backup",
+   "seconds": 10.0,
+   "poster": "homeowner-clips/backflow__bf3_cutaway_backup_poster.jpg",
+   "poster_v": "defc625860"
+  },
+  "homeowner-clips/backflow__bf4_tub_backup.mp4": {
+   "v": "e1c0771777",
+   "bytes": 3010584,
+   "topic": "backflow",
+   "shot": "bf4_tub_backup",
+   "seconds": 10.0,
+   "poster": "homeowner-clips/backflow__bf4_tub_backup_poster.jpg",
+   "poster_v": "d90ea9e3b9"
+  },
+  "homeowner-clips/backflow__bf5_valve_spill_then_dry_bath.mp4": {
+   "v": "24c715e205",
+   "bytes": 12031679,
+   "topic": "backflow",
+   "shot": "bf5_valve_spill_then_dry_bath",
+   "seconds": 10.0,
+   "poster": "homeowner-clips/backflow__bf5_valve_spill_then_dry_bath_poster.jpg",
+   "poster_v": "39248f9cbf"
+  },
+  "homeowner-clips/backflow__bf6_yard_wet_patch.mp4": {
+   "v": "e40f4c7a9d",
+   "bytes": 17249945,
+   "topic": "backflow",
+   "shot": "bf6_yard_wet_patch",
+   "seconds": 8.0,
+   "poster": "homeowner-clips/backflow__bf6_yard_wet_patch_poster.jpg",
+   "poster_v": "41cc2f6797"
+  }
  }
 }
