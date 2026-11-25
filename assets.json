@@ -3808,7 +3808,22 @@
    "shot": "HT-1",
    "seconds": 8.0,
    "poster": "homeowner-clips/heat__HT-1_poster.jpg",
-   "poster_v": "548fab0c7b"
+   "poster_v": "548fab0c7b",
+   "title": "Thermostat at 58 in the cold hall",
+   "shows": "A plain wall thermostat reads 58 HEAT on a dark, moonlit hall wall as the camera eases in.",
+   "roles": [
+    "problem",
+    "hook"
+   ],
+   "setting": "hallway, thermostat on the wall",
+   "lighting": "cold moonlight (about 7,500 K) raking down the hall, light haze; the display backlight is the only warm light",
+   "mood": "problem",
+   "camera_move": "slow push in, 12 frame holds",
+   "lens": "85 mm f/2",
+   "has_people": false,
+   "scene_file": "_cards/heating/ad_clips/scripts/shot_ht1.py ht1 on a copy of training_house/training_house_assembled.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-24"
   },
   "homeowner-clips/heat__HT-1_countdown.mp4": {
    "v": "b145068c5f",
@@ -3817,7 +3832,22 @@
    "shot": "HT-1_countdown",
    "seconds": 6.0,
    "poster": "homeowner-clips/heat__HT-1_countdown_poster.jpg",
-   "poster_v": "19b3e0984c"
+   "poster_v": "19b3e0984c",
+   "title": "Thermostat drops from 68 to 58",
+   "shows": "The thermostat display steps down from 68 to 58 while the hall turns colder and bluer.",
+   "roles": [
+    "problem",
+    "hook"
+   ],
+   "setting": "hallway, thermostat on the wall",
+   "lighting": "moonlight that cools from grey to blue over the clip, haze thickening",
+   "mood": "problem",
+   "camera_move": "locked off",
+   "lens": "85 mm f/2",
+   "has_people": false,
+   "scene_file": "_cards/heating/ad_clips/scripts/shot_ht1.py countdown on a copy of training_house/training_house_assembled.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-24"
   },
   "homeowner-clips/heat__HT-1_warm.mp4": {
    "v": "7d6d0b3e5a",
@@ -3826,7 +3856,21 @@
    "shot": "HT-1_warm",
    "seconds": 6.0,
    "poster": "homeowner-clips/heat__HT-1_warm_poster.jpg",
-   "poster_v": "8557d05d39"
+   "poster_v": "8557d05d39",
+   "title": "Thermostat back at 72",
+   "shows": "The same thermostat reads 72 HEAT on a warm, lamplit hall wall.",
+   "roles": [
+    "result"
+   ],
+   "setting": "hallway, thermostat on the wall",
+   "lighting": "warm house lamps (about 2,900 K), soft warm haze",
+   "mood": "solved",
+   "camera_move": "locked off",
+   "lens": "85 mm f/2",
+   "has_people": false,
+   "scene_file": "_cards/heating/ad_clips/scripts/shot_ht1.py warm on a copy of training_house/training_house_assembled.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-24"
   },
   "homeowner-clips/heat__HT-2.mp4": {
    "v": "6b09498e74",
@@ -3835,7 +3879,22 @@
    "shot": "HT-2",
    "seconds": 6.0,
    "poster": "homeowner-clips/heat__HT-2_poster.jpg",
-   "poster_v": "67b93b0339"
+   "poster_v": "67b93b0339",
+   "title": "Cold living room at night",
+   "shows": "From the doorway, a dark living room where moonlight falls across the couch and a red blanket left behind.",
+   "roles": [
+    "establish",
+    "problem"
+   ],
+   "setting": "living room seen from the foyer doorway",
+   "lighting": "low cold moon through the south window, window frame shadows, haze, no lamps on",
+   "mood": "problem",
+   "camera_move": "slow push in, 12 frame holds",
+   "lens": "26 mm f/2.8",
+   "has_people": false,
+   "scene_file": "_cards/heating/ad_clips/scripts/shot_ht2.py ht2 on a copy of training_house/training_house_assembled.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-24"
   },
   "homeowner-clips/backflow__bf1_walkup.mp4": {
    "v": "6985b10939",
