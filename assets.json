@@ -3801,6 +3801,42 @@
   }
  },
  "homeowner_clips": {
+  "homeowner-clips/heat__HT-1.mp4": {
+   "v": "4a373835f0",
+   "bytes": 23618061,
+   "topic": "heat",
+   "shot": "HT-1",
+   "seconds": 8.0,
+   "poster": "homeowner-clips/heat__HT-1_poster.jpg",
+   "poster_v": "548fab0c7b"
+  },
+  "homeowner-clips/heat__HT-1_countdown.mp4": {
+   "v": "b145068c5f",
+   "bytes": 16743805,
+   "topic": "heat",
+   "shot": "HT-1_countdown",
+   "seconds": 6.0,
+   "poster": "homeowner-clips/heat__HT-1_countdown_poster.jpg",
+   "poster_v": "19b3e0984c"
+  },
+  "homeowner-clips/heat__HT-1_warm.mp4": {
+   "v": "7d6d0b3e5a",
+   "bytes": 17288214,
+   "topic": "heat",
+   "shot": "HT-1_warm",
+   "seconds": 6.0,
+   "poster": "homeowner-clips/heat__HT-1_warm_poster.jpg",
+   "poster_v": "8557d05d39"
+  },
+  "homeowner-clips/heat__HT-2.mp4": {
+   "v": "6b09498e74",
+   "bytes": 14261771,
+   "topic": "heat",
+   "shot": "HT-2",
+   "seconds": 6.0,
+   "poster": "homeowner-clips/heat__HT-2_poster.jpg",
+   "poster_v": "67b93b0339"
+  },
   "homeowner-clips/backflow__bf1_walkup.mp4": {
    "v": "6985b10939",
    "bytes": 22885320,
