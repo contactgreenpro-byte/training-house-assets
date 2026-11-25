@@ -3943,6 +3943,30 @@
    "approved_by": "Jake",
    "approved_at": "2026-11-25"
   },
+  "homeowner-clips/heat__HT-4.mp4": {
+   "v": "fa1f2a1f1b",
+   "bytes": 11716891,
+   "topic": "heat",
+   "shot": "HT-4",
+   "seconds": 6.0,
+   "poster": "homeowner-clips/heat__HT-4_poster.jpg",
+   "poster_v": "f738d01d95",
+   "title": "Cold burners in the furnace",
+   "shows": "Close on the furnace burners with the burner door off, cold and dark, nothing lit.",
+   "roles": [
+    "problem",
+    "mechanism"
+   ],
+   "setting": "hall furnace closet, gas furnace burner compartment",
+   "lighting": "cold moonlight spill from the hall, haze, a cool rim; no flame",
+   "mood": "problem",
+   "camera_move": "locked off",
+   "lens": "85 mm f/8",
+   "has_people": false,
+   "scene_file": "_cards/heating/ad_clips/scripts/shot_ht4_5.py ht4 on a copy of training_house/training_house_assembled.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-25"
+  },
   "homeowner-clips/backflow__bf1_walkup.mp4": {
    "v": "6985b10939",
    "bytes": 22885320,
