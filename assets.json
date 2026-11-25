@@ -3802,13 +3802,13 @@
  },
  "homeowner_clips": {
   "homeowner-clips/heat__HT-1.mp4": {
-   "v": "4a373835f0",
-   "bytes": 23618061,
+   "v": "bc48942be8",
+   "bytes": 22941342,
    "topic": "heat",
    "shot": "HT-1",
    "seconds": 8.0,
    "poster": "homeowner-clips/heat__HT-1_poster.jpg",
-   "poster_v": "548fab0c7b",
+   "poster_v": "af91db033b",
    "title": "Thermostat at 58 in the cold hall",
    "shows": "A plain wall thermostat reads 58 HEAT on a dark, moonlit hall wall as the camera eases in.",
    "roles": [
@@ -3823,16 +3823,16 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht1.py ht1 on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-24"
+   "approved_at": "2026-11-25"
   },
   "homeowner-clips/heat__HT-1_countdown.mp4": {
-   "v": "b145068c5f",
-   "bytes": 16743805,
+   "v": "0d9da6cc5c",
+   "bytes": 15955046,
    "topic": "heat",
    "shot": "HT-1_countdown",
    "seconds": 6.0,
    "poster": "homeowner-clips/heat__HT-1_countdown_poster.jpg",
-   "poster_v": "19b3e0984c",
+   "poster_v": "755931208c",
    "title": "Thermostat drops from 68 to 58",
    "shows": "The thermostat display steps down from 68 to 58 while the hall turns colder and bluer.",
    "roles": [
@@ -3847,16 +3847,16 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht1.py countdown on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-24"
+   "approved_at": "2026-11-25"
   },
   "homeowner-clips/heat__HT-1_warm.mp4": {
-   "v": "7d6d0b3e5a",
-   "bytes": 17288214,
+   "v": "8ac906f692",
+   "bytes": 14380864,
    "topic": "heat",
    "shot": "HT-1_warm",
    "seconds": 6.0,
    "poster": "homeowner-clips/heat__HT-1_warm_poster.jpg",
-   "poster_v": "8557d05d39",
+   "poster_v": "bf549246c8",
    "title": "Thermostat back at 72",
    "shows": "The same thermostat reads 72 HEAT on a warm, lamplit hall wall.",
    "roles": [
@@ -3870,7 +3870,7 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht1.py warm on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-24"
+   "approved_at": "2026-11-25"
   },
   "homeowner-clips/heat__HT-2.mp4": {
    "v": "6b09498e74",
