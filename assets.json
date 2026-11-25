@@ -3903,7 +3903,21 @@
    "shot": "bf1_walkup",
    "seconds": 9.0,
    "poster": "homeowner-clips/backflow__bf1_walkup_poster.jpg",
-   "poster_v": "3fbc30bcac"
+   "poster_v": "3fbc30bcac",
+   "title": "Walk up to the cleanout",
+   "shows": "A homeowner's walk up the side yard to the white sewer cleanout cap in the grass by the back steps.",
+   "roles": [
+    "establish"
+   ],
+   "setting": "west side yard of the crawl space house, cleanout by the back stoop",
+   "lighting": "neutral afternoon daylight, sun from the west, sky HDRI",
+   "mood": "neutral",
+   "camera_move": "slow eased walk forward at 1.6 m eye height, settling on the cap",
+   "lens": "30 mm",
+   "has_people": false,
+   "scene_file": "_cards/sewer_backflow/homeowner_clips/work/scene_bf1.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-24T19:58:52Z"
   },
   "homeowner-clips/backflow__bf2_cap_to_valve.mp4": {
    "v": "572411f015",
@@ -3912,7 +3926,22 @@
    "shot": "bf2_cap_to_valve",
    "seconds": 10.0,
    "poster": "homeowner-clips/backflow__bf2_cap_to_valve_poster.jpg",
-   "poster_v": "38f8a70788"
+   "poster_v": "38f8a70788",
+   "title": "Cap off, valve on",
+   "shows": "The plain screw cap unscrews and comes off the cleanout, and a black backflow prevention valve seats in its place.",
+   "roles": [
+    "name",
+    "fix"
+   ],
+   "setting": "close on the yard cleanout in the grass",
+   "lighting": "neutral daylight warming as the valve seats, rim light on the cleanout",
+   "mood": "solved",
+   "camera_move": "held still 2 s on the cap, then one slow push in",
+   "lens": "90 mm",
+   "has_people": false,
+   "scene_file": "_cards/sewer_backflow/homeowner_clips/work/scene_bf2.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-24T19:58:52Z"
   },
   "homeowner-clips/backflow__bf3_cutaway_backup.mp4": {
    "v": "8369d01738",
@@ -3921,7 +3950,22 @@
    "shot": "bf3_cutaway_backup",
    "seconds": 10.0,
    "poster": "homeowner-clips/backflow__bf3_cutaway_backup_poster.jpg",
-   "poster_v": "defc625860"
+   "poster_v": "defc625860",
+   "title": "The sewer backs up",
+   "shows": "A cutaway of the buried sewer line where a clog of wipes and grease blocks the main and sewage climbs up through the cleanout's wye and 45.",
+   "roles": [
+    "problem",
+    "mechanism"
+   ],
+   "setting": "dug pit cutaway on the sewer line at the yard cleanout",
+   "lighting": "cool and dim daylight, rim light on the riser",
+   "mood": "problem",
+   "camera_move": "slow eased move from eye height down and in toward the cutaway",
+   "lens": "35 mm",
+   "has_people": false,
+   "scene_file": "_cards/sewer_backflow/homeowner_clips/work/scene_bf3.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-24T19:58:52Z"
   },
   "homeowner-clips/backflow__bf4_tub_backup.mp4": {
    "v": "e1c0771777",
@@ -3930,7 +3974,23 @@
    "shot": "bf4_tub_backup",
    "seconds": 10.0,
    "poster": "homeowner-clips/backflow__bf4_tub_backup_poster.jpg",
-   "poster_v": "d90ea9e3b9"
+   "poster_v": "d90ea9e3b9",
+   "title": "Sewage in the tub",
+   "shows": "Without a valve the tub drain bubbles and sewage rises in a clean bathroom's tub.",
+   "roles": [
+    "problem",
+    "result",
+    "hook"
+   ],
+   "setting": "hall bathroom tub inside the house",
+   "lighting": "cool and dim, only the bathroom's own ceiling fixture",
+   "mood": "problem",
+   "camera_move": "slow push in down the length of the tub",
+   "lens": "30 mm",
+   "has_people": false,
+   "scene_file": "_cards/sewer_backflow/homeowner_clips/work/scene_bf4.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-24T19:58:52Z"
   },
   "homeowner-clips/backflow__bf5_valve_spill_then_dry_bath.mp4": {
    "v": "24c715e205",
@@ -3939,7 +3999,25 @@
    "shot": "bf5_valve_spill_then_dry_bath",
    "seconds": 10.0,
    "poster": "homeowner-clips/backflow__bf5_valve_spill_then_dry_bath_poster.jpg",
-   "poster_v": "39248f9cbf"
+   "poster_v": "39248f9cbf",
+   "title": "Valve opens, bath stays dry",
+   "shows": "The valve lifts and lets the sewage out onto the grass outside, then the same bathroom's tub sits dry and clean.",
+   "roles": [
+    "fix",
+    "result"
+   ],
+   "setting": "yard cleanout, then a hard cut to the hall bathroom tub",
+   "lighting": "warm daylight in the yard, warm bathroom light inside",
+   "mood": "solved",
+   "camera_move": "slow pull back in the yard (6 s), hard cut, slow push in on the tub (4 s)",
+   "lens": "70 mm yard, 30 mm bath",
+   "has_people": false,
+   "scene_file": [
+    "_cards/sewer_backflow/homeowner_clips/work/scene_bf5a.blend",
+    "_cards/sewer_backflow/homeowner_clips/work/scene_bf5b.blend"
+   ],
+   "approved_by": "Jake",
+   "approved_at": "2026-11-24T19:58:52Z"
   },
   "homeowner-clips/backflow__bf6_yard_wet_patch.mp4": {
    "v": "e40f4c7a9d",
@@ -3948,7 +4026,21 @@
    "shot": "bf6_yard_wet_patch",
    "seconds": 8.0,
    "poster": "homeowner-clips/backflow__bf6_yard_wet_patch_poster.jpg",
-   "poster_v": "41cc2f6797"
+   "poster_v": "41cc2f6797",
+   "title": "A wet patch in the yard",
+   "shows": "With the valve's lid tipped open, a dark wet patch of sewage spreads across the grass around the cleanout.",
+   "roles": [
+    "doubt"
+   ],
+   "setting": "yard cleanout corner by the back stoop",
+   "lighting": "cool and dim daylight",
+   "mood": "problem",
+   "camera_move": "slow drift in at eye height over the cleanout corner",
+   "lens": "40 mm",
+   "has_people": false,
+   "scene_file": "_cards/sewer_backflow/homeowner_clips/work/scene_bf6.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-24T19:58:52Z"
   }
  }
 }
