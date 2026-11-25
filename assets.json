@@ -4015,6 +4015,30 @@
    "approved_by": "Jake",
    "approved_at": "2026-11-25"
   },
+  "homeowner-clips/heat__HT-7.mp4": {
+   "v": "ff5b4a4e1d",
+   "bytes": 25022126,
+   "topic": "heat",
+   "shot": "HT-7",
+   "seconds": 9.0,
+   "poster": "homeowner-clips/heat__HT-7_poster.jpg",
+   "poster_v": "e68ff0d109",
+   "title": "The house warms up at blue hour",
+   "shows": "The house from the street at blue hour with frost on the lawn as its windows turn warm one after another and vapor rises from the flue.",
+   "roles": [
+    "result",
+    "establish"
+   ],
+   "setting": "street in front of the house, frosted front lawn",
+   "lighting": "blue hour winter sky, warm interior lamps about 2,900 K coming on room by room",
+   "mood": "solved",
+   "camera_move": "slow push in, 12 frame holds",
+   "lens": "28 mm",
+   "has_people": false,
+   "scene_file": "_cards/heating/ad_clips/scripts/shot_ht7.py on a copy of training_house/training_house_assembled.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-25"
+  },
   "homeowner-clips/backflow__bf1_walkup.mp4": {
    "v": "6985b10939",
    "bytes": 22885320,
