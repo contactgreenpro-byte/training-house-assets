@@ -3825,6 +3825,29 @@
    "approved_by": "Jake",
    "approved_at": "2026-11-25"
   },
+  "homeowner-clips/heat__HT-14.mp4": {
+   "v": "c0eef24804",
+   "bytes": 12605010,
+   "topic": "heat",
+   "shot": "HT-14",
+   "seconds": 6.0,
+   "poster": "homeowner-clips/heat__HT-14_poster.jpg",
+   "poster_v": "5327f77cfc",
+   "title": "Warm living room in the morning",
+   "shows": "The same living room the next morning, warm sun falling across the couch and the red blanket.",
+   "roles": [
+    "result"
+   ],
+   "setting": "living room seen from the foyer doorway (matches HT-2)",
+   "lighting": "low warm morning sun (about 3,800 K) through the south window, warm thin haze, daylight sky",
+   "mood": "solved",
+   "camera_move": "slow push in, 12 frame holds (same as HT-2)",
+   "lens": "26 mm f/2.8",
+   "has_people": false,
+   "scene_file": "_cards/heating/ad_clips/scripts/shot_ht2.py ht14 on a copy of training_house/training_house_assembled.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-25"
+  },
   "homeowner-clips/heat__HT-1_countdown.mp4": {
    "v": "0d9da6cc5c",
    "bytes": 15955046,
