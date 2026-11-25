@@ -3967,6 +3967,30 @@
    "approved_by": "Jake",
    "approved_at": "2026-11-25"
   },
+  "homeowner-clips/heat__HT-6.mp4": {
+   "v": "0dcc6014a5",
+   "bytes": 21995611,
+   "topic": "heat",
+   "shot": "HT-6",
+   "seconds": 9.0,
+   "poster": "homeowner-clips/heat__HT-6_poster.jpg",
+   "poster_v": "0b73a52ffd",
+   "title": "Warm air through the house",
+   "shows": "A see-through house where warm air leaves the furnace and travels through the ducts out of every register.",
+   "roles": [
+    "mechanism",
+    "result"
+   ],
+   "setting": "whole house, walls and roof ghosted, duct system",
+   "lighting": "dark night, warm glowing air in the ducts",
+   "mood": "solved",
+   "camera_move": "slow pull back, 12 frame holds",
+   "lens": "28 mm",
+   "has_people": false,
+   "scene_file": "_cards/heating/ad_clips/scripts/shot_ht6.py on a copy of training_house/training_house_assembled.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-25"
+  },
   "homeowner-clips/backflow__bf1_walkup.mp4": {
    "v": "6985b10939",
    "bytes": 22885320,
