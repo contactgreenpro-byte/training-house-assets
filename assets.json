@@ -3823,7 +3823,30 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht1.py ht1 on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-25"
+   "approved_at": "2026-11-25",
+   "location": "hallway",
+   "lighting_kind": "night",
+   "phases": [
+    [
+     0,
+     4,
+     "the thermostat reads 58 on the cold, moonlit hall wall"
+    ],
+    [
+     4,
+     8,
+     "a slow push in until the digits fill the middle"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot HT-1",
+   "notes": "Wall has a light orange peel and a door casing edge out of focus on the right (Jake's note, 2026-11-24).",
+   "roles_rank": {
+    "problem": 1,
+    "hook": 2
+   },
+   "camera": "slow push in, 12 frame holds",
+   "file": "heat__HT-1.mp4",
+   "lesson": "heat"
   },
   "homeowner-clips/heat__HT-14.mp4": {
    "v": "c0eef24804",
@@ -3846,7 +3869,29 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht2.py ht14 on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-25"
+   "approved_at": "2026-11-25",
+   "location": "room",
+   "lighting_kind": "day",
+   "phases": [
+    [
+     0,
+     3,
+     "the living room in warm morning sun"
+    ],
+    [
+     3,
+     6,
+     "the same slow push as HT-2"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot HT-14",
+   "notes": "Morning match to HT-2: the after.",
+   "roles_rank": {
+    "result": 1
+   },
+   "camera": "slow push in, 12 frame holds (same as HT-2)",
+   "file": "heat__HT-14.mp4",
+   "lesson": "heat"
   },
   "homeowner-clips/heat__HT-1_countdown.mp4": {
    "v": "0d9da6cc5c",
@@ -3870,7 +3915,30 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht1.py countdown on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-25"
+   "approved_at": "2026-11-25",
+   "location": "hallway",
+   "lighting_kind": "night",
+   "phases": [
+    [
+     0,
+     3,
+     "the thermostat reads 68 and starts stepping down"
+    ],
+    [
+     3,
+     6,
+     "62, 60, then 58 holds as the hall goes blue"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot HT-1",
+   "notes": "58 lands at 5.0 s. Runs a little brighter and greyer than HT-1, approved as it is.",
+   "roles_rank": {
+    "hook": 1,
+    "problem": 2
+   },
+   "camera": "locked off",
+   "file": "heat__HT-1_countdown.mp4",
+   "lesson": "heat"
   },
   "homeowner-clips/heat__HT-1_warm.mp4": {
    "v": "8ac906f692",
@@ -3893,7 +3961,25 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht1.py warm on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-25"
+   "approved_at": "2026-11-25",
+   "location": "hallway",
+   "lighting_kind": "interior warm",
+   "phases": [
+    [
+     0,
+     6,
+     "the thermostat back at 72 on a warm lamp lit wall"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot HT-1",
+   "notes": "One still frame held with light grain.",
+   "roles_rank": {
+    "result": 1,
+    "fix": 2
+   },
+   "camera": "locked off",
+   "file": "heat__HT-1_warm.mp4",
+   "lesson": "heat"
   },
   "homeowner-clips/heat__HT-2.mp4": {
    "v": "6b09498e74",
@@ -3917,7 +4003,30 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht2.py ht2 on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-24"
+   "approved_at": "2026-11-24",
+   "location": "room",
+   "lighting_kind": "night",
+   "phases": [
+    [
+     0,
+     3,
+     "the dark living room, a blanket on the sofa, moon through the window"
+    ],
+    [
+     3,
+     6,
+     "a slow push toward the sofa"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot HT-2",
+   "notes": "No lamps on. Pairs with HT-14, same camera.",
+   "roles_rank": {
+    "establish": 1,
+    "problem": 3
+   },
+   "camera": "slow push in, 12 frame holds",
+   "file": "heat__HT-2.mp4",
+   "lesson": "heat"
   },
   "homeowner-clips/heat__HT-3.mp4": {
    "v": "16b1009aa3",
@@ -3941,7 +4050,30 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht3.py on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-25"
+   "approved_at": "2026-11-25",
+   "location": "hallway",
+   "lighting_kind": "night",
+   "phases": [
+    [
+     0,
+     3,
+     "the dark hall toward the moonlit window"
+    ],
+    [
+     3,
+     6,
+     "closing on the furnace closet door, standing ajar"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot HT-3",
+   "notes": "",
+   "roles_rank": {
+    "problem": 1,
+    "mechanism": 2
+   },
+   "camera": "slow dolly forward, 12 frame holds",
+   "file": "heat__HT-3.mp4",
+   "lesson": "heat"
   },
   "homeowner-clips/heat__HT-4.mp4": {
    "v": "fa1f2a1f1b",
@@ -3965,7 +4097,25 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht4_5.py ht4 on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-25"
+   "approved_at": "2026-11-25",
+   "location": "closet",
+   "lighting_kind": "night",
+   "phases": [
+    [
+     0,
+     6,
+     "the furnace burners, cold, no flame"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot HT-4",
+   "notes": "One still frame held with light grain. Burner door off.",
+   "roles_rank": {
+    "problem": 1,
+    "mechanism": 2
+   },
+   "camera": "locked off",
+   "file": "heat__HT-4.mp4",
+   "lesson": "heat"
   },
   "homeowner-clips/heat__HT-5.mp4": {
    "v": "98295bbbb3",
@@ -3989,7 +4139,35 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht4_5.py ht5 on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-25"
+   "approved_at": "2026-11-25",
+   "location": "closet",
+   "lighting_kind": "night",
+   "phases": [
+    [
+     0,
+     2.5,
+     "cold burners, then the spark ticks"
+    ],
+    [
+     2.5,
+     5.5,
+     "both burners light and the closet turns warm"
+    ],
+    [
+     5.5,
+     9,
+     "steady flames as the push settles"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot HT-5",
+   "notes": "Direct spark ignition, as the real Rheem R801T. Spark at 2.0 s, first burner at 2.3 s, warm by about 3.8 s.",
+   "roles_rank": {
+    "fix": 1,
+    "mechanism": 2
+   },
+   "camera": "slow push in, 12 frame holds",
+   "file": "heat__HT-5.mp4",
+   "lesson": "heat"
   },
   "homeowner-clips/heat__HT-6.mp4": {
    "v": "0dcc6014a5",
@@ -4013,7 +4191,35 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht6.py on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-25"
+   "approved_at": "2026-11-25",
+   "location": "room",
+   "lighting_kind": "night",
+   "phases": [
+    [
+     0,
+     3,
+     "the furnace fires and warm air leaves the supply"
+    ],
+    [
+     3,
+     6.5,
+     "warm air runs out through the ducts"
+    ],
+    [
+     6.5,
+     9,
+     "every room fed as the camera pulls back on the whole house"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot HT-6",
+   "notes": "Walls and roof ghosted (the only ghost wall shot). EEVEE.",
+   "roles_rank": {
+    "mechanism": 1,
+    "result": 2
+   },
+   "camera": "slow pull back, 12 frame holds",
+   "file": "heat__HT-6.mp4",
+   "lesson": "heat"
   },
   "homeowner-clips/heat__HT-7.mp4": {
    "v": "ff5b4a4e1d",
@@ -4037,7 +4243,35 @@
    "has_people": false,
    "scene_file": "_cards/heating/ad_clips/scripts/shot_ht7.py on a copy of training_house/training_house_assembled.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-25"
+   "approved_at": "2026-11-25",
+   "location": "street",
+   "lighting_kind": "night",
+   "phases": [
+    [
+     0,
+     3,
+     "the dark house at blue hour, the foyer lights come on"
+    ],
+    [
+     3,
+     6,
+     "the living room windows light up one after the other"
+    ],
+    [
+     6,
+     9,
+     "the rooms behind wake and the house glows warm"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot HT-7",
+   "notes": "Blue hour. Frost on the lawn only, never on the windows. Foyer 1.5 s, living rooms 3.2 and 4.8 s, kitchen and bedrooms 6.2 to 7.2 s.",
+   "roles_rank": {
+    "result": 1,
+    "establish": 2
+   },
+   "camera": "slow push in, 12 frame holds",
+   "file": "heat__HT-7.mp4",
+   "lesson": "heat"
   },
   "homeowner-clips/backflow__bf1_walkup.mp4": {
    "v": "6985b10939",
@@ -4060,7 +4294,31 @@
    "has_people": false,
    "scene_file": "_cards/sewer_backflow/homeowner_clips/work/scene_bf1.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-24T19:58:52Z"
+   "approved_at": "2026-11-24T19:58:52Z",
+   "location": "yard",
+   "lighting_kind": "day",
+   "phases": [
+    [
+     0,
+     4.5,
+     "side yard at eye level, walking toward the house"
+    ],
+    [
+     4.5,
+     9,
+     "the cleanout cap by the back stoop, closing in and holding"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot BF-1",
+   "notes": "The cap is a plain cleanout cap about 10 cm above the grass (Jake, 2026-11-24). Good as the walk outside and find yours picture.",
+   "roles_rank": {
+    "establish": 1,
+    "name": 1,
+    "check": 1
+   },
+   "camera": "slow eased walk forward at 1.6 m eye height, settling on the cap",
+   "file": "backflow__bf1_walkup.mp4",
+   "lesson": "backflow"
   },
   "homeowner-clips/backflow__bf2_cap_to_valve.mp4": {
    "v": "572411f015",
@@ -4084,7 +4342,36 @@
    "has_people": false,
    "scene_file": "_cards/sewer_backflow/homeowner_clips/work/scene_bf2.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-24T19:58:52Z"
+   "approved_at": "2026-11-24T19:58:52Z",
+   "location": "yard",
+   "lighting_kind": "day",
+   "phases": [
+    [
+     0,
+     4,
+     "the plain cap sitting, then unscrewing"
+    ],
+    [
+     4,
+     7.5,
+     "cap off, the valve comes down and seats"
+    ],
+    [
+     7.5,
+     10,
+     "the valve in place"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot BF-2",
+   "notes": "Shows the swap itself: what the homeowner is buying. No hands.",
+   "roles_rank": {
+    "mechanism": 2,
+    "fix": 2,
+    "doubt": 2
+   },
+   "camera": "held still 2 s on the cap, then one slow push in",
+   "file": "backflow__bf2_cap_to_valve.mp4",
+   "lesson": "backflow"
   },
   "homeowner-clips/backflow__bf3_cutaway_backup.mp4": {
    "v": "8369d01738",
@@ -4108,7 +4395,35 @@
    "has_people": false,
    "scene_file": "_cards/sewer_backflow/homeowner_clips/work/scene_bf3.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-24T19:58:52Z"
+   "approved_at": "2026-11-24T19:58:52Z",
+   "location": "yard",
+   "lighting_kind": "day",
+   "phases": [
+    [
+     0,
+     3,
+     "the blocked main, sewage starting to back up"
+    ],
+    [
+     3,
+     7.5,
+     "climbing through the wye and the 45"
+    ],
+    [
+     7.5,
+     10,
+     "up the riser toward the cap"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot BF-3",
+   "notes": "The corrected flow path (BF-0 fix): wye, 45, 1/8 bend, riser. Replaces the old 3D clip that rose straight up at a 90.",
+   "roles_rank": {
+    "mechanism": 1,
+    "problem": 2
+   },
+   "camera": "slow eased move from eye height down and in toward the cutaway",
+   "file": "backflow__bf3_cutaway_backup.mp4",
+   "lesson": "backflow"
   },
   "homeowner-clips/backflow__bf4_tub_backup.mp4": {
    "v": "e1c0771777",
@@ -4133,7 +4448,35 @@
    "has_people": false,
    "scene_file": "_cards/sewer_backflow/homeowner_clips/work/scene_bf4.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-24T19:58:52Z"
+   "approved_at": "2026-11-24T19:58:52Z",
+   "location": "bathroom",
+   "lighting_kind": "interior cool",
+   "phases": [
+    [
+     0,
+     3,
+     "clean tub, the drain starts to bubble"
+    ],
+    [
+     3,
+     6.8,
+     "sewage seeps out and spreads over the tub floor"
+    ],
+    [
+     6.8,
+     10,
+     "the level rises in the tub"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot BF-4",
+   "notes": "The strongest what happens without it picture. Opaque, slow sewage, never cartoon.",
+   "roles_rank": {
+    "problem": 1,
+    "hook": 2
+   },
+   "camera": "slow push in down the length of the tub",
+   "file": "backflow__bf4_tub_backup.mp4",
+   "lesson": "backflow"
   },
   "homeowner-clips/backflow__bf5_valve_spill_then_dry_bath.mp4": {
    "v": "24c715e205",
@@ -4160,7 +4503,35 @@
     "_cards/sewer_backflow/homeowner_clips/work/scene_bf5b.blend"
    ],
    "approved_by": "Jake",
-   "approved_at": "2026-11-24T19:58:52Z"
+   "approved_at": "2026-11-24T19:58:52Z",
+   "location": "yard",
+   "lighting_kind": "day",
+   "phases": [
+    [
+     0,
+     2.5,
+     "the valve in the grass, its lid starts to lift"
+    ],
+    [
+     2.5,
+     6,
+     "sewage spills onto the grass outside"
+    ],
+    [
+     6,
+     10,
+     "hard cut: the bathroom, the tub dry and clean"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot BF-5",
+   "notes": "The whole promise in one clip: the mess goes in the yard, not the house. Has one hard cut at 6 s (yard to bath), made before the no cuts rule.",
+   "roles_rank": {
+    "fix": 1,
+    "result": 1
+   },
+   "camera": "slow pull back in the yard (6 s), hard cut, slow push in on the tub (4 s)",
+   "file": "backflow__bf5_valve_spill_then_dry_bath.mp4",
+   "lesson": "backflow"
   },
   "homeowner-clips/backflow__bf6_yard_wet_patch.mp4": {
    "v": "e40f4c7a9d",
@@ -4183,7 +4554,30 @@
    "has_people": false,
    "scene_file": "_cards/sewer_backflow/homeowner_clips/work/scene_bf6.blend",
    "approved_by": "Jake",
-   "approved_at": "2026-11-24T19:58:52Z"
+   "approved_at": "2026-11-24T19:58:52Z",
+   "location": "yard",
+   "lighting_kind": "day",
+   "phases": [
+    [
+     0,
+     3,
+     "the corner of the yard by the house, a small dark patch"
+    ],
+    [
+     3,
+     8,
+     "the wet patch spreading over the grass"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot BF-6",
+   "notes": "Shown with the valve's lid tipped open. Quiet and serious: good under you may be thinking this will never happen.",
+   "roles_rank": {
+    "doubt": 1,
+    "problem": 3
+   },
+   "camera": "slow drift in at eye height over the cleanout corner",
+   "file": "backflow__bf6_yard_wet_patch.mp4",
+   "lesson": "backflow"
   }
  }
 }
