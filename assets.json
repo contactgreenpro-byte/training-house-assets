@@ -3896,6 +3896,30 @@
    "approved_by": "Jake",
    "approved_at": "2026-11-24"
   },
+  "homeowner-clips/heat__HT-3.mp4": {
+   "v": "16b1009aa3",
+   "bytes": 13366163,
+   "topic": "heat",
+   "shot": "HT-3",
+   "seconds": 6.0,
+   "poster": "homeowner-clips/heat__HT-3_poster.jpg",
+   "poster_v": "8a01aa294e",
+   "title": "Down the dark hall to the furnace closet",
+   "shows": "The camera moves slowly up a dark hall toward a moonlit window, past the furnace closet door standing ajar.",
+   "roles": [
+    "problem",
+    "mechanism"
+   ],
+   "setting": "hallway, furnace closet door",
+   "lighting": "cold moonlight from the window at the end of the hall, haze, a cool rim on the door edge",
+   "mood": "problem",
+   "camera_move": "slow dolly forward, 12 frame holds",
+   "lens": "35 mm f/2.8",
+   "has_people": false,
+   "scene_file": "_cards/heating/ad_clips/scripts/shot_ht3.py on a copy of training_house/training_house_assembled.blend",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-25"
+  },
   "homeowner-clips/backflow__bf1_walkup.mp4": {
    "v": "6985b10939",
    "bytes": 22885320,
