@@ -1,7 +1,7 @@
 {
- "published": "2026-11-15T15:28:01",
- "house": "r100a4t",
- "note": "r100a4t: the softener's line rejoined at the old shut-off point, the condensate pump's tube lifted over the attic hot line, the return box at the media cabinet, the dehumidifier's drain with its own trap",
+ "published": "2026-11-25T12:27:36",
+ "house": "r100a4u",
+ "note": "r100a4u: furnace UV lamp above the A coil, in through the plenum front (Jake approved UV-0, 2026-11-25)",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -216,20 +216,20 @@
    "bytes": 2775028
   },
   "hvac_furnace_rheem_r801t_house.glb": {
-   "v": "7ac409c6af",
-   "bytes": 2490520
+   "v": "12430fae1c",
+   "bytes": 2545924
   },
   "hvac_furnace_rheem_r921t_house.glb": {
-   "v": "0c1782b46b",
-   "bytes": 2676680
+   "v": "4d7f7dcda7",
+   "bytes": 2757784
   },
   "hvac_furnace_rheem_r951v_house.glb": {
-   "v": "7b1cda6686",
-   "bytes": 2498440
+   "v": "430e4181c3",
+   "bytes": 2579696
   },
   "hvac_furnace_rheem_r98mv_house.glb": {
-   "v": "2f6ce1e9eb",
-   "bytes": 2834536
+   "v": "530c7f15f1",
+   "bytes": 2923136
   },
   "hvac_furnace_std80.glb": {
    "v": "777601fa8a",
@@ -260,7 +260,7 @@
    "bytes": 1108340
   },
   "index.html": {
-   "v": "ac1d3d48c3",
+   "v": "827d29c11c",
    "bytes": 43629
   },
   "induct_purifier.glb": {
@@ -3376,8 +3376,8 @@
    "bytes": 37382
   },
   "finding-art/hvac_furnace_std80__uv_light.jpg": {
-   "v": "9a9f26ae6d",
-   "bytes": 33123
+   "v": "b1d5f7d6d2",
+   "bytes": 37048
   },
   "finding-art/hvac_minisplit__blower_wheel.jpg": {
    "v": "52e375f17c",
