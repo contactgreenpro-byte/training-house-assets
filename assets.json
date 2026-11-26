@@ -4578,6 +4578,187 @@
    "camera": "slow drift in at eye height over the cleanout corner",
    "file": "backflow__bf6_yard_wet_patch.mp4",
    "lesson": "backflow"
+  },
+  "homeowner-clips/uv_lamp__uv1_hall_intake.mp4": {
+   "v": "4050d8d616",
+   "bytes": 4607120,
+   "topic": "uv_lamp",
+   "shot": "uv1_hall_intake",
+   "seconds": 9.07,
+   "poster": "homeowner-clips/uv_lamp__uv1_hall_intake_poster.jpg",
+   "poster_v": "5a905ae4af",
+   "title": "Down the hall to the return",
+   "shows": "Walking down the hallway at eye level to the louvered hall closet door, the look settling on its low louvers where the house's air goes back in.",
+   "roles": [
+    "establish",
+    "name"
+   ],
+   "setting": "the hallway of the training house, toward the hall closet with the air handler",
+   "lighting": "soft warm ceiling light, a little daylight from the far window",
+   "mood": "neutral",
+   "camera_move": "one slow eased walk down the hall, tilting down to the lower louvers",
+   "lens": "26 mm",
+   "has_people": false,
+   "scene_file": "_cards/uv_lights/homeowner_clips/scripts/uv_shots.py (on a copy of training_house.blend, house r100a4u)",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-26T09:04:00Z",
+   "location": "hallway",
+   "lighting_kind": "interior warm",
+   "phases": [
+    [
+     0,
+     4.5,
+     "the hallway"
+    ],
+    [
+     4.5,
+     9,
+     "the louvers near the floor, the return intake"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot UV-1",
+   "notes": "The homeowner's own eyes, no person on screen (Jake 2026-11-25). The intake is low, near the floor.",
+   "roles_rank": {
+    "establish": 1,
+    "name": 2
+   },
+   "camera": "one slow eased walk down the hall, tilting down to the lower louvers",
+   "file": "uv_lamp__uv1_hall_intake.mp4",
+   "lesson": "uv_lamp"
+  },
+  "homeowner-clips/uv_lamp__uv2_coil_growth.mp4": {
+   "v": "e3566a1075",
+   "bytes": 11733146,
+   "topic": "uv_lamp",
+   "shot": "uv2_coil_growth",
+   "seconds": 10.07,
+   "poster": "homeowner-clips/uv_lamp__uv2_coil_growth_poster.jpg",
+   "poster_v": "fc8a9733da",
+   "title": "Growth on the coil",
+   "shows": "The air handler's A coil cut open, with dark growth in patches on the wet fins and the lamp off.",
+   "roles": [
+    "problem",
+    "mechanism"
+   ],
+   "setting": "the hall closet air handler, coil box and plenum cut away, furnace alone on a plain backdrop",
+   "lighting": "cool and dim, rim light on the coil",
+   "mood": "problem",
+   "camera_move": "one slow push in",
+   "lens": "40 mm",
+   "has_people": false,
+   "scene_file": "_cards/uv_lights/homeowner_clips/scripts/uv_shots.py (on a copy of training_house.blend, house r100a4u)",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-26T09:04:00Z",
+   "location": "closet",
+   "lighting_kind": "interior cool",
+   "phases": [
+    [
+     0,
+     3,
+     "the coil opened up"
+    ],
+    [
+     3,
+     10,
+     "the growth on the fins"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot UV-2",
+   "notes": "Gas drop and thermostat cable left out of frame. No labels.",
+   "roles_rank": {
+    "problem": 1,
+    "mechanism": 2
+   },
+   "camera": "one slow push in",
+   "file": "uv_lamp__uv2_coil_growth.mp4",
+   "lesson": "uv_lamp"
+  },
+  "homeowner-clips/uv_lamp__uv3_lamp_on.mp4": {
+   "v": "f60dbf244c",
+   "bytes": 10123978,
+   "topic": "uv_lamp",
+   "shot": "uv3_lamp_on",
+   "seconds": 10.07,
+   "poster": "homeowner-clips/uv_lamp__uv3_lamp_on_poster.jpg",
+   "poster_v": "0ff33b8c41",
+   "title": "The UV lamp comes on",
+   "shows": "The UV lamp mounted above the coil switches on and a soft violet glow falls across the fins.",
+   "roles": [
+    "fix",
+    "name"
+   ],
+   "setting": "the hall closet air handler, coil box and plenum cut away, lamp above the coil through the plenum front",
+   "lighting": "cool and dim, then the lamp's violet glow",
+   "mood": "solved",
+   "camera_move": "one slow push in",
+   "lens": "40 mm",
+   "has_people": false,
+   "scene_file": "_cards/uv_lights/homeowner_clips/scripts/uv_shots.py (on a copy of training_house.blend, house r100a4u)",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-26T09:04:00Z",
+   "location": "closet",
+   "lighting_kind": "interior cool",
+   "phases": [
+    [
+     0,
+     3,
+     "lamp off"
+    ],
+    [
+     3,
+     10,
+     "lamp on, violet glow over the coil"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot UV-3",
+   "notes": "UV-C itself is invisible: only the bulb's glow and a soft wash, never a beam. The growth is still there in this clip; UV-4 shows the clean result.",
+   "roles_rank": {
+    "fix": 1,
+    "name": 2
+   },
+   "camera": "one slow push in",
+   "file": "uv_lamp__uv3_lamp_on.mp4",
+   "lesson": "uv_lamp"
+  },
+  "homeowner-clips/uv_lamp__uv4_clean_coil.mp4": {
+   "v": "2c009f8a09",
+   "bytes": 7257436,
+   "topic": "uv_lamp",
+   "shot": "uv4_clean_coil",
+   "seconds": 8.07,
+   "poster": "homeowner-clips/uv_lamp__uv4_clean_coil_poster.jpg",
+   "poster_v": "2250c59aeb",
+   "title": "A clean coil",
+   "shows": "The same coil later, clean and bright, with the lamp still on above it.",
+   "roles": [
+    "result"
+   ],
+   "setting": "the hall closet air handler, coil box and plenum cut away",
+   "lighting": "warm, the lamp's faint violet above the coil",
+   "mood": "solved",
+   "camera_move": "one slow drift",
+   "lens": "40 mm",
+   "has_people": false,
+   "scene_file": "_cards/uv_lights/homeowner_clips/scripts/uv_shots.py (on a copy of training_house.blend, house r100a4u)",
+   "approved_by": "Jake",
+   "approved_at": "2026-11-26T09:04:00Z",
+   "location": "closet",
+   "lighting_kind": "interior warm",
+   "phases": [
+    [
+     0,
+     8,
+     "the clean coil"
+    ]
+   ],
+   "made_by": "Blender local session, training house, shot UV-4",
+   "notes": "Pairs with UV-2 as before and after.",
+   "roles_rank": {
+    "result": 1
+   },
+   "camera": "one slow drift",
+   "file": "uv_lamp__uv4_clean_coil.mp4",
+   "lesson": "uv_lamp"
   }
  }
 }
