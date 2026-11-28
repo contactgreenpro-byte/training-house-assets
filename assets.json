@@ -1,7 +1,7 @@
 {
- "published": "2026-11-28T01:31:31",
- "house": "r100a4v",
- "note": "r100a4v: the two side discharge condensers rewired (RD16AY36, RD18AY36), field wiring into the fixed control box, service caps and cutaway sections, thermostat cables re-landed",
+ "published": "2026-11-28T02:42:48",
+ "house": "r100a4w",
+ "note": "r100a4w: the heat pumps' reversing valve lines joined (RP14, RP15, RD16, RD18): each line seated on its port in a cup with a brazed fillet, the muffler's two joints the same",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -196,20 +196,20 @@
    "bytes": 2552176
   },
   "hvac_condenser_rheem_rp14ay36_house.glb": {
-   "v": "fa088b66f8",
-   "bytes": 3320488
+   "v": "5d798f739a",
+   "bytes": 3345184
   },
   "hvac_condenser_rheem_rp15ay36_house.glb": {
-   "v": "6698618d0a",
-   "bytes": 3405992
+   "v": "a12363c614",
+   "bytes": 3430960
   },
   "hvac_condenser_side_discharge_rd16ay36_house.glb": {
-   "v": "f2084d1d5c",
-   "bytes": 1678456
+   "v": "8c96fd5dac",
+   "bytes": 1697380
   },
   "hvac_condenser_side_discharge_rd18ay36_house.glb": {
-   "v": "f0bd3f2375",
-   "bytes": 1779152
+   "v": "e3c7ddac14",
+   "bytes": 1797448
   },
   "hvac_furnace_cond96.glb": {
    "v": "ce053ac986",
@@ -260,7 +260,7 @@
    "bytes": 1108340
   },
   "index.html": {
-   "v": "a8cf00f1f1",
+   "v": "1c12868140",
    "bytes": 43629
   },
   "induct_purifier.glb": {
