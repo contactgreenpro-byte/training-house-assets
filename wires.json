@@ -397,6 +397,36 @@
    "pack": "thermostat",
    "part": "^cable_jacket$",
    "text": "The thermostat cable from the wall: 18/8 on the smart stats, 18/5 on the T4 Pro, up the stud bay to the indoor unit's low voltage terminals."
+  },
+  {
+   "pack": "electric_tank_water_heater",
+   "part": "^upper_lead_red$",
+   "text": "Red: from the high limit (the ECO, the red reset button) to the upper thermostat's terminal 1, the hot in. Read 240 V from here to the black's screw with the breaker on."
+  },
+  {
+   "pack": "electric_tank_water_heater",
+   "part": "^upper_lead_black$|^lower_lead_black$",
+   "text": "Black: the second leg (L2) from the ECO straight to the element's other screw. The thermostats switch only one leg, so an element can still be live on this side with its stat open."
+  },
+  {
+   "pack": "electric_tank_water_heater",
+   "part": "^upper_lead_yellow$",
+   "text": "Yellow: the upper thermostat's terminal 2 to the upper element. Power is here only while the upper stat calls for heat."
+  },
+  {
+   "pack": "electric_tank_water_heater",
+   "part": "^upper_lead_blue$|^lower_lead_blue$",
+   "text": "Blue: the upper thermostat's terminal 4 down to the lower thermostat's terminal 1. The lower stat only gets power when the upper one is satisfied: one element at a time (non simultaneous)."
+  },
+  {
+   "pack": "electric_tank_water_heater",
+   "part": "^lower_lead_yellow$",
+   "text": "Yellow: the lower thermostat's terminal 2 to the lower element. Power is here only while the lower stat calls."
+  },
+  {
+   "pack": "gas_tank_water_heater",
+   "part": "^piezo_wire$|^piezo_lead$",
+   "text": "The piezo igniter's wire: from the button on the gas control to the electrode at the pilot, apart at its in line connector when the burner comes out."
   }
  ]
 }

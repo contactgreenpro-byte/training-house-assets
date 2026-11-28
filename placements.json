@@ -753,6 +753,7 @@
     "scale_inhibitor",
     "thermal_expansion_tank",
     "vent_pipe",
+    "anode_rod_link",
     "scale_inhibitor_rig",
     "scale_inhibitor_loop"
    ],
@@ -795,12 +796,16 @@
      "insulation": "insulation_section",
      "inner_tank": "inner_tank_section",
      "water_volume": "water_volume_section",
-     "exp_tank_shell_front": "exp_tank_section",
+     "exp_tank_shell_front": "exp_tank_shell_front_section",
      "combustion_chamber": "combustion_chamber_section",
-     "air_intake": "air_intake_section"
+     "air_intake": "air_intake_section",
+     "top_cover": "top_cover_section",
+     "bottom_base": "bottom_base_section",
+     "flue": "flue_section"
     },
     "also_hide": [
-     "data_plate"
+     "data_plate",
+     "burner_access_door"
     ]
    }
   },
@@ -819,6 +824,8 @@
     "exp_tank_strap",
     "thermal_expansion_tank",
     "scale_inhibitor",
+    "anode_rod_link",
+    "gas_riser",
     "scale_inhibitor_rig",
     "scale_inhibitor_loop"
    ],
@@ -862,12 +869,16 @@
      "insulation": "insulation_section",
      "inner_tank": "inner_tank_section",
      "water_volume": "water_volume_section",
-     "exp_tank_shell_front": "exp_tank_section",
+     "exp_tank_shell_front": "exp_tank_shell_front_section",
      "combustion_chamber": "combustion_chamber_section",
-     "air_intake": "air_intake_section"
+     "air_intake": "air_intake_section",
+     "top_cover": "top_cover_section",
+     "bottom_base": "bottom_base_section",
+     "flue": "flue_section"
     },
     "also_hide": [
-     "data_plate"
+     "data_plate",
+     "burner_access_door"
     ]
    }
   },
@@ -886,6 +897,8 @@
     "exp_tank_strap",
     "thermal_expansion_tank",
     "scale_inhibitor",
+    "anode_rod_link",
+    "gas_riser",
     "scale_inhibitor_rig",
     "scale_inhibitor_loop"
    ],
@@ -929,12 +942,16 @@
      "insulation": "insulation_section",
      "inner_tank": "inner_tank_section",
      "water_volume": "water_volume_section",
-     "exp_tank_shell_front": "exp_tank_section",
+     "exp_tank_shell_front": "exp_tank_shell_front_section",
      "combustion_chamber": "combustion_chamber_section",
-     "air_intake": "air_intake_section"
+     "air_intake": "air_intake_section",
+     "top_cover": "top_cover_section",
+     "bottom_base": "bottom_base_section",
+     "flue": "flue_section"
     },
     "also_hide": [
-     "data_plate"
+     "data_plate",
+     "burner_access_door"
     ]
    },
    "offset": [
@@ -3424,6 +3441,7 @@
     "scale_inhibitor",
     "thermal_expansion_tank",
     "vent_pipe",
+    "anode_rod_link",
     "scale_inhibitor_rig",
     "scale_inhibitor_loop"
    ],
@@ -3467,12 +3485,18 @@
      "insulation": "insulation_section",
      "inner_tank": "inner_tank_section",
      "water_volume": "water_volume_section",
-     "exp_tank_shell_front": "exp_tank_section"
+     "exp_tank_shell_front": "exp_tank_shell_front_section",
+     "top_cover": "top_cover_section",
+     "bottom_base": "bottom_base_section",
+     "jbox_plate": "jbox_plate_section",
+     "jbox_connector": "jbox_connector_section"
     },
     "also_hide": [
      "data_plate",
      "upper_access_panel",
-     "lower_access_panel"
+     "lower_access_panel",
+     "upper_insulation_pad",
+     "lower_insulation_pad"
     ]
    }
   },
@@ -3491,6 +3515,7 @@
     "exp_tank_strap",
     "thermal_expansion_tank",
     "scale_inhibitor",
+    "anode_rod_link",
     "scale_inhibitor_rig",
     "scale_inhibitor_loop"
    ],
@@ -3535,12 +3560,18 @@
      "insulation": "insulation_section",
      "inner_tank": "inner_tank_section",
      "water_volume": "water_volume_section",
-     "exp_tank_shell_front": "exp_tank_section"
+     "exp_tank_shell_front": "exp_tank_shell_front_section",
+     "top_cover": "top_cover_section",
+     "bottom_base": "bottom_base_section",
+     "jbox_plate": "jbox_plate_section",
+     "jbox_connector": "jbox_connector_section"
     },
     "also_hide": [
      "data_plate",
      "upper_access_panel",
-     "lower_access_panel"
+     "lower_access_panel",
+     "upper_insulation_pad",
+     "lower_insulation_pad"
     ]
    }
   },
@@ -4189,7 +4220,15 @@
      "tmv_funnel",
      "tmv_filter_washer_hot",
      "tmv_filter_washer_cold",
-     "tmv_fiber_washer_mix"
+     "tmv_fiber_washer_mix",
+     "tmv_cap_shell",
+     "tmv_cap_screw",
+     "tmv_union_nut_hot",
+     "tmv_union_nut_cold",
+     "tmv_union_nut_mix",
+     "tmv_union_tail_hot",
+     "tmv_union_tail_cold",
+     "tmv_union_tail_mix"
     ]
    },
    "note": "Round 89 (Jake: anti-scald / thermostatic mixing valve, definitely). Watts LFMMVM1-CPVC on either attic tank (the nipples are the same). The house hot starts in the valve's mixed outlet coupling when mixing_valve=yes (pipe_supply_hot_wh_attic_tmv); the cold tee sleeves over the whole cold riser. Galvanized gets no valve: a written recommendation only (thermostatic_mixing_valve/HANDOFF.md). Round 105 (Jake 2026-11-01, his photos of the valve we install): a 3/4 in brass thermostatic mixing valve with push to connect ends, a union nut behind each, a blue ribbed cap; set to 125 F; on the tank heaters only, never a tankless. Round 105b (Jake 2026-11-01): the recirculation pump goes after the mixed outlet, so mixed water is what it pushes round the house (add on recirc_pump; the house drop under it is pipe_supply_hot_wh_attic_tmv_rc; the return line is the recirculation topic's). Round 105c (Jake 2026-11-01, on the stills): the valve sits ON TOP of the heater on the hot outlet (hot straight up into H, the cold down into C from a tee on the cold line, the mixed forward and down to the same coupling); the pump on the drop is strapped to a plywood pump board on a 2x4 post, not hung on the pipe. Round 105d (Jake 2026-11-01, the approved video scripts): 120 F at the taps, the tank at 145 F. Round 106 (Jake 2026-11-01, hot water recirculation): the crossover is our normal job (add on recirc_pump): the pump after M on the mixed drop (arrow down, away from the heater, motor shaft level) with its dial timer (tmv_recirc_timer) and cord to an outlet on the post; a thermostatic crossover valve under the hall bath sink, the lavatory farthest from the heater by hot pipe run (recirc_loop.glb). A house that already has a return line: add on recirc_return: the pump moves to the return (rr_pump, arrow up toward the heater) with a ball valve, a strap on aquastat set about 112 F, a spring check and a tee; one branch to the C line past cold_check (rr_c_tee), one to the heater's cold inlet through a balancing valve (rr_balance), Resideo AMX, Caleffi, Watts. The two never together.",
@@ -4321,6 +4360,14 @@
      "tmv_filter_washer_hot",
      "tmv_filter_washer_cold",
      "tmv_fiber_washer_mix",
+     "tmv_cap_shell",
+     "tmv_cap_screw",
+     "tmv_union_nut_hot",
+     "tmv_union_nut_cold",
+     "tmv_union_nut_mix",
+     "tmv_union_tail_hot",
+     "tmv_union_tail_cold",
+     "tmv_union_tail_mix",
      "cold_tube_e",
      "cold_tube_f"
     ]

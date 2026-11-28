@@ -351,6 +351,33 @@
    },
    "element_scaled": {
     "work": "element_scaled"
+   },
+   "upper_access_panel_screw": {
+    "look": "aside"
+   },
+   "lower_access_panel_screw": {
+    "look": "aside"
+   },
+   "upper_insulation_pad": {
+    "look": "aside"
+   },
+   "lower_insulation_pad": {
+    "look": "aside"
+   },
+   "jbox_plate": {
+    "look": "aside"
+   },
+   "jbox_screw_1": {
+    "look": "aside"
+   },
+   "jbox_screw_2": {
+    "look": "aside"
+   },
+   "exp_tank_air_cap": {
+    "work": "expansion_take_up"
+   },
+   "exp_tank_stub": {
+    "work": "expansion_take_up"
    }
   },
   "electric_tankless_water_heater.glb": {
@@ -702,6 +729,71 @@
    },
    "tank_scale_bottom": {
     "work": "tank_scale_bottom"
+   },
+   "inner_door_gasket": {
+    "look": "clip:burner_door_off"
+   },
+   "inner_door_screw_1": {
+    "look": "clip:burner_door_off"
+   },
+   "inner_door_screw_2": {
+    "look": "clip:burner_door_off"
+   },
+   "inner_door_screw_3": {
+    "look": "clip:burner_door_off"
+   },
+   "inner_door_screw_4": {
+    "look": "clip:burner_door_off"
+   },
+   "burner_orifice": {
+    "work": "fire_up"
+   },
+   "gas_manifold_nut": {
+    "work": "fire_up"
+   },
+   "pilot_nut": {
+    "work": "fire_up"
+   },
+   "thermopile_plug": {
+    "work": "fire_up"
+   },
+   "pilot_grommet": {
+    "work": "fire_up"
+   },
+   "piezo_wire": {
+    "work": "fire_up"
+   },
+   "piezo_lead": {
+    "work": "fire_up"
+   },
+   "gas_control_well": {
+    "work": "fire_up"
+   },
+   "gas_flex_nut_supply": {
+    "work": "fire_up",
+    "look": "cut"
+   },
+   "gas_flex_nut_control": {
+    "work": "fire_up",
+    "look": "cut"
+   },
+   "drip_cap": {
+    "look": "aside"
+   },
+   "exp_tank_air_cap": {
+    "work": "expansion_take_up"
+   },
+   "exp_tank_stub": {
+    "work": "expansion_take_up"
+   },
+   "vent_screw_1": {
+    "look": "cut"
+   },
+   "vent_screw_2": {
+    "look": "cut"
+   },
+   "vent_screw_3": {
+    "look": "cut"
    }
   },
   "gas_tankless_water_heater_condensing.glb": {
