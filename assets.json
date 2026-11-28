@@ -1,7 +1,7 @@
 {
- "published": "2026-11-25T12:27:36",
- "house": "r100a4u",
- "note": "r100a4u: furnace UV lamp above the A coil, in through the plenum front (Jake approved UV-0, 2026-11-25)",
+ "published": "2026-11-28T01:31:31",
+ "house": "r100a4v",
+ "note": "r100a4v: the two side discharge condensers rewired (RD16AY36, RD18AY36), field wiring into the fixed control box, service caps and cutaway sections, thermostat cables re-landed",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -124,8 +124,8 @@
    "bytes": 61068
   },
   "grab.json": {
-   "v": "65be8e4edd",
-   "bytes": 17955
+   "v": "8731889a81",
+   "bytes": 19223
   },
   "grease_interceptor.glb": {
    "v": "c0593679f4",
@@ -204,12 +204,12 @@
    "bytes": 3405992
   },
   "hvac_condenser_side_discharge_rd16ay36_house.glb": {
-   "v": "d255dbc602",
-   "bytes": 1451604
+   "v": "f2084d1d5c",
+   "bytes": 1678456
   },
   "hvac_condenser_side_discharge_rd18ay36_house.glb": {
-   "v": "ccc1b71c70",
-   "bytes": 1517548
+   "v": "f0bd3f2375",
+   "bytes": 1779152
   },
   "hvac_furnace_cond96.glb": {
    "v": "ce053ac986",
@@ -260,7 +260,7 @@
    "bytes": 1108340
   },
   "index.html": {
-   "v": "827d29c11c",
+   "v": "a8cf00f1f1",
    "bytes": 43629
   },
   "induct_purifier.glb": {
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "4c2b555fb2",
-   "bytes": 118302
+   "v": "f89024d817",
+   "bytes": 118739
   },
   "pipes.json": {
    "v": "32158dbd5c",
@@ -564,8 +564,8 @@
    "bytes": 36388
   },
   "pipes_groups.json": {
-   "v": "6bf317e9bf",
-   "bytes": 111563
+   "v": "8a8b906f3e",
+   "bytes": 112819
   },
   "pipes_hvac__common.glb": {
    "v": "f2bb3860a1",
@@ -604,12 +604,12 @@
    "bytes": 98128
   },
   "pipes_hvac__hvac-heatpump_attic.glb": {
-   "v": "7909bdb43d",
-   "bytes": 97092
+   "v": "6d966c10dc",
+   "bytes": 65464
   },
   "pipes_hvac__hvac-heatpump_attic_rd18.glb": {
-   "v": "e4a3f881e7",
-   "bytes": 96932
+   "v": "b7108fefa2",
+   "bytes": 65564
   },
   "pipes_hvac__hvac-heatpump_attic_rp14.glb": {
    "v": "eeab7c9755",
@@ -636,12 +636,12 @@
    "bytes": 87516
   },
   "pipes_hvac__hvac-split_furnace_98.glb": {
-   "v": "dcf2de0c33",
-   "bytes": 86096
+   "v": "7d9f55be60",
+   "bytes": 58724
   },
   "pipes_hvac__hvac-split_furnace_cond96.glb": {
-   "v": "89b97d0547",
-   "bytes": 86044
+   "v": "8e09286776",
+   "bytes": 58400
   },
   "pipes_hvac__hvac__5e17c43d.glb": {
    "v": "785c7350f3",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "e7bc57c6c4",
-   "bytes": 217787
+   "v": "2ec5cd27bb",
+   "bytes": 219307
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -1772,12 +1772,12 @@
    "bytes": 95480
   },
   "slab_pipes_hvac__hvac-heatpump_attic.glb": {
-   "v": "e8b0c5b918",
-   "bytes": 94400
+   "v": "918215afc4",
+   "bytes": 63716
   },
   "slab_pipes_hvac__hvac-heatpump_attic_rd18.glb": {
-   "v": "53209b1f6c",
-   "bytes": 94396
+   "v": "4fbdf0be63",
+   "bytes": 63892
   },
   "slab_pipes_hvac__hvac-heatpump_attic_rp14.glb": {
    "v": "8efc5bce6a",
@@ -1804,12 +1804,12 @@
    "bytes": 77728
   },
   "slab_pipes_hvac__hvac-split_furnace_98.glb": {
-   "v": "f47109f3c3",
-   "bytes": 83488
+   "v": "40fe1d1f03",
+   "bytes": 56948
   },
   "slab_pipes_hvac__hvac-split_furnace_cond96.glb": {
-   "v": "f68973d960",
-   "bytes": 83584
+   "v": "bde535a837",
+   "bytes": 56840
   },
   "slab_pipes_hvac__hvac__5e17c43d.glb": {
    "v": "e151028538",
@@ -2806,6 +2806,38 @@
   "slab_pipes_supply__water__50339bbb.glb": {
    "v": "034fb0b725",
    "bytes": 63252
+  },
+  "pipes_hvac__hvac-heatpump_attic__r4v.glb": {
+   "v": "83a7dfd62b",
+   "bytes": 32164
+  },
+  "pipes_hvac__hvac-heatpump_attic_rd18__r4v.glb": {
+   "v": "0e8368c45e",
+   "bytes": 31976
+  },
+  "pipes_hvac__hvac-split_furnace_98__r4v.glb": {
+   "v": "901e985e52",
+   "bytes": 27960
+  },
+  "pipes_hvac__hvac-split_furnace_cond96__r4v.glb": {
+   "v": "43717ea799",
+   "bytes": 28184
+  },
+  "slab_pipes_hvac__hvac-heatpump_attic__r4v.glb": {
+   "v": "45a7430129",
+   "bytes": 31156
+  },
+  "slab_pipes_hvac__hvac-heatpump_attic_rd18__r4v.glb": {
+   "v": "de9db4b217",
+   "bytes": 31084
+  },
+  "slab_pipes_hvac__hvac-split_furnace_98__r4v.glb": {
+   "v": "ad9aacba0f",
+   "bytes": 27116
+  },
+  "slab_pipes_hvac__hvac-split_furnace_cond96__r4v.glb": {
+   "v": "d613fbf7ed",
+   "bytes": 27408
   }
  },
  "menu_art": {

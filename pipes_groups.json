@@ -1644,14 +1644,14 @@
     {
      "file": "pipes_hvac__hvac-heatpump_attic.glb",
      "tag": "hvac=heatpump_attic",
-     "nodes": 3,
-     "bytes": 97092
+     "nodes": 2,
+     "bytes": 65464
     },
     {
      "file": "pipes_hvac__hvac-heatpump_attic_rd18.glb",
      "tag": "hvac=heatpump_attic_rd18",
-     "nodes": 3,
-     "bytes": 96932
+     "nodes": 2,
+     "bytes": 65564
     },
     {
      "file": "pipes_hvac__hvac-heatpump_attic_rp14.glb",
@@ -1686,14 +1686,14 @@
     {
      "file": "pipes_hvac__hvac-split_furnace_98.glb",
      "tag": "hvac=split_furnace_98",
-     "nodes": 3,
-     "bytes": 86096
+     "nodes": 2,
+     "bytes": 58724
     },
     {
      "file": "pipes_hvac__hvac-split_furnace_cond96.glb",
      "tag": "hvac=split_furnace_cond96",
-     "nodes": 3,
-     "bytes": 86044
+     "nodes": 2,
+     "bytes": 58400
     },
     {
      "file": "pipes_hvac__hvac-split_furnace+split_furnace_92+split_furnace_cond96+split_furnace_98.glb",
@@ -1814,6 +1814,30 @@
      "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&media_cabinet=yes",
      "nodes": 1,
      "bytes": 2668
+    },
+    {
+     "file": "pipes_hvac__hvac-heatpump_attic__r4v.glb",
+     "tag": "hvac=heatpump_attic",
+     "nodes": 1,
+     "bytes": 32164
+    },
+    {
+     "file": "pipes_hvac__hvac-heatpump_attic_rd18__r4v.glb",
+     "tag": "hvac=heatpump_attic_rd18",
+     "nodes": 1,
+     "bytes": 31976
+    },
+    {
+     "file": "pipes_hvac__hvac-split_furnace_98__r4v.glb",
+     "tag": "hvac=split_furnace_98",
+     "nodes": 1,
+     "bytes": 27960
+    },
+    {
+     "file": "pipes_hvac__hvac-split_furnace_cond96__r4v.glb",
+     "tag": "hvac=split_furnace_cond96",
+     "nodes": 1,
+     "bytes": 28184
     }
    ]
   },
@@ -2989,14 +3013,14 @@
     {
      "file": "slab_pipes_hvac__hvac-heatpump_attic.glb",
      "tag": "hvac=heatpump_attic",
-     "nodes": 3,
-     "bytes": 94400
+     "nodes": 2,
+     "bytes": 63716
     },
     {
      "file": "slab_pipes_hvac__hvac-heatpump_attic_rd18.glb",
      "tag": "hvac=heatpump_attic_rd18",
-     "nodes": 3,
-     "bytes": 94396
+     "nodes": 2,
+     "bytes": 63892
     },
     {
      "file": "slab_pipes_hvac__hvac-heatpump_attic_rp14.glb",
@@ -3031,14 +3055,14 @@
     {
      "file": "slab_pipes_hvac__hvac-split_furnace_98.glb",
      "tag": "hvac=split_furnace_98",
-     "nodes": 3,
-     "bytes": 83488
+     "nodes": 2,
+     "bytes": 56948
     },
     {
      "file": "slab_pipes_hvac__hvac-split_furnace_cond96.glb",
      "tag": "hvac=split_furnace_cond96",
-     "nodes": 3,
-     "bytes": 83584
+     "nodes": 2,
+     "bytes": 56840
     },
     {
      "file": "slab_pipes_hvac__hvac-split_furnace+split_furnace_92+split_furnace_cond96+split_furnace_98.glb",
@@ -3093,6 +3117,30 @@
      "tag": "hvac=electric_attic|electric_attic_ra15|heatpump_attic|heatpump_attic_rd18|heatpump_attic_rp14|heatpump_attic_rp15&media_cabinet=yes",
      "nodes": 1,
      "bytes": 2668
+    },
+    {
+     "file": "slab_pipes_hvac__hvac-heatpump_attic__r4v.glb",
+     "tag": "hvac=heatpump_attic",
+     "nodes": 1,
+     "bytes": 31156
+    },
+    {
+     "file": "slab_pipes_hvac__hvac-heatpump_attic_rd18__r4v.glb",
+     "tag": "hvac=heatpump_attic_rd18",
+     "nodes": 1,
+     "bytes": 31084
+    },
+    {
+     "file": "slab_pipes_hvac__hvac-split_furnace_98__r4v.glb",
+     "tag": "hvac=split_furnace_98",
+     "nodes": 1,
+     "bytes": 27116
+    },
+    {
+     "file": "slab_pipes_hvac__hvac-split_furnace_cond96__r4v.glb",
+     "tag": "hvac=split_furnace_cond96",
+     "nodes": 1,
+     "bytes": 27408
     }
    ]
   },

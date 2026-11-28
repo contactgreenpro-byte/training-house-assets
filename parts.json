@@ -1037,7 +1037,11 @@
   "aav_sleeve": "Shipping sleeve. Left on, it blocks the air openings and the valve cannot breathe.",
   "aav_air_packets": "Air coming in through the valve while the drain runs.",
   "aav_gas_packets": "Sewer gas getting out past a membrane that is not sealing.",
-  "aav_inlet_point": "Where the air goes in."
+  "aav_inlet_point": "Where the air goes in.",
+  "eev_coil": "Expansion valve coil. The stepper that drives the electronic expansion valve; lifts off the brazed body.",
+  "gauge_port_cap": "Gauge port cap. Over the external gauge port's Schrader core.",
+  "inverter_dc_cap_1": "DC bus capacitor. Holds the inverter's high DC voltage after the power is off: prove 0 V before you touch the drive.",
+  "inverter_dc_cap_2": "DC bus capacitor. Holds a charge after the power is off."
  },
  "_prefix": {
   "breaker_": "Branch breaker. Feeds one circuit. It trips on an overload or a short. An arc fault or GFCI breaker also has a test button.",

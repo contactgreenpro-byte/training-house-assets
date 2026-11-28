@@ -980,5 +980,33 @@
   "fault_off": "the contactor pulls in and {lead} is still in your hand: what it fed has no run capacitor, so it hums and will not start, and the compressor trips on its overload",
   "group": "capacitor",
   "unit": "the outdoor unit"
+ },
+ "hvac_condenser_side_discharge_rd16ay36_house.glb": {
+  "parts": {},
+  "terminals": {},
+  "power": {
+   "breaker": "hvac",
+   "disconnect": "disconnect",
+   "holds_charge": true,
+   "charge_v": 400,
+   "charge_note": "an inverter's DC bus holds its charge after the power is off: wait and prove 0 V DC before touching the drive"
+  },
+  "group": "inverter",
+  "unit": "the outdoor unit",
+  "note": "no run capacitor and no contactor on this inverter unit: no leads for the pliers (a key of its own so the stand in's lead block, found under stands_for, draws no rings here once walk.js looks the real file up first)"
+ },
+ "hvac_condenser_side_discharge_rd18ay36_house.glb": {
+  "parts": {},
+  "terminals": {},
+  "power": {
+   "breaker": "hvac",
+   "disconnect": "disconnect",
+   "holds_charge": true,
+   "charge_v": 400,
+   "charge_note": "an inverter's DC bus holds its charge after the power is off: wait and prove 0 V DC before touching the drive"
+  },
+  "group": "inverter",
+  "unit": "the outdoor unit",
+  "note": "no run capacitor and no contactor on this inverter unit: no leads for the pliers (a key of its own so the stand in's lead block, found under stands_for, draws no rings here once walk.js looks the real file up first)"
  }
 }

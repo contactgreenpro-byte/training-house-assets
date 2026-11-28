@@ -1457,7 +1457,23 @@
    ],
    "show": [
     "discharge_air"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "front_panel": "front_panel_section",
+     "top_panel": "top_panel_section",
+     "side_panel_left": "side_panel_left_section",
+     "louver_left": "louver_left_section",
+     "corner_posts": "corner_posts_section",
+     "condenser_coil": "condenser_coil_section",
+     "coil_dirty": "coil_dirty_section",
+     "base_pan": "base_pan_section",
+     "fan_grille": "fan_grille_section",
+     "fan_shroud": "fan_shroud_section"
+    },
+    "also_hide": [],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13, rule 8): a quarter wedge out of the coil end front corner (toward the yard), cut on the fan's axis: grille, shroud, panels, coil and posts; the fan, its motor and the compressor whole."
+   }
   },
   {
    "socket": "sock_ahu_closet_hall",
@@ -1544,7 +1560,23 @@
    ],
    "show": [
     "discharge_air"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "front_panel": "front_panel_section",
+     "top_panel": "top_panel_section",
+     "side_panel_left": "side_panel_left_section",
+     "louver_left": "louver_left_section",
+     "corner_posts": "corner_posts_section",
+     "condenser_coil": "condenser_coil_section",
+     "coil_dirty": "coil_dirty_section",
+     "base_pan": "base_pan_section",
+     "fan_grille": "fan_grille_section",
+     "fan_shroud": "fan_shroud_section"
+    },
+    "also_hide": [],
+    "note": "Hands pass 2026-10-05 (CUTAWAY_RULES entry 13, rule 8): a quarter wedge out of the coil end front corner (toward the yard), cut on the fan's axis: grille, shroud, panels, coil and posts; the fan, its motor and the compressor whole."
+   }
   },
   {
    "socket": "sock_ahu_attic",
