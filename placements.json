@@ -1106,7 +1106,8 @@
    "note": "Round 29 (Jake: I do not see an electric tankless option): tankless_electric_water_heater on the garage wall socket, its 0.29 wall plane cancelled by the offset like the gas unit's 0.30. Its lines go down and into the wall at 0.66 where build_pipes lands the house's cold and hot; its junction box on the wall below takes the 8/2 from the load centre. No scale inhibitor (plain copper in its place). Round 108 (Jake 2026-11-03, Scale Inhibitor): the scale inhibitor is an in-line cartridge (head with a flow arrow, clear bowl of white polyphosphate crystals, unions both sides) on the cold line after the shutoff, arrow toward the heater, room under the bowl; no brand. A loop along the wall from the drop, ahead of the valve kit; it replaces the plain copper (cold_no_inhibitor).",
    "show": [
     "flow_sensor",
-    "turbine_rotor"
+    "turbine_rotor",
+    "grip_flow_sensor"
    ],
    "addon": {
     "scale_inhibitor": {
@@ -1122,7 +1123,21 @@
    },
    "states": [
     "cartridge_spent"
-   ]
+   ],
+   "section_set": {
+    "pairs": {
+     "heating_chambers": "heating_chambers_section",
+     "chamber_water": "chamber_water_section",
+     "element_glow": "element_glow_section",
+     "element_glow_first_stage": "element_glow_first_stage_section",
+     "chamber_ports": "chamber_ports_section"
+    },
+    "also_hide": [
+     "front_cover_shell",
+     "front_cover_screw_1",
+     "front_cover_screw_2"
+    ]
+   }
   },
   {
    "socket": "sock_wh_garage",

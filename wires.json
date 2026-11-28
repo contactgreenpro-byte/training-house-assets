@@ -9,7 +9,7 @@
   "cable_septic_pump_uf": "UF cable from the outdoor receptacle to the spray pump's plug in cord. Direct burial rated, 18 in deep, GFCI at the outlet: the pump is plug in, not hard wired, so it pulls without an electrician.",
   "conduit_septic_pump": "Conduit from the aerobic control panel to the pump tank riser: pump power and the float wires. The panel needs the floats to know high water and when to run the spray pump.",
   "conduit_lift_panel": "Conduit from the lift station control panel to the basin: pump power, the four float wires and the alarm. Sealed at the basin so gas cannot follow the wires into the panel.",
-  "cable_wh_etankless": "Three 40 A 240 V circuits from the load centre to the electric tankless. It draws over 100 A at full fire, which is why a 200 A service is checked first.",
+  "cable_wh_etankless": "Two 40 A 240 V circuits from the load centre to the electric tankless (an RTEX-18: two double pole 40 A breakers on 8 AWG, 75 A at full fire), which is why the service size is checked first.",
   "cable_wh_branch_romex": "30 A 240 V cable from the load centre to the junction box on the wall over the hybrid water heater. Same circuit a standard electric tank uses, so a swap needs no new wire.",
   "whip_wh_flex": "Flex whip from the junction box on the wall into the hybrid's own junction box on its top. Flex so the unit can come out for service.",
   "cable_well_pump": "The submersible pump's cable from the well head, in the trench with the service, to the disconnect on the garage wall. Two hots and a ground for a 230 V two wire pump.",
@@ -310,6 +310,21 @@
   },
   {
    "pack": "electric_tankless",
+   "part": "^wiring_harness_feed_|^cable_entries",
+   "text": "The two 8/2 feeds land here, one 40 A circuit per heating chamber. Every lug gets torqued: a loose one here browns the cable."
+  },
+  {
+   "pack": "electric_tankless",
+   "part": "^element_lead_",
+   "text": "Element lead: from a triac on the board to an element post. Leads off before you meter or pull an element; back by colour."
+  },
+  {
+   "pack": "electric_tankless",
+   "part": "^tco_lead_|^sensor_lead|^thermistor_lead",
+   "text": "Low voltage lead from a thermal cutoff, the flow sensor or the outlet thermistor to the board's header."
+  },
+  {
+   "pack": "electric_tankless",
    "part": "^wiring_harness|^cable_entries",
    "text": "The three 40 A feeds land here, one per heating element bank. Every lug gets torqued: a loose one here browns the cable."
   },
@@ -317,6 +332,11 @@
    "pack": "gas_tankless",
    "part": "^power_cord",
    "text": "The gas tankless's 120 V cord to its receptacle: it powers the board, the fan and the igniter. No power, no hot water, even with gas on."
+  },
+  {
+   "pack": "gas_tankless",
+   "part": "^flame_rod_lead|^igniter_lead|^bypass_servo_lead",
+   "text": "The rods' wires: the flame rod's lead carries the flame signal back to the board, and the igniter coil's high tension lead and boot fire the igniter rod. Both come off the rods before the bracket does."
   },
   {
    "pack": "gas_tankless",

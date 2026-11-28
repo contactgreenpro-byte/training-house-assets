@@ -434,14 +434,8 @@
     "cold_stub": [
      "Plain copper straight into the unit: no shutoff and no flush port, so it cannot be descaled without cutting pipe."
     ],
-    "cold_service_port": [
-     "Boiler drain seized or capped over with paint: soak it, or replace it before the first flush."
-    ],
     "heating_chambers": [
      "Scale on the elements and chambers. On our water it is a year to this. Descale now and set an annual interval."
-    ],
-    "front_cover": [
-     "Read the code and write it down before you touch anything. It is the fastest diagnosis on the truck."
     ],
     "control_board": [
      "No heat: breakers, then voltage at the lugs, then the elements and triacs, in that order."
@@ -464,6 +458,33 @@
     ],
     "cartridge_spent": [
      "Crystals used up: it is not treating anything. Change the cartridge and write the date on it."
+    ],
+    "front_cover_shell": [
+     "Read the code and write it down before you touch anything. It is the fastest diagnosis on the truck."
+    ],
+    "control_module": [
+     "Read the code and write it down before you touch anything. It is the fastest diagnosis on the truck."
+    ],
+    "cold_service_port_body": [
+     "Boiler drain seized or capped over with paint: soak it, or replace it before the first flush."
+    ],
+    "heating_element_1": [
+     "Lukewarm at flow: one element is open. Leads off, ohms across the posts: about 6.4 ohms for a 9 kW element at 240 V. Open means replace it."
+    ],
+    "heating_element_2": [
+     "This is the chamber the cold water reaches first. Lukewarm at flow: meter both elements (about 6.4 ohms each, leads off) before you pull either."
+    ],
+    "thermal_cutoff_1": [
+     "Tripped high limit: press the red reset. If it trips again, find why first: scale on the chamber, a stuck triac, or air in the chamber."
+    ],
+    "thermal_cutoff_2": [
+     "Tripped high limit: press the red reset. If it trips again, find why first: scale on the chamber, a stuck triac, or air in the chamber."
+    ],
+    "cold_isolation_lever": [
+     "Both service valves shut before a flush, a screen cleaning or any water side part. Open them slowly, cold first."
+    ],
+    "hot_isolation_lever": [
+     "Both service valves shut before a flush, a screen cleaning or any water side part. Open them slowly, cold first."
     ]
    },
    "labels": {}
@@ -576,6 +597,45 @@
     ],
     "hx_scale": [
      "Scale lining the tubes: flow drops and it throws codes. Descale it and set a schedule."
+    ],
+    "rod_bracket": [
+     "Will not fire: gas, ignition, venting, in that order."
+    ],
+    "igniter_coil": [
+     "Will not fire: gas, ignition, venting, in that order."
+    ],
+    "flame_rod": [
+     "Will not fire: gas, ignition, venting, in that order."
+    ],
+    "igniter_rod": [
+     "Will not fire: gas, ignition, venting, in that order."
+    ],
+    "wcv_control_valve": [
+     "Flow sensor and bypass. Check flow rate, scale, and line sizing before quoting anything."
+    ],
+    "wcv_bypass_valve": [
+     "Flow sensor and bypass. Check flow rate, scale, and line sizing before quoting anything."
+    ],
+    "cold_port_cap": [
+     "Service port caps seized: soak them, and replace the valve kit if they will not free up."
+    ],
+    "hot_port_cap": [
+     "Service port caps seized: soak them, and replace the valve kit if they will not free up."
+    ],
+    "condensate_trap_plug": [
+     "A029: drain the trap at its plug first. Water out and the code back means the drain line is blocked."
+    ],
+    "cold_isolation_lever": [
+     "Both service valves shut before a flush, a filter cleaning or any water side part. Open them slowly, cold first."
+    ],
+    "hot_isolation_lever": [
+     "Both service valves shut before a flush, a filter cleaning or any water side part. Open them slowly, cold first."
+    ],
+    "recirc_pump": [
+     "Slow hot water at the far taps with a recirculation line: the pump, its timer, or the check valve."
+    ],
+    "rod_gasket_spare": [
+     "The spare rod gasket lives here, lower left in the cabinet. Look before you order one."
     ]
    },
    "labels": {}

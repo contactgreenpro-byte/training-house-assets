@@ -358,13 +358,12 @@
     "work": "heat_on"
    },
    "element_glow": {
-    "work": "heat_on"
+    "work": "heat_on",
+    "look": "section"
    },
    "heating_chambers": {
-    "work": "heat_on"
-   },
-   "heating_elements": {
-    "work": "heat_on"
+    "work": "heat_on",
+    "look": "section"
    },
    "cold_water_in": {
     "work": "heat_on"
@@ -391,9 +390,6 @@
     "look": "aside"
    },
    "data_plate": {
-    "look": "aside"
-   },
-   "front_cover": {
     "look": "aside"
    },
    "back_panel": {
@@ -427,7 +423,8 @@
     "work": "heat_on"
    },
    "element_glow_first_stage": {
-    "work": "heat_on"
+    "work": "heat_on",
+    "look": "section"
    },
    "heat_packets_delivery": {
     "work": "heat_on"
@@ -454,6 +451,51 @@
    },
    "cartridge_spent": {
     "work": "cartridge_spent"
+   },
+   "element_glow_first_stage_section": {
+    "work": "heat_on"
+   },
+   "element_glow_section": {
+    "work": "heat_on"
+   },
+   "heating_chambers_section": {
+    "work": "heat_on"
+   },
+   "cold_isolation_lever": {
+    "work": "cold_isolation_shut",
+    "look": "clip:cold_isolation_shut"
+   },
+   "hot_isolation_lever": {
+    "work": "hot_isolation_shut",
+    "look": "clip:hot_isolation_shut"
+   },
+   "chamber_ports": {
+    "look": "section"
+   },
+   "chamber_water": {
+    "look": "section"
+   },
+   "cold_service_port_cap": {
+    "look": "aside"
+   },
+   "hot_service_port_cap": {
+    "look": "aside"
+   },
+   "front_cover_shell": {
+    "look": "clip:cover_off",
+    "note": "hands pass: front_cover is an empty now (its shell and two screws); the cover comes off on its clip and hangs beside the unit"
+   },
+   "front_cover_screw_1": {
+    "look": "clip:cover_off"
+   },
+   "front_cover_screw_2": {
+    "look": "clip:cover_off"
+   },
+   "heating_element_1": {
+    "work": "heat_on"
+   },
+   "heating_element_2": {
+    "work": "heat_on"
    }
   },
   "flo_shutoff.glb": {
@@ -764,6 +806,41 @@
    },
    "primary_heat_exchanger_section": {
     "work": "hx_scale"
+   },
+   "cold_isolation_lever": {
+    "work": "cold_isolation_shut",
+    "look": "clip:cold_isolation_shut"
+   },
+   "cold_port_cap": {
+    "look": "aside"
+   },
+   "condensate_trap_plug": {
+    "look": "aside"
+   },
+   "cover_screw_bottom_left": {
+    "look": "clip:cover_off"
+   },
+   "cover_screw_bottom_right": {
+    "look": "clip:cover_off"
+   },
+   "cover_screw_top_left": {
+    "look": "clip:cover_off"
+   },
+   "cover_screw_top_right": {
+    "look": "clip:cover_off"
+   },
+   "hot_isolation_lever": {
+    "work": "hot_isolation_shut",
+    "look": "clip:hot_isolation_shut"
+   },
+   "hot_port_cap": {
+    "look": "aside"
+   },
+   "screw_cover_bottom": {
+    "look": "clip:cover_off"
+   },
+   "screw_cover_top": {
+    "look": "clip:cover_off"
    }
   },
   "hvac_air_handler_horizontal.glb": {
@@ -5973,6 +6050,35 @@
    },
    "primary_heat_exchanger_section": {
     "work": "hx_scale"
+   },
+   "cold_isolation_lever": {
+    "work": "cold_isolation_shut",
+    "look": "clip:cold_isolation_shut"
+   },
+   "cold_port_cap": {
+    "look": "aside"
+   },
+   "cover_screw_bottom_left": {
+    "look": "clip:cover_off"
+   },
+   "cover_screw_bottom_right": {
+    "look": "clip:cover_off"
+   },
+   "cover_screw_top_left": {
+    "look": "clip:cover_off"
+   },
+   "cover_screw_top_right": {
+    "look": "clip:cover_off"
+   },
+   "data_plate": {
+    "look": "aside"
+   },
+   "hot_isolation_lever": {
+    "work": "hot_isolation_shut",
+    "look": "clip:hot_isolation_shut"
+   },
+   "hot_port_cap": {
+    "look": "aside"
    }
   },
   "pump_tank_train.glb": {

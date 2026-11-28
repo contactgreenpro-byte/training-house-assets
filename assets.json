@@ -1,7 +1,7 @@
 {
- "published": "2026-11-28T02:42:48",
- "house": "r100a4w",
- "note": "r100a4w: the heat pumps' reversing valve lines joined (RP14, RP15, RD16, RD18): each line seated on its port in a cup with a brazed fillet, the muffler's two joints the same",
+ "published": "2026-11-28T03:12:48",
+ "house": "r100a4x",
+ "note": "r100a4x: the three tankless heaters rewired (gas condensing, gas non condensing, electric) with their valve kits, service caps and isolation levers, the scale inhibitor cartridge kept on each",
  "files": {
   "air_quality_monitor.glb": {
    "v": "786ae84dd4",
@@ -76,8 +76,8 @@
    "bytes": 1884496
   },
   "electric_tankless_water_heater.glb": {
-   "v": "8ce343c5da",
-   "bytes": 1112864
+   "v": "acc29236d0",
+   "bytes": 1454408
   },
   "erv.glb": {
    "v": "0015128202",
@@ -112,12 +112,12 @@
    "bytes": 2173156
   },
   "gas_tankless_water_heater_condensing.glb": {
-   "v": "901200cdc7",
-   "bytes": 1521916
+   "v": "4f380be912",
+   "bytes": 2126040
   },
   "gas_tankless_water_heater_noncondensing.glb": {
-   "v": "aa6e8a39b0",
-   "bytes": 1362352
+   "v": "cab27a05a5",
+   "bytes": 1868720
   },
   "gloves.glb": {
    "v": "349fa3cb70",
@@ -260,7 +260,7 @@
    "bytes": 1108340
   },
   "index.html": {
-   "v": "1c12868140",
+   "v": "26c91fa6ed",
    "bytes": 43629
   },
   "induct_purifier.glb": {
@@ -268,16 +268,16 @@
    "bytes": 335628
   },
   "info.json": {
-   "v": "6cd4b42dfc",
-   "bytes": 247276
+   "v": "8f44de5717",
+   "bytes": 250102
   },
   "inter-latin.woff2": {
    "v": "f11d729bb0",
    "bytes": 48256
   },
   "interactions.json": {
-   "v": "c012dca2d9",
-   "bytes": 128386
+   "v": "c1c7db4e01",
+   "bytes": 130880
   },
   "kitchen_sink.glb": {
    "v": "3312d45bd8",
@@ -320,8 +320,8 @@
    "bytes": 598472
   },
   "parts.json": {
-   "v": "f89024d817",
-   "bytes": 118739
+   "v": "66d160b510",
+   "bytes": 124978
   },
   "pipes.json": {
    "v": "32158dbd5c",
@@ -1344,8 +1344,8 @@
    "bytes": 13164
   },
   "placements.json": {
-   "v": "2ec5cd27bb",
-   "bytes": 219307
+   "v": "60eebf35ed",
+   "bytes": 219760
   },
   "playset.glb": {
    "v": "ef2b756173",
@@ -2308,8 +2308,8 @@
    "bytes": 432660
   },
   "wires.json": {
-   "v": "2242bbe35c",
-   "bytes": 17299
+   "v": "4e1a95ebec",
+   "bytes": 18300
   },
   "flowsmart.glb": {
    "v": "3b4423f1d2",
